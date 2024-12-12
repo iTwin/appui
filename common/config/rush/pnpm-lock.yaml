@@ -153,11 +153,11 @@ importers:
         specifier: ~9.0.1
         version: 9.0.1(@types/react@18.3.12)(react@18.3.1)
       react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^9.1.2
+        version: 9.2.0(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1)
       redux:
-        specifier: ^4.1.0
-        version: 4.2.1
+        specifier: ^5.0.1
+        version: 5.0.1
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.12
@@ -183,9 +183,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.1
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
       '@typescript-eslint/parser':
         specifier: ~8.11.0
         version: 8.11.0(eslint@8.57.1)(typescript@5.6.2)
@@ -288,9 +285,6 @@ importers:
       '@itwin/webgl-compatibility':
         specifier: ^4.0.0
         version: 4.4.0
-      '@reduxjs/toolkit':
-        specifier: ^1.5.0
-        version: 1.9.7(react-redux@7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -301,8 +295,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^9.1.2
+        version: 9.2.0(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1)
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.12
@@ -316,9 +310,6 @@ importers:
       '@types/react':
         specifier: ^18.3.12
         version: 18.3.12
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
@@ -404,8 +395,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^9.1.2
+        version: 9.2.0(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1)
     devDependencies:
       '@itwin/build-tools':
         specifier: 4.10.2
@@ -449,9 +440,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.1
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
       '@typescript-eslint/eslint-plugin':
         specifier: ~8.11.0
         version: 8.11.0(@typescript-eslint/parser@8.11.0(eslint@8.57.1)(typescript@5.6.2))(eslint@8.57.1)(typescript@5.6.2)
@@ -682,9 +670,6 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.1
-      '@types/react-redux':
-        specifier: ^7.1.18
-        version: 7.1.33
       '@types/react-transition-group':
         specifier: ^4.4.4
         version: 4.4.10
@@ -725,11 +710,11 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-redux:
-        specifier: ^7.2.2
-        version: 7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^9.1.2
+        version: 9.2.0(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1)
       redux:
-        specifier: ^4.1.0
-        version: 4.2.1
+        specifier: ^5.0.1
+        version: 5.0.1
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.14
@@ -2891,17 +2876,6 @@ packages:
   '@probe.gl/stats@4.0.4':
     resolution: {integrity: sha512-SDuSY/D4yDL6LQDa69l/GCcnZLRiGYdyvYkxWb0CgnzTPdPrcdrzGkzkvpC3zsA4fEFw2smlDje370QGHwlisg==}
 
-  '@reduxjs/toolkit@1.9.7':
-    resolution: {integrity: sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==}
-    peerDependencies:
-      react: ^16.9.0 || ^17.0.0 || ^18
-      react-redux: ^7.2.1 || ^8.0.2
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-redux:
-        optional: true
-
   '@rollup/pluginutils@5.1.0':
     resolution: {integrity: sha512-XTIWOPPcpvyKI6L1NHo0lFlCyznUEyPmPY1mc3KpPVDYulHSTvyeLNVW00QTLIAFNhR3kYnJTQHeGqU4M3n09g==}
     engines: {node: '>=14.0.0'}
@@ -3486,9 +3460,6 @@ packages:
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
-  '@types/hoist-non-react-statics@3.3.5':
-    resolution: {integrity: sha512-SbcrWzkKBw2cdwRTwQAswfpB9g9LJWfjtUeW/jvNwbhC8cpmmNYVePa+ncbUe0rGTQ7G3Ff6mYUN2VMfLVr+Sg==}
-
   '@types/http-cache-semantics@4.0.4':
     resolution: {integrity: sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA==}
 
@@ -3567,9 +3538,6 @@ packages:
   '@types/react-dom@18.3.1':
     resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
 
-  '@types/react-redux@7.1.33':
-    resolution: {integrity: sha512-NF8m5AjWCkert+fosDsN3hAlHzpjSiXlVy9EgQEmLoBhaNXbmyeGs/aj5dQzKuF+/q+S7JQagorGDW8pJ28Hmg==}
-
   '@types/react-table@7.7.19':
     resolution: {integrity: sha512-47jMa1Pai7ily6BXJCW33IL5ghqmCWs2VM9s+h1D4mCaK5P4uNkZOW3RMMg8MCXBvAJ0v9+sPqKjhid0PaJPQA==}
 
@@ -3608,6 +3576,9 @@ packages:
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
+
+  '@types/use-sync-external-store@0.0.6':
+    resolution: {integrity: sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==}
 
   '@types/uuid@9.0.7':
     resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
@@ -5299,9 +5270,6 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
-  hoist-non-react-statics@3.3.2:
-    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
-
   hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
 
@@ -5379,9 +5347,6 @@ packages:
 
   immer@10.1.1:
     resolution: {integrity: sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==}
-
-  immer@9.0.21:
-    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
 
   immutable@4.3.5:
     resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
@@ -6871,16 +6836,16 @@ packages:
       '@types/react': '>=18'
       react: '>=18'
 
-  react-redux@7.2.9:
-    resolution: {integrity: sha512-Gx4L3uM182jEEayZfRbI/G11ZpYdNAnBs70lFVMNdHJI76XYtR+7m0MN+eAs7UHBPhWXcnFPaS+9owSCJQHNpQ==}
+  react-redux@9.2.0:
+    resolution: {integrity: sha512-ROY9fvHhwOD9ySfrF0wmvu//bKCQ6AeZZq1nJNtbDC+kk5DuSuNX/n6YWYF/SYy7bSba4D4FSz8DJeKY/S/r+g==}
     peerDependencies:
-      react: ^16.8.3 || ^17 || ^18
-      react-dom: '*'
-      react-native: '*'
+      '@types/react': ^18.2.25 || ^19
+      react: ^18.0 || ^19
+      redux: ^5.0.0
     peerDependenciesMeta:
-      react-dom:
+      '@types/react':
         optional: true
-      react-native:
+      redux:
         optional: true
 
   react-refresh@0.14.2:
@@ -6942,13 +6907,8 @@ packages:
     resolution: {integrity: sha512-6tDA8g98We0zd0GvVeMT9arEOnTw9qM03L9cJXaCjrip1OO764RDBLBfrB4cwzNGDj5OA5ioymC9GkizgWJDUg==}
     engines: {node: '>=8'}
 
-  redux-thunk@2.4.2:
-    resolution: {integrity: sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==}
-    peerDependencies:
-      redux: ^4
-
-  redux@4.2.1:
-    resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
+  redux@5.0.1:
+    resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
 
   reflect-metadata@0.1.14:
     resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
@@ -7024,9 +6984,6 @@ packages:
 
   requires-port@1.0.0:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
-
-  reselect@4.1.8:
-    resolution: {integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==}
 
   resolve-alpn@1.2.1:
     resolution: {integrity: sha512-0a1F4l73/ZFZOakJnQ3FvkJ2+gSTQWz/r2KE5OdDY0TxPm5h4GkqkWWfM47T7HsbnOtcJVEF4epCVy6u7Q3K+g==}
@@ -7834,6 +7791,11 @@ packages:
     resolution: {integrity: sha512-PElTlVMwpblvbNqQ82d2n6RjStvdSoNe9FG28kNfz3WiXilJm4DdNkEzRhCZuIDwY8U08WVihhGR5iRqAwfDiw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
+
+  use-sync-external-store@1.4.0:
+    resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   username@5.1.0:
     resolution: {integrity: sha512-PCKbdWw85JsYMvmCv5GH3kXmM66rCd9m1hBEDutPNv94b/pqCMT4NtcKyeWYvLFiE8b+ha1Jdl8XAaUdPn5QTg==}
@@ -10276,16 +10238,6 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.23.8
 
-  '@reduxjs/toolkit@1.9.7(react-redux@7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      immer: 9.0.21
-      redux: 4.2.1
-      redux-thunk: 2.4.2(redux@4.2.1)
-      reselect: 4.1.8
-    optionalDependencies:
-      react: 18.3.1
-      react-redux: 7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-
   '@rollup/pluginutils@5.1.0(rollup@4.22.4)':
     dependencies:
       '@types/estree': 1.0.5
@@ -11021,11 +10973,6 @@ snapshots:
     dependencies:
       '@types/unist': 2.0.10
 
-  '@types/hoist-non-react-statics@3.3.5':
-    dependencies:
-      '@types/react': 18.3.12
-      hoist-non-react-statics: 3.3.2
-
   '@types/http-cache-semantics@4.0.4': {}
 
   '@types/http-errors@2.0.4': {}
@@ -11104,13 +11051,6 @@ snapshots:
     dependencies:
       '@types/react': 18.3.12
 
-  '@types/react-redux@7.1.33':
-    dependencies:
-      '@types/hoist-non-react-statics': 3.3.5
-      '@types/react': 18.3.12
-      hoist-non-react-statics: 3.3.2
-      redux: 4.2.1
-
   '@types/react-table@7.7.19':
     dependencies:
       '@types/react': 18.3.12
@@ -11154,6 +11094,8 @@ snapshots:
   '@types/unist@2.0.10': {}
 
   '@types/unist@3.0.3': {}
+
+  '@types/use-sync-external-store@0.0.6': {}
 
   '@types/uuid@9.0.7': {}
 
@@ -13302,10 +13244,6 @@ snapshots:
 
   he@1.2.0: {}
 
-  hoist-non-react-statics@3.3.2:
-    dependencies:
-      react-is: 16.13.1
-
   hosted-git-info@2.8.9: {}
 
   html-encoding-sniffer@4.0.0:
@@ -13388,8 +13326,6 @@ snapshots:
   ignore@5.3.2: {}
 
   immer@10.1.1: {}
-
-  immer@9.0.21: {}
 
   immutable@4.3.5: {}
 
@@ -15179,17 +15115,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  react-redux@7.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-redux@9.2.0(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1):
     dependencies:
-      '@babel/runtime': 7.23.8
-      '@types/react-redux': 7.1.33
-      hoist-non-react-statics: 3.3.2
-      loose-envify: 1.4.0
-      prop-types: 15.8.1
+      '@types/use-sync-external-store': 0.0.6
       react: 18.3.1
-      react-is: 17.0.2
+      use-sync-external-store: 1.4.0(react@18.3.1)
     optionalDependencies:
-      react-dom: 18.3.1(react@18.3.1)
+      '@types/react': 18.3.12
+      redux: 5.0.1
 
   react-refresh@0.14.2: {}
 
@@ -15270,13 +15203,7 @@ snapshots:
       indent-string: 4.0.0
       strip-indent: 3.0.0
 
-  redux-thunk@2.4.2(redux@4.2.1):
-    dependencies:
-      redux: 4.2.1
-
-  redux@4.2.1:
-    dependencies:
-      '@babel/runtime': 7.23.8
+  redux@5.0.1: {}
 
   reflect-metadata@0.1.14: {}
 
@@ -15380,8 +15307,6 @@ snapshots:
   requireindex@1.1.0: {}
 
   requires-port@1.0.0: {}
-
-  reselect@4.1.8: {}
 
   resolve-alpn@1.2.1: {}
 
@@ -16276,6 +16201,10 @@ snapshots:
       react: 18.3.1
 
   use-sync-external-store@1.2.2(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
+  use-sync-external-store@1.4.0(react@18.3.1):
     dependencies:
       react: 18.3.1
 
