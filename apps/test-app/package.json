@@ -38,7 +38,6 @@
     "url": "http://www.bentley.com"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@itwin/build-tools": "4.10.0-dev.31",
     "@itwin/eslint-plugin": "^4.1.1",
     "@tanstack/router-plugin": "~1.46.6",
@@ -46,18 +45,7 @@
     "@types/node": "18.11.5",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
-    "@types/react-redux": "^7.1.18",
     "@typescript-eslint/parser": "^6.1.0",
-=======
-    "@itwin/build-tools": "4.10.2",
-    "@itwin/eslint-plugin": "5.0.0-dev.2",
-    "@tanstack/router-plugin": "^1.87.6",
-    "@tanstack/router-devtools": "^1.87.6",
-    "@types/node": "20.17.8",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/parser": "~8.11.0",
->>>>>>> 5c4f8d6d4 (Update `redux` and `react-redux` versions (#1151))
     "@vitejs/plugin-react-swc": "^3.7.0",
     "cross-env": "^5.1.4",
     "copyfiles": "^2.4.1",

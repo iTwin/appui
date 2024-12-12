@@ -1,6 +1,5 @@
 # NextVersion <!-- omit from toc -->
 
-<<<<<<< HEAD
 Table of contents:
 
 - [Drop support for iTwin.js 3.x](#drop-support-for-itwinjs-3x)
@@ -140,22 +139,6 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - Removed the `FrameworkChildWindows.useCreateRoot` method, which existed solely to prevent runtime warnings when using `React 18.x`. Consumers should remove usages of `useCreateRoot` when upgrading. [#1054](https://github.com/iTwin/appui/pull/1054)
 - Removed the [activateDroppedTab](https://github.com/iTwin/appui/discussions/679) preview feature, as the behavior of the preview feature is now enabled by default. Additionally, a widget tab's drag-and-drop logic is updated to activate the dropped tab only if it was active when the drag interaction was initiated. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1071](https://github.com/iTwin/appui/pull/1071)
 - Removed the [newToolbars](https://github.com/iTwin/appui/discussions/924) preview feature, as the behavior of the preview feature is now enabled by default. It is safe for consumers to remove the preview feature from their `PreviewFeaturesProvider`. [#1072](https://github.com/iTwin/appui/pull/1072)
-=======
-- [@itwin/appui-react](#itwinappui-react)
-  - [Changes](#changes)
-- [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Additions](#additions-1)
-
-## @itwin/appui-react
-
-### Changes
-
-- Specified additional version ranges in redux related peer dependencies. `redux` version is updated from `^4.1.0` to `^4.1.0 || ^5.0.0` and `react-redux` version is updated from `^7.2.2` to `^7.2.2 || ^8.0.0 || ^9.0.0`. This enables consumers to utilize latest redux capabilities. See [redux release v5.0.0](https://github.com/reduxjs/redux/releases/tag/v5.0.0) for migration tips. [#1151](https://github.com/iTwin/appui/pull/1151)
-
-## @itwin/components-react
->>>>>>> 5c4f8d6d4 (Update `redux` and `react-redux` versions (#1151))
 
 ### Additions
 
@@ -173,6 +156,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - The new toolbars will now handle snap opacity mode when it is enabled. [#1082](https://github.com/iTwin/appui/pull/1082)
 - Bump `FrameworkFrontstages.addFrontstage` method to `@public`. [#1134](https://github.com/iTwin/appui/pull/1134)
 - Add `defaultState` getter that returns the default state configuration of the widget to `WidgetDef` class. [#1141](https://github.com/iTwin/appui/pull/1141)
+- Specified additional version ranges in redux related peer dependencies. `redux` version is updated from `^4.1.0` to `^4.1.0 || ^5.0.0` and `react-redux` version is updated from `^7.2.2` to `^7.2.2 || ^8.0.0 || ^9.0.0`. This enables consumers to utilize latest redux capabilities. See [redux release v5.0.0](https://github.com/reduxjs/redux/releases/tag/v5.0.0) for migration tips. [#1151](https://github.com/iTwin/appui/pull/1151)
 
 ## @itwin/components-react
 

@@ -49,18 +49,10 @@
     "@storybook/react-vite": "^8.3.2",
     "@storybook/test": "^8.3.2",
     "@storybook/theming": "^8.3.2",
-<<<<<<< HEAD
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
-    "@types/react-redux": "^7.1.18",
     "@typescript-eslint/eslint-plugin": "^5.59.0",
     "@typescript-eslint/parser": "^6.1.0",
-=======
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "~8.11.0",
-    "@typescript-eslint/parser": "~8.11.0",
->>>>>>> 5c4f8d6d4 (Update `redux` and `react-redux` versions (#1151))
     "@vitejs/plugin-react": "^4.3.1",
     "cpx2": "^3.0.0",
     "cross-env": "^5.1.4",
