@@ -54,10 +54,6 @@ class RestoreFrontstageLayoutCoreTool extends Tool {
   public override async parseAndRun(...args: string[]): Promise<boolean> {
     return this.run(args[0]);
   }
-
-  public getIconNode() {
-    return <SvgViewLayouts />;
-  }
 }
 
 /**

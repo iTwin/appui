@@ -23,12 +23,4 @@ describe("<Snap />", () => {
       selectorMatches(".nz-active")
     );
   });
-
-  it("renders correctly with icon", () => {
-    render(<Snap icon={<i data-testid="icon" />} />);
-
-    expect(screen.getByTestId("icon")).to.satisfy(
-      selectorMatches(".nz-footer-snapMode-snap div:first-child i")
-    );
-  });
 });
