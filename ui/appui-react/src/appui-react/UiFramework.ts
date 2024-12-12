@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import type { Store } from "redux";
+import type { AnyAction, Store } from "redux";
 import { BeUiEvent, Logger, ProcessDetector } from "@itwin/core-bentley";
 import type { TranslationOptions } from "@itwin/core-common";
 import type { IModelConnection, ViewState } from "@itwin/core-frontend";
@@ -258,12 +258,14 @@ export class UiFramework {
    * @deprecated in 4.15.0. Continue using redux initializer until all application components react to redux deprecations. Use overload without parameters instead.
    */
   public static async initialize(
-    store: Store<any> | undefined,
+    // eslint-disable-next-line deprecation/deprecation
+    store: Store<any, AnyAction> | undefined,
     // eslint-disable-next-line @typescript-eslint/unified-signatures
     frameworkStateKey?: string
   ): Promise<void>;
   public static async initialize(
-    store?: Store<any> | undefined,
+    // eslint-disable-next-line deprecation/deprecation
+    store?: Store<any, AnyAction> | undefined,
     frameworkStateKey?: string
   ): Promise<void> {
     // TODO: check `arguments` to determine between redux & no-redux initializers.

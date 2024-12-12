@@ -156,6 +156,7 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 - The new toolbars will now handle snap opacity mode when it is enabled. [#1082](https://github.com/iTwin/appui/pull/1082)
 - Bump `FrameworkFrontstages.addFrontstage` method to `@public`. [#1134](https://github.com/iTwin/appui/pull/1134)
 - Add `defaultState` getter that returns the default state configuration of the widget to `WidgetDef` class. [#1141](https://github.com/iTwin/appui/pull/1141)
+- Specified additional version ranges in redux related peer dependencies. `redux` version is updated from `^4.1.0` to `^4.1.0 || ^5.0.0` and `react-redux` version is updated from `^7.2.2` to `^7.2.2 || ^8.0.0 || ^9.0.0`. This enables consumers to utilize latest redux capabilities. See [redux release v5.0.0](https://github.com/reduxjs/redux/releases/tag/v5.0.0) for migration tips. [#1151](https://github.com/iTwin/appui/pull/1151)
 
 ## @itwin/components-react
 
