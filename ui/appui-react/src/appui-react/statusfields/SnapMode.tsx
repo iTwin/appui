@@ -70,26 +70,6 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
   },
 ];
 
-<<<<<<< HEAD
-/** Return icon for a specific snapMode. */
-const getSnapModeIcon = (snapMode: number) => {
-  // Get all the modes present in the bitmask.
-  const modes: SnapModeFieldEntry[] = allSnapModeFieldEntries.filter(
-    (entry) => {
-      return (entry.value & snapMode) === entry.value;
-    }
-  );
-
-  return (
-    // eslint-disable-next-line deprecation/deprecation
-    <Icon
-      iconSpec={modes.length === 1 ? modes[0].iconSpec : snapModeKeypoint}
-    />
-  );
-};
-
-=======
->>>>>>> 594690caa (Remove `@bentley/icons-generic` from AppUI packages (#1153))
 /** Defines properties supported by the SnapMode Field Component. */
 // eslint-disable-next-line deprecation/deprecation
 interface SnapModeFieldProps extends CommonProps {
@@ -149,14 +129,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
                 UiFramework.setAccudrawSnapMode(entry.value);
               }}
               isActive={(snapMode & entry.value) === entry.value}
-<<<<<<< HEAD
-              icon={
-                // eslint-disable-next-line deprecation/deprecation
-                <Icon className={`icon`} iconSpec={entry.iconSpec} />
-              }
-=======
               icon={<Icon>{entry.icon}</Icon>}
->>>>>>> 594690caa (Remove `@bentley/icons-generic` from AppUI packages (#1153))
             >
               {translate(entry.labelKey)}
             </Snap>
