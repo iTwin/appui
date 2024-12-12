@@ -12,6 +12,7 @@ import type { ActionButton } from '@itwin/appui-abstract';
 import { ActionWithPayload as ActionWithPayload_2 } from './redux-ts.js';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
+import type { AnyAction } from 'redux';
 import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem.js';
 import { BackstageToggledArgs as BackstageToggledArgs_2 } from '../framework/FrameworkBackstage.js';
 import type { BadgeKind } from '@itwin/core-react/internal';
@@ -24,7 +25,6 @@ import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import type { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
-import { CombinedState } from 'redux';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import { CommandItemDef as CommandItemDef_2 } from '../shared/CommandItemDef.js';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
@@ -2063,10 +2063,13 @@ export interface FrameworkKeyboardShortcuts {
 }
 
 // @public @deprecated
-export const FrameworkReducer: Reducer_2<CombinedState<    {
+export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
+sessionState: DeepReadonlyObject_2<SessionState>;
+}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
+configurableUiState: never;
 sessionState: never;
-}>, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2>;
+}>>;
 
 // @beta @deprecated
 export interface FrameworkRootState {
@@ -5062,7 +5065,7 @@ export class UiFramework {
     static hideToolbar(): boolean;
     static initialize(): Promise<void>;
     // @deprecated
-    static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
+    static initialize(store: Store<any, AnyAction> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha

@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Update `redux` and `react-redux` versions.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
