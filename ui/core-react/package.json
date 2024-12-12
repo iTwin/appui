@@ -97,7 +97,6 @@
     "vitest": "^1.6.0"
   },
   "dependencies": {
-    "@bentley/icons-generic": "^1.0.34",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "classnames": "2.5.1",
     "dompurify": "^2.5.6",

@@ -12,6 +12,10 @@
   color: var(--iui-color-text);
   position: relative;
 
+  svg {
+    fill: currentColor;
+  }
+
   > .nz-icon {
     grid-row: 1;
     color: var(--iui-color-icon);
