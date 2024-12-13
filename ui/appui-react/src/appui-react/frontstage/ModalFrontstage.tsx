@@ -6,14 +6,12 @@
  * @module Frontstage
  */
 
-import type { CommonProps } from "@itwin/core-react";
-import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
-import { Text } from "@itwin/itwinui-react";
-import classnames from "classnames";
-import * as React from "react";
-import { UiFramework } from "../UiFramework.js";
-import { BackButton } from "../layout/widget/tools/button/Back.js";
 import "./ModalFrontstage.scss";
+import * as React from "react";
+import classnames from "classnames";
+import type { CommonProps } from "@itwin/core-react";
+import { Text } from "@itwin/itwinui-react";
+import { ModalFrontstageButton } from "./ModalFrontstageButton.js";
 
 /** Properties for the [[ModalFrontstage]] React component
  * @public
@@ -63,12 +61,7 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
             {this.props.backButton ? (
               this.props.backButton
             ) : (
-              <BackButton
-                className="nz-toolbar-button-app"
-                onClick={this._onGoBack}
-                icon={<SvgProgressBackwardCircular />}
-                title={UiFramework.translate("modalFrontstage.backButtonTitle")}
-              />
+              <ModalFrontstageButton onClick={this._onGoBack} />
             )}
             <Text variant="headline" className="uifw-headline">
               {this.props.title}

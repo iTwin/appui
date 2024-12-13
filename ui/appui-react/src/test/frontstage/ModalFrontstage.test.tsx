@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import type { ModalFrontstageInfo } from "../../appui-react.js";
 import { ModalFrontstage, UiFramework } from "../../appui-react.js";
@@ -62,22 +62,21 @@ describe("ModalFrontstage", () => {
     UiFramework.frontstages.openModalFrontstage(modalFrontstage);
     expect(changedEventSpy).toHaveBeenCalledOnce();
 
-    const { baseElement, rerender } = render(renderModalFrontstage(false));
+    const { baseElement, rerender, getByRole } = render(
+      renderModalFrontstage(false)
+    );
 
     rerender(renderModalFrontstage(true));
     expect(
       baseElement.querySelectorAll("div.uifw-modal-frontstage").length
     ).toEqual(1);
 
-    const backButton = baseElement.querySelectorAll<HTMLButtonElement>(
-      "button.nz-toolbar-button-back"
-    );
-    expect(backButton.length).toEqual(1);
+    const backButton = getByRole("button");
 
     UiFramework.frontstages.updateModalFrontstage();
     expect(changedEventSpy).toHaveBeenCalledTimes(2);
 
-    backButton[0].click();
+    fireEvent.click(backButton);
     expect(navigationBackSpy).toHaveBeenCalledOnce();
     expect(closeModalSpy).toHaveBeenCalledOnce();
 
