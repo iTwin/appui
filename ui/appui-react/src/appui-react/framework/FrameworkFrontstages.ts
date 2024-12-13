@@ -183,6 +183,8 @@ export interface ModalFrontstageInfo {
    * that the stage can save unsaved data before closing. Used by the ModalSettingsStage.
    * @alpha */
   notifyCloseRequest?: boolean;
+  /** If specified overrides the default back button. */
+  backButton?: React.ReactNode;
 }
 
 /** Modal Frontstage array item interface.

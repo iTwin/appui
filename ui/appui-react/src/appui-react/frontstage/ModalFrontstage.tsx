@@ -30,6 +30,8 @@ export interface ModalFrontstageProps extends CommonProps {
   closeModal: () => any;
   /** An optional React node displayed in the upper right of the modal Frontstage. */
   appBarRight?: React.ReactNode;
+  /** If specified overrides the default back button. */
+  backButton?: React.ReactNode;
   /** Content */
   children?: React.ReactNode;
 }
@@ -58,12 +60,16 @@ export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
       <>
         <div className={classNames} style={this.props.style}>
           <div className="uifw-modal-app-bar">
-            <BackButton
-              className="nz-toolbar-button-app"
-              onClick={this._onGoBack}
-              icon={<SvgProgressBackwardCircular />}
-              title={UiFramework.translate("modalFrontstage.backButtonTitle")}
-            />
+            {this.props.backButton ? (
+              this.props.backButton
+            ) : (
+              <BackButton
+                className="nz-toolbar-button-app"
+                onClick={this._onGoBack}
+                icon={<SvgProgressBackwardCircular />}
+                title={UiFramework.translate("modalFrontstage.backButtonTitle")}
+              />
+            )}
             <Text variant="headline" className="uifw-headline">
               {this.props.title}
             </Text>

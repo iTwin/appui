@@ -6,6 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { ModalFrontstageStory } from "./Modal";
+import { Button } from "@itwin/itwinui-react";
 
 const meta = {
   title: "Frontstage/ModalFrontstage",
@@ -24,3 +25,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {};
+
+export const BackButton: Story = {
+  args: {
+    backButton: <Button>Close</Button>,
+  },
+};
