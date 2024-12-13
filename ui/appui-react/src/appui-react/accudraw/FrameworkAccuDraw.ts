@@ -13,7 +13,6 @@ import {
   CompassMode,
   IModelApp,
   ItemField,
-  KeyinStatus,
   NotifyMessageDetails,
   OutputMessagePriority,
   QuantityType,
@@ -309,11 +308,11 @@ export class FrameworkAccuDraw
 
   private fieldValuesChanged(): void {
     // Only change the value when in Dynamic mode. Other mode are "DontUpdate" when the input is locked and "Partial" when the user is typing.
-    (this.getKeyinStatus(ItemField.X_Item) === KeyinStatus.Dynamic) && this.onFieldValueChange(ItemField.X_Item);
-    (this.getKeyinStatus(ItemField.Y_Item) === KeyinStatus.Dynamic) && this.onFieldValueChange(ItemField.Y_Item);
-    (this.getKeyinStatus(ItemField.Z_Item) === KeyinStatus.Dynamic) && this.onFieldValueChange(ItemField.Z_Item);
-    (this.getKeyinStatus(ItemField.ANGLE_Item) === KeyinStatus.Dynamic) && this.onFieldValueChange(ItemField.ANGLE_Item);
-    (this.getKeyinStatus(ItemField.DIST_Item) === KeyinStatus.Dynamic) && this.onFieldValueChange(ItemField.DIST_Item);
+    this.onFieldValueChange(ItemField.X_Item);
+    this.onFieldValueChange(ItemField.Y_Item);
+    this.onFieldValueChange(ItemField.Z_Item);
+    this.onFieldValueChange(ItemField.ANGLE_Item);
+    this.onFieldValueChange(ItemField.DIST_Item);
   }
 
   public override setFocusItem(index: ItemField): void {

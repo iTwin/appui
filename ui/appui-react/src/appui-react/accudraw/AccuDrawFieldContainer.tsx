@@ -236,7 +236,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   }, [showZ]);
 
   const handleEscPressed = React.useCallback(() => {
-    IModelApp.accuDraw.unlockAllFields();
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
 
