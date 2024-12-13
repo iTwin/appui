@@ -1,13 +1,33 @@
 # NextVersion <!-- omit from toc -->
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Additions](#additions)
   - [Changes](#changes)
 - [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Additions](#additions-2)
 
 ## @itwin/appui-react
+
+### Additions
+
+- Add `backButton` property to `ModalFrontstageInfo` interface to allow specifying of a custom back button for a modal frontstage. Additionally `ModalFrontstageButton` component is added to maintain visual consistency between modal frontstages. [#1156](https://github.com/iTwin/appui/pull/1156)
+
+  ```tsx
+  UiFramework.frontstages.openModalFrontstage({
+    ...info,
+    backButton: (
+      <ModalFrontstageButton
+        onClick={() => {
+          const result = window.confirm("Are you sure you want to go back?");
+          if (!result) return;
+          UiFramework.frontstages.closeModalFrontstage();
+        }}
+      />
+    ),
+  });
+  ```
 
 ### Changes
 
