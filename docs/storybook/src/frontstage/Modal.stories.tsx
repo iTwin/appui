@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { ModalFrontstageStory } from "./Modal";
-import { Button } from "@itwin/itwinui-react";
+import { ModalFrontstageButton, UiFramework } from "@itwin/appui-react";
 
 const meta = {
   title: "Frontstage/ModalFrontstage",
@@ -28,6 +28,14 @@ export const Basic: Story = {};
 
 export const BackButton: Story = {
   args: {
-    backButton: <Button>Close</Button>,
+    backButton: (
+      <ModalFrontstageButton
+        onClick={() => {
+          const result = confirm("Are you sure you want to go back?");
+          if (!result) return;
+          UiFramework.frontstages.closeModalFrontstage();
+        }}
+      />
+    ),
   },
 };
