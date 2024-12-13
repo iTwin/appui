@@ -186,6 +186,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): Reac
 
 // @public @deprecated
 export interface AccuDrawFieldContainerProps extends CommonProps {
+    isBearingAngle?: boolean;
     orientation: Orientation;
     // @internal (undocumented)
     showZOverride?: boolean;
@@ -206,6 +207,7 @@ export interface AccuDrawInputFieldProps extends CommonProps {
     // @deprecated
     iconSpec?: IconSpec;
     id: string;
+    isBearingAngle?: boolean;
     isLocked?: boolean;
     label?: string;
     labelCentered?: boolean;
@@ -213,9 +215,9 @@ export interface AccuDrawInputFieldProps extends CommonProps {
     labelStyle?: React_2.CSSProperties;
     onEnterPressed?: () => void;
     onEscPressed?: () => void;
+    onTabPressed?: (field: ItemField) => void;
     onValueChanged: (stringValue: string) => void;
     ref?: React_2.Ref<HTMLInputElement>;
-    valueChangedDelay?: number;
 }
 
 // @public
@@ -5345,7 +5347,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "docked" | "popout" | "floating";
+    widgetLocation: "popout" | "floating" | "docked";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
