@@ -25,6 +25,7 @@ import type {
 import type { WidgetState } from "../widgets/WidgetState.js";
 import type { Frontstage } from "../frontstage/Frontstage.js";
 import { FrameworkContent } from "./FrameworkContent.js";
+import type { ModalFrontstageButton } from "../frontstage/ModalFrontstageButton.js";
 
 /** Frontstage Activated Event Args interface.
  * @public
@@ -183,6 +184,8 @@ export interface ModalFrontstageInfo {
    * that the stage can save unsaved data before closing. Used by the ModalSettingsStage.
    * @alpha */
   notifyCloseRequest?: boolean;
+  /** If specified overrides the default back button. See {@link ModalFrontstageButton}. */
+  backButton?: React.ReactNode;
 }
 
 /** Modal Frontstage array item interface.

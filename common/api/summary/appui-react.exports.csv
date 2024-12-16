@@ -426,6 +426,7 @@ public;class;ModalDialogChangedEvent
 deprecated;class;ModalDialogChangedEvent
 public;class;ModalDialogRenderer
 public;class;ModalFrontstage
+public;function;ModalFrontstageButton
 public;class;ModalFrontstageChangedEvent
 deprecated;class;ModalFrontstageChangedEvent
 public;interface;ModalFrontstageChangedEventArgs
