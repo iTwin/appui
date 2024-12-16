@@ -2,6 +2,42 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "4.17.6",
+      "tag": "@itwin/components-react_v4.17.6",
+      "date": "Wed, 20 Nov 2024 14:27:46 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.17.5",
+      "tag": "@itwin/components-react_v4.17.5",
+      "date": "Thu, 14 Nov 2024 08:22:04 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.17.4",
+      "tag": "@itwin/components-react_v4.17.4",
+      "date": "Fri, 08 Nov 2024 14:41:23 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.17.3",
+      "tag": "@itwin/components-react_v4.17.3",
+      "date": "Wed, 06 Nov 2024 09:04:20 GMT",
+      "comments": {}
+    },
+    {
+      "version": "4.17.2",
+      "tag": "@itwin/components-react_v4.17.2",
+      "date": "Wed, 30 Oct 2024 14:46:15 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fixed `pw:` links handling in property grid."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.17.1",
       "tag": "@itwin/components-react_v4.17.1",
       "date": "Wed, 09 Oct 2024 10:50:47 GMT",
