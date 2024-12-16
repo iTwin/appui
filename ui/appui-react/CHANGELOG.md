@@ -1,6 +1,40 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 09 Oct 2024 10:50:47 GMT and should not be manually modified.
+This log was last generated on Wed, 20 Nov 2024 14:27:46 GMT and should not be manually modified.
+
+## 4.17.6
+Wed, 20 Nov 2024 14:27:46 GMT
+
+### Updates
+
+- Update `MessageManager.addMessage` to ignore messages that are already active.
+
+## 4.17.5
+Thu, 14 Nov 2024 08:22:04 GMT
+
+### Updates
+
+- Fix styling of alert dialog used by notification APIs.
+
+## 4.17.4
+Fri, 08 Nov 2024 14:41:23 GMT
+
+### Updates
+
+- Fix localization of StandardMessageBox component.
+
+## 4.17.3
+Wed, 06 Nov 2024 09:04:20 GMT
+
+### Updates
+
+- Fix a maximum update depth error in status bar overflow.
+- Fix an issue where restore frontstage layout would require an active frontstage.
+
+## 4.17.2
+Wed, 30 Oct 2024 14:46:15 GMT
+
+_Version update only_
 
 ## 4.17.1
 Wed, 09 Oct 2024 10:50:47 GMT
