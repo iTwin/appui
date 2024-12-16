@@ -1,6 +1,26 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Wed, 20 Nov 2024 14:27:46 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+
+## 5.0.0
+Mon, 16 Dec 2024 11:43:27 GMT
+
+### Updates
+
+- Add MergingPropertyDataProvider which combines multiple property data providers into a single one.
+- Removed some references on @bentley/icons-generic
+- Remove `@itwin/core-geometry` usage from `@itwin/components-react`
+- Drop support for CommonJS modules.
+- Drop support for iTwin.js 3.x.
+- Drop support for React 17.x.
+- Remove `@internal` API exports from the barrel file.
+- Move @itwin/itwinui-react to peerDependencies.
+- Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible
+- Update FilterBuilder UI according to UX team's new specs
+- Provide file extension in import declarations.
+- Add `exports` field to `package.json`.
+- Replaced SCSS `@import` rules with `@use` rules.
+- Replace buic variables with iTwinUI CSS variables.
 
 ## 4.17.6
 Wed, 20 Nov 2024 14:27:46 GMT
@@ -2138,4 +2158,3 @@ Fri, 12 Oct 2018 23:00:10 GMT
 ### Updates
 
 - Initial release
-
