@@ -289,6 +289,7 @@ export {
   ModalFrontstage,
   ModalFrontstageProps,
 } from "./appui-react/frontstage/ModalFrontstage.js";
+export { ModalFrontstageButton } from "./appui-react/frontstage/ModalFrontstageButton.js";
 export { SettingsModalFrontstage } from "./appui-react/frontstage/ModalSettingsStage.js";
 export { NestedFrontstage } from "./appui-react/frontstage/NestedFrontstage.js";
 export { NestedFrontstageAppButton } from "./appui-react/frontstage/NestedFrontstageAppButton.js";

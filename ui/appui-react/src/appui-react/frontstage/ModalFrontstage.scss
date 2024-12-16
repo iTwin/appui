@@ -44,11 +44,6 @@
       float: right;
       margin-right: 20px;
     }
-
-    > :first-child {
-      display: inline-block;
-      border-radius: 0; // Turn off circular border from Back.scss in ui-ninezone
-    }
   }
 
   .uifw-modal-stage-content {
