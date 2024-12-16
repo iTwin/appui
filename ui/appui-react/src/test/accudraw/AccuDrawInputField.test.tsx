@@ -52,29 +52,6 @@ describe("AccuDrawInputField", () => {
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  it("should call onValueChanged on change after delay", async () => {
-    vi.useFakeTimers();
-    const spy = vi.fn();
-    const wrapper = render(
-      <AccuDrawInputField
-        isLocked={false}
-        field={ItemField.X_Item}
-        id="x"
-        onValueChanged={spy}
-        valueChangedDelay={10}
-      />
-    );
-    const input = wrapper.container.querySelector("input");
-    expect(input).toBeTruthy();
-    fireEvent.change(input!, { target: { value: "22.3" } });
-    expect((input as HTMLInputElement).value).toEqual("22.3");
-    fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(spy).not.toBeCalled();
-
-    vi.advanceTimersByTime(20);
-    expect(spy).toHaveBeenCalledOnce();
-  });
-
   it("should call onEscPressed on ESC", () => {
     const spyEsc = vi.fn();
     const spyChanged = vi.fn();
@@ -109,6 +86,24 @@ describe("AccuDrawInputField", () => {
     expect(input).toBeTruthy();
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spyEnter).toHaveBeenCalledOnce();
+  });
+
+  it("should call onTabPressed on Tab", () => {
+    const spyTab = vi.fn();
+    const spyChanged = vi.fn();
+    const wrapper = render(
+      <AccuDrawInputField
+        onTabPressed={spyTab}
+        isLocked={false}
+        field={ItemField.X_Item}
+        id="x"
+        onValueChanged={spyChanged}
+      />
+    );
+    const input = wrapper.container.querySelector("input");
+    expect(input).toBeTruthy();
+    fireEvent.keyDown(input!, { key: Key.Tab });
+    expect(spyTab).toHaveBeenCalledOnce();
   });
 
   it("should call UiFramework.keyboardShortcuts.processKey on a letter", () => {

@@ -39,18 +39,3 @@
   width: 22px;
   @include uicore-centered;
 }
-
-.uifw-accudraw-x-value {
-  background-color: var(--iui-color-background-negative-hover);
-  color: var(--iui-color-white);
-}
-
-.uifw-accudraw-y-value {
-  background-color: var(--iui-color-background-positive-hover);
-  color: var(--iui-color-white);
-}
-
-.uifw-accudraw-z-value {
-  background-color: var(--iui-color-background-accent-hover);
-  color: var(--iui-color-white);
-}
