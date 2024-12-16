@@ -40,7 +40,7 @@ export function ModalFrontstageComposer({
   );
   if (!stageInfo) return null;
 
-  const { title, content, appBarRight } = stageInfo;
+  const { title, content, appBarRight, backButton } = stageInfo;
 
   return (
     <ModalFrontstage
@@ -48,6 +48,7 @@ export function ModalFrontstageComposer({
       title={title}
       closeModal={handleCloseModal}
       appBarRight={appBarRight}
+      backButton={backButton}
     >
       {content}
     </ModalFrontstage>
