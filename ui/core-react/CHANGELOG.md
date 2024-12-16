@@ -1,6 +1,22 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Wed, 20 Nov 2024 14:27:46 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+
+## 5.0.0
+Mon, 16 Dec 2024 11:43:27 GMT
+
+### Updates
+
+- Drop support for CommonJS modules.
+- Drop support for iTwin.js 3.x.
+- Drop support for React 17.x.
+- Remove a polyfill for ResizeObserver since the API is supported in modern browsers.
+- Remove `@internal` API exports from the barrel file.
+- Move @itwin/itwinui-react to peerDependencies.
+- Provide file extension in import declarations.
+- Add `exports` field to `package.json`.
+- Replaced SCSS `@import` rules with `@use` rules.
+- Replace buic variables with iTwinUI CSS variables.
 
 ## 4.17.6
 Wed, 20 Nov 2024 14:27:46 GMT
@@ -550,7 +566,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 - Added 'useCrossOriginPopup' and 'useInterval' hooks
 - ListBox component: `onKeyPress` has been deprecated, switch to `onKeyDown`
-- Fix for losing viewport content after clicking PW link
+- Fix for losing viewport content after clicking PW link 
 - Implement svg icons loading as a web component.
 - Allow React icons to be used on Wedget tabs, backstage, and status bar items
 
@@ -904,9 +920,9 @@ Mon, 24 May 2021 15:58:39 GMT
 ### Updates
 
 - Wrap resizeObserver in a windows animation frame to prevent loop limit exceeded error.
-- Add support for child popup windows.
+- Add support for child popup windows. 
 - Improved Multi-Value column filtering in the Table component
-- Update to latest classnames package
+- Update to latest classnames package 
 - Fix GlobalContextMenu layout issue in presentation-test-app by setting display:none on anchoring div.
 
 ## 2.15.6
@@ -1034,7 +1050,7 @@ Thu, 28 Jan 2021 13:39:27 GMT
 
 ### Updates
 
-- Update components that support providing refs via React.forwardRef to work better with document generation.
+- Update components that support providing refs via React.forwardRef to work better with document generation.  
 - Add option to use a 'x-small' webfont icon.
 - Add nested popup support to components that use HOC withOnOutsideClick.
 - Fix bug processing zero value in Select options.
@@ -1305,7 +1321,7 @@ Tue, 28 Jul 2020 16:26:24 GMT
 - Add support for a basic single selection aria compliant listbox.
 - Checkboxes in lists & trees are out of place
 - Disabled component styling. Fixed Dialog focus problems.
-- Map Layer UX
+- Map Layer UX 
 - Allowing Input component user to override the type
 - Fix ThemeSelect formatOptionLabel prop to return React.ReactNode.
 - Added Arrow key navigation in Tabs components. Added ItemKeyboardNavigator.
@@ -1628,7 +1644,7 @@ Mon, 13 May 2019 15:52:05 GMT
 - Put sourcemap in npm package.
 - Added SignIn presentational component to ui-components. Removed --ignoreMissingTags extract-api option.
 - Require React & React-dom 16.8
-- Setup a generic context for tracking client requests, and made various related enhancements to logging, usage tracking and authorization.
+- Setup a generic context for tracking client requests, and made various related enhancements to logging, usage tracking and authorization. 
 - Added ViewportDialog in ui-test-app, ui-core/ContributeGuidelines.md. TSLint rules in ui-core for no-default-export & completed-docs. @beta release tags.
 - Update icons-generic-webfont version to latest available.
 - Added TableProp to hide header and supporting style changes

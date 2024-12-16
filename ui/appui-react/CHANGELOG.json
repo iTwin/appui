@@ -2,6 +2,102 @@
   "name": "@itwin/appui-react",
   "entries": [
     {
+      "version": "5.0.0",
+      "tag": "@itwin/appui-react_v5.0.0",
+      "date": "Mon, 16 Dec 2024 11:43:27 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Added error boundary to popout widgets."
+          },
+          {
+            "comment": "Removed check on displaySolarShadows in SolarDataProvider."
+          },
+          {
+            "comment": "Update `MessageManager.addMessage` to ignore messages that are already active."
+          },
+          {
+            "comment": "Update the styling of `BackstageAppButton`."
+          },
+          {
+            "comment": "Remove `activateDroppedTab` preview feature which is now enabled by default."
+          },
+          {
+            "comment": "Dropped tab will be activated only if it was active when drag interaction was initiated."
+          },
+          {
+            "comment": "Drop support for CommonJS modules."
+          },
+          {
+            "comment": "Drop support for iTwin.js 3.x."
+          },
+          {
+            "comment": "Drop support for iTwinUI 2.x"
+          },
+          {
+            "comment": "Remove `newToolbars` preview feature which is now enabled by default."
+          },
+          {
+            "comment": "Drop support for React 17.x."
+          },
+          {
+            "comment": "Display popout widgets in flow layout to match floating and stage panel widgets."
+          },
+          {
+            "comment": "Fix an issue where resizing a panel would sometimes select widget contents."
+          },
+          {
+            "comment": "Add `-webkit` prefix to `user-select` CSS property to fix selection issues on Safari."
+          },
+          {
+            "comment": "Remove `@internal` API exports from the barrel file."
+          },
+          {
+            "comment": "Move @itwin/itwinui-react to peerDependencies."
+          },
+          {
+            "comment": "Add ModalFrontstageButton component."
+          },
+          {
+            "comment": "Use React portal instead of creating a separate root for each child window."
+          },
+          {
+            "comment": "Update `redux` and `react-redux` versions."
+          },
+          {
+            "comment": "Remove `@bentley/icons-generic` dependency."
+          },
+          {
+            "comment": "the @internal tag was removed from WidgetDef.defaultState"
+          },
+          {
+            "comment": "Expose all `Popover` props in `StatusBarPopover` component."
+          },
+          {
+            "comment": "Removed beta tag from addFrontstage"
+          },
+          {
+            "comment": "Handle snap toolbar opacity in toolbars."
+          },
+          {
+            "comment": "Added 2 preview features. One to allow letters in accudraw input fields. The other one to disable colors in accudraw xyz fields. "
+          },
+          {
+            "comment": "Provide file extension in import declarations."
+          },
+          {
+            "comment": "Add `exports` field to `package.json`."
+          },
+          {
+            "comment": "Replaced SCSS `@import` rules with `@use` rules."
+          },
+          {
+            "comment": "Replace buic variables with iTwinUI CSS variables."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.17.6",
       "tag": "@itwin/appui-react_v4.17.6",
       "date": "Wed, 20 Nov 2024 14:27:46 GMT",

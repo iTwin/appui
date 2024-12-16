@@ -1,6 +1,26 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Wed, 20 Nov 2024 14:27:46 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+
+## 5.0.0
+Mon, 16 Dec 2024 11:43:27 GMT
+
+### Updates
+
+- Add MergingPropertyDataProvider which combines multiple property data providers into a single one.
+- Removed some references on @bentley/icons-generic
+- Remove `@itwin/core-geometry` usage from `@itwin/components-react`
+- Drop support for CommonJS modules.
+- Drop support for iTwin.js 3.x.
+- Drop support for React 17.x.
+- Remove `@internal` API exports from the barrel file.
+- Move @itwin/itwinui-react to peerDependencies.
+- Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible
+- Update FilterBuilder UI according to UX team's new specs
+- Provide file extension in import declarations.
+- Add `exports` field to `package.json`.
+- Replaced SCSS `@import` rules with `@use` rules.
+- Replace buic variables with iTwinUI CSS variables.
 
 ## 4.17.6
 Wed, 20 Nov 2024 14:27:46 GMT
@@ -113,7 +133,7 @@ Fri, 28 Jun 2024 09:09:37 GMT
 
 ### Updates
 
-- `PropertyFilterBuilder`: Allow adding custom item for PropertyFilterBuilderActions
+- `PropertyFilterBuilder`: Allow adding custom item for PropertyFilterBuilderActions 
 - Portal editors to the same container used to portal other components.
 
 ## 4.14.2
@@ -701,7 +721,7 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - Remove react 16 peer dependency.
 - Remove itwinUi css overrides.
 - UiFramework and UiIModelComponent initialize method no longer take localization argument, uses IModelApp.localization internally.
-- Replaced ui-core Slider with one from iTwinUi-react.
+- Replaced ui-core Slider with one from iTwinUi-react. 
 - Update to latest types/react package
 - Skip test causing CI job failures
 - Lock down and update version numbers so docs will build.
@@ -999,7 +1019,7 @@ Mon, 24 May 2021 15:58:39 GMT
 - Improved Multi-Value column filtering in the Table component
 - Move `VirtualizedPropertyGrid` related types from @alpha to @beta.
 - Fixed getting distinct values when Table rows are updated
-- Update to latest classnames package
+- Update to latest classnames package 
 
 ## 2.15.6
 Wed, 26 May 2021 15:55:19 GMT
@@ -1465,7 +1485,7 @@ Thu, 28 May 2020 22:48:59 GMT
 ### Updates
 
 - Fix toolbar overflow panel display.
-- Update to only show group separators if toolbar is not transparent.
+- Update to only show group separators if toolbar is not transparent. 
 - Fix toolbar error when scaling up UI.
 - Property grid horizontal layout updated according to UX requirements.
 - Fixed Table filter renderers after react-select version upgrade
@@ -1937,7 +1957,7 @@ Wed, 19 Dec 2018 18:26:14 GMT
 - Added DragDrop tests, added component withDragDrop HOC tests
 - Synchronizing navigation aids with view definition changes
 - Simplified property pane tooltips and improved Property Pane performance.
-- Simplified struct and array tooltips in Table component.
+- Simplified struct and array tooltips in Table component. 
 - Fix BeInspireTree's event listening functions to handle array inputs
 - Fix BeInspireTree's muting events with allowed number of triggers
 - Cache BeInspireTree.visible() result for better performance
@@ -2067,7 +2087,7 @@ Thu, 08 Nov 2018 17:59:21 GMT
 
 ### Updates
 
-- Deprecated dev-cors-proxy-server and use of it.
+- Deprecated dev-cors-proxy-server and use of it. 
 - Fix: Do not start search if input field is empty
 - Use strongly typed enums for identifying keyboard keys
 - PropertyGrid property editing and unit tests

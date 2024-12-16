@@ -2,6 +2,57 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "5.0.0",
+      "tag": "@itwin/components-react_v5.0.0",
+      "date": "Mon, 16 Dec 2024 11:43:27 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Add MergingPropertyDataProvider which combines multiple property data providers into a single one."
+          },
+          {
+            "comment": "Removed some references on @bentley/icons-generic"
+          },
+          {
+            "comment": "Remove `@itwin/core-geometry` usage from `@itwin/components-react`"
+          },
+          {
+            "comment": "Drop support for CommonJS modules."
+          },
+          {
+            "comment": "Drop support for iTwin.js 3.x."
+          },
+          {
+            "comment": "Drop support for React 17.x."
+          },
+          {
+            "comment": "Remove `@internal` API exports from the barrel file."
+          },
+          {
+            "comment": "Move @itwin/itwinui-react to peerDependencies."
+          },
+          {
+            "comment": "Added a callback to `VirtualizedPropertyGrid` which determines which editors should always be visible"
+          },
+          {
+            "comment": "Update FilterBuilder UI according to UX team's new specs"
+          },
+          {
+            "comment": "Provide file extension in import declarations."
+          },
+          {
+            "comment": "Add `exports` field to `package.json`."
+          },
+          {
+            "comment": "Replaced SCSS `@import` rules with `@use` rules."
+          },
+          {
+            "comment": "Replace buic variables with iTwinUI CSS variables."
+          }
+        ]
+      }
+    },
+    {
       "version": "4.17.6",
       "tag": "@itwin/components-react_v4.17.6",
       "date": "Wed, 20 Nov 2024 14:27:46 GMT",

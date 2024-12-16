@@ -1,6 +1,22 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Wed, 20 Nov 2024 14:27:46 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+
+## 5.0.0
+Mon, 16 Dec 2024 11:43:27 GMT
+
+### Updates
+
+- Drop support for CommonJS modules.
+- Drop support for iTwin.js 3.x.
+- Drop support for React 17.x.
+- Remove `@internal` API exports from the barrel file.
+- Move @itwin/itwinui-react to peerDependencies.
+- Add `ToolUtilities` to define a Tool icon as a React element.
+- Provide file extension in import declarations.
+- Add `exports` field to `package.json`.
+- Replaced SCSS `@import` rules with `@use` rules.
+- Replace buic variables with iTwinUI CSS variables.
 
 ## 4.17.6
 Wed, 20 Nov 2024 14:27:46 GMT
@@ -512,7 +528,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link
+- Fix for losing viewport content after clicking PW link 
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
