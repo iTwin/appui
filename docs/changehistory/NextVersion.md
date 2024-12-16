@@ -10,7 +10,6 @@ Table of contents:
 - [Style sheet changes](#style-sheet-changes)
 - [Move iTwinUI to `peerDependencies`](#move-itwinui-to-peerdependencies)
 - [@itwin/appui-react](#itwinappui-react)
-<<<<<<< HEAD
   - [Removals](#removals)
   - [Additions](#additions)
   - [Changes](#changes)
@@ -145,18 +144,6 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
 
 - Added the `childWindow` prop to the `ConfigurableUiContent` component, allowing consumers to provide a wrapper component for child windows and popout widgets. [#1058](https://github.com/iTwin/appui/pull/1058)
 - The `StatusBarPopover` component now accepts all props that are accepted by the `Popover` component from `@itwin/itwinui-react`. [#1068](https://github.com/iTwin/appui/pull/1068)
-=======
-  - [Additions](#additions)
-  - [Changes](#changes)
-- [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions-1)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
-  - [Additions](#additions-2)
-
-## @itwin/appui-react
-
-### Additions
-
 - Add `backButton` property to `ModalFrontstageInfo` interface to allow specifying of a custom back button for a modal frontstage. Additionally `ModalFrontstageButton` component is added to maintain visual consistency between modal frontstages. [#1156](https://github.com/iTwin/appui/pull/1156)
 
   ```tsx
@@ -173,7 +160,6 @@ AppUI packages now specify `@itwin/itwinui-react` as a [peer dependency](https:/
     ),
   });
   ```
->>>>>>> b8a94f948 (Add `ModalFrontstageButton` component (#1156))
 
 ### Changes
 
