@@ -2,8 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+
 /**
- *
+ * Type definition for numeric value that can be handled by editor.
+ * @beta
  */
 export interface NumericValue {
   rawValue: number | undefined;
@@ -12,7 +14,8 @@ export interface NumericValue {
 }
 
 /**
- *
+ * Type definition for instance key value that can be handled by editor.
+ * @beta
  */
 export interface InstanceKeyValue {
   key: { id: string; className: string };
@@ -20,28 +23,32 @@ export interface InstanceKeyValue {
 }
 
 /**
- *
+ * Type definition for text value that can be handled by editor.
+ * @beta
  */
 export interface TextValue {
   value: string;
 }
 
 /**
- *
+ * Type definition for boolean value that can be handled by editor.
+ * @beta
  */
 export interface BooleanValue {
   value: boolean;
 }
 
 /**
- *
+ * Type definition for date value that can be handled by editor.
+ * @beta
  */
 export interface DateValue {
   value: Date;
 }
 
 /**
- *
+ * Type definition for enum value that can be handled by editor.
+ * @beta
  */
 export interface EnumValue {
   choice: number | string;
@@ -60,7 +67,8 @@ export type Value =
   | EnumValue;
 
 /**
- *
+ * Type guard for text value.
+ * @beta
  */
 export function isTextValue(
   value: Value | undefined
@@ -71,7 +79,8 @@ export function isTextValue(
 }
 
 /**
- *
+ * Type guard for numeric value.
+ * @beta
  */
 export function isNumericValue(
   value: Value | undefined
@@ -82,7 +91,8 @@ export function isNumericValue(
 }
 
 /**
- *
+ * Type guard for boolean value.
+ * @beta
  */
 export function isBooleanValue(
   value: Value | undefined
@@ -94,9 +104,10 @@ export function isBooleanValue(
 }
 
 /**
- *
+ * Type guard for date value.
+ * @beta
  */
-export function isDateTimeValue(
+export function isDateValue(
   value: Value | undefined
 ): value is DateValue | undefined {
   return (
@@ -105,18 +116,11 @@ export function isDateTimeValue(
 }
 
 /**
- *
+ * Type guard for enum value.
+ * @beta
  */
 export function isEnumValue(
   value: Value | undefined
 ): value is EnumValue | undefined {
   return value === undefined || ("choice" in value && "label" in value);
-}
-
-/**
- *
- */
-export interface EnumChoice {
-  value: number | string;
-  label: string;
 }

@@ -8,7 +8,8 @@ import type { EditorProps } from "../../Types.js";
 import { useEnumEditorProps } from "./UseEnumEditorProps.js";
 
 /**
- *
+ * Simple editor for editing enum values.
+ * @beta
  */
 export function EnumEditor(props: EditorProps) {
   const { value, onChange, onFinish, choices, disabled, size } =

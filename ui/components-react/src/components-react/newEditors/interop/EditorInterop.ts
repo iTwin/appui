@@ -19,7 +19,7 @@ import type {
 } from "../values/Values.js";
 import {
   isBooleanValue,
-  isDateTimeValue,
+  isDateValue,
   isEnumValue,
   isNumericValue,
   isTextValue,
@@ -153,7 +153,7 @@ export namespace EditorInterop {
         displayValue: newValue.value.toString(),
       };
     }
-    if (isDateTimeValue(newValue)) {
+    if (isDateValue(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,

@@ -5,7 +5,7 @@
 import * as React from "react";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
-import type { ConcreteEditorProps } from "@itwin/components-react";
+import type { RequiredProps } from "@itwin/components-react";
 import {
   type EditorProps,
   type EditorSpec,
@@ -13,17 +13,18 @@ import {
   type NumericValue,
 } from "@itwin/components-react";
 
+/**
+ * Editor specification for weight editor.
+ * @beta
+ */
 export const WeightEditorSpec: EditorSpec = {
   applies: (metadata) =>
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.WeightPicker,
-  Editor: NewWeightEditor,
+  Editor: WeightEditor,
 };
 
-/**
- *
- */
-export function NewWeightEditor(props: EditorProps) {
+function WeightEditor(props: EditorProps) {
   const { value, onChange, onFinish } = useWeightEditorProps(props);
   const activeWeight = value.rawValue ?? 0;
 
@@ -44,7 +45,7 @@ function useWeightEditorProps({
   value,
   onChange,
   ...props
-}: EditorProps): ConcreteEditorProps<NumericValue> {
+}: EditorProps): RequiredProps<EditorProps<NumericValue>, "value"> {
   return {
     ...props,
     value:

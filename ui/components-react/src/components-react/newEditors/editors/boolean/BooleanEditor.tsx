@@ -8,7 +8,8 @@ import type { EditorProps } from "../../Types.js";
 import { useBooleanEditorProps } from "./UseBooleanEditorProps.js";
 
 /**
- *
+ * Simple editor for editing boolean values.
+ * @beta
  */
 export function BooleanEditor(props: EditorProps) {
   const { value, onChange, onFinish, size, disabled } =

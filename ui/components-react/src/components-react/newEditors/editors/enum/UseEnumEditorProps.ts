@@ -3,20 +3,23 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type { ConcreteEditorProps, EditorProps } from "../../Types.js";
-import type { EnumValueMetadata } from "../../values/Metadata.js";
-import type { EnumChoice, EnumValue, Value } from "../../values/Values.js";
+import type { EditorProps, RequiredProps } from "../../Types.js";
+import type { EnumChoice, EnumValueMetadata } from "../../values/Metadata.js";
+import type { EnumValue, Value } from "../../values/Values.js";
 import { isEnumValue } from "../../values/Values.js";
 
 /**
- *
+ * Hooks that converts generic `EditorProps` into editor props with enum value. If value is not enum, it will be converted into empty enum value.
+ * @beta
  */
 export function useEnumEditorProps({
   metadata,
   value,
   onChange,
   ...rest
-}: EditorProps): ConcreteEditorProps<EnumValue> & { choices: EnumChoice[] } {
+}: EditorProps): RequiredProps<EditorProps<EnumValue>, "value"> & {
+  choices: EnumChoice[];
+} {
   const choices =
     metadata.type === "enum" ? (metadata as EnumValueMetadata).choices : [];
 

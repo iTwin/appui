@@ -11,7 +11,7 @@ export * from "./editorsRegistry/DefaultEditors.js";
 export * from "./editors/boolean/BooleanEditor.js";
 export * from "./editors/boolean/UseBooleanEditorProps.js";
 export * from "./editors/date/DateTimeEditor.js";
-export * from "./editors/date/UseDateTimeEditorProps.js";
+export * from "./editors/date/UseDateEditorProps.js";
 export * from "./editors/numeric/NumericEditor.js";
 export * from "./editors/numeric/UseNumericEditorProps.js";
 export * from "./editors/numeric/FormattedNumericInput.js";

@@ -5,14 +5,15 @@
 import * as React from "react";
 import { Button, DatePicker, Popover } from "@itwin/itwinui-react";
 import type { EditorProps } from "../../Types.js";
-import { useDateTimeEditorProps } from "./UseDateTimeEditorProps.js";
+import { useDateEditorProps } from "./UseDateEditorProps.js";
 
 /**
- *
+ * Simple editor for editing date values.
+ * @beta
  */
-export function DateTimeEditor(props: EditorProps) {
+export function DateEditor(props: EditorProps) {
   const { value, onChange, onFinish, size, disabled } =
-    useDateTimeEditorProps(props);
+    useDateEditorProps(props);
   const dateStr = value.value.toLocaleDateString();
 
   return (

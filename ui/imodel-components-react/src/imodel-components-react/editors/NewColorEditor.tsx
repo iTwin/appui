@@ -16,33 +16,35 @@ import {
   Popover,
 } from "@itwin/itwinui-react";
 import type {
-  ConcreteEditorProps,
   EditorProps,
   EditorSpec,
   NumericValue,
+  RequiredProps,
   ValueMetadata,
 } from "@itwin/components-react";
 import { isNumericValue } from "@itwin/components-react";
 
+/**
+ * Editor specification for color editor.
+ * @beta
+ */
 export const ColorEditorSpec: EditorSpec = {
   applies: (metadata) =>
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.ColorPicker &&
     (metadata as ColorValueMetadata).params !== undefined,
-  Editor: NewColorEditor,
+  Editor: ColorEditor,
 };
 
 /**
- *
+ * Metadata for color editor.
+ * @beta
  */
 export interface ColorValueMetadata extends ValueMetadata {
   params: ColorEditorParams[];
 }
 
-/**
- *
- */
-export function NewColorEditor(props: EditorProps) {
+function ColorEditor(props: EditorProps) {
   const { value, onChange, onFinish, colors, size } =
     useColorEditorProps(props);
 
@@ -84,7 +86,9 @@ function useColorEditorProps({
   value,
   onChange,
   ...props
-}: EditorProps): ConcreteEditorProps<NumericValue> & { colors: number[] } {
+}: EditorProps): RequiredProps<EditorProps<NumericValue>, "value"> & {
+  colors: number[];
+} {
   const params = (metadata as ColorValueMetadata).params[0];
   const colors = params.colorValues;
 

@@ -3,18 +3,19 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type { ConcreteEditorProps, EditorProps } from "../../Types.js";
+import type { EditorProps, RequiredProps } from "../../Types.js";
 import type { BooleanValue, Value } from "../../values/Values.js";
 import { isBooleanValue } from "../../values/Values.js";
 
 /**
- *
+ * Hooks that converts generic `EditorProps` into editor props with boolean value. If value is not boolean, it will be converted into `false`.
+ * @beta
  */
 export function useBooleanEditorProps({
   value,
   onChange,
   ...rest
-}: EditorProps): ConcreteEditorProps<BooleanValue> {
+}: EditorProps): RequiredProps<EditorProps<BooleanValue>, "value"> {
   return {
     ...rest,
     value: getBooleanValue(value),

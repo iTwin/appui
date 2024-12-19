@@ -4,11 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type {
-  ConcreteEditorProps,
-  EditorProps,
-  EditorSpec,
-} from "../../../Types.js";
+import type { EditorProps, EditorSpec, RequiredProps } from "../../../Types.js";
 import { type EnumValue, isEnumValue } from "../../../values/Values.js";
 import type { ButtonGroupEditorParams } from "@itwin/appui-abstract";
 import {
@@ -59,9 +55,10 @@ function EnumButtonGroupEditor(props: EditorProps) {
   );
 }
 
-function useEnumButtonGroupEditorProps(
-  props: EditorProps
-): ConcreteEditorProps<EnumValue> & {
+function useEnumButtonGroupEditorProps(props: EditorProps): RequiredProps<
+  EditorProps<EnumValue>,
+  "value"
+> & {
   choices: EnumerationChoice[];
   enumIcons?: Map<string | number, string>;
 } {

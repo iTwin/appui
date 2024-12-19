@@ -2,41 +2,66 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+
 import { BooleanEditor } from "../editors/boolean/BooleanEditor.js";
-import { DateTimeEditor } from "../editors/date/DateTimeEditor.js";
+import { DateEditor } from "../editors/date/DateTimeEditor.js";
 import { EnumEditor } from "../editors/enum/EnumEditor.js";
 import { NumericEditor } from "../editors/numeric/NumericEditor.js";
 import { TextEditor } from "../editors/text/TextEditor.js";
-import { OldEnumEditorSpec } from "../interop/old-editors/enum/Enum.js";
+import { EnumEditorSpec as InterOpEnumEditorSpec } from "../interop/old-editors/enum/Enum.js";
 import { EnumButtonGroupEditorSpec } from "../interop/old-editors/enum/EnumButtonGroup.js";
 
 import type { EditorSpec } from "../Types.js";
 
+/**
+ * Specification for default text editor. It applies for values whose type is "string".
+ * @beta
+ */
 export const TextEditorSpec: EditorSpec = {
   applies: (metadata) => metadata.type === "string",
   Editor: TextEditor,
 };
 
+/**
+ * Specification for default date editor. It applies for values whose type is "date".
+ * @beta
+ */
 export const DateEditorSpec: EditorSpec = {
   applies: (metadata) => metadata.type === "date",
-  Editor: DateTimeEditor,
+  Editor: DateEditor,
 };
 
+/**
+ * Specification for default boolean editor. It applies for values whose type is "bool".
+ * @beta
+ */
 export const BoolEditorSpec: EditorSpec = {
   applies: (metadata) => metadata.type === "bool",
   Editor: BooleanEditor,
 };
 
+/**
+ * Specification for default numeric editor. It applies for values whose type is "number".
+ * @beta
+ */
 export const NumericEditorSpec: EditorSpec = {
   applies: (metadata) => metadata.type === "number",
   Editor: NumericEditor,
 };
 
+/**
+ * Specification for default enum editor. It applies for values whose type is "enum".
+ * @beta
+ */
 export const EnumEditorSpec: EditorSpec = {
   applies: (metadata) => metadata.type === "enum",
   Editor: EnumEditor,
 };
 
+/**
+ * List of default editors that are used as fallback if EditorRegistry does not provide a custom editor.
+ * @internal
+ */
 export const defaultEditors: EditorSpec[] = [
   TextEditorSpec,
   BoolEditorSpec,
@@ -45,8 +70,12 @@ export const defaultEditors: EditorSpec[] = [
   EnumEditorSpec,
 ];
 
-// editors that are rewritten based on the old version that accepts editor params from `PropertyRecord`
+/**
+ * Editors that are rewritten based on the old version that accepts editor params from `PropertyRecord`. Needed to support
+ * editing customizations used through `PropertyRecord`.
+ * @internal
+ */
 export const interopEditors: EditorSpec[] = [
   EnumButtonGroupEditorSpec,
-  OldEnumEditorSpec,
+  InterOpEnumEditorSpec,
 ];

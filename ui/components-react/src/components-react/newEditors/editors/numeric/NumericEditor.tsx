@@ -8,7 +8,8 @@ import type { EditorProps } from "../../Types.js";
 import { useNumericEditorProps } from "./UseNumericEditorProps.js";
 
 /**
- *
+ * Simple editor for editing numeric values.
+ * @beta
  */
 export function NumericEditor(props: EditorProps) {
   const { value, onChange, onFinish, size, disabled } =

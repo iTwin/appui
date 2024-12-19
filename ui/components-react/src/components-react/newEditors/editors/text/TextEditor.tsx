@@ -8,7 +8,8 @@ import type { EditorProps } from "../../Types.js";
 import { useTextEditorProps } from "./UseTextEditorProps.js";
 
 /**
- *
+ * Simple editor for editing text values.
+ * @beta
  */
 export function TextEditor(props: EditorProps) {
   const { value, onChange, onFinish, size, disabled } =
