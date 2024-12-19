@@ -11,10 +11,11 @@ import { useNumericEditorProps } from "./UseNumericEditorProps.js";
  *
  */
 export function NumericEditor(props: EditorProps) {
-  const { value, onChange, onFinish } = useNumericEditorProps(props);
+  const { value, onChange, onFinish, size, disabled } =
+    useNumericEditorProps(props);
+
   return (
     <Input
-      type="number"
       value={value.displayValue}
       onChange={(e) =>
         onChange({
@@ -23,7 +24,8 @@ export function NumericEditor(props: EditorProps) {
         })
       }
       onBlur={onFinish}
-      size={props.size}
+      size={size}
+      disabled={disabled}
     />
   );
 }

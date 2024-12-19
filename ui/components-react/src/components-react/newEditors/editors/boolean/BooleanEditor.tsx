@@ -11,7 +11,8 @@ import { useBooleanEditorProps } from "./UseBooleanEditorProps.js";
  *
  */
 export function BooleanEditor(props: EditorProps) {
-  const { value, onChange, onFinish } = useBooleanEditorProps(props);
+  const { value, onChange, onFinish, size, disabled } =
+    useBooleanEditorProps(props);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = { value: e.target.checked };
@@ -23,7 +24,8 @@ export function BooleanEditor(props: EditorProps) {
     <ToggleSwitch
       checked={value.value}
       onChange={handleChange}
-      size={props.size === "small" ? "small" : undefined}
+      size={size === "small" ? "small" : undefined}
+      disabled={disabled}
     />
   );
 }

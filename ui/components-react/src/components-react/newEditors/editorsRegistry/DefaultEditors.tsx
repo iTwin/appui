@@ -7,6 +7,9 @@ import { DateTimeEditor } from "../editors/date/DateTimeEditor.js";
 import { EnumEditor } from "../editors/enum/EnumEditor.js";
 import { NumericEditor } from "../editors/numeric/NumericEditor.js";
 import { TextEditor } from "../editors/text/TextEditor.js";
+import { OldEnumEditorSpec } from "../interop/old-editors/enum/Enum.js";
+import { EnumButtonGroupEditorSpec } from "../interop/old-editors/enum/EnumButtonGroup.js";
+
 import type { EditorSpec } from "../Types.js";
 
 export const TextEditorSpec: EditorSpec = {
@@ -40,4 +43,10 @@ export const defaultEditors: EditorSpec[] = [
   NumericEditorSpec,
   DateEditorSpec,
   EnumEditorSpec,
+];
+
+// editors that are rewritten based on the old version that accepts editor params from `PropertyRecord`
+export const interopEditors: EditorSpec[] = [
+  EnumButtonGroupEditorSpec,
+  OldEnumEditorSpec,
 ];

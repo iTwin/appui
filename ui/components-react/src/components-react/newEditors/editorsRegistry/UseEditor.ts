@@ -5,7 +5,7 @@
 import type { EditorSpec } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
-import { defaultEditors } from "./DefaultEditors.js";
+import { defaultEditors, interopEditors } from "./DefaultEditors.js";
 import { useEditorsRegistry } from "./EditorsRegistry.js";
 
 /**
@@ -22,6 +22,13 @@ export function useEditor(
   )?.Editor;
   if (registeredEditor) {
     return registeredEditor;
+  }
+
+  const oldEditor = interopEditors.find((editor) =>
+    editor.applies(metadata, value)
+  )?.Editor;
+  if (oldEditor) {
+    return oldEditor;
   }
 
   const defaultEditor = defaultEditors.find((editor) =>

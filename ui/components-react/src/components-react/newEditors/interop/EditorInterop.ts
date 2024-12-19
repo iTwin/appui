@@ -2,12 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
+import type {
+  Primitives,
+  PrimitiveValue,
+  PropertyRecord,
+} from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   BooleanValue,
   DateValue,
   EnumValue,
+  InstanceKeyValue,
   Value as NewEditorValue,
   NumericValue,
   TextValue,
@@ -84,7 +89,11 @@ export namespace EditorInterop {
           },
           value: {
             rawValue: primitiveValue.value as number,
-            displayValue: primitiveValue.displayValue ?? "",
+            displayValue:
+              primitiveValue.displayValue !== undefined &&
+              primitiveValue.displayValue !== ""
+                ? `${parseFloat(primitiveValue.displayValue)}`
+                : `${(primitiveValue.value as number) ?? ""}`,
           } satisfies NumericValue,
         };
       case "enum":
@@ -97,6 +106,17 @@ export namespace EditorInterop {
             choice: primitiveValue.value as number | string,
             label: primitiveValue.displayValue as string,
           } satisfies EnumValue,
+        };
+      case "navigation":
+        return {
+          metadata: {
+            ...baseMetadata,
+            type: "instanceKey",
+          },
+          value: {
+            key: primitiveValue.value as Primitives.InstanceKey,
+            label: primitiveValue.displayValue ?? "",
+          } satisfies InstanceKeyValue,
         };
     }
 

@@ -11,7 +11,8 @@ import { useDateTimeEditorProps } from "./UseDateTimeEditorProps.js";
  *
  */
 export function DateTimeEditor(props: EditorProps) {
-  const { value, onChange, onFinish } = useDateTimeEditorProps(props);
+  const { value, onChange, onFinish, size, disabled } =
+    useDateTimeEditorProps(props);
   const dateStr = value.value.toLocaleDateString();
 
   return (
@@ -31,7 +32,9 @@ export function DateTimeEditor(props: EditorProps) {
         }
       }}
     >
-      <Button size={props.size}>{dateStr}</Button>
+      <Button size={size} disabled={disabled}>
+        {dateStr}
+      </Button>
     </Popover>
   );
 }

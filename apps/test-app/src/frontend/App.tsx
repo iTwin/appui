@@ -17,20 +17,11 @@ import {
 import { ThemeProvider as IUI2_ThemeProvider } from "@itwin/itwinui-react-v2";
 import { useEngagementTime } from "./appui/useEngagementTime";
 import { AppLocalizationProvider } from "./Localization";
+import { EditorSpec, EditorsRegistryProvider } from "@itwin/components-react";
 import {
   ColorEditorSpec,
-  QuantityEditorSpec,
   WeightEditorSpec,
 } from "@itwin/imodel-components-react";
-import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
-import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import {
-  EditorProps,
-  EditorSpec,
-  EditorsRegistryProvider,
-  NumericEditorSpec,
-  useEnumEditorProps,
-} from "@itwin/components-react";
 
 interface AppProps {
   featureOverrides?: React.ComponentProps<
@@ -47,12 +38,10 @@ export function App({ featureOverrides }: AppProps) {
           <AppPreviewFeatures featureOverrides={featureOverrides}>
             <AppLocalizationProvider>
               <EditorsRegistryProvider editors={rootEditors}>
-                <EditorsRegistryProvider editors={editors}>
-                  <ConfigurableUiContent
-                    appBackstage={<BackstageComposer />}
-                    childWindow={ChildWindow}
-                  />
-                </EditorsRegistryProvider>
+                <ConfigurableUiContent
+                  appBackstage={<BackstageComposer />}
+                  childWindow={ChildWindow}
+                />
               </EditorsRegistryProvider>
             </AppLocalizationProvider>
           </AppPreviewFeatures>
@@ -67,41 +56,5 @@ function ChildWindow(props: React.PropsWithChildren<object>) {
   return <IUI2_ThemeProvider>{props.children}</IUI2_ThemeProvider>;
 }
 
-const editors: EditorSpec[] = [
-  NumericEditorSpec,
-  WeightEditorSpec,
-  ColorEditorSpec,
-];
-
-const rootEditors: EditorSpec[] = [
-  {
-    applies: (metadata) =>
-      metadata.type === "enum" &&
-      metadata.preferredEditor === "enum-buttongroup",
-    Editor: CustomEnumEditor,
-  },
-  QuantityEditorSpec,
-];
-
-function CustomEnumEditor(props: EditorProps) {
-  const { value, onChange, choices, size, onFinish } =
-    useEnumEditorProps(props);
-  return (
-    <ButtonGroup orientation="horizontal" onBlur={onFinish}>
-      {choices.map((c) => (
-        <IconButton
-          key={c.value}
-          onClick={() => {
-            onChange({ choice: c.value, label: c.label });
-            onFinish();
-          }}
-          isActive={value.choice === c.value}
-          size={size}
-          label={c.label}
-        >
-          <SvgPlaceholder />
-        </IconButton>
-      ))}
-    </ButtonGroup>
-  );
-}
+// add custom editors from `@itwin/imodel-components-react` to the registry
+const rootEditors: EditorSpec[] = [WeightEditorSpec, ColorEditorSpec];

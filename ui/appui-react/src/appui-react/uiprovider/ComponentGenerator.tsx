@@ -229,6 +229,7 @@ function EditorRenderer({
           });
         }}
         onCancel={onCancel}
+        disabled={propertyRecord.isReadonly || propertyRecord.isDisabled}
         size="small"
       />
     );

@@ -11,13 +11,15 @@ import { useTextEditorProps } from "./UseTextEditorProps.js";
  *
  */
 export function TextEditor(props: EditorProps) {
-  const { value, onChange, onFinish } = useTextEditorProps(props);
+  const { value, onChange, onFinish, size, disabled } =
+    useTextEditorProps(props);
   return (
     <Input
       value={value.value}
       onChange={(e) => onChange({ value: e.target.value })}
-      size={props.size}
       onBlur={onFinish}
+      size={size}
+      disabled={disabled}
     />
   );
 }

@@ -7,7 +7,13 @@ import type { EnumChoice } from "./Values.js";
 /**
  *
  */
-export type ValueType = "string" | "number" | "bool" | "date" | "enum";
+export type ValueType =
+  | "string"
+  | "number"
+  | "bool"
+  | "date"
+  | "enum"
+  | "instanceKey";
 
 /**
  *

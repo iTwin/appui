@@ -11,7 +11,8 @@ import { useEnumEditorProps } from "./UseEnumEditorProps.js";
  *
  */
 export function EnumEditor(props: EditorProps) {
-  const { value, onChange, onFinish, choices } = useEnumEditorProps(props);
+  const { value, onChange, onFinish, choices, disabled, size } =
+    useEnumEditorProps(props);
 
   const handleChange = (newChoice: number | string) => {
     const choice = choices.find((c) => c.value === newChoice);
@@ -22,10 +23,11 @@ export function EnumEditor(props: EditorProps) {
 
   return (
     <Select
-      size={props.size}
+      size={size}
       value={value.choice}
       onChange={handleChange}
       options={choices.map((c) => ({ value: c.value, label: c.label }))}
+      disabled={disabled}
     />
   );
 }

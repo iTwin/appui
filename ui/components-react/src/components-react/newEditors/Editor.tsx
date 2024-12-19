@@ -14,6 +14,7 @@ export function Editor({
   value,
   onChange,
   onFinish,
+  disabled,
   size,
 }: EditorProps) {
   const TypeEditor = useEditor(metadata, value);
@@ -29,6 +30,7 @@ export function Editor({
       onChange={onChange}
       size={size}
       onFinish={onFinish ?? noopOnFinish}
+      disabled={disabled}
     />
   );
 }
