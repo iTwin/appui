@@ -58,7 +58,7 @@ export {
 export {
   QuantityEditor,
   QuantityEditorSpec,
-} from "./imodel-components-react/inputs/QuantityEditor.js";
+} from "./imodel-components-react/inputs/newEditors/QuantityEditor.js";
 
 export {
   LineWeightSwatch,

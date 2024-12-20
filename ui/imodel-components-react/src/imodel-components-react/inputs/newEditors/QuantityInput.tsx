@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { FormattedNumericInput } from "./FormattedNumericInput.js";
+import { FormattedNumericInput } from "@itwin/components-react";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 
 type FormattedNumericInputProps = React.ComponentPropsWithoutRef<

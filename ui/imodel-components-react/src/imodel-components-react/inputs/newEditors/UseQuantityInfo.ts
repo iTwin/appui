@@ -12,7 +12,8 @@ interface UseQuantityInfoProps {
 }
 
 /**
- *
+ * Hook that finds the formatter and parser in `IModelApp.quantityFormatter` for a given quantity type.
+ * @internal
  */
 export function useQuantityInfo({ type }: UseQuantityInfoProps) {
   const [{ formatter, parser }, setState] = React.useState<{
@@ -24,11 +25,7 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
   }));
 
   React.useEffect(() => {
-    const defaultFormatterSpec =
-      type !== undefined
-        ? IModelApp.quantityFormatter.findFormatterSpecByQuantityType(type)
-        : undefined;
-    if (defaultFormatterSpec === undefined) {
+    if (type === undefined) {
       setState({
         formatter: undefined,
         parser: undefined,

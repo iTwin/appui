@@ -7,8 +7,12 @@ import { type QuantityTypeArg } from "@itwin/core-frontend";
 import { useQuantityInfo } from "./UseQuantityInfo.js";
 import type { EditorProps, EditorSpec } from "@itwin/components-react";
 import { useNumericEditorProps } from "@itwin/components-react";
-import { QuantityFormattedInput } from "./QuantityFormattedInput.js";
+import { QuantityInput } from "./QuantityInput.js";
 
+/**
+ * Editor specification for quantity values based on `IModelApp.quantityFormatter`.
+ * @beta
+ */
 export const QuantityEditorSpec: EditorSpec = {
   applies: (metadata) =>
     metadata.type === "number" &&
@@ -17,10 +21,7 @@ export const QuantityEditorSpec: EditorSpec = {
   Editor: QuantityEditor,
 };
 
-/**
- *
- */
-export function QuantityEditor(props: EditorProps) {
+function QuantityEditor(props: EditorProps) {
   const { onChange, value, onFinish, size } = useNumericEditorProps(props);
   const quantityType =
     "quantityType" in props.metadata
@@ -32,7 +33,7 @@ export function QuantityEditor(props: EditorProps) {
   });
 
   return (
-    <QuantityFormattedInput
+    <QuantityInput
       value={value}
       onChange={onChange}
       onBlur={onFinish}
