@@ -15,22 +15,16 @@ export interface EditorSpec {
 }
 
 /**
- * Base editor props that are supplied to every editor when rendering it.
+ * Generic editor props that are supplied to the editor for rendering.
+ * @beta
  */
-interface BaseEditorProps<TValue = Value> {
+export interface EditorProps<TValue = Value> {
   metadata: ValueMetadata;
+  value?: TValue;
   onChange: (value: TValue) => void;
   onFinish: () => void;
   disabled?: boolean;
   size?: "small" | "large";
-}
-
-/**
- * Generic editor props that are supplied to the editor for rendering.
- * @beta
- */
-export interface EditorProps<TValue = Value> extends BaseEditorProps<TValue> {
-  value?: TValue;
 }
 
 /**
