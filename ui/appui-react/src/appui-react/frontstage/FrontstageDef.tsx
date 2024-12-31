@@ -75,9 +75,8 @@ export class FrontstageDef {
   private _isApplicationClosing = false;
   private _usage?: string;
   private _version: number = 0;
-  private _toolSettings?: WidgetDef & {
-    activeToolEmptyNode?: React.ReactNode;
-  };
+  private _toolSettings?: WidgetDef;
+  private _activeToolEmptyNode?: React.ReactNode;
   private _statusBar?: WidgetDef;
   private _contentManipulation?: WidgetDef;
   private _viewNavigation?: WidgetDef;
@@ -115,10 +114,11 @@ export class FrontstageDef {
     return this._floatingContentControls;
   }
 
-  public get toolSettings():
-    | (WidgetDef & { activeToolEmptyNode?: React.ReactNode })
-    | undefined {
+  public get toolSettings(): WidgetDef | undefined {
     return this._toolSettings;
+  }
+  public get activeToolEmptyNode(): React.ReactNode | undefined {
+    return this._activeToolEmptyNode;
   }
   public get statusBar(): WidgetDef | undefined {
     return this._statusBar;
@@ -584,10 +584,7 @@ export class FrontstageDef {
       config.toolSettings,
       WidgetType.ToolSettings
     );
-    if (this._toolSettings) {
-      this._toolSettings.activeToolEmptyNode =
-        config.toolSettings?.activeToolEmptyNode;
-    }
+    this._activeToolEmptyNode = config.toolSettings?.activeToolEmptyNode;
     this._statusBar = createWidgetDef(config.statusBar, WidgetType.StatusBar);
     this._contentManipulation = createWidgetDef(
       config.contentManipulation,

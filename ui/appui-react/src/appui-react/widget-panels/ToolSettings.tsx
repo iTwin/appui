@@ -72,7 +72,7 @@ export function ToolSettingsDockedContent() {
     () => [
       {
         editorNode: null,
-        labelNode: frontstageDef?.toolSettings?.activeToolEmptyNode ?? (
+        labelNode: frontstageDef?.activeToolEmptyNode ?? (
           <EmptyToolSettingsLabel toolId={activeToolId} />
         ),
       },
@@ -189,7 +189,7 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        {node ?? frontstageDef?.toolSettings?.activeToolEmptyNode ?? (
+        {node ?? frontstageDef?.activeToolEmptyNode ?? (
           <EmptyToolSettingsLabel toolId={activeToolId} />
         )}
       </ScrollableWidgetContent>
