@@ -25,7 +25,6 @@ import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import type { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
-import { CombinedState } from 'redux';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import { CommandItemDef as CommandItemDef_2 } from '../shared/CommandItemDef.js';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
@@ -2065,10 +2064,13 @@ export interface FrameworkKeyboardShortcuts {
 }
 
 // @public @deprecated
-export const FrameworkReducer: Reducer_2<CombinedState<    {
+export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
+sessionState: DeepReadonlyObject_2<SessionState>;
+}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
+configurableUiState: never;
 sessionState: never;
-}>, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2>;
+}>>;
 
 // @beta @deprecated
 export interface FrameworkRootState {
@@ -3834,7 +3836,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @beta @deprecated
@@ -3872,7 +3874,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @public @deprecated
