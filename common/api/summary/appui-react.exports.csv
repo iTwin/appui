@@ -426,7 +426,6 @@ public;class;ModalDialogChangedEvent
 deprecated;class;ModalDialogChangedEvent
 public;class;ModalDialogRenderer
 public;class;ModalFrontstage
-public;function;ModalFrontstageButton
 public;class;ModalFrontstageChangedEvent
 deprecated;class;ModalFrontstageChangedEvent
 public;interface;ModalFrontstageChangedEventArgs
@@ -524,8 +523,8 @@ public;class;ReducerRegistry
 deprecated;class;ReducerRegistry
 beta;const;ReducerRegistryInstance
 deprecated;const;ReducerRegistryInstance
-public;const;RestoreAllFrontstagesTool
-public;const;RestoreFrontstageLayoutTool
+public;class;RestoreAllFrontstagesTool
+public;class;RestoreFrontstageLayoutTool
 public;const;SafeAreaContext
 public;enum;SafeAreaInsets
 public;class;ScheduleAnimationTimelineDataProvider
