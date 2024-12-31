@@ -202,6 +202,7 @@ export class ContextSubMenu extends React.Component<
     document.removeEventListener("click", this._handleClickGlobal);
   }
 
+  /** @internal */
   public override componentDidUpdate(
     prevProps: ContextSubMenuProps,
     prevState: ContextSubMenuState

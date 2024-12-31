@@ -10,7 +10,7 @@ import { useAuth } from "../frontend/Auth";
 import { PageLayout } from "@itwin/itwinui-layouts-react";
 import { SignInPage } from "../frontend/SignInPage";
 
-export const Route = createFileRoute("/iTwin/$iTwinId")({
+export const Route = createFileRoute("/iTwin_/$iTwinId")({
   component: ITwin,
 });
 

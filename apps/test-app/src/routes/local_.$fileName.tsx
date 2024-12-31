@@ -18,7 +18,7 @@ import {
 } from "../frontend/SearchParams";
 import { registerFrontstages } from "../frontend/registerFrontstages";
 
-export const Route = createFileRoute("/local/$fileName")({
+export const Route = createFileRoute("/local_/$fileName")({
   component: Local,
   loader: async (ctx) => {
     await appInitializer.initialize();

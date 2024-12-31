@@ -14,6 +14,7 @@ import type {
   ToolbarGroupItem,
 } from "./ToolbarItem.js";
 import { isArgsUtil } from "../backstage/BackstageItemUtilities.js";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 
 /** Helper namespace to create toolbar items.
  * @public
@@ -221,6 +222,10 @@ export namespace ToolbarItemUtilities {
     toolType: ToolType,
     overrides?: Partial<ToolbarActionItem>
   ): ToolbarActionItem {
+    const iconNode = ToolUtilities.isWithIcon(toolType)
+      ? toolType.iconElement
+      : undefined;
+
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     return ToolbarItemUtilities.createActionItem(
       toolType.toolId,
@@ -232,6 +237,7 @@ export namespace ToolbarItemUtilities {
       },
       {
         description: toolType.description,
+        iconNode,
         ...overrides,
       }
     );

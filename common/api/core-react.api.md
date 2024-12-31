@@ -39,7 +39,7 @@ export class AutoSuggest extends React_2.PureComponent<AutoSuggestProps, AutoSug
     constructor(props: AutoSuggestProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: AutoSuggestProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -174,7 +174,7 @@ export class ContextMenu extends React_2.PureComponent<ContextMenuProps, Context
     blur: () => void;
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: ContextMenuProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -227,7 +227,7 @@ export class ContextMenuItem extends React_2.PureComponent<ContextMenuItemProps,
     constructor(props: ContextMenuItemProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: ContextMenuItemProps): void;
     // (undocumented)
     static defaultProps: Partial<ContextMenuItemProps>;
@@ -289,7 +289,7 @@ export class ContextSubMenu extends React_2.Component<ContextSubMenuProps, Conte
     close: (propagate?: boolean) => void;
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: ContextSubMenuProps, prevState: ContextSubMenuState): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -967,7 +967,7 @@ export class Popup extends React_2.Component<PopupProps, PopupState> {
     constructor(props: PopupProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(previousProps: PopupProps, // eslint-disable-line @typescript-eslint/no-deprecated
     prevState: PopupState): void;
     // (undocumented)
@@ -1091,7 +1091,7 @@ export class RadialMenu extends React_2.Component<RadialMenuProps, RadialMenuSta
     constructor(props: RadialMenuProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: RadialMenuProps): void;
     // (undocumented)
     componentWillUnmount(): void;
@@ -1323,7 +1323,7 @@ export class Tabs extends React_2.PureComponent<MainTabsProps, TabsState> {
     constructor(props: MainTabsProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: MainTabsProps): void;
     // (undocumented)
     render(): React_2.ReactElement;

@@ -1,6 +1,75 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Wed, 09 Oct 2024 10:50:47 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+
+## 5.0.0
+Mon, 16 Dec 2024 11:43:27 GMT
+
+### Updates
+
+- Added error boundary to popout widgets.
+- Removed check on displaySolarShadows in SolarDataProvider.
+- Update `MessageManager.addMessage` to ignore messages that are already active.
+- Update the styling of `BackstageAppButton`.
+- Remove `activateDroppedTab` preview feature which is now enabled by default.
+- Dropped tab will be activated only if it was active when drag interaction was initiated.
+- Drop support for CommonJS modules.
+- Drop support for iTwin.js 3.x.
+- Drop support for iTwinUI 2.x
+- Remove `newToolbars` preview feature which is now enabled by default.
+- Drop support for React 17.x.
+- Display popout widgets in flow layout to match floating and stage panel widgets.
+- Fix an issue where resizing a panel would sometimes select widget contents.
+- Add `-webkit` prefix to `user-select` CSS property to fix selection issues on Safari.
+- Remove `@internal` API exports from the barrel file.
+- Move @itwin/itwinui-react to peerDependencies.
+- Add ModalFrontstageButton component.
+- Use React portal instead of creating a separate root for each child window.
+- Update `redux` and `react-redux` versions.
+- Remove `@bentley/icons-generic` dependency.
+- the @internal tag was removed from WidgetDef.defaultState
+- Expose all `Popover` props in `StatusBarPopover` component.
+- Removed beta tag from addFrontstage
+- Handle snap toolbar opacity in toolbars.
+- Added 2 preview features. One to allow letters in accudraw input fields. The other one to disable colors in accudraw xyz fields.
+- Provide file extension in import declarations.
+- Add `exports` field to `package.json`.
+- Replaced SCSS `@import` rules with `@use` rules.
+- Replace buic variables with iTwinUI CSS variables.
+
+## 4.17.6
+Wed, 20 Nov 2024 14:27:46 GMT
+
+### Updates
+
+- Update `MessageManager.addMessage` to ignore messages that are already active.
+
+## 4.17.5
+Thu, 14 Nov 2024 08:22:04 GMT
+
+### Updates
+
+- Fix styling of alert dialog used by notification APIs.
+
+## 4.17.4
+Fri, 08 Nov 2024 14:41:23 GMT
+
+### Updates
+
+- Fix localization of StandardMessageBox component.
+
+## 4.17.3
+Wed, 06 Nov 2024 09:04:20 GMT
+
+### Updates
+
+- Fix a maximum update depth error in status bar overflow.
+- Fix an issue where restore frontstage layout would require an active frontstage.
+
+## 4.17.2
+Wed, 30 Oct 2024 14:46:15 GMT
+
+_Version update only_
 
 ## 4.17.1
 Wed, 09 Oct 2024 10:50:47 GMT
@@ -2484,4 +2553,3 @@ Fri, 12 Oct 2018 23:00:10 GMT
 ### Updates
 
 - Initial release
-

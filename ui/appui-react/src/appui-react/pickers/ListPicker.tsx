@@ -143,6 +143,7 @@ export class ExpandableSection extends React.PureComponent<
     this.state = { expanded: !!this.props.expanded };
   }
 
+  /** @internal */
   public override async componentDidUpdate(
     prevProps: Readonly<ExpandableSectionProps>
   ) {

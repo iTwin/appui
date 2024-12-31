@@ -6,15 +6,7 @@
  * @module StatusBar
  */
 
-import snapModeBisector from "@bentley/icons-generic/icons/snaps-bisector.svg";
-import snapModeCenter from "@bentley/icons-generic/icons/snaps-center.svg";
-import snapModeIntersection from "@bentley/icons-generic/icons/snaps-intersection.svg";
-import snapModeMidpoint from "@bentley/icons-generic/icons/snaps-midpoint.svg";
-import snapModeNearest from "@bentley/icons-generic/icons/snaps-nearest.svg";
-import snapModeOrigin from "@bentley/icons-generic/icons/snaps-origin.svg";
-import snapModeKeypoint from "@bentley/icons-generic/icons/snaps.svg";
 import { SnapMode } from "@itwin/core-frontend";
-import { Icon } from "@itwin/core-react";
 import type { CommonProps } from "@itwin/core-react";
 import * as React from "react";
 import { UiFramework } from "../UiFramework.js";
@@ -22,14 +14,21 @@ import { SnapModePanel } from "../layout/footer/snap-mode/Panel.js";
 import { Snap } from "../layout/footer/snap-mode/Snap.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
-import { Button } from "@itwin/itwinui-react";
+import { Button, Icon } from "@itwin/itwinui-react";
 import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
+import { SvgSnapsBisector } from "../icons/snaps/SvgSnapsBisector.js";
+import { SvgSnapsCenter } from "../icons/snaps/SvgSnapsCenter.js";
+import { SvgSnapsIntersection } from "../icons/snaps/SvgSnapsIntersection.js";
+import { SvgSnapsMidpoint } from "../icons/snaps/SvgSnapsMidpoint.js";
+import { SvgSnapsNearest } from "../icons/snaps/SvgSnapsNearest.js";
+import { SvgSnapsOrigin } from "../icons/snaps/SvgSnapsOrigin.js";
+import { SvgSnaps } from "../icons/snaps/SvgSnaps.js";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
   labelKey: string;
   value: number;
-  iconSpec: string;
+  icon: React.ReactElement;
 }
 
 // Field entry of all possible snap modes.
@@ -37,56 +36,39 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
   {
     labelKey: "snapModeField.keypoint",
     value: SnapMode.NearestKeypoint as number,
-    iconSpec: snapModeKeypoint,
+    icon: <SvgSnaps />,
   },
   {
     labelKey: "snapModeField.intersection",
     value: SnapMode.Intersection as number,
-    iconSpec: snapModeIntersection,
+    icon: <SvgSnapsIntersection />,
   },
   {
     labelKey: "snapModeField.center",
     value: SnapMode.Center as number,
-    iconSpec: snapModeCenter,
+    icon: <SvgSnapsCenter />,
   },
   {
     labelKey: "snapModeField.nearest",
     value: SnapMode.Nearest as number,
-    iconSpec: snapModeNearest,
+    icon: <SvgSnapsNearest />,
   },
   {
     labelKey: "snapModeField.origin",
     value: SnapMode.Origin as number,
-    iconSpec: snapModeOrigin,
+    icon: <SvgSnapsOrigin />,
   },
   {
     labelKey: "snapModeField.midpoint",
     value: SnapMode.MidPoint as number,
-    iconSpec: snapModeMidpoint,
+    icon: <SvgSnapsMidpoint />,
   },
   {
     labelKey: "snapModeField.bisector",
     value: SnapMode.Bisector as number,
-    iconSpec: snapModeBisector,
+    icon: <SvgSnapsBisector />,
   },
 ];
-
-/** Return icon for a specific snapMode. */
-const getSnapModeIcon = (snapMode: number) => {
-  // Get all the modes present in the bitmask.
-  const modes: SnapModeFieldEntry[] = allSnapModeFieldEntries.filter(
-    (entry) => {
-      return (entry.value & snapMode) === entry.value;
-    }
-  );
-
-  return (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <Icon
-      iconSpec={modes.length === 1 ? modes[0].iconSpec : snapModeKeypoint}
-    />
-  );
-};
 
 /** Defines properties supported by the SnapMode Field Component. */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -123,6 +105,13 @@ export function SnapModeField(props: SnapModeFieldProps) {
   );
   const snapMode = props.snapMode ?? reduxSnapMode ?? SnapMode.NearestKeypoint;
 
+  // Get all the modes present in the bitmask.
+  const enabledSnaps: SnapModeFieldEntry[] = allSnapModeFieldEntries.filter(
+    (entry) => {
+      return (entry.value & snapMode) === entry.value;
+    }
+  );
+
   const title = translate("snapModeField.snapMode");
   return (
     <StatusBarPopover
@@ -140,10 +129,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
                 UiFramework.setAccudrawSnapMode(entry.value);
               }}
               isActive={(snapMode & entry.value) === entry.value}
-              icon={
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
-                <Icon className={`icon`} iconSpec={entry.iconSpec} />
-              }
+              icon={<Icon>{entry.icon}</Icon>}
             >
               {translate(entry.labelKey)}
             </Snap>
@@ -154,7 +140,9 @@ export function SnapModeField(props: SnapModeFieldProps) {
       <Button
         styleType="borderless"
         title={title}
-        endIcon={getSnapModeIcon(snapMode)}
+        endIcon={
+          enabledSnaps.length === 1 ? enabledSnaps[0].icon : <SvgSnaps />
+        }
       >
         {title}
         <StatusBarPopover.ExpandIndicator />

@@ -79,6 +79,7 @@ export class EnumButtonGroupEditor
     void this.setStateFromProps();
   }
 
+  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();

@@ -27,6 +27,7 @@ import { ScreenViewport } from '@itwin/core-frontend';
 import type { Slider } from '@itwin/itwinui-react';
 import type { StandardViewId } from '@itwin/core-frontend';
 import type { TentativePoint } from '@itwin/core-frontend';
+import type { ToolType } from '@itwin/core-frontend';
 import type { TypeEditor } from '@itwin/components-react';
 import { UiEvent } from '@itwin/appui-abstract';
 import type { UnitProps } from '@itwin/core-quantity';
@@ -151,7 +152,7 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
 export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, ColorEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     getPropertyValue(): Promise<PropertyValue | undefined>;
@@ -749,6 +750,12 @@ export enum TimelineScale {
 }
 
 // @public
+export namespace ToolUtilities {
+    export function defineIcon<T extends ToolType>(toolType: T, iconElement: React_2.ReactElement): ToolWithIcon<T>;
+    export function isWithIcon<T extends ToolType>(toolType: T): toolType is ToolWithIcon<T>;
+}
+
+// @public
 export class UiIModelComponents {
     static initialize(): Promise<void>;
     static get initialized(): boolean;
@@ -869,7 +876,7 @@ export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, Wei
     constructor(props: PropertyEditorProps);
     // (undocumented)
     componentDidMount(): void;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: PropertyEditorProps): void;
     // (undocumented)
     componentWillUnmount(): void;

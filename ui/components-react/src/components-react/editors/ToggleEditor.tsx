@@ -94,6 +94,7 @@ export class ToggleEditor
     this._isMounted = false;
   }
 
+  /** @internal */
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
       void this.setStateFromProps();

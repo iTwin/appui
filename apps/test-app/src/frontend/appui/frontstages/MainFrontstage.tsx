@@ -7,9 +7,13 @@ import {
   BackstageAppButton,
   BackstageItemUtilities,
   FrontstageUtilities,
+  RestoreFrontstageLayoutTool,
   SettingsModalFrontstage,
   StageUsage,
   StandardContentLayouts,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import {
@@ -46,7 +50,17 @@ createMainFrontstage.stageId = "main";
 export function createMainFrontstageProvider() {
   return {
     id: "appui-test-app:backstageItemsProvider",
-    getToolbarItems: () => [getCustomViewSelectorPopupItem()],
+    getToolbarItems: () => [
+      getCustomViewSelectorPopupItem(),
+      ToolbarItemUtilities.createForTool(RestoreFrontstageLayoutTool, {
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
+      }),
+    ],
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher({
         stageId: createMainFrontstage.stageId,

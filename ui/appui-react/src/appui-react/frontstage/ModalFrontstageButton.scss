@@ -2,8 +2,20 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-@use "variables" as *;
+.uifw-frontstage-modalFrontstageButton {
+  block-size: 3.5rem;
+  aspect-ratio: 1;
 
-.nz-toolbar-button-back {
-  border-radius: $mls-button-width * 0.5;
+  border-radius: 0;
+}
+
+.uifw-frontstage-modalFrontstageButton_icon {
+  $size: 2rem;
+
+  font-size: $size;
+
+  svg {
+    block-size: $size;
+    inline-size: $size;
+  }
 }

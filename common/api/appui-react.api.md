@@ -12,6 +12,7 @@ import type { ActionButton } from '@itwin/appui-abstract';
 import { ActionWithPayload as ActionWithPayload_2 } from './redux-ts.js';
 import { ActivityMessageDetails } from '@itwin/core-frontend';
 import { ActivityMessageEndReason } from '@itwin/core-frontend';
+import type { AnyAction } from 'redux';
 import { BackstageActionItem as BackstageActionItem_2 } from '../backstage/BackstageItem.js';
 import { BackstageToggledArgs as BackstageToggledArgs_2 } from '../framework/FrameworkBackstage.js';
 import type { BadgeKind } from '@itwin/core-react/internal';
@@ -24,7 +25,6 @@ import { BeEvent } from '@itwin/core-bentley';
 import { BeUiEvent } from '@itwin/core-bentley';
 import type { Button } from '@itwin/itwinui-react';
 import { ColorDef } from '@itwin/core-common';
-import { CombinedState } from 'redux';
 import type { CommandHandler as CommandHandler_2 } from '@itwin/appui-abstract';
 import { CommandItemDef as CommandItemDef_2 } from '../shared/CommandItemDef.js';
 import type { CommonBackstageItem as CommonBackstageItem_2 } from '@itwin/appui-abstract';
@@ -48,6 +48,7 @@ import { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { GroupButton } from '@itwin/appui-abstract';
+import { IconButton } from '@itwin/itwinui-react';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
 import type { Id64String } from '@itwin/core-bentley';
@@ -1715,7 +1716,7 @@ export interface EmphasizeElementsChangedArgs {
 // @beta
 export class ExpandableSection extends React_2.PureComponent<ExpandableSectionProps, ExpandableSectionState> {
     constructor(props: ExpandableSectionProps);
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: Readonly<ExpandableSectionProps>): Promise<void>;
     render(): React_2.JSX.Element;
 }
@@ -2063,10 +2064,13 @@ export interface FrameworkKeyboardShortcuts {
 }
 
 // @public @deprecated
-export const FrameworkReducer: Reducer_2<CombinedState<    {
+export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
+sessionState: DeepReadonlyObject_2<SessionState>;
+}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
+configurableUiState: never;
 sessionState: never;
-}>, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2>;
+}>>;
 
 // @beta @deprecated
 export interface FrameworkRootState {
@@ -3183,6 +3187,9 @@ export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
     render(): React_2.JSX.Element;
 }
 
+// @public
+export function ModalFrontstageButton(props: ModalFrontstageButtonProps): React_2.JSX.Element;
+
 // @public @deprecated
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {
 }
@@ -3209,6 +3216,7 @@ export interface ModalFrontstageClosedEventArgs {
 export interface ModalFrontstageInfo {
     // (undocumented)
     appBarRight?: React.ReactNode;
+    backButton?: React.ReactNode;
     // (undocumented)
     content: React.ReactNode;
     // @alpha
@@ -3220,6 +3228,7 @@ export interface ModalFrontstageInfo {
 // @public
 export interface ModalFrontstageProps extends CommonProps {
     appBarRight?: React_2.ReactNode;
+    backButton?: React_2.ReactNode;
     children?: React_2.ReactNode;
     closeModal: () => any;
     isOpen?: boolean;
@@ -3669,30 +3678,14 @@ export class ReducerRegistry {
 export const ReducerRegistryInstance: ReducerRegistry;
 
 // @public
-export class RestoreAllFrontstagesTool extends Tool {
-    // (undocumented)
-    static iconSpec: string;
-    // (undocumented)
-    run(): Promise<boolean>;
-    // (undocumented)
-    static toolId: string;
-}
+export const RestoreAllFrontstagesTool: typeof RestoreAllFrontstagesCoreTool & {
+    iconElement: React_2.ReactElement;
+};
 
 // @public
-export class RestoreFrontstageLayoutTool extends Tool {
-    // (undocumented)
-    static iconSpec: string;
-    // (undocumented)
-    static get maxArgs(): number;
-    // (undocumented)
-    static get minArgs(): number;
-    // (undocumented)
-    parseAndRun(...args: string[]): Promise<boolean>;
-    // (undocumented)
-    run(frontstageId?: string): Promise<boolean>;
-    // (undocumented)
-    static toolId: string;
-}
+export const RestoreFrontstageLayoutTool: typeof RestoreFrontstageLayoutCoreTool & {
+    iconElement: React_2.ReactElement;
+};
 
 // @public
 export const SafeAreaContext: React_2.Context<SafeAreaInsets | undefined>;
@@ -5082,7 +5075,7 @@ export class UiFramework {
     static hideToolbar(): boolean;
     static initialize(): Promise<void>;
     // @deprecated
-    static initialize(store: Store<any> | undefined, frameworkStateKey?: string): Promise<void>;
+    static initialize(store: Store<any, AnyAction> | undefined, frameworkStateKey?: string): Promise<void>;
     static get initialized(): boolean;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
@@ -5429,7 +5422,7 @@ export class ViewSelector extends React_2.Component<ViewSelectorProps, ViewSelec
     constructor(props: ViewSelectorProps);
     // (undocumented)
     componentDidMount(): Promise<void>;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(prevProps: ViewSelectorProps): Promise<void>;
     // (undocumented)
     componentWillUnmount(): void;

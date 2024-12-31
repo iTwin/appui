@@ -12,4 +12,10 @@ module.exports = [
       ...prettierConfig.rules,
     },
   },
+  {
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "@typescript-eslint/no-non-null-assertion": "off",
+    },
+  },
 ];

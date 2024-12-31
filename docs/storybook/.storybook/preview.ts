@@ -31,6 +31,7 @@ const preview: Preview = {
     options: {
       storySort: {
         order: [
+          "Introduction",
           "Components",
           "Frontstage",
           "Widget",
