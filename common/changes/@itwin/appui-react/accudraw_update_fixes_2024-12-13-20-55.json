@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Accudraw input fields are now focused when the accudraw input field container becomes visible and when the compass mode changes. Fix : The focus does not change between X or Y when in polar mode. Now only updating input fields value when their state is dynamic. Made rectangular inputs color standard to iTwinUI. We can enter letters in the Bearing angle input field. Bearing angle input field automatically adds special characters to facilitate entering bearing angles. Removed the delay after typing in the input field, the visual update should be immediate. The Focus is now trapped in Accudraw input fields, when doing Tab. To focus out of these fields, the user must press Escape. Escape now unlocks all fields.     ",
+      "comment": "Fixed some AccuDraw behaviours that where working incorrectly, like input highlight, focus and update. Improved typing Bearing angles.",
       "type": "none"
     }
   ],

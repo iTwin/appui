@@ -13,6 +13,19 @@
 
 - Specified additional version ranges in redux related peer dependencies. `redux` version is updated from `^4.1.0` to `^4.1.0 || ^5.0.0` and `react-redux` version is updated from `^7.2.2` to `^7.2.2 || ^8.0.0 || ^9.0.0`. This enables consumers to utilize latest redux capabilities. See [redux release v5.0.0](https://github.com/reduxjs/redux/releases/tag/v5.0.0) for migration tips. [#1151](https://github.com/iTwin/appui/pull/1151)
 
+### AccuDraw Fixes
+
+- When moving the mouse, the focus change between X or Y, in rectangular mode only.
+- Removed the delay after typing in the input field, so the visual update is immediate.
+- Input fields are automatically focused when the AccuDrawFieldContainer appears and the the compass mode changes.
+
+### AccuDraw Additions
+
+- Rectangular inputs no longer have colors.
+- We can enter letters in the Bearing angle input field. `N, S, E, W` for North, South, East and West.
+- Bearing angle input field automatically adds special characters `° ' "` to facilitate entering bearing angles.
+- The Focus is now trapped in Accudraw input fields. To focus out of these fields, the user must press Escape.
+
 ## @itwin/components-react
 
 ### Additions

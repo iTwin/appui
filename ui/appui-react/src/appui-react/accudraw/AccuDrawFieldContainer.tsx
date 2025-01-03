@@ -154,13 +154,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     [getInputToFocus]
   );
 
-  React.useEffect(()=>{
-    // Set the focus to the first input field when the component is mounted and when the compass mode changes.
-    const itemToFocus = mode === CompassMode.Polar ? ItemField.DIST_Item : ItemField.X_Item;
-    IModelApp.accuDraw.setFocusItem(itemToFocus);
-    setFocusToField(itemToFocus);
-  },[mode, setFocusToField, getInputToFocus]);
-
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
       switch (args.field) {
@@ -212,28 +205,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     },
     []
   );
-
-  const focusNextField = React.useCallback((field: ItemField) => {
-    switch (field) {
-      case ItemField.X_Item:
-        IModelApp.accuDraw.setFocusItem(ItemField.Y_Item);
-        break;
-      case ItemField.Y_Item:
-        showZ ?
-          IModelApp.accuDraw.setFocusItem(ItemField.Z_Item) :
-          IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-        break;
-      case ItemField.Z_Item:
-        IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-        break;
-      case ItemField.ANGLE_Item:
-        IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item);
-        break;
-      case ItemField.DIST_Item:
-        IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
-        break;
-    }
-  }, [showZ]);
 
   const handleEscPressed = React.useCallback(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
@@ -358,7 +329,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.X_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={focusNextField}
+            onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.Y_Item)}
           />
           <AccuDrawInputField
             ref={yInputRef}
@@ -376,7 +347,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.Y_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={focusNextField}
+            onTabPressed={() => showZ ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item) : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)}
           />
           {showZ && (
             <AccuDrawInputField
@@ -395,7 +366,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
                 handleValueChanged(ItemField.Z_Item, stringValue)
               }
               onEscPressed={handleEscPressed}
-              onTabPressed={focusNextField}
+              onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.X_Item)}
             />
           )}
         </>
@@ -417,7 +388,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.DIST_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={focusNextField}
+            onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item)}
           />
           <AccuDrawInputField
             ref={angleInputRef}
@@ -435,7 +406,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.ANGLE_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={focusNextField}
+            onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)}
           />
         </>
       )}
