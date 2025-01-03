@@ -96,15 +96,19 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const [isFocusField, setIsFocusField] = React.useState(false);
   const inputElementRef = React.useRef<HTMLInputElement | null>(null);
   const refs = useRefs((instance: HTMLInputElement | null) => {
-    if(instance !== null && (field === ItemField.DIST_Item || field === ItemField.X_Item)){
+    if (
+      instance !== null &&
+      (field === ItemField.DIST_Item || field === ItemField.X_Item)
+    ) {
       // Focus the X or Distance input when it's mounted. This also happens when the compass mode changes.
-      instance.focus()
-      instance.select()
+      instance.focus();
+      instance.select();
     }
     inputElementRef.current = instance;
   }, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 
-  const allowBearingLettersInAccuDrawInputFields = useAllowBearingLettersInAccuDrawInputFields();
+  const allowBearingLettersInAccuDrawInputFields =
+    useAllowBearingLettersInAccuDrawInputFields();
 
   React.useEffect(() => {
     const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(field);
@@ -118,19 +122,17 @@ const ForwardRefAccuDrawInput = React.forwardRef<
       if (value === undefined) return;
 
       if (stringValue !== value) {
-        if(isBearingAngle){
+        if (isBearingAngle) {
           // Parsing bearing only works properly when parsing UpperCase letters. Ex : S45°00'00"E <- ok, s45°00'00"e <- doesnt work.
           value = value.toUpperCase();
-          if(value.length > stringValue.length){
+          if (value.length > stringValue.length) {
             // Automatically add Bearing special characters to help users type the angle. Ex: S45°00'00"E (degrees `°`, minutes `'`, seconds `"`)
-            if(value.length === 3 && value[2] !== "°"){
+            if (value.length === 3 && value[2] !== "°") {
               value += "°";
-            }
-            else if(value.length === 6 && value[5] !== "'"){
+            } else if (value.length === 6 && value[5] !== "'") {
               value += "'";
-            }
-            else if(value.length === 9 && value[8] !== "\""){
-              value += "\"";
+            } else if (value.length === 9 && value[8] !== '"') {
+              value += '"';
             }
           }
         }
@@ -161,9 +163,9 @@ const ForwardRefAccuDrawInput = React.forwardRef<
       }
 
       if (isLetter(e.key)) {
-        if(isBearingAngle && allowBearingLettersInAccuDrawInputFields){
-          const bearingReservedKeys = ['n', 's', 'e', 'w', 'N', 'S', 'E', 'W'];
-          if(bearingReservedKeys.includes(e.key)){
+        if (isBearingAngle && allowBearingLettersInAccuDrawInputFields) {
+          const bearingReservedKeys = ["n", "s", "e", "w", "N", "S", "E", "W"];
+          if (bearingReservedKeys.includes(e.key)) {
             return; // The letter is displayed in the Bearing input field.
           }
         }
@@ -176,7 +178,13 @@ const ForwardRefAccuDrawInput = React.forwardRef<
         );
       }
     },
-    [onEscPressed, onEnterPressed, onTabPressed, isBearingAngle, allowBearingLettersInAccuDrawInputFields]
+    [
+      onEscPressed,
+      onEnterPressed,
+      onTabPressed,
+      isBearingAngle,
+      allowBearingLettersInAccuDrawInputFields,
+    ]
   );
 
   React.useEffect(() => {

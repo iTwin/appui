@@ -329,7 +329,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.X_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.Y_Item)}
+            onTabPressed={() =>
+              IModelApp.accuDraw.setFocusItem(ItemField.Y_Item)
+            }
           />
           <AccuDrawInputField
             ref={yInputRef}
@@ -347,7 +349,11 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.Y_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={() => showZ ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item) : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)}
+            onTabPressed={() =>
+              showZ
+                ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item)
+                : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
+            }
           />
           {showZ && (
             <AccuDrawInputField
@@ -366,7 +372,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
                 handleValueChanged(ItemField.Z_Item, stringValue)
               }
               onEscPressed={handleEscPressed}
-              onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.X_Item)}
+              onTabPressed={() =>
+                IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
+              }
             />
           )}
         </>
@@ -388,7 +396,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.DIST_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item)}
+            onTabPressed={() =>
+              IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item)
+            }
           />
           <AccuDrawInputField
             ref={angleInputRef}
@@ -406,7 +416,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.ANGLE_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={()=>IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)}
+            onTabPressed={() =>
+              IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
+            }
           />
         </>
       )}
