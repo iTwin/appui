@@ -155,6 +155,27 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   );
 
   React.useEffect(() => {
+    // Set the focus to the first input field when the component is mounted and when the compass mode changes.
+    const itemToFocus =
+      mode === CompassMode.Polar ? ItemField.DIST_Item : ItemField.X_Item;
+    IModelApp.accuDraw.setFocusItem(itemToFocus);
+    setFocusToField(itemToFocus);
+
+    const timeoutId = setTimeout(() => {
+      // Timeout to force an highlight on the field.
+      const inputToFocus =
+        mode === CompassMode.Rectangular
+          ? getFieldInput(ItemField.X_Item)
+          : getFieldInput(ItemField.DIST_Item);
+      inputToFocus && inputToFocus.focus();
+      inputToFocus && inputToFocus.select();
+    }, 1);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [mode, setFocusToField]);
+
+  React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
       switch (args.field) {
         case ItemField.X_Item:

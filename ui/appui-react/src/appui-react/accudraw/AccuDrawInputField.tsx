@@ -10,7 +10,7 @@ import "./AccuDrawInputField.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { ItemField } from "@itwin/core-frontend";
+import type { ItemField } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react/internal";
@@ -95,17 +95,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const [needSelection, setNeedSelection] = React.useState(false);
   const [isFocusField, setIsFocusField] = React.useState(false);
   const inputElementRef = React.useRef<HTMLInputElement | null>(null);
-  const refs = useRefs((instance: HTMLInputElement | null) => {
-    if (
-      instance !== null &&
-      (field === ItemField.DIST_Item || field === ItemField.X_Item)
-    ) {
-      // Focus the X or Distance input when it's mounted. This also happens when the compass mode changes.
-      instance.focus();
-      instance.select();
-    }
-    inputElementRef.current = instance;
-  }, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
+  const refs = useRefs(inputElementRef, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 
   const allowBearingLettersInAccuDrawInputFields =
     useAllowBearingLettersInAccuDrawInputFields();
