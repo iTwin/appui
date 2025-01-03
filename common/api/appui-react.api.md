@@ -48,6 +48,7 @@ import { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { GroupButton } from '@itwin/appui-abstract';
+import { IconButton } from '@itwin/itwinui-react';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
 import type { Id64String } from '@itwin/core-bentley';
@@ -3184,6 +3185,9 @@ export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
     render(): React_2.JSX.Element;
 }
 
+// @public
+export function ModalFrontstageButton(props: ModalFrontstageButtonProps): React_2.JSX.Element;
+
 // @public @deprecated
 export class ModalFrontstageChangedEvent extends UiEvent<ModalFrontstageChangedEventArgs> {
 }
@@ -3210,6 +3214,7 @@ export interface ModalFrontstageClosedEventArgs {
 export interface ModalFrontstageInfo {
     // (undocumented)
     appBarRight?: React.ReactNode;
+    backButton?: React.ReactNode;
     // (undocumented)
     content: React.ReactNode;
     // @alpha
@@ -3221,6 +3226,7 @@ export interface ModalFrontstageInfo {
 // @public
 export interface ModalFrontstageProps extends CommonProps {
     appBarRight?: React_2.ReactNode;
+    backButton?: React_2.ReactNode;
     children?: React_2.ReactNode;
     closeModal: () => any;
     isOpen?: boolean;

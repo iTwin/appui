@@ -1,6 +1,49 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Wed, 09 Oct 2024 10:50:47 GMT and should not be manually modified.
+This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+
+## 5.0.0
+Mon, 16 Dec 2024 11:43:27 GMT
+
+### Updates
+
+- Drop support for CommonJS modules.
+- Drop support for iTwin.js 3.x.
+- Drop support for React 17.x.
+- Remove a polyfill for ResizeObserver since the API is supported in modern browsers.
+- Remove `@internal` API exports from the barrel file.
+- Move @itwin/itwinui-react to peerDependencies.
+- Provide file extension in import declarations.
+- Add `exports` field to `package.json`.
+- Replaced SCSS `@import` rules with `@use` rules.
+- Replace buic variables with iTwinUI CSS variables.
+
+## 4.17.6
+Wed, 20 Nov 2024 14:27:46 GMT
+
+_Version update only_
+
+## 4.17.5
+Thu, 14 Nov 2024 08:22:04 GMT
+
+_Version update only_
+
+## 4.17.4
+Fri, 08 Nov 2024 14:41:23 GMT
+
+_Version update only_
+
+## 4.17.3
+Wed, 06 Nov 2024 09:04:20 GMT
+
+### Updates
+
+- Fix Popup to adjust final position based on container size instead of window size.
+
+## 4.17.2
+Wed, 30 Oct 2024 14:46:15 GMT
+
+_Version update only_
 
 ## 4.17.1
 Wed, 09 Oct 2024 10:50:47 GMT
@@ -1882,4 +1925,3 @@ Fri, 12 Oct 2018 23:00:10 GMT
 ### Updates
 
 - Initial release
-
