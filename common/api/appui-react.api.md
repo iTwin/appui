@@ -216,7 +216,7 @@ export interface AccuDrawInputFieldProps extends CommonProps {
     labelStyle?: React_2.CSSProperties;
     onEnterPressed?: () => void;
     onEscPressed?: () => void;
-    onTabPressed?: (field: ItemField) => void;
+    onTabPressed?: () => void;
     onValueChanged: (stringValue: string) => void;
     ref?: React_2.Ref<HTMLInputElement>;
 }
@@ -2069,7 +2069,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
 sessionState: DeepReadonlyObject_2<SessionState>;
-}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
+}, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2, Partial<{
 configurableUiState: never;
 sessionState: never;
 }>>;
@@ -5353,7 +5353,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "popout" | "floating" | "docked";
+    widgetLocation: "docked" | "floating" | "popout";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
