@@ -19,6 +19,7 @@ import { useActiveToolId } from "../hooks/useActiveToolId.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { Text } from "@itwin/itwinui-react";
 import { DockedBar } from "./DockedBar.js";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -65,15 +66,18 @@ export function ToolSettingsDockedContent() {
   const activeToolId = useActiveToolId();
   const toolSettingEntries = useHorizontalToolSettingEntries();
   const forceRefreshKey = useRefreshKey(toolSettingEntries);
+  const frontstageDef = useActiveFrontstageDef();
 
   const emptySettings = React.useMemo<ToolSettingsEntry[]>(
     () => [
       {
         editorNode: null,
-        labelNode: <EmptyToolSettingsLabel toolId={activeToolId} />,
+        labelNode: frontstageDef?.activeToolEmptyNode ?? (
+          <EmptyToolSettingsLabel toolId={activeToolId} />
+        ),
       },
     ],
-    [activeToolId]
+    [activeToolId, frontstageDef]
   );
   const entries =
     !toolSettingEntries || toolSettingEntries.length === 0
@@ -173,6 +177,7 @@ export function ToolSettingsWidgetContent() {
   const node = useToolSettingsNode();
   const activeToolId = useActiveToolId();
   const forceRefreshKey = useRefreshKey(node);
+  const frontstageDef = useActiveFrontstageDef();
 
   const providerId =
     InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none";
@@ -184,7 +189,9 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        {node ?? <EmptyToolSettingsLabel toolId={activeToolId} />}
+        {node ?? frontstageDef?.activeToolEmptyNode ?? (
+          <EmptyToolSettingsLabel toolId={activeToolId} />
+        )}
       </ScrollableWidgetContent>
     </div>
   );
