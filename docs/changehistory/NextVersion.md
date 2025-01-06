@@ -1,20 +1,18 @@
 # NextVersion <!-- omit from toc -->
 
 - [@itwin/appui-react](#itwinappui-react)
-  - [AccuDraw Fixes](#accudraw-fixes)
-  - [AccuDraw Additions](#accudraw-additions)
+  - [Changes](#changes)
 
 ## @itwin/appui-react
 
-### AccuDraw Fixes
+### Changes
 
-- When moving the mouse, the focus change between X or Y, in rectangular mode only.
-- Removed the delay after typing in the input field, so the visual update is immediate.
-- Input fields are automatically focused when the AccuDrawFieldContainer appears and the the compass mode changes.
-
-### AccuDraw Additions
-
-- Rectangular inputs no longer have colors.
-- We can enter letters in the Bearing angle input field. `N, S, E, W` for North, South, East and West.
-- Bearing angle input field automatically adds special characters `° ' "` to facilitate entering bearing angles.
-- The Focus is now trapped in Accudraw input fields. To focus out of these fields, the user must press Escape.
+- AccuDraw interaction changes. [#1157](https://github.com/iTwin/appui/pull/1157)
+  - When moving the mouse, the focus changes between `X` and `Y` input fields, in rectangular mode only.
+  - Removed the delay after typing in the input field, so the visual update is immediate.
+  - The first input field is automatically focused when the `AccuDrawFieldContainer` appears.
+  - The first input field is automatically focused when the compass mode is changed.
+  - Removed colors from rectangular inputs.
+  - `N`, `S`, `E`, `W` letters, which correspond to North, South, East, and West, can be entered in the bearing angle input field.
+  - The bearing angle input field automatically adds special characters `°`, `'`, and `"` to facilitate entering the bearing angle.
+  - The focus is now trapped in AccuDraw input fields. To focus out of these fields, the end user can press the `Escape` key.
