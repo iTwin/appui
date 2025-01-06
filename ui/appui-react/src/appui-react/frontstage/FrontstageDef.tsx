@@ -117,6 +117,7 @@ export class FrontstageDef {
   public get toolSettings(): WidgetDef | undefined {
     return this._toolSettings;
   }
+  /** @internal */
   public get activeToolEmptyNode(): React.ReactNode | undefined {
     return this._activeToolEmptyNode;
   }
