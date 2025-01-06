@@ -2234,7 +2234,7 @@ export interface FrontstageDeactivatedEventArgs {
 
 // @public
 export class FrontstageDef {
-    // (undocumented)
+    // @internal (undocumented)
     get activeToolEmptyNode(): React_2.ReactNode | undefined;
     // @deprecated (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
@@ -3836,7 +3836,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
 };
 
 // @beta @deprecated
@@ -3874,7 +3874,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
 };
 
 // @public @deprecated
@@ -5355,7 +5355,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "docked" | "popout" | "floating";
+    widgetLocation: "docked" | "floating" | "popout";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
