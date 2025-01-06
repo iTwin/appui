@@ -2069,7 +2069,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
 sessionState: DeepReadonlyObject_2<SessionState>;
-}, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2, Partial<{
+}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
 configurableUiState: never;
 sessionState: never;
 }>>;
@@ -5353,7 +5353,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "docked" | "floating" | "popout";
+    widgetLocation: "docked" | "popout" | "floating";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
