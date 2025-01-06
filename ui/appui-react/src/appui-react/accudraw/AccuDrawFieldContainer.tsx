@@ -160,15 +160,15 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
       mode === CompassMode.Polar ? ItemField.DIST_Item : ItemField.X_Item;
     IModelApp.accuDraw.setFocusItem(itemToFocus);
     setFocusToField(itemToFocus);
-
+    const inputToFocus =
+      mode === CompassMode.Rectangular
+        ? getFieldInput(ItemField.X_Item)
+        : getFieldInput(ItemField.DIST_Item);
+    if (!inputToFocus) return;
     const timeoutId = setTimeout(() => {
       // Timeout to force an highlight on the field.
-      const inputToFocus =
-        mode === CompassMode.Rectangular
-          ? getFieldInput(ItemField.X_Item)
-          : getFieldInput(ItemField.DIST_Item);
-      inputToFocus && inputToFocus.focus();
-      inputToFocus && inputToFocus.select();
+      inputToFocus.focus();
+      inputToFocus.select();
     }, 1);
     return () => {
       clearTimeout(timeoutId);
