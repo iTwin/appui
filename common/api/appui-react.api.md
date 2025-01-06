@@ -2212,7 +2212,9 @@ export interface FrontstageConfig extends CommonProps {
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
     readonly statusBar?: WidgetConfig;
-    readonly toolSettings?: WidgetConfig;
+    readonly toolSettings?: WidgetConfig & {
+        activeToolEmptyNode?: React.ReactNode;
+    };
     readonly topPanel?: StagePanelConfig;
     readonly usage?: string;
     readonly version: number;
@@ -2234,6 +2236,8 @@ export interface FrontstageDeactivatedEventArgs {
 
 // @public
 export class FrontstageDef {
+    // @internal (undocumented)
+    get activeToolEmptyNode(): React_2.ReactNode | undefined;
     // @deprecated (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
     // @internal
