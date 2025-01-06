@@ -5355,7 +5355,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "docked" | "floating" | "popout";
+    widgetLocation: "docked" | "popout" | "floating";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
