@@ -113,7 +113,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
 
       if (stringValue !== value) {
         if (isBearingAngle) {
-          // Parsing bearing only works properly when parsing UpperCase letters. Ex : S45°00'00"E <- ok, s45°00'00"e <- doesnt work.
+          // Parsing bearing only works properly when parsing UpperCase letters. Ex : S45°00'00"E <- ok, s45°00'00"e <- doesn't work.
           value = value.toUpperCase();
           if (value.length > stringValue.length) {
             // Automatically add Bearing special characters to help users type the angle. Ex: S45°00'00"E (degrees `°`, minutes `'`, seconds `"`)

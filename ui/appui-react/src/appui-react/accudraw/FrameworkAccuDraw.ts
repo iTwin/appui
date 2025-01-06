@@ -331,7 +331,7 @@ export class FrameworkAccuDraw
 
     if (!this.dontMoveFocus && this.compassMode === CompassMode.Rectangular) {
       // Changes the focus between X and Y axis depending on the cursor location, in rectangular mode.
-      // Example : this.newfocus is Y when the cursor is closer to the Y axis.
+      // Example : this.newFocus is Y when the cursor is closer to the Y axis.
       this.setFocusItem(this.newFocus);
     }
   }
