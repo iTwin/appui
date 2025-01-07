@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "5.1.0-dev.0",
+  "version": "5.1.0-dev.1",
   "description": "A react component library of iTwin.js UI data-oriented components",
   "type": "module",
   "types": "./lib/components-react.d.ts",
@@ -56,7 +56,7 @@
   "peerDependencies": {
     "@itwin/appui-abstract": "^4.0.0",
     "@itwin/core-bentley": "^4.0.0",
-    "@itwin/core-react": "workspace:^5.1.0-dev.0",
+    "@itwin/core-react": "workspace:^5.1.0-dev.1",
     "@itwin/itwinui-react": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
