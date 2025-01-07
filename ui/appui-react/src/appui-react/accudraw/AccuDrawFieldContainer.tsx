@@ -22,7 +22,6 @@ import angleIconSvg from "./angle.svg";
 import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
-import { useEnableColorlessAccuDrawInputFields } from "../preview/enable-colorless-accudraw-input-fields/useEnableColorlessAccuDrawInputFields.js";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @public
@@ -36,6 +35,8 @@ export interface AccuDrawFieldContainerProps extends CommonProps {
   uiSettingsStorage?: UiStateStorage;
   /** @internal */
   showZOverride?: boolean;
+  /** Indicates whether the field is displaying a bearing angles. */
+  isBearingAngle?: boolean;
 }
 
 let AccuDrawContainerIndex = 0;
@@ -60,6 +61,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     orientation,
     uiSettingsStorage,
     showZOverride,
+    isBearingAngle = false,
     ...otherProps
   } = props;
 
@@ -71,8 +73,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const distanceInputRef = React.useRef<HTMLInputElement>(null);
   const focusField = React.useRef<ItemField | undefined>(undefined);
   const [mode, setMode] = React.useState(() => IModelApp.accuDraw.compassMode);
-  const enableColorlessAccuDrawInputFields =
-    useEnableColorlessAccuDrawInputFields();
   const [xLock, setXLock] = React.useState(() =>
     IModelApp.accuDraw.getFieldLock(ItemField.X_Item)
   );
@@ -153,6 +153,27 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     },
     [getInputToFocus]
   );
+
+  React.useEffect(() => {
+    // Set the focus to the first input field when the component is mounted and when the compass mode changes.
+    const itemToFocus =
+      mode === CompassMode.Polar ? ItemField.DIST_Item : ItemField.X_Item;
+    IModelApp.accuDraw.setFocusItem(itemToFocus);
+    setFocusToField(itemToFocus);
+    const inputToFocus =
+      mode === CompassMode.Rectangular
+        ? getFieldInput(ItemField.X_Item)
+        : getFieldInput(ItemField.DIST_Item);
+    if (!inputToFocus) return;
+    const timeoutId = setTimeout(() => {
+      // Timeout to force an highlight on the field.
+      inputToFocus.focus();
+      inputToFocus.select();
+    }, 1);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [mode, setFocusToField]);
 
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldLockEvent.addListener((args) => {
@@ -301,7 +322,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     className
   );
 
-  const delay = 250;
   const labelCentered =
     xLabel !== undefined &&
     xLabel.length === 1 &&
@@ -317,11 +337,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           <AccuDrawInputField
             ref={xInputRef}
             isLocked={xLock}
-            className={
-              enableColorlessAccuDrawInputFields
-                ? undefined
-                : "uifw-accudraw-x-value"
-            }
             style={xStyle}
             field={ItemField.X_Item}
             id={`uifw-accudraw-x-${containerIndex}`}
@@ -331,20 +346,17 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             iconSpec={uiSettings?.xIcon}
             icon={uiSettings?.xIconNode}
             labelCentered={labelCentered}
-            valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.X_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
+            onTabPressed={() =>
+              IModelApp.accuDraw.setFocusItem(ItemField.Y_Item)
+            }
           />
           <AccuDrawInputField
             ref={yInputRef}
             isLocked={yLock}
-            className={
-              enableColorlessAccuDrawInputFields
-                ? undefined
-                : "uifw-accudraw-y-value"
-            }
             style={yStyle}
             field={ItemField.Y_Item}
             id={`uifw-accudraw-y-${containerIndex}`}
@@ -354,21 +366,20 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             iconSpec={uiSettings?.yIcon}
             icon={uiSettings?.yIconNode}
             labelCentered={labelCentered}
-            valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.Y_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
+            onTabPressed={() =>
+              showZ
+                ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item)
+                : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
+            }
           />
           {showZ && (
             <AccuDrawInputField
               ref={zInputRef}
               isLocked={zLock}
-              className={
-                enableColorlessAccuDrawInputFields
-                  ? undefined
-                  : "uifw-accudraw-z-value"
-              }
               style={zStyle}
               field={ItemField.Z_Item}
               id={`uifw-accudraw-z-${containerIndex}`}
@@ -378,11 +389,13 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               iconSpec={uiSettings?.zIcon}
               icon={uiSettings?.zIconNode}
               labelCentered={labelCentered}
-              valueChangedDelay={delay}
               onValueChanged={(stringValue) =>
                 handleValueChanged(ItemField.Z_Item, stringValue)
               }
               onEscPressed={handleEscPressed}
+              onTabPressed={() =>
+                IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
+              }
             />
           )}
         </>
@@ -392,7 +405,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
           <AccuDrawInputField
             ref={distanceInputRef}
             isLocked={distanceLock}
-            className="uifw-accudraw-distance-value"
             style={distanceStyle}
             field={ItemField.DIST_Item}
             id={`uifw-accudraw-distance-${containerIndex}`}
@@ -401,16 +413,18 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             // eslint-disable-next-line @typescript-eslint/no-deprecated
             iconSpec={uiSettings?.distanceIcon ?? distanceIconSvg}
             icon={uiSettings?.distanceIconNode}
-            valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.DIST_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
+            onTabPressed={() =>
+              IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item)
+            }
           />
           <AccuDrawInputField
             ref={angleInputRef}
             isLocked={angleLock}
-            className="uifw-accudraw-angle-value"
+            isBearingAngle={isBearingAngle}
             style={angleStyle}
             field={ItemField.ANGLE_Item}
             id={`uifw-accudraw-angle-${containerIndex}`}
@@ -419,11 +433,13 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             // eslint-disable-next-line @typescript-eslint/no-deprecated
             iconSpec={uiSettings?.angleIcon ?? angleIconSvg}
             icon={uiSettings?.angleIconNode}
-            valueChangedDelay={delay}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.ANGLE_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
+            onTabPressed={() =>
+              IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
+            }
           />
         </>
       )}

@@ -307,6 +307,7 @@ export class FrameworkAccuDraw
   }
 
   private fieldValuesChanged(): void {
+    // Only change the value when in Dynamic mode. Other mode are "DontUpdate" when the input is locked and "Partial" when the user is typing.
     this.onFieldValueChange(ItemField.X_Item);
     this.onFieldValueChange(ItemField.Y_Item);
     this.onFieldValueChange(ItemField.Z_Item);
@@ -328,7 +329,11 @@ export class FrameworkAccuDraw
 
     this.fieldValuesChanged();
 
-    if (!this.dontMoveFocus) this.setFocusItem(this.newFocus);
+    if (!this.dontMoveFocus && this.compassMode === CompassMode.Rectangular) {
+      // Changes the focus between X and Y axis depending on the cursor location, in rectangular mode.
+      // Example : this.newFocus is Y when the cursor is closer to the Y axis.
+      this.setFocusItem(this.newFocus);
+    }
   }
 
   /** Determine if the AccuDraw UI has focus. */

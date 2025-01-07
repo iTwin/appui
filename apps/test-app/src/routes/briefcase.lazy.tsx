@@ -10,6 +10,7 @@ import {
   useSyncFrontstageParam,
 } from "../frontend/SearchParams";
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { useEditorToolSettings } from "../frontend/appui/useEditorToolSettings";
 
 export const Route = createLazyFileRoute("/briefcase")({
   component: Local,
@@ -17,6 +18,7 @@ export const Route = createLazyFileRoute("/briefcase")({
 
 function Local() {
   useSyncFrontstageParam();
+  useEditorToolSettings();
   const featureOverrides = useFeatureOverrideParams();
   return (
     <PageLayout.Content>

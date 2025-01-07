@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed some AccuDraw behaviors that where working incorrectly, like input highlight, focus and update. Improved typing Bearing angles.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
