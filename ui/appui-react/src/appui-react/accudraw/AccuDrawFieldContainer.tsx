@@ -202,14 +202,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
       async (args) => {
         if (focusField.current) {
-          // eslint-disable-next-line no-console
-          console.log(
-            `AccuDrawShortcuts.itemFieldAcceptInput(focusField.current, IModelApp.accuDraw.getFormattedValueByIndex(focusField.current)) ${
-              focusField.current
-            } : ${IModelApp.accuDraw.getFormattedValueByIndex(
-              focusField.current
-            )}`
-          );
           await AccuDrawShortcuts.itemFieldAcceptInput(
             focusField.current,
             IModelApp.accuDraw.getFormattedValueByIndex(focusField.current)

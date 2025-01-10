@@ -112,11 +112,6 @@ const ForwardRefAccuDrawInput = React.forwardRef<
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       let value = event.currentTarget.value;
-
-      // eslint-disable-next-line no-console
-      console.log(
-        `AccuDrawShortcuts.itemFieldNewInput(field : ${field}) called;`
-      );
       AccuDrawShortcuts.itemFieldNewInput(field);
 
       if (value === undefined) return;
