@@ -12,7 +12,12 @@ import * as React from "react";
 import { Orientation } from "@itwin/components-react";
 import type { ColorDef } from "@itwin/core-common";
 import type { ScreenViewport } from "@itwin/core-frontend";
-import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
+import {
+  AccuDrawShortcuts,
+  CompassMode,
+  IModelApp,
+  ItemField,
+} from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react/internal";
 import { AccuDrawInputField } from "./AccuDrawInputField.js";
@@ -156,14 +161,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 
   React.useEffect(() => {
     // Set the focus to the first input field when the component is mounted and when the compass mode changes.
-    const itemToFocus =
-      mode === CompassMode.Polar ? ItemField.DIST_Item : ItemField.X_Item;
+    const itemToFocus = IModelApp.accuDraw.defaultFocusItem();
     IModelApp.accuDraw.setFocusItem(itemToFocus);
     setFocusToField(itemToFocus);
-    const inputToFocus =
-      mode === CompassMode.Rectangular
-        ? getFieldInput(ItemField.X_Item)
-        : getFieldInput(ItemField.DIST_Item);
+    const inputToFocus = getFieldInput(itemToFocus);
     if (!inputToFocus) return;
     const timeoutId = setTimeout(() => {
       // Timeout to force an highlight on the field.
@@ -199,7 +200,21 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 
   React.useEffect(() => {
     return FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(
-      (args) => {
+      async (args) => {
+        if (focusField.current) {
+          // eslint-disable-next-line no-console
+          console.log(
+            `AccuDrawShortcuts.itemFieldAcceptInput(focusField.current, IModelApp.accuDraw.getFormattedValueByIndex(focusField.current)) ${
+              focusField.current
+            } : ${IModelApp.accuDraw.getFormattedValueByIndex(
+              focusField.current
+            )}`
+          );
+          await AccuDrawShortcuts.itemFieldAcceptInput(
+            focusField.current,
+            IModelApp.accuDraw.getFormattedValueByIndex(focusField.current)
+          );
+        }
         focusField.current = args.field;
         setFocusToField(focusField.current);
       }
@@ -350,9 +365,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.X_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={() =>
-              IModelApp.accuDraw.setFocusItem(ItemField.Y_Item)
-            }
+            onTabPressed={async () => {
+              await acceptInputValue(ItemField.X_Item);
+            }}
           />
           <AccuDrawInputField
             ref={yInputRef}
@@ -370,11 +385,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.Y_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={() =>
-              showZ
-                ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item)
-                : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
-            }
+            onTabPressed={async () => {
+              await acceptInputValue(ItemField.Y_Item);
+            }}
           />
           {showZ && (
             <AccuDrawInputField
@@ -393,9 +406,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
                 handleValueChanged(ItemField.Z_Item, stringValue)
               }
               onEscPressed={handleEscPressed}
-              onTabPressed={() =>
-                IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
-              }
+              onTabPressed={async () => {
+                await acceptInputValue(ItemField.Z_Item);
+              }}
             />
           )}
         </>
@@ -417,9 +430,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.DIST_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={() =>
-              IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item)
-            }
+            onTabPressed={async () => {
+              await acceptInputValue(ItemField.DIST_Item);
+            }}
           />
           <AccuDrawInputField
             ref={angleInputRef}
@@ -437,9 +450,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               handleValueChanged(ItemField.ANGLE_Item, stringValue)
             }
             onEscPressed={handleEscPressed}
-            onTabPressed={() =>
-              IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
-            }
+            onTabPressed={async () => {
+              await acceptInputValue(ItemField.ANGLE_Item);
+            }}
           />
         </>
       )}
@@ -450,4 +463,12 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 function getCurrent<T>(ref: React.RefObject<T>) {
   if (ref.current === null) return undefined;
   return ref.current;
+}
+
+/** Call this function whenever you want an accudraw input field to display the formatted value. It also automatically focuses the next field.*/
+async function acceptInputValue(itemField: ItemField) {
+  await AccuDrawShortcuts.itemFieldAcceptInput(
+    itemField,
+    IModelApp.accuDraw.getFormattedValueByIndex(itemField)
+  );
 }

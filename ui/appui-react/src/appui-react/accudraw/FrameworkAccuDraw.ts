@@ -7,15 +7,13 @@
  */
 
 import { BeUiEvent } from "@itwin/core-bentley";
-import type { BeButtonEvent } from "@itwin/core-frontend";
+import type { BeButtonEvent, ItemField } from "@itwin/core-frontend";
 import {
   AccuDraw,
   CompassMode,
   IModelApp,
-  ItemField,
   NotifyMessageDetails,
   OutputMessagePriority,
-  QuantityType,
   RotationMode,
 } from "@itwin/core-frontend";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
@@ -298,7 +296,7 @@ export class FrameworkAccuDraw
 
   public override onFieldValueChange(index: ItemField): void {
     const value = this.getValueByIndex(index);
-    const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(index);
+    const formattedValue = IModelApp.accuDraw.getFormattedValueByIndex(index);
     FrameworkAccuDraw.onAccuDrawSetFieldValueToUiEvent.emit({
       field: index,
       value,
@@ -306,34 +304,13 @@ export class FrameworkAccuDraw
     });
   }
 
-  private fieldValuesChanged(): void {
-    // Only change the value when in Dynamic mode. Other mode are "DontUpdate" when the input is locked and "Partial" when the user is typing.
-    this.onFieldValueChange(ItemField.X_Item);
-    this.onFieldValueChange(ItemField.Y_Item);
-    this.onFieldValueChange(ItemField.Z_Item);
-    this.onFieldValueChange(ItemField.ANGLE_Item);
-    this.onFieldValueChange(ItemField.DIST_Item);
-  }
-
   public override setFocusItem(index: ItemField): void {
     FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.emit({ field: index });
   }
 
-  /** Implemented by sub-classes to update ui fields to show current deltas or coordinates when inactive.
-   * Should also choose active x or y input field in rectangular mode based on cursor position when
-   * axis isn't locked to support "smart lock".
-   */
   public override onMotion(_ev: BeButtonEvent): void {
-    if (!this.isEnabled || this.isDeactivated || UiFramework.isContextMenuOpen)
-      return;
-
-    this.fieldValuesChanged();
-
-    if (!this.dontMoveFocus && this.compassMode === CompassMode.Rectangular) {
-      // Changes the focus between X and Y axis depending on the cursor location, in rectangular mode.
-      // Example : this.newFocus is Y when the cursor is closer to the Y axis.
-      this.setFocusItem(this.newFocus);
-    }
+    if (UiFramework.isContextMenuOpen) return;
+    this.processMotion();
   }
 
   /** Determine if the AccuDraw UI has focus. */
@@ -347,26 +324,6 @@ export class FrameworkAccuDraw
   /** Implement this method to set focus to the AccuDraw UI. */
   public override grabInputFocus(): void {
     FrameworkAccuDraw.onAccuDrawGrabInputFocusEvent.emit({});
-  }
-
-  /** Gets the display value for an AccuDraw field */
-  public static getFieldDisplayValue(index: ItemField): string {
-    const value = IModelApp.accuDraw.getValueByIndex(index);
-    let formattedValue = value.toString();
-
-    const formatterSpec =
-      IModelApp.quantityFormatter.findFormatterSpecByQuantityType(
-        ItemField.ANGLE_Item === index
-          ? QuantityType.Angle
-          : QuantityType.Length
-      );
-    if (formatterSpec)
-      formattedValue = IModelApp.quantityFormatter.formatQuantity(
-        value,
-        formatterSpec
-      );
-
-    return formattedValue;
   }
 
   /** AccuDraw Set Field Value from Ui. */

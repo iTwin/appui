@@ -10,7 +10,11 @@ import "./AccuDrawInputField.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { ItemField } from "@itwin/core-frontend";
+import {
+  AccuDrawShortcuts,
+  IModelApp,
+  type ItemField,
+} from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react/internal";
@@ -101,13 +105,19 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     useAllowBearingLettersInAccuDrawInputFields();
 
   React.useEffect(() => {
-    const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(field);
+    const formattedValue = IModelApp.accuDraw.getFormattedValueByIndex(field);
     setStringValue(formattedValue);
   }, [field]);
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
       let value = event.currentTarget.value;
+
+      // eslint-disable-next-line no-console
+      console.log(
+        `AccuDrawShortcuts.itemFieldNewInput(field : ${field}) called;`
+      );
+      AccuDrawShortcuts.itemFieldNewInput(field);
 
       if (value === undefined) return;
 
@@ -130,7 +140,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
         onValueChanged(value);
       }
     },
-    [stringValue, isBearingAngle, onValueChanged]
+    [stringValue, isBearingAngle, onValueChanged, field]
   );
 
   const handleKeyDown = React.useCallback(
