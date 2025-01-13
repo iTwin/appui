@@ -29,7 +29,7 @@ export interface EditorProps<TValue = Value> {
 
 /**
  * A type that makes a specific properties required in a type.
- * @beta
+ * @internal
  */
 export type RequiredProps<TProps, TKey extends keyof TProps> = Omit<
   TProps,

@@ -22,11 +22,7 @@ import {
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import {
-  CommittingEditor,
-  EditorContainer,
-  EditorInterop,
-} from "@itwin/components-react";
+import { PropertyRecordEditor } from "@itwin/components-react";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
@@ -207,7 +203,6 @@ function PropertyEditor({
 
 function EditorRenderer({
   propertyRecord,
-  setFocus,
   onCommit,
   onCancel,
 }: {
@@ -216,29 +211,9 @@ function EditorRenderer({
   onCommit: (commit: PropertyUpdatedArgs) => void;
   onCancel: () => void;
 }) {
-  const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
-  if (metadata && value) {
-    return (
-      <CommittingEditor
-        metadata={metadata}
-        value={value}
-        onCommit={(newValue) => {
-          onCommit({
-            propertyRecord,
-            newValue: EditorInterop.convertToPrimitiveValue(newValue),
-          });
-        }}
-        onCancel={onCancel}
-        disabled={propertyRecord.isReadonly || propertyRecord.isDisabled}
-        size="small"
-      />
-    );
-  }
-
   return (
-    <EditorContainer
+    <PropertyRecordEditor
       propertyRecord={propertyRecord}
-      setFocus={setFocus}
       onCommit={onCommit}
       onCancel={onCancel}
     />

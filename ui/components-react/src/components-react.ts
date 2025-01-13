@@ -92,8 +92,41 @@ export {
 } from "./components-react/datepicker/DatePickerPopupButton.js";
 export { IntlFormatter } from "./components-react/datepicker/IntlFormatter.js";
 
-export { EditorInterop } from "./components-react/newEditors/interop/EditorInterop.js";
-export * from "./components-react/newEditors/index.js";
+export { PropertyRecordEditor } from "./components-react/newEditors/interop/PropertyRecordEditor.js";
+export {
+  BooleanValue,
+  DateValue,
+  EnumValue,
+  InstanceKeyValue,
+  NumericValue,
+  TextValue,
+  Value,
+  isBooleanValue,
+  isDateValue,
+  isEnumValue,
+  isNumericValue,
+  isTextValue,
+} from "./components-react/newEditors/values/Values.js";
+export {
+  EnumChoice,
+  EnumValueMetadata,
+  ValueMetadata,
+  ValueType,
+} from "./components-react/newEditors/values/Metadata.js";
+export { EditorsRegistryProvider } from "./components-react/newEditors/editorsRegistry/EditorsRegistryProvider.js";
+export {
+  EditorProps,
+  EditorSpec,
+} from "./components-react/newEditors/Types.js";
+export { Editor } from "./components-react/newEditors/Editor.js";
+export { CommittingEditor } from "./components-react/newEditors/CommittingEditor.js";
+export { useBooleanEditorProps } from "./components-react/newEditors/editors/boolean/UseBooleanEditorProps.js";
+export { useDateEditorProps } from "./components-react/newEditors/editors/date/UseDateEditorProps.js";
+export { useEnumEditorProps } from "./components-react/newEditors/editors/enum/UseEnumEditorProps.js";
+export { useNumericEditorProps } from "./components-react/newEditors/editors/numeric/UseNumericEditorProps.js";
+export { FormattedNumericInput } from "./components-react/newEditors/editors/numeric/FormattedNumericInput.js";
+export { useTextEditorProps } from "./components-react/newEditors/editors/text/UseTextEditorProps.js";
+
 export {
   BooleanEditor,
   BooleanPropertyEditor,

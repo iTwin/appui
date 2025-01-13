@@ -26,9 +26,13 @@ import {
 } from "../values/Values.js";
 import type { OldEditorMetadata } from "./Metadata.js";
 
+/**
+ * Interop utilities for converting between old and new editor values.
+ * @internal
+ */
 export namespace EditorInterop {
   /**
-   *
+   * @internal
    */
   export function getMetadataAndValue(propertyRecord: PropertyRecord): {
     metadata: OldEditorMetadata | undefined;
@@ -126,7 +130,7 @@ export namespace EditorInterop {
   }
 
   /**
-   *
+   * @internal
    */
   export function convertToPrimitiveValue(
     newValue: NewEditorValue
