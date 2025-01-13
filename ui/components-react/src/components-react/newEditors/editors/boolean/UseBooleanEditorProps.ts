@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { EditorProps, RequiredProps } from "../../Types.js";
-import type { BooleanValue, Value } from "../../values/Values.js";
-import { isBooleanValue } from "../../values/Values.js";
+import type { BooleanValue } from "../../values/Values.js";
+import { Value } from "../../values/Values.js";
 
 /**
  * Hooks that converts generic `EditorProps` into editor props with boolean value. If value is not boolean, it will be converted into `false`.
@@ -24,5 +24,5 @@ export function useBooleanEditorProps({
 }
 
 function getBooleanValue(value: Value | undefined): BooleanValue {
-  return value && isBooleanValue(value) ? value : { value: false };
+  return value && Value.isBooleanValue(value) ? value : { value: false };
 }

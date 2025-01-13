@@ -23,7 +23,7 @@ import type {
   NumericValue,
   ValueMetadata,
 } from "@itwin/components-react";
-import { isNumericValue } from "@itwin/components-react";
+import { Value } from "@itwin/components-react";
 
 /**
  * Editor specification for color editor.
@@ -102,7 +102,7 @@ function useColorEditorProps({
     metadata,
     colors,
     value:
-      value === undefined || !isNumericValue(value)
+      value === undefined || !Value.isNumericValue(value)
         ? { rawValue: colors[0], displayValue: "" }
         : value,
     onChange,

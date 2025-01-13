@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { EditorProps, RequiredProps } from "../../Types.js";
-import type { DateValue, Value } from "../../values/Values.js";
-import { isDateValue } from "../../values/Values.js";
+import type { DateValue } from "../../values/Values.js";
+import { Value } from "../../values/Values.js";
 
 /**
  * Hooks that converts generic `EditorProps` into editor props with date value. If value is not date time, it will be converted into current date.
@@ -24,5 +24,5 @@ export function useDateEditorProps({
 }
 
 function getDateValue(value: Value | undefined): DateValue {
-  return value && isDateValue(value) ? value : { value: new Date() };
+  return value && Value.isDateValue(value) ? value : { value: new Date() };
 }

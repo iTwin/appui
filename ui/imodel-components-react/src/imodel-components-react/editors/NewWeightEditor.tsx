@@ -8,8 +8,8 @@ import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
 import {
   type EditorProps,
   type EditorSpec,
-  isNumericValue,
   type NumericValue,
+  Value,
 } from "@itwin/components-react";
 
 /**
@@ -49,7 +49,7 @@ function useWeightEditorProps({ value, onChange, ...props }: EditorProps): Omit<
   return {
     ...props,
     value:
-      value === undefined || !isNumericValue(value)
+      value === undefined || !Value.isNumericValue(value)
         ? { rawValue: 0, displayValue: "" }
         : value,
     onChange,
