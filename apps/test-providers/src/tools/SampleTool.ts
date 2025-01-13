@@ -81,7 +81,6 @@ export class SampleTool extends PrimitiveTool {
 
   // Tool Setting Properties
   // ------------- Enum based picklist ---------------
-  // Example of async method used to populate enum values
   private _getChoices = () => {
     return [
       { label: SampleTool.getOptionString("Red"), value: ToolOptions.Red },
@@ -630,36 +629,20 @@ export class SampleTool extends PrimitiveTool {
     };
     toolSettings.push({
       value: this._lengthValue,
-      property: {
-        ...this._lengthDescription,
-        quantityType: getQuantityTypeKey(
-          this._lengthDescription.formatterQuantityType
-        ),
-      },
+      property: this._lengthDescription,
       editorPosition: { rowPriority: 20, columnIndex: 2 },
       isDisabled: false,
       lockProperty: lengthLock,
     });
     toolSettings.push({
       value: this._surveyLengthValue,
-      property: {
-        ...this._surveyLengthDescription,
-        quantityType: getQuantityTypeKey(
-          this._surveyLengthDescription.formatterQuantityType
-        ),
-      },
+      property: this._surveyLengthDescription,
       editorPosition: { rowPriority: 21, columnIndex: 2 },
       isDisabled: readonly,
     });
-    const angleDescription = new AngleDescription();
     toolSettings.push({
       value: this._angleValue,
-      property: {
-        ...angleDescription,
-        quantityType: getQuantityTypeKey(
-          angleDescription.formatterQuantityType
-        ),
-      },
+      property: new AngleDescription(),
       editorPosition: { rowPriority: 25, columnIndex: 2 },
     });
     return toolSettings;
