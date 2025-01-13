@@ -55,10 +55,7 @@ export {
   QuantityNumberInputProps,
   StepFunctionProp,
 } from "./imodel-components-react/inputs/QuantityNumberInput.js";
-export {
-  QuantityEditor,
-  QuantityEditorSpec,
-} from "./imodel-components-react/inputs/newEditors/QuantityEditor.js";
+export { QuantityEditorSpec } from "./imodel-components-react/inputs/newEditors/QuantityEditor.js";
 
 export {
   LineWeightSwatch,

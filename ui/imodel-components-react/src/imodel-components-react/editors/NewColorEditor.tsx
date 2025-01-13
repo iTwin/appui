@@ -3,8 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import type { PropertyEditorParams } from "@itwin/appui-abstract";
 import {
   type ColorEditorParams,
+  PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import {
@@ -19,7 +21,6 @@ import type {
   EditorProps,
   EditorSpec,
   NumericValue,
-  RequiredProps,
   ValueMetadata,
 } from "@itwin/components-react";
 import { isNumericValue } from "@itwin/components-react";
@@ -41,7 +42,7 @@ export const ColorEditorSpec: EditorSpec = {
  * @beta
  */
 export interface ColorValueMetadata extends ValueMetadata {
-  params: ColorEditorParams[];
+  params: PropertyEditorParams[];
 }
 
 function ColorEditor(props: EditorProps) {
@@ -86,11 +87,15 @@ function useColorEditorProps({
   value,
   onChange,
   ...props
-}: EditorProps): RequiredProps<EditorProps<NumericValue>, "value"> & {
+}: EditorProps): Omit<EditorProps<NumericValue>, "value"> & {
   colors: number[];
+  value: NumericValue;
 } {
-  const params = (metadata as ColorValueMetadata).params[0];
-  const colors = params.colorValues;
+  const colorParams = (metadata as ColorValueMetadata).params.find(
+    (param: PropertyEditorParams) =>
+      param.type === PropertyEditorParamTypes.ColorData.valueOf()
+  ) as ColorEditorParams;
+  const colors = colorParams.colorValues;
 
   return {
     ...props,

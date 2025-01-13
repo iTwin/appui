@@ -5,7 +5,6 @@
 import * as React from "react";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
-import type { RequiredProps } from "@itwin/components-react";
 import {
   type EditorProps,
   type EditorSpec,
@@ -41,11 +40,12 @@ function WeightEditor(props: EditorProps) {
   );
 }
 
-function useWeightEditorProps({
-  value,
-  onChange,
-  ...props
-}: EditorProps): RequiredProps<EditorProps<NumericValue>, "value"> {
+function useWeightEditorProps({ value, onChange, ...props }: EditorProps): Omit<
+  EditorProps<NumericValue>,
+  "value"
+> & {
+  value: NumericValue;
+} {
   return {
     ...props,
     value:
