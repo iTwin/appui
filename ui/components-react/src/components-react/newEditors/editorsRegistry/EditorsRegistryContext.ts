@@ -14,6 +14,7 @@ interface EditorsRegistry {
  * Context for storing registered editors.
  * @internal
  */
-export const editorsRegistryContext = React.createContext<EditorsRegistry>({
+export const EditorsRegistryContext = React.createContext<EditorsRegistry>({
   editors: [],
 });
+EditorsRegistryContext.displayName = "uifw:EditorsRegistryContext";

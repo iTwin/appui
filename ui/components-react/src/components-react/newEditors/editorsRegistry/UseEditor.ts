@@ -7,7 +7,7 @@ import type { EditorSpec } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
 import { defaultEditors, interopEditors } from "./DefaultEditors.js";
-import { editorsRegistryContext } from "./EditorsRegistryContext.js";
+import { EditorsRegistryContext } from "./EditorsRegistryContext.js";
 
 /**
  * Custom hooks that returns editor for specified metadata and value. It uses `EditorsRegistry` context to find registered editors.
@@ -19,7 +19,7 @@ export function useEditor(
   metadata: ValueMetadata,
   value: Value | undefined
 ): EditorSpec["Editor"] | undefined {
-  const { editors } = React.useContext(editorsRegistryContext);
+  const { editors } = React.useContext(EditorsRegistryContext);
 
   const registeredEditor = editors.find((editor) =>
     editor.applies(metadata, value)

@@ -6,7 +6,7 @@
 import * as React from "react";
 import { useContext, useMemo } from "react";
 import type { EditorSpec } from "../Types.js";
-import { editorsRegistryContext } from "./EditorsRegistryContext.js";
+import { EditorsRegistryContext } from "./EditorsRegistryContext.js";
 
 /**
  * Provider that adds supplied editors into `EditorsRegistry`. Multiple providers can be nested together.
@@ -20,7 +20,7 @@ export function EditorsRegistryProvider({
   children: React.ReactNode;
   editors: EditorSpec[];
 }) {
-  const parentContext = useContext(editorsRegistryContext);
+  const parentContext = useContext(EditorsRegistryContext);
 
   const value = useMemo(() => {
     return {
@@ -29,8 +29,8 @@ export function EditorsRegistryProvider({
   }, [parentContext, editors]);
 
   return (
-    <editorsRegistryContext.Provider value={value}>
+    <EditorsRegistryContext.Provider value={value}>
       {children}
-    </editorsRegistryContext.Provider>
+    </EditorsRegistryContext.Provider>
   );
 }
