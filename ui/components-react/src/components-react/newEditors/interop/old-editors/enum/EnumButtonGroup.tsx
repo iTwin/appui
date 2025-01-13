@@ -5,7 +5,7 @@
 
 import * as React from "react";
 import type { EditorProps, EditorSpec, RequiredProps } from "../../../Types.js";
-import { type EnumValue, isEnumValue } from "../../../values/Values.js";
+import { type EnumValue, Value } from "../../../values/Values.js";
 import type { ButtonGroupEditorParams } from "@itwin/appui-abstract";
 import {
   type EnumerationChoice,
@@ -17,7 +17,7 @@ import type { OldEditorMetadata } from "../../Metadata.js";
 import { isOldEditorMetadata } from "../../Metadata.js";
 import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { useEnumChoices } from "./UseEnumChoices.js";
+import { useEnumMetadata } from "./UseEnumChoices.js";
 
 export const EnumButtonGroupEditorSpec: EditorSpec = {
   applies: (metadata) =>
@@ -55,33 +55,34 @@ function EnumButtonGroupEditor(props: EditorProps) {
   );
 }
 
-function useEnumButtonGroupEditorProps(props: EditorProps): RequiredProps<
-  EditorProps<EnumValue>,
-  "value"
+function useEnumButtonGroupEditorProps(props: EditorProps): Omit<
+  RequiredProps<EditorProps<EnumValue>, "value">,
+  "metadata"
 > & {
   choices: EnumerationChoice[];
+  isStrict: boolean;
   enumIcons?: Map<string | number, string>;
 } {
   const { metadata, value, ...rest } = props;
-  const choices = useEnumChoices(metadata);
+  const newMetadata = useEnumMetadata(metadata);
 
-  const firstChoice = choices[0] as EnumerationChoice | undefined;
+  const firstChoice = newMetadata.choices[0] as EnumerationChoice | undefined;
   const currentValue =
-    value && isEnumValue(value)
+    value && Value.isEnumValue(value)
       ? value
       : { choice: firstChoice?.value ?? 0, label: firstChoice?.label ?? "" };
 
   return {
     ...rest,
-    metadata,
+    choices: newMetadata.choices,
+    isStrict: newMetadata.isStrict,
     value: currentValue,
-    choices,
     enumIcons: React.useMemo(() => {
       const params = findButtonGroupParams(
         (metadata as OldEditorMetadata).params
       );
-      return params ? createIconsMap(choices, params) : undefined;
-    }, [metadata, choices]),
+      return params ? createIconsMap(newMetadata.choices, params) : undefined;
+    }, [newMetadata, metadata]),
   };
 }
 

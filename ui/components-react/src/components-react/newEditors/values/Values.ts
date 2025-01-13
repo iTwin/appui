@@ -3,6 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
+import type { Id64String } from "@itwin/core-bentley";
+
 /**
  * Type definition for numeric value that can be handled by editor.
  * @beta
@@ -18,7 +20,7 @@ export interface NumericValue {
  * @beta
  */
 export interface InstanceKeyValue {
-  key: { id: string; className: string };
+  key: { id: Id64String; className: string };
   label: string;
 }
 
@@ -66,61 +68,65 @@ export type Value =
   | DateValue
   | EnumValue;
 
-/**
- * Type guard for text value.
- * @beta
- */
-export function isTextValue(
-  value: Value | undefined
-): value is TextValue | undefined {
-  return (
-    value === undefined || ("value" in value && typeof value.value === "string")
-  );
-}
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+export namespace Value {
+  /**
+   * Type guard for text value.
+   * @beta
+   */
+  export function isTextValue(
+    value: Value | undefined
+  ): value is TextValue | undefined {
+    return (
+      value === undefined ||
+      ("value" in value && typeof value.value === "string")
+    );
+  }
 
-/**
- * Type guard for numeric value.
- * @beta
- */
-export function isNumericValue(
-  value: Value | undefined
-): value is NumericValue | undefined {
-  return (
-    value === undefined || ("rawValue" in value && "displayValue" in value)
-  );
-}
+  /**
+   * Type guard for numeric value.
+   * @beta
+   */
+  export function isNumericValue(
+    value: Value | undefined
+  ): value is NumericValue | undefined {
+    return (
+      value === undefined || ("rawValue" in value && "displayValue" in value)
+    );
+  }
 
-/**
- * Type guard for boolean value.
- * @beta
- */
-export function isBooleanValue(
-  value: Value | undefined
-): value is BooleanValue | undefined {
-  return (
-    value === undefined ||
-    ("value" in value && typeof value.value === "boolean")
-  );
-}
+  /**
+   * Type guard for boolean value.
+   * @beta
+   */
+  export function isBooleanValue(
+    value: Value | undefined
+  ): value is BooleanValue | undefined {
+    return (
+      value === undefined ||
+      ("value" in value && typeof value.value === "boolean")
+    );
+  }
 
-/**
- * Type guard for date value.
- * @beta
- */
-export function isDateValue(
-  value: Value | undefined
-): value is DateValue | undefined {
-  return (
-    value === undefined || ("value" in value && value.value instanceof Date)
-  );
-}
+  /**
+   * Type guard for date value.
+   * @beta
+   */
+  export function isDateValue(
+    value: Value | undefined
+  ): value is DateValue | undefined {
+    return (
+      value === undefined || ("value" in value && value.value instanceof Date)
+    );
+  }
 
-/**
- * Type guard for enum value.
- * @beta
- */
-export function isEnumValue(
-  value: Value | undefined
-): value is EnumValue | undefined {
-  return value === undefined || ("choice" in value && "label" in value);
+  /**
+   * Type guard for enum value.
+   * @beta
+   */
+  export function isEnumValue(
+    value: Value | undefined
+  ): value is EnumValue | undefined {
+    return value === undefined || ("choice" in value && "label" in value);
+  }
 }

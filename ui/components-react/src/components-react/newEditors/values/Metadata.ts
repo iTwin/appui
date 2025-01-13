@@ -16,12 +16,13 @@ export type ValueType =
   | "instanceKey";
 
 /**
- * Additional metadata that is used along side value to determine applicable editor.
+ * Additional metadata that is used along side value.
  * @beta
  */
 export interface ValueMetadata {
   type: ValueType;
   preferredEditor?: string;
+  isNullable?: boolean;
 }
 
 /**
@@ -38,4 +39,5 @@ export interface EnumChoice {
 export interface EnumValueMetadata extends ValueMetadata {
   type: "enum";
   choices: EnumChoice[];
+  isStrict: boolean;
 }

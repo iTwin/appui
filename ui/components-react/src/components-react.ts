@@ -101,11 +101,6 @@ export {
   NumericValue,
   TextValue,
   Value,
-  isBooleanValue,
-  isDateValue,
-  isEnumValue,
-  isNumericValue,
-  isTextValue,
 } from "./components-react/newEditors/values/Values.js";
 export {
   EnumChoice,

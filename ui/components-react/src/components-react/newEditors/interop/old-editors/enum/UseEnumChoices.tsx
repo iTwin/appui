@@ -3,33 +3,44 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type { EnumerationChoice } from "@itwin/appui-abstract";
-import type { ValueMetadata } from "../../../values/Metadata.js";
+import type {
+  EnumValueMetadata,
+  ValueMetadata,
+} from "../../../values/Metadata.js";
 import * as React from "react";
 import { isOldEditorMetadata } from "../../Metadata.js";
 
 /**
- *
+ * Converts old enum metadata definition into the new one. It takes care of lazy loaded choices.
+ * @internal
  */
-export function useEnumChoices(metadata: ValueMetadata) {
-  const [choices, setChoices] = React.useState<EnumerationChoice[]>([]);
+export function useEnumMetadata(oldMetadata: ValueMetadata): EnumValueMetadata {
+  const [metadata, setMetadata] = React.useState<EnumValueMetadata>(() => ({
+    type: "enum",
+    choices: [],
+    isStrict: false,
+  }));
 
   React.useEffect(() => {
-    if (!isOldEditorMetadata(metadata)) {
+    if (!isOldEditorMetadata(oldMetadata)) {
       throw new Error("EnumButtonGroupEditor missing metadata.");
     }
 
     let disposed = false;
     const loadChoices = async () => {
       const loadedChoices =
-        metadata.enum === undefined
+        oldMetadata.enum === undefined
           ? []
-          : metadata.enum.choices instanceof Promise
-          ? [...(await metadata.enum.choices)]
-          : [...metadata.enum.choices];
+          : oldMetadata.enum.choices instanceof Promise
+          ? [...(await oldMetadata.enum.choices)]
+          : [...oldMetadata.enum.choices];
 
       if (!disposed) {
-        setChoices(loadedChoices);
+        setMetadata({
+          type: "enum",
+          choices: loadedChoices,
+          isStrict: oldMetadata.enum?.isStrict ?? false,
+        });
       }
     };
 
@@ -38,7 +49,7 @@ export function useEnumChoices(metadata: ValueMetadata) {
     return () => {
       disposed = true;
     };
-  }, [metadata]);
+  }, [oldMetadata]);
 
-  return choices;
+  return metadata;
 }

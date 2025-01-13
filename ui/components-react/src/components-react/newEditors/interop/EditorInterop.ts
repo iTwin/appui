@@ -13,17 +13,10 @@ import type {
   DateValue,
   EnumValue,
   InstanceKeyValue,
-  Value as NewEditorValue,
   NumericValue,
   TextValue,
 } from "../values/Values.js";
-import {
-  isBooleanValue,
-  isDateValue,
-  isEnumValue,
-  isNumericValue,
-  isTextValue,
-} from "../values/Values.js";
+import { Value as NewEditorValue } from "../values/Values.js";
 import type { OldEditorMetadata } from "./Metadata.js";
 
 /**
@@ -107,7 +100,7 @@ export namespace EditorInterop {
           },
           value: {
             choice: primitiveValue.value as number | string,
-            label: primitiveValue.displayValue as string,
+            label: primitiveValue.displayValue ?? "",
           } satisfies EnumValue,
         };
       case "navigation":
@@ -135,28 +128,28 @@ export namespace EditorInterop {
   export function convertToPrimitiveValue(
     newValue: NewEditorValue
   ): PrimitiveValue {
-    if (isTextValue(newValue)) {
+    if (NewEditorValue.isTextValue(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
         displayValue: newValue.value,
       };
     }
-    if (isNumericValue(newValue)) {
+    if (NewEditorValue.isNumericValue(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.rawValue,
         displayValue: newValue.displayValue,
       };
     }
-    if (isBooleanValue(newValue)) {
+    if (NewEditorValue.isBooleanValue(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
         displayValue: newValue.value.toString(),
       };
     }
-    if (isDateValue(newValue)) {
+    if (NewEditorValue.isDateValue(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
@@ -164,7 +157,7 @@ export namespace EditorInterop {
       };
     }
 
-    if (isEnumValue(newValue)) {
+    if (NewEditorValue.isEnumValue(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.choice,

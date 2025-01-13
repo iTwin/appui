@@ -5,8 +5,7 @@
 
 import * as React from "react";
 import type { EditorProps, EditorSpec } from "../../../Types.js";
-import { useEnumChoices } from "./UseEnumChoices.js";
-import type { EnumValueMetadata } from "../../../values/Metadata.js";
+import { useEnumMetadata } from "./UseEnumChoices.js";
 import { EnumEditor as NewEnumEditor } from "../../../editors/enum/EnumEditor.js";
 import { isOldEditorMetadata } from "../../Metadata.js";
 
@@ -17,14 +16,6 @@ export const EnumEditorSpec: EditorSpec = {
 };
 
 function EnumEditor(props: EditorProps) {
-  const choices = useEnumChoices(props.metadata);
-  const newMetadata = React.useMemo<EnumValueMetadata>(
-    () => ({
-      type: "enum" as const,
-      choices: choices.map(({ value, label }) => ({ value, label })),
-    }),
-    [choices]
-  );
-
+  const newMetadata = useEnumMetadata(props.metadata);
   return <NewEnumEditor {...props} metadata={newMetadata} />;
 }
