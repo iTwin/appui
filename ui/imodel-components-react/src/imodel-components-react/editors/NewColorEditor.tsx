@@ -31,13 +31,13 @@ import { createEditorSpec, Value } from "@itwin/components-react";
  */
 export const ColorEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ColorValueMetadata =>
+    metadata.type === "number" &&
     "params" in metadata &&
     !!(metadata.params as PropertyEditorParams[]).find(
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
     ),
   isValueSupported: Value.isNumericValue,
   applies: (metadata) =>
-    metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.ColorPicker,
   Editor: ColorEditor,
 });
@@ -47,6 +47,7 @@ export const ColorEditorSpec: EditorSpec = createEditorSpec({
  * @beta
  */
 export interface ColorValueMetadata extends ValueMetadata {
+  type: "number";
   params: PropertyEditorParams[];
 }
 
