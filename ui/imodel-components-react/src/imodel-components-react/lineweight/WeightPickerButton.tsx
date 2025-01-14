@@ -237,7 +237,6 @@ export class WeightPickerButton extends React.PureComponent<
               focusTarget={`#${this.buildIdForWeight(this.props.activeWeight)}`}
               moveFocus={true}
               target={this.state.targetElement}
-              portalTarget={this.state.targetElement ?? undefined}
               closeOnNestedPopupOutsideClick
             >
               {this.renderPopup(this.props.dropDownTitle)}

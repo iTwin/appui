@@ -16,7 +16,6 @@ interface PropertyRecordEditorProps {
   propertyRecord: PropertyRecord;
   onCommit: (args: PropertyUpdatedArgs) => void;
   onCancel: () => void;
-  disabled?: boolean;
 }
 
 /**
@@ -27,7 +26,6 @@ export function PropertyRecordEditor({
   propertyRecord,
   onCommit,
   onCancel,
-  disabled,
 }: PropertyRecordEditorProps) {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
   if (metadata && value) {
@@ -42,7 +40,8 @@ export function PropertyRecordEditor({
           });
         }}
         onCancel={onCancel}
-        disabled={disabled}
+        disabled={propertyRecord.isDisabled || propertyRecord.isReadonly}
+        size="small"
       />
     );
   }

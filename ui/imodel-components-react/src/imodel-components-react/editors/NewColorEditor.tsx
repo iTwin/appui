@@ -33,6 +33,7 @@ export const ColorEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ColorValueMetadata =>
     metadata.type === "number" &&
     "params" in metadata &&
+    metadata.params !== undefined &&
     !!(metadata.params as PropertyEditorParams[]).find(
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
     ),
