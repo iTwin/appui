@@ -4,18 +4,26 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type { EditorProps, EditorSpec } from "../../../Types.js";
-import { useEnumMetadata } from "./UseEnumChoices.js";
-import { EnumEditor as NewEnumEditor } from "../../../editors/enum/EnumEditor.js";
+import {
+  createEditorSpec,
+  type EditorProps,
+  type EditorSpec,
+} from "../../../Types.js";
+import { useEnumMetadata } from "./UseEnumMetadata.js";
+import { EnumEditor as NewEnumEditor } from "../../../editors/EnumEditor.js";
+import type { OldEditorMetadata } from "../../Metadata.js";
 import { isOldEditorMetadata } from "../../Metadata.js";
+import type { EnumValue } from "../../../values/Values.js";
+import { Value } from "../../../values/Values.js";
 
-export const EnumEditorSpec: EditorSpec = {
-  applies: (metadata) =>
-    isOldEditorMetadata(metadata) && metadata.type === "enum",
+export const EnumEditorSpec: EditorSpec = createEditorSpec({
+  isMetadataSupported: isOldEditorMetadata,
+  isValueSupported: Value.isEnumValue,
+  applies: (metadata) => metadata.type === "enum",
   Editor: EnumEditor,
-};
+});
 
-function EnumEditor(props: EditorProps) {
+function EnumEditor(props: EditorProps<OldEditorMetadata, EnumValue>) {
   const newMetadata = useEnumMetadata(props.metadata);
   return <NewEnumEditor {...props} metadata={newMetadata} />;
 }

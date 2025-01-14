@@ -3,18 +3,17 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type {
-  EnumValueMetadata,
-  ValueMetadata,
-} from "../../../values/Metadata.js";
+import type { EnumValueMetadata } from "../../../values/Metadata.js";
 import * as React from "react";
-import { isOldEditorMetadata } from "../../Metadata.js";
+import type { OldEditorMetadata } from "../../Metadata.js";
 
 /**
  * Converts old enum metadata definition into the new one. It takes care of lazy loaded choices.
  * @internal
  */
-export function useEnumMetadata(oldMetadata: ValueMetadata): EnumValueMetadata {
+export function useEnumMetadata(
+  oldMetadata: OldEditorMetadata
+): EnumValueMetadata {
   const [metadata, setMetadata] = React.useState<EnumValueMetadata>(() => ({
     type: "enum",
     choices: [],
@@ -22,10 +21,6 @@ export function useEnumMetadata(oldMetadata: ValueMetadata): EnumValueMetadata {
   }));
 
   React.useEffect(() => {
-    if (!isOldEditorMetadata(oldMetadata)) {
-      throw new Error("EnumButtonGroupEditor missing metadata.");
-    }
-
     let disposed = false;
     const loadChoices = async () => {
       const loadedChoices =

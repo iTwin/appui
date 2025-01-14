@@ -4,20 +4,25 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
-import type { EditorProps } from "../../Types.js";
-import { useNumericEditorProps } from "./UseNumericEditorProps.js";
+import type { EditorProps } from "../Types.js";
+import type { ValueMetadata } from "../values/Metadata.js";
+import type { NumericValue } from "../values/Values.js";
 
 /**
  * Simple editor for editing numeric values.
  * @beta
  */
-export function NumericEditor(props: EditorProps) {
-  const { value, onChange, onFinish, size, disabled } =
-    useNumericEditorProps(props);
-
+export function NumericEditor({
+  value,
+  onChange,
+  onFinish,
+  size,
+  disabled,
+}: EditorProps<ValueMetadata, NumericValue>) {
+  const currentValue = getNumericValue(value);
   return (
     <Input
-      value={value.displayValue}
+      value={currentValue.displayValue}
       onChange={(e) =>
         onChange({
           rawValue: parseFloat(e.target.value),
@@ -29,4 +34,8 @@ export function NumericEditor(props: EditorProps) {
       disabled={disabled}
     />
   );
+}
+
+function getNumericValue(value: NumericValue | undefined): NumericValue {
+  return value ? value : { rawValue: undefined, displayValue: "" };
 }

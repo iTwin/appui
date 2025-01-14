@@ -112,15 +112,11 @@ export { EditorsRegistryProvider } from "./components-react/newEditors/editorsRe
 export {
   EditorProps,
   EditorSpec,
+  createEditorSpec,
 } from "./components-react/newEditors/Types.js";
 export { Editor } from "./components-react/newEditors/Editor.js";
 export { CommittingEditor } from "./components-react/newEditors/CommittingEditor.js";
-export { useBooleanEditorProps } from "./components-react/newEditors/editors/boolean/UseBooleanEditorProps.js";
-export { useDateEditorProps } from "./components-react/newEditors/editors/date/UseDateEditorProps.js";
-export { useEnumEditorProps } from "./components-react/newEditors/editors/enum/UseEnumEditorProps.js";
-export { useNumericEditorProps } from "./components-react/newEditors/editors/numeric/UseNumericEditorProps.js";
-export { FormattedNumericInput } from "./components-react/newEditors/editors/numeric/FormattedNumericInput.js";
-export { useTextEditorProps } from "./components-react/newEditors/editors/text/UseTextEditorProps.js";
+export { FormattedNumericInput } from "./components-react/newEditors/editors/FormattedNumericInput.js";
 
 export {
   BooleanEditor,

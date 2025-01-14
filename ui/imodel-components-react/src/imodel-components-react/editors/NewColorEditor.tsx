@@ -23,19 +23,24 @@ import type {
   NumericValue,
   ValueMetadata,
 } from "@itwin/components-react";
-import { Value } from "@itwin/components-react";
+import { createEditorSpec, Value } from "@itwin/components-react";
 
 /**
  * Editor specification for color editor.
  * @beta
  */
-export const ColorEditorSpec: EditorSpec = {
+export const ColorEditorSpec: EditorSpec = createEditorSpec({
+  isMetadataSupported: (metadata): metadata is ColorValueMetadata =>
+    "params" in metadata &&
+    !!(metadata.params as PropertyEditorParams[]).find(
+      (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
+    ),
+  isValueSupported: Value.isNumericValue,
   applies: (metadata) =>
     metadata.type === "number" &&
-    metadata.preferredEditor === StandardEditorNames.ColorPicker &&
-    (metadata as ColorValueMetadata).params !== undefined,
+    metadata.preferredEditor === StandardEditorNames.ColorPicker,
   Editor: ColorEditor,
-};
+});
 
 /**
  * Metadata for color editor.
@@ -45,14 +50,25 @@ export interface ColorValueMetadata extends ValueMetadata {
   params: PropertyEditorParams[];
 }
 
-function ColorEditor(props: EditorProps) {
-  const { value, onChange, onFinish, colors, size } =
-    useColorEditorProps(props);
+function ColorEditor({
+  value,
+  metadata,
+  onChange,
+  onFinish,
+  size,
+}: EditorProps<ColorValueMetadata, NumericValue>) {
+  const colorParams = metadata.params.find(
+    (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
+  ) as ColorEditorParams;
+  const colors = colorParams.colorValues;
 
+  const currentValue = value
+    ? value
+    : { rawValue: colors[0], displayValue: "" };
   const colorsList = colors.map((color) => ColorValue.fromTbgr(color));
   const activeColor =
-    value.rawValue !== undefined
-      ? ColorValue.fromTbgr(value.rawValue)
+    currentValue.rawValue !== undefined
+      ? ColorValue.fromTbgr(currentValue.rawValue)
       : colorsList[0];
 
   const onColorChanged = (color: ColorValue) => {
@@ -80,31 +96,4 @@ function ColorEditor(props: EditorProps) {
       </IconButton>
     </Popover>
   );
-}
-
-function useColorEditorProps({
-  metadata,
-  value,
-  onChange,
-  ...props
-}: EditorProps): Omit<EditorProps<NumericValue>, "value"> & {
-  colors: number[];
-  value: NumericValue;
-} {
-  const colorParams = (metadata as ColorValueMetadata).params.find(
-    (param: PropertyEditorParams) =>
-      param.type === PropertyEditorParamTypes.ColorData.valueOf()
-  ) as ColorEditorParams;
-  const colors = colorParams.colorValues;
-
-  return {
-    ...props,
-    metadata,
-    colors,
-    value:
-      value === undefined || !Value.isNumericValue(value)
-        ? { rawValue: colors[0], displayValue: "" }
-        : value,
-    onChange,
-  };
 }

@@ -4,19 +4,26 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
-import type { EditorProps } from "../../Types.js";
-import { useTextEditorProps } from "./UseTextEditorProps.js";
+import type { EditorProps } from "../Types.js";
+import type { ValueMetadata } from "../values/Metadata.js";
+import type { TextValue } from "../values/Values.js";
 
 /**
  * Simple editor for editing text values.
  * @beta
  */
-export function TextEditor(props: EditorProps) {
-  const { value, onChange, onFinish, size, disabled } =
-    useTextEditorProps(props);
+export function TextEditor({
+  value,
+  onFinish,
+  onChange,
+  size,
+  disabled,
+}: EditorProps<ValueMetadata, TextValue>) {
+  const currentValue = value ? value : { value: "" };
+
   return (
     <Input
-      value={value.value}
+      value={currentValue.value}
       onChange={(e) => onChange({ value: e.target.value })}
       onBlur={onFinish}
       size={size}

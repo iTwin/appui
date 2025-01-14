@@ -4,16 +4,24 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Select } from "@itwin/itwinui-react";
-import type { EditorProps } from "../../Types.js";
-import { useEnumEditorProps } from "./UseEnumEditorProps.js";
+import type { EditorProps } from "../Types.js";
+import type { EnumChoice, EnumValueMetadata } from "../values/Metadata.js";
+import type { EnumValue } from "../values/Values.js";
 
 /**
  * Simple editor for editing enum values.
  * @beta
  */
-export function EnumEditor(props: EditorProps) {
-  const { value, onChange, onFinish, choices, disabled, size } =
-    useEnumEditorProps(props);
+export function EnumEditor({
+  metadata,
+  value,
+  onChange,
+  onFinish,
+  size,
+  disabled,
+}: EditorProps<EnumValueMetadata, EnumValue>) {
+  const choices = metadata.choices;
+  const currentValue = getEnumValue(value, choices);
 
   const handleChange = (newChoice: number | string) => {
     const choice = choices.find((c) => c.value === newChoice);
@@ -25,10 +33,21 @@ export function EnumEditor(props: EditorProps) {
   return (
     <Select
       size={size}
-      value={value.choice}
+      value={currentValue.choice}
       onChange={handleChange}
       options={choices.map((c) => ({ value: c.value, label: c.label }))}
       disabled={disabled}
     />
   );
+}
+
+function getEnumValue(
+  value: EnumValue | undefined,
+  choices: EnumChoice[]
+): EnumValue {
+  const defaultValue =
+    choices.length > 0
+      ? { choice: choices[0].value, label: choices[0].label }
+      : { choice: "", label: "" };
+  return value ? value : defaultValue;
 }

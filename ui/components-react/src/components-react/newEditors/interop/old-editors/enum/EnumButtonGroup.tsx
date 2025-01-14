@@ -4,7 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type { EditorProps, EditorSpec, RequiredProps } from "../../../Types.js";
+import {
+  createEditorSpec,
+  type EditorProps,
+  type EditorSpec,
+} from "../../../Types.js";
 import { type EnumValue, Value } from "../../../values/Values.js";
 import type { ButtonGroupEditorParams } from "@itwin/appui-abstract";
 import {
@@ -17,23 +21,40 @@ import type { OldEditorMetadata } from "../../Metadata.js";
 import { isOldEditorMetadata } from "../../Metadata.js";
 import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { useEnumMetadata } from "./UseEnumChoices.js";
+import { useEnumMetadata } from "./UseEnumMetadata.js";
 
-export const EnumButtonGroupEditorSpec: EditorSpec = {
+export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
+  isMetadataSupported: isOldEditorMetadata,
+  isValueSupported: Value.isEnumValue,
   applies: (metadata) =>
-    isOldEditorMetadata(metadata) &&
     metadata.type === "enum" &&
     metadata.preferredEditor === StandardEditorNames.EnumButtonGroup,
   Editor: EnumButtonGroupEditor,
-};
+});
 
-function EnumButtonGroupEditor(props: EditorProps) {
-  const { value, onChange, choices, enumIcons, onFinish, size, disabled } =
-    useEnumButtonGroupEditorProps(props);
+function EnumButtonGroupEditor({
+  value,
+  onChange,
+  onFinish,
+  size,
+  disabled,
+  metadata,
+}: EditorProps<OldEditorMetadata, EnumValue>) {
+  const enumMetadata = useEnumMetadata(metadata);
+
+  const enumIcons = React.useMemo(() => {
+    const params = findButtonGroupParams(metadata.params);
+    return params ? createIconsMap(enumMetadata.choices, params) : undefined;
+  }, [enumMetadata, metadata]);
+
+  const firstChoice = enumMetadata.choices[0] as EnumerationChoice | undefined;
+  const currentValue = value
+    ? value
+    : { choice: firstChoice?.value ?? "", label: firstChoice?.label ?? "" };
 
   return (
     <ButtonGroup orientation="horizontal">
-      {choices.map((choice) => {
+      {enumMetadata.choices.map((choice) => {
         const icon = findIcon(enumIcons?.get(choice.value));
         return (
           <IconButton
@@ -43,7 +64,7 @@ function EnumButtonGroupEditor(props: EditorProps) {
               onFinish();
             }}
             label={choice.label}
-            isActive={choice.value === value.choice}
+            isActive={choice.value === currentValue.choice}
             size={size}
             disabled={disabled}
           >
@@ -53,37 +74,6 @@ function EnumButtonGroupEditor(props: EditorProps) {
       })}
     </ButtonGroup>
   );
-}
-
-function useEnumButtonGroupEditorProps(props: EditorProps): Omit<
-  RequiredProps<EditorProps<EnumValue>, "value">,
-  "metadata"
-> & {
-  choices: EnumerationChoice[];
-  isStrict: boolean;
-  enumIcons?: Map<string | number, string>;
-} {
-  const { metadata, value, ...rest } = props;
-  const newMetadata = useEnumMetadata(metadata);
-
-  const firstChoice = newMetadata.choices[0] as EnumerationChoice | undefined;
-  const currentValue =
-    value && Value.isEnumValue(value)
-      ? value
-      : { choice: firstChoice?.value ?? 0, label: firstChoice?.label ?? "" };
-
-  return {
-    ...rest,
-    choices: newMetadata.choices,
-    isStrict: newMetadata.isStrict,
-    value: currentValue,
-    enumIcons: React.useMemo(() => {
-      const params = findButtonGroupParams(
-        (metadata as OldEditorMetadata).params
-      );
-      return params ? createIconsMap(newMetadata.choices, params) : undefined;
-    }, [newMetadata, metadata]),
-  };
 }
 
 function findButtonGroupParams(params?: PropertyEditorParams[]) {

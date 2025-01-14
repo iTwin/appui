@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
-import type { NumericValue } from "../../values/Values.js";
+import type { NumericValue } from "../values/Values.js";
 
 /**
  * Props for FormattedNumericInput component.

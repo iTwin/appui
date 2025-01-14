@@ -5,7 +5,9 @@
 import * as React from "react";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
+import type { ValueMetadata } from "@itwin/components-react";
 import {
+  createEditorSpec,
   type EditorProps,
   type EditorSpec,
   type NumericValue,
@@ -16,20 +18,25 @@ import {
  * Editor specification for weight editor.
  * @beta
  */
-export const WeightEditorSpec: EditorSpec = {
+export const WeightEditorSpec: EditorSpec = createEditorSpec({
+  isMetadataSupported: (_metadata): _metadata is ValueMetadata => true,
+  isValueSupported: Value.isNumericValue,
   applies: (metadata) =>
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.WeightPicker,
   Editor: WeightEditor,
-};
+});
 
-function WeightEditor(props: EditorProps) {
-  const { value, onChange, onFinish } = useWeightEditorProps(props);
-  const activeWeight = value.rawValue ?? 0;
+function WeightEditor({
+  value,
+  onChange,
+  onFinish,
+}: EditorProps<ValueMetadata, NumericValue>) {
+  const currentValue = value ? value : { rawValue: 0, displayValue: "" };
 
   return (
     <WeightPickerButton
-      activeWeight={activeWeight}
+      activeWeight={currentValue.rawValue ?? 0}
       onLineWeightPick={(newWeight) => {
         const newValue = { rawValue: newWeight, displayValue: "" };
         onChange(newValue);
@@ -38,20 +45,4 @@ function WeightEditor(props: EditorProps) {
       onBlur={() => onFinish()}
     />
   );
-}
-
-function useWeightEditorProps({ value, onChange, ...props }: EditorProps): Omit<
-  EditorProps<NumericValue>,
-  "value"
-> & {
-  value: NumericValue;
-} {
-  return {
-    ...props,
-    value:
-      value === undefined || !Value.isNumericValue(value)
-        ? { rawValue: 0, displayValue: "" }
-        : value,
-    onChange,
-  };
 }

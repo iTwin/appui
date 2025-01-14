@@ -4,17 +4,22 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { ToggleSwitch } from "@itwin/itwinui-react";
-import type { EditorProps } from "../../Types.js";
-import { useBooleanEditorProps } from "./UseBooleanEditorProps.js";
+import type { EditorProps } from "../Types.js";
+import type { ValueMetadata } from "../values/Metadata.js";
+import type { BooleanValue } from "../values/Values.js";
 
 /**
  * Simple editor for editing boolean values.
  * @beta
  */
-export function BooleanEditor(props: EditorProps) {
-  const { value, onChange, onFinish, size, disabled } =
-    useBooleanEditorProps(props);
-
+export function BooleanEditor({
+  value,
+  onChange,
+  onFinish,
+  size,
+  disabled,
+}: EditorProps<ValueMetadata, BooleanValue>) {
+  const currentValue = value ?? { value: false };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = { value: e.target.checked };
     onChange(newValue);
@@ -23,7 +28,7 @@ export function BooleanEditor(props: EditorProps) {
 
   return (
     <ToggleSwitch
-      checked={value.value}
+      checked={currentValue.value}
       onChange={handleChange}
       size={size === "small" ? "small" : undefined}
       disabled={disabled}

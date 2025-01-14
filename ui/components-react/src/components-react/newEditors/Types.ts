@@ -18,8 +18,8 @@ export interface EditorSpec {
  * Generic editor props that are supplied to the editor for rendering.
  * @beta
  */
-export interface EditorProps<TValue = Value> {
-  metadata: ValueMetadata;
+export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
+  metadata: TMetadata;
   value?: TValue;
   onChange: (value: TValue) => void;
   onFinish: () => void;
@@ -28,11 +28,29 @@ export interface EditorProps<TValue = Value> {
 }
 
 /**
- * A type that makes a specific properties required in a type.
- * @internal
+ * Utility function to create an editor spec for editor with concrete metadata and value types.
+ * @beta
  */
-export type RequiredProps<TProps, TKey extends keyof TProps> = Omit<
-  TProps,
-  TKey
-> &
-  Required<Pick<TProps, TKey>>;
+export function createEditorSpec<
+  TMetadata extends ValueMetadata,
+  TValue extends Value
+>({
+  Editor,
+  isMetadataSupported,
+  isValueSupported,
+  applies,
+}: {
+  isMetadataSupported: (metadata: ValueMetadata) => metadata is TMetadata;
+  isValueSupported: (value: Value) => value is TValue;
+  applies?: (metadata: TMetadata, value?: TValue) => boolean;
+  Editor: React.ComponentType<EditorProps<TMetadata, TValue>>;
+}): EditorSpec {
+  return {
+    applies: (metadata: ValueMetadata, value?: Value) =>
+      isMetadataSupported(metadata) &&
+      (value === undefined || isValueSupported(value)) &&
+      (applies === undefined || applies(metadata, value)),
+    // typeguards in `applies` function will take care of casting
+    Editor: Editor as unknown as React.ComponentType<EditorProps>,
+  };
+}

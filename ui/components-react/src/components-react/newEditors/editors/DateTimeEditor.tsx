@@ -4,23 +4,29 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Button, DatePicker, Popover } from "@itwin/itwinui-react";
-import type { EditorProps } from "../../Types.js";
-import { useDateEditorProps } from "./UseDateEditorProps.js";
+import type { EditorProps } from "../Types.js";
+import type { ValueMetadata } from "../values/Metadata.js";
+import type { DateValue } from "../values/Values.js";
 
 /**
  * Simple editor for editing date values.
  * @beta
  */
-export function DateEditor(props: EditorProps) {
-  const { value, onChange, onFinish, size, disabled } =
-    useDateEditorProps(props);
-  const dateStr = value.value.toLocaleDateString();
+export function DateEditor({
+  value,
+  onChange,
+  onFinish,
+  size,
+  disabled,
+}: EditorProps<ValueMetadata, DateValue>) {
+  const currentValue = value ?? { value: new Date() };
+  const dateStr = currentValue.value.toLocaleDateString();
 
   return (
     <Popover
       content={
         <DatePicker
-          date={value.value}
+          date={currentValue.value}
           onChange={(e) => {
             onChange({ value: e });
           }}
