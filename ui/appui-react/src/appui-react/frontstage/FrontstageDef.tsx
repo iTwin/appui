@@ -747,6 +747,7 @@ export class FrontstageDef {
       content: popoutContent,
       location: position,
       useDefaultPopoutUrl: UiFramework.useDefaultPopoutUrl,
+      tabId,
     });
 
     // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
