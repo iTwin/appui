@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as defaults from "../UiFramework.json";
+import * as defaults from "../UiFramework.json" with { type: "json" };
 import * as React from "react";
 import { usePackageTranslation } from "@itwin/core-react/internal";
 import { UiFramework } from "../UiFramework.js";

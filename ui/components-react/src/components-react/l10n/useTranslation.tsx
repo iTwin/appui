@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as defaults from "../UiComponents.json";
+import * as defaults from "../UiComponents.json" with { type: "json" };
 import * as React from "react";
 import { usePackageTranslation } from "@itwin/core-react/internal";
 import { UiComponents } from "../UiComponents.js";
