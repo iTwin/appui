@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix `useWidget` hook issue when used in a popout widget.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
