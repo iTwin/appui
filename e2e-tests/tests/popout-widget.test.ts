@@ -68,7 +68,6 @@ test.describe("popout widget", () => {
   });
 
   test("should dock a popout widget (after frontstage change)", async ({
-    context,
     page,
   }) => {
     const tab = tabLocator(page, "WT-2");
@@ -242,4 +241,24 @@ test("should render after link styles are loaded", async ({
       clientHeight: 15,
     })
   );
+});
+
+test("useWidget hook", async ({ page }) => {
+  // TODO: make sure the widget is not overlaid. Need to split into smaller test frontstages.
+  await setWidgetState(
+    page,
+    "appui-test-providers:UseWidgetHookWidget",
+    WidgetState.Floating
+  );
+
+  const tab = tabLocator(page, "Use Widget Hook");
+  const widget = floatingWidgetLocator({
+    tab,
+  });
+
+  const popoutPage = await popoutWidget(widget);
+  const widgetText = popoutPage.getByText(
+    `{"state":0,"widgetLocation":"popout"}`
+  );
+  await expect(widgetText).toBeVisible();
 });
