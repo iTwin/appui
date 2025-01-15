@@ -244,6 +244,8 @@ test("should render after link styles are loaded", async ({
 });
 
 test("useWidget hook", async ({ page }) => {
+  await page.goto("./blank?frontstageId=widget-api");
+
   // TODO: make sure the widget is not overlaid. Need to split into smaller test frontstages.
   await setWidgetState(
     page,
