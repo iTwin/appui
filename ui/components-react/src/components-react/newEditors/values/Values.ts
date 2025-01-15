@@ -109,4 +109,12 @@ export namespace Value {
   export function isEnumValue(value: Value): value is EnumValue {
     return "choice" in value && "label" in value;
   }
+
+  /**
+   * Type guard for instance key value.
+   * @beta
+   */
+  export function isInstanceKeyValue(value: Value): value is InstanceKeyValue {
+    return "key" in value && "id" in value.key && "className" in value.key;
+  }
 }
