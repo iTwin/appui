@@ -9,8 +9,8 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { BooleanValue } from "../values/Values.js";
 
 /**
- * Simple editor for editing boolean values.
- * @beta
+ * Boolean value editor that renders `ToggleSwitch` component for changing value.
+ * @internal
  */
 export function BooleanEditor({
   value,

@@ -9,8 +9,8 @@ import type { EnumChoice, EnumValueMetadata } from "../values/Metadata.js";
 import type { EnumValue } from "../values/Values.js";
 
 /**
- * Simple editor for editing enum values.
- * @beta
+ * Enum value editor that renders `Select` component for changing value.
+ * @internal
  */
 export function EnumEditor({
   metadata,

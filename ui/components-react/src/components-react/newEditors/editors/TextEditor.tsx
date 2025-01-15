@@ -9,8 +9,8 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { TextValue } from "../values/Values.js";
 
 /**
- * Simple editor for editing text values.
- * @beta
+ * Text value editor that renders `Input` component for changing value.
+ * @internal
  */
 export function TextEditor({
   value,

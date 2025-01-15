@@ -9,8 +9,8 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { NumericValue } from "../values/Values.js";
 
 /**
- * Simple editor for editing numeric values.
- * @beta
+ * Numeric value editor that renders `Input` components for changing value.
+ * @internal
  */
 export function NumericEditor({
   value,

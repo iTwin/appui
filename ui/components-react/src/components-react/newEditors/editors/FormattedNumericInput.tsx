@@ -73,7 +73,7 @@ function useParsedNumberInput({
         displayValue:
           initialValue !== undefined ? formatValue(initialValue) : "",
       },
-      placeholder: formatValue(123.45),
+      placeholder: formatValue(initialValue ?? 123.45),
     };
   });
 
