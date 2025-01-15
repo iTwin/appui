@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+This log was last generated on Wed, 15 Jan 2025 11:47:00 GMT and should not be manually modified.
+
+## 5.0.1
+Wed, 15 Jan 2025 11:47:00 GMT
+
+### Updates
+
+- Fix `useWidget` hook issue when used in a popout widget.
 
 ## 5.0.0
 Mon, 16 Dec 2024 11:43:27 GMT
