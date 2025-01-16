@@ -13,6 +13,7 @@ function createConfig() {
     bingMapsKey: import.meta.env.IMJS_BING_MAPS_KEY as string,
     cesiumIonKey: import.meta.env.IMJS_CESIUM_ION_KEY as string,
     mapBoxKey: import.meta.env.IMJS_MAPBOX_KEY as string,
+    useDefaultPopoutUrl: Boolean(import.meta.env.IMJS_USE_DEFAULT_POPOUT_URL),
     serverEnvironmentPrefix,
     urlPrefix,
   } as const;

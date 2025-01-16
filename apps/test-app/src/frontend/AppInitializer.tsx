@@ -150,7 +150,8 @@ function createInitializer() {
         toolbarOpacity: 0.5,
       })
     );
-    UiFramework.useDefaultPopoutUrl = true;
+
+    UiFramework.useDefaultPopoutUrl = config.useDefaultPopoutUrl;
     await UiFramework.initializeStateFromUserSettingsProviders();
 
     UiFramework.keyboardShortcuts.loadShortcuts(createKeyboardShortcuts());
