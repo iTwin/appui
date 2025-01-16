@@ -31,3 +31,6 @@ playwright-report
 
 # test-app specific
 routeTree.gen.ts
+
+# temporary until prettier is updated
+useTranslation.tsx
