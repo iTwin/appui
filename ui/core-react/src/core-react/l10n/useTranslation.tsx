@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as defaults from "../UiCore.json";
+import * as defaults from "../UiCore.json" with { type: "json" };
 import * as React from "react";
 import { UiCore } from "../UiCore.js";
 import { usePackageTranslation } from "./usePackageTranslation.js";

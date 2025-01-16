@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Use import attributes for json imports.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
