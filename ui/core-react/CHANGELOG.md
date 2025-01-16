@@ -1,6 +1,13 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Wed, 15 Jan 2025 11:47:00 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Jan 2025 12:04:12 GMT and should not be manually modified.
+
+## 5.0.2
+Thu, 16 Jan 2025 12:04:12 GMT
+
+### Updates
+
+- Use import attributes for json imports.
 
 ## 5.0.1
 Wed, 15 Jan 2025 11:47:00 GMT
