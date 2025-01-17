@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "fix lodash imports from named to default for compatability with esm",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
