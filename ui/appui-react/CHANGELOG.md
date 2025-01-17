@@ -1,6 +1,13 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Thu, 16 Jan 2025 12:04:12 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Jan 2025 11:42:02 GMT and should not be manually modified.
+
+## 5.0.3
+Fri, 17 Jan 2025 11:42:02 GMT
+
+### Updates
+
+- Fix popout widget issue when `useDefaultPopoutUrl` is not enabled.
 
 ## 5.0.2
 Thu, 16 Jan 2025 12:04:12 GMT
