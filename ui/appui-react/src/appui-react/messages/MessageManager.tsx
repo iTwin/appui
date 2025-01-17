@@ -7,7 +7,7 @@
  */
 
 import classnames from "classnames";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual.js";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
 import type {

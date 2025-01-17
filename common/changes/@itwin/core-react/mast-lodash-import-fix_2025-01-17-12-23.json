@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fixed `module 'lodash' does not provide an export named...` error when running in Node.js.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
