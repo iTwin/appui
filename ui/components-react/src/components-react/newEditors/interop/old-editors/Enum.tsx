@@ -8,13 +8,13 @@ import {
   createEditorSpec,
   type EditorProps,
   type EditorSpec,
-} from "../../../Types.js";
+} from "../../Types.js";
+import { EnumEditor as NewEnumEditor } from "../../editors/EnumEditor.js";
+import type { OldEditorMetadata } from "../Metadata.js";
+import { isOldEditorMetadata } from "../Metadata.js";
+import type { EnumValue } from "../../values/Values.js";
+import { Value } from "../../values/Values.js";
 import { useEnumMetadata } from "./UseEnumMetadata.js";
-import { EnumEditor as NewEnumEditor } from "../../../editors/EnumEditor.js";
-import type { OldEditorMetadata } from "../../Metadata.js";
-import { isOldEditorMetadata } from "../../Metadata.js";
-import type { EnumValue } from "../../../values/Values.js";
-import { Value } from "../../../values/Values.js";
 
 export const EnumEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: isOldEditorMetadata,

@@ -8,8 +8,12 @@ import { DateEditor } from "../editors/DateTimeEditor.js";
 import { EnumEditor } from "../editors/EnumEditor.js";
 import { NumericEditor } from "../editors/NumericEditor.js";
 import { TextEditor } from "../editors/TextEditor.js";
-import { EnumEditorSpec as InterOpEnumEditorSpec } from "../interop/old-editors/enum/Enum.js";
-import { EnumButtonGroupEditorSpec } from "../interop/old-editors/enum/EnumButtonGroup.js";
+
+import { ColorEditorSpec as InteropColorEditorSpec } from "../interop/old-editors/Color.js";
+import { CustomNumberEditorSpec as InteropCustomNumberEditorSpec } from "../interop/old-editors/CustomNumber.js";
+import { EnumEditorSpec as InteropEnumEditorSpec } from "../interop/old-editors/Enum.js";
+import { EnumButtonGroupEditorSpec as InteropEnumButtonGroupEditorSpec } from "../interop/old-editors/EnumButtonGroup.js";
+import { NumericInputEditorSpec as InteropNumericInputEditorSpec } from "../interop/old-editors/NumericInput.js";
 
 import { createEditorSpec, type EditorSpec } from "../Types.js";
 import type { EnumValueMetadata, ValueMetadata } from "../values/Metadata.js";
@@ -88,8 +92,11 @@ export const defaultEditors: EditorSpec[] = [
  * @internal
  */
 export const interopEditors: EditorSpec[] = [
-  EnumButtonGroupEditorSpec,
-  InterOpEnumEditorSpec,
+  InteropEnumEditorSpec,
+  InteropEnumButtonGroupEditorSpec,
+  InteropNumericInputEditorSpec,
+  InteropCustomNumberEditorSpec,
+  InteropColorEditorSpec,
 ];
 
 function anyMetadata(_metadata: ValueMetadata): _metadata is ValueMetadata {

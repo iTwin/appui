@@ -4,23 +4,21 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import {
-  createEditorSpec,
-  type EditorProps,
-  type EditorSpec,
-} from "../../../Types.js";
-import { type EnumValue, Value } from "../../../values/Values.js";
 import type { ButtonGroupEditorParams } from "@itwin/appui-abstract";
 import {
   type EnumerationChoice,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
-import type { OldEditorMetadata } from "../../Metadata.js";
-import { isOldEditorMetadata } from "../../Metadata.js";
-import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
+import type { EditorProps, EditorSpec } from "../../Types.js";
+import { createEditorSpec } from "../../Types.js";
+import type { OldEditorMetadata } from "../Metadata.js";
+import { isOldEditorMetadata } from "../Metadata.js";
+import type { EnumValue } from "../../values/Values.js";
+import { Value } from "../../values/Values.js";
 import { useEnumMetadata } from "./UseEnumMetadata.js";
-import { findIcon } from "../../IconsRegistry.js";
-import { useButtonGroupEditorParams } from "../UseEditorParams.js";
+import { useButtonGroupEditorParams } from "./UseEditorParams.js";
+import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
+import { findIcon } from "../IconsRegistry.js";
 
 export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: isOldEditorMetadata,

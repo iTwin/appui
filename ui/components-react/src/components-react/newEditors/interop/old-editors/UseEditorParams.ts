@@ -11,6 +11,7 @@ import type {
   CustomFormattedNumberParams,
   IconEditorParams,
   InputEditorSizeParams,
+  RangeEditorParams,
 } from "@itwin/appui-abstract";
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 
@@ -20,13 +21,15 @@ import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 export function useCustomFormattedNumberParams(
   metadata: OldEditorMetadata
 ): CustomFormattedNumberParams | undefined {
-  return React.useMemo(() => {
-    const formatParams = metadata.params?.find(
-      (param) =>
-        param.type === PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
-    ) as CustomFormattedNumberParams | undefined;
-    return formatParams;
-  }, [metadata]);
+  return React.useMemo(
+    () =>
+      metadata.params?.find(
+        (param) =>
+          param.type ===
+          PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
+      ) as CustomFormattedNumberParams,
+    [metadata]
+  );
 }
 
 /**
@@ -35,13 +38,14 @@ export function useCustomFormattedNumberParams(
 export function useInputEditorSizeParams(
   metadata: OldEditorMetadata
 ): InputEditorSizeParams | undefined {
-  return React.useMemo(() => {
-    const sizeParams = metadata.params?.find(
-      (param) =>
-        param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
-    ) as InputEditorSizeParams | undefined;
-    return sizeParams;
-  }, [metadata]);
+  return React.useMemo(
+    () =>
+      metadata.params?.find(
+        (param) =>
+          param.type === PropertyEditorParamTypes.InputEditorSize.valueOf()
+      ) as InputEditorSizeParams,
+    [metadata]
+  );
 }
 
 /**
@@ -50,12 +54,13 @@ export function useInputEditorSizeParams(
 export function useIconEditorParams(
   metadata: OldEditorMetadata
 ): IconEditorParams | undefined {
-  return React.useMemo(() => {
-    const iconParams = metadata.params?.find(
-      (param) => param.type === PropertyEditorParamTypes.Icon.valueOf()
-    ) as IconEditorParams | undefined;
-    return iconParams;
-  }, [metadata]);
+  return React.useMemo(
+    () =>
+      metadata.params?.find(
+        (param) => param.type === PropertyEditorParamTypes.Icon.valueOf()
+      ) as IconEditorParams,
+    [metadata]
+  );
 }
 
 /**
@@ -64,13 +69,14 @@ export function useIconEditorParams(
 export function useButtonGroupEditorParams(
   metadata: OldEditorMetadata
 ): ButtonGroupEditorParams | undefined {
-  return React.useMemo(() => {
-    const buttonGroupParams = metadata.params?.find(
-      (param) =>
-        param.type === PropertyEditorParamTypes.ButtonGroupData.valueOf()
-    ) as ButtonGroupEditorParams | undefined;
-    return buttonGroupParams;
-  }, [metadata]);
+  return React.useMemo(
+    () =>
+      metadata.params?.find(
+        (param) =>
+          param.type === PropertyEditorParamTypes.ButtonGroupData.valueOf()
+      ) as ButtonGroupEditorParams,
+    [metadata]
+  );
 }
 
 /**
@@ -84,6 +90,21 @@ export function useColorEditorParams(
       metadata.params?.find(
         (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
       ) as ColorEditorParams,
+    [metadata]
+  );
+}
+
+/**
+ * @internal
+ */
+export function useRangeEditorParams(
+  metadata: OldEditorMetadata
+): RangeEditorParams | undefined {
+  return React.useMemo(
+    () =>
+      metadata.params?.find(
+        (param) => param.type === PropertyEditorParamTypes.Range.valueOf()
+      ) as RangeEditorParams,
     [metadata]
   );
 }

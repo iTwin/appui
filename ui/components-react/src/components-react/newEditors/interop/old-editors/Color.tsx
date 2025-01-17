@@ -16,13 +16,13 @@ import {
   IconButton,
   Popover,
 } from "@itwin/itwinui-react";
-import type { EditorProps, EditorSpec } from "../../../Types.js";
-import { createEditorSpec } from "../../../Types.js";
-import type { OldEditorMetadata } from "../../Metadata.js";
-import { isOldEditorMetadata } from "../../Metadata.js";
-import type { NumericValue } from "../../../values/Values.js";
-import { Value } from "../../../values/Values.js";
-import { useColorEditorParams } from "../UseEditorParams.js";
+import type { EditorProps, EditorSpec } from "../../Types.js";
+import { createEditorSpec } from "../../Types.js";
+import type { OldEditorMetadata } from "../Metadata.js";
+import { isOldEditorMetadata } from "../Metadata.js";
+import type { NumericValue } from "../../values/Values.js";
+import { Value } from "../../values/Values.js";
+import { useColorEditorParams } from "./UseEditorParams.js";
 
 /**
  * Editor specification for color editor.

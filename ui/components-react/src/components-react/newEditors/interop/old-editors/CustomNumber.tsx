@@ -4,23 +4,23 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type { EditorProps } from "../../../Types.js";
-import { createEditorSpec } from "../../../Types.js";
-import type { OldEditorMetadata } from "../../Metadata.js";
-import { isOldEditorMetadata } from "../../Metadata.js";
-import type { NumericValue } from "../../../values/Values.js";
-import { Value } from "../../../values/Values.js";
 import {
   PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
 import { InputWithDecorations } from "@itwin/itwinui-react";
-import { findIcon } from "../../IconsRegistry.js";
+import type { EditorProps } from "../../Types.js";
+import { createEditorSpec } from "../../Types.js";
+import type { OldEditorMetadata } from "../Metadata.js";
+import { isOldEditorMetadata } from "../Metadata.js";
+import type { NumericValue } from "../../values/Values.js";
+import { Value } from "../../values/Values.js";
 import {
   useCustomFormattedNumberParams,
   useIconEditorParams,
   useInputEditorSizeParams,
-} from "../UseEditorParams.js";
+} from "./UseEditorParams.js";
+import { findIcon } from "../IconsRegistry.js";
 
 export const CustomNumberEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>

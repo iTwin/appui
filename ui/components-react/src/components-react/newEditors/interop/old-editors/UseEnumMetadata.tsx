@@ -3,9 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type { EnumValueMetadata } from "../../../values/Metadata.js";
 import * as React from "react";
-import type { OldEditorMetadata } from "../../Metadata.js";
+import type { OldEditorMetadata } from "../Metadata.js";
+import type { EnumValueMetadata } from "../../values/Metadata.js";
 
 /**
  * Converts old enum metadata definition into the new one. It takes care of lazy loaded choices.
