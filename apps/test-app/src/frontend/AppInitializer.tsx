@@ -151,7 +151,10 @@ function createInitializer() {
       })
     );
 
-    UiFramework.useDefaultPopoutUrl = config.useDefaultPopoutUrl;
+    const urlParams = new URLSearchParams(window.location.search);
+    const useDefaultPopoutUrl =
+      urlParams.get("useDefaultPopoutUrl") === "0" ? false : true;
+    UiFramework.useDefaultPopoutUrl = useDefaultPopoutUrl;
     await UiFramework.initializeStateFromUserSettingsProviders();
 
     UiFramework.keyboardShortcuts.loadShortcuts(createKeyboardShortcuts());
