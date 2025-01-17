@@ -1,6 +1,13 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Fri, 17 Jan 2025 11:42:02 GMT and should not be manually modified.
+This log was last generated on Fri, 17 Jan 2025 14:12:03 GMT and should not be manually modified.
+
+## 5.0.4
+Fri, 17 Jan 2025 14:12:03 GMT
+
+### Updates
+
+- Fixed `module 'lodash' does not provide an export named...` error when running in Node.js.
 
 ## 5.0.3
 Fri, 17 Jan 2025 11:42:02 GMT
