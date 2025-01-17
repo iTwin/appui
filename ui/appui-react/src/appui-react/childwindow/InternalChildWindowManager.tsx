@@ -18,11 +18,15 @@ import type {
 import { usePopoutsStore } from "../preview/reparent-popout-widgets/usePopoutsStore.js";
 import type { TabState } from "../layout/state/TabState.js";
 
-const childHtml = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <style>
+function addChildHTML(window: Window) {
+  const doc = window.document;
+
+  const meta = doc.createElement("meta");
+  meta.setAttribute("charset", "utf-8");
+  doc.head.appendChild(meta);
+
+  const style = doc.createElement("style");
+  style.textContent = `
     html,
     body {
       height: 100%;
@@ -33,13 +37,17 @@ const childHtml = `<!DOCTYPE html>
     #root {
       height: 100%;
     }
-  </style>
-</head>
-<body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
-</body>
-</html>`;
+  `;
+  doc.head.appendChild(style);
+
+  const noScript = doc.createElement("noscript");
+  noScript.textContent = "You need to enable JavaScript to run this app.";
+  doc.body.appendChild(noScript);
+
+  const root = doc.createElement("div");
+  root.id = "root";
+  doc.body.appendChild(root);
+}
 
 /** @internal */
 export interface InternalOpenChildWindowInfo extends OpenChildWindowInfo {
@@ -239,7 +247,7 @@ export class InternalChildWindowManager implements FrameworkChildWindows {
       );
     };
     if (url.length === 0) {
-      childWindow.document.write(childHtml);
+      addChildHTML(childWindow);
       onDOMContentLoaded();
     } else {
       childWindow.addEventListener("DOMContentLoaded", onDOMContentLoaded);
