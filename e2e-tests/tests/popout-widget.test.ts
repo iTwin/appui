@@ -6,6 +6,7 @@ import { test, expect } from "@playwright/test";
 import {
   WidgetState,
   expectSavedFrontstageState,
+  expectTabInPanelSection,
   floatingWidgetLocator,
   openFrontstage,
   panelSectionLocator,
@@ -264,3 +265,22 @@ test("useWidget hook", async ({ page }) => {
   );
   await expect(widgetText).toBeVisible();
 });
+
+for (const useDefaultPopoutUrl of [1, 0]) {
+  test(`should return popout widget to main window (useDefaultPopoutUrl=${useDefaultPopoutUrl})`, async ({
+    page,
+  }) => {
+    await page.goto(
+      `./blank?frontstageId=test-popout&useDefaultPopoutUrl=${useDefaultPopoutUrl}`
+    );
+
+    const tab = tabLocator(page, "Widget 1");
+    const widget = widgetLocator({ tab });
+
+    const popoutPage = await popoutWidget(widget);
+    await expect(popoutPage.getByText("Widget 1 content")).toBeVisible();
+
+    await popoutPage.close();
+    await expectTabInPanelSection(tab, "left", 0);
+  });
+}
