@@ -18,8 +18,7 @@ import {
   packNineZoneState,
   stateVersion,
 } from "./Frontstage.js";
-import type { DebouncedFunc } from "lodash";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce.js";
 
 type SaveSettingFn = (
   frontstage: FrontstageDef,
@@ -32,9 +31,9 @@ export function useSaveFrontstageSettings(
   store: LayoutStore
 ) {
   const uiSettingsStorage = useUiStateStorageHandler();
-  const saveSettingRef = React.useRef<DebouncedFunc<SaveSettingFn> | undefined>(
-    undefined
-  );
+  const saveSettingRef = React.useRef<
+    ReturnType<typeof debounce<SaveSettingFn>> | undefined
+  >(undefined);
   const save = React.useCallback<SaveSettingFn>(async (frontstage, state) => {
     if (!saveSettingRef.current) return;
     if (state.draggedTab) return;

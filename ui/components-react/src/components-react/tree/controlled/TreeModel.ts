@@ -7,7 +7,7 @@
  */
 
 import { immerable } from "immer";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash/cloneDeep.js";
 import { assert } from "@itwin/core-bentley";
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type {

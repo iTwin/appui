@@ -17,7 +17,7 @@ import { UiFramework } from "../UiFramework.js";
 import { ViewUtilities } from "../utils/ViewUtilities.js";
 import type { ListItem } from "./ListPicker.js";
 import { ListItemType, ListPicker } from "./ListPicker.js";
-import { debounce } from "lodash";
+import debounce from "lodash/debounce.js";
 import { SvgSavedView } from "../icons/SvgSavedView.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ListenerType } from "@itwin/core-react/internal";
