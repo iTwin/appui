@@ -20,7 +20,7 @@ interface QuantityInputProps
 }
 
 /**
- * A component that wraps `FormattedNumericInput` and provides a formatter and parser for quantity values.
+ * A component that wraps `FormattedNumericInput` and takes a formatter and parser for quantity values.
  * @beta
  */
 export function QuantityInput({

@@ -2,10 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+
 import * as React from "react";
-import type { PropertyEditorParams } from "@itwin/appui-abstract";
 import {
-  type ColorEditorParams,
   PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
@@ -17,24 +16,23 @@ import {
   IconButton,
   Popover,
 } from "@itwin/itwinui-react";
-import type {
-  EditorProps,
-  EditorSpec,
-  NumericValue,
-  ValueMetadata,
-} from "@itwin/components-react";
-import { createEditorSpec, Value } from "@itwin/components-react";
+import type { EditorProps, EditorSpec } from "../../../Types.js";
+import { createEditorSpec } from "../../../Types.js";
+import type { OldEditorMetadata } from "../../Metadata.js";
+import { isOldEditorMetadata } from "../../Metadata.js";
+import type { NumericValue } from "../../../values/Values.js";
+import { Value } from "../../../values/Values.js";
+import { useColorEditorParams } from "../UseEditorParams.js";
 
 /**
  * Editor specification for color editor.
  * @beta
  */
 export const ColorEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is ColorValueMetadata =>
+  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     metadata.type === "number" &&
-    "params" in metadata &&
-    metadata.params !== undefined &&
-    !!(metadata.params as PropertyEditorParams[]).find(
+    isOldEditorMetadata(metadata) &&
+    !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
     ),
   isValueSupported: Value.isNumericValue,
@@ -43,26 +41,15 @@ export const ColorEditorSpec: EditorSpec = createEditorSpec({
   Editor: ColorEditor,
 });
 
-/**
- * Metadata for color editor.
- * @beta
- */
-export interface ColorValueMetadata extends ValueMetadata {
-  type: "number";
-  params: PropertyEditorParams[];
-}
-
 function ColorEditor({
   value,
   metadata,
   onChange,
   onFinish,
   size,
-}: EditorProps<ColorValueMetadata, NumericValue>) {
-  const colorParams = metadata.params.find(
-    (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
-  ) as ColorEditorParams;
-  const colors = colorParams.colorValues;
+}: EditorProps<OldEditorMetadata, NumericValue>) {
+  const colorParams = useColorEditorParams(metadata);
+  const colors = colorParams?.colorValues ?? [];
 
   const currentValue = value
     ? value
@@ -94,7 +81,7 @@ function ColorEditor({
       }}
     >
       <IconButton size={size}>
-        <ColorSwatch className="demo-color-swatch" color={activeColor} />
+        <ColorSwatch color={activeColor} />
       </IconButton>
     </Popover>
   );

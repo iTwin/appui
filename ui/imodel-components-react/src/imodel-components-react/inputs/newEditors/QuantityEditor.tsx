@@ -21,7 +21,9 @@ import { QuantityInput } from "./QuantityInput.js";
  */
 export const QuantityEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is QuantityValueMetadata =>
-    metadata.type === "number" && "quantityType" in metadata,
+    metadata.type === "number" &&
+    "quantityType" in metadata &&
+    metadata.quantityType !== undefined,
   isValueSupported: Value.isNumericValue,
   Editor: QuantityEditor,
 });

@@ -18,10 +18,7 @@ import { ThemeProvider as IUI2_ThemeProvider } from "@itwin/itwinui-react-v2";
 import { useEngagementTime } from "./appui/useEngagementTime";
 import { AppLocalizationProvider } from "./Localization";
 import { EditorSpec, EditorsRegistryProvider } from "@itwin/components-react";
-import {
-  ColorEditorSpec,
-  WeightEditorSpec,
-} from "@itwin/imodel-components-react";
+import { WeightEditorSpec } from "@itwin/imodel-components-react";
 
 interface AppProps {
   featureOverrides?: React.ComponentProps<
@@ -57,4 +54,4 @@ function ChildWindow(props: React.PropsWithChildren<object>) {
 }
 
 // add custom editors from `@itwin/imodel-components-react` to the registry
-const rootEditors: EditorSpec[] = [WeightEditorSpec, ColorEditorSpec];
+const rootEditors: EditorSpec[] = [WeightEditorSpec];
