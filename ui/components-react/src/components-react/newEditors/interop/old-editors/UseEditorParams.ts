@@ -12,6 +12,7 @@ import type {
   IconEditorParams,
   InputEditorSizeParams,
   RangeEditorParams,
+  SliderEditorParams,
 } from "@itwin/appui-abstract";
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 
@@ -105,6 +106,21 @@ export function useRangeEditorParams(
       metadata.params?.find(
         (param) => param.type === PropertyEditorParamTypes.Range.valueOf()
       ) as RangeEditorParams,
+    [metadata]
+  );
+}
+
+/**
+ * @internal
+ */
+export function useSliderEditorParams(
+  metadata: OldEditorMetadata
+): SliderEditorParams | undefined {
+  return React.useMemo(
+    () =>
+      metadata.params?.find(
+        (param) => param.type === PropertyEditorParamTypes.Slider.valueOf()
+      ) as SliderEditorParams,
     [metadata]
   );
 }
