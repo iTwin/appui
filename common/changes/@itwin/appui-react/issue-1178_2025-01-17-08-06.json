@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix popout widget issue when `useDefaultPopoutUrl` is not enabled.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
