@@ -580,7 +580,7 @@ importers:
         specifier: ^4.17.10
         version: 4.17.21
       react-error-boundary:
-        specifier: 5.0.0
+        specifier: ^5.0.0
         version: 5.0.0(react@18.3.1)
       react-transition-group:
         specifier: ^4.4.2
