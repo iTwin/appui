@@ -10,10 +10,10 @@ import type { DateValue } from "../values/Values.js";
 import { DateInput } from "./DateInput.js";
 
 /**
- * Date time value editor that render `DatePicker` component with time selector for changing value.
+ * Date time value editor that render `DatePicker` component  for changing value.
  * @internal
  */
-export function DateTimeEditor({
+export function DateEditor({
   value,
   onChange,
   onFinish,
@@ -29,7 +29,6 @@ export function DateTimeEditor({
       onClose={onFinish}
       size={size}
       disabled={disabled}
-      showTimePicker={true}
     />
   );
 }
