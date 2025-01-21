@@ -16,6 +16,7 @@ interface PropertyRecordEditorProps {
   propertyRecord: PropertyRecord;
   onCommit: (args: PropertyUpdatedArgs) => void;
   onCancel: () => void;
+  size?: "small" | "large";
 }
 
 /**
@@ -26,6 +27,7 @@ export function PropertyRecordEditor({
   propertyRecord,
   onCommit,
   onCancel,
+  size,
 }: PropertyRecordEditorProps) {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
   if (metadata && value) {
@@ -41,7 +43,7 @@ export function PropertyRecordEditor({
         }}
         onCancel={onCancel}
         disabled={propertyRecord.isDisabled || propertyRecord.isReadonly}
-        size="small"
+        size={size ? size : "small"}
       />
     );
   }

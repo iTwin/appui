@@ -92,7 +92,6 @@ export {
 } from "./components-react/datepicker/DatePickerPopupButton.js";
 export { IntlFormatter } from "./components-react/datepicker/IntlFormatter.js";
 
-export { PropertyRecordEditor } from "./components-react/newEditors/interop/PropertyRecordEditor.js";
 export {
   BooleanValue,
   DateValue,
@@ -117,6 +116,7 @@ export {
 export { Editor } from "./components-react/newEditors/Editor.js";
 export { CommittingEditor } from "./components-react/newEditors/CommittingEditor.js";
 export { FormattedNumericInput } from "./components-react/newEditors/editors/FormattedNumericInput.js";
+export { PropertyRecordEditor } from "./components-react/newEditors/interop/PropertyRecordEditor.js";
 
 export {
   BooleanEditor,

@@ -58,7 +58,10 @@ export namespace EditorInterop {
         return {
           metadata: {
             ...baseMetadata,
-            type: "date",
+            type:
+              propertyRecord.property.typename === "shortdate"
+                ? "date"
+                : "dateTime",
           },
           value: {
             value: (primitiveValue.value as Date) ?? new Date(),

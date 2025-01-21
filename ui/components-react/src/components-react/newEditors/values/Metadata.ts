@@ -12,6 +12,7 @@ export type ValueType =
   | "number"
   | "bool"
   | "date"
+  | "dateTime"
   | "enum"
   | "instanceKey";
 
