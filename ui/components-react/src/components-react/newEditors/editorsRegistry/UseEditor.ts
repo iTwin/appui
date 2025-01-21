@@ -6,7 +6,7 @@ import * as React from "react";
 import type { EditorSpec } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
-import { defaultEditors, interopEditors } from "./DefaultEditors.js";
+import { defaultEditorSpecs, interopEditorSpecs } from "./DefaultEditors.js";
 import { EditorsRegistryContext } from "./EditorsRegistryContext.js";
 import { FallbackEditor } from "../editors/FallbackEditor.js";
 
@@ -29,14 +29,14 @@ export function useEditor(
     return registeredEditor;
   }
 
-  const oldEditor = interopEditors.find((editor) =>
+  const oldEditor = interopEditorSpecs.find((editor) =>
     editor.applies(metadata, value)
   )?.Editor;
   if (oldEditor) {
     return oldEditor;
   }
 
-  const defaultEditor = defaultEditors.find((editor) =>
+  const defaultEditor = defaultEditorSpecs.find((editor) =>
     editor.applies(metadata, value)
   )?.Editor;
   if (defaultEditor) {
