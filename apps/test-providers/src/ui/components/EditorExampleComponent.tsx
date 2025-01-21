@@ -22,6 +22,7 @@ import {
 } from "@itwin/appui-abstract";
 import { EditorContainer, PropertyRecordEditor } from "@itwin/components-react";
 import {
+  Divider,
   DropdownMenu,
   Flex,
   IconButton,
@@ -219,16 +220,17 @@ export function EditorExampleComponent() {
           record.property.editor?.params?.map((p) => p.type).join(",") ?? ""
         }]`.replace("[]", "");
         return (
-          <Flex key={key} flexDirection="column" style={{ width: "100%" }}>
-            <Flex flexDirection="row" gap="xl" style={{ width: "100%" }}>
-              <Flex.Item alignSelf="flex-start" style={{ width: "100px" }}>
+          <Flex key={key} flexDirection="column">
+            <Flex flexDirection="row" gap="xl">
+              <Flex.Item alignSelf="flex-start" style={{ width: "300px" }}>
                 <OldEditorRenderer record={record} />
               </Flex.Item>
-              <Flex.Item alignSelf="flex-end" style={{ width: "100px" }}>
+              <Divider orientation="vertical" />
+              <Flex.Item alignSelf="flex-end" style={{ width: "300px" }}>
                 <NewEditorRenderer record={record} />
               </Flex.Item>
             </Flex>
-            <Flex.Item>
+            <Flex.Item alignSelf="flex-start">
               <Text variant="small" isMuted>
                 {record.property.editor && (
                   <DropdownMenu
