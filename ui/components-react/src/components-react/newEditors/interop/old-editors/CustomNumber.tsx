@@ -84,6 +84,9 @@ function CustomNumberEditor({
 
   return (
     <InputWithDecorations size={size}>
+      {icon !== undefined ? (
+        <InputWithDecorations.Icon>{icon}</InputWithDecorations.Icon>
+      ) : null}
       <InputWithDecorations.Input
         ref={inputRef}
         style={style}
@@ -92,9 +95,6 @@ function CustomNumberEditor({
         onChange={handleChange}
         value={inputValue}
       />
-      {icon !== undefined ? (
-        <InputWithDecorations.Icon>{icon}</InputWithDecorations.Icon>
-      ) : null}
     </InputWithDecorations>
   );
 }
