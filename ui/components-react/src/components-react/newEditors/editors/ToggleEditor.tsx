@@ -4,20 +4,21 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { Checkbox } from "@itwin/itwinui-react";
-import type { EditorProps } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { BooleanValue } from "../values/Values.js";
+import type { EditorProps } from "../Types.js";
+import { ToggleSwitch } from "@itwin/itwinui-react";
 
 /**
  * Boolean value editor that renders `Checkbox` component for changing value.
  * @internal
  */
-export function BooleanEditor({
+export function ToggleEditor({
   value,
   onChange,
   onFinish,
   disabled,
+  size,
 }: EditorProps<ValueMetadata, BooleanValue>) {
   const currentValue = value ?? { value: false };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +28,11 @@ export function BooleanEditor({
   };
 
   return (
-    <Checkbox
+    <ToggleSwitch
       checked={currentValue.value}
       onChange={handleChange}
       disabled={disabled}
+      size={size === "small" ? "small" : undefined}
     />
   );
 }
