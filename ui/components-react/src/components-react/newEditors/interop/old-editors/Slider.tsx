@@ -15,7 +15,7 @@ import {
   PropertyEditorParamTypes,
   StandardEditorNames,
 } from "@itwin/appui-abstract";
-import { Icon, Slider } from "@itwin/itwinui-react";
+import { Button, Icon, Popover, Slider } from "@itwin/itwinui-react";
 import { useSliderEditorParams } from "./UseEditorParams.js";
 import { findIcon } from "../IconsRegistry.js";
 
@@ -39,6 +39,8 @@ function SliderEditor({
   value,
   disabled,
   onChange,
+  onFinish,
+  size,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const sliderParams = useSliderEditorParams(metadata);
   if (!sliderParams) {
@@ -59,9 +61,10 @@ function SliderEditor({
     onChange({ rawValue: newValue, displayValue: `${newValue}` });
   };
 
-  return (
+  const currentValue = value?.rawValue ?? sliderParams.minimum;
+  const slider = (
     <Slider
-      values={[value?.rawValue ?? sliderParams.minimum]}
+      values={[currentValue]}
       min={sliderParams.minimum}
       max={sliderParams.maximum}
       step={sliderParams.step}
@@ -82,6 +85,23 @@ function SliderEditor({
       onChange={handleChange}
       disabled={disabled}
     />
+  );
+  return (
+    <Popover
+      placement="bottom"
+      style={{ minWidth: "300px", padding: "8px" }}
+      content={slider}
+      onVisibleChange={(visible) => {
+        if (!visible) {
+          onFinish();
+        }
+      }}
+      applyBackground={true}
+    >
+      <Button style={{ width: "100%" }} size={size} disabled={disabled}>
+        {currentValue}
+      </Button>
+    </Popover>
   );
 }
 
