@@ -9,7 +9,7 @@ import type { Value } from "./values/Values.js";
 import type { EditorProps } from "./Types.js";
 
 type CommittingEditorProps = Omit<EditorProps, "onFinish" | "onChange"> & {
-  onCommit: (value: Value) => void;
+  onCommit: (value?: Value) => void;
   onCancel?: () => void;
 };
 
@@ -24,17 +24,17 @@ export function CommittingEditor({
   size,
   ...restProps
 }: CommittingEditorProps) {
-  const [currentValue, setCurrentValue] = useState<Value | undefined>();
-  const currentValueRef = useRef(currentValue);
+  const [currentValue, setCurrentValue] = useState<Value | undefined>(value);
+  const currentValueRef = useRef({ isChanged: false, value });
 
-  const handleChange = (newValue: Value) => {
-    currentValueRef.current = newValue;
+  const handleChange = (newValue?: Value) => {
+    currentValueRef.current = { isChanged: true, value: newValue };
     setCurrentValue(newValue);
   };
 
   const handleCommit = () => {
-    if (currentValueRef.current !== undefined) {
-      onCommit(currentValueRef.current);
+    if (currentValueRef.current.isChanged) {
+      onCommit(currentValueRef.current.value);
       return;
     }
 
@@ -57,7 +57,7 @@ export function CommittingEditor({
       <Editor
         {...restProps}
         metadata={metadata}
-        value={currentValue ?? value}
+        value={currentValue}
         onChange={handleChange}
         size={size}
         onFinish={handleCommit}

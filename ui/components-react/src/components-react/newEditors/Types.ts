@@ -21,7 +21,7 @@ export interface EditorSpec {
 export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
   metadata: TMetadata;
   value?: TValue;
-  onChange: (value: TValue) => void;
+  onChange: (value?: TValue) => void;
   onFinish: () => void;
   disabled?: boolean;
   size?: "small" | "large";

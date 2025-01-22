@@ -11,7 +11,7 @@ import { EditorsRegistryContext } from "./EditorsRegistryContext.js";
 import { FallbackEditor } from "../editors/FallbackEditor.js";
 
 /**
- * Custom hooks that returns editor for specified metadata and value. It uses `EditorsRegistry` context to find registered editors.
+ * Custom React hook that returns editor for specified metadata and value. It uses `EditorsRegistry` context to find registered editors.
  * If no registered editor is found, it will use applicable default editor.
  *
  * @beta
