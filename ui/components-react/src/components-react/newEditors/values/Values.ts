@@ -58,7 +58,8 @@ export interface EnumValue {
 }
 
 /**
- *
+ * Type definition for a value.
+ * @beta
  */
 export type Value =
   | NumericValue
