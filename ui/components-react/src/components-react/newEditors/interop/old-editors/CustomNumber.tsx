@@ -29,7 +29,7 @@ export const CustomNumberEditorSpec = createEditorSpec({
       (param) =>
         param.type === PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
     ),
-  isValueSupported: Value.isNumericValue,
+  isValueSupported: Value.isNumeric,
   applies: (metadata) =>
     metadata.preferredEditor === StandardEditorNames.NumberCustom,
   Editor: CustomNumberEditor,

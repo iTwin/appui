@@ -28,7 +28,7 @@ export const SliderEditorSpec = createEditorSpec({
     !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.Slider.valueOf()
     ),
-  isValueSupported: Value.isNumericValue,
+  isValueSupported: Value.isNumeric,
   applies: (metadata) =>
     metadata.preferredEditor === StandardEditorNames.Slider,
   Editor: SliderEditor,

@@ -20,22 +20,22 @@ function getTextValue(value?: Value) {
   if (value === undefined) {
     return value;
   }
-  if (Value.isBooleanValue(value)) {
+  if (Value.isBoolean(value)) {
     return value.value ? "true" : "false";
   }
-  if (Value.isDateValue(value)) {
+  if (Value.isDate(value)) {
     return value.value.toDateString();
   }
-  if (Value.isEnumValue(value)) {
+  if (Value.isEnum(value)) {
     return value.label;
   }
-  if (Value.isNumericValue(value)) {
+  if (Value.isNumeric(value)) {
     return value.displayValue;
   }
-  if (Value.isTextValue(value)) {
+  if (Value.isText(value)) {
     return value.value;
   }
-  if (Value.isInstanceKeyValue(value)) {
+  if (Value.isInstanceKey(value)) {
     return value.label;
   }
   return "";

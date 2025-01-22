@@ -30,7 +30,7 @@ import { DateEditor } from "../editors/DateEditor.js";
  */
 export const TextEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: anyMetadata,
-  isValueSupported: Value.isTextValue,
+  isValueSupported: Value.isText,
   applies: (metadata) => metadata.type === "string",
   Editor: TextEditor,
 });
@@ -41,7 +41,7 @@ export const TextEditorSpec: EditorSpec = createEditorSpec({
  */
 export const DateEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: anyMetadata,
-  isValueSupported: Value.isDateValue,
+  isValueSupported: Value.isDate,
   applies: (metadata) => metadata.type === "date",
   Editor: DateEditor,
 });
@@ -52,7 +52,7 @@ export const DateEditorSpec: EditorSpec = createEditorSpec({
  */
 export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: anyMetadata,
-  isValueSupported: Value.isDateValue,
+  isValueSupported: Value.isDate,
   applies: (metadata) => metadata.type === "dateTime",
   Editor: DateTimeEditor,
 });
@@ -63,7 +63,7 @@ export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
  */
 export const BoolEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: anyMetadata,
-  isValueSupported: Value.isBooleanValue,
+  isValueSupported: Value.isBoolean,
   applies: (metadata) => metadata.type === "bool",
   Editor: BooleanEditor,
 });
@@ -74,7 +74,7 @@ export const BoolEditorSpec: EditorSpec = createEditorSpec({
  */
 export const NumericEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: anyMetadata,
-  isValueSupported: Value.isNumericValue,
+  isValueSupported: Value.isNumeric,
   applies: (metadata) => metadata.type === "number",
   Editor: NumericEditor,
 });
@@ -86,7 +86,7 @@ export const NumericEditorSpec: EditorSpec = createEditorSpec({
 export const EnumEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is EnumValueMetadata =>
     metadata.type === "enum",
-  isValueSupported: Value.isEnumValue,
+  isValueSupported: Value.isEnum,
   Editor: EnumEditor,
 });
 
@@ -97,7 +97,7 @@ export const EnumEditorSpec: EditorSpec = createEditorSpec({
 export const ToggleEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "bool",
-  isValueSupported: Value.isBooleanValue,
+  isValueSupported: Value.isBoolean,
   applies: (metadata) =>
     metadata.preferredEditor === StandardEditorNames.Toggle,
   Editor: ToggleEditor,

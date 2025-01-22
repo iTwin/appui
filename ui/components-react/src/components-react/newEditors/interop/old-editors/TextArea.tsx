@@ -17,7 +17,7 @@ export const MultilineEditorSpec = createEditorSpec({
     metadata: ValueMetadata
   ): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) && metadata.type === "string",
-  isValueSupported: Value.isTextValue,
+  isValueSupported: Value.isText,
   applies: (metadata) =>
     metadata.preferredEditor === StandardEditorNames.MultiLine,
   Editor: TextAreaEditor,

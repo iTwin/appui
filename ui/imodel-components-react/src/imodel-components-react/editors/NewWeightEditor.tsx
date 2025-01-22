@@ -20,7 +20,7 @@ import {
  */
 export const WeightEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (_metadata): _metadata is ValueMetadata => true,
-  isValueSupported: Value.isNumericValue,
+  isValueSupported: Value.isNumeric,
   applies: (metadata) =>
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.WeightPicker,

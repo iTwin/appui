@@ -22,7 +22,7 @@ import { Input } from "@itwin/itwinui-react";
  */
 export const NumericInputEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: isOldEditorMetadata,
-  isValueSupported: Value.isNumericValue,
+  isValueSupported: Value.isNumeric,
   applies: (metadata) =>
     metadata.preferredEditor === StandardEditorNames.NumericInput,
   Editor: NumericInputEditor,

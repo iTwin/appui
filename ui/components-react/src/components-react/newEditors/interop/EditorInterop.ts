@@ -132,28 +132,28 @@ export namespace EditorInterop {
   export function convertToPrimitiveValue(
     newValue: NewEditorValue
   ): PrimitiveValue {
-    if (NewEditorValue.isTextValue(newValue)) {
+    if (NewEditorValue.isText(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
         displayValue: newValue.value,
       };
     }
-    if (NewEditorValue.isNumericValue(newValue)) {
+    if (NewEditorValue.isNumeric(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.rawValue,
         displayValue: newValue.displayValue,
       };
     }
-    if (NewEditorValue.isBooleanValue(newValue)) {
+    if (NewEditorValue.isBoolean(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
         displayValue: newValue.value.toString(),
       };
     }
-    if (NewEditorValue.isDateValue(newValue)) {
+    if (NewEditorValue.isDate(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
@@ -161,7 +161,7 @@ export namespace EditorInterop {
       };
     }
 
-    if (NewEditorValue.isEnumValue(newValue)) {
+    if (NewEditorValue.isEnum(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.choice,

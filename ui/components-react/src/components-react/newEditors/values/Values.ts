@@ -74,7 +74,7 @@ export namespace Value {
    * Type guard for text value.
    * @beta
    */
-  export function isTextValue(value: Value): value is TextValue {
+  export function isText(value: Value): value is TextValue {
     return "value" in value && typeof value.value === "string";
   }
 
@@ -82,7 +82,7 @@ export namespace Value {
    * Type guard for numeric value.
    * @beta
    */
-  export function isNumericValue(value: Value): value is NumericValue {
+  export function isNumeric(value: Value): value is NumericValue {
     return "rawValue" in value && "displayValue" in value;
   }
 
@@ -90,7 +90,7 @@ export namespace Value {
    * Type guard for boolean value.
    * @beta
    */
-  export function isBooleanValue(value: Value): value is BooleanValue {
+  export function isBoolean(value: Value): value is BooleanValue {
     return "value" in value && typeof value.value === "boolean";
   }
 
@@ -98,7 +98,7 @@ export namespace Value {
    * Type guard for date value.
    * @beta
    */
-  export function isDateValue(value: Value): value is DateValue {
+  export function isDate(value: Value): value is DateValue {
     return "value" in value && value.value instanceof Date;
   }
 
@@ -106,7 +106,7 @@ export namespace Value {
    * Type guard for enum value.
    * @beta
    */
-  export function isEnumValue(value: Value): value is EnumValue {
+  export function isEnum(value: Value): value is EnumValue {
     return "choice" in value && "label" in value;
   }
 
@@ -114,7 +114,7 @@ export namespace Value {
    * Type guard for instance key value.
    * @beta
    */
-  export function isInstanceKeyValue(value: Value): value is InstanceKeyValue {
+  export function isInstanceKey(value: Value): value is InstanceKeyValue {
     return "key" in value && "id" in value.key && "className" in value.key;
   }
 }

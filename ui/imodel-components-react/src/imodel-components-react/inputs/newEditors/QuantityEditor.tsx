@@ -24,7 +24,7 @@ export const QuantityEditorSpec: EditorSpec = createEditorSpec({
     metadata.type === "number" &&
     "quantityType" in metadata &&
     metadata.quantityType !== undefined,
-  isValueSupported: Value.isNumericValue,
+  isValueSupported: Value.isNumeric,
   Editor: QuantityEditor,
 });
 
