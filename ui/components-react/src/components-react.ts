@@ -100,23 +100,23 @@ export {
   NumericValue,
   TextValue,
   Value,
-} from "./components-react/newEditors/values/Values.js";
+} from "./components-react/new-editors/values/Values.js";
 export {
   EnumChoice,
   EnumValueMetadata,
   ValueMetadata,
   ValueType,
-} from "./components-react/newEditors/values/Metadata.js";
-export { EditorsRegistryProvider } from "./components-react/newEditors/editorsRegistry/EditorsRegistryProvider.js";
+} from "./components-react/new-editors/values/Metadata.js";
+export { EditorsRegistryProvider } from "./components-react/new-editors/editors-registry/EditorsRegistryProvider.js";
 export {
   EditorProps,
   EditorSpec,
   createEditorSpec,
-} from "./components-react/newEditors/Types.js";
-export { Editor } from "./components-react/newEditors/Editor.js";
-export { CommittingEditor } from "./components-react/newEditors/CommittingEditor.js";
-export { FormattedNumericInput } from "./components-react/newEditors/editors/FormattedNumericInput.js";
-export { PropertyRecordEditor } from "./components-react/newEditors/interop/PropertyRecordEditor.js";
+} from "./components-react/new-editors/Types.js";
+export { Editor } from "./components-react/new-editors/Editor.js";
+export { CommittingEditor } from "./components-react/new-editors/CommittingEditor.js";
+export { FormattedNumericInput } from "./components-react/new-editors/editors/FormattedNumericInput.js";
+export { PropertyRecordEditor } from "./components-react/new-editors/interop/PropertyRecordEditor.js";
 
 export {
   BooleanEditor,

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import type { EditorProps } from "./Types.js";
-import { useEditor } from "./editorsRegistry/UseEditor.js";
+import { useEditor } from "./editors-registry/UseEditor.js";
 
 /**
  *

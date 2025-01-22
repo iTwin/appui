@@ -20,8 +20,8 @@ import type { PropertyCategory } from "../../PropertyDataProvider.js";
 import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer.js";
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
 import { Orientation } from "../../../common/Orientation.js";
-import { EditorInterop } from "../../../newEditors/interop/EditorInterop.js";
-import { CommittingEditor } from "../../../newEditors/CommittingEditor.js";
+import { EditorInterop } from "../../../new-editors/interop/EditorInterop.js";
+import { CommittingEditor } from "../../../new-editors/CommittingEditor.js";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal
