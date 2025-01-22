@@ -188,7 +188,10 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
           onCommit={(newValue) =>
             _onEditCommit({
               propertyRecord: props.propertyRecord,
-              newValue: EditorInterop.convertToPrimitiveValue(newValue),
+              newValue:
+                newValue === undefined
+                  ? { valueFormat: PropertyValueFormat.Primitive }
+                  : EditorInterop.convertToPrimitiveValue(newValue),
             })
           }
           onCancel={props.onEditCancel}

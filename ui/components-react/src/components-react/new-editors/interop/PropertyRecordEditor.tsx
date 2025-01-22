@@ -4,7 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type { PropertyRecord } from "@itwin/appui-abstract";
+import {
+  type PropertyRecord,
+  PropertyValueFormat,
+} from "@itwin/appui-abstract";
 import { EditorInterop } from "./EditorInterop.js";
 import { CommittingEditor } from "../CommittingEditor.js";
 import {
@@ -38,7 +41,10 @@ export function PropertyRecordEditor({
         onCommit={(newValue) => {
           onCommit({
             propertyRecord,
-            newValue: EditorInterop.convertToPrimitiveValue(newValue),
+            newValue:
+              newValue === undefined
+                ? { valueFormat: PropertyValueFormat.Primitive }
+                : EditorInterop.convertToPrimitiveValue(newValue),
           });
         }}
         onCancel={onCancel}
