@@ -25,6 +25,7 @@ import { findIcon } from "../IconsRegistry.js";
 export const SliderEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) &&
+    metadata.type === "number" &&
     !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.Slider.valueOf()
     ),

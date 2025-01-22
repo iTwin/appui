@@ -30,8 +30,8 @@ import { useColorEditorParams } from "./UseEditorParams.js";
  */
 export const ColorEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    metadata.type === "number" &&
     isOldEditorMetadata(metadata) &&
+    metadata.type === "number" &&
     !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
     ),

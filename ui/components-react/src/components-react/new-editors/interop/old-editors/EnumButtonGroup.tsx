@@ -21,10 +21,10 @@ import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
 import { findIcon } from "../IconsRegistry.js";
 
 export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: isOldEditorMetadata,
+  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
+    isOldEditorMetadata(metadata) && metadata.type === "enum",
   isValueSupported: Value.isEnum,
   applies: (metadata) =>
-    metadata.type === "enum" &&
     metadata.preferredEditor === StandardEditorNames.EnumButtonGroup,
   Editor: EnumButtonGroupEditor,
 });

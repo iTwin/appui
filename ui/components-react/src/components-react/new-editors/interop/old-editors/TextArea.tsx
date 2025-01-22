@@ -9,13 +9,10 @@ import { createEditorSpec, type EditorProps } from "../../Types.js";
 import { isOldEditorMetadata, type OldEditorMetadata } from "../Metadata.js";
 import { type TextValue, Value } from "../../values/Values.js";
 import { StandardEditorNames } from "@itwin/appui-abstract";
-import type { ValueMetadata } from "../../values/Metadata.js";
 
 /** @internal */
 export const MultilineEditorSpec = createEditorSpec({
-  isMetadataSupported: (
-    metadata: ValueMetadata
-  ): metadata is OldEditorMetadata =>
+  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) && metadata.type === "string",
   isValueSupported: Value.isText,
   applies: (metadata) =>

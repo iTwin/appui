@@ -25,6 +25,7 @@ import { findIcon } from "../IconsRegistry.js";
 export const CustomNumberEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) &&
+    metadata.type === "number" &&
     !!metadata.params?.find(
       (param) =>
         param.type === PropertyEditorParamTypes.CustomFormattedNumber.valueOf()

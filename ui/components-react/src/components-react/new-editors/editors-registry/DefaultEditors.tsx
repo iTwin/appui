@@ -29,9 +29,9 @@ import { DateEditor } from "../editors/DateEditor.js";
  * @internal
  */
 export const TextEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: anyMetadata,
+  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+    metadata.type === "string",
   isValueSupported: Value.isText,
-  applies: (metadata) => metadata.type === "string",
   Editor: TextEditor,
 });
 
@@ -40,9 +40,9 @@ export const TextEditorSpec: EditorSpec = createEditorSpec({
  * @internal
  */
 export const DateEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: anyMetadata,
+  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+    metadata.type === "date",
   isValueSupported: Value.isDate,
-  applies: (metadata) => metadata.type === "date",
   Editor: DateEditor,
 });
 
@@ -51,9 +51,9 @@ export const DateEditorSpec: EditorSpec = createEditorSpec({
  * @internal
  */
 export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: anyMetadata,
+  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+    metadata.type === "dateTime",
   isValueSupported: Value.isDate,
-  applies: (metadata) => metadata.type === "dateTime",
   Editor: DateTimeEditor,
 });
 
@@ -62,9 +62,9 @@ export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
  * @internal
  */
 export const BoolEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: anyMetadata,
+  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+    metadata.type === "bool",
   isValueSupported: Value.isBoolean,
-  applies: (metadata) => metadata.type === "bool",
   Editor: BooleanEditor,
 });
 
@@ -73,9 +73,9 @@ export const BoolEditorSpec: EditorSpec = createEditorSpec({
  * @internal
  */
 export const NumericEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: anyMetadata,
+  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+    metadata.type === "number",
   isValueSupported: Value.isNumeric,
-  applies: (metadata) => metadata.type === "number",
   Editor: NumericEditor,
 });
 
@@ -135,7 +135,3 @@ export const interopEditorSpecs: EditorSpec[] = [
 
   InteropEnumEditorSpec,
 ];
-
-function anyMetadata(_metadata: ValueMetadata): _metadata is ValueMetadata {
-  return true;
-}

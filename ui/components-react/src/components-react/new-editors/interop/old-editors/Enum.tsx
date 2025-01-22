@@ -17,9 +17,9 @@ import { Value } from "../../values/Values.js";
 import { useEnumMetadata } from "./UseEnumMetadata.js";
 
 export const EnumEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: isOldEditorMetadata,
+  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
+    isOldEditorMetadata(metadata) && metadata.type === "enum",
   isValueSupported: Value.isEnum,
-  applies: (metadata) => metadata.type === "enum",
   Editor: EnumEditor,
 });
 
