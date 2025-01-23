@@ -9,11 +9,14 @@ import {
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { EditorInterop } from "./EditorInterop.js";
-import { CommittingEditor } from "../CommittingEditor.js";
 import {
   EditorContainer,
   type PropertyUpdatedArgs,
 } from "../../editors/EditorContainer.js";
+import { useCommittableValue } from "../UseCommittableValue.js";
+import { Editor } from "../Editor.js";
+import type { ValueMetadata } from "../values/Metadata.js";
+import type { Value } from "../values/Values.js";
 
 interface PropertyRecordEditorProps {
   propertyRecord: PropertyRecord;
@@ -37,7 +40,7 @@ export function PropertyRecordEditor({
     return (
       <CommittingEditor
         metadata={metadata}
-        value={value}
+        initialValue={value}
         onCommit={(newValue) => {
           onCommit({
             propertyRecord,
@@ -49,7 +52,7 @@ export function PropertyRecordEditor({
         }}
         onCancel={onCancel}
         disabled={propertyRecord.isDisabled || propertyRecord.isReadonly}
-        size={size ? size : "small"}
+        size={size}
       />
     );
   }
@@ -60,5 +63,41 @@ export function PropertyRecordEditor({
       onCommit={onCommit}
       onCancel={onCancel}
     />
+  );
+}
+
+function CommittingEditor({
+  metadata,
+  initialValue,
+  onCancel,
+  onCommit,
+  disabled,
+  size,
+}: {
+  metadata: ValueMetadata;
+  initialValue?: Value;
+  onCommit: (value?: Value) => void;
+  onCancel: () => void;
+  disabled?: boolean;
+  size?: "small" | "large";
+}) {
+  const { value, onChange, onKeydown, commit } = useCommittableValue({
+    initialValue,
+    onCommit,
+    onCancel,
+  });
+
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div onKeyDown={onKeydown}>
+      <Editor
+        metadata={metadata}
+        value={value}
+        onChange={onChange}
+        onFinish={commit}
+        disabled={disabled}
+        size={size}
+      />
+    </div>
   );
 }

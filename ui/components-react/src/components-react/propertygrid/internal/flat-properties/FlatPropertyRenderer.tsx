@@ -21,7 +21,10 @@ import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRend
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
 import { Orientation } from "../../../common/Orientation.js";
 import { EditorInterop } from "../../../new-editors/interop/EditorInterop.js";
-import { CommittingEditor } from "../../../new-editors/CommittingEditor.js";
+import { Editor } from "../../../new-editors/Editor.js";
+import { useCommittableValue } from "../../../new-editors/UseCommittableValue.js";
+import type { ValueMetadata } from "../../../new-editors/values/Metadata.js";
+import type { Value } from "../../../../components-react.js";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal
@@ -182,9 +185,9 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     );
     if (props.usedEditor === "new" && metadata && value) {
       return (
-        <CommittingEditor
+        <NewEditor
           metadata={metadata}
-          value={value}
+          initialValue={value}
           onCommit={(newValue) =>
             _onEditCommit({
               propertyRecord: props.propertyRecord,
@@ -195,7 +198,6 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
             })
           }
           onCancel={props.onEditCancel}
-          size="small"
         />
       );
     }
@@ -236,4 +238,34 @@ function useResetHeightOnEdit(
 
     previousEditingStatusRef.current = isEditing;
   });
+}
+
+function NewEditor({
+  metadata,
+  initialValue,
+  onCancel,
+  onCommit,
+}: {
+  metadata: ValueMetadata;
+  initialValue?: Value;
+  onCommit: (value?: Value) => void;
+  onCancel?: () => void;
+}) {
+  const { value, onChange, commit, onKeydown } = useCommittableValue({
+    initialValue,
+    onCancel,
+    onCommit,
+  });
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <div onKeyDown={onKeydown}>
+      <Editor
+        metadata={metadata}
+        value={value}
+        onChange={onChange}
+        onFinish={commit}
+        size="small"
+      />
+    </div>
+  );
 }

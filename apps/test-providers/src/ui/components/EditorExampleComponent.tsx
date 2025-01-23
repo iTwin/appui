@@ -283,7 +283,7 @@ function NewEditorRenderer({ record }: { record: PropertyRecord }) {
             propertyRecord={record}
             onCommit={() => undefined}
             onCancel={() => undefined}
-            // size={localSize}
+            size="small" // size={localSize}
           />
         </Flex.Item>
       ))}
