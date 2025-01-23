@@ -23,7 +23,7 @@ export const MultilineEditorSpec = createEditorSpec({
 function TextAreaEditor({
   value,
   onChange,
-  onFinish,
+  commit,
   size,
   disabled,
 }: EditorProps<OldEditorMetadata, TextValue>) {
@@ -43,7 +43,7 @@ function TextAreaEditor({
       }
       onVisibleChange={(visible) => {
         if (!visible) {
-          onFinish();
+          commit?.();
         }
       }}
     >

@@ -17,7 +17,7 @@ export function EnumEditor({
   metadata,
   value,
   onChange,
-  onFinish,
+  commit,
   size,
   disabled,
 }: EditorProps<EnumValueMetadata, EnumValue>) {
@@ -28,7 +28,7 @@ export function EnumEditor({
     const choice = choices.find((c) => c.value === newChoice);
     const newValue = { choice: newChoice, label: choice?.label ?? "" };
     onChange(newValue);
-    onFinish();
+    commit?.();
   };
 
   return (

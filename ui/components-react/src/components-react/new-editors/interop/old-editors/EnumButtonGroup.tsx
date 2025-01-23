@@ -32,7 +32,7 @@ export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
 function EnumButtonGroupEditor({
   value,
   onChange,
-  onFinish,
+  commit,
   size,
   disabled,
   metadata,
@@ -60,7 +60,7 @@ function EnumButtonGroupEditor({
             key={choice.value}
             onClick={() => {
               onChange({ choice: choice.value, label: choice.label });
-              onFinish();
+              commit?.();
             }}
             label={choice.label}
             isActive={choice.value === currentValue.choice}

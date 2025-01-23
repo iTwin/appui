@@ -15,7 +15,7 @@ interface FormattedNumericInputProps {
   onChange: (value: NumericValue) => void;
   parseValue: (value: string) => number | undefined;
   formatValue: (num: number) => string;
-  onBlur: () => void;
+  onBlur?: () => void;
   disabled?: boolean;
   size?: "small" | "large";
 }

@@ -7,32 +7,16 @@ import type { EditorProps } from "./Types.js";
 import { useEditor } from "./editors-registry/UseEditor.js";
 
 /**
- *
+ * Editor component that renders an editor based on the metadata and value.
+ * @beta
  */
-export function Editor({
-  metadata,
-  value,
-  onChange,
-  onFinish,
-  disabled,
-  size,
-}: EditorProps) {
+export function Editor(props: EditorProps) {
+  const { metadata, value } = props;
   const TypeEditor = useEditor(metadata, value);
 
   if (!TypeEditor) {
     return null;
   }
 
-  return (
-    <TypeEditor
-      metadata={metadata}
-      value={value}
-      onChange={onChange}
-      size={size}
-      onFinish={onFinish ?? noopOnFinish}
-      disabled={disabled}
-    />
-  );
+  return <TypeEditor {...props} />;
 }
-
-function noopOnFinish() {}

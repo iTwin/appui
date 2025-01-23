@@ -81,7 +81,7 @@ function CommittingEditor({
   disabled?: boolean;
   size?: "small" | "large";
 }) {
-  const { value, onChange, onKeydown, commit } = useCommittableValue({
+  const { value, onChange, onKeydown, commit, cancel } = useCommittableValue({
     initialValue,
     onCommit,
     onCancel,
@@ -94,7 +94,8 @@ function CommittingEditor({
         metadata={metadata}
         value={value}
         onChange={onChange}
-        onFinish={commit}
+        commit={commit}
+        cancel={cancel}
         disabled={disabled}
         size={size}
       />

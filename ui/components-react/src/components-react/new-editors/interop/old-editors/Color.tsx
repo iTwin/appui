@@ -45,7 +45,7 @@ function ColorEditor({
   value,
   metadata,
   onChange,
-  onFinish,
+  commit,
   size,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const colorParams = useColorEditorParams(metadata);
@@ -76,7 +76,7 @@ function ColorEditor({
       }
       onVisibleChange={(visible) => {
         if (!visible) {
-          onFinish();
+          commit?.();
         }
       }}
     >

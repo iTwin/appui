@@ -16,7 +16,7 @@ import { DateInput } from "./DateInput.js";
 export function DateTimeEditor({
   value,
   onChange,
-  onFinish,
+  commit,
   size,
   disabled,
 }: EditorProps<ValueMetadata, DateValue>) {
@@ -26,7 +26,7 @@ export function DateTimeEditor({
       onChange={(newValue) => {
         onChange({ value: newValue });
       }}
-      onClose={onFinish}
+      onClose={commit}
       size={size}
       disabled={disabled}
       showTimePicker={true}

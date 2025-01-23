@@ -251,7 +251,7 @@ function NewEditor({
   onCommit: (value?: Value) => void;
   onCancel?: () => void;
 }) {
-  const { value, onChange, commit, onKeydown } = useCommittableValue({
+  const { value, onChange, commit, cancel, onKeydown } = useCommittableValue({
     initialValue,
     onCancel,
     onCommit,
@@ -263,7 +263,8 @@ function NewEditor({
         metadata={metadata}
         value={value}
         onChange={onChange}
-        onFinish={commit}
+        commit={commit}
+        cancel={cancel}
         size="small"
       />
     </div>

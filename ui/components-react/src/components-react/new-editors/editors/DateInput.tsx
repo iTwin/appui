@@ -9,7 +9,7 @@ import { Button, DatePicker, Popover } from "@itwin/itwinui-react";
 interface DateInputProps {
   value?: Date;
   onChange: (value: Date) => void;
-  onClose: () => void;
+  onClose?: () => void;
   size?: "small" | "large";
   disabled?: boolean;
   showTimePicker?: boolean;
@@ -44,7 +44,7 @@ export function DateInput({
       }
       onVisibleChange={(visible) => {
         if (!visible) {
-          onClose();
+          onClose?.();
         }
       }}
     >

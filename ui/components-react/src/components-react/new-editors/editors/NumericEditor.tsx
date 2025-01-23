@@ -15,7 +15,7 @@ import type { NumericValue } from "../values/Values.js";
 export function NumericEditor({
   value,
   onChange,
-  onFinish,
+  commit,
   size,
   disabled,
 }: EditorProps<ValueMetadata, NumericValue>) {
@@ -29,7 +29,7 @@ export function NumericEditor({
           displayValue: e.target.value,
         })
       }
-      onBlur={onFinish}
+      onBlur={commit}
       size={size}
       disabled={disabled}
     />

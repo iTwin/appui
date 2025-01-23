@@ -40,7 +40,7 @@ function SliderEditor({
   value,
   disabled,
   onChange,
-  onFinish,
+  commit,
   size,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const sliderParams = useSliderEditorParams(metadata);
@@ -94,7 +94,7 @@ function SliderEditor({
       content={slider}
       onVisibleChange={(visible) => {
         if (!visible) {
-          onFinish();
+          commit?.();
         }
       }}
       applyBackground={true}

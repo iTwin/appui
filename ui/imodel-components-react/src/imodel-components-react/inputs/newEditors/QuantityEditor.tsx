@@ -41,7 +41,7 @@ function QuantityEditor({
   metadata,
   value,
   onChange,
-  onFinish,
+  commit,
   size,
 }: EditorProps<QuantityValueMetadata, NumericValue>) {
   const { formatter, parser } = useQuantityInfo({
@@ -55,7 +55,7 @@ function QuantityEditor({
     <QuantityInput
       value={currentValue}
       onChange={onChange}
-      onBlur={onFinish}
+      onBlur={commit}
       size={size}
       formatter={formatter}
       parser={parser}

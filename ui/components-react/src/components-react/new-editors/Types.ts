@@ -23,7 +23,18 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
   metadata: TMetadata;
   value?: TValue;
   onChange: (value?: TValue) => void;
-  onFinish: () => void;
+  /**
+   * Callback that allows editor implementation to indicate that editing is finished. This is useful if editor
+   * is rendered inside a container that waits for committing/cancelling action (like `ENTER` or `ESC` key press) but editor implementation
+   * has additional actions that should cause commit (closing popup, commit button, etc.).
+   */
+  commit?: () => void;
+  /**
+   * Callback that allows editor implementation to indicate that editing is cancelled. This is useful if editor
+   * is rendered inside a container that waits for committing/cancelling action (like `ENTER` or `ESC` key press) but editor implementation
+   * has additional actions that should cause cancellation (cancel button, etc).
+   */
+  cancel?: () => void;
   disabled?: boolean;
   size?: "small" | "large";
 }

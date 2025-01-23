@@ -20,7 +20,7 @@ interface UseCommittableValueProps {
  *
  * ```tsx
  * function MyValueEditor({ initialValue, ...editorProps }: Props) {
- *   const { value, onChange, onKeyDown, commit } = useCommittableValue({
+ *   const { value, onChange, onKeyDown, commit, cancel } = useCommittableValue({
  *     initialValue,
  *     onCommit: (newValue) => {
  *       // commit new value
@@ -35,7 +35,8 @@ interface UseCommittableValueProps {
  *       {...editorProps}
  *       value={value}
  *       onChange={onChange}
- *       onFinish={commit}
+ *       commit={commit}
+ *       cancel={cancel}
  *     />
  *   </div>
  * }
@@ -94,6 +95,7 @@ export function useCommittableValue({
     onChange: handleChange,
     onKeydown: handleKeyDown,
     commit: handleCommit,
+    cancel: handleCancel,
     value: currentValue,
   };
 }

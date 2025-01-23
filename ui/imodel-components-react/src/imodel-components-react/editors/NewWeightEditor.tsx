@@ -30,7 +30,7 @@ export const WeightEditorSpec: EditorSpec = createEditorSpec({
 function WeightEditor({
   value,
   onChange,
-  onFinish,
+  commit,
 }: EditorProps<ValueMetadata, NumericValue>) {
   const currentValue = value ? value : { rawValue: 0, displayValue: "" };
 
@@ -40,9 +40,9 @@ function WeightEditor({
       onLineWeightPick={(newWeight) => {
         const newValue = { rawValue: newWeight, displayValue: "" };
         onChange(newValue);
-        onFinish();
+        commit?.();
       }}
-      onBlur={() => onFinish()}
+      onBlur={() => commit?.()}
     />
   );
 }

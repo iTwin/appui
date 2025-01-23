@@ -16,7 +16,7 @@ import { ToggleSwitch } from "@itwin/itwinui-react";
 export function ToggleEditor({
   value,
   onChange,
-  onFinish,
+  commit,
   disabled,
   size,
 }: EditorProps<ValueMetadata, BooleanValue>) {
@@ -24,7 +24,7 @@ export function ToggleEditor({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = { value: e.target.checked };
     onChange(newValue);
-    onFinish();
+    commit?.();
   };
 
   return (

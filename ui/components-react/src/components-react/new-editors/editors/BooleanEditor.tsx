@@ -16,14 +16,14 @@ import type { BooleanValue } from "../values/Values.js";
 export function BooleanEditor({
   value,
   onChange,
-  onFinish,
+  commit,
   disabled,
 }: EditorProps<ValueMetadata, BooleanValue>) {
   const currentValue = value ?? { value: false };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = { value: e.target.checked };
     onChange(newValue);
-    onFinish();
+    commit?.();
   };
 
   return (

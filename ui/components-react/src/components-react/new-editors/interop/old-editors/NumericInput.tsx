@@ -35,7 +35,7 @@ function NumericInputEditor({
   onChange,
   size,
   disabled,
-  onFinish,
+  commit,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const sizeParams = useInputEditorSizeParams(metadata);
   const rangeParams = useRangeEditorParams(metadata);
@@ -47,7 +47,7 @@ function NumericInputEditor({
   };
 
   const handleBlur = () => {
-    onFinish();
+    commit?.();
   };
 
   const style: React.CSSProperties | undefined =
