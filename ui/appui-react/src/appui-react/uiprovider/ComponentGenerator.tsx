@@ -216,6 +216,7 @@ function EditorRenderer({
       propertyRecord={propertyRecord}
       onCommit={onCommit}
       onCancel={onCancel}
+      size="small"
     />
   );
 }
