@@ -42,7 +42,6 @@ function WeightEditor({
         onChange(newValue);
         commit?.();
       }}
-      onBlur={() => commit?.()}
     />
   );
 }

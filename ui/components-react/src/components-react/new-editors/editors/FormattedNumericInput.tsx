@@ -15,7 +15,6 @@ interface FormattedNumericInputProps {
   onChange: (value: NumericValue) => void;
   parseValue: (value: string) => number | undefined;
   formatValue: (num: number) => string;
-  onBlur?: () => void;
   disabled?: boolean;
   size?: "small" | "large";
 }
@@ -30,7 +29,6 @@ export function FormattedNumericInput({
   parseValue,
   formatValue,
   disabled,
-  onBlur,
   size,
 }: FormattedNumericInputProps) {
   const { currentValue, inputProps } = useParsedNumberInput({
@@ -47,9 +45,7 @@ export function FormattedNumericInput({
     onChangeRef.current(currentValue);
   }, [currentValue]);
 
-  return (
-    <Input disabled={disabled} size={size} onBlur={onBlur} {...inputProps} />
-  );
+  return <Input disabled={disabled} size={size} {...inputProps} />;
 }
 
 function useParsedNumberInput({

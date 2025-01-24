@@ -14,7 +14,6 @@ import type { TextValue } from "../values/Values.js";
  */
 export function TextEditor({
   value,
-  commit,
   onChange,
   size,
   disabled,
@@ -25,7 +24,6 @@ export function TextEditor({
     <Input
       value={currentValue.value}
       onChange={(e) => onChange({ value: e.target.value })}
-      onBlur={commit}
       size={size}
       disabled={disabled}
     />

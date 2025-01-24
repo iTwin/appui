@@ -35,7 +35,6 @@ function NumericInputEditor({
   onChange,
   size,
   disabled,
-  commit,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const sizeParams = useInputEditorSizeParams(metadata);
   const rangeParams = useRangeEditorParams(metadata);
@@ -44,10 +43,6 @@ function NumericInputEditor({
       displayValue: newValue,
       rawValue: parseFloat(newValue),
     });
-  };
-
-  const handleBlur = () => {
-    commit?.();
   };
 
   const style: React.CSSProperties | undefined =
@@ -64,7 +59,6 @@ function NumericInputEditor({
     step: rangeParams?.step,
     maxLength: sizeParams?.maxLength,
     onChange: handleChange,
-    onBlur: handleBlur,
     value: value?.displayValue ?? "",
   });
 
@@ -81,7 +75,6 @@ interface UseNumericInputProps {
   maxLength?: number;
   value: string;
   onChange: (newValue: string) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
 }
 
 function useNumericInput({
@@ -92,7 +85,6 @@ function useNumericInput({
   maxLength,
   value,
   onChange,
-  onBlur,
 }: UseNumericInputProps) {
   const formatValue = (val: number) => {
     const appliedMin = min ?? Number.MIN_VALUE;
@@ -117,7 +109,7 @@ function useNumericInput({
     onChange(currentValue);
   };
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleBlur = () => {
     if (precision) {
       const newFormattedValue = formatValue(Number(formattedValue));
       if (newFormattedValue !== formattedValue) {
@@ -125,7 +117,6 @@ function useNumericInput({
         onChange(newFormattedValue);
       }
     }
-    onBlur?.(e);
   };
 
   return {

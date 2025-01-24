@@ -40,7 +40,6 @@ function CustomNumberEditor({
   metadata,
   value,
   onChange,
-  commit,
   size,
   disabled,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
@@ -92,7 +91,6 @@ function CustomNumberEditor({
         ref={inputRef}
         style={style}
         disabled={disabled}
-        onBlur={commit}
         onChange={handleChange}
         value={inputValue}
       />

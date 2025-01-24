@@ -256,9 +256,16 @@ function NewEditor({
     onCancel,
     onCommit,
   });
+
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div onKeyDown={onKeydown}>
+    <div
+      onKeyDown={onKeydown}
+      onBlur={(e) => {
+        console.log("Container Blur", e);
+        commit?.();
+      }}
+    >
       <Editor
         metadata={metadata}
         value={value}
