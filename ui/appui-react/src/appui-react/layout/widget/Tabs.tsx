@@ -6,7 +6,6 @@
  * @module Widget
  */
 
-import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { useResizeObserver } from "@itwin/core-react/internal";
@@ -95,8 +94,8 @@ export function WidgetTabs() {
         })
       : [];
   return (
-    <div className="nz-widget-tabs" ref={ref} role="tablist">
-      <Tabs.TabList>
+    <>
+      <Tabs.TabList ref={ref} role="tablist">
         {tabChildren.map(([key, child], index, array) => {
           return (
             <WidgetTabsEntryProvider
@@ -120,7 +119,7 @@ export function WidgetTabs() {
           return <React.Fragment key={key}>{child}</React.Fragment>;
         })}
       </WidgetOverflow>
-    </div>
+    </>
   );
 }
 
