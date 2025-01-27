@@ -95,21 +95,23 @@ export function WidgetTabs() {
       : [];
   return (
     <>
-      <Tabs.TabList ref={ref} role="tablist">
-        {tabChildren.map(([key, child], index, array) => {
-          return (
-            <WidgetTabsEntryProvider
-              children={child} // eslint-disable-line react/no-children-prop
-              key={key}
-              id={key}
-              lastNotOverflown={
-                index === array.length - 1 && panelChildren.length > 0
-              }
-              getOnResize={handleEntryResize}
-            />
-          );
-        })}
-      </Tabs.TabList>
+      <Tabs.Wrapper ref={ref}>
+        <Tabs.TabList ref={ref} role="tablist">
+          {tabChildren.map(([key, child], index, array) => {
+            return (
+              <WidgetTabsEntryProvider
+                children={child} // eslint-disable-line react/no-children-prop
+                key={key}
+                id={key}
+                lastNotOverflown={
+                  index === array.length - 1 && panelChildren.length > 0
+                }
+                getOnResize={handleEntryResize}
+              />
+            );
+          })}
+        </Tabs.TabList>
+      </Tabs.Wrapper>
       <TitleBarTarget />
       <WidgetOverflow
         hidden={overflown && panelChildren.length === 0}
