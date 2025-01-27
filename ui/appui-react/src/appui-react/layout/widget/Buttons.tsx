@@ -32,6 +32,7 @@ import {
   AddWidgetButton,
   useAddTab,
 } from "../../preview/control-widget-visibility/AddWidgetButton.js";
+import { Tabs } from "@itwin/itwinui-react";
 
 /** @internal */
 export type WidgetFeature =
@@ -73,7 +74,9 @@ export function TabBarButtons() {
 
   return (
     <div className="nz-widget-buttons">
-      {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
+      <Tabs.Actions>
+        {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
+      </Tabs.Actions>
     </div>
   );
 }
