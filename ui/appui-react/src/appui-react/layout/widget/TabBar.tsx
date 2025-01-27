@@ -26,6 +26,7 @@ import { WidgetIdContext } from "./Widget.js";
 import { useDoubleClick } from "../widget-panels/Grip.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { Tabs } from "@itwin/itwinui-react";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -112,8 +113,10 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
   return (
     <div ref={containerRef} className={className}>
       <div className={handleClassName} ref={ref} />
-      <WidgetTabs />
-      <TabBarButtons />
+      <Tabs.Wrapper>
+        <WidgetTabs />
+        <TabBarButtons />
+      </Tabs.Wrapper>
     </div>
   );
 }
