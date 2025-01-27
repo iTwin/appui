@@ -48,6 +48,7 @@ import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { FloatingTab } from "./FloatingTab.js";
+import { Tabs } from "@itwin/itwinui-react";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -159,10 +160,12 @@ function WidgetTabComponent(props: WidgetTabProps) {
       title={label}
       tabIndex={0}
     >
-      {(showWidgetIcon || showIconOnly) && (
-        <span className="nz-icon">{props.icon}</span>
-      )}
-      {showLabel && <span className="nz-label">{label}</span>}
+      <Tabs.Tab value={id} key={id}>
+        {(showWidgetIcon || showIconOnly) && (
+          <Tabs.TabIcon>{props.icon}</Tabs.TabIcon>
+        )}
+        {showLabel && <Tabs.TabLabel>{label}</Tabs.TabLabel>}
+      </Tabs.Tab>
       {props.badge && <div className="nz-badge">{props.badge}</div>}
       <TabTarget />
     </div>

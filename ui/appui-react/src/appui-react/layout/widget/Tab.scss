@@ -19,20 +19,6 @@
   max-width: 9em;
   background: var(--iui-color-background-backdrop);
 
-  > .nz-icon {
-    svg {
-      width: #{math.div(14, 16)}rem;
-      height: #{math.div(14, 16)}rem;
-      fill: currentColor;
-    }
-  }
-
-  > .nz-label {
-    font-size: $nz-widget-tab-font-size;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
   > .nz-badge {
     position: absolute;
     top: 0;
