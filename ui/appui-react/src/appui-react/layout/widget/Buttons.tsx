@@ -6,7 +6,6 @@
  * @module Widget
  */
 
-import "./Buttons.scss";
 import * as React from "react";
 import { Dock, useDock } from "./Dock.js";
 import { PinToggle, usePinToggle } from "./PinToggle.js";
@@ -73,11 +72,9 @@ export function TabBarButtons() {
   });
 
   return (
-    <div className="nz-widget-buttons">
-      <Tabs.Actions>
-        {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
-      </Tabs.Actions>
-    </div>
+    <Tabs.Actions>
+      {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
+    </Tabs.Actions>
   );
 }
 
