@@ -19,7 +19,7 @@ export function BooleanEditor({
   commit,
   disabled,
 }: EditorProps<ValueMetadata, BooleanValue>) {
-  const currentValue = value ?? { value: false };
+  const currentValue = value?.value ?? false;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = { value: e.target.checked };
     onChange(newValue);
@@ -28,7 +28,7 @@ export function BooleanEditor({
 
   return (
     <Checkbox
-      checked={currentValue.value}
+      checked={currentValue}
       onChange={handleChange}
       disabled={disabled}
     />
