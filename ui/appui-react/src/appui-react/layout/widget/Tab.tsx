@@ -160,7 +160,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
       title={label}
       tabIndex={0}
     >
-      <Tabs.Tab value={id} key={id}>
+      <Tabs.Tab value={id} key={id} className="nz-tab-blockSize">
         {(showWidgetIcon || showIconOnly) && (
           <Tabs.TabIcon>{props.icon}</Tabs.TabIcon>
         )}
