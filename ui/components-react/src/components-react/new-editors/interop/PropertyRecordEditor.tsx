@@ -14,7 +14,7 @@ import {
   type PropertyUpdatedArgs,
 } from "../../editors/EditorContainer.js";
 import { useCommittableValue } from "../UseCommittableValue.js";
-import { Editor } from "../Editor.js";
+import { EditorRenderer } from "../EditorRenderer.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
 
@@ -90,7 +90,7 @@ function CommittingEditor({
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div onKeyDown={onKeydown}>
-      <Editor
+      <EditorRenderer
         metadata={metadata}
         value={value}
         onChange={onChange}

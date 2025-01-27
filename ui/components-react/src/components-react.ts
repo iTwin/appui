@@ -113,7 +113,7 @@ export {
   EditorSpec,
   createEditorSpec,
 } from "./components-react/new-editors/Types.js";
-export { Editor } from "./components-react/new-editors/Editor.js";
+export { EditorRenderer } from "./components-react/new-editors/EditorRenderer.js";
 export { useCommittableValue } from "./components-react/new-editors/UseCommittableValue.js";
 export { FormattedNumericInput } from "./components-react/new-editors/editors/FormattedNumericInput.js";
 export { PropertyRecordEditor } from "./components-react/new-editors/interop/PropertyRecordEditor.js";

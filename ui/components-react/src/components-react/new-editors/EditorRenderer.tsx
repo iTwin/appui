@@ -10,7 +10,7 @@ import { useEditor } from "./editors-registry/UseEditor.js";
  * Editor component that renders an editor based on the metadata and value.
  * @beta
  */
-export function Editor(props: EditorProps) {
+export function EditorRenderer(props: EditorProps) {
   const { metadata, value } = props;
   const TypeEditor = useEditor(metadata, value);
 

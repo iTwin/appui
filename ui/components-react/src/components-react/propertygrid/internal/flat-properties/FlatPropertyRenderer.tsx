@@ -21,7 +21,7 @@ import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRend
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
 import { Orientation } from "../../../common/Orientation.js";
 import { EditorInterop } from "../../../new-editors/interop/EditorInterop.js";
-import { Editor } from "../../../new-editors/Editor.js";
+import { EditorRenderer } from "../../../new-editors/EditorRenderer.js";
 import { useCommittableValue } from "../../../new-editors/UseCommittableValue.js";
 import type { ValueMetadata } from "../../../new-editors/values/Metadata.js";
 import type { Value } from "../../../../components-react.js";
@@ -258,15 +258,8 @@ function NewEditor({
   });
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div
-      onKeyDown={onKeydown}
-      onBlur={(e) => {
-        console.log("Container Blur", e);
-        commit?.();
-      }}
-    >
-      <Editor
+    <div onKeyDown={onKeydown} onBlur={commit} role="presentation">
+      <EditorRenderer
         metadata={metadata}
         value={value}
         onChange={onChange}
