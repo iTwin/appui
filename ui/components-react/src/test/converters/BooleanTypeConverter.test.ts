@@ -40,7 +40,7 @@ describe("BooleanTypeConverter", () => {
         "Components:general.true"
       );
       expect(converter.convertToString("test")).toEqual(trueString);
-      expect(converter.convertToString(5)).toEqual(trueString);
+      expect(converter.convertToString(true)).toEqual(trueString);
       expect(converter.convertToString({})).toEqual(trueString);
     });
 
@@ -48,7 +48,7 @@ describe("BooleanTypeConverter", () => {
       const falseString = TestUtils.i18n.getLocalizedString(
         "Components:general.false"
       );
-      expect(converter.convertToString(0)).toEqual(falseString);
+      expect(converter.convertToString(false)).toEqual(falseString);
     });
 
     it("returns empty string if provided value is undefined", () => {
@@ -80,18 +80,18 @@ describe("BooleanTypeConverter", () => {
 
   describe("sortCompare", () => {
     it("returns 0 when boolean values are equal", () => {
-      expect(converter.sortCompare(1, {})).toEqual(0);
+      expect(converter.sortCompare(true, {})).toEqual(0);
       expect(converter.sortCompare({}, [])).toEqual(0);
       expect(converter.sortCompare([], "a")).toEqual(0);
     });
 
     it("returns greater than 0 when first boolean is true and second is false", () => {
-      expect(converter.sortCompare(1, 0)).to.be.greaterThan(0);
+      expect(converter.sortCompare(true, false)).to.be.greaterThan(0);
       expect(converter.sortCompare("a", "")).to.be.greaterThan(0);
     });
 
     it("returns less than 0 when first boolean is true and second is false", () => {
-      expect(converter.sortCompare(0, 1)).to.be.lessThan(0);
+      expect(converter.sortCompare(false, true)).to.be.lessThan(0);
       expect(converter.sortCompare("", "a")).to.be.lessThan(0);
     });
   });
