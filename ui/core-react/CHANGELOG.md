@@ -1,6 +1,35 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+This log was last generated on Tue, 21 Jan 2025 11:38:58 GMT and should not be manually modified.
+
+## 5.0.5
+Tue, 21 Jan 2025 11:38:58 GMT
+
+_Version update only_
+
+## 5.0.4
+Fri, 17 Jan 2025 14:12:03 GMT
+
+### Updates
+
+- Fixed `module 'lodash' does not provide an export named...` error when running in Node.js.
+
+## 5.0.3
+Fri, 17 Jan 2025 11:42:02 GMT
+
+_Version update only_
+
+## 5.0.2
+Thu, 16 Jan 2025 12:04:12 GMT
+
+### Updates
+
+- Use import attributes for json imports.
+
+## 5.0.1
+Wed, 15 Jan 2025 11:47:00 GMT
+
+_Version update only_
 
 ## 5.0.0
 Mon, 16 Dec 2024 11:43:27 GMT
