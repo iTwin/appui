@@ -60,9 +60,14 @@
     "@itwin/core-frontend": "^4.0.0",
     "@itwin/core-geometry": "^4.0.0",
     "@itwin/core-quantity": "^4.0.0",
+<<<<<<< HEAD
     "@itwin/core-react": "workspace:^5.1.0-dev.1",
     "@itwin/core-telemetry": "^4.0.0",
     "@itwin/imodel-components-react": "workspace:^5.1.0-dev.1",
+=======
+    "@itwin/core-react": "workspace:^5.2.0-dev.0",
+    "@itwin/imodel-components-react": "workspace:^5.2.0-dev.0",
+>>>>>>> 5ad780fb7 (Remove @itwin/core-telemetry from @itwin/appui-react peerDependencies (#1193))
     "@itwin/itwinui-react": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
