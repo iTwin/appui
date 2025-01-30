@@ -2,6 +2,18 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "5.1.0",
+      "tag": "@itwin/components-react_v5.1.0",
+      "date": "Thu, 30 Jan 2025 09:15:23 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "cSpell fixes"
+          }
+        ]
+      }
+    },
+    {
       "version": "5.0.5",
       "tag": "@itwin/components-react_v5.0.5",
       "date": "Tue, 21 Jan 2025 11:38:58 GMT",
