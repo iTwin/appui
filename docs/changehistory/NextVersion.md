@@ -21,3 +21,4 @@
   - `N`, `S`, `E`, `W` letters, which correspond to North, South, East, and West, can be entered in the bearing angle input field.
   - The bearing angle input field automatically adds special characters `°`, `'`, and `"` to facilitate entering the bearing angle.
   - The focus is now trapped in AccuDraw input fields. To focus out of these fields, the end user can press the `Escape` key.
+- Removed unnecessary `@itwin/core-telemetry` peer dependency. [#1193](https://github.com/iTwin/appui/pull/1193)

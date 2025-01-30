@@ -61,7 +61,6 @@
     "@itwin/core-geometry": "^4.0.0",
     "@itwin/core-quantity": "^4.0.0",
     "@itwin/core-react": "workspace:^5.1.0-dev.1",
-    "@itwin/core-telemetry": "^4.0.0",
     "@itwin/imodel-components-react": "workspace:^5.1.0-dev.1",
     "@itwin/itwinui-react": "^3.15.0",
     "react": "^18.0.0",
