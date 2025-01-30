@@ -7,7 +7,7 @@ import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import * as React from "react";
 
 /**
- *@internal
+ * @internal
  */
 export function findIcon(iconName?: string) {
   if (!iconName) {

@@ -10,7 +10,7 @@ import type { EditorProps } from "../Types.js";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 
 /**
- * Boolean value editor that renders `Checkbox` component for changing value.
+ * Boolean value editor that renders `ToggleSwitch` component for changing value.
  * @internal
  */
 export function ToggleEditor({
