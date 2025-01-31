@@ -2,6 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.nz-tab-blockSize {
-  min-block-size: 0;
+.nz-widget-tab {
+  display: flex;
+  position: relative;
+
+  > .nz-tab-blockSize {
+    min-block-size: 0;
+  }
+
+  > .nz-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }

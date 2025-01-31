@@ -132,6 +132,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
     <div
       data-item-id={id}
       data-item-type="widget-tab"
+      className="nz-widget-tab"
       ref={refs}
       role="tab"
       style={props.style}
