@@ -15,13 +15,14 @@ import type {
   DialogItemValue,
   DialogPropertySyncItem,
   DialogRow,
+  PropertyRecord,
 } from "@itwin/appui-abstract";
 import {
   PropertyValueFormat,
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { EditorContainer } from "@itwin/components-react";
+import { PropertyRecordEditor } from "@itwin/components-react";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
@@ -189,7 +190,7 @@ function PropertyEditor({
 
   return (
     <div key={initialItem.property.name} className={className}>
-      <EditorContainer
+      <EditorRenderer
         key={initialItem.property.name}
         propertyRecord={propertyRecord}
         setFocus={setFocus}
@@ -197,6 +198,26 @@ function PropertyEditor({
         onCancel={onCancel ?? handleCancel}
       />
     </div>
+  );
+}
+
+function EditorRenderer({
+  propertyRecord,
+  onCommit,
+  onCancel,
+}: {
+  propertyRecord: PropertyRecord;
+  setFocus?: boolean;
+  onCommit: (commit: PropertyUpdatedArgs) => void;
+  onCancel: () => void;
+}) {
+  return (
+    <PropertyRecordEditor
+      propertyRecord={propertyRecord}
+      onCommit={onCommit}
+      onCancel={onCancel}
+      size="small"
+    />
   );
 }
 

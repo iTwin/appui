@@ -6,8 +6,11 @@ import * as React from "react";
 import { DefaultViewOverlay, UiFramework } from "@itwin/appui-react";
 import { IModelApp, ScreenViewport, ViewState } from "@itwin/core-frontend";
 import { ViewportComponent } from "@itwin/imodel-components-react";
+import { viewWithUnifiedSelection } from "@itwin/presentation-components";
 
 type ViewportComponentProps = React.ComponentProps<typeof ViewportComponent>;
+
+const UnifiedViewport = viewWithUnifiedSelection(ViewportComponent);
 
 interface ViewportContentProps extends Partial<ViewportComponentProps> {
   contentId?: string;
@@ -49,7 +52,7 @@ export function ViewportContent({
 
   return (
     <>
-      <ViewportComponent
+      <UnifiedViewport
         viewState={viewState}
         imodel={iModel}
         viewportRef={(v) => {

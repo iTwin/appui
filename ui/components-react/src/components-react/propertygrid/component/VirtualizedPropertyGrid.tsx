@@ -69,6 +69,7 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
   width: number;
   /** Height of the property grid component. */
   height: number;
+  usedEditor?: "old" | "new";
 }
 
 /** State of [[VirtualizedPropertyGrid]] React component
@@ -125,6 +126,7 @@ export interface VirtualizedPropertyGridContext {
     category: PropertyCategory
   ) => void;
   onEditCancel?: () => void;
+  usedEditor: "old" | "new";
 
   eventHandler: IPropertyGridEventHandler;
   dataProvider: IPropertyDataProvider;
@@ -385,6 +387,7 @@ export class VirtualizedPropertyGrid extends React.Component<
                 editingPropertyKey: selectionContext.editingPropertyKey,
                 onEditCommit: selectionContext.onEditCommit,
                 onEditCancel: selectionContext.onEditCancel,
+                usedEditor: this.props.usedEditor ?? "old",
 
                 eventHandler: this.props.eventHandler,
                 dataProvider: this.props.dataProvider,
@@ -609,6 +612,7 @@ const FlatGridItemNode = React.memo(
                 alwaysShowEditor={gridContext.alwaysShowEditor}
                 onEditCommit={gridContext.onEditCommit}
                 onEditCancel={gridContext.onEditCancel}
+                usedEditor={gridContext.usedEditor}
                 isExpanded={node.isExpanded}
                 onExpansionToggled={onExpansionToggled}
                 onHeightChanged={onHeightChanged}

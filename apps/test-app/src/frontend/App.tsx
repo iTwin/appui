@@ -17,6 +17,8 @@ import {
 import { ThemeProvider as IUI2_ThemeProvider } from "@itwin/itwinui-react-v2";
 import { useEngagementTime } from "./appui/useEngagementTime";
 import { AppLocalizationProvider } from "./Localization";
+import { EditorSpec, EditorsRegistryProvider } from "@itwin/components-react";
+import { WeightEditorSpec } from "@itwin/imodel-components-react";
 
 interface AppProps {
   featureOverrides?: React.ComponentProps<
@@ -32,10 +34,12 @@ export function App({ featureOverrides }: AppProps) {
         <WidgetContentProvider>
           <AppPreviewFeatures featureOverrides={featureOverrides}>
             <AppLocalizationProvider>
-              <ConfigurableUiContent
-                appBackstage={<BackstageComposer />}
-                childWindow={ChildWindow}
-              />
+              <EditorsRegistryProvider editors={rootEditors}>
+                <ConfigurableUiContent
+                  appBackstage={<BackstageComposer />}
+                  childWindow={ChildWindow}
+                />
+              </EditorsRegistryProvider>
             </AppLocalizationProvider>
           </AppPreviewFeatures>
         </WidgetContentProvider>
@@ -48,3 +52,6 @@ export function App({ featureOverrides }: AppProps) {
 function ChildWindow(props: React.PropsWithChildren<object>) {
   return <IUI2_ThemeProvider>{props.children}</IUI2_ThemeProvider>;
 }
+
+// add custom editors from `@itwin/imodel-components-react` to the registry
+const rootEditors: EditorSpec[] = [WeightEditorSpec];
