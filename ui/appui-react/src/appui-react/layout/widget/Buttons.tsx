@@ -72,7 +72,7 @@ export function TabBarButtons() {
   });
 
   return (
-    <Tabs.Actions>
+    <Tabs.Actions data-testid="tabs-actions">
       {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
     </Tabs.Actions>
   );
