@@ -6,7 +6,6 @@
  * @module Widget
  */
 
-import "./Buttons.scss";
 import * as React from "react";
 import { Dock, useDock } from "./Dock.js";
 import { PinToggle, usePinToggle } from "./PinToggle.js";
@@ -32,6 +31,7 @@ import {
   AddWidgetButton,
   useAddTab,
 } from "../../preview/control-widget-visibility/AddWidgetButton.js";
+import { Tabs } from "@itwin/itwinui-react";
 
 /** @internal */
 export type WidgetFeature =
@@ -72,9 +72,9 @@ export function TabBarButtons() {
   });
 
   return (
-    <div className="nz-widget-buttons">
+    <Tabs.Actions data-testid="tabs-actions">
       {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
-    </div>
+    </Tabs.Actions>
   );
 }
 

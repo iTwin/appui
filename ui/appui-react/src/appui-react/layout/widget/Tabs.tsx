@@ -6,7 +6,6 @@
  * @module Widget
  */
 
-import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { useResizeObserver } from "@itwin/core-react/internal";
@@ -22,6 +21,7 @@ import { TitleBarTarget } from "../target/TitleBarTarget.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { WidgetIdContext } from "./Widget.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import { Tabs } from "@itwin/itwinui-react";
 
 /** @internal */
 export function WidgetTabs() {
@@ -94,20 +94,24 @@ export function WidgetTabs() {
         })
       : [];
   return (
-    <div className="nz-widget-tabs" ref={ref} role="tablist">
-      {tabChildren.map(([key, child], index, array) => {
-        return (
-          <WidgetTabsEntryProvider
-            children={child} // eslint-disable-line react/no-children-prop
-            key={key}
-            id={key}
-            lastNotOverflown={
-              index === array.length - 1 && panelChildren.length > 0
-            }
-            getOnResize={handleEntryResize}
-          />
-        );
-      })}
+    <>
+      <Tabs.Wrapper ref={ref}>
+        <Tabs.TabList ref={ref} role="tablist">
+          {tabChildren.map(([key, child], index, array) => {
+            return (
+              <WidgetTabsEntryProvider
+                children={child} // eslint-disable-line react/no-children-prop
+                key={key}
+                id={key}
+                lastNotOverflown={
+                  index === array.length - 1 && panelChildren.length > 0
+                }
+                getOnResize={handleEntryResize}
+              />
+            );
+          })}
+        </Tabs.TabList>
+      </Tabs.Wrapper>
       <TitleBarTarget />
       <WidgetOverflow
         hidden={overflown && panelChildren.length === 0}
@@ -117,7 +121,7 @@ export function WidgetTabs() {
           return <React.Fragment key={key}>{child}</React.Fragment>;
         })}
       </WidgetOverflow>
-    </div>
+    </>
   );
 }
 
