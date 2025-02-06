@@ -69,7 +69,9 @@ export interface ToolAssistanceFieldProps extends CommonProps {
   includePromptAtCursor: boolean;
   /** Optional parameter for persistent UI settings. Defaults to `UiStateStorageContext`. */
   uiStateStorage?: UiStateStorage;
-  /** Cursor prompt timeout period. Defaults to `5000`. */
+  /** Cursor prompt timeout period. Defaults to `5000`.
+   * @note Specify `Number.POSITIVE_INFINITY` to keep the cursor prompt open indefinitely.
+   */
   cursorPromptTimeout: number;
   /** Fade out the cursor prompt when closed. */
   fadeOutCursorPrompt: boolean;
@@ -186,6 +188,7 @@ export class ToolAssistanceField extends React.Component<
 
   public override componentWillUnmount() {
     this._isMounted = false;
+    this._cursorPrompt.close();
     MessageManager.onToolAssistanceChangedEvent.removeListener(
       this._handleToolAssistanceChangedEvent
     );

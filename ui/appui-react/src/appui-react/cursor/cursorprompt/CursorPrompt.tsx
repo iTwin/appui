@@ -20,19 +20,21 @@ import { CursorPopupManager } from "../cursorpopup/CursorPopupManager.js";
 
 /** @internal */
 export class CursorPrompt {
-  private _timeOut: number;
   private _fadeOut: boolean;
   // eslint-disable-next-line @typescript-eslint/no-deprecated
-  private _timer: Timer;
+  private _timer?: Timer;
   private _relativePosition = RelativePosition.BottomRight;
   private _offset: Point = new Point(20, 20);
   private _popupId = "cursor-prompt";
 
   constructor(timeOut: number, fadeOut: boolean) {
-    this._timeOut = timeOut;
     this._fadeOut = fadeOut;
+
+    if (timeOut === Number.POSITIVE_INFINITY) return;
+
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._timer = new Timer(timeOut);
+    this._timer.setOnExecute(() => this.close());
   }
 
   public display(
@@ -42,7 +44,7 @@ export class CursorPrompt {
     relativePosition: RelativePosition = RelativePosition.BottomRight
   ) {
     if (!instruction.text) {
-      if (this._timer.isRunning) this.close(false);
+      if (this._timer?.isRunning) this.close();
       return;
     }
 
@@ -63,20 +65,6 @@ export class CursorPrompt {
       </div>
     );
 
-    this._startCursorPopup(promptElement);
-
-    this._timer.setOnExecute(() => this._endCursorPopup(this._fadeOut));
-    this._timer.delay = this._timeOut;
-    this._timer.start();
-  }
-
-  /** @internal - unit testing */
-  public close(fadeOut: boolean) {
-    this._timer.stop();
-    this._endCursorPopup(fadeOut);
-  }
-
-  private _startCursorPopup = (promptElement: React.ReactElement) => {
     CursorPopupManager.open(
       this._popupId,
       promptElement,
@@ -86,19 +74,21 @@ export class CursorPrompt {
       0,
       { shadow: true }
     );
-
     if (!CursorInformation.onCursorUpdatedEvent.has(this._handleCursorUpdated))
       CursorInformation.onCursorUpdatedEvent.addListener(
         this._handleCursorUpdated
       );
-  };
 
-  private _endCursorPopup = (fadeOut?: boolean) => {
-    CursorPopupManager.close(this._popupId, false, fadeOut);
+    this._timer?.start();
+  }
+
+  public close() {
+    this._timer?.stop();
+    CursorPopupManager.close(this._popupId, false, this._fadeOut);
     CursorInformation.onCursorUpdatedEvent.removeListener(
       this._handleCursorUpdated
     );
-  };
+  }
 
   private _handleCursorUpdated: ListenerType<
     typeof CursorInformation.onCursorUpdatedEvent

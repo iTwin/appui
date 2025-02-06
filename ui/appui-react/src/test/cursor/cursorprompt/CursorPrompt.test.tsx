@@ -36,7 +36,7 @@ describe("CursorPrompt", () => {
       selectorMatches(".uifw-cursor-prompt *")
     );
 
-    cursorPrompt.close(false);
+    cursorPrompt.close();
   });
 
   // TODO: react 18 upgrade
