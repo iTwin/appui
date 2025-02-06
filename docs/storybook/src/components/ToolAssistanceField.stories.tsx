@@ -6,34 +6,47 @@ import * as React from "react";
 import type { Decorator, Meta, StoryObj } from "@storybook/react";
 import {
   MessageManager,
+  StatusBarItemUtilities,
   ToolAssistanceField,
   UiFramework,
 } from "@itwin/appui-react";
-import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import {
   Tool,
   ToolAssistance,
   ToolAssistanceImage,
 } from "@itwin/core-frontend";
+import { AppUiStory } from "src/AppUiStory";
+import { createFrontstage } from "src/Utils";
 
-const AlignComponent: Decorator = (Story) => {
+const StoryDecorator: Decorator = (Story) => {
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingBlock: "2em",
-        gap: "10",
-      }}
-    >
-      <Story />
-    </div>
+    <AppUiStory
+      frontstages={[
+        createFrontstage({
+          hideStatusBar: false,
+        }),
+      ]}
+      itemProviders={[
+        {
+          id: "provider-1",
+          getStatusBarItems: () => [
+            StatusBarItemUtilities.createCustomItem({
+              id: "tool-assistance",
+              content: (
+                <>
+                  <Story />
+                  <Setup />
+                </>
+              ),
+            }),
+          ],
+        },
+      ]}
+    />
   );
 };
 
-const SetupToolAssistance: Decorator = (Story) => {
+function Setup() {
   React.useEffect(() => {
     const mainInstruction = ToolAssistance.createInstruction(
       ToolAssistanceImage.CursorClick,
@@ -80,19 +93,14 @@ const SetupToolAssistance: Decorator = (Story) => {
       })()
     );
   }, []);
-  return <Story />;
-};
+  return null;
+}
 
 const meta = {
   title: "Components/Status fields/ToolAssistanceField",
   component: ToolAssistanceField,
   tags: ["autodocs"],
-  decorators: [
-    AlignComponent,
-    SetupToolAssistance,
-    InitializerDecorator,
-    AppUiDecorator,
-  ],
+  decorators: [StoryDecorator],
   args: {
     includePromptAtCursor: true,
     cursorPromptTimeout: 5000,
