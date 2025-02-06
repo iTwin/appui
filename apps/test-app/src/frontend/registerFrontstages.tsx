@@ -51,6 +51,7 @@ import {
   createITwinUIV2Frontstage,
   createITwinUIV2FrontstageProvider,
 } from "./appui/frontstages/iTwinUIV2Frontstage";
+import { createTestWidgetFrontstage } from "./appui/frontstages/TestWidgetFrontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
@@ -74,6 +75,7 @@ export function registerFrontstages({
     }),
     createElementStackingFrontstage(),
     createTestPanelFrontstage(),
+    createTestWidgetFrontstage(),
     createTestPopoutFrontstage(),
     createWidgetApiFrontstage(),
     createCustomContentFrontstage(),
