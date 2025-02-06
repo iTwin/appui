@@ -65,20 +65,18 @@ import { LocalStateStorage } from "../../uistate/LocalStateStorage.js";
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ToolAssistanceFieldProps extends CommonProps {
-  /** Indicates whether to include promptAtCursor Checkbox. Defaults to true. */
+  /** Indicates whether to include promptAtCursor Checkbox. Defaults to `true`. */
   includePromptAtCursor: boolean;
-  /** Optional parameter for persistent UI settings. Defaults to UiStateStorageContext.
-   */
+  /** Optional parameter for persistent UI settings. Defaults to `UiStateStorageContext`. */
   uiStateStorage?: UiStateStorage;
-  /** Cursor Prompt Timeout period. Defaults to 5000. */
+  /** Cursor prompt timeout period. Defaults to `5000`. */
   cursorPromptTimeout: number;
-  /** Fade Out the Cursor Prompt when closed. */
+  /** Fade out the cursor prompt when closed. */
   fadeOutCursorPrompt: boolean;
-  /** Indicates whether to show promptAtCursor by default. Defaults to false. */
+  /** Indicates whether to show promptAtCursor by default. Defaults to `false`. */
   defaultPromptAtCursor: boolean;
 }
 
-/** @internal */
 interface ToolAssistanceFieldState {
   instructions: ToolAssistanceInstructions | undefined;
   toolIconSpec: string;
