@@ -30,7 +30,7 @@ const AlignComponent: Decorator = (Story) => {
 };
 
 const meta = {
-  title: "Components/MessageCenterField",
+  title: "Components/Status fields/MessageCenterField",
   component: MessageCenterField,
   tags: ["autodocs"],
   decorators: [AlignComponent, InitializerDecorator, AppUiDecorator],

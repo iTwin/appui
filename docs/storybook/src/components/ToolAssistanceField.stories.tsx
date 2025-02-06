@@ -84,7 +84,7 @@ const SetupToolAssistance: Decorator = (Story) => {
 };
 
 const meta = {
-  title: "Components/ToolAssistanceField",
+  title: "Components/Status fields/ToolAssistanceField",
   component: ToolAssistanceField,
   tags: ["autodocs"],
   decorators: [
