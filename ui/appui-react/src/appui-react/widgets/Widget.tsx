@@ -51,10 +51,18 @@ export interface Widget {
    * It is not possible to disable the floating of a widget if `allowedPanels` is an empty array.
    */
   readonly canFloat?: boolean | CanFloatWidgetOptions;
-  /** Defaults to `Floating` if widget is not allowed to dock to any panels. Otherwise defaults to `Closed`.
-   * @note If `Hidden` the widget will be hidden after the layout is restored independently of saved layout state.
+  /** The default state of the widget.
+   * - Defaults to `Floating` if the widget is not allowed to dock to any panels.
+   * - Otherwise, defaults to `Closed`.
+   *
+   * @note If set to `Hidden`, the widget will be hidden after the layout is restored, independently of the saved layout state. Set `useSavedState` to `true` to disable this behavior.
+   * @note If set to `Unloaded`, the widget will be unloaded after the layout is restored, independently of the saved layout state. Set `useSavedState` to `true` to disable this behavior.
    */
   readonly defaultState?: WidgetState;
+  /** When enabled, the widget will always use the saved layout state. `defaultState` will only be used for the initial layout setup.
+   * This is useful for scenarios where the widget should only be hidden/unloaded initially, but is always restored to the last state.
+   */
+  readonly useSavedState?: boolean;
   /** Content of the Widget. */
   readonly content?: React.ReactNode;
   /** @deprecated in 4.16.0. Use {@link Widget.iconNode} instead. */
