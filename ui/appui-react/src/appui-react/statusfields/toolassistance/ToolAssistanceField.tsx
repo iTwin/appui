@@ -194,6 +194,11 @@ export class ToolAssistanceField extends React.Component<
     );
   }
 
+  public override componentDidUpdate() {
+    if (!this.state.showPromptAtCursor)
+      this._cursorPrompt.close(this.props.fadeOutCursorPrompt);
+  }
+
   private async restoreSettings() {
     let getShowPromptAtCursor: Promise<UiStateStorageResult> | undefined;
     if (this.props.includePromptAtCursor) {
