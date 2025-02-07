@@ -61,6 +61,7 @@ export interface Widget {
   readonly defaultState?: WidgetState;
   /** When enabled, the widget will always use the saved layout state. `defaultState` will only be used for the initial layout setup.
    * This is useful for scenarios where the widget should only be hidden/unloaded initially, but is always restored to the last state.
+   * @note This property is only useful to disable the special handling of `defaultState` when it is set to `Hidden` or `Unloaded`.
    */
   readonly useSavedState?: boolean;
   /** Content of the Widget. */
