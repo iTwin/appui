@@ -152,10 +152,7 @@ export class ToolAssistanceField extends React.Component<
     };
 
     this._uiSettingsStorage = new LocalStateStorage();
-    this._cursorPrompt = new CursorPrompt(
-      this.props.cursorPromptTimeout,
-      this.props.fadeOutCursorPrompt
-    );
+    this._cursorPrompt = new CursorPrompt();
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._showPromptAtCursorSetting = new UiStateEntry(
       ToolAssistanceField._toolAssistanceKey,
@@ -188,7 +185,7 @@ export class ToolAssistanceField extends React.Component<
 
   public override componentWillUnmount() {
     this._isMounted = false;
-    this._cursorPrompt.close();
+    this._cursorPrompt.close(this.props.fadeOutCursorPrompt);
     MessageManager.onToolAssistanceChangedEvent.removeListener(
       this._handleToolAssistanceChangedEvent
     );
@@ -297,17 +294,29 @@ export class ToolAssistanceField extends React.Component<
     typeof UiFramework.frontstages.onToolIconChangedEvent
   > = (args) => {
     if (this._isMounted)
-      this.setState({ toolIconSpec: args.iconSpec }, () => {
-        this._showCursorPrompt();
-      });
+      this.setState(
+        {
+          toolIconSpec: args.iconSpec,
+        },
+        () => {
+          this._showCursorPrompt();
+        }
+      );
   };
 
   private _showCursorPrompt() {
-    if (this.state.showPromptAtCursor && this.state.instructions)
-      this._cursorPrompt.display(
-        this.state.toolIconSpec,
-        this.state.instructions.mainInstruction
-      );
+    const instruction = this.state.instructions?.mainInstruction.text;
+    if (!this.state.showPromptAtCursor || !instruction) {
+      this._cursorPrompt.close(this.props.fadeOutCursorPrompt);
+      return;
+    }
+
+    this._cursorPrompt.open({
+      timeout: this.props.cursorPromptTimeout,
+      fadeout: this.props.fadeOutCursorPrompt,
+      iconSpec: this.state.toolIconSpec,
+      instruction,
+    });
   }
 
   private _sectionHasDisplayableInstructions(
