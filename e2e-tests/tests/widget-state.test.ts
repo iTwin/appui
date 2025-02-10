@@ -350,3 +350,66 @@ test.describe("widget lifecycle", () => {
     expect(logs).toContain("Widget WL-B unmount");
   });
 });
+
+test.describe("defaultState", () => {
+  test.describe("Hidden", () => {
+    test("should hide after reload", async ({ context, page }) => {
+      await page.goto(
+        "./blank?frontstageId=test-widget&frontstageVersion=1&defaultState=hidden"
+      );
+
+      // Hidden initially
+      const tab = tabLocator(page, "Widget 1");
+      await expect(tab).not.toBeVisible();
+
+      // Open widget
+      await setWidgetState(page, "widget-1", WidgetState.Open);
+      await expect(tab).toBeVisible();
+      await expectSavedFrontstageState(context, (state) => {
+        const widgets = Object.values(state.nineZone.widgets);
+        return widgets.length > 0;
+      });
+
+      // Should hide after reload
+      await page.reload();
+      await expectSavedFrontstageState(context, (state) => {
+        const widgets = Object.values(state.nineZone.widgets);
+        return widgets.length > 0;
+      });
+      await expect(tab).not.toBeVisible();
+      await expectSavedFrontstageState(context, (state) => {
+        const widgets = Object.values(state.nineZone.widgets);
+        return widgets.length === 0;
+      });
+    });
+
+    test("should persist after reload when useSavedState is enabled", async ({
+      context,
+      page,
+    }) => {
+      await page.goto(
+        "./blank?frontstageId=test-widget&frontstageVersion=1&defaultState=hidden&useSavedState"
+      );
+
+      // Hidden initially
+      const tab = tabLocator(page, "Widget 1");
+      await expect(tab).not.toBeVisible();
+
+      // Open widget
+      await setWidgetState(page, "widget-1", WidgetState.Open);
+      await expect(tab).toBeVisible();
+      await expectSavedFrontstageState(context, (state) => {
+        const widgets = Object.values(state.nineZone.widgets);
+        return widgets.length > 0;
+      });
+
+      // Should stay open after reload
+      await page.reload();
+      await expectSavedFrontstageState(context, (state) => {
+        const widgets = Object.values(state.nineZone.widgets);
+        return widgets.length > 0;
+      });
+      await expect(tab).toBeVisible();
+    });
+  });
+});

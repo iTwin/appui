@@ -5550,6 +5550,7 @@ export interface Widget {
     readonly priority?: number;
     // (undocumented)
     readonly tooltip?: string | ConditionalStringValue_2;
+    readonly useSavedState?: boolean;
 }
 
 // @public
