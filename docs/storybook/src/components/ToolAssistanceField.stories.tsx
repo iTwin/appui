@@ -105,7 +105,7 @@ const meta = {
     includePromptAtCursor: true,
     cursorPromptTimeout: 5000,
     fadeOutCursorPrompt: true,
-    defaultPromptAtCursor: false,
+    defaultPromptAtCursor: true,
   },
 } satisfies Meta<typeof ToolAssistanceField>;
 
@@ -117,5 +117,12 @@ export const Default: Story = {};
 export const AlwaysVisible: Story = {
   args: {
     cursorPromptTimeout: Number.POSITIVE_INFINITY,
+  },
+};
+
+export const PromptAtContent: Story = {
+  args: {
+    cursorPromptTimeout: Number.POSITIVE_INFINITY,
+    promptAtContent: true,
   },
 };
