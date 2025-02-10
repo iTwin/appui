@@ -77,6 +77,8 @@ export interface ToolAssistanceFieldProps extends CommonProps {
   fadeOutCursorPrompt: boolean;
   /** Indicates whether to show promptAtCursor by default. Defaults to `false`. */
   defaultPromptAtCursor: boolean;
+  /** When set to `true` will show prompt at cursor only when the content area is hovered. */
+  promptAtContent?: boolean;
 }
 
 interface ToolAssistanceFieldState {
@@ -321,6 +323,7 @@ export class ToolAssistanceField extends React.Component<
       fadeout: this.props.fadeOutCursorPrompt,
       iconSpec: this.state.toolIconSpec,
       instruction,
+      promptAtContent: this.props.promptAtContent ?? false,
     });
   }
 

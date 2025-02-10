@@ -16,6 +16,8 @@ import { useMaximizedPanelLayout } from "../preview/enable-maximized-widget/useM
 import { useHorizontalPanelAlignment } from "../preview/horizontal-panel-alignment/useHorizontalPanelAlignment.js";
 import { usePanelsAutoCollapse } from "./widget-panels/usePanelsAutoCollapse.js";
 import type { PanelSide } from "./widget-panels/PanelTypes.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
+import { useRefs } from "@itwin/core-react/internal";
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 interface StandardLayoutProps extends CommonProps {
@@ -35,15 +37,17 @@ interface StandardLayoutProps extends CommonProps {
  * @internal
  */
 export function StandardLayout(props: StandardLayoutProps) {
+  const { contentElementRef } = React.useContext(ConfigurableUiContext);
   const pinned = usePinnedPanels();
   const appContentRef = usePanelsAutoCollapse<HTMLDivElement>();
+  const refs = useRefs(contentElementRef, appContentRef);
   const className = classnames("nz-standardLayout", pinned, props.className);
   const contentAlwaysMaxSize = useContentAlwaysMaxSize();
   return (
     <div className={className} style={props.style}>
       <div
         className={classnames("nz-appContent", contentAlwaysMaxSize)}
-        ref={appContentRef}
+        ref={refs}
       >
         {props.children}
       </div>

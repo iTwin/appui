@@ -12,7 +12,10 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import { Icon, Timer } from "@itwin/core-react";
 import { Point } from "@itwin/core-react/internal";
 import { Text } from "@itwin/itwinui-react";
-import { CursorInformation } from "../CursorInformation.js";
+import {
+  CursorInformation,
+  useCursorInformationStore,
+} from "../CursorInformation.js";
 import { CursorPopupManager } from "../cursorpopup/CursorPopupManager.js";
 
 /** @internal */
@@ -27,19 +30,64 @@ export class CursorPrompt {
     fadeout,
     iconSpec,
     instruction,
+    promptAtContent,
   }: {
     timeout: number;
     fadeout: boolean;
     iconSpec: string;
     instruction: string;
+    promptAtContent: boolean;
   }) {
     if (!this._removeListeners) {
-      this._removeListeners =
+      const listeners = [
         CursorInformation.onCursorUpdatedEvent.addListener((args) => {
           CursorPopupManager.updatePosition(args.newPt);
-        });
+        }),
+        useCursorInformationStore.subscribe((state) => {
+          if (!promptAtContent) return;
+          if (state.contentHovered) {
+            this.show({
+              iconSpec,
+              instruction,
+            });
+            return;
+          }
+
+          this.hide(fadeout);
+        }),
+      ];
+      this._removeListeners = () => {
+        listeners.forEach((remove) => remove());
+      };
     }
 
+    this.show({ iconSpec, instruction });
+
+    if (timeout === Number.POSITIVE_INFINITY) return;
+
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    const timer = new Timer(timeout);
+    timer.setOnExecute(() => this.close(fadeout));
+    timer.start();
+    this._timer = timer;
+  }
+
+  public close(fadeout: boolean) {
+    this._timer?.stop();
+    this._timer = undefined;
+    this._removeListeners?.();
+    this._removeListeners = undefined;
+
+    this.hide(fadeout);
+  }
+
+  private show({
+    iconSpec,
+    instruction,
+  }: {
+    iconSpec: string;
+    instruction: string;
+  }) {
     const promptElement = (
       <div className="uifw-cursor-prompt">
         {iconSpec && (
@@ -63,22 +111,9 @@ export class CursorPrompt {
       0,
       { shadow: true }
     );
-
-    if (timeout === Number.POSITIVE_INFINITY) return;
-
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    const timer = new Timer(timeout);
-    timer.setOnExecute(() => this.close(fadeout));
-    timer.start();
-    this._timer = timer;
   }
 
-  public close(fadeout: boolean) {
-    this._timer?.stop();
-    this._timer = undefined;
-    this._removeListeners?.();
-    this._removeListeners = undefined;
-
+  private hide(fadeout: boolean) {
     CursorPopupManager.close(this._popupId, false, fadeout);
   }
 }
