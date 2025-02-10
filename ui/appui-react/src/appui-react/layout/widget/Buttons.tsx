@@ -71,9 +71,9 @@ export function TabBarButtons() {
   });
 
   return (
-    <span className="nz-widget-buttons">
+    <div className="nz-widget-buttons">
       {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
-    </span>
+    </div>
   );
 }
 
