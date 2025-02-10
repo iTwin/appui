@@ -6,6 +6,7 @@
  * @module Widget
  */
 
+import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { Point, useResizeObserver } from "@itwin/core-react/internal";
@@ -28,7 +29,8 @@ import { Tabs } from "@itwin/itwinui-react";
 import { useDrag } from "./TabBar.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { useDoubleClick } from "../widget-panels/Grip.js";
-import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager.js";
+import type { UseDragWidgetArgs } from "../base/DragManager.js";
+import { useDragWidget } from "../base/DragManager.js";
 
 /** @internal */
 export function WidgetTabs() {
@@ -100,26 +102,95 @@ export function WidgetTabs() {
           return [key, child];
         })
       : [];
-  console.log("starting value " + activeTabId);
+
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  const id = floatingWidgetId === undefined ? widgetId : floatingWidgetId;
+  const handleDoubleClick = React.useCallback(() => {
+    floatingWidgetId &&
+      dispatch({
+        type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
+        id: floatingWidgetId,
+      });
+  }, [dispatch, floatingWidgetId]);
+  const handleActionAreaClick = useDoubleClick(handleDoubleClick);
+
+  const onDrag = React.useCallback<NonNullable<UseDragWidgetArgs["onDrag"]>>(
+    (dragBy) => {
+      floatingWidgetId !== undefined &&
+        dispatch({
+          type: "WIDGET_DRAG",
+          dragBy,
+          floatingWidgetId,
+        });
+    },
+    [dispatch, floatingWidgetId]
+  );
+  const onDragEnd = React.useCallback<
+    NonNullable<UseDragWidgetArgs["onDragEnd"]>
+  >(
+    (target) => {
+      floatingWidgetId !== undefined && handleActionAreaClick();
+      floatingWidgetId !== undefined &&
+        dispatch({
+          type: "WIDGET_DRAG_END",
+          floatingWidgetId,
+          target,
+        });
+    },
+    [dispatch, floatingWidgetId, handleActionAreaClick]
+  );
+  const handleWidgetDragStart = useDragWidget({
+    widgetId: id,
+    onDrag,
+    onDragEnd,
+  });
+
+  const handleDragStart = React.useCallback(
+    (initialPointerPosition: Point, pointerPosition: Point) => {
+      handleWidgetDragStart({
+        initialPointerPosition,
+        pointerPosition,
+      });
+    },
+    [handleWidgetDragStart]
+  );
+  const handleTouchStart = React.useCallback(() => {
+    floatingWidgetId &&
+      dispatch({
+        type: "FLOATING_WIDGET_BRING_TO_FRONT",
+        id: floatingWidgetId,
+      });
+  }, [dispatch, floatingWidgetId]);
+  const handleRef = useDrag(
+    handleDragStart,
+    undefined,
+    undefined,
+    handleTouchStart,
+    handleDoubleClick
+  );
+
   return (
     <>
-      <Tabs.Wrapper value={activeTabId} ref={ref} role="tablist">
-        <Tabs.TabList>
-          {tabChildren.map(([key, child], index, array) => {
-            return (
-              <WidgetTabsEntryProvider
-                children={child} // eslint-disable-line react/no-children-prop
-                key={key}
-                id={key}
-                lastNotOverflown={
-                  index === array.length - 1 && panelChildren.length > 0
-                }
-                getOnResize={handleEntryResize}
-              />
-            );
-          })}
-        </Tabs.TabList>
-      </Tabs.Wrapper>
+      <div className="nz-tabs-handle" ref={handleRef}>
+        <Tabs.Wrapper value={activeTabId}>
+          <Tabs.TabList ref={ref} role="tablist">
+            {tabChildren.map(([key, child], index, array) => {
+              return (
+                <WidgetTabsEntryProvider
+                  children={child} // eslint-disable-line react/no-children-prop
+                  key={key}
+                  id={key}
+                  lastNotOverflown={
+                    index === array.length - 1 && panelChildren.length > 0
+                  }
+                  getOnResize={handleEntryResize}
+                />
+              );
+            })}
+          </Tabs.TabList>
+        </Tabs.Wrapper>
+      </div>
       <TitleBarTarget />
       <WidgetOverflow
         hidden={overflown && panelChildren.length === 0}
