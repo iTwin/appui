@@ -8,8 +8,11 @@
 
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { useResizeObserver } from "@itwin/core-react/internal";
-import { ShowWidgetIconContext } from "../base/NineZone.js";
+import { Point, useResizeObserver } from "@itwin/core-react/internal";
+import {
+  NineZoneDispatchContext,
+  ShowWidgetIconContext,
+} from "../base/NineZone.js";
 import { getChildKey, useOverflow } from "../tool-settings/Docked.js";
 import {
   isHorizontalPanelSide,
@@ -22,6 +25,10 @@ import { useLayout } from "../base/LayoutStore.js";
 import { WidgetIdContext } from "./Widget.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { Tabs } from "@itwin/itwinui-react";
+import { useDrag } from "./TabBar.js";
+import { useFloatingWidgetId } from "./FloatingWidget.js";
+import { useDoubleClick } from "../widget-panels/Grip.js";
+import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager.js";
 
 /** @internal */
 export function WidgetTabs() {
@@ -93,10 +100,11 @@ export function WidgetTabs() {
           return [key, child];
         })
       : [];
+  console.log("starting value " + activeTabId);
   return (
     <>
-      <Tabs.Wrapper ref={ref}>
-        <Tabs.TabList ref={ref} role="tablist">
+      <Tabs.Wrapper value={activeTabId} ref={ref} role="tablist">
+        <Tabs.TabList>
           {tabChildren.map(([key, child], index, array) => {
             return (
               <WidgetTabsEntryProvider

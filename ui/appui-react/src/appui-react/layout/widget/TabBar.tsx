@@ -112,8 +112,9 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
   const handleClassName = classnames("nz-handle", maximizedWidgetHandle);
   return (
     <div ref={containerRef} className={className}>
-      <div className={handleClassName} ref={ref} />
-      <WidgetTabs />
+      <div className={handleClassName} ref={ref}>
+        <WidgetTabs />
+      </div>
       <TabBarButtons />
     </div>
   );
