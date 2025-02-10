@@ -6,6 +6,7 @@
  * @module Widget
  */
 
+import "./Buttons.scss";
 import * as React from "react";
 import { Dock, useDock } from "./Dock.js";
 import { PinToggle, usePinToggle } from "./PinToggle.js";
