@@ -31,6 +31,7 @@ import {
   SideNavigation,
   ThemeProvider,
 } from "@itwin/itwinui-react";
+import { Root } from "@itwin/itwinui-react-v5/bricks";
 import {
   createRootRouteWithContext,
   Outlet,
@@ -53,13 +54,13 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     const user = await Users.fetchMe(ctx.context.auth.accessToken);
     return { user };
   },
-  component: Root,
+  component: AppRoot,
   validateSearch: (search: { strict?: 0; menu?: 0 } & SearchSchemaInput) => {
     return search;
   },
 });
 
-function Root() {
+function AppRoot() {
   const navigate = useNavigate();
   const matchRoute = useMatchRoute();
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
@@ -71,7 +72,14 @@ function Root() {
   const search = Route.useSearch();
   const menu = search.menu !== 0;
   return (
-    <ThemeProvider>
+    <Root
+      colorScheme="light"
+      density="dense"
+      synchronizeColorScheme
+      render={(props: any) => (
+        <ThemeProvider future={{ themeBridge: true }} {...props} />
+      )}
+    >
       <PageLayout>
         {menu && (
           <PageLayout.Header>
@@ -149,7 +157,7 @@ function Root() {
         )}
         <Outlet />
       </PageLayout>
-    </ThemeProvider>
+    </Root>
   );
 }
 
