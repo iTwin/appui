@@ -74,9 +74,11 @@ function AppRoot() {
   const search = Route.useSearch();
   const menu = search.menu !== 0;
   const themeBridge = search.themeBridge === 1;
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+
   return (
     <Root
-      colorScheme="light"
+      colorScheme={prefersDark ? "dark" : "light"}
       density="dense"
       synchronizeColorScheme
       render={(props: any) => (
@@ -247,4 +249,21 @@ function UserMenu() {
       </IconButton>
     </DropdownMenu>
   );
+}
+
+function useMediaQuery(query: string) {
+  const getClientSnapshot = React.useCallback(() => {
+    return window.matchMedia?.(query).matches;
+  }, [query]);
+
+  const subscribe = React.useCallback(
+    (onChange: () => void) => {
+      const mediaQueryList = window.matchMedia?.(query);
+      mediaQueryList?.addEventListener?.("change", onChange);
+      return () => mediaQueryList?.removeEventListener?.("change", onChange);
+    },
+    [query]
+  );
+
+  return React.useSyncExternalStore(subscribe, getClientSnapshot);
 }
