@@ -55,7 +55,9 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     return { user };
   },
   component: AppRoot,
-  validateSearch: (search: { strict?: 0; menu?: 0 } & SearchSchemaInput) => {
+  validateSearch: (
+    search: { strict?: 0; menu?: 0; themeBridge?: 1 } & SearchSchemaInput
+  ) => {
     return search;
   },
 });
@@ -71,13 +73,14 @@ function AppRoot() {
   const settingsMatch = matchRoute({ to: "/settings", fuzzy: true });
   const search = Route.useSearch();
   const menu = search.menu !== 0;
+  const themeBridge = search.themeBridge === 1;
   return (
     <Root
       colorScheme="light"
       density="dense"
       synchronizeColorScheme
       render={(props: any) => (
-        <ThemeProvider future={{ themeBridge: true }} {...props} />
+        <ThemeProvider future={{ themeBridge }} {...props} />
       )}
     >
       <PageLayout>
@@ -88,7 +91,10 @@ function AppRoot() {
                 <HeaderLogo
                   logo={<SvgImodelHollow />}
                   onClick={() => {
-                    void navigate({ to: "/" });
+                    void navigate({
+                      to: "/",
+                      search: (prev) => prev,
+                    });
                   }}
                 >
                   AppUI Test App
@@ -107,7 +113,7 @@ function AppRoot() {
                   key="iTwins"
                   startIcon={<SvgImodel />}
                   onClick={() => {
-                    void navigate({ to: "/iTwins" });
+                    void navigate({ to: "/iTwins", search: (prev) => prev });
                   }}
                   isActive={!!iTwinsMatch || !!iTwinMatch}
                 >
@@ -117,7 +123,7 @@ function AppRoot() {
                   key="local"
                   startIcon={<SvgFolderBrowse />}
                   onClick={() => {
-                    void navigate({ to: "/local" });
+                    void navigate({ to: "/local", search: (prev) => prev });
                   }}
                   isActive={!!localMatch || !!briefcaseMatch}
                 >
@@ -129,6 +135,7 @@ function AppRoot() {
                   onClick={() => {
                     void navigate({
                       to: "/blank",
+                      search: (prev) => prev,
                     });
                   }}
                   isActive={!!blankMatch}
@@ -144,6 +151,7 @@ function AppRoot() {
                   onClick={() => {
                     void navigate({
                       to: "/settings",
+                      search: (prev) => prev,
                     });
                   }}
                   isActive={!!settingsMatch}
