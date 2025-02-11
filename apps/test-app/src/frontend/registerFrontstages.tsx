@@ -19,7 +19,6 @@ import {
 } from "./appui/frontstages/ElementStacking";
 import {
   AbstractUiItemsProvider,
-  AppUiTestProviders,
   ContentLayoutStageUiItemsProvider,
   createContentLayoutFrontstage,
   createCustomContentFrontstage,
