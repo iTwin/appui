@@ -44,10 +44,6 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:custom-content-provider";
   public readonly id = CustomContentStageUiProvider.providerId;
 
-  constructor(localizationNamespace: string) {
-    OpenCustomDialogTool.register(localizationNamespace);
-  }
-
   public getToolbarItems(): readonly ToolbarItem[] {
     const layouts = {
       standard: {
