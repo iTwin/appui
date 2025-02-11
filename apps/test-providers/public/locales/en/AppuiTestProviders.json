@@ -31,7 +31,6 @@
   "tools": {
     "open-custom-dialog-tool": "Open Custom Dialog",
     "open-abstract-dialog": "Open Abstract Dialog",
-    "trace-tool-standalone": "Standalone Trace",
     "uiItemsProvidersTest-SampleTool": {
       "keyin": "uiTest Sample Tool",
       "description": "Demo Sample Tool",
