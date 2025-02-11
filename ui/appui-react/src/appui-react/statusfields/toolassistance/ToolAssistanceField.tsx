@@ -185,6 +185,12 @@ export class ToolAssistanceField extends React.Component<
     await this.restoreSettings();
   }
 
+  /** @internal */
+  public override componentDidUpdate() {
+    if (!this.state.showPromptAtCursor)
+      this._cursorPrompt.close(this.props.fadeOutCursorPrompt);
+  }
+
   public override componentWillUnmount() {
     this._isMounted = false;
     this._cursorPrompt.close(this.props.fadeOutCursorPrompt);
@@ -194,11 +200,6 @@ export class ToolAssistanceField extends React.Component<
     UiFramework.frontstages.onToolIconChangedEvent.removeListener(
       this._handleToolIconChangedEvent
     );
-  }
-
-  public override componentDidUpdate() {
-    if (!this.state.showPromptAtCursor)
-      this._cursorPrompt.close(this.props.fadeOutCursorPrompt);
   }
 
   private async restoreSettings() {

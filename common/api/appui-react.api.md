@@ -4655,7 +4655,7 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
     constructor(p: ToolAssistanceFieldProps);
     // (undocumented)
     componentDidMount(): Promise<void>;
-    // (undocumented)
+    // @internal (undocumented)
     componentDidUpdate(): void;
     // (undocumented)
     componentWillUnmount(): void;
