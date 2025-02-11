@@ -37,7 +37,7 @@ _Optionally_ used to load an application in a specific configuration:
 - `strict` - allows disabling of `React.StrictMode` if `0` is specified, i.e. <http://localhost:3000/?strict=0>.
 - `menu` - allows disabling the rendering of menus if `0` is specified, i.e. <http://localhost:3000/?menu=0>.
 - `frontstageId` - opens a frontstage by specified frontstage id, uses a blank connection, i.e. <http://localhost:3000/blank?frontstageId=widget-api>.
-- `themeBridge` - allows enabling the iTwinUI theme bridge if `1` is specified, i.e. <http://localhost:3000/?themeBridge=1>.
+- `themeBridge` - enables the iTwinUI v5 theme bridge if `1` is specified, i.e. <http://localhost:3000/?themeBridge=1>.
 
 Preview features:
 
