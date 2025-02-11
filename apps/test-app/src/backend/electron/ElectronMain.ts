@@ -58,7 +58,7 @@ export async function initializeElectron(opts?: IModelHostOptions) {
   await ElectronHost.openMainWindow({
     ...sizeAndPosition,
     show: !maximizeWindow,
-    title: "Ui Test App",
+    title: "AppUI Test App",
     storeWindowName: mainWindowName,
   });
   assert(ElectronHost.mainWindow !== undefined);

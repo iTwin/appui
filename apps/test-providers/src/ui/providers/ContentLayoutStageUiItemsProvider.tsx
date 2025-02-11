@@ -53,11 +53,6 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
     "appui-test-providers:content-layout-stage-items-provider";
   public readonly id = ContentLayoutStageUiItemsProvider.providerId;
 
-  constructor(localizationNamespace: string) {
-    RestoreSavedContentLayoutTool.register(localizationNamespace);
-    SaveContentLayoutTool.register(localizationNamespace);
-  }
-
   public getToolbarItems(): readonly ToolbarItem[] {
     const layouts = {
       standard: {
