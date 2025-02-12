@@ -13,6 +13,7 @@ import { RelativePosition } from "@itwin/appui-abstract";
 import type { ListenerType } from "@itwin/core-react/internal";
 import { Point } from "@itwin/core-react/internal";
 import { UiFramework } from "../../UiFramework.js";
+import { CursorPopupShow } from "./CursorPopup.js";
 import { CursorPopup } from "./CursorPopup.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
@@ -42,6 +43,8 @@ interface CursorPopupInfo {
 
   renderRelativePosition: RelativePosition;
   popupSize?: SizeProps;
+
+  cancelFadeOut?: () => void;
 }
 
 /** CursorPopup component
@@ -57,6 +60,7 @@ export class CursorPopupManager {
   /** @internal */
   public static readonly onCursorPopupFadeOutEvent = new BeUiEvent<{
     id: string;
+    show?: CursorPopupShow;
   }>();
   /** @internal */
   public static readonly onCursorPopupsChangedEvent = new BeUiEvent<object>();
@@ -98,25 +102,36 @@ export class CursorPopupManager {
       (info: CursorPopupInfo) => id === info.id
     );
     if (popupInfo) {
+      CursorPopupManager.onCursorPopupFadeOutEvent.emit({
+        id,
+        show: CursorPopupShow.Open,
+      });
+
       popupInfo.content = content;
       popupInfo.offset = Point.create(offset);
       popupInfo.relativePosition = relativePosition;
       popupInfo.renderRelativePosition = relativePosition;
       popupInfo.priority = priority;
       popupInfo.options = options;
-    } else {
-      const newPopupInfo: CursorPopupInfo = {
-        id,
-        content,
-        offset: Point.create(offset),
-        relativePosition,
-        options,
-        renderRelativePosition: relativePosition,
-        priority,
-      };
-      CursorPopupManager.pushPopup(newPopupInfo);
+      CursorPopupManager.updatePosition(pt);
+
+      if (popupInfo.cancelFadeOut) {
+        popupInfo.cancelFadeOut();
+        popupInfo.cancelFadeOut = undefined;
+      }
+      return;
     }
 
+    const newPopupInfo: CursorPopupInfo = {
+      id,
+      content,
+      offset: Point.create(offset),
+      relativePosition,
+      options,
+      renderRelativePosition: relativePosition,
+      priority,
+    };
+    CursorPopupManager.pushPopup(newPopupInfo);
     CursorPopupManager.updatePosition(pt);
   }
 
@@ -162,28 +177,37 @@ export class CursorPopupManager {
     const popupInfo = CursorPopupManager._popups.find(
       (info: CursorPopupInfo) => id === info.id
     );
-
-    if (popupInfo) {
-      if (popupInfo.options) {
-        if (apply && popupInfo.options.onApply) popupInfo.options.onApply();
-
-        if (popupInfo.options.onClose) popupInfo.options.onClose();
-      }
-
-      if (fadeOut) {
-        CursorPopupManager.onCursorPopupFadeOutEvent.emit({ id });
-        setTimeout(() => {
-          CursorPopupManager.removePopup(id);
-        }, CursorPopup.fadeOutTime);
-      } else {
-        CursorPopupManager.removePopup(id);
-      }
-    } else {
+    if (!popupInfo) {
       Logger.logError(
         UiFramework.loggerCategory("CursorPopupManager"),
         `close: Could not find popup with id of '${id}'`
       );
+      return;
     }
+
+    if (apply) popupInfo.options?.onApply?.();
+    popupInfo.options?.onClose?.();
+
+    if (fadeOut) {
+      // Already closing
+      if (popupInfo.cancelFadeOut) return;
+
+      let cancelled = false;
+      popupInfo.cancelFadeOut = () => {
+        cancelled = true;
+      };
+      CursorPopupManager.onCursorPopupFadeOutEvent.emit({ id });
+
+      setTimeout(() => {
+        if (cancelled) return;
+        CursorPopupManager.removePopup(id);
+      }, CursorPopup.fadeOutTime);
+      return;
+    }
+
+    popupInfo.cancelFadeOut?.();
+    popupInfo.cancelFadeOut = undefined;
+    CursorPopupManager.removePopup(id);
   }
 
   private static removePopup(id: string): void {

@@ -19,7 +19,6 @@ import {
 } from "./appui/frontstages/ElementStacking";
 import {
   AbstractUiItemsProvider,
-  AppUiTestProviders,
   ContentLayoutStageUiItemsProvider,
   createContentLayoutFrontstage,
   createCustomContentFrontstage,
@@ -120,24 +119,15 @@ export function registerFrontstages({
   UiItemsManager.register(createWidgetApiFrontstageProvider(), {
     stageIds: [createWidgetApiFrontstage.stageId],
   });
-  UiItemsManager.register(
-    new AbstractUiItemsProvider(AppUiTestProviders.localizationNamespace),
-    {
-      stageIds: [
-        createMainFrontstage.stageId,
-        createWidgetApiFrontstage.stageId,
-      ],
-    }
-  );
+  UiItemsManager.register(new AbstractUiItemsProvider(), {
+    stageIds: [createMainFrontstage.stageId, createWidgetApiFrontstage.stageId],
+  });
   UiItemsManager.register(new MessageUiItemsProvider(), {
     stageIds: [createMainFrontstage.stageId, createWidgetApiFrontstage.stageId],
   });
-  UiItemsManager.register(
-    new InspectUiItemInfoToolProvider(AppUiTestProviders.localizationNamespace),
-    {
-      stageIds: [createWidgetApiFrontstage.stageId],
-    }
-  );
+  UiItemsManager.register(new InspectUiItemInfoToolProvider(), {
+    stageIds: [createWidgetApiFrontstage.stageId],
+  });
   UiItemsManager.register(createPreviewFeaturesProvider(), {
     stageUsages: [StageUsage.General],
   });
@@ -147,20 +137,12 @@ export function registerFrontstages({
   UiItemsManager.register(createElementStackingProvider(), {
     stageUsages: ["development"],
   });
-  UiItemsManager.register(
-    new CustomContentStageUiProvider(AppUiTestProviders.localizationNamespace),
-    {
-      stageIds: [createCustomContentFrontstage.stageId],
-    }
-  );
-  UiItemsManager.register(
-    new ContentLayoutStageUiItemsProvider(
-      AppUiTestProviders.localizationNamespace
-    ),
-    {
-      stageIds: [createContentLayoutFrontstage.stageId],
-    }
-  );
+  UiItemsManager.register(new CustomContentStageUiProvider(), {
+    stageIds: [createCustomContentFrontstage.stageId],
+  });
+  UiItemsManager.register(new ContentLayoutStageUiItemsProvider(), {
+    stageIds: [createContentLayoutFrontstage.stageId],
+  });
   UiItemsManager.register(createSynchronizedViewportProvider(), {
     stageIds: [createSynchronizedViewportFrontstage.stageId],
   });

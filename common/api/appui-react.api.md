@@ -1451,6 +1451,7 @@ export class CursorPopupManager {
     // @internal (undocumented)
     static readonly onCursorPopupFadeOutEvent: BeUiEvent<{
         id: string;
+        show?: CursorPopupShow;
     }>;
     // @internal (undocumented)
     static readonly onCursorPopupsChangedEvent: BeUiEvent<object>;
@@ -2069,7 +2070,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
 sessionState: DeepReadonlyObject_2<SessionState>;
-}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
+}, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2, Partial<{
 configurableUiState: never;
 sessionState: never;
 }>>;
@@ -3838,7 +3839,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @beta @deprecated
@@ -3876,7 +3877,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @public @deprecated
@@ -4654,6 +4655,8 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
     constructor(p: ToolAssistanceFieldProps);
     // (undocumented)
     componentDidMount(): Promise<void>;
+    // @internal (undocumented)
+    componentDidUpdate(): void;
     // (undocumented)
     componentWillUnmount(): void;
     // @internal (undocumented)
@@ -4674,6 +4677,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     defaultPromptAtCursor: boolean;
     fadeOutCursorPrompt: boolean;
     includePromptAtCursor: boolean;
+    promptAtContent?: boolean;
     uiStateStorage?: UiStateStorage;
 }
 
