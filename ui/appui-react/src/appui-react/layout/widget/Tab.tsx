@@ -7,7 +7,6 @@
  */
 
 import "./Tab.scss";
-import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
@@ -45,9 +44,9 @@ import { WidgetMenuTab } from "./MenuTab.js";
 import { WidgetOverflowContext } from "./Overflow.js";
 import { useLayout, useLayoutStore } from "../base/LayoutStore.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
-import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { FloatingTab } from "./FloatingTab.js";
+import { Tabs } from "@itwin/itwinui-react";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -108,9 +107,7 @@ export function WidgetTab(props: WidgetTabProps) {
 
 function WidgetTabComponent(props: WidgetTabProps) {
   const id = React.useContext(TabIdContext);
-  const { first, firstInactive, last } = React.useContext(TabPositionContext);
   const widgetTabsEntryContext = React.useContext(WidgetTabsEntryContext);
-  const side = React.useContext(PanelSideContext);
   const widgetId = React.useContext(WidgetIdContext);
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
@@ -118,12 +115,6 @@ function WidgetTabComponent(props: WidgetTabProps) {
   assert(!!widgetId);
 
   const label = useLayout((state) => state.tabs[id].label);
-  const activeTabId = useLayout(
-    (state) => getWidgetState(state, widgetId).activeTabId
-  );
-  const minimized = useLayout(
-    (state) => getWidgetState(state, widgetId).minimized
-  );
 
   const maximizedWidget = useIsMaximizedWidget();
 
@@ -133,17 +124,6 @@ function WidgetTabComponent(props: WidgetTabProps) {
   const pointerCaptorRef = useTabInteractions({ clickOnly: maximizedWidget });
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
 
-  const active = activeTabId === id;
-  const className = classnames(
-    "nz-widget-tab",
-    active && "nz-active",
-    undefined === side && minimized && "nz-minimized",
-    first && "nz-first",
-    last && "nz-last",
-    firstInactive && "nz-first-inactive",
-    props.className
-  );
-
   const showLabel =
     (showIconOnly && !props.icon) ||
     (showWidgetIcon && !showIconOnly) ||
@@ -152,17 +132,19 @@ function WidgetTabComponent(props: WidgetTabProps) {
     <div
       data-item-id={id}
       data-item-type="widget-tab"
-      className={className}
+      className="nz-widget-tab"
       ref={refs}
       role="tab"
       style={props.style}
       title={label}
       tabIndex={0}
     >
-      {(showWidgetIcon || showIconOnly) && (
-        <span className="nz-icon">{props.icon}</span>
-      )}
-      {showLabel && <span className="nz-label">{label}</span>}
+      <Tabs.Tab value={id} key={id} className="nz-tab-blockSize">
+        {(showWidgetIcon || showIconOnly) && (
+          <Tabs.TabIcon>{props.icon}</Tabs.TabIcon>
+        )}
+        {showLabel && <Tabs.TabLabel>{label}</Tabs.TabLabel>}
+      </Tabs.Tab>
       {props.badge && <div className="nz-badge">{props.badge}</div>}
       <TabTarget />
     </div>
