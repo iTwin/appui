@@ -6,6 +6,8 @@
  * @module Cursor
  */
 
+import { create } from "zustand";
+import { produce } from "immer";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition, UiEvent } from "@itwin/appui-abstract";
 import { Point } from "@itwin/core-react/internal";
@@ -195,3 +197,20 @@ export class CursorInformation {
     this._cursorDirections.length = 0;
   }
 }
+
+/** Returns additional information about cursor.
+ * @internal
+ */
+export const useCursorInformationStore = create<{
+  contentHovered: boolean;
+  setContentHovered: (hovered: boolean) => void;
+}>((set) => ({
+  contentHovered: false,
+  setContentHovered: (hovered: boolean) => {
+    set((state) =>
+      produce(state, (draft) => {
+        draft.contentHovered = hovered;
+      })
+    );
+  },
+}));
