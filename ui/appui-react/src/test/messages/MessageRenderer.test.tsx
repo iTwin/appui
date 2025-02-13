@@ -3,13 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import {
   ActivityMessageDetails,
   ActivityMessageEndReason,
@@ -79,7 +73,7 @@ describe("MessageRenderer", () => {
 
     const closeButton = screen.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
-    await waitForElementToBeRemoved(screen.queryByText("Message text"));
+    expect(screen.queryByText("Message text")).toEqual(null);
   });
 
   it("should render toast, sticky & activity messages", async () => {

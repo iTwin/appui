@@ -35,13 +35,14 @@ function Local() {
                 const filePath = `${config.bimDir}/${fileName}`;
                 void navigate({
                   to: "/briefcase",
-                  search: { filePath },
+                  search: (prev) => ({ ...prev, filePath }),
                 });
                 return;
               }
               void navigate({
                 to: "/local/$fileName",
                 params: { fileName },
+                search: (prev) => prev,
               });
             }}
           />
@@ -61,7 +62,7 @@ function Local() {
 
             void navigate({
               to: "/briefcase",
-              search: { filePath },
+              search: (prev) => ({ ...prev, filePath }),
             });
           }}
           style={{ marginTop: "var(--iui-size-l)" }}

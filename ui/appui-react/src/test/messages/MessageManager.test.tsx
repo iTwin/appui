@@ -3,12 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  act,
-  fireEvent,
-  render,
-  waitForElementToBeRemoved,
-} from "@testing-library/react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { MessageSeverity } from "@itwin/appui-abstract";
 import {
   MessageBoxIconType,
@@ -318,9 +313,7 @@ describe("MessageManager", () => {
     const closeButton = component.getByRole("button", { name: "Close" });
     fireEvent.click(closeButton);
 
-    await waitForElementToBeRemoved(() =>
-      component.queryByText("A brief message.")
-    );
+    expect(component.queryByText("A brief message.")).toEqual(null);
   });
 
   it("should respect `maxDisplayedStickyMessages`", async () => {

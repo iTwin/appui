@@ -31,6 +31,7 @@ function ITwin() {
           void navigate({
             to: "/iTwin/$iTwinId/iModel/$iModelId",
             params: { iTwinId, iModelId: iModel.id },
+            search: (prev) => prev,
           });
         }}
         iTwinId={iTwinId}
