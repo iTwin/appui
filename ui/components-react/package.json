@@ -32,7 +32,7 @@
     "compat:css": "npm run compat:cjs && npm run compat:esm",
     "compat:cjs": "cpx \"./src/**/*.{*css,svg}\" ./lib/cjs",
     "compat:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
-    "clean": "rimraf lib .rush/temp/package-deps*.json",
+    "clean": "rimraf -g lib .rush/temp/package-deps*.json",
     "cover": "vitest run --coverage",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "lint:fix": "npm run -s lint -- --fix",
