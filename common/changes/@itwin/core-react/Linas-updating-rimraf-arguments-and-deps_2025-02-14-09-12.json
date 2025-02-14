@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Upgrade to Node version 20",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
