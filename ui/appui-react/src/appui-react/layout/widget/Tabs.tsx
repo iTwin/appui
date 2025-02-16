@@ -173,7 +173,7 @@ export function WidgetTabs() {
   return (
     <>
       <div className="nz-tabs-handle" ref={handleRef}>
-        <Tabs.Wrapper value={activeTabId}>
+        <Tabs.Wrapper className="nz-tabs-handle" value={activeTabId}>
           <Tabs.TabList ref={ref} role="tablist">
             {tabChildren.map(([key, child], index, array) => {
               return (
