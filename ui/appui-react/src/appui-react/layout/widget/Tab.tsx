@@ -7,6 +7,7 @@
  */
 
 import "./Tab.scss";
+import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
@@ -123,6 +124,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
   );
   const pointerCaptorRef = useTabInteractions({ clickOnly: maximizedWidget });
   const refs = useRefs<HTMLDivElement>(resizeObserverRef, pointerCaptorRef);
+  const className = classnames("nz-widget-tab", props.className);
 
   const showLabel =
     (showIconOnly && !props.icon) ||
@@ -132,18 +134,22 @@ function WidgetTabComponent(props: WidgetTabProps) {
     <div
       data-item-id={id}
       data-item-type="widget-tab"
-      className="nz-widget-tab"
+      className={"nz-widget-tab-container"}
       ref={refs}
       role="tab"
       style={props.style}
       title={label}
       tabIndex={0}
     >
-      <Tabs.Tab value={id} key={id} className="nz-tab-blockSize">
+      <Tabs.Tab value={id} key={id} className={className}>
         {(showWidgetIcon || showIconOnly) && (
-          <Tabs.TabIcon>{props.icon}</Tabs.TabIcon>
+          <Tabs.TabIcon className="nz-icon">{props.icon}</Tabs.TabIcon>
         )}
-        {showLabel && <Tabs.TabLabel>{label}</Tabs.TabLabel>}
+        {showLabel && (
+          <Tabs.TabLabel className="nz-label" style={{ margin: "0" }}>
+            {label}
+          </Tabs.TabLabel>
+        )}
       </Tabs.Tab>
       {props.badge && <div className="nz-badge">{props.badge}</div>}
       <TabTarget />

@@ -2,12 +2,38 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.nz-widget-tab {
-  display: flex;
-  position: relative;
+@use "sass:math";
+@use "variables" as *;
 
-  > .nz-tab-blockSize {
+.nz-widget-tab-container {
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  align-items: center;
+  display: flex;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  max-width: 9em;
+
+  > .nz-widget-tab {
     min-block-size: 0;
+    border-left: none;
+    border-bottom: none;
+  }
+
+  > .nz-icon {
+    svg {
+      width: #{math.div(14, 16)}rem;
+      height: #{math.div(14, 16)}rem;
+      fill: currentColor;
+    }
+  }
+
+  > .nz-label {
+    font-size: $nz-widget-tab-font-size;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
   > .nz-badge {
