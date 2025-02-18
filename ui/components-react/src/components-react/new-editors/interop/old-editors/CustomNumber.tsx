@@ -29,10 +29,9 @@ export const CustomNumberEditorSpec = createEditorSpec({
     !!metadata.params?.find(
       (param) =>
         param.type === PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
-    ),
-  isValueSupported: Value.isNumeric,
-  applies: (metadata) =>
+    ) &&
     metadata.preferredEditor === StandardEditorNames.NumberCustom,
+  isValueSupported: Value.isNumeric,
   Editor: CustomNumberEditor,
 });
 

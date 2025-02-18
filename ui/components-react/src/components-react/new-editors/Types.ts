@@ -50,18 +50,15 @@ export function createEditorSpec<
   Editor,
   isMetadataSupported,
   isValueSupported,
-  applies,
 }: {
   isMetadataSupported: (metadata: ValueMetadata) => metadata is TMetadata;
   isValueSupported: (value: Value) => value is TValue;
-  applies?: (metadata: TMetadata, value?: TValue) => boolean;
   Editor: React.ComponentType<EditorProps<TMetadata, TValue>>;
 }): EditorSpec {
   return {
     applies: (metadata: ValueMetadata, value?: Value) =>
       isMetadataSupported(metadata) &&
-      (value === undefined || isValueSupported(value)) &&
-      (applies === undefined || applies(metadata, value)),
+      (value === undefined || isValueSupported(value)),
     // typeguards in `applies` function will take care of casting
     Editor: Editor as unknown as React.ComponentType<EditorProps>,
   };

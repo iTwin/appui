@@ -13,10 +13,10 @@ import { StandardEditorNames } from "@itwin/appui-abstract";
 /** @internal */
 export const MultilineEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) && metadata.type === "string",
-  isValueSupported: Value.isText,
-  applies: (metadata) =>
+    isOldEditorMetadata(metadata) &&
+    metadata.type === "string" &&
     metadata.preferredEditor === StandardEditorNames.MultiLine,
+  isValueSupported: Value.isText,
   Editor: TextAreaEditor,
 });
 

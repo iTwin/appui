@@ -34,10 +34,9 @@ export const ColorEditorSpec: EditorSpec = createEditorSpec({
     metadata.type === "number" &&
     !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
-    ),
-  isValueSupported: Value.isNumeric,
-  applies: (metadata) =>
+    ) &&
     metadata.preferredEditor === StandardEditorNames.ColorPicker,
+  isValueSupported: Value.isNumeric,
   Editor: ColorEditor,
 });
 

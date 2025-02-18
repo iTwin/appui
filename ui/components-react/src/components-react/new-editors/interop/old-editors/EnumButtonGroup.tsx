@@ -22,10 +22,10 @@ import { findIcon } from "../IconsRegistry.js";
 
 export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) && metadata.type === "enum",
-  isValueSupported: Value.isEnum,
-  applies: (metadata) =>
+    isOldEditorMetadata(metadata) &&
+    metadata.type === "enum" &&
     metadata.preferredEditor === StandardEditorNames.EnumButtonGroup,
+  isValueSupported: Value.isEnum,
   Editor: EnumButtonGroupEditor,
 });
 

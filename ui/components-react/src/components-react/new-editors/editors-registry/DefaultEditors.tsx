@@ -96,10 +96,9 @@ export const EnumEditorSpec: EditorSpec = createEditorSpec({
  */
 export const ToggleEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
-    metadata.type === "bool",
-  isValueSupported: Value.isBoolean,
-  applies: (metadata) =>
+    metadata.type === "bool" &&
     metadata.preferredEditor === StandardEditorNames.Toggle,
+  isValueSupported: Value.isBoolean,
   Editor: ToggleEditor,
 });
 
