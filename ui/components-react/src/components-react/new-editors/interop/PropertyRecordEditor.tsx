@@ -88,8 +88,7 @@ function CommittingEditor({
   });
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <div onKeyDown={onKeydown}>
+    <div onKeyDown={onKeydown} onBlur={commit} role="presentation">
       <EditorRenderer
         metadata={metadata}
         value={value}
