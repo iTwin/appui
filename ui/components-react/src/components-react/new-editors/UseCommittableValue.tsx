@@ -53,10 +53,10 @@ export function useCommittableValue({
     initialValue
   );
   const currentValueRef = React.useRef<{
-    state: "changed" | "cancelled";
+    state: "changed" | "cancelled" | "initial";
     value?: Value;
   }>({
-    state: "changed",
+    state: "initial",
     value: initialValue,
   });
 
