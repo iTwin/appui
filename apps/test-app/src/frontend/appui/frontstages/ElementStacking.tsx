@@ -77,6 +77,7 @@ export function createElementStackingProvider() {
         id: `${id}:widget${index + 1}`,
         label: `Widget ${index + 1}`,
         content: <ActionButtons />,
+        canPopout: index === 0,
         layouts: {
           standard: {
             location: StagePanelLocation.Right,
@@ -181,6 +182,7 @@ function ActionButtons() {
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [portalledDialogOpen, setPortalledDialogOpen] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
+  const ref = React.useRef<HTMLButtonElement | null>(null);
   return (
     <Flex flexDirection="column" alignItems="start" style={{ padding: 5 }}>
       <TestPopupContextMenu />
@@ -202,6 +204,23 @@ function ActionButtons() {
         }}
       >
         Open Dialog
+      </Button>
+      <Button
+        ref={ref}
+        onClick={() => {
+          UiFramework.dialogs.modal.open(
+            <TestDialog
+              onClose={() => {
+                UiFramework.dialogs.modal.close();
+              }}
+              portal={true}
+            />,
+            undefined,
+            ref.current?.ownerDocument
+          );
+        }}
+      >
+        Open Dialog (in popout)
       </Button>
       <Button
         onClick={() => {

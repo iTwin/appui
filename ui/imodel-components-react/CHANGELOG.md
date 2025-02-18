@@ -1,6 +1,40 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Mon, 16 Dec 2024 11:43:27 GMT and should not be manually modified.
+This log was last generated on Thu, 30 Jan 2025 09:15:23 GMT and should not be manually modified.
+
+## 5.1.0
+Thu, 30 Jan 2025 09:15:23 GMT
+
+### Updates
+
+- cSpell fixes
+
+## 5.0.5
+Tue, 21 Jan 2025 11:38:58 GMT
+
+_Version update only_
+
+## 5.0.4
+Fri, 17 Jan 2025 14:12:03 GMT
+
+_Version update only_
+
+## 5.0.3
+Fri, 17 Jan 2025 11:42:02 GMT
+
+_Version update only_
+
+## 5.0.2
+Thu, 16 Jan 2025 12:04:12 GMT
+
+### Updates
+
+- Use import attributes for json imports.
+
+## 5.0.1
+Wed, 15 Jan 2025 11:47:00 GMT
+
+_Version update only_
 
 ## 5.0.0
 Mon, 16 Dec 2024 11:43:27 GMT
@@ -528,7 +562,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link
+- Fix for losing viewport content after clicking PW link 
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
@@ -609,3 +643,4 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - Update to latest types/react package
 - Update ViewportComponent to function component that properly processes async method to get viewState.
 - Lock down and update version numbers so docs will build.
+

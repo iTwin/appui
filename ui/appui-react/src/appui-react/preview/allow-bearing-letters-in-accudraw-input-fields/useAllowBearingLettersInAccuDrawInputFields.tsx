@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 
-/**  If `true`, the accudraw input field will accept letters. Defaults to `false`.
+/**  If `true`, the accudraw input field will accept letters for bearing angles `N, S, E, W`. Defaults to `false`.
  * @internal
  */
-export function useAllowLettersInAccuDrawInputFields() {
-  const { allowLettersInAccuDrawInputFields } = usePreviewFeatures();
-  return allowLettersInAccuDrawInputFields;
+export function useAllowBearingLettersInAccuDrawInputFields() {
+  const { allowBearingLettersInAccuDrawInputFields } = usePreviewFeatures();
+  return allowBearingLettersInAccuDrawInputFields;
 }

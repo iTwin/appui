@@ -187,6 +187,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): Reac
 
 // @public @deprecated
 export interface AccuDrawFieldContainerProps extends CommonProps {
+    isBearingAngle?: boolean;
     orientation: Orientation;
     // @internal (undocumented)
     showZOverride?: boolean;
@@ -207,6 +208,7 @@ export interface AccuDrawInputFieldProps extends CommonProps {
     // @deprecated
     iconSpec?: IconSpec;
     id: string;
+    isBearingAngle?: boolean;
     isLocked?: boolean;
     label?: string;
     labelCentered?: boolean;
@@ -214,9 +216,9 @@ export interface AccuDrawInputFieldProps extends CommonProps {
     labelStyle?: React_2.CSSProperties;
     onEnterPressed?: () => void;
     onEscPressed?: () => void;
+    onTabPressed?: () => void;
     onValueChanged: (stringValue: string) => void;
     ref?: React_2.Ref<HTMLInputElement>;
-    valueChangedDelay?: number;
 }
 
 // @public
@@ -1449,6 +1451,7 @@ export class CursorPopupManager {
     // @internal (undocumented)
     static readonly onCursorPopupFadeOutEvent: BeUiEvent<{
         id: string;
+        show?: CursorPopupShow;
     }>;
     // @internal (undocumented)
     static readonly onCursorPopupsChangedEvent: BeUiEvent<object>;
@@ -2067,7 +2070,7 @@ export interface FrameworkKeyboardShortcuts {
 export const FrameworkReducer: Reducer_2<    {
 configurableUiState: ConfigurableUiState;
 sessionState: DeepReadonlyObject_2<SessionState>;
-}, SessionStateActionsUnion_2 | ConfigurableUiActionsUnion_2, Partial<{
+}, ConfigurableUiActionsUnion_2 | SessionStateActionsUnion_2, Partial<{
 configurableUiState: never;
 sessionState: never;
 }>>;
@@ -2210,7 +2213,9 @@ export interface FrontstageConfig extends CommonProps {
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
     readonly statusBar?: WidgetConfig;
-    readonly toolSettings?: WidgetConfig;
+    readonly toolSettings?: WidgetConfig & {
+        activeToolEmptyNode?: React.ReactNode;
+    };
     readonly topPanel?: StagePanelConfig;
     readonly usage?: string;
     readonly version: number;
@@ -2232,6 +2237,8 @@ export interface FrontstageDeactivatedEventArgs {
 
 // @public
 export class FrontstageDef {
+    // @internal (undocumented)
+    get activeToolEmptyNode(): React_2.ReactNode | undefined;
     // @deprecated (undocumented)
     addFloatingContentControl(contentControl?: ContentControl): void;
     // @internal
@@ -3832,7 +3839,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @beta @deprecated
@@ -3870,7 +3877,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
 };
 
 // @public @deprecated
@@ -4648,6 +4655,8 @@ export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldPr
     constructor(p: ToolAssistanceFieldProps);
     // (undocumented)
     componentDidMount(): Promise<void>;
+    // @internal (undocumented)
+    componentDidUpdate(): void;
     // (undocumented)
     componentWillUnmount(): void;
     // @internal (undocumented)
@@ -4668,6 +4677,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
     defaultPromptAtCursor: boolean;
     fadeOutCursorPrompt: boolean;
     includePromptAtCursor: boolean;
+    promptAtContent?: boolean;
     uiStateStorage?: UiStateStorage;
 }
 
@@ -5540,6 +5550,7 @@ export interface Widget {
     readonly priority?: number;
     // (undocumented)
     readonly tooltip?: string | ConditionalStringValue_2;
+    readonly useSavedState?: boolean;
 }
 
 // @public

@@ -37,7 +37,13 @@ export default defineConfig({
     },
   },
   plugins: [
-    react(),
+    react({
+      babel: {
+        generatorOpts: {
+          importAttributesKeyword: "with",
+        },
+      },
+    }),
     fixedViteCommonjs({
       include: ["@itwin/core-frontend"],
     }),

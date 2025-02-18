@@ -6,7 +6,7 @@
  * @module Base
  */
 import * as React from "react";
-import { isEqual } from "lodash";
+import isEqual from "lodash/isEqual.js";
 import { BeEvent } from "@itwin/core-bentley";
 import { Point } from "@itwin/core-react/internal";
 import type { PanelSide } from "../widget-panels/PanelTypes.js";

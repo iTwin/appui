@@ -6,6 +6,7 @@ import { test, expect } from "@playwright/test";
 import {
   WidgetState,
   expectSavedFrontstageState,
+  expectTabInPanelSection,
   floatingWidgetLocator,
   openFrontstage,
   panelSectionLocator,
@@ -68,7 +69,6 @@ test.describe("popout widget", () => {
   });
 
   test("should dock a popout widget (after frontstage change)", async ({
-    context,
     page,
   }) => {
     const tab = tabLocator(page, "WT-2");
@@ -242,4 +242,73 @@ test("should render after link styles are loaded", async ({
       clientHeight: 15,
     })
   );
+});
+
+test("useWidget hook", async ({ page }) => {
+  await page.goto("./blank?frontstageId=widget-api");
+
+  // TODO: make sure the widget is not overlaid. Need to split into smaller test frontstages.
+  await setWidgetState(
+    page,
+    "appui-test-providers:UseWidgetHookWidget",
+    WidgetState.Floating
+  );
+
+  const tab = tabLocator(page, "Use Widget Hook");
+  const widget = floatingWidgetLocator({
+    tab,
+  });
+
+  const popoutPage = await popoutWidget(widget);
+  const widgetText = popoutPage.getByText(
+    `{"state":0,"widgetLocation":"popout"}`
+  );
+  await expect(widgetText).toBeVisible();
+});
+
+for (const useDefaultPopoutUrl of [1, 0]) {
+  test(`should return popout widget to main window (useDefaultPopoutUrl=${useDefaultPopoutUrl})`, async ({
+    page,
+  }) => {
+    await page.goto(
+      `./blank?frontstageId=test-popout&useDefaultPopoutUrl=${useDefaultPopoutUrl}`
+    );
+
+    const tab = tabLocator(page, "Widget 1");
+    const widget = widgetLocator({ tab });
+
+    const popoutPage = await popoutWidget(widget);
+    await expect(popoutPage.getByText("Widget 1 content")).toBeVisible();
+
+    await popoutPage.close();
+    await expectTabInPanelSection(tab, "left", 0);
+  });
+}
+
+test("should persist widget state with `reparentPopoutWidgets` enabled", async ({
+  page,
+}) => {
+  await page.goto("./blank?frontstageId=test-popout&reparentPopoutWidgets=1");
+
+  const increment = page.getByRole("button", { name: "Increment: " });
+  await increment.click();
+  await increment.click();
+  await increment.click();
+  await expect(increment).toHaveText("Increment: 3");
+
+  const input = page.getByRole("textbox");
+  await input.fill("test");
+  await expect(input).toHaveValue("test");
+
+  const tab = tabLocator(page, "State widget");
+  const widget = widgetLocator({ tab });
+  const popoutPage = await popoutWidget(widget);
+
+  const popoutIncrement = popoutPage.getByRole("button", {
+    name: "Increment: 3",
+  });
+  await expect(popoutIncrement).toBeVisible();
+
+  const popoutInput = popoutPage.getByRole("textbox");
+  await expect(popoutInput).toHaveValue("test");
 });

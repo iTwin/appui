@@ -76,6 +76,7 @@ export class FrontstageDef {
   private _usage?: string;
   private _version: number = 0;
   private _toolSettings?: WidgetDef;
+  private _activeToolEmptyNode?: React.ReactNode;
   private _statusBar?: WidgetDef;
   private _contentManipulation?: WidgetDef;
   private _viewNavigation?: WidgetDef;
@@ -115,6 +116,10 @@ export class FrontstageDef {
 
   public get toolSettings(): WidgetDef | undefined {
     return this._toolSettings;
+  }
+  /** @internal */
+  public get activeToolEmptyNode(): React.ReactNode | undefined {
+    return this._activeToolEmptyNode;
   }
   public get statusBar(): WidgetDef | undefined {
     return this._statusBar;
@@ -580,6 +585,7 @@ export class FrontstageDef {
       config.toolSettings,
       WidgetType.ToolSettings
     );
+    this._activeToolEmptyNode = config.toolSettings?.activeToolEmptyNode;
     this._statusBar = createWidgetDef(config.statusBar, WidgetType.StatusBar);
     this._contentManipulation = createWidgetDef(
       config.contentManipulation,
@@ -747,6 +753,7 @@ export class FrontstageDef {
       content: popoutContent,
       location: position,
       useDefaultPopoutUrl: UiFramework.useDefaultPopoutUrl,
+      tabId,
     });
 
     // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563

@@ -83,10 +83,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "@itwin/core-telemetry",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "@itwin/ecschema-metadata",
       "allowedCategories": [ "frontend", "internal" ]
     },

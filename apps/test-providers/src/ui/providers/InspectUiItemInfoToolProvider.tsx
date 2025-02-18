@@ -18,11 +18,6 @@ import { InspectUiItemInfoTool } from "../../tools/InspectUiItemInfoTool.js";
 export class InspectUiItemInfoToolProvider implements UiItemsProvider {
   public readonly id = "appui-test-providers:InspectUiItemInfoToolProvider";
 
-  constructor(localizationNamespace: string) {
-    // register tools that will be returned via this provider
-    InspectUiItemInfoTool.register(localizationNamespace);
-  }
-
   public getToolbarItems(): readonly ToolbarItem[] {
     return [
       ToolbarItemUtilities.createForTool(InspectUiItemInfoTool, {

@@ -9,11 +9,13 @@ import {
   StandardContentLayouts,
 } from "@itwin/appui-react";
 
-interface CreateTestFrontstageArgs {
+interface CreateTestFrontstageArgs extends Partial<Frontstage> {
   id: string;
 }
 
-export const createTestFrontstage = ({ id }: CreateTestFrontstageArgs) => {
+export const createTestFrontstage = (
+  frontstageArgs: CreateTestFrontstageArgs
+) => {
   {
     const contentGroup = new ContentGroup({
       id: "test-group",
@@ -39,9 +41,9 @@ export const createTestFrontstage = ({ id }: CreateTestFrontstageArgs) => {
     });
 
     return {
-      id,
       version: Math.random(),
       contentGroup,
+      ...frontstageArgs,
     } satisfies Frontstage;
   }
 };

@@ -18,7 +18,7 @@ import { Input } from "@itwin/itwinui-react";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
 import { UiFramework } from "../UiFramework.js";
 import { SvgLock } from "@itwin/itwinui-icons-react";
-import { useAllowLettersInAccuDrawInputFields } from "../preview/allow-letters-in-accudraw-input-fields/useAllowLettersInAccuDrawInputFields.js";
+import { useAllowBearingLettersInAccuDrawInputFields } from "../preview/allow-bearing-letters-in-accudraw-input-fields/useAllowBearingLettersInAccuDrawInputFields.js";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
@@ -36,6 +36,8 @@ export interface AccuDrawInputFieldProps extends CommonProps {
   id: string;
   /** Indicates whether field is locked */
   isLocked?: boolean;
+  /** Indicates whether the field is displaying bearing angles. */
+  isBearingAngle?: boolean;
   /** label for the input element */
   label?: string;
   /** Icon for the input element.
@@ -53,12 +55,12 @@ export interface AccuDrawInputFieldProps extends CommonProps {
   labelCentered?: boolean;
   /** Triggered when the content is changed */
   onValueChanged: (stringValue: string) => void;
-  /** Frequency to poll for changes in value, in milliseconds */
-  valueChangedDelay?: number;
   /** Listens for <Enter> keypress */
   onEnterPressed?: () => void;
   /** Listens for <Esc> keypress */
   onEscPressed?: () => void;
+  /** Listens for <Tab> keypress */
+  onTabPressed?: () => void;
   /** Provides ability to return reference to HTMLInputElement */
   ref?: React.Ref<HTMLInputElement>;
 }
@@ -82,22 +84,21 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     labelCentered,
     field,
     isLocked,
+    isBearingAngle = false,
     onValueChanged,
-    valueChangedDelay,
     onEnterPressed,
     onEscPressed,
+    onTabPressed,
     ...inputProps
   } = props;
   const [stringValue, setStringValue] = React.useState("");
-  const timeoutId = React.useRef(0);
-  const [needValueChanged, setNeedValueChanged] = React.useState(false);
   const [needSelection, setNeedSelection] = React.useState(false);
   const [isFocusField, setIsFocusField] = React.useState(false);
-  const inputElementRef = React.useRef<HTMLInputElement>(null);
+  const inputElementRef = React.useRef<HTMLInputElement | null>(null);
   const refs = useRefs(inputElementRef, ref); // combine ref needed for target with the forwardRef needed by the Parent when parent is a Type Editor.
 
-  const allowLettersInAccuDrawInputFields =
-    useAllowLettersInAccuDrawInputFields();
+  const allowBearingLettersInAccuDrawInputFields =
+    useAllowBearingLettersInAccuDrawInputFields();
 
   React.useEffect(() => {
     const formattedValue = FrameworkAccuDraw.getFieldDisplayValue(field);
@@ -106,69 +107,74 @@ const ForwardRefAccuDrawInput = React.forwardRef<
 
   const handleChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
-      const value = event.currentTarget.value;
+      let value = event.currentTarget.value;
 
       if (value === undefined) return;
 
       if (stringValue !== value) {
+        if (isBearingAngle) {
+          // Parsing bearing only works properly when parsing UpperCase letters. Ex : S45°00'00"E <- ok, s45°00'00"e <- doesn't work.
+          value = value.toUpperCase();
+          if (value.length > stringValue.length) {
+            // Automatically add Bearing special characters to help users type the angle. Ex: S45°00'00"E (degrees `°`, minutes `'`, seconds `"`)
+            if (value.length === 3 && value[2] !== "°") {
+              value += "°";
+            } else if (value.length === 6 && value[5] !== "'") {
+              value += "'";
+            } else if (value.length === 9 && value[8] !== '"') {
+              value += '"';
+            }
+          }
+        }
         setStringValue(value);
-        setNeedValueChanged(true);
+        onValueChanged(value);
       }
     },
-    [stringValue]
+    [stringValue, isBearingAngle, onValueChanged]
   );
-
-  const unsetTimeout = (): void => {
-    if (timeoutId) {
-      window.clearTimeout(timeoutId.current);
-      timeoutId.current = 0;
-    }
-  };
-
-  React.useEffect(() => {
-    // After setStringValue & re-render
-    if (needValueChanged) {
-      if (valueChangedDelay) {
-        unsetTimeout();
-        timeoutId.current = window.setTimeout(() => {
-          onValueChanged(stringValue);
-        }, valueChangedDelay);
-      } else {
-        onValueChanged(stringValue);
-      }
-      setNeedValueChanged(false);
-    }
-  }, [onValueChanged, valueChangedDelay, stringValue, needValueChanged]);
-
-  React.useEffect(() => {
-    // On unmount
-    return () => unsetTimeout();
-  }, []);
 
   const handleKeyDown = React.useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
         case Key.Escape.valueOf():
           onEscPressed && onEscPressed();
+          // Prevent ToolAdmin from receiving the event when Escape is pressed in the input field.
+          // If Escape is pressed again, the input should not be focused anymore, so this code will not be called and ToolAdmin will receive the event normally.
+          e.stopPropagation();
           return;
         case Key.Enter.valueOf():
           onEnterPressed && onEnterPressed();
           return;
+        case Key.Tab.valueOf():
+          onTabPressed && onTabPressed();
+          // Prevent from focusing other elements in the page. Act like a focus trap.
+          e.preventDefault();
+          return;
       }
 
       if (isLetter(e.key)) {
-        if (!allowLettersInAccuDrawInputFields) {
-          e.preventDefault();
-          UiFramework.keyboardShortcuts.processKey(
-            e.key,
-            e.altKey,
-            e.ctrlKey,
-            e.shiftKey
-          );
+        if (isBearingAngle && allowBearingLettersInAccuDrawInputFields) {
+          const bearingReservedKeys = ["n", "s", "e", "w", "N", "S", "E", "W"];
+          if (bearingReservedKeys.includes(e.key)) {
+            return; // The letter is displayed in the Bearing input field.
+          }
         }
+        e.preventDefault();
+        UiFramework.keyboardShortcuts.processKey(
+          e.key,
+          e.altKey,
+          e.ctrlKey,
+          e.shiftKey
+        );
       }
     },
-    [onEscPressed, onEnterPressed, allowLettersInAccuDrawInputFields]
+    [
+      onEscPressed,
+      onEnterPressed,
+      onTabPressed,
+      isBearingAngle,
+      allowBearingLettersInAccuDrawInputFields,
+    ]
   );
 
   React.useEffect(() => {

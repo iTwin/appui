@@ -2,25 +2,17 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/rushstack/main/libraries/rush-lib/src/schemas/pnpm-config.schema.json",
   "useWorkspaces": true,
   "strictPeerDependencies": false,
-  // A list of temporary advisories excluded from the High and Critical list.
-  // Warning this should only be used as a temporary measure to avoid build failures
-  // for development dependencies only.
-  // All security issues should be addressed asap.
-  // every entry should look like:
-  // "CVE-202x-xxxxxx", // https://github.com/advisories/GHSA-xxxx-xxxx-xxxx pkgName>subDepA>subDepB
   "unsupportedPackageJsonSettings": {
     "pnpm": {
       "auditConfig": {
+        // All security issues should be addressed ASAP.
+        // Every entry should look like:
+        // "CVE-202x-xxxxxx", // https://github.com/advisories/GHSA-xxxx-xxxx-xxxx pkgName>subDepA>subDepB
         "ignoreCves": [
-          "CVE-2024-29415", // https://github.com/advisories/GHSA-2p57-rm9w-gvfp appui-storybook>storybook>@storybook/cli>@storybook/core-server>ip
         ]
       }
     }
   },
-  // https://github.com/advisories/GHSA-3h5v-q93c-6h6q
   "globalOverrides": {
-    "ws@8.0.0 - 8.17.0": "8.17.1",
-    "ws@7.0.0 - 7.5.9": "7.5.10",
-    "ws@6.0.0 - 6.2.2": "6.2.3"
   }
 }

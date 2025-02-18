@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "",
+      "comment": "Add `useSavedState` to `Widget` interface.",
       "type": "none"
     }
   ],

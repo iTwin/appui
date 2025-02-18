@@ -93,14 +93,14 @@ describe("AccuDrawFieldContainer", () => {
     const wrapper = render(
       <AccuDrawFieldContainer orientation={Orientation.Vertical} />
     );
-    expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     act(() => {
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
       IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
     });
 
-    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalled();
     let input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).toBeTruthy();
     expect(document.activeElement).toEqual(input);
@@ -125,7 +125,7 @@ describe("AccuDrawFieldContainer", () => {
       IModelApp.accuDraw.setFocusItem(ItemField.ANGLE_Item);
     });
 
-    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalled();
     input = wrapper.queryByTestId("uifw-accudraw-angle");
     expect(input).toBeTruthy();
     expect(document.activeElement).toEqual(input);
@@ -155,7 +155,7 @@ describe("AccuDrawFieldContainer", () => {
         showZOverride={true}
       />
     );
-    expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
@@ -164,7 +164,7 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     IModelApp.accuDraw.setFocusItem(ItemField.Z_Item);
-    expect(spy).toHaveBeenCalledOnce();
+    expect(spy).toHaveBeenCalled();
     await TestUtils.flushAsyncOperations();
     expect(document.activeElement).toEqual(
       screen.getByTestId("uifw-accudraw-z")
@@ -183,13 +183,13 @@ describe("AccuDrawFieldContainer", () => {
     const wrapper = render(
       <AccuDrawFieldContainer orientation={Orientation.Vertical} />
     );
-    expect(IModelApp.accuDraw.hasInputFocus).toEqual(false);
+    expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
     await TestUtils.flushAsyncOperations();
 
     IModelApp.accuDraw.setFocusItem(ItemField.X_Item);
-    expect(spySet).toHaveBeenCalledOnce();
+    expect(spySet).toHaveBeenCalled();
     const input = wrapper.queryByTestId("uifw-accudraw-x");
     expect(input).toBeTruthy();
     expect(document.activeElement).toEqual(input);
@@ -232,23 +232,24 @@ describe("AccuDrawFieldContainer", () => {
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
+    const inputKeys = "22.3";
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-x"),
-      "22.3",
+      inputKeys,
       selectAllBeforeType()
     );
     await waitFor(() => {
-      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledTimes(inputKeys.length);
     });
     spy.mockReset();
 
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-y"),
-      "22.3",
+      inputKeys,
       selectAllBeforeType()
     );
     await waitFor(() => {
-      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledTimes(inputKeys.length);
     });
     spy.mockReset();
 
@@ -259,22 +260,22 @@ describe("AccuDrawFieldContainer", () => {
     await waitFor(async () => {
       await theUserTo.type(
         screen.getByTestId("uifw-accudraw-angle"),
-        "22.3",
+        inputKeys,
         selectAllBeforeType()
       );
     });
     await waitFor(() => {
-      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledTimes(inputKeys.length);
     });
     spy.mockReset();
 
     await theUserTo.type(
       screen.getByTestId("uifw-accudraw-distance"),
-      "22.3",
+      inputKeys,
       selectAllBeforeType()
     );
     await waitFor(() => {
-      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledTimes(inputKeys.length);
     });
     spy.mockReset();
 
@@ -294,15 +295,16 @@ describe("AccuDrawFieldContainer", () => {
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
+    const inputKeys = "22.3";
     await waitFor(async () => {
       await theUserTo.type(
         screen.getByTestId("uifw-accudraw-z"),
-        "22.3",
+        inputKeys,
         selectAllBeforeType()
       );
     });
     await waitFor(() => {
-      expect(spy).toHaveBeenCalledOnce();
+      expect(spy).toHaveBeenCalledTimes(inputKeys.length);
     });
 
     remove();

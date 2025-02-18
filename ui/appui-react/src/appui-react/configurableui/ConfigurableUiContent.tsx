@@ -11,7 +11,10 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react/internal";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { CursorInformation } from "../cursor/CursorInformation.js";
+import {
+  CursorInformation,
+  useCursorInformationStore,
+} from "../cursor/CursorInformation.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager.js";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
@@ -46,7 +49,9 @@ export const ConfigurableUiContext = React.createContext<
     | "animateToolSettings"
     | "toolAsToolSettingsLabel"
     | "childWindow"
-  >
+  > & {
+    contentElementRef?: React.RefObject<HTMLElement>;
+  }
 >({});
 
 /** Properties for [[ConfigurableUiContent]]
@@ -94,6 +99,8 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+  const contentElementRef = React.useRef<HTMLElement>(null);
+
   useWidgetOpacity(props.widgetOpacity);
   useToolbarOpacity(props.toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement>();
@@ -112,11 +119,9 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
     };
   }, [props.idleTimeout, props.intervalTimeout]);
 
-  const handleMouseMove = React.useCallback((e: React.MouseEvent) => {
-    const point = new Point(e.pageX, e.pageY);
-    CursorInformation.handleMouseMove(point);
-  }, []);
-
+  const setContentHovered = useCursorInformationStore(
+    (state) => state.setContentHovered
+  );
   return (
     <ConfigurableUiContext.Provider
       value={{
@@ -128,6 +133,7 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         animateToolSettings: props.animateToolSettings,
         toolAsToolSettingsLabel: props.toolAsToolSettingsLabel,
         childWindow: props.childWindow,
+        contentElementRef,
       }}
     >
       <main
@@ -135,7 +141,17 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
         id="uifw-configurableui-wrapper"
         className={props.className}
         style={props.style}
-        onMouseMove={handleMouseMove}
+        onMouseMove={(e) => {
+          const point = new Point(e.pageX, e.pageY);
+          CursorInformation.handleMouseMove(point);
+
+          if (!(e.target instanceof Node)) return;
+          const contentHovered = contentElementRef.current?.contains(e.target);
+          setContentHovered(contentHovered ?? false);
+        }}
+        onMouseLeave={() => {
+          setContentHovered(false);
+        }}
         ref={(el) => setMainElement(el ?? undefined)}
       >
         <WrapperContext.Provider value={mainElement ?? document.body}>
