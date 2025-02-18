@@ -22,7 +22,10 @@ interface PropertyRecordEditorProps {
   propertyRecord: PropertyRecord;
   onCommit: (args: PropertyUpdatedArgs) => void;
   onCancel: () => void;
+  onClick?: () => void;
+  setFocus?: boolean;
   size?: "small" | "large";
+  usedEditor?: "legacy" | "new";
 }
 
 /**
@@ -33,10 +36,13 @@ export function PropertyRecordEditor({
   propertyRecord,
   onCommit,
   onCancel,
+  onClick,
+  setFocus,
   size,
+  usedEditor,
 }: PropertyRecordEditorProps) {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
-  if (metadata && value) {
+  if (usedEditor === "new" && metadata && value) {
     return (
       <CommittingEditor
         metadata={metadata}
@@ -51,6 +57,7 @@ export function PropertyRecordEditor({
           });
         }}
         onCancel={onCancel}
+        onClick={onClick}
         disabled={propertyRecord.isDisabled || propertyRecord.isReadonly}
         size={size}
       />
@@ -62,6 +69,8 @@ export function PropertyRecordEditor({
       propertyRecord={propertyRecord}
       onCommit={onCommit}
       onCancel={onCancel}
+      onClick={onClick}
+      setFocus={setFocus}
     />
   );
 }
@@ -71,6 +80,7 @@ function CommittingEditor({
   initialValue,
   onCancel,
   onCommit,
+  onClick,
   disabled,
   size,
 }: {
@@ -78,6 +88,7 @@ function CommittingEditor({
   initialValue?: Value;
   onCommit: (value?: Value) => void;
   onCancel: () => void;
+  onClick?: () => void;
   disabled?: boolean;
   size?: "small" | "large";
 }) {
@@ -88,7 +99,12 @@ function CommittingEditor({
   });
 
   return (
-    <div onKeyDown={onKeydown} onBlur={commit} role="presentation">
+    <div
+      onKeyDown={onKeydown}
+      onBlur={commit}
+      onClick={onClick}
+      role="presentation"
+    >
       <EditorRenderer
         metadata={metadata}
         value={value}

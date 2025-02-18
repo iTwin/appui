@@ -69,7 +69,12 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
   width: number;
   /** Height of the property grid component. */
   height: number;
-  usedEditor?: "old" | "new";
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   */
+  usedEditor?: "legacy" | "new";
 }
 
 /** State of [[VirtualizedPropertyGrid]] React component
@@ -126,7 +131,7 @@ export interface VirtualizedPropertyGridContext {
     category: PropertyCategory
   ) => void;
   onEditCancel?: () => void;
-  usedEditor: "old" | "new";
+  usedEditor: "legacy" | "new";
 
   eventHandler: IPropertyGridEventHandler;
   dataProvider: IPropertyDataProvider;
@@ -387,7 +392,7 @@ export class VirtualizedPropertyGrid extends React.Component<
                 editingPropertyKey: selectionContext.editingPropertyKey,
                 onEditCommit: selectionContext.onEditCommit,
                 onEditCancel: selectionContext.onEditCancel,
-                usedEditor: this.props.usedEditor ?? "old",
+                usedEditor: this.props.usedEditor ?? "legacy",
 
                 eventHandler: this.props.eventHandler,
                 dataProvider: this.props.dataProvider,
