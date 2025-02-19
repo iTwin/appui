@@ -227,16 +227,12 @@ export async function dragWidget(
   options?: Parameters<Locator["dragTo"]>[1]
 ) {
   const page = widget.page();
-  const titleBarHandle = titleBarHandleLocator(widget);
-  const titleBarButtons = widget.locator(".nz-widget-buttons");
+  const titleBarHandle = widget.locator(".nz-handle");
   const frontstage = frontstageLocator(page);
 
-  // Widget tabs or title bar buttons overlay the handle. Make sure we drag the handle.
-  const handleBounds = (await titleBarHandle.boundingBox())!;
-  const buttonBounds = (await titleBarButtons.boundingBox())!;
   await titleBarHandle.dragTo(frontstage, {
     sourcePosition: {
-      x: handleBounds.width - buttonBounds.width - 5,
+      x: 5,
       y: 5,
     },
     ...options,
