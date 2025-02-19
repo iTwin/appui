@@ -27,7 +27,7 @@ function getTextValue(value?: Value) {
     return value.value.toDateString();
   }
   if (Value.isEnum(value)) {
-    return value.label;
+    return value.choice;
   }
   if (Value.isNumeric(value)) {
     return value.displayValue;

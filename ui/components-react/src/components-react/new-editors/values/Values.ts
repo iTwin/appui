@@ -54,7 +54,6 @@ export interface DateValue {
  */
 export interface EnumValue {
   choice: number | string;
-  label: string;
 }
 
 /**
@@ -108,7 +107,7 @@ export namespace Value {
    * @beta
    */
   export function isEnum(value: Value): value is EnumValue {
-    return "choice" in value && "label" in value;
+    return "choice" in value;
   }
 
   /**

@@ -47,9 +47,7 @@ function EnumButtonGroupEditor({
   }, [enumMetadata, buttonGroupParams]);
 
   const firstChoice = enumMetadata.choices[0] as EnumerationChoice | undefined;
-  const currentValue = value
-    ? value
-    : { choice: firstChoice?.value ?? "", label: firstChoice?.label ?? "" };
+  const currentValue = value ? value : { choice: firstChoice?.value ?? "" };
 
   return (
     <ButtonGroup orientation="horizontal">
@@ -59,7 +57,7 @@ function EnumButtonGroupEditor({
           <IconButton
             key={choice.value}
             onClick={() => {
-              onChange({ choice: choice.value, label: choice.label });
+              onChange({ choice: choice.value });
               commit?.();
             }}
             label={choice.label}

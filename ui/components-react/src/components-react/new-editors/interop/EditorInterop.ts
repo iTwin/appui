@@ -101,7 +101,6 @@ export namespace EditorInterop {
           },
           value: {
             choice: primitiveValue.value as number | string,
-            label: primitiveValue.displayValue ?? "",
           } satisfies EnumValue,
         };
       case "navigation":
@@ -162,7 +161,6 @@ export namespace EditorInterop {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.choice,
-        displayValue: newValue.label,
       };
     }
 
