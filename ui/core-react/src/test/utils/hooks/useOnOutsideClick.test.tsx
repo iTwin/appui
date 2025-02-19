@@ -21,7 +21,7 @@ describe("useOnOutsideClick", () => {
 
   describe("PointerEvent", () => {
     it("should call onOutsideClick", () => {
-      const spy = vi.fn<[], void>();
+      const spy = vi.fn<() => void>();
       const { result } = renderHook(() => useOnOutsideClick(spy));
       const element = document.createElement("div");
       act(() => {
@@ -38,7 +38,7 @@ describe("useOnOutsideClick", () => {
     });
 
     it("should respect outside event predicate", () => {
-      const spy = vi.fn<[], void>();
+      const spy = vi.fn<() => void>();
       const predicate = vi.fn(() => {
         return false;
       });
@@ -60,7 +60,7 @@ describe("useOnOutsideClick", () => {
     });
 
     it("should respect outside event predicate", async () => {
-      const spy = vi.fn<[], void>();
+      const spy = vi.fn<() => void>();
       const onOutsideClick = vi.fn((ev: OutsideClickEvent) => {
         if (ev.type === "pointerup") return false;
         return true;
@@ -87,7 +87,7 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should call onOutsideClick for touch", () => {
-    const spy = vi.fn<[], void>();
+    const spy = vi.fn<() => void>();
     global.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
@@ -112,7 +112,7 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should not handle mouse event after touch event", () => {
-    const spy = vi.fn<[], void>();
+    const spy = vi.fn<() => void>();
     global.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");

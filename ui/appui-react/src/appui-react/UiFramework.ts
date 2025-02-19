@@ -331,6 +331,9 @@ export class UiFramework {
 
   /** Un-registers the UiFramework internationalization service namespace. */
   public static terminate() {
+    InternalModalDialogManager.closeAll();
+    InternalModelessDialogManager.closeAll();
+
     InternalKeyboardShortcutManager.shortcutContainer.emptyData();
     UiFramework._store = undefined;
     UiFramework._frameworkStateKeyInStore = "frameworkState";
