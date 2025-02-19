@@ -35,7 +35,7 @@ import type { TreeSelectionManager } from "../../../components-react/tree/contro
 describe("TreeEventDispatcher", () => {
   const treeEvents = {
     onSelectionModified: vi.fn(),
-    onSelectionReplaced: vi.fn(),
+    onSelectionReplaced: vi.fn<Required<TreeEvents>["onSelectionReplaced"]>(),
     onNodeExpanded: vi.fn(),
     onNodeCollapsed: vi.fn(),
     onDelayedNodeClick: vi.fn(),

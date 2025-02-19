@@ -72,7 +72,7 @@ describe("FloatingWidget", () => {
   });
 
   it("should dispatch FLOATING_WIDGET_RESIZE", () => {
-    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
     state = addFloatingWidget(
@@ -107,7 +107,7 @@ describe("FloatingWidget", () => {
   });
 
   it("tool settings should NOT have resize handles", () => {
-    const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
+    const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "ts");
     state = addFloatingWidget(

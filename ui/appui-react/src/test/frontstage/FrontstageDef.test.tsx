@@ -795,11 +795,7 @@ describe("FrontstageDef", () => {
 
       const spy =
         vi.fn<
-          Parameters<
-            ListenerType<
-              typeof UiFramework.frontstages.onPanelStateChangedEvent
-            >
-          >
+          ListenerType<typeof UiFramework.frontstages.onPanelStateChangedEvent>
         >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
 
@@ -840,11 +836,7 @@ describe("FrontstageDef", () => {
 
       const spy =
         vi.fn<
-          Parameters<
-            ListenerType<
-              typeof UiFramework.frontstages.onPanelStateChangedEvent
-            >
-          >
+          ListenerType<typeof UiFramework.frontstages.onPanelStateChangedEvent>
         >();
       UiFramework.frontstages.onPanelStateChangedEvent.addListener(spy);
 

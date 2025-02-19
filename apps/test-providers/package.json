@@ -14,7 +14,7 @@
     "build": "npm run copy:css && npm run copy:locale && tsc",
     "copy:css": "cpx \"./src/**/*.{*css,json,svg}\" ./lib",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
-    "clean": "rimraf lib .rush/temp/package-deps*.json",
+    "clean": "rimraf -g lib .rush/temp/package-deps*.json",
     "cover": "",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",

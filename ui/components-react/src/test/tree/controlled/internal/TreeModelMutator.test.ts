@@ -313,7 +313,7 @@ describe("TreeModelMutator", () => {
     });
 
     describe("nodeEditingInfo callbacks", () => {
-      let onNodeUpdatedSpy: Mock<any, any>;
+      let onNodeUpdatedSpy: Mock;
       beforeEach(() => {
         onNodeUpdatedSpy = vi.fn();
         treeModelMock.setup((x) => x.getNode(node.id)).returns(() => node);

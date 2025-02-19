@@ -492,6 +492,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showDimensionEditor(height) forwards to AccuDrawPopupManager", () => {
+      const el = document.createElement("div");
       const lengthStub = vi
         .spyOn(AccuDrawPopupManager, "showLengthEditor")
         .mockReturnValue(true);
@@ -504,7 +505,8 @@ describe("UiFramework localStorage Wrapper", () => {
           23,
           { x: 0, y: 0 },
           () => {},
-          () => {}
+          () => {},
+          el
         )
       ).toEqual(true);
 
@@ -518,7 +520,8 @@ describe("UiFramework localStorage Wrapper", () => {
           23,
           { x: 0, y: 0 },
           () => {},
-          () => {}
+          () => {},
+          el
         )
       );
 
@@ -527,6 +530,7 @@ describe("UiFramework localStorage Wrapper", () => {
     });
 
     it("showDimensionEditor(length) forwards to AccuDrawPopupManager", () => {
+      const el = document.createElement("div");
       const lengthStub = vi
         .spyOn(AccuDrawPopupManager, "showLengthEditor")
         .mockReturnValue(true);
@@ -539,7 +543,8 @@ describe("UiFramework localStorage Wrapper", () => {
           23,
           { x: 0, y: 0 },
           () => {},
-          () => {}
+          () => {},
+          el
         )
       ).toEqual(true);
 
@@ -553,7 +558,8 @@ describe("UiFramework localStorage Wrapper", () => {
           23,
           { x: 0, y: 0 },
           () => {},
-          () => {}
+          () => {},
+          el
         )
       );
 
