@@ -14,4 +14,3 @@
 ### Changes
 
 - Updated `cursorPromptTimeout` prop of `ToolAssistanceField` component to handle `Number.POSITIVE_INFINITY`, which when enabled will display the cursor prompt indefinitely. [#1211](https://github.com/iTwin/appui/pull/1211)
-- Required `Node` version is updated from `18.12.0` to `20.0.0`.
