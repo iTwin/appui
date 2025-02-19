@@ -51,7 +51,7 @@ describe("useDisposable", () => {
 });
 
 describe("useOptionalDisposable", () => {
-  let disposeSpy: Mock<any, any[]>;
+  let disposeSpy: Mock;
   let createDisposable: () => IDisposable;
 
   beforeEach(() => {
