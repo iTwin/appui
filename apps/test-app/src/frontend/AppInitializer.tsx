@@ -39,7 +39,6 @@ import { TestAppLocalization } from "./useTranslation";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
-import { Presentation } from "@itwin/presentation-frontend";
 
 function createInitializer() {
   let initializing: Promise<void> | undefined;
@@ -106,8 +105,6 @@ function createInitializer() {
     } else {
       await IModelApp.startup(options);
     }
-
-    await Presentation.initialize();
 
     ToolAdmin.exceptionHandler = async (err) =>
       Promise.resolve(UnexpectedErrors.handle(err));

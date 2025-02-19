@@ -50,7 +50,6 @@ import {
   createITwinUIV2Frontstage,
   createITwinUIV2FrontstageProvider,
 } from "./appui/frontstages/iTwinUIV2Frontstage";
-import { createPropertyGridProvider } from "./appui/providers/PropertyGridProvider";
 import { createTestWidgetFrontstage } from "./appui/frontstages/TestWidgetFrontstage";
 
 interface RegisterFrontstagesArgs {
@@ -152,10 +151,6 @@ export function registerFrontstages({
   });
   UiItemsManager.register(createITwinUIV2FrontstageProvider(), {
     stageIds: [createITwinUIV2Frontstage.stageId],
-  });
-
-  UiItemsManager.register(createPropertyGridProvider(), {
-    stageIds: [createMainFrontstage.stageId],
   });
 
   if (ProcessDetector.isElectronAppFrontend) {
