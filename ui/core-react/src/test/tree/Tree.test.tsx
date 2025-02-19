@@ -39,7 +39,7 @@ describe("<Tree />", () => {
     const overrides = {
       scrollTo: Element.prototype.scrollTo,
     };
-    let scrollToSpy: MockInstance<[x: number, y: number], void>;
+    let scrollToSpy: MockInstance<(x: number, y: number) => void>;
 
     beforeEach(() => {
       Element.prototype.scrollTo = () => {};

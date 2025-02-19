@@ -95,7 +95,7 @@ describe("PanelWidget", () => {
   describe("PANEL_WIDGET_DRAG_START", () => {
     it("should dispatch", () => {
       vi.spyOn(NineZoneModule, "getUniqueId").mockReturnValue("newId");
-      const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
+      const dispatch = vi.fn<NineZoneDispatch>();
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -125,7 +125,7 @@ describe("PanelWidget", () => {
     });
 
     it("should adjust bounds to keep widget under pointer", () => {
-      const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
+      const dispatch = vi.fn<NineZoneDispatch>();
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "left", "w1", ["t1"]);
@@ -156,7 +156,7 @@ describe("PanelWidget", () => {
     });
 
     it("should use preferredFloatingWidgetSize of active tab", () => {
-      const dispatch = vi.fn<Parameters<NineZoneDispatch>>();
+      const dispatch = vi.fn<NineZoneDispatch>();
       let state = createNineZoneState();
       state = addTab(state, "t1", {
         preferredFloatingWidgetSize: {

@@ -74,7 +74,7 @@ describe("<NineZone />", () => {
     vi.stubGlobal("ResizeObserver", ResizeObserver);
     const observe = vi.spyOn(ResizeObserver.prototype, "observe");
 
-    const spy = vi.fn<Parameters<NineZoneDispatch>>();
+    const spy = vi.fn<NineZoneDispatch>();
     render(<NineZone dispatch={spy} layout={createLayoutStore()} />);
     spy.mockReset();
 
@@ -117,7 +117,7 @@ describe("<NineZone />", () => {
       createRect(0, 0, 10, 20)
     );
 
-    const spy = vi.fn<Parameters<NineZoneDispatch>>();
+    const spy = vi.fn<NineZoneDispatch>();
     render(<NineZone dispatch={spy} layout={createLayoutStore()} />);
 
     spy.mockReset();

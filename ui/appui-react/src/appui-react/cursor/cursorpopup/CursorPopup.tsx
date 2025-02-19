@@ -96,7 +96,7 @@ export class CursorPopup extends React.Component<
   > = (args) => {
     if (this.props.id === args.id) {
       if (this._isMounted)
-        this.setState({ showPopup: CursorPopupShow.FadeOut });
+        this.setState({ showPopup: args.show ?? CursorPopupShow.FadeOut });
     }
   };
 

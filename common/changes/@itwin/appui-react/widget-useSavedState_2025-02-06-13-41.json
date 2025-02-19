@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Use import attributes for json imports.",
+      "comment": "Add `useSavedState` to `Widget` interface.",
       "type": "none"
     }
   ],

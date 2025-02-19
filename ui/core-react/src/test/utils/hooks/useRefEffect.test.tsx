@@ -20,7 +20,7 @@ describe("useRefEffect", () => {
   it("should invoke cleanup", () => {
     const cleanups = new Array<{
       instance: string | null;
-      cleanup: Mock<[], void>;
+      cleanup: Mock;
     }>();
     const createCleanup = (instance: string | null) => {
       const cleanup = vi.fn(() => {});

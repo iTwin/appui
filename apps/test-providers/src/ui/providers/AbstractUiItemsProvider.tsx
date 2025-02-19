@@ -28,13 +28,6 @@ import { UnitsField } from "../statusfields/unitsfield/UnitsField.js";
 export class AbstractUiItemsProvider implements UiItemsProvider {
   public readonly id = "appui-test-providers:AbstractUiItemsProvider";
 
-  constructor(localizationNamespace: string) {
-    // register tools that will be returned via this provider
-    OpenAbstractDialogTool.register(localizationNamespace);
-    SampleTool.register(localizationNamespace);
-    ToolWithDynamicSettings.register(localizationNamespace);
-  }
-
   public getToolbarItems(): readonly ToolbarItem[] {
     const horizontal = {
       standard: {

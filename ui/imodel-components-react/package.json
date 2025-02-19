@@ -32,7 +32,7 @@
     "compat:css": "npm run compat:cjs && npm run compat:esm",
     "compat:cjs": "cpx \"./src/**/*.{*css,svg}\" ./lib/cjs",
     "compat:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
-    "clean": "rimraf lib .rush/temp/package-deps*.json",
+    "clean": "rimraf -g lib .rush/temp/package-deps*.json",
     "cover": "vitest run --coverage",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "lint:fix": "npm run -s lint -- --fix",
@@ -77,7 +77,7 @@
     "@itwin/core-quantity": "^4.0.0",
     "@itwin/core-react": "workspace:*",
     "@itwin/eslint-plugin": "5.0.0-dev.2",
-    "@itwin/itwinui-react": "^3.15.0",
+    "@itwin/itwinui-react": "^3.16.6",
     "@itwin/webgl-compatibility": "^4.0.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/react": "^15.0.7",
@@ -86,7 +86,7 @@
     "@types/node": "20.17.8",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "@vitest/coverage-v8": "^1.6.0",
+    "@vitest/coverage-v8": "^3.0.6",
     "cpx2": "^3.0.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "~8.8.0",
@@ -104,7 +104,7 @@
     "typemoq": "^2.1.0",
     "typescript": "~5.6.2",
     "upath": "^2.0.1",
-    "vitest": "^1.6.0"
+    "vitest": "^3.0.6"
   },
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.8.0",

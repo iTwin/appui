@@ -435,6 +435,8 @@ function hideWidgetDefs(frontstageDef: FrontstageDef) {
 
 /** Hide widget with `Hidden` or `Unloaded` defaultState. */
 function hideWidgetDef(frontstageDef: FrontstageDef, widgetDef: WidgetDef) {
+  if (widgetDef.initialConfig?.useSavedState === true) return;
+
   if (widgetDef.defaultState === WidgetState.Hidden) {
     frontstageDef.dispatch({
       type: "WIDGET_TAB_HIDE",

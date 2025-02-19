@@ -77,8 +77,8 @@ describe("ElementSeparator", () => {
     const testCaseName = TestCallbackType[callbackType];
     describe(`Callback indifferent tests: ${testCaseName}`, () => {
       let onRatioChanged:
-        | Mock<[number], void>
-        | Mock<[number], RatioChangeResult>;
+        | Mock<(ratio: number) => void>
+        | Mock<(ratio: number) => RatioChangeResult>;
 
       beforeEach(() => {
         switch (callbackType) {

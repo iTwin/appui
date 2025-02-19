@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Update `react-error-boundary` version.",
+      "comment": "Remove @itwin/core-telemetry from @itwin/appui-react devDependencies",
       "type": "none"
     }
   ],

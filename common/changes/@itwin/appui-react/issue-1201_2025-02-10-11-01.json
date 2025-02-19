@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Fix popout widget issue when `useDefaultPopoutUrl` is not enabled.",
+      "comment": "Add `promptAtContent` prop to `ToolAssistanceField` component.",
       "type": "none"
     }
   ],

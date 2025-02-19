@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "lint-staged": "^10.2.11"
+    "lint-staged": "^15.4.3"
   },
   "repository": {
     "type": "git",

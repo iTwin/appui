@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/imodel-components-react",
-      "comment": "Use import attributes for json imports.",
+      "comment": "",
       "type": "none"
     }
   ],
