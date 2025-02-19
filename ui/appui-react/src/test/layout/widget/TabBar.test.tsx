@@ -37,7 +37,7 @@ describe("WidgetTitleBar", () => {
       </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(document);
@@ -66,7 +66,7 @@ describe("WidgetTitleBar", () => {
       </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
 
     act(() => {
       fireEvent.mouseDown(handle);
@@ -101,7 +101,7 @@ describe("WidgetTitleBar", () => {
       </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
     const targets = container.getElementsByClassName("nz-target-tabTarget");
     const target = targets[targets.length - 1];
 
@@ -139,7 +139,7 @@ describe("WidgetTitleBar", () => {
       </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
     const target = container.getElementsByClassName("nz-target-panelTarget")[0];
     vi.spyOn(document, "elementFromPoint").mockReturnValue(target);
     act(() => {
@@ -171,7 +171,7 @@ describe("WidgetTitleBar", () => {
       </TestNineZoneProvider>
     );
     const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
     act(() => {
       dispatch.mockReset();
       fireEvent.touchStart(handle, {

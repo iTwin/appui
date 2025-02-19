@@ -60,7 +60,7 @@ describe("FloatingWidget", () => {
     );
     const titleBar =
       component.container.getElementsByClassName("nz-widget-tabBar")[0];
-    const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+    const handle = titleBar.getElementsByClassName("nz-handle")[0];
     act(() => {
       fireEvent.mouseDown(handle);
       fireEvent.mouseMove(handle);

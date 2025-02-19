@@ -108,7 +108,7 @@ describe("PanelWidget", () => {
       );
 
       const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-      const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+      const handle = titleBar.getElementsByClassName("nz-handle")[0];
       act(() => {
         fireEvent.mouseDown(handle);
         fireEvent.mouseMove(handle);
@@ -138,7 +138,7 @@ describe("PanelWidget", () => {
       );
 
       const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-      const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+      const handle = titleBar.getElementsByClassName("nz-handle")[0];
       act(() => {
         fireEvent.mouseDown(handle, { clientX: 230 });
         fireEvent.mouseMove(handle, { clientX: 230 });
@@ -174,7 +174,7 @@ describe("PanelWidget", () => {
       );
 
       const titleBar = container.getElementsByClassName("nz-widget-tabBar")[0];
-      const handle = titleBar.getElementsByClassName("nz-tabs-handle")[0];
+      const handle = titleBar.getElementsByClassName("nz-handle")[0];
       act(() => {
         fireEvent.mouseDown(handle);
         fireEvent.mouseMove(handle);

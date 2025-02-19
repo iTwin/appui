@@ -6,6 +6,7 @@
  * @module Widget
  */
 
+import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import type { Point } from "@itwin/core-react/internal";
@@ -238,5 +239,5 @@ function WidgetHandle() {
     handleDoubleClick
   );
 
-  return <div style={{ flexGrow: "1" }} ref={ref} />;
+  return <div className=".nz-handle" style={{ flexGrow: "1" }} ref={ref} />;
 }
