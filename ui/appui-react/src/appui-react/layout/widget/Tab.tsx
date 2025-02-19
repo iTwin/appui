@@ -143,7 +143,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
     >
       <Tabs.Tab value={id} key={id} className={className}>
         {(showWidgetIcon || showIconOnly) && (
-          <Tabs.TabIcon className="nz-icon">{props.icon}</Tabs.TabIcon>
+          <Tabs.TabIcon>{props.icon}</Tabs.TabIcon>
         )}
         {showLabel && (
           <Tabs.TabLabel className="nz-label" style={{ margin: "0" }}>

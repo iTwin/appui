@@ -6,10 +6,10 @@
  * @module Widget
  */
 
-import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { Point, useResizeObserver } from "@itwin/core-react/internal";
+import type { Point } from "@itwin/core-react/internal";
+import { useResizeObserver } from "@itwin/core-react/internal";
 import {
   NineZoneDispatchContext,
   ShowWidgetIconContext,
@@ -27,7 +27,8 @@ import { WidgetIdContext } from "./Widget.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { Tabs } from "@itwin/itwinui-react";
 import { useDrag } from "./TabBar.js";
-import { useDragWidget, UseDragWidgetArgs } from "../base/DragManager.js";
+import type { UseDragWidgetArgs } from "../base/DragManager.js";
+import { useDragWidget } from "../base/DragManager.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { useDoubleClick } from "../widget-panels/Grip.js";
 
@@ -101,37 +102,34 @@ export function WidgetTabs() {
           return [key, child];
         })
       : [];
-
   return (
-    <div className="nz-widget-tabs" ref={ref} role="tablist">
-      <Tabs.Wrapper value={activeTabId}>
-        <Tabs.TabList>
-          {tabChildren.map(([key, child], index, array) => {
-            return (
-              <WidgetTabsEntryProvider
-                children={child} // eslint-disable-line react/no-children-prop
-                key={key}
-                id={key}
-                lastNotOverflown={
-                  index === array.length - 1 && panelChildren.length > 0
-                }
-                getOnResize={handleEntryResize}
-              />
-            );
+    <Tabs.Wrapper value={activeTabId} ref={ref} role="tablist">
+      <Tabs.TabList>
+        {tabChildren.map(([key, child], index, array) => {
+          return (
+            <WidgetTabsEntryProvider
+              children={child} // eslint-disable-line react/no-children-prop
+              key={key}
+              id={key}
+              lastNotOverflown={
+                index === array.length - 1 && panelChildren.length > 0
+              }
+              getOnResize={handleEntryResize}
+            />
+          );
+        })}
+        <TitleBarTarget />
+        <WidgetOverflow
+          hidden={overflown && panelChildren.length === 0}
+          onResize={handleOverflowResize}
+        >
+          {panelChildren.map(([key, child]) => {
+            return <React.Fragment key={key}>{child}</React.Fragment>;
           })}
-          <TitleBarTarget />
-          <WidgetOverflow
-            hidden={overflown && panelChildren.length === 0}
-            onResize={handleOverflowResize}
-          >
-            {panelChildren.map(([key, child]) => {
-              return <React.Fragment key={key}>{child}</React.Fragment>;
-            })}
-          </WidgetOverflow>
-          <WidgetHandle />
-        </Tabs.TabList>
-      </Tabs.Wrapper>
-    </div>
+        </WidgetOverflow>
+        <WidgetHandle />
+      </Tabs.TabList>
+    </Tabs.Wrapper>
   );
 }
 
@@ -240,5 +238,5 @@ function WidgetHandle() {
     handleDoubleClick
   );
 
-  return <div className="nz-tabs-handle" ref={ref} />;
+  return <div style={{ flexGrow: "1" }} ref={ref} />;
 }

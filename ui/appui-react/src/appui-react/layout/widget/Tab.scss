@@ -22,16 +22,7 @@
     border-bottom: none;
   }
 
-  > .nz-icon {
-    svg {
-      width: #{math.div(14, 16)}rem;
-      height: #{math.div(14, 16)}rem;
-      fill: currentColor;
-    }
-  }
-
   > .nz-label {
-    font-size: $nz-widget-tab-font-size;
     text-overflow: ellipsis;
     overflow: hidden;
   }
