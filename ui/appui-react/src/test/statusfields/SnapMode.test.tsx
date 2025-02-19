@@ -40,9 +40,7 @@ describe("SnapModeField", () => {
 
   it("should change snapMode and dispatch SyncEvent on click", async () => {
     const spy =
-      vi.fn<
-        Parameters<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>
-      >();
+      vi.fn<ListenerType<typeof SyncUiEventDispatcher.onSyncUiEvent>>();
     SyncUiEventDispatcher.onSyncUiEvent.addListener(spy);
     render(
       <Provider store={TestUtils.store}>
