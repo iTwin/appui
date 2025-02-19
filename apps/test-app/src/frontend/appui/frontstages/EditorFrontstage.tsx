@@ -12,8 +12,12 @@ import {
   StagePanelSection,
   StageUsage,
   StandardContentLayouts,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
+import { CreateArcTool, CreateLineStringTool } from "@itwin/editor-frontend";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "@itwin/appui-test-providers";
 
@@ -49,6 +53,24 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
         icon: <SvgEdit />,
       }),
     ],
+    getToolbarItems: () => {
+      const layouts = {
+        standard: {
+          orientation: ToolbarOrientation.Horizontal,
+          usage: ToolbarUsage.ContentManipulation,
+        },
+      };
+      return [
+        ToolbarItemUtilities.createForTool(CreateLineStringTool, {
+          itemPriority: 10,
+          layouts,
+        }),
+        ToolbarItemUtilities.createForTool(CreateArcTool, {
+          itemPriority: 10,
+          layouts,
+        }),
+      ];
+    },
     getWidgets: () => {
       const layouts = {
         standard: {

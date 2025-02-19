@@ -169,8 +169,6 @@ function createInitializer() {
       }
     });
 
-    await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
-
     // TODO: should not be required. Start event loop to open key-in palette.
     IModelApp.startEventLoop();
   }
