@@ -90,7 +90,11 @@ export namespace EditorInterop {
           },
           value: {
             rawValue: primitiveValue.value as number,
-            displayValue: primitiveValue.displayValue ?? "",
+            displayValue: primitiveValue.displayValue
+              ? primitiveValue.displayValue
+              : primitiveValue.value !== undefined
+              ? `${primitiveValue.value as number}`
+              : "",
           } satisfies NumericValue,
         };
       case "enum":

@@ -213,25 +213,31 @@ export function EditorExampleComponent() {
       gap="m"
       style={{ width: "100%" }}
     >
-      {propertyRecords.map((record) => {
-        const key = `${PropertyValueFormat[record.value.valueFormat]}:${
-          record.property.typename
-        }:${record.property.editor?.name ?? "Default"}[${
-          record.property.editor?.params?.map((p) => p.type).join(",") ?? ""
-        }]`.replace("[]", "");
+      {propertyRecords.map((record, index) => {
+        const editorKey = createEditorKey(record);
+        const editorId = editorKey.replace(/[^A-Za-z]/g, "");
         return (
-          <Flex key={key} flexDirection="column">
+          <Flex key={index} flexDirection="column">
             <Flex flexDirection="row" gap="xl">
-              <Flex.Item alignSelf="flex-start" style={{ width: "300px" }}>
+              <Flex.Item
+                id={`Legacy${editorId}`}
+                alignSelf="flex-start"
+                style={{ width: "300px" }}
+              >
                 <OldEditorRenderer record={record} />
               </Flex.Item>
               <Divider orientation="vertical" />
-              <Flex.Item alignSelf="flex-end" style={{ width: "300px" }}>
+              <Flex.Item
+                id={`New${editorId}`}
+                alignSelf="flex-end"
+                style={{ width: "300px" }}
+              >
                 <NewEditorRenderer record={record} />
               </Flex.Item>
             </Flex>
             <Flex.Item alignSelf="flex-start">
               <Text variant="small" isMuted>
+                {editorKey}
                 {record.property.editor && (
                   <DropdownMenu
                     menuItems={(close) => [
@@ -283,10 +289,19 @@ function NewEditorRenderer({ record }: { record: PropertyRecord }) {
             propertyRecord={record}
             onCommit={() => undefined}
             onCancel={() => undefined}
+            editorSystem="new"
             size="small" // size={localSize}
           />
         </Flex.Item>
       ))}
     </Flex>
   );
+}
+
+function createEditorKey(record: PropertyRecord) {
+  return `${PropertyValueFormat[record.value.valueFormat]}:${
+    record.property.typename
+  }:${record.property.editor?.name ?? "Default"}[${
+    record.property.editor?.params?.map((p) => p.type).join(",") ?? ""
+  }]`.replace("[]", "");
 }
