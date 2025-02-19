@@ -31,7 +31,6 @@ import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents.js";
 import { act, prettyDOM } from "@testing-library/react";
-import type { Mock } from "vitest";
 
 /** @internal */
 export class TestUtils {
@@ -530,18 +529,5 @@ export function styleMatch(style: Partial<CSSStyleDeclaration>) {
 export async function waitForPosition() {
   return act(async () => {});
 }
-
-/** Simplified type for `vi.fn` for a React component.
- * @internal
- */
-export type ComponentSpy<
-  T extends
-    | keyof React.JSX.IntrinsicElements
-    | React.JSXElementConstructor<any>,
-  K extends keyof React.ComponentProps<T>
-> = Mock<
-  Parameters<React.ComponentProps<T>[K]>,
-  ReturnType<React.ComponentProps<T>[K]>
->;
 
 export default TestUtils;
