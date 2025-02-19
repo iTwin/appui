@@ -31,7 +31,6 @@ import type { AsyncValueProcessingResult } from "@itwin/components-react";
 import { DataControllerBase } from "@itwin/components-react";
 import { UiIModelComponents } from "../imodel-components-react/UiIModelComponents.js";
 import { act, prettyDOM } from "@testing-library/react";
-import type { Mock } from "vitest";
 
 /** @internal */
 export class TestUtils {
