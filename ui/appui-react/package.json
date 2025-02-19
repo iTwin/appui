@@ -113,7 +113,7 @@
     "typemoq": "^2.1.0",
     "typescript": "~5.6.2",
     "upath": "^2.0.1",
-    "vitest": "^1.6.0"
+    "vitest": "^3.0.6"
   },
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.8.0",
