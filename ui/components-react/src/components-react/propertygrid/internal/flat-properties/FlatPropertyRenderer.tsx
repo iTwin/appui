@@ -42,7 +42,7 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   /** Called when property edit is cancelled. */
   onEditCancel?: () => void;
   /** Used to switch between new and legacy editing system. */
-  usedEditor?: "legacy" | "new";
+  editorSystem?: "legacy" | "new";
   /** Whether property value is displayed in expanded state. */
   isExpanded: boolean;
   /** Called when toggling between expanded and collapsed property value display state. */
@@ -68,7 +68,7 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
     props;
 
   const valueElementRenderer = () => (
-    <DisplayValue {...props} usedEditor={props.usedEditor ?? "legacy"} />
+    <DisplayValue {...props} editorSystem={props.editorSystem ?? "legacy"} />
   );
 
   const primitiveRendererProps: PrimitiveRendererProps = {
@@ -144,7 +144,7 @@ interface DisplayValueProps {
   onClick?: (property: PropertyRecord, key?: string) => void;
   uniqueKey?: string;
   category?: PropertyCategory;
-  usedEditor: "legacy" | "new";
+  editorSystem: "legacy" | "new";
   onEditCancel?: () => void;
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -183,7 +183,7 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
         onCancel={props.onEditCancel ?? (() => {})}
         onClick={() => props.onClick?.(props.propertyRecord, props.uniqueKey)}
         setFocus={props.isEditing}
-        usedEditor={props.usedEditor}
+        editorSystem={props.editorSystem}
         size="small"
       />
     );

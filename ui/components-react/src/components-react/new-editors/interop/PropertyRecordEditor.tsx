@@ -25,7 +25,7 @@ interface PropertyRecordEditorProps {
   onClick?: () => void;
   setFocus?: boolean;
   size?: "small" | "large";
-  usedEditor?: "legacy" | "new";
+  editorSystem?: "legacy" | "new";
 }
 
 /**
@@ -39,10 +39,10 @@ export function PropertyRecordEditor({
   onClick,
   setFocus,
   size,
-  usedEditor,
+  editorSystem,
 }: PropertyRecordEditorProps) {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
-  if (usedEditor === "new" && metadata && value) {
+  if (editorSystem === "new" && metadata && value) {
     return (
       <CommittingEditor
         metadata={metadata}

@@ -43,7 +43,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps
    * @default "legacy"
    * @beta
    */
-  usedEditor?: "legacy" | "new";
+  editorSystem?: "legacy" | "new";
 }
 
 /**
@@ -69,7 +69,7 @@ export function VirtualizedPropertyGridWithDataProvider(
           {...props}
           model={model}
           eventHandler={eventHandler}
-          usedEditor={props.usedEditor ?? "legacy"}
+          editorSystem={props.editorSystem ?? "legacy"}
         />
       )}
     </DelayedLoaderRenderer>
