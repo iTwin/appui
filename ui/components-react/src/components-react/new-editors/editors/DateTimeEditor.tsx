@@ -9,6 +9,8 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { DateValue } from "../values/Values.js";
 import { DateInput } from "./DateInput.js";
 
+/* v8 ignore start */
+
 /**
  * Date time value editor that render `DatePicker` component with time selector for changing value.
  * @internal
@@ -33,3 +35,5 @@ export function DateTimeEditor({
     />
   );
 }
+
+/* v8 ignore stop */

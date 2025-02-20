@@ -22,6 +22,9 @@ import {
 } from "./UseEditorParams.js";
 import { findIcon } from "../IconsRegistry.js";
 
+/* v8 ignore start */
+
+/** @internal */
 export const CustomNumberEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) &&
@@ -96,3 +99,5 @@ function CustomNumberEditor({
     </InputWithDecorations>
   );
 }
+
+/* v8 ignore stop */

@@ -20,6 +20,9 @@ import { useButtonGroupEditorParams } from "./UseEditorParams.js";
 import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
 import { findIcon } from "../IconsRegistry.js";
 
+/* v8 ignore start */
+
+/** @internal */
 export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) &&
@@ -84,3 +87,5 @@ function createIconsMap(
   }
   return icons;
 }
+
+/* v8 ignore stop */

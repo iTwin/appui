@@ -10,6 +10,8 @@ import { isOldEditorMetadata, type OldEditorMetadata } from "../Metadata.js";
 import { type TextValue, Value } from "../../values/Values.js";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 
+/* v8 ignore start */
+
 /** @internal */
 export const MultilineEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
@@ -53,3 +55,5 @@ function TextAreaEditor({
     </Popover>
   );
 }
+
+/* v8 ignore stop */

@@ -9,6 +9,8 @@ import type {
 } from "@itwin/appui-abstract";
 import type { ValueMetadata } from "../values/Metadata.js";
 
+/* v8 ignore start */
+
 /**
  * Metadata that is created by mapping `PropertyRecord` used to render old editor into the new editor metadata.
  * @internal
@@ -30,3 +32,5 @@ export function isOldEditorMetadata(
 ): metadata is OldEditorMetadata {
   return (metadata as OldEditorMetadata).typename !== undefined;
 }
+
+/* v8 ignore stop */

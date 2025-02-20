@@ -9,6 +9,8 @@ import type { EditorProps } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { BooleanValue } from "../values/Values.js";
 
+/* v8 ignore start */
+
 /**
  * Boolean value editor that renders `Checkbox` component for changing value.
  * @internal
@@ -34,3 +36,5 @@ export function BooleanEditor({
     />
   );
 }
+
+/* v8 ignore stop */

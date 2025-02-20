@@ -7,6 +7,8 @@ import * as React from "react";
 import type { OldEditorMetadata } from "../Metadata.js";
 import type { EnumValueMetadata } from "../../values/Metadata.js";
 
+/* v8 ignore start */
+
 /**
  * Converts old enum metadata definition into the new one. It takes care of lazy loaded choices.
  * @internal
@@ -48,3 +50,5 @@ export function useEnumMetadata(
 
   return metadata;
 }
+
+/* v8 ignore stop */

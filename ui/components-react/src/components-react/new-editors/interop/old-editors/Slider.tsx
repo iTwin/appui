@@ -19,9 +19,9 @@ import { Button, Icon, Popover, Slider } from "@itwin/itwinui-react";
 import { useSliderEditorParams } from "./UseEditorParams.js";
 import { findIcon } from "../IconsRegistry.js";
 
-/**
- * @internal
- */
+/* v8 ignore start */
+
+/** @internal */
 export const SliderEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) &&
@@ -124,3 +124,5 @@ function getTickLabels(sliderParams: SliderEditorParams) {
 function formatTickLabel(value: number, params: SliderEditorParams) {
   return params.formatTooltip ? params.formatTooltip(value) : `${value}`;
 }
+
+/* v8 ignore stop */

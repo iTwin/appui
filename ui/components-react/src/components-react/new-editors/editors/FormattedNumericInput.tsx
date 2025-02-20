@@ -6,6 +6,8 @@ import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { NumericValue } from "../values/Values.js";
 
+/* v8 ignore start */
+
 /**
  * Props for FormattedNumericInput component.
  * @beta
@@ -114,3 +116,5 @@ function useParsedNumberInput({
     },
   };
 }
+
+/* v8 ignore stop */

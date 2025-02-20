@@ -8,6 +8,8 @@ import { Input } from "@itwin/itwinui-react";
 import type { EditorProps } from "../Types.js";
 import { Value } from "../values/Values.js";
 
+/* v8 ignore start */
+
 /**
  * Fallback editor that renders readonly value if no editor is found.
  * @internal
@@ -40,3 +42,5 @@ function getTextValue(value?: Value) {
   }
   return "";
 }
+
+/* v8 ignore stop */

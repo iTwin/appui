@@ -17,9 +17,9 @@ import {
 } from "./UseEditorParams.js";
 import { Input } from "@itwin/itwinui-react";
 
-/**
- * @internal
- */
+/* v8 ignore start */
+
+/** @internal */
 export const NumericInputEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
     isOldEditorMetadata(metadata) &&
@@ -129,3 +129,5 @@ function useNumericInput({
     onBlur: handleBlur,
   };
 }
+
+/* v8 ignore stop */

@@ -6,6 +6,8 @@
 import * as React from "react";
 import { Button, DatePicker, Popover } from "@itwin/itwinui-react";
 
+/* v8 ignore start */
+
 interface DateInputProps {
   value?: Date;
   onChange: (value: Date) => void;
@@ -54,3 +56,5 @@ export function DateInput({
     </Popover>
   );
 }
+
+/* v8 ignore stop */

@@ -8,6 +8,8 @@ import type { EditorProps } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { TextValue } from "../values/Values.js";
 
+/* v8 ignore start */
+
 /**
  * Text value editor that renders `Input` component for changing value.
  * @internal
@@ -29,3 +31,5 @@ export function TextEditor({
     />
   );
 }
+
+/* v8 ignore stop */

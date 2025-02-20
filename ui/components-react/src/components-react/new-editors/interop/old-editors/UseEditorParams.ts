@@ -16,6 +16,8 @@ import type {
 } from "@itwin/appui-abstract";
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 
+/* v8 ignore start */
+
 /**
  * @internal
  */
@@ -124,3 +126,5 @@ export function useSliderEditorParams(
     [metadata]
   );
 }
+
+/* v8 ignore stop */

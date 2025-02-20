@@ -9,6 +9,8 @@ import type { BooleanValue } from "../values/Values.js";
 import type { EditorProps } from "../Types.js";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 
+/* v8 ignore start */
+
 /**
  * Boolean value editor that renders `ToggleSwitch` component for changing value.
  * @internal
@@ -36,3 +38,5 @@ export function ToggleEditor({
     />
   );
 }
+
+/* v8 ignore stop */

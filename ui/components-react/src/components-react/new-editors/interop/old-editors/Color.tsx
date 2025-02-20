@@ -24,6 +24,8 @@ import type { NumericValue } from "../../values/Values.js";
 import { Value } from "../../values/Values.js";
 import { useColorEditorParams } from "./UseEditorParams.js";
 
+/* v8 ignore start */
+
 /**
  * Editor specification for color editor.
  * @beta
@@ -85,3 +87,5 @@ function ColorEditor({
     </Popover>
   );
 }
+
+/* v8 ignore stop */

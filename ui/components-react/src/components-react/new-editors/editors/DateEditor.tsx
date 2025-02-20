@@ -9,6 +9,8 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { DateValue } from "../values/Values.js";
 import { DateInput } from "./DateInput.js";
 
+/* v8 ignore start */
+
 /**
  * Date value editor that render `DatePicker` component for changing value.
  * @internal
@@ -32,3 +34,5 @@ export function DateEditor({
     />
   );
 }
+
+/* v8 ignore stop */

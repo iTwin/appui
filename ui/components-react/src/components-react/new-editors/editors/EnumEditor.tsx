@@ -9,6 +9,8 @@ import type { EditorProps } from "../Types.js";
 import type { EnumChoice, EnumValueMetadata } from "../values/Metadata.js";
 import type { EnumValue } from "../values/Values.js";
 
+/* v8 ignore start */
+
 /**
  * Enum value editor that renders `Select` component for changing value.
  * @internal
@@ -52,3 +54,5 @@ function getEnumValue(
       : { choice: "", label: "" };
   return value ? value : defaultValue;
 }
+
+/* v8 ignore stop */

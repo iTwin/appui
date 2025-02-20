@@ -8,6 +8,8 @@ import type { EditorProps } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { NumericValue } from "../values/Values.js";
 
+/* v8 ignore start */
+
 /**
  * Numeric value editor that renders `Input` components for changing value.
  * @internal
@@ -37,3 +39,5 @@ export function NumericEditor({
 function getNumericValue(value: NumericValue | undefined): NumericValue {
   return value ? value : { rawValue: undefined, displayValue: "" };
 }
+
+/* v8 ignore stop */

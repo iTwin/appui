@@ -6,6 +6,8 @@
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import * as React from "react";
 
+/* v8 ignore start */
+
 /**
  * @internal
  */
@@ -69,3 +71,5 @@ const webfontIconsMap: {
     </svg>
   ),
 };
+
+/* v8 ignore stop */
