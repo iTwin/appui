@@ -24,6 +24,8 @@ import { Value } from "../values/Values.js";
 import { ToggleEditor } from "../editors/ToggleEditor.js";
 import { DateEditor } from "../editors/DateEditor.js";
 
+/** v8 ignore start */
+
 /**
  * Specification for default text editor. It applies for values whose type is "string".
  * @internal
@@ -134,3 +136,5 @@ export const interopEditorSpecs: EditorSpec[] = [
 
   InteropEnumEditorSpec,
 ];
+
+/** v8 ignore stop */

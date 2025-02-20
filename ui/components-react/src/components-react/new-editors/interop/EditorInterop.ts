@@ -20,8 +20,6 @@ import type {
 import { Value as NewEditorValue } from "../values/Values.js";
 import type { OldEditorMetadata } from "./Metadata.js";
 
-/* v8 ignore start */
-
 /**
  * Interop utilities for converting between old and new editor values.
  * @internal
@@ -173,5 +171,3 @@ export namespace EditorInterop {
     throw new Error("Invalid value type");
   }
 }
-
-/* v8 ignore stop */
