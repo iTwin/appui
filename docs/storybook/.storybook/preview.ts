@@ -5,6 +5,7 @@
 import type { Preview } from "@storybook/react";
 import { withDemoIModel, demoIModelGlobalType } from "./addons/DemoIModel";
 import { resizerGlobalType } from "./addons/Resizer";
+import { themeBridgeGlobalType, withThemeBridge } from "./addons/ThemeBridge";
 
 const preview: Preview = {
   parameters: {
@@ -45,8 +46,9 @@ const preview: Preview = {
   globalTypes: {
     iModel: demoIModelGlobalType,
     resizer: resizerGlobalType,
+    themeBridge: themeBridgeGlobalType,
   },
-  decorators: [withDemoIModel],
+  decorators: [withDemoIModel, withThemeBridge],
 };
 
 export default preview;

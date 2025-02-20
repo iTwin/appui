@@ -31,6 +31,7 @@ import {
   SideNavigation,
   ThemeProvider,
 } from "@itwin/itwinui-react";
+import { Root } from "@itwin/itwinui-react-v5/bricks";
 import {
   createRootRouteWithContext,
   Outlet,
@@ -53,13 +54,15 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     const user = await Users.fetchMe(ctx.context.auth.accessToken);
     return { user };
   },
-  component: Root,
-  validateSearch: (search: { strict?: 0; menu?: 0 } & SearchSchemaInput) => {
+  component: AppRoot,
+  validateSearch: (
+    search: { strict?: 0; menu?: 0; themeBridge?: 1 } & SearchSchemaInput
+  ) => {
     return search;
   },
 });
 
-function Root() {
+function AppRoot() {
   const navigate = useNavigate();
   const matchRoute = useMatchRoute();
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
@@ -70,8 +73,9 @@ function Root() {
   const settingsMatch = matchRoute({ to: "/settings", fuzzy: true });
   const search = Route.useSearch();
   const menu = search.menu !== 0;
+
   return (
-    <ThemeProvider theme="os">
+    <ThemeBridge>
       <PageLayout>
         {menu && (
           <PageLayout.Header>
@@ -80,7 +84,10 @@ function Root() {
                 <HeaderLogo
                   logo={<SvgImodelHollow />}
                   onClick={() => {
-                    void navigate({ to: "/" });
+                    void navigate({
+                      to: "/",
+                      search: (prev) => prev,
+                    });
                   }}
                 >
                   AppUI Test App
@@ -99,7 +106,7 @@ function Root() {
                   key="iTwins"
                   startIcon={<SvgImodel />}
                   onClick={() => {
-                    void navigate({ to: "/iTwins" });
+                    void navigate({ to: "/iTwins", search: (prev) => prev });
                   }}
                   isActive={!!iTwinsMatch || !!iTwinMatch}
                 >
@@ -109,7 +116,7 @@ function Root() {
                   key="local"
                   startIcon={<SvgFolderBrowse />}
                   onClick={() => {
-                    void navigate({ to: "/local" });
+                    void navigate({ to: "/local", search: (prev) => prev });
                   }}
                   isActive={!!localMatch || !!briefcaseMatch}
                 >
@@ -121,6 +128,7 @@ function Root() {
                   onClick={() => {
                     void navigate({
                       to: "/blank",
+                      search: (prev) => prev,
                     });
                   }}
                   isActive={!!blankMatch}
@@ -136,6 +144,7 @@ function Root() {
                   onClick={() => {
                     void navigate({
                       to: "/settings",
+                      search: (prev) => prev,
                     });
                   }}
                   isActive={!!settingsMatch}
@@ -149,8 +158,31 @@ function Root() {
         )}
         <Outlet />
       </PageLayout>
-    </ThemeProvider>
+    </ThemeBridge>
   );
+}
+
+function ThemeBridge({ children }: React.PropsWithChildren) {
+  const search = Route.useSearch();
+  const themeBridge = search.themeBridge === 1;
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+
+  if (themeBridge) {
+    return (
+      <Root
+        colorScheme={prefersDark ? "dark" : "light"}
+        density="dense"
+        synchronizeColorScheme
+        render={(props: any) => (
+          <ThemeProvider future={{ themeBridge }} {...props} />
+        )}
+      >
+        {children}
+      </Root>
+    );
+  }
+
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 
 function RouterDevToolsButton() {
@@ -231,4 +263,21 @@ function UserMenu() {
       </IconButton>
     </DropdownMenu>
   );
+}
+
+function useMediaQuery(query: string) {
+  const getClientSnapshot = React.useCallback(() => {
+    return window.matchMedia?.(query).matches;
+  }, [query]);
+
+  const subscribe = React.useCallback(
+    (onChange: () => void) => {
+      const mediaQueryList = window.matchMedia?.(query);
+      mediaQueryList?.addEventListener?.("change", onChange);
+      return () => mediaQueryList?.removeEventListener?.("change", onChange);
+    },
+    [query]
+  );
+
+  return React.useSyncExternalStore(subscribe, getClientSnapshot);
 }
