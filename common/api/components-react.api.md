@@ -627,7 +627,7 @@ export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps
     readonly state: Readonly<EnumButtonGroupEditorState>;
 }
 
-// @public
+// @beta
 export interface EnumChoice {
     // (undocumented)
     label: string;
@@ -685,7 +685,7 @@ export interface EnumValue {
     choice: number | string;
 }
 
-// @public
+// @beta
 export interface EnumValueMetadata extends ValueMetadata {
     // (undocumented)
     choices: EnumChoice[];
@@ -3370,19 +3370,13 @@ export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
 // @beta
 export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue | DateValue | EnumValue;
 
-// @public (undocumented)
+// @beta (undocumented)
 export namespace Value {
-    // @beta
     export function isBoolean(value: Value): value is BooleanValue;
-    // @beta
     export function isDate(value: Value): value is DateValue;
-    // @beta
     export function isEnum(value: Value): value is EnumValue;
-    // @beta
     export function isInstanceKey(value: Value): value is InstanceKeyValue;
-    // @beta
     export function isNumeric(value: Value): value is NumericValue;
-    // @beta
     export function isText(value: Value): value is TextValue;
 }
 
