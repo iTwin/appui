@@ -10,17 +10,26 @@ import { Root } from "@itwin/itwinui-react-v5/bricks";
 export const withThemeBridge: Decorator = (Story, context) => {
   const themeBridge = !!context.globals.themeBridge;
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+
+  if (themeBridge) {
+    return (
+      <Root
+        colorScheme={prefersDark ? "dark" : "light"}
+        density="dense"
+        synchronizeColorScheme
+        render={(props: any) => (
+          <ThemeProvider future={{ themeBridge }} {...props} />
+        )}
+      >
+        <Story />
+      </Root>
+    );
+  }
+
   return (
-    <Root
-      colorScheme={prefersDark ? "dark" : "light"}
-      density="dense"
-      synchronizeColorScheme
-      render={(props: any) => (
-        <ThemeProvider future={{ themeBridge }} {...props} />
-      )}
-    >
+    <ThemeProvider>
       <Story />
-    </Root>
+    </ThemeProvider>
   );
 };
 

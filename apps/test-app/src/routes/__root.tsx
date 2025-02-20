@@ -73,18 +73,9 @@ function AppRoot() {
   const settingsMatch = matchRoute({ to: "/settings", fuzzy: true });
   const search = Route.useSearch();
   const menu = search.menu !== 0;
-  const themeBridge = search.themeBridge === 1;
-  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
 
   return (
-    <Root
-      colorScheme={prefersDark ? "dark" : "light"}
-      density="dense"
-      synchronizeColorScheme
-      render={(props: any) => (
-        <ThemeProvider future={{ themeBridge }} {...props} />
-      )}
-    >
+    <ThemeBridge>
       <PageLayout>
         {menu && (
           <PageLayout.Header>
@@ -167,8 +158,31 @@ function AppRoot() {
         )}
         <Outlet />
       </PageLayout>
-    </Root>
+    </ThemeBridge>
   );
+}
+
+function ThemeBridge({ children }: React.PropsWithChildren) {
+  const search = Route.useSearch();
+  const themeBridge = search.themeBridge === 1;
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+
+  if (themeBridge) {
+    return (
+      <Root
+        colorScheme={prefersDark ? "dark" : "light"}
+        density="dense"
+        synchronizeColorScheme
+        render={(props: any) => (
+          <ThemeProvider future={{ themeBridge }} {...props} />
+        )}
+      >
+        {children}
+      </Root>
+    );
+  }
+
+  return <ThemeProvider>{children}</ThemeProvider>;
 }
 
 function RouterDevToolsButton() {
