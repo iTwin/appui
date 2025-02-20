@@ -72,6 +72,7 @@ alpha;interface;MiscFormatOptionsProps
 deprecated;interface;MiscFormatOptionsProps
 public;interface;PlaybackSettings
 public;type;PlaybackSettingsChangeHandler
+beta;const;QuantityEditorSpec
 alpha;function;QuantityFormatPanel
 alpha;interface;QuantityFormatPanelProps
 deprecated;interface;QuantityFormatPanelProps
@@ -120,6 +121,7 @@ public;interface;ViewRotationChangeEventArgs
 deprecated;interface;ViewRotationChangeEventArgs
 public;type;ViewStateProp
 public;class;WeightEditor
+beta;const;WeightEditorSpec
 public;class;WeightPickerButton
 public;interface;WeightPickerProps
 public;class;WeightPropertyEditor

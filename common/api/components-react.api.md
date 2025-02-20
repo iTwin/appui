@@ -191,6 +191,12 @@ export class BooleanTypeConverter extends TypeConverter {
 }
 
 // @beta
+export interface BooleanValue {
+    // (undocumented)
+    value: boolean;
+}
+
+// @beta
 export interface BuildFilterOptions {
     ignoreErrors?: boolean;
 }
@@ -358,6 +364,13 @@ export namespace ConvertedPrimitives {
     export type Value = boolean | number | string | Date | Point | Id64String;
 }
 
+// @beta
+export function createEditorSpec<TMetadata extends ValueMetadata, TValue extends Value>({ Editor, isMetadataSupported, isValueSupported, }: {
+    isMetadataSupported: (metadata: ValueMetadata) => metadata is TMetadata;
+    isValueSupported: (value: Value) => value is TValue;
+    Editor: React.ComponentType<EditorProps<TMetadata, TValue>>;
+}): EditorSpec;
+
 // @public
 export function createMergedPropertyDataProvider(providers: IPropertyDataProvider[]): IMergingPropertyDataProvider;
 
@@ -492,6 +505,12 @@ export abstract class DateTimeTypeConverterBase extends TypeConverter implements
     sortCompare(valueA: Date, valueB: Date, _ignoreCase?: boolean): number;
 }
 
+// @beta
+export interface DateValue {
+    // (undocumented)
+    value: Date;
+}
+
 // @public
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 
@@ -557,6 +576,39 @@ export interface EditorContainerProps extends CommonProps {
     title?: string;
 }
 
+// @beta
+export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
+    cancel?: () => void;
+    commit?: () => void;
+    // (undocumented)
+    disabled?: boolean;
+    // (undocumented)
+    metadata: TMetadata;
+    // (undocumented)
+    onChange: (value?: TValue) => void;
+    // (undocumented)
+    size?: "small" | "large";
+    // (undocumented)
+    value?: TValue;
+}
+
+// @beta
+export function EditorRenderer(props: EditorProps): React_3.JSX.Element | null;
+
+// @beta
+export interface EditorSpec {
+    // (undocumented)
+    applies: (metaData: ValueMetadata, value: Value | undefined) => boolean;
+    // (undocumented)
+    Editor: React.ComponentType<EditorProps>;
+}
+
+// @beta
+export function EditorsRegistryProvider({ children, editors, }: {
+    children: React_3.ReactNode;
+    editors: EditorSpec[];
+}): React_3.JSX.Element;
+
 // @public
 export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps, EnumButtonGroupEditorState> implements TypeEditor {
     // (undocumented)
@@ -573,6 +625,14 @@ export class EnumButtonGroupEditor extends React_3.Component<PropertyEditorProps
     render(): React_3.JSX.Element;
     // (undocumented)
     readonly state: Readonly<EnumButtonGroupEditorState>;
+}
+
+// @public
+export interface EnumChoice {
+    // (undocumented)
+    label: string;
+    // (undocumented)
+    value: number | string;
 }
 
 // @public
@@ -617,6 +677,22 @@ export class EnumTypeConverter extends TypeConverter {
     convertPropertyToString(propertyDescription: PropertyDescription, value?: Primitives.Enum): string | Promise<string>;
     // (undocumented)
     sortCompare(a: Primitives.Enum, b: Primitives.Enum, ignoreCase?: boolean): number;
+}
+
+// @beta
+export interface EnumValue {
+    // (undocumented)
+    choice: number | string;
+}
+
+// @public
+export interface EnumValueMetadata extends ValueMetadata {
+    // (undocumented)
+    choices: EnumChoice[];
+    // (undocumented)
+    isStrict: boolean;
+    // (undocumented)
+    type: "enum";
 }
 
 // @public
@@ -760,6 +836,9 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
     // (undocumented)
     convertToString(value?: Primitives.Float): string;
 }
+
+// @beta
+export function FormattedNumericInput({ onChange, value, parseValue, formatValue, disabled, size, }: FormattedNumericInputProps): React_3.JSX.Element;
 
 // @public
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
@@ -1021,6 +1100,17 @@ export interface IMutablePropertyGridModel {
     getRootCategories: () => IMutableGridCategoryItem[];
     // (undocumented)
     getVisibleFlatGrid: () => IMutableFlatGridItem[];
+}
+
+// @beta
+export interface InstanceKeyValue {
+    // (undocumented)
+    key: {
+        id: Id64String;
+        className: string;
+    };
+    // (undocumented)
+    label: string;
 }
 
 // @alpha @deprecated
@@ -1566,6 +1656,16 @@ export abstract class NumericTypeConverterBase extends TypeConverter implements 
     isLessThanOrEqualTo(a: Primitives.Numeric, b: Primitives.Numeric): boolean;
     // (undocumented)
     sortCompare(a: Primitives.Numeric, b: Primitives.Numeric, _ignoreCase?: boolean): number;
+}
+
+// @beta
+export interface NumericValue {
+    // (undocumented)
+    displayValue: string;
+    // (undocumented)
+    rawValue: number | undefined;
+    // (undocumented)
+    roundingError?: number;
 }
 
 // @public
@@ -2172,6 +2272,9 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
     categoryMatchesFilter(): Promise<PropertyDataFilterResult>;
 }
 
+// @beta
+export function PropertyRecordEditor({ propertyRecord, onCommit, onCancel, onClick, setFocus, size, editorSystem, }: PropertyRecordEditorProps): React_3.JSX.Element;
+
 // @public
 export const PropertyRenderer: {
     (props: PropertyRendererProps): React_3.JSX.Element;
@@ -2605,6 +2708,12 @@ export class TextEditor extends React_3.PureComponent<PropertyEditorProps, TextE
     render(): React_3.ReactNode;
     // (undocumented)
     readonly state: Readonly<TextEditorState>;
+}
+
+// @beta
+export interface TextValue {
+    // (undocumented)
+    value: string;
 }
 
 // @public
@@ -3155,6 +3264,15 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 // @public
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
+// @beta
+export function useCommittableValue({ initialValue, onCancel, onCommit, }: UseCommittableValueProps): {
+    onChange: (newValue?: Value) => void;
+    onKeydown: (e: React_3.KeyboardEvent) => void;
+    commit: () => void;
+    cancel: () => void;
+    value: Value | undefined;
+};
+
 // @public
 export function useControlledTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler | undefined;
 
@@ -3249,6 +3367,38 @@ export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
     restore: () => void;
 };
 
+// @beta
+export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue | DateValue | EnumValue;
+
+// @public (undocumented)
+export namespace Value {
+    // @beta
+    export function isBoolean(value: Value): value is BooleanValue;
+    // @beta
+    export function isDate(value: Value): value is DateValue;
+    // @beta
+    export function isEnum(value: Value): value is EnumValue;
+    // @beta
+    export function isInstanceKey(value: Value): value is InstanceKeyValue;
+    // @beta
+    export function isNumeric(value: Value): value is NumericValue;
+    // @beta
+    export function isText(value: Value): value is TextValue;
+}
+
+// @beta
+export interface ValueMetadata {
+    // (undocumented)
+    isNullable?: boolean;
+    // (undocumented)
+    preferredEditor?: string;
+    // (undocumented)
+    type: ValueType;
+}
+
+// @beta
+export type ValueType = "string" | "number" | "bool" | "date" | "dateTime" | "enum" | "instanceKey";
+
 // @public
 export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
     constructor(props: VirtualizedPropertyGridProps);
@@ -3274,6 +3424,8 @@ export interface VirtualizedPropertyGridContext {
     dataProvider: IPropertyDataProvider;
     // (undocumented)
     editingPropertyKey?: string;
+    // (undocumented)
+    editorSystem: "legacy" | "new";
     // (undocumented)
     eventHandler: IPropertyGridEventHandler;
     // (undocumented)
@@ -3321,6 +3473,8 @@ export interface VirtualizedPropertyGridContext {
 // @public
 export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
     dataProvider: IPropertyDataProvider;
+    // @beta
+    editorSystem?: "legacy" | "new";
     eventHandler: IPropertyGridEventHandler;
     height: number;
     highlight?: PropertyGridContentHighlightProps;
@@ -3335,6 +3489,8 @@ export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedProper
 // @public @deprecated
 export interface VirtualizedPropertyGridWithDataProviderProps extends CommonPropertyGridProps {
     dataProvider: IPropertyDataProvider;
+    // @beta
+    editorSystem?: "legacy" | "new";
     height: number;
     highlight?: PropertyGridContentHighlightProps;
     propertyCategoryRendererManager?: PropertyCategoryRendererManager;

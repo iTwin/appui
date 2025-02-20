@@ -68,6 +68,7 @@ export type Value =
   | DateValue
   | EnumValue;
 
+/** @beta */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export namespace Value {
   /**

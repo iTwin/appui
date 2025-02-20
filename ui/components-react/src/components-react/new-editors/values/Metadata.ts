@@ -28,6 +28,7 @@ export interface ValueMetadata {
 
 /**
  * Type definition for available enum choice that can be supplied for editing enum values.
+ * @beta
  */
 export interface EnumChoice {
   value: number | string;
@@ -36,6 +37,7 @@ export interface EnumChoice {
 
 /**
  * Additional metadata that is used along side enum value to determine applicable editor.
+ * @beta
  */
 export interface EnumValueMetadata extends ValueMetadata {
   type: "enum";
