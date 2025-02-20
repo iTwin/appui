@@ -9,8 +9,12 @@
 import "./Tabs.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
+import type { Point } from "@itwin/core-react/internal";
 import { useResizeObserver } from "@itwin/core-react/internal";
-import { ShowWidgetIconContext } from "../base/NineZone.js";
+import {
+  NineZoneDispatchContext,
+  ShowWidgetIconContext,
+} from "../base/NineZone.js";
 import { getChildKey, useOverflow } from "../tool-settings/Docked.js";
 import {
   isHorizontalPanelSide,
@@ -22,6 +26,12 @@ import { TitleBarTarget } from "../target/TitleBarTarget.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { WidgetIdContext } from "./Widget.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import { Tabs } from "@itwin/itwinui-react";
+import { useDrag } from "./TabBar.js";
+import type { UseDragWidgetArgs } from "../base/DragManager.js";
+import { useDragWidget } from "../base/DragManager.js";
+import { useFloatingWidgetId } from "./FloatingWidget.js";
+import { useDoubleClick } from "../widget-panels/Grip.js";
 
 /** @internal */
 export function WidgetTabs() {
@@ -94,30 +104,33 @@ export function WidgetTabs() {
         })
       : [];
   return (
-    <div className="nz-widget-tabs" ref={ref} role="tablist">
-      {tabChildren.map(([key, child], index, array) => {
-        return (
-          <WidgetTabsEntryProvider
-            children={child} // eslint-disable-line react/no-children-prop
-            key={key}
-            id={key}
-            lastNotOverflown={
-              index === array.length - 1 && panelChildren.length > 0
-            }
-            getOnResize={handleEntryResize}
-          />
-        );
-      })}
-      <TitleBarTarget />
-      <WidgetOverflow
-        hidden={overflown && panelChildren.length === 0}
-        onResize={handleOverflowResize}
-      >
-        {panelChildren.map(([key, child]) => {
-          return <React.Fragment key={key}>{child}</React.Fragment>;
+    <Tabs.Wrapper value={activeTabId} ref={ref} role="tablist">
+      <Tabs.TabList>
+        {tabChildren.map(([key, child], index, array) => {
+          return (
+            <WidgetTabsEntryProvider
+              children={child} // eslint-disable-line react/no-children-prop
+              key={key}
+              id={key}
+              lastNotOverflown={
+                index === array.length - 1 && panelChildren.length > 0
+              }
+              getOnResize={handleEntryResize}
+            />
+          );
         })}
-      </WidgetOverflow>
-    </div>
+        <TitleBarTarget />
+        <WidgetOverflow
+          hidden={overflown && panelChildren.length === 0}
+          onResize={handleOverflowResize}
+        >
+          {panelChildren.map(([key, child]) => {
+            return <React.Fragment key={key}>{child}</React.Fragment>;
+          })}
+        </WidgetOverflow>
+        <WidgetHandle />
+      </Tabs.TabList>
+    </Tabs.Wrapper>
   );
 }
 
@@ -154,4 +167,77 @@ export function WidgetTabsEntryProvider(
       {props.children}
     </WidgetTabsEntryContext.Provider>
   );
+}
+
+function WidgetHandle() {
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const id = React.useContext(WidgetIdContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  assert(!!id);
+  const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
+  const handleDoubleClick = React.useCallback(() => {
+    floatingWidgetId &&
+      dispatch({
+        type: "FLOATING_WIDGET_CLEAR_USER_SIZED",
+        id: floatingWidgetId,
+      });
+  }, [dispatch, floatingWidgetId]);
+  const handleActionAreaClick = useDoubleClick(handleDoubleClick);
+
+  const onDrag = React.useCallback<NonNullable<UseDragWidgetArgs["onDrag"]>>(
+    (dragBy) => {
+      floatingWidgetId !== undefined &&
+        dispatch({
+          type: "WIDGET_DRAG",
+          dragBy,
+          floatingWidgetId,
+        });
+    },
+    [dispatch, floatingWidgetId]
+  );
+  const onDragEnd = React.useCallback<
+    NonNullable<UseDragWidgetArgs["onDragEnd"]>
+  >(
+    (target) => {
+      floatingWidgetId !== undefined && handleActionAreaClick();
+      floatingWidgetId !== undefined &&
+        dispatch({
+          type: "WIDGET_DRAG_END",
+          floatingWidgetId,
+          target,
+        });
+    },
+    [dispatch, floatingWidgetId, handleActionAreaClick]
+  );
+  const handleWidgetDragStart = useDragWidget({
+    widgetId,
+    onDrag,
+    onDragEnd,
+  });
+
+  const handleDragStart = React.useCallback(
+    (initialPointerPosition: Point, pointerPosition: Point) => {
+      handleWidgetDragStart({
+        initialPointerPosition,
+        pointerPosition,
+      });
+    },
+    [handleWidgetDragStart]
+  );
+  const handleTouchStart = React.useCallback(() => {
+    floatingWidgetId &&
+      dispatch({
+        type: "FLOATING_WIDGET_BRING_TO_FRONT",
+        id: floatingWidgetId,
+      });
+  }, [dispatch, floatingWidgetId]);
+  const ref = useDrag(
+    handleDragStart,
+    undefined,
+    undefined,
+    handleTouchStart,
+    handleDoubleClick
+  );
+
+  return <div className=".nz-handle" style={{ flexGrow: "1" }} ref={ref} />;
 }

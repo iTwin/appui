@@ -14,3 +14,4 @@
 ### Changes
 
 - Updated `cursorPromptTimeout` prop of `ToolAssistanceField` component to handle `Number.POSITIVE_INFINITY`, which when enabled will display the cursor prompt indefinitely. [#1211](https://github.com/iTwin/appui/pull/1211)
+- Updated `TabBar` to use ITwinUi Tab components. [#1190](https://github.com/iTwin/appui/pull/1190)
