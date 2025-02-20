@@ -7,6 +7,8 @@ import { IModelApp } from "@itwin/core-frontend";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import * as React from "react";
 
+/* v8 ignore start */
+
 interface UseQuantityInfoProps {
   type: QuantityTypeArg | undefined;
 }
@@ -65,3 +67,5 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
 
   return { formatter, parser };
 }
+
+/* v8 ignore stop */

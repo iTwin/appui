@@ -6,6 +6,8 @@ import * as React from "react";
 import { FormattedNumericInput } from "@itwin/components-react";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 
+/* v8 ignore start */
+
 type FormattedNumericInputProps = React.ComponentPropsWithoutRef<
   typeof FormattedNumericInput
 >;
@@ -60,3 +62,5 @@ export function QuantityInput({
     />
   );
 }
+
+/* v8 ignore stop */

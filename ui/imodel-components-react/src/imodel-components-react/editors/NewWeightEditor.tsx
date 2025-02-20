@@ -14,6 +14,8 @@ import {
   Value,
 } from "@itwin/components-react";
 
+/* v8 ignore start */
+
 /**
  * Editor specification for weight editor.
  * @beta
@@ -44,3 +46,5 @@ function WeightEditor({
     />
   );
 }
+
+/* v8 ignore stop */

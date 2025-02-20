@@ -15,6 +15,8 @@ import {
 } from "@itwin/components-react";
 import { QuantityInput } from "./QuantityInput.js";
 
+/* v8 ignore start */
+
 /**
  * Editor specification for quantity values based on `IModelApp.quantityFormatter`.
  * @beta
@@ -60,3 +62,5 @@ function QuantityEditor({
     />
   );
 }
+
+/* v8 ignore stop */
