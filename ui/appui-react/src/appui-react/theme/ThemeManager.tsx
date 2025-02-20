@@ -39,7 +39,7 @@ interface ThemeManagerProps {
 
 /** `ThemeManager` handles setting color themes. Note that this component will
  * affect the entire application by setting the internal `data-theme` attribute.
- * Component children are wrapped with `v2` and `v3` iTwinUI `ThemeProvider` components, so all nodes within the tree will have the same theme, and should be using iTwinUI 2.x or later.
+ * Component children are wrapped with iTwinUI `ThemeProvider` component, so all nodes within the tree will have the same theme.
  * Specified `ThemeId` will be mapped to iTwinUI `theme` accordingly.
  * Any other string will only apply the `data-theme` attribute to the underlying `html` element
  * and `ThemeProvider` theme will be set to `inherit`, in this case the application is
