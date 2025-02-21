@@ -36,6 +36,7 @@ import {
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ContentProps } from "../content/ContentGroup.js";
 import { ChildWindowRenderer } from "../childwindow/ChildWindowRenderer.js";
+import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -99,6 +100,15 @@ export const WrapperContext = React.createContext<HTMLElement>(document.body);
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
+  const frontstageDef = useActiveFrontstageDef();
+  const layout = frontstageDef?.initialConfig?.layout;
+  if (layout) return layout;
+
+  return <WidgetPanelsConfigurableUiContent {...props} />;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+function WidgetPanelsConfigurableUiContent(props: ConfigurableUiContentProps) {
   const contentElementRef = React.useRef<HTMLElement>(null);
 
   useWidgetOpacity(props.widgetOpacity);

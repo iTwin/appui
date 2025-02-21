@@ -151,6 +151,11 @@ export class FrontstageDef {
     return this._contentGroup;
   }
 
+  /** @internal */
+  public get initialConfig(): Frontstage | undefined {
+    return this._initialConfig;
+  }
+
   private toStagePanelLocation(side: PanelSide): StagePanelLocation {
     switch (side) {
       case "bottom":
@@ -1050,6 +1055,12 @@ export class FrontstageDef {
   }
 
   /* eslint-enable @typescript-eslint/no-deprecated */
+}
+
+/** @internal */
+export function internalFrontstageDef(def: FrontstageDef) {
+  // Make sure _initialConfig is exposed
+  return def;
 }
 
 function createWidgetDef(
