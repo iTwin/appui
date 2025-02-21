@@ -15,6 +15,11 @@ import { createFrontstage, removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";
 import { CustomTool } from "../tools/CustomTool";
 import { LockPropertyTool } from "../tools/LockPropertyTool";
+import {
+  CustomEditorTool,
+  CustomTagsPropertyEditor,
+} from "src/tools/CustomEditorTool";
+import { PropertyEditorManager } from "@itwin/components-react";
 
 const meta = {
   title: "Frontstage/ToolSettings",
@@ -47,6 +52,7 @@ const meta = {
   argTypes: {
     frontstages: removeProperty(),
     onFrontstageActivated: removeProperty(),
+    onInitialize: removeProperty(),
   },
 } satisfies Meta<typeof ToolSettingsStory>;
 
@@ -55,21 +61,43 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    onFrontstageActivated: async () => {
+    onInitialize: async () => {
       IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
-      IModelApp.tools.run(CustomTool.toolId);
+    },
+    onFrontstageActivated: async () => {
+      await IModelApp.tools.run(CustomTool.toolId);
     },
   },
 };
 
 export const LockProperty: Story = {
   args: {
-    onFrontstageActivated: async () => {
+    onInitialize: async () => {
       IModelApp.tools.register(
         LockPropertyTool,
         UiFramework.localizationNamespace
       );
-      IModelApp.tools.run(LockPropertyTool.toolId);
+    },
+    onFrontstageActivated: async () => {
+      await IModelApp.tools.run(LockPropertyTool.toolId);
+    },
+  },
+};
+
+export const CustomEditor: Story = {
+  args: {
+    onInitialize: async () => {
+      PropertyEditorManager.registerEditor(
+        "custom-tags",
+        CustomTagsPropertyEditor
+      );
+      IModelApp.tools.register(
+        CustomEditorTool,
+        UiFramework.localizationNamespace
+      );
+    },
+    onFrontstageActivated: async () => {
+      await IModelApp.tools.run(CustomEditorTool.toolId);
     },
   },
 };
