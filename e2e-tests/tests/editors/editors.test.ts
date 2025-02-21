@@ -6,7 +6,7 @@ import { expect, test } from "@playwright/test";
 import { openComponentExamples } from "../Utils";
 
 function editorId(id: string) {
-  return `#${id.replace(/[^A-Za-z]/g, "")}`;
+  return `${id.replace(/[^A-Za-z]/g, "")}`;
 }
 
 const testIds = [
@@ -28,15 +28,21 @@ const testIds = [
   "Primitive:enum:enum-buttongroup ",
   "Primitive:enum:enum-buttongroup[UiAbstract-ButtonGroupData] ",
 ];
-for (const id of testIds) {
-  test(`Editor ${id} default visual`, async ({ page, baseURL }) => {
-    await openComponentExamples(page, baseURL);
 
-    // Avoid highlighting one of the editors.
-    await page.keyboard.press("Escape");
-    await page.getByRole("button", { name: "Editor", exact: true }).click();
+["Legacy", "New"].forEach((editorSystem) => {
+  for (const id of testIds) {
+    test(`Editor ${id} default visual in ${editorSystem} system`, async ({
+      page,
+      baseURL,
+    }) => {
+      await openComponentExamples(page, baseURL);
 
-    const editors = page.locator(editorId(id)).first();
-    await expect(editors).toHaveScreenshot();
-  });
-}
+      // Avoid highlighting one of the editors.
+      await page.keyboard.press("Escape");
+      await page.getByRole("button", { name: "Editor", exact: true }).click();
+
+      const editors = page.locator(`#${editorSystem}${editorId(id)}`).first();
+      await expect(editors).toHaveScreenshot();
+    });
+  }
+});

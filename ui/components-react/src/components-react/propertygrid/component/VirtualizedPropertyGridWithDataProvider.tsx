@@ -38,6 +38,12 @@ export interface VirtualizedPropertyGridWithDataProviderProps
   width: number;
   /** Height of the property grid component. */
   height: number;
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   */
+  editorSystem?: "legacy" | "new";
 }
 
 /**
@@ -63,6 +69,7 @@ export function VirtualizedPropertyGridWithDataProvider(
           {...props}
           model={model}
           eventHandler={eventHandler}
+          editorSystem={props.editorSystem ?? "legacy"}
         />
       )}
     </DelayedLoaderRenderer>
