@@ -9,7 +9,7 @@
 import type { MarkRequired } from "@itwin/core-bentley";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { BackstageItem } from "../backstage/BackstageItem.js";
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { type StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
 import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
 import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
@@ -91,7 +91,9 @@ export class UiItemsManager {
   /** For use in unit testing
    * @internal */
   public static clearAllProviders() {
-    if (this._abstractAdapter) return this._abstractAdapter.clearAllProviders();
+    if (this._abstractAdapter) {
+      this._abstractAdapter.clearAllProviders();
+    }
 
     UiItemsManager._registeredUiItemsProviders.clear();
   }
@@ -149,28 +151,33 @@ export class UiItemsManager {
     uiProvider: UiItemsProvider,
     overrides?: UiItemsProviderOverrides
   ): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.register(uiProvider, overrides);
-
     const providerId = overrides?.providerId ?? uiProvider.id;
-
-    if (UiItemsManager.getUiItemsProvider(providerId)) {
-      Logger.logInfo(
-        UiFramework.loggerCategory("UiItemsManager"),
-        `UiItemsProvider (${providerId}) is already loaded`
-      );
-    } else {
+    if (this._abstractAdapter) {
+      // WIP: using the same structure to support `getFrontstage*` methods.
       UiItemsManager._registeredUiItemsProviders.set(providerId, {
         provider: uiProvider,
         overrides,
       });
+      return this._abstractAdapter.register(uiProvider, overrides);
+    }
+
+    if (UiItemsManager._registeredUiItemsProviders.get(providerId)) {
       Logger.logInfo(
         UiFramework.loggerCategory("UiItemsManager"),
-        `UiItemsProvider ${uiProvider.id} registered as ${providerId} `
+        `UiItemsProvider (${providerId}) is already loaded`
       );
-
-      UiItemsManager.sendRegisteredEvent({ providerId });
+      return;
     }
+    UiItemsManager._registeredUiItemsProviders.set(providerId, {
+      provider: uiProvider,
+      overrides,
+    });
+    Logger.logInfo(
+      UiFramework.loggerCategory("UiItemsManager"),
+      `UiItemsProvider ${uiProvider.id} registered as ${providerId} `
+    );
+
+    UiItemsManager.sendRegisteredEvent({ providerId });
   }
 
   /** Remove a specific UiItemsProvider from the list of available providers. */
@@ -338,6 +345,7 @@ export class UiItemsManager {
         section
       );
       items.push(...abstractWidgets);
+      return items;
     }
 
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
@@ -353,6 +361,36 @@ export class UiItemsManager {
           providerId,
         }));
       items.push(...providerItems);
+    });
+
+    return getUniqueItems(items);
+  }
+
+  /** Returns all registered widgets that match specified frontstage id and frontstage usage.
+   * @note Abstract `UiItemsManager` is not used for this method.
+   * @note `provideWidgets` of `UiItemsProvider` is not used for this method.
+   * @param stageId a string identifier of the active stage.
+   * @param stageUsage the StageUsage of the active stage.
+   * @returns An array of widgets.
+   * @alpha
+   */
+  public static getFrontstageWidgets(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<Widget>> {
+    const items: ProviderItem<Widget>[] = [];
+    // Not using AbstractUiItemsManager for simplicity, since there's no way to check if the abstract provider is allowed for the frontstage.
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+      const widgets =
+        uiProvider.getWidgets?.().map((item) => ({
+          ...item,
+          providerId,
+        })) ?? [];
+      items.push(...widgets);
     });
 
     return getUniqueItems(items);
