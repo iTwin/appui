@@ -1,0 +1,20 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.spatialLayout {
+  padding: 0.5rem;
+  height: 100%;
+
+  display: grid;
+  gap: 0.5rem;
+  grid-template-areas:
+    "toolbar toolbar"
+    "panel content-manipulation";
+
+  grid-template-rows: auto 1fr;
+}
+
+.toolbar {
+  grid-area: toolbar;
+}
