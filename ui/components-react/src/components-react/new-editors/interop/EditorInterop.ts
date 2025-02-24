@@ -25,7 +25,7 @@ import type { OldEditorMetadata } from "./Metadata.js";
  * @internal
  */
 export namespace EditorInterop {
-  /** Attempts to convert `PropertyRecord` into `ValueMetadata` and `Value`.  */
+  /** Attempts to convert `PropertyRecord` into `ValueMetadata` and `Value`. */
   export function getMetadataAndValue(propertyRecord: PropertyRecord): {
     metadata: OldEditorMetadata | undefined;
     value: NewEditorValue | undefined;
