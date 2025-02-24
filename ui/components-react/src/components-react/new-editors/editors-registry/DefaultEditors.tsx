@@ -49,7 +49,7 @@ export const DateEditorSpec: EditorSpec = createEditorSpec({
 });
 
 /**
- * Specification for default date editor. It applies for values whose type is "date".
+ * Specification for default date time editor. It applies for values whose type is "dateTime".
  * @internal
  */
 export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
