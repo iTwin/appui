@@ -25,7 +25,7 @@ import type { OldEditorMetadata } from "./Metadata.js";
  * @internal
  */
 export namespace EditorInterop {
-  /** @internal */
+  /** Attempts to convert `PropertyRecord` into `ValueMetadata` and `Value`.  */
   export function getMetadataAndValue(propertyRecord: PropertyRecord): {
     metadata: OldEditorMetadata | undefined;
     value: NewEditorValue | undefined;
@@ -124,7 +124,7 @@ export namespace EditorInterop {
     };
   }
 
-  /** @internal */
+  /** Converts new editors system `Value` into old `PrimitiveValue` */
   export function convertToPrimitiveValue(
     newValue: NewEditorValue
   ): PrimitiveValue {
