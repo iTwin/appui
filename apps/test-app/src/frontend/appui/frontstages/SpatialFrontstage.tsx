@@ -134,15 +134,7 @@ function Panel() {
   const { activeWidget, setActiveWidget } =
     React.useContext(SpatialLayoutContext);
   const [panelSize, setPanelSize] = React.useState(300);
-  const frontstageDef = useActiveFrontstageDef();
-  const widgets = React.useMemo(() => {
-    if (!frontstageDef) return undefined;
-    // TODO: new provider might be registered
-    return UiItemsManager.getFrontstageWidgets(
-      frontstageDef.id,
-      frontstageDef.usage
-    );
-  }, [frontstageDef]);
+  const widgets = useWidgets();
   const widget = React.useMemo(() => {
     if (!widgets) return undefined;
     return widgets.find((w) => w.id === activeWidget);
@@ -217,4 +209,18 @@ function useWidgetLabel(label: Widget["label"]) {
     return label;
   }, [label]);
   return React.useSyncExternalStore(subscribe, getSnapshot);
+}
+
+// Similar to internal `useActiveStageProvidedToolbarItems`
+function useWidgets() {
+  // TODO: how about widgets from frontstage defintion?
+  const frontstageDef = useActiveFrontstageDef();
+  return React.useMemo(() => {
+    if (!frontstageDef) return undefined;
+    // TODO: new provider might be registered
+    return UiItemsManager.getFrontstageWidgets(
+      frontstageDef.id,
+      frontstageDef.usage
+    );
+  }, [frontstageDef]);
 }
