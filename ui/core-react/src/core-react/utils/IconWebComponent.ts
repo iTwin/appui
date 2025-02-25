@@ -9,7 +9,7 @@
 import { UiError } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
 import { UiCore } from "../UiCore.js";
-import DOMPurify, * as DOMPurifyNS from "dompurify";
+import DOMPurify from "dompurify";
 import { reuseOrCreatePromise } from "./reuseOrCreatePromise.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
@@ -48,10 +48,7 @@ function parseSvgFromDataUri(src: string, element: any) {
     rawSvg = decodeURIComponent(dataUriParts.slice(1).join(","));
   }
 
-  // the esm build of dompurify has a default import but the cjs build does not
-  // if there is a default export, use it (likely esm), otherwise use the namespace
-  const sanitizer = DOMPurify ?? DOMPurifyNS;
-  const sanitizedSvg = sanitizer.sanitize(rawSvg);
+  const sanitizedSvg = DOMPurify.sanitize(rawSvg);
 
   const parsedSvg = new window.DOMParser().parseFromString(
     sanitizedSvg,

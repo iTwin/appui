@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import DOMPurify, * as DOMPurifyNS from "dompurify";
+import DOMPurify from "dompurify";
 import type { MessageType } from "./MessageType.js";
 import { isHTMLElement, isReactMessage } from "./MessageType.js";
 import type { ClassNameProps } from "../utils/Props.js";
@@ -39,10 +39,6 @@ export function MessageRenderer(props: MessageRendererProps) {
       <OutElement className={props.className}>{props.message}</OutElement>
     );
   } else if (isHTMLElement(props.message)) {
-    // the esm build of dompurify has a default import but the cjs build does not
-    // if there is a default export, use it (likely esm), otherwise use the namespace
-    const sanitizer = DOMPurify ?? DOMPurifyNS; // `sanitizer` is default function name for "jam3/no-sanitizer-with-danger" ESLint rule
-
     let validAnchors = false;
     let hasAnchors = false;
 
@@ -92,11 +88,11 @@ export function MessageRenderer(props: MessageRendererProps) {
     let sanitizedHtml;
     if (hasAnchors && validAnchors) {
       // all anchors are valid. do not remove the target attr
-      sanitizedHtml = sanitizer.sanitize(props.message.outerHTML, {
+      sanitizedHtml = DOMPurify.sanitize(props.message.outerHTML, {
         ADD_ATTR: ["target"],
       });
     } else {
-      sanitizedHtml = sanitizer.sanitize(props.message.outerHTML);
+      sanitizedHtml = DOMPurify.sanitize(props.message.outerHTML);
     }
 
     messageNode = (
