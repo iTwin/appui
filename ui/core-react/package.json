@@ -73,7 +73,6 @@
     "@testing-library/dom": "^10.1.0",
     "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^14.5.2",
-    "@types/dompurify": "^2.4.0",
     "@types/lodash": "^4.14.0",
     "@types/node": "20.17.8",
     "@types/react": "^18.3.12",
@@ -99,7 +98,7 @@
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.8.0",
     "classnames": "2.5.1",
-    "dompurify": "^2.5.6",
+    "dompurify": "^3.2.4",
     "lodash": "^4.17.10",
     "react-autosuggest": "^10.1.0",
     "ts-key-enum": "~2.0.12"
