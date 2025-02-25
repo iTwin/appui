@@ -3,6 +3,8 @@
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
   - [Changes](#changes)
+- [@itwin/core-react](#itwincore-react)
+  - [Changes](#changes-1)
 
 ## @itwin/appui-react
 
@@ -14,3 +16,9 @@
 ### Changes
 
 - Updated `cursorPromptTimeout` prop of `ToolAssistanceField` component to handle `Number.POSITIVE_INFINITY`, which when enabled will display the cursor prompt indefinitely. [#1211](https://github.com/iTwin/appui/pull/1211)
+
+## @itwin/core-react
+
+### Changes
+
+- Updated `dompurify` dependency version from `^2.5.6` to `^3.2.4`. [#1232](https://github.com/iTwin/appui/pull/1232)
