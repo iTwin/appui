@@ -12,8 +12,8 @@ import {
   StageUsage,
   StandardContentLayouts,
   SyncUiEventDispatcher,
-  ToolbarActionItem,
   ToolbarItem,
+  ToolbarItemLayouts,
   ToolbarItemUtilities,
   UiItemsManager,
   UiItemsProvider,
@@ -73,17 +73,21 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
       }),
     ],
     getToolbarItems: () => [
-      createSpatialToolbarItem({
+      ToolbarItemUtilities.createActionItem({
         id: "add-tool",
         icon: <SvgAdd />,
         label: "Add",
-        widgetId: "add",
+        layouts: createSpatialToolbarItemLayouts({
+          widgetId: "add",
+        }),
       }),
-      createSpatialToolbarItem({
+      ToolbarItemUtilities.createActionItem({
         id: "remove-tool",
         icon: <SvgEdit />,
         label: "Remove",
-        widgetId: "edit",
+        layouts: createSpatialToolbarItemLayouts({
+          widgetId: "edit",
+        }),
       }),
     ],
     getWidgets: () => [
@@ -101,31 +105,32 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
   };
 }
 
-// Additional spatial-layout specific meta-data for toolbar item.
-interface SpatialToolbarItem extends ToolbarActionItem {
-  // Activates a widget with the given ID.
-  widgetId?: string;
+// Additional spatial-layout specific meta-data for toolbar items.
+interface SpatialLayoutToolbarItem {
+  // Activates a widget with the given ID when specified.
+  readonly widgetId?: string;
 }
 
-interface CreateSpatialToolbarItemArgs
-  extends Partial<Omit<SpatialToolbarItem, "id" | "icon" | "iconNode">>,
-    Pick<SpatialToolbarItem, "id"> {
-  icon?: ToolbarActionItem["iconNode"];
+interface SpatialToolbarItemLayouts extends ToolbarItemLayouts {
+  readonly spatial?: SpatialLayoutToolbarItem;
 }
 
-function createSpatialToolbarItem(
-  args: CreateSpatialToolbarItemArgs
-): SpatialToolbarItem {
-  const { widgetId, ...actionArgs } = args;
-  const item = ToolbarItemUtilities.createActionItem(actionArgs);
+function createSpatialToolbarItemLayouts(
+  args: Partial<SpatialLayoutToolbarItem>
+): SpatialToolbarItemLayouts {
   return {
-    ...item,
-    widgetId,
+    spatial: {
+      ...args,
+    },
   };
 }
 
-function isSpatialToolbarItem(item: ToolbarItem): item is SpatialToolbarItem {
-  return "widgetId" in item;
+function isSpatialToolbarItem<T extends ToolbarItem>(
+  item: ToolbarItem
+): item is T & {
+  layouts: SpatialToolbarItemLayouts;
+} {
+  return "spatial" in (item.layouts ?? {});
 }
 
 const SpatialLayoutContext = React.createContext<{
@@ -153,9 +158,8 @@ function SpatialLayout() {
         <div className={styles.toolbar}>
           <ButtonGroup>
             {toolbarItems.map((item) => {
-              // const toolId = tool.toLowerCase();
               const widgetId = isSpatialToolbarItem(item)
-                ? item.widgetId
+                ? item.layouts?.spatial?.widgetId
                 : undefined;
               return (
                 <IconButton
