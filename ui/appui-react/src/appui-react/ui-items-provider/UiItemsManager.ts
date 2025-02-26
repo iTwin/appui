@@ -263,6 +263,36 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
+  /** Returns all registered toolbar items that match specified frontstage id and usage.
+   * @note Abstract `UiItemsManager` is not used for this method.
+   * @note `provideWidgets` of `UiItemsProvider` is not used for this method.
+   * @param stageId a string identifier of the active stage.
+   * @param stageUsage the StageUsage of the active stage.
+   * @returns An array of widgets.
+   * @alpha
+   */
+  public static getFrontstageToolbarItems(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<ToolbarItem>> {
+    const items: ProviderItem<ToolbarItem>[] = [];
+    // Not using AbstractUiItemsManager for simplicity, since there's no way to check if the abstract provider is allowed for the frontstage.
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+      const providerItems =
+        uiProvider.getToolbarItems?.().map((item) => ({
+          ...item,
+          providerId,
+        })) ?? [];
+      items.push(...providerItems);
+    });
+
+    return getUniqueItems(items);
+  }
+
   /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
    * @param stageId a string identifier of the active stage.
    * @param stageUsage the StageUsage of the active stage.
@@ -366,7 +396,7 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Returns all registered widgets that match specified frontstage id and frontstage usage.
+  /** Returns all registered widgets that match specified frontstage id and usage.
    * @note Abstract `UiItemsManager` is not used for this method.
    * @note `provideWidgets` of `UiItemsProvider` is not used for this method.
    * @param stageId a string identifier of the active stage.

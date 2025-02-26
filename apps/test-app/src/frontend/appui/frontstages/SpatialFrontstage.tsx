@@ -7,22 +7,24 @@ import {
   BackstageItemUtilities,
   ConditionalStringValue,
   Frontstage,
-  FrontstageDef,
   FrontstageUtilities,
-  ProviderItem,
+  isToolbarActionItem,
   StageUsage,
   StandardContentLayouts,
   SyncUiEventDispatcher,
-  UiFramework,
+  ToolbarActionItem,
+  ToolbarItem,
+  ToolbarItemUtilities,
   UiItemsManager,
   UiItemsProvider,
   useActiveFrontstageDef,
   Widget,
 } from "@itwin/appui-react";
 import {
+  SvgAdd,
   SvgClose,
+  SvgEdit,
   SvgMapInfo,
-  SvgPlaceholder,
   SvgWindowMaximize,
 } from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "@itwin/appui-test-providers";
@@ -70,6 +72,20 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
         icon: <SvgMapInfo />,
       }),
     ],
+    getToolbarItems: () => [
+      createSpatialToolbarItem({
+        id: "add-tool",
+        icon: <SvgAdd />,
+        label: "Add",
+        widgetId: "add",
+      }),
+      createSpatialToolbarItem({
+        id: "remove-tool",
+        icon: <SvgEdit />,
+        label: "Remove",
+        widgetId: "edit",
+      }),
+    ],
     getWidgets: () => [
       {
         id: "add",
@@ -85,6 +101,33 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
   };
 }
 
+// Additional spatial-layout specific meta-data for toolbar item.
+interface SpatialToolbarItem extends ToolbarActionItem {
+  // Activates a widget with the given ID.
+  widgetId?: string;
+}
+
+interface CreateSpatialToolbarItemArgs
+  extends Partial<Omit<SpatialToolbarItem, "id" | "icon" | "iconNode">>,
+    Pick<SpatialToolbarItem, "id"> {
+  icon?: ToolbarActionItem["iconNode"];
+}
+
+function createSpatialToolbarItem(
+  args: CreateSpatialToolbarItemArgs
+): SpatialToolbarItem {
+  const { widgetId, ...actionArgs } = args;
+  const item = ToolbarItemUtilities.createActionItem(actionArgs);
+  return {
+    ...item,
+    widgetId,
+  };
+}
+
+function isSpatialToolbarItem(item: ToolbarItem): item is SpatialToolbarItem {
+  return "widgetId" in item;
+}
+
 const SpatialLayoutContext = React.createContext<{
   activeWidget: string;
   setActiveWidget: (widget: string) => void;
@@ -94,8 +137,8 @@ const SpatialLayoutContext = React.createContext<{
 });
 
 function SpatialLayout() {
-  const tools = React.useMemo(() => ["Add", "Edit"], []);
-  const [activeWidget, setActiveWidget] = React.useState("add");
+  const toolbarItems = useToolbarItems();
+  const [activeWidget, setActiveWidget] = React.useState("");
   return (
     <SpatialLayoutContext.Provider
       value={React.useMemo(
@@ -109,18 +152,29 @@ function SpatialLayout() {
       <div className={styles.spatialLayout}>
         <div className={styles.toolbar}>
           <ButtonGroup>
-            {tools.map((tool) => {
-              const toolId = tool.toLowerCase();
+            {toolbarItems.map((item) => {
+              // const toolId = tool.toLowerCase();
+              const widgetId = isSpatialToolbarItem(item)
+                ? item.widgetId
+                : undefined;
               return (
                 <IconButton
-                  key={tool}
-                  isActive={activeWidget === toolId}
-                  label={tool}
+                  key={item.id}
+                  isActive={activeWidget === widgetId}
+                  // TODO: see `useWidgetLabel` to handle ConditionalStringValue.
+                  label={typeof item.label === "string" ? item.label : "Item"}
                   onClick={() => {
-                    setActiveWidget(toolId);
+                    if (isToolbarActionItem(item)) {
+                      item.execute();
+                    }
+
+                    // Toggle the active widget on and off.
+                    setActiveWidget(
+                      activeWidget === widgetId ? "" : widgetId ?? ""
+                    );
                   }}
                 >
-                  <SvgPlaceholder />
+                  {item.iconNode}
                 </IconButton>
               );
             })}
@@ -226,11 +280,9 @@ function useWidgets() {
       frontstageDef.usage
     );
   }, [frontstageDef]);
-  const [widgets, setWidgets] = React.useState<readonly ProviderItem<Widget>[]>(
-    () => {
-      return getWidgets();
-    }
-  );
+  const [widgets, setWidgets] = React.useState(() => {
+    return getWidgets();
+  });
   React.useEffect(() => {
     return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
       setWidgets(getWidgets());
@@ -238,4 +290,28 @@ function useWidgets() {
   }, [getWidgets]);
 
   return widgets;
+}
+
+function useToolbarItems() {
+  const frontstageDef = useActiveFrontstageDef();
+  const getItems = React.useCallback(() => {
+    if (!frontstageDef) {
+      return [];
+    }
+    // TODO: how about widgets from frontstage definition?
+    return UiItemsManager.getFrontstageToolbarItems(
+      frontstageDef.id,
+      frontstageDef.usage
+    );
+  }, [frontstageDef]);
+  const [items, setItems] = React.useState(() => {
+    return getItems();
+  });
+  React.useEffect(() => {
+    return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
+      setItems(getItems());
+    });
+  }, [getItems]);
+
+  return items;
 }
