@@ -7,10 +7,13 @@ import {
   BackstageItemUtilities,
   ConditionalStringValue,
   Frontstage,
+  FrontstageDef,
   FrontstageUtilities,
+  ProviderItem,
   StageUsage,
   StandardContentLayouts,
   SyncUiEventDispatcher,
+  UiFramework,
   UiItemsManager,
   UiItemsProvider,
   useActiveFrontstageDef,
@@ -53,12 +56,11 @@ export function createSpatialFrontstage(): Frontstage {
     layout: <SpatialLayout />,
   };
 }
-createSpatialFrontstage.stageId = "appui-test-app:spatial-frontstage";
+createSpatialFrontstage.stageId = "spatial-frontstage";
 
 export function createSpatialFrontstageProvider(): UiItemsProvider {
-  const id = "appui-test-app:spatial-items";
   return {
-    id,
+    id: "appui-test-app:spatial-items",
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher({
         stageId: createSpatialFrontstage.stageId,
@@ -213,14 +215,27 @@ function useWidgetLabel(label: Widget["label"]) {
 
 // Similar to internal `useActiveStageProvidedToolbarItems`
 function useWidgets() {
-  // TODO: how about widgets from frontstage defintion?
   const frontstageDef = useActiveFrontstageDef();
-  return React.useMemo(() => {
-    if (!frontstageDef) return undefined;
-    // TODO: new provider might be registered
+  const getWidgets = React.useCallback(() => {
+    if (!frontstageDef) {
+      return [];
+    }
+    // TODO: how about widgets from frontstage definition?
     return UiItemsManager.getFrontstageWidgets(
       frontstageDef.id,
       frontstageDef.usage
     );
   }, [frontstageDef]);
+  const [widgets, setWidgets] = React.useState<readonly ProviderItem<Widget>[]>(
+    () => {
+      return getWidgets();
+    }
+  );
+  React.useEffect(() => {
+    return UiItemsManager.onUiProviderRegisteredEvent.addListener(() => {
+      setWidgets(getWidgets());
+    });
+  }, [getWidgets]);
+
+  return widgets;
 }
