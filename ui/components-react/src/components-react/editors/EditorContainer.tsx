@@ -115,6 +115,7 @@ export function EditorContainer(props: EditorContainerProps) {
 
   const editorRef = React.useRef<TypeEditor | undefined>();
   const propertyEditorRef = React.useRef<PropertyEditorBase | undefined>();
+  const committedByTab = React.useRef(false);
 
   const handleClick = (e: React.MouseEvent) => {
     onClick?.();
@@ -148,8 +149,8 @@ export function EditorContainer(props: EditorContainerProps) {
   const onPressTab = (e: React.KeyboardEvent) => {
     if (!propertyEditorRef.current?.containerHandlesTab) return;
     e.stopPropagation();
-    e.preventDefault();
     void handleContainerCommit();
+    committedByTab.current = true;
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -170,6 +171,11 @@ export function EditorContainer(props: EditorContainerProps) {
   };
 
   const handleEditorBlur = () => {
+    // Avoid double commit when tabbing.
+    if (committedByTab.current) {
+      committedByTab.current = false;
+      return;
+    }
     if (ignoreEditorBlur) return;
     if (!propertyEditorRef.current?.containerHandlesBlur) return;
     void handleContainerCommit();
