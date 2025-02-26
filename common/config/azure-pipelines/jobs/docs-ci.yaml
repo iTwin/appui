@@ -39,7 +39,7 @@ stages:
             clean: true
 
           - task: NodeTool@0
-            displayName: Use Node 20
+            displayName: Use Node 20.x
             inputs:
               versionSpec: 20.x
               checkLatest: true

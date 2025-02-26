@@ -65,7 +65,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.x
 
       - name: Rush cspell
         run: node common/scripts/install-run-rush.js cspell
