@@ -3,6 +3,8 @@
 - [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
   - [Changes](#changes)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Fixes](#fixes)
 - [@itwin/core-react](#itwincore-react)
   - [Changes](#changes-1)
 
@@ -16,6 +18,12 @@
 ### Changes
 
 - Updated `cursorPromptTimeout` prop of `ToolAssistanceField` component to handle `Number.POSITIVE_INFINITY`, which when enabled will display the cursor prompt indefinitely. [#1211](https://github.com/iTwin/appui/pull/1211)
+
+## @itwin/components-react
+
+### Fixes
+
+- Fixed an issue that unintentionally disabled tab navigation for tool settings. [#1236](https://github.com/iTwin/appui/pull/1236)
 
 ## @itwin/core-react
 
