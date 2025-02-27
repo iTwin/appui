@@ -4,17 +4,22 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
+  BackstageItem,
   BackstageItemUtilities,
+  BackstageStageLauncher,
   ConditionalStringValue,
   Frontstage,
   FrontstageUtilities,
+  isBackstageStageLauncher,
   isToolbarActionItem,
+  ProviderItem,
   StageUsage,
   StandardContentLayouts,
   SyncUiEventDispatcher,
   ToolbarItem,
   ToolbarItemLayouts,
   ToolbarItemUtilities,
+  UiFramework,
   UiItemsManager,
   UiItemsProvider,
   useActiveFrontstageDef,
@@ -31,12 +36,15 @@ import {
 import { ViewportContent } from "@itwin/appui-test-providers";
 import styles from "./SpatialFrontstage.module.scss";
 import {
+  Button,
   ButtonGroup,
   DropdownButton,
+  DropdownMenu,
   Flex,
   Icon,
   IconButton,
   MenuItem,
+  Select,
   Surface,
   Text,
 } from "@itwin/itwinui-react";
@@ -346,37 +354,75 @@ function useToolbarItems() {
 
 function SpatialHeader() {
   // I.e. this could use toolbar item definitions as well if needed.
-  const [views] = React.useState([
-    "Selected view #1",
-    "Selected view #2",
-    "Selected view #3",
-  ]);
-  const [selectedView, setSelectedView] = React.useState(views[0]);
   return (
     <Surface className={styles.contextNavigation}>
       <header className={styles.header}>
-        <Icon size="large">
+        <Icon size="medium">
           <SvgImodel />
         </Icon>
-        <Text variant="title">Spatial Layout</Text>
-        <DropdownButton // TODO: `Select` is not styled correctly in the `ButtonGroup`
-          menuItems={(close) =>
-            views.map((view) => (
-              <MenuItem
-                key={view}
-                onClick={() => {
-                  setSelectedView(view);
-                  close();
-                }}
-              >
-                {view}
-              </MenuItem>
-            ))
-          }
-        >
-          {selectedView}
-        </DropdownButton>
+        <Text variant="subheading">Spatial Layout</Text>
+        <FrontstageSelectorMenu />
       </header>
     </Surface>
+  );
+}
+
+function useBackstageItems() {
+  const [items] = React.useState(() => {
+    return UiItemsManager.getBackstageItems();
+  });
+  return items;
+}
+
+function useBackstageItemLabel(item: BackstageItem | undefined) {
+  if (!item) return undefined;
+  return typeof item.label === "string" ? item.label : item.id;
+}
+
+function FrontstageSelectorMenu() {
+  const backstageItems = useBackstageItems();
+  const stageLaunchers = React.useMemo(() => {
+    return backstageItems.filter(
+      (item): item is ProviderItem<BackstageStageLauncher> => {
+        return isBackstageStageLauncher(item);
+      }
+    );
+  }, [backstageItems]);
+  const frontstageDef = useActiveFrontstageDef();
+  const activeFrontstageId = frontstageDef?.id;
+  const activeStage = React.useMemo(() => {
+    return stageLaunchers.find(
+      (stageLauncher) => stageLauncher.stageId === activeFrontstageId
+    );
+  }, [stageLaunchers, activeFrontstageId]);
+  const activeStageLabel = useBackstageItemLabel(activeStage);
+  return (
+    <DropdownButton
+      startIcon={<>{activeStage?.iconNode}</>}
+      menuItems={(close) =>
+        stageLaunchers.map((stageLauncher) => {
+          const label =
+            typeof stageLauncher.label === "string"
+              ? stageLauncher.label
+              : stageLauncher.id;
+          return (
+            <MenuItem
+              key={stageLauncher.id}
+              startIcon={<>{stageLauncher.iconNode}</>}
+              onClick={() => {
+                void UiFramework.frontstages.setActiveFrontstage(
+                  stageLauncher.stageId
+                );
+                close();
+              }}
+            >
+              {label}
+            </MenuItem>
+          );
+        })
+      }
+    >
+      {activeStageLabel}
+    </DropdownButton>
   );
 }
