@@ -1,6 +1,13 @@
 # Change Log - @itwin/components-react
 
-This log was last generated on Thu, 30 Jan 2025 09:15:23 GMT and should not be manually modified.
+This log was last generated on Thu, 27 Feb 2025 08:07:36 GMT and should not be manually modified.
+
+## 5.2.0
+Thu, 27 Feb 2025 08:07:36 GMT
+
+### Updates
+
+- Fix an issue which prevented tabbing through editor containers.
 
 ## 5.1.0
 Thu, 30 Jan 2025 09:15:23 GMT

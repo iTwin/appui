@@ -2,6 +2,18 @@
   "name": "@itwin/components-react",
   "entries": [
     {
+      "version": "5.2.0",
+      "tag": "@itwin/components-react_v5.2.0",
+      "date": "Thu, 27 Feb 2025 08:07:36 GMT",
+      "comments": {
+        "none": [
+          {
+            "comment": "Fix an issue which prevented tabbing through editor containers."
+          }
+        ]
+      }
+    },
+    {
       "version": "5.1.0",
       "tag": "@itwin/components-react_v5.1.0",
       "date": "Thu, 30 Jan 2025 09:15:23 GMT",
