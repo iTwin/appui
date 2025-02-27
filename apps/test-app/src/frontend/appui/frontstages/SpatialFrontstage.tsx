@@ -361,7 +361,9 @@ function SpatialHeader() {
         <Icon size="medium">
           <SvgImodel />
         </Icon>
-        <Text variant="subheading">Spatial Layout</Text>
+        <Text variant="subheading" as="h1" style={{ whiteSpace: "nowrap" }}>
+          Spatial Layout
+        </Text>
         <FrontstageSelectorMenu />
       </header>
     </Surface>
