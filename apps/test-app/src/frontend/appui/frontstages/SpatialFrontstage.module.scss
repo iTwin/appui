@@ -9,12 +9,31 @@
   display: grid;
   gap: 0.5rem;
   grid-template-areas:
-    "toolbar toolbar"
+    "context-navigation view-navigation"
     "panel content-manipulation";
 
   grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr auto;
 }
 
-.toolbar {
-  grid-area: toolbar;
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding-inline-start: 0.5rem;
+  align-items: center;
+}
+
+.panel {
+  grid-area: panel;
+}
+
+.contextNavigation {
+  grid-area: context-navigation;
+  justify-self: flex-start;
+}
+
+.contentManipulation {
+  grid-area: content-manipulation;
+  align-self: flex-end;
 }

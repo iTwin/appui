@@ -24,6 +24,7 @@ import {
   SvgAdd,
   SvgClose,
   SvgEdit,
+  SvgImodel,
   SvgMapInfo,
   SvgWindowMaximize,
 } from "@itwin/itwinui-icons-react";
@@ -31,8 +32,11 @@ import { ViewportContent } from "@itwin/appui-test-providers";
 import styles from "./SpatialFrontstage.module.scss";
 import {
   ButtonGroup,
+  DropdownButton,
   Flex,
+  Icon,
   IconButton,
+  MenuItem,
   Surface,
   Text,
 } from "@itwin/itwinui-react";
@@ -55,7 +59,7 @@ export function createSpatialFrontstage(): Frontstage {
   });
   return {
     ...frontstage,
-    layout: <SpatialLayout />,
+    layout: <SpatialLayout contextNavigation={<SpatialHeader />} />,
   };
 }
 createSpatialFrontstage.stageId = "spatial-frontstage";
@@ -78,26 +82,28 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
         icon: <SvgAdd />,
         label: "Add",
         layouts: createSpatialToolbarItemLayouts({
-          widgetId: "add",
+          widgetId: "add-widget",
+          location: "content-manipulation",
         }),
       }),
       ToolbarItemUtilities.createActionItem({
-        id: "remove-tool",
+        id: "edit-tool",
         icon: <SvgEdit />,
-        label: "Remove",
+        label: "Edit",
         layouts: createSpatialToolbarItemLayouts({
-          widgetId: "edit",
+          widgetId: "edit-widget",
+          location: "content-manipulation",
         }),
       }),
     ],
     getWidgets: () => [
       {
-        id: "add",
+        id: "add-widget",
         content: <div>Widget `add` content</div>,
         label: "Add",
       },
       {
-        id: "edit",
+        id: "edit-widget",
         content: <div>Widget `edit` content</div>,
         label: "Edit",
       },
@@ -109,14 +115,16 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
 interface SpatialLayoutToolbarItem {
   // Activates a widget with the given ID when specified.
   readonly widgetId?: string;
+  // Specifies the location of the toolbar item.
+  readonly location: "content-manipulation";
 }
 
 interface SpatialToolbarItemLayouts extends ToolbarItemLayouts {
-  readonly spatial?: SpatialLayoutToolbarItem;
+  readonly spatial: SpatialLayoutToolbarItem;
 }
 
 function createSpatialToolbarItemLayouts(
-  args: Partial<SpatialLayoutToolbarItem>
+  args: SpatialLayoutToolbarItem
 ): SpatialToolbarItemLayouts {
   return {
     spatial: {
@@ -125,11 +133,13 @@ function createSpatialToolbarItemLayouts(
   };
 }
 
+type SpatialToolbarItem<T extends ToolbarItem> = T & {
+  readonly layouts: SpatialToolbarItemLayouts;
+};
+
 function isSpatialToolbarItem<T extends ToolbarItem>(
   item: ToolbarItem
-): item is T & {
-  layouts: SpatialToolbarItemLayouts;
-} {
+): item is SpatialToolbarItem<T> {
   return "spatial" in (item.layouts ?? {});
 }
 
@@ -141,8 +151,21 @@ const SpatialLayoutContext = React.createContext<{
   setActiveWidget: () => {},
 });
 
-function SpatialLayout() {
+interface SpatialLayoutProps {
+  /** Customization of toolbars, alternative to using custom definitions like `SpatialLayoutToolbarItem`. */
+  contextNavigation?: React.ReactNode;
+}
+
+function SpatialLayout(props: SpatialLayoutProps) {
   const toolbarItems = useToolbarItems();
+  const contentManipulationItems = React.useMemo(() => {
+    return toolbarItems.filter(
+      (item): item is SpatialToolbarItem<typeof item> => {
+        if (!isSpatialToolbarItem(item)) return false;
+        return item.layouts.spatial.location === "content-manipulation";
+      }
+    );
+  }, [toolbarItems]);
   const [activeWidget, setActiveWidget] = React.useState("");
   return (
     <SpatialLayoutContext.Provider
@@ -155,9 +178,10 @@ function SpatialLayout() {
       )}
     >
       <div className={styles.spatialLayout}>
-        <div className={styles.toolbar}>
-          <ButtonGroup>
-            {toolbarItems.map((item) => {
+        {props.contextNavigation}
+        <Surface className={styles.contentManipulation}>
+          <ButtonGroup orientation="vertical">
+            {contentManipulationItems.map((item) => {
               const widgetId = isSpatialToolbarItem(item)
                 ? item.layouts?.spatial?.widgetId
                 : undefined;
@@ -183,7 +207,7 @@ function SpatialLayout() {
               );
             })}
           </ButtonGroup>
-        </div>
+        </Surface>
         <Panel />
       </div>
     </SpatialLayoutContext.Provider>
@@ -318,4 +342,41 @@ function useToolbarItems() {
   }, [getItems]);
 
   return items;
+}
+
+function SpatialHeader() {
+  // I.e. this could use toolbar item definitions as well if needed.
+  const [views] = React.useState([
+    "Selected view #1",
+    "Selected view #2",
+    "Selected view #3",
+  ]);
+  const [selectedView, setSelectedView] = React.useState(views[0]);
+  return (
+    <Surface className={styles.contextNavigation}>
+      <header className={styles.header}>
+        <Icon size="large">
+          <SvgImodel />
+        </Icon>
+        <Text variant="title">Spatial Layout</Text>
+        <DropdownButton // TODO: `Select` is not styled correctly in the `ButtonGroup`
+          menuItems={(close) =>
+            views.map((view) => (
+              <MenuItem
+                key={view}
+                onClick={() => {
+                  setSelectedView(view);
+                  close();
+                }}
+              >
+                {view}
+              </MenuItem>
+            ))
+          }
+        >
+          {selectedView}
+        </DropdownButton>
+      </header>
+    </Surface>
+  );
 }
