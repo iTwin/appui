@@ -2,13 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-$padding: 0.5rem;
+$padding: 1rem;
 
 .spatialLayout {
   height: 100%;
 
   display: grid;
-  gap: 0.5rem;
+  gap: $padding;
   grid-template-areas:
     "context-navigation view-navigation"
     "panel content-manipulation";
@@ -54,6 +54,7 @@ $padding: 0.5rem;
   margin-inline-end: $padding;
   margin-block-end: $padding;
 
+  border: 0;
   position: relative;
 }
 

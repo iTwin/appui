@@ -188,34 +188,37 @@ function SpatialLayout(props: SpatialLayoutProps) {
         <SpatialContent />
         {props.contextNavigation}
         {props.viewNavigation}
-        <Surface className={styles.contentManipulation}>
-          <ButtonGroup orientation="vertical">
-            {contentManipulationItems.map((item) => {
-              const widgetId = isSpatialToolbarItem(item)
-                ? item.layouts?.spatial?.widgetId
-                : undefined;
-              return (
-                <IconButton
-                  key={item.id}
-                  isActive={activeWidget === widgetId}
-                  // TODO: see `useWidgetLabel` to handle ConditionalStringValue.
-                  label={typeof item.label === "string" ? item.label : "Item"}
-                  onClick={() => {
-                    if (isToolbarActionItem(item)) {
-                      item.execute();
-                    }
+        <Surface
+          as={ButtonGroup}
+          className={styles.contentManipulation}
+          orientation="vertical"
+        >
+          {contentManipulationItems.map((item) => {
+            const widgetId = isSpatialToolbarItem(item)
+              ? item.layouts?.spatial?.widgetId
+              : undefined;
+            return (
+              <IconButton
+                size="large"
+                key={item.id}
+                isActive={activeWidget === widgetId}
+                // TODO: see `useWidgetLabel` to handle ConditionalStringValue.
+                label={typeof item.label === "string" ? item.label : "Item"}
+                onClick={() => {
+                  if (isToolbarActionItem(item)) {
+                    item.execute();
+                  }
 
-                    // Toggle the active widget on and off.
-                    setActiveWidget(
-                      activeWidget === widgetId ? "" : widgetId ?? ""
-                    );
-                  }}
-                >
-                  {item.iconNode}
-                </IconButton>
-              );
-            })}
-          </ButtonGroup>
+                  // Toggle the active widget on and off.
+                  setActiveWidget(
+                    activeWidget === widgetId ? "" : widgetId ?? ""
+                  );
+                }}
+              >
+                {item.iconNode}
+              </IconButton>
+            );
+          })}
         </Surface>
         <Panel />
       </div>
@@ -362,7 +365,7 @@ function SpatialHeader() {
           <SvgImodel />
         </Icon>
         <Text variant="subheading" as="h1" style={{ whiteSpace: "nowrap" }}>
-          Spatial Layout
+          Layout Demo
         </Text>
         <FrontstageSelectorMenu />
       </header>
@@ -401,6 +404,8 @@ function FrontstageSelectorMenu() {
   const activeStageLabel = useBackstageItemLabel(activeStage);
   return (
     <DropdownButton
+      style={{ border: 0 }}
+      size="large"
       startIcon={<>{activeStage?.iconNode}</>}
       menuItems={(close) =>
         stageLaunchers.map((stageLauncher) => {
