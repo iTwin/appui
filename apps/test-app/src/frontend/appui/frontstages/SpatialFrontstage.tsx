@@ -8,6 +8,7 @@ import {
   BackstageItemUtilities,
   BackstageStageLauncher,
   ConditionalStringValue,
+  ContentLayout,
   Frontstage,
   FrontstageUtilities,
   isBackstageStageLauncher,
@@ -36,15 +37,12 @@ import {
 import { ViewportContent } from "@itwin/appui-test-providers";
 import styles from "./SpatialFrontstage.module.scss";
 import {
-  Button,
   ButtonGroup,
   DropdownButton,
-  DropdownMenu,
   Flex,
   Icon,
   IconButton,
   MenuItem,
-  Select,
   Surface,
   Text,
 } from "@itwin/itwinui-react";
@@ -162,6 +160,7 @@ const SpatialLayoutContext = React.createContext<{
 interface SpatialLayoutProps {
   /** Customization of toolbars, alternative to using custom definitions like `SpatialLayoutToolbarItem`. */
   contextNavigation?: React.ReactNode;
+  viewNavigation?: React.ReactNode;
 }
 
 function SpatialLayout(props: SpatialLayoutProps) {
@@ -186,7 +185,9 @@ function SpatialLayout(props: SpatialLayoutProps) {
       )}
     >
       <div className={styles.spatialLayout}>
+        <SpatialContent />
         {props.contextNavigation}
+        {props.viewNavigation}
         <Surface className={styles.contentManipulation}>
           <ButtonGroup orientation="vertical">
             {contentManipulationItems.map((item) => {
@@ -424,5 +425,22 @@ function FrontstageSelectorMenu() {
     >
       {activeStageLabel}
     </DropdownButton>
+  );
+}
+
+function SpatialContent() {
+  const frontstageDef = useActiveFrontstageDef();
+  if (
+    !frontstageDef ||
+    !frontstageDef.contentLayoutDef ||
+    !frontstageDef.contentGroup
+  )
+    return null;
+  return (
+    <ContentLayout
+      contentLayout={frontstageDef.contentLayoutDef}
+      contentGroup={frontstageDef.contentGroup}
+      className={styles.content}
+    />
   );
 }

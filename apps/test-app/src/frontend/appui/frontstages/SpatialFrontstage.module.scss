@@ -2,8 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+$padding: 0.5rem;
+
 .spatialLayout {
-  padding: 0.5rem;
   height: 100%;
 
   display: grid;
@@ -16,24 +17,50 @@
   grid-template-columns: 1fr auto;
 }
 
+.content {
+  grid-column: context-navigation / view-navigation;
+  grid-row: context-navigation / panel;
+}
+
+.panel {
+  grid-area: panel;
+  margin-inline-start: $padding;
+  margin-block-end: $padding;
+
+  position: relative;
+}
+
+.contextNavigation {
+  grid-area: context-navigation;
+  justify-self: flex-start;
+  margin-inline-start: $padding;
+  margin-block-start: $padding;
+
+  // TODO: clean-up #uifw-contentlayout-div
+  position: relative;
+}
+
+.viewNavigation {
+  grid-area: view-navigation;
+  margin-inline-start: $padding;
+  margin-block-start: $padding;
+
+  position: relative;
+}
+
+.contentManipulation {
+  grid-area: content-manipulation;
+  align-self: flex-end;
+  margin-inline-end: $padding;
+  margin-block-end: $padding;
+
+  position: relative;
+}
+
 .header {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   padding-inline-start: 1rem;
   align-items: center;
-}
-
-.panel {
-  grid-area: panel;
-}
-
-.contextNavigation {
-  grid-area: context-navigation;
-  justify-self: flex-start;
-}
-
-.contentManipulation {
-  grid-area: content-manipulation;
-  align-self: flex-end;
 }
