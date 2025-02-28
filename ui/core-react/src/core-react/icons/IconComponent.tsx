@@ -11,7 +11,7 @@ import * as React from "react";
 import classnames from "classnames";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import type { CommonProps } from "../utils/Props.js";
-import DOMPurify, * as DOMPurifyNS from "dompurify";
+import DOMPurify from "dompurify";
 import { ConditionalIconItem } from "./ConditionalIconItem.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
@@ -73,9 +73,6 @@ export function Icon(props: IconProps) {
         : iconString;
       const svgLoader = `<svg-loader src="${definitiveIconString}"></svg-loader>`;
       const svgDiv = `<div>${svgLoader}</div>`;
-      // the esm build of dompurify has a default import but the cjs build does not
-      // if there is a default export, use it (likely esm), otherwise use the namespace
-      const sanitizer = DOMPurify ?? DOMPurifyNS;
 
       const sanitizerConfig = {
         ALLOWED_TAGS: ["svg-loader"],
@@ -84,7 +81,7 @@ export function Icon(props: IconProps) {
           : [],
       };
 
-      const sanitizedIconString = sanitizer.sanitize(svgDiv, sanitizerConfig);
+      const sanitizedIconString = DOMPurify.sanitize(svgDiv, sanitizerConfig);
       const webComponentNode = (
         // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
         // eslint-disable-next-line jam3/no-sanitizer-with-danger
