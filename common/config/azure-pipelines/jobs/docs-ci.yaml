@@ -93,8 +93,7 @@ stages:
       - job:
         displayName: Tag build
         pool:
-          name: iModelTechCI
-          demands: Agent.OS -equals Windows_NT
+          name: imodelNative-Win11-VS2022
 
         steps:
           - powershell: |
