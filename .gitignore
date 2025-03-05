@@ -57,3 +57,6 @@ common/api/summary/summary.exports.csv
 
 # Codemod specific
 junit.xml
+
+# Experiments
+apps/test-app/src/frontend/spatial
