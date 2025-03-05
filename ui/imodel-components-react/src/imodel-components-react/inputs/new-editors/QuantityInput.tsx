@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/** @packageDocumentation
- * @module PropertyEditors
- */
 
 import * as React from "react";
 import { FormattedNumericInput } from "@itwin/components-react";
@@ -27,7 +24,7 @@ interface QuantityInputProps
 
 /**
  * A component that wraps `FormattedNumericInput` and takes a formatter and parser for quantity values.
- * @beta
+ * @internal
  */
 export function QuantityInput({
   formatter,
