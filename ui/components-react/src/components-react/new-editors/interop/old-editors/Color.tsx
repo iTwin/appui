@@ -28,7 +28,7 @@ import { useColorEditorParams } from "./UseEditorParams.js";
 
 /**
  * Editor specification for color editor.
- * @beta
+ * @internal
  */
 export const ColorEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is OldEditorMetadata =>

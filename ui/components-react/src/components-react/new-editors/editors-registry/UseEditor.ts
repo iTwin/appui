@@ -2,6 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module PropertyEditors
+ */
+
 import * as React from "react";
 import type { EditorSpec } from "../Types.js";
 import type { ValueMetadata } from "../values/Metadata.js";
