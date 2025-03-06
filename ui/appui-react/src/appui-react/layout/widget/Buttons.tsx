@@ -33,42 +33,47 @@ import {
   useAddTab,
 } from "../../preview/control-widget-visibility/AddWidgetButton.js";
 
-/** @internal */
-export type WidgetFeature =
-  | "popout"
-  | "maximize"
-  | "sendBack"
-  | "dock"
-  | "horizontalAlign"
-  | "pin"
-  | "closeWidget"
-  | "addWidget";
+const widgetActions = {
+  popout: PopoutToggle,
+  sendBack: SendBack,
+  dock: Dock,
+  pin: PinToggle,
+  maximize: MaximizeToggle,
+  horizontalAlign: PreviewHorizontalPanelAlignButton,
+  closeWidget: CloseWidgetButton,
+  addWidget: AddWidgetButton,
+};
+
+type WidgetActionId = keyof typeof widgetActions;
+
+interface WidgetAction {
+  id: WidgetActionId | (string & {});
+  action: React.ComponentType;
+}
+
+interface TabBarButtonsProps {
+  actions?: (defaultActions: WidgetAction[]) => WidgetAction[];
+}
 
 /** @internal */
-export function TabBarButtons() {
+export type WidgetFeature = WidgetActionId;
+
+/** @internal */
+export function TabBarButtons(props: TabBarButtonsProps) {
+  const { actions } = props;
   const features = useWidgetFeatures();
   const [sortedFeatures, isDropdown] = useDropdownFeatures(features);
+  const finalActions = React.useMemo(() => {
+    const knownActions = sortedFeatures.map((feature) => ({
+      id: feature,
+      action: widgetActions[feature],
+    }));
+    if (!actions) return knownActions;
+    return actions(knownActions);
+  }, [sortedFeatures, actions]);
 
-  const buttons = sortedFeatures.map((feature) => {
-    switch (feature) {
-      case "popout":
-        return <PopoutToggle key="popout" />;
-      case "maximize":
-        return <MaximizeToggle key="maximize" />;
-      case "sendBack":
-        return <SendBack key="sendBack" />;
-      case "dock":
-        return <Dock key="dock" />;
-      case "horizontalAlign":
-        return <PreviewHorizontalPanelAlignButton key="horizontalAlign" />;
-      case "pin":
-        return <PinToggle key="pin" />;
-      case "closeWidget":
-        return <CloseWidgetButton key="closeWidget" />;
-      case "addWidget":
-        return <AddWidgetButton key="addWidget" />;
-    }
-    return undefined;
+  const buttons = finalActions.map(({ id, action: Action }) => {
+    return <Action key={id} />;
   });
 
   return (
