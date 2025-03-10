@@ -40,17 +40,8 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
-  Pick<
-    /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-    ConfigurableUiContentProps,
-    | "viewOverlay"
-    | "widgetOpacity"
-    | "widgetIcon"
-    | "collapsePanels"
-    | "animateToolSettings"
-    | "toolAsToolSettingsLabel"
-    | "childWindow"
-  > & {
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
+  ConfigurableUiContentProps & {
     contentElementRef?: React.RefObject<HTMLElement>;
   }
 >({});
@@ -95,24 +86,39 @@ export interface ConfigurableUiContentProps extends CommonProps {
  */
 export const WrapperContext = React.createContext<HTMLElement>(document.body);
 
-/** The ConfigurableUiContent component is the component the pages specified using ConfigurableUi
+/** The main component of `AppUI` that sets up the configurable UI.
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   const frontstageDef = useActiveFrontstageDef();
   const layout = frontstageDef?.initialConfig?.layout;
-  if (layout) return layout;
-
-  return <WidgetPanelsConfigurableUiContent {...props} />;
+  return (
+    <ConfigurableUiContext.Provider
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      value={React.useMemo(() => props, [...Object.values(props)])}
+    >
+      {layout ?? <StandardLayout />}
+    </ConfigurableUiContext.Provider>
+  );
 }
 
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-function WidgetPanelsConfigurableUiContent(props: ConfigurableUiContentProps) {
-  const contentElementRef = React.useRef<HTMLElement>(null);
+/** The standard widget based layout used as a default layout for all frontstages.
+ * @alpha
+ */
+export function StandardLayout() {
+  const context = React.useContext(ConfigurableUiContext);
+  const {
+    appBackstage,
+    widgetOpacity,
+    toolbarOpacity,
+    idleTimeout,
+    intervalTimeout,
+  } = context;
 
-  useWidgetOpacity(props.widgetOpacity);
-  useToolbarOpacity(props.toolbarOpacity);
+  const contentElementRef = React.useRef<HTMLElement>(null);
+  useWidgetOpacity(widgetOpacity);
+  useToolbarOpacity(toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement>();
   const [portalContainer, setPortalContainer] = React.useState<HTMLElement>();
   React.useEffect(() => {
@@ -121,36 +127,32 @@ function WidgetPanelsConfigurableUiContent(props: ConfigurableUiContentProps) {
 
   React.useEffect(() => {
     InternalConfigurableUiManager.activityTracker.initialize({
-      idleTimeout: props.idleTimeout,
-      intervalTimeout: props.intervalTimeout,
+      idleTimeout,
+      intervalTimeout,
     });
     return () => {
       InternalConfigurableUiManager.activityTracker.terminate();
     };
-  }, [props.idleTimeout, props.intervalTimeout]);
+  }, [idleTimeout, intervalTimeout]);
 
   const setContentHovered = useCursorInformationStore(
     (state) => state.setContentHovered
   );
   return (
     <ConfigurableUiContext.Provider
-      value={{
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        viewOverlay: props.viewOverlay,
-        widgetOpacity: props.widgetOpacity,
-        widgetIcon: props.widgetIcon,
-        collapsePanels: props.collapsePanels,
-        animateToolSettings: props.animateToolSettings,
-        toolAsToolSettingsLabel: props.toolAsToolSettingsLabel,
-        childWindow: props.childWindow,
-        contentElementRef,
-      }}
+      value={React.useMemo(
+        () => ({
+          ...context,
+          contentElementRef,
+        }),
+        [context]
+      )}
     >
       <main
         role="main"
         id="uifw-configurableui-wrapper"
-        className={props.className}
-        style={props.style}
+        className={context.className}
+        style={context.style}
         onMouseMove={(e) => {
           const point = new Point(e.pageX, e.pageY);
           CursorInformation.handleMouseMove(point);
@@ -169,7 +171,7 @@ function WidgetPanelsConfigurableUiContent(props: ConfigurableUiContentProps) {
             style={{ height: "100%" }}
             portalContainer={portalContainer}
           >
-            {props.appBackstage}
+            {appBackstage}
             <WidgetPanelsFrontstage />
 
             <ElementTooltip />

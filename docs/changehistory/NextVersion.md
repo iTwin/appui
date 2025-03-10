@@ -36,3 +36,17 @@ Table of contents:
     );
   }
   ```
+
+- Added the `StandardLayout` component, which can be used in the `layout` property of a `Frontstage`. The intended use case of this component, instead of simply omitting the layout property, is to add additional configuration to the standard layout or to add additional wrapper components.
+
+  ```tsx
+  UiFramework.frontstages.addFrontstage({
+    id: "standard-layout-frontstage",
+    layout: (
+      <CustomProvider>
+        <StandardLayout />
+      </CustomProvider>
+    ),
+    ...
+  });
+  ```
