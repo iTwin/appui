@@ -10,11 +10,11 @@ import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpe
 import { addWidgetToolSettings } from "../../../appui-react/layout/state/internal/ToolSettingsStateHelpers.js";
 import { addFloatingWidget } from "../../../appui-react/layout/state/internal/WidgetStateHelpers.js";
 import { PanelSideContext } from "../../../appui-react/layout/widget-panels/Panel.js";
-import { TabBarButtons } from "../../../appui-react/layout/widget/Buttons.js";
+import { WidgetActions } from "../../../appui-react/layout/widget/WidgetActions.js";
 import { WidgetIdContext } from "../../../appui-react/layout/widget/Widget.js";
 import { TestNineZoneProvider } from "../Providers.js";
 
-describe("TabBarButtons", () => {
+describe("WidgetActions", () => {
   it("should render SendBack button in a floating widget", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1", { label: "t1-label" });
@@ -25,7 +25,7 @@ describe("TabBarButtons", () => {
         labels={{ sendWidgetHomeTitle: "Send back" }}
       >
         <WidgetIdContext.Provider value="fw1">
-          <TabBarButtons />
+          <WidgetActions />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
@@ -42,7 +42,7 @@ describe("TabBarButtons", () => {
         labels={{ popoutActiveTab: "Popout" }}
       >
         <WidgetIdContext.Provider value="fw1">
-          <TabBarButtons />
+          <WidgetActions />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
@@ -62,7 +62,7 @@ describe("TabBarButtons", () => {
         }}
       >
         <WidgetIdContext.Provider value="fw1">
-          <TabBarButtons />
+          <WidgetActions />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
@@ -80,7 +80,7 @@ describe("TabBarButtons", () => {
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
-            <TabBarButtons />
+            <WidgetActions />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
@@ -99,7 +99,7 @@ describe("TabBarButtons", () => {
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
-            <TabBarButtons />
+            <WidgetActions />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
@@ -118,7 +118,7 @@ describe("TabBarButtons", () => {
       >
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
-            <TabBarButtons />
+            <WidgetActions />
           </WidgetIdContext.Provider>
         </PanelSideContext.Provider>
       </TestNineZoneProvider>

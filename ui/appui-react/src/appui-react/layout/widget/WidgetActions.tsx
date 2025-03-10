@@ -6,7 +6,7 @@
  * @module Widget
  */
 
-import "./Buttons.scss";
+import "./WidgetActions.scss";
 import * as React from "react";
 import { Dock, useDock } from "./Dock.js";
 import { PinToggle, usePinToggle } from "./PinToggle.js";
@@ -18,7 +18,7 @@ import {
 import { SendBack, useSendBack } from "./SendBack.js";
 import {
   MoreButton,
-  useDropdownFeatures,
+  useDropdownActions,
 } from "../../preview/widget-action-dropdown/MoreButton.js";
 import {
   MaximizeToggle,
@@ -44,47 +44,45 @@ const widgetActions = {
   addWidget: AddWidgetButton,
 };
 
-type WidgetActionId = keyof typeof widgetActions;
+/** @internal */
+export type WidgetActionId = keyof typeof widgetActions;
 
-interface WidgetAction {
+interface WidgetActionSpec {
   id: WidgetActionId | (string & {});
   action: React.ComponentType;
 }
 
-interface TabBarButtonsProps {
-  actions?: (defaultActions: WidgetAction[]) => WidgetAction[];
+interface WidgetActionsProps {
+  actions?: (defaultActions: WidgetActionSpec[]) => WidgetActionSpec[];
 }
 
 /** @internal */
-export type WidgetFeature = WidgetActionId;
-
-/** @internal */
-export function TabBarButtons(props: TabBarButtonsProps) {
+export function WidgetActions(props: WidgetActionsProps) {
   const { actions } = props;
-  const features = useWidgetFeatures();
-  const [sortedFeatures, isDropdown] = useDropdownFeatures(features);
+  const defaultActions = useWidgetActions();
+  const [dropdownActions, isDropdown] = useDropdownActions(defaultActions);
   const finalActions = React.useMemo(() => {
-    const knownActions = sortedFeatures.map((feature) => ({
+    const knownActions = dropdownActions.map((feature) => ({
       id: feature,
       action: widgetActions[feature],
     }));
     if (!actions) return knownActions;
     return actions(knownActions);
-  }, [sortedFeatures, actions]);
+  }, [actions, dropdownActions]);
 
   const buttons = finalActions.map(({ id, action: Action }) => {
     return <Action key={id} />;
   });
 
   return (
-    <div className="nz-widget-buttons">
+    <div className="nz-widget-widgetActions">
       {isDropdown ? <MoreButton>{buttons}</MoreButton> : buttons}
     </div>
   );
 }
 
 /** @internal */
-export function useWidgetFeatures(): WidgetFeature[] {
+export function useWidgetActions(): WidgetActionId[] {
   const popoutToggle = usePopoutToggle();
   const maximizeToggle = useMaximizeToggle();
   const sendBack = useSendBack();

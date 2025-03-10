@@ -14,7 +14,7 @@ import { TabBarButton } from "../../layout/widget/Button.js";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { useLayout } from "../../layout/base/LayoutStore.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
-import type { WidgetFeature } from "../../layout/widget/Buttons.js";
+import type { WidgetActionId } from "../../layout/widget/WidgetActions.js";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<object>) {
@@ -62,7 +62,7 @@ function CloseOnPanelCollapse() {
   return null;
 }
 
-const order: WidgetFeature[] = [
+const order: WidgetActionId[] = [
   "pin",
   "maximize",
   "popout",
@@ -72,12 +72,12 @@ const order: WidgetFeature[] = [
 ];
 
 /** @internal */
-export function useDropdownFeatures(features: WidgetFeature[]) {
+export function useDropdownActions(actions: WidgetActionId[]) {
   const { widgetActionDropdown } = usePreviewFeatures();
   const threshold = widgetActionDropdown?.threshold ?? Infinity;
-  const isDropdown = features.length > threshold;
-  if (!isDropdown) return [features, false] as const;
-  const sorted = [...features].sort(
+  const isDropdown = actions.length > threshold;
+  if (!isDropdown) return [actions, false] as const;
+  const sorted = [...actions].sort(
     (a, b) => order.indexOf(a) - order.indexOf(b)
   );
   return [sorted, true] as const;

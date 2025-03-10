@@ -20,12 +20,12 @@ import type {
   PointerCaptorEvent,
 } from "../base/usePointerCaptor.js";
 import { usePointerCaptor } from "../base/usePointerCaptor.js";
-import { TabBarButtons } from "./Buttons.js";
 import { WidgetTabs } from "./Tabs.js";
 import { WidgetIdContext } from "./Widget.js";
 import { useDoubleClick } from "../widget-panels/Grip.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { WidgetActions } from "./WidgetActions.js";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -113,7 +113,7 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     <div ref={containerRef} className={className}>
       <div className={handleClassName} ref={ref} />
       <WidgetTabs />
-      <TabBarButtons />
+      <WidgetActions />
     </div>
   );
 }
