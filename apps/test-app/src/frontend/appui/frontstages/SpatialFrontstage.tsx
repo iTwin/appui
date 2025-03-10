@@ -7,9 +7,9 @@ import * as React from "react";
 import {
   BackstageItemUtilities,
   BackstageStageLauncher,
+  ContentGroup,
   ContentLayout,
   Frontstage,
-  FrontstageUtilities,
   isBackstageStageLauncher,
   isToolbarActionItem,
   ProviderItem,
@@ -48,9 +48,11 @@ import {
 } from "@itwin/itwinui-react";
 
 export function createSpatialFrontstage(): Frontstage {
-  const frontstage = FrontstageUtilities.createStandardFrontstage({
+  return {
     id: createSpatialFrontstage.stageId,
-    contentGroupProps: {
+    usage: StageUsage.General,
+    version: 1,
+    contentGroup: new ContentGroup({
       id: "content-group",
       layout: StandardContentLayouts.singleView,
       contents: [
@@ -60,11 +62,7 @@ export function createSpatialFrontstage(): Frontstage {
           content: <ViewportContent />,
         },
       ],
-    },
-    usage: StageUsage.General,
-  });
-  return {
-    ...frontstage,
+    }),
     layout: <SpatialLayout contextNavigation={<SpatialHeader />} />,
   };
 }
