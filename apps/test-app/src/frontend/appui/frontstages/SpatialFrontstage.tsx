@@ -66,7 +66,7 @@ export function createSpatialFrontstage(): Frontstage {
     layout: <SpatialLayout contextNavigation={<SpatialHeader />} />,
   };
 }
-createSpatialFrontstage.stageId = "spatial-frontstage";
+createSpatialFrontstage.stageId = "spatial";
 
 export function createSpatialFrontstageProvider(): UiItemsProvider {
   return {
