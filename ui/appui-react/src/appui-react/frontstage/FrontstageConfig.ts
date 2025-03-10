@@ -60,4 +60,11 @@ export interface FrontstageConfig extends CommonProps {
   readonly rightPanel?: StagePanelConfig;
   /** Bottom panel of the application. */
   readonly bottomPanel?: StagePanelConfig;
+
+  /**
+   * Specifies a custom layout component that overrides or customizes the standard widget based layout.
+   * Additionally, {@link StandardLayout} component can be used to wrap the standard layout with frontstage specific providers.
+   * @alpha
+   */
+  readonly layout?: React.ReactNode;
 }

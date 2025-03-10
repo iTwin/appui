@@ -51,6 +51,10 @@ import {
   createITwinUIV2FrontstageProvider,
 } from "./appui/frontstages/iTwinUIV2Frontstage";
 import { createTestWidgetFrontstage } from "./appui/frontstages/TestWidgetFrontstage";
+import {
+  createSpatialFrontstage,
+  createSpatialFrontstageProvider,
+} from "./appui/frontstages/SpatialFrontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
@@ -82,6 +86,7 @@ export function registerFrontstages({
     createSynchronizedViewportFrontstage(),
     createPopoutWindowsFrontstage(),
     createITwinUIV2Frontstage(),
+    createSpatialFrontstage(),
   ];
   frontstages.forEach((frontstage) => {
     UiFramework.frontstages.addFrontstage(frontstage);
@@ -112,7 +117,9 @@ export function registerFrontstages({
       createPopoutWindowsFrontstage.stageId,
     ],
   });
-  UiItemsManager.register(createMainFrontstageProvider());
+  UiItemsManager.register(createMainFrontstageProvider(), {
+    stageIds: [createMainFrontstage.stageId],
+  });
   UiItemsManager.register(new FloatingWidgetsUiItemsProvider(), {
     stageIds: [createWidgetApiFrontstage.stageId],
   });
@@ -151,6 +158,9 @@ export function registerFrontstages({
   });
   UiItemsManager.register(createITwinUIV2FrontstageProvider(), {
     stageIds: [createITwinUIV2Frontstage.stageId],
+  });
+  UiItemsManager.register(createSpatialFrontstageProvider(), {
+    stageIds: [createSpatialFrontstage.stageId],
   });
 
   if (ProcessDetector.isElectronAppFrontend) {
