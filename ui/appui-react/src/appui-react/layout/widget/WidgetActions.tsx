@@ -53,12 +53,15 @@ interface WidgetActionSpec {
 }
 
 interface WidgetActionsProps {
-  actions?: (defaultActions: WidgetActionSpec[]) => WidgetActionSpec[];
+  /** Function to modify the default actions. */
+  modifyActions?: (defaultActions: WidgetActionSpec[]) => WidgetActionSpec[];
 }
 
-/** @internal */
+/** Renders widget actions in the widget title bar.
+ * @alpha
+ */
 export function WidgetActions(props: WidgetActionsProps) {
-  const { actions } = props;
+  const { modifyActions } = props;
   const defaultActions = useWidgetActions();
   const [dropdownActions, isDropdown] = useDropdownActions(defaultActions);
   const finalActions = React.useMemo(() => {
@@ -66,9 +69,9 @@ export function WidgetActions(props: WidgetActionsProps) {
       id: feature,
       action: widgetActions[feature],
     }));
-    if (!actions) return knownActions;
-    return actions(knownActions);
-  }, [actions, dropdownActions]);
+    if (!modifyActions) return knownActions;
+    return modifyActions(knownActions);
+  }, [dropdownActions, modifyActions]);
 
   const buttons = finalActions.map(({ id, action: Action }) => {
     return <Action key={id} />;
