@@ -282,15 +282,10 @@ export function useLabels(): NineZoneLabels {
   const { translate } = useTranslation();
 
   return {
-    dockToolSettingsTitle: translate("widget.tooltips.dockToolSettings"),
     moreWidgetsTitle: translate("widget.tooltips.moreWidgets"),
     moreToolSettingsTitle: translate("widget.tooltips.moreToolSettings"),
-    pinPanelTitle: translate("widget.tooltips.pinPanel"),
     resizeGripTitle: translate("widget.tooltips.resizeGrip"),
-    sendWidgetHomeTitle: translate("widget.tooltips.sendHome"),
     toolSettingsHandleTitle: translate("widget.tooltips.toolSettingsHandle"),
-    unpinPanelTitle: translate("widget.tooltips.unpinPanel"),
-    popoutActiveTab: translate("widget.tooltips.popoutActiveTab"),
   };
 }
 

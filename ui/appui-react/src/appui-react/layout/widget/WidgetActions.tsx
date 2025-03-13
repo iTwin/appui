@@ -32,6 +32,8 @@ import {
   AddWidgetButton,
   useAddTab,
 } from "../../preview/control-widget-visibility/AddWidgetButton.js";
+import type { StandardLayout } from "../../configurableui/ConfigurableUiContent.js";
+import type { WidgetAction } from "./WidgetAction.js";
 
 const widgetActions = {
   popout: PopoutToggle,
@@ -53,11 +55,15 @@ interface WidgetActionSpec {
 }
 
 interface WidgetActionsProps {
-  /** Function to modify the default actions. */
+  /** Function to modify the default widget actions.
+   * Use {@link WidgetAction} component when adding new widget actions.
+   */
   modifyActions?: (defaultActions: WidgetActionSpec[]) => WidgetActionSpec[];
 }
 
-/** Renders widget actions in the widget title bar.
+/**
+ * Renders widget actions in the widget title bar.
+ * Should be used in `widgetActions` prop of {@link StandardLayout} component.
  * @alpha
  */
 export function WidgetActions(props: WidgetActionsProps) {

@@ -26,6 +26,7 @@ import { useDoubleClick } from "../widget-panels/Grip.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { WidgetActions } from "./WidgetActions.js";
+import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -36,6 +37,7 @@ export interface WidgetTabBarProps {
 export function WidgetTabBar(props: WidgetTabBarProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = React.useContext(WidgetIdContext);
+  const { widgetActions } = React.useContext(ConfigurableUiContext);
   const floatingWidgetId = useFloatingWidgetId();
   assert(!!id);
   const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
@@ -113,7 +115,7 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     <div ref={containerRef} className={className}>
       <div className={handleClassName} ref={ref} />
       <WidgetTabs />
-      <WidgetActions />
+      {widgetActions ?? <WidgetActions />}
     </div>
   );
 }

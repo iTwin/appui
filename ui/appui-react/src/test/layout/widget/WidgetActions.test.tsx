@@ -20,10 +20,7 @@ describe("WidgetActions", () => {
     state = addTab(state, "t1", { label: "t1-label" });
     state = addFloatingWidget(state, "fw1", ["t1"]);
     const wrapper = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">
           <WidgetActions />
         </WidgetIdContext.Provider>
@@ -37,10 +34,7 @@ describe("WidgetActions", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addFloatingWidget(state, "fw1", ["t1"]);
     const wrapper = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ popoutActiveTab: "Popout" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">
           <WidgetActions />
         </WidgetIdContext.Provider>
@@ -55,12 +49,7 @@ describe("WidgetActions", () => {
     state = addFloatingWidget(state, "fw1", ["ts"]);
     state = addWidgetToolSettings(state, "ts");
     const wrapper = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{
-          dockToolSettingsTitle: "Dock",
-        }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="fw1">
           <WidgetActions />
         </WidgetIdContext.Provider>
@@ -74,10 +63,7 @@ describe("WidgetActions", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: false });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ unpinPanelTitle: "Unpin panel" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <WidgetActions />
@@ -93,10 +79,7 @@ describe("WidgetActions", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ popoutActiveTab: "Popout widget" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <WidgetActions />
@@ -112,10 +95,7 @@ describe("WidgetActions", () => {
     state = addTab(state, "t1", { label: "t1-label", canPopout: true });
     state = addPanelWidget(state, "left", "w1", ["t1"], { activeTabId: "t1" });
     const wrapper = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ popoutActiveTab: "Popout" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <WidgetIdContext.Provider value="w1">
             <WidgetActions />

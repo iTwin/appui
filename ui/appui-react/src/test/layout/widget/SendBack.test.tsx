@@ -21,10 +21,7 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
@@ -39,11 +36,7 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
@@ -63,10 +56,7 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>

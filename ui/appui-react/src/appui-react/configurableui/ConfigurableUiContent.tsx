@@ -37,12 +37,14 @@ import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ContentProps } from "../content/ContentGroup.js";
 import { ChildWindowRenderer } from "../childwindow/ChildWindowRenderer.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import type { WidgetActions } from "../layout/widget/WidgetActions.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   ConfigurableUiContentProps & {
     contentElementRef?: React.RefObject<HTMLElement>;
+    widgetActions?: React.ReactNode;
   }
 >({});
 
@@ -103,10 +105,18 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   );
 }
 
+interface StandardLayoutProps {
+  /** Overrides widget specific actions displayed in the title bar area.
+   * Use {@link WidgetActions} component to customize widget actions.
+   */
+  widgetActions?: React.ReactNode;
+}
+
 /** The standard widget based layout used as a default layout for all frontstages.
  * @alpha
  */
-export function StandardLayout() {
+export function StandardLayout(props: StandardLayoutProps) {
+  const { widgetActions } = props;
   const context = React.useContext(ConfigurableUiContext);
   const {
     appBackstage,
@@ -144,8 +154,9 @@ export function StandardLayout() {
         () => ({
           ...context,
           contentElementRef,
+          widgetActions,
         }),
-        [context]
+        [context, widgetActions]
       )}
     >
       <main

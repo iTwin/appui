@@ -8,41 +8,41 @@
 
 import * as React from "react";
 import { MenuItem } from "@itwin/itwinui-react";
-import { WidgetActionDropdownContext } from "./MoreButton.js";
-import { TabBarButton } from "../../layout/widget/Button.js";
+import { WidgetActionDropdownContext } from "../../preview/widget-action-dropdown/MoreButton.js";
+import { TabBarButton } from "./Button.js";
+import type { WidgetActions } from "./WidgetActions.js";
 
-interface ActionButtonProps {
-  label?: string;
+interface WidgetActionProps extends React.HTMLAttributes<HTMLElement> {
+  label: string;
   icon: React.JSX.Element;
   onClick?: () => void;
-  menuProps?: React.ComponentProps<typeof MenuItem>;
-  buttonProps?: React.ComponentProps<typeof TabBarButton>;
 }
 
-/** @internal */
-export function ActionButton(props: ActionButtonProps) {
+/**
+ * A widget action rendered in a widget title bar.
+ * Should be used in {@link WidgetActions} component.
+ * @alpha
+ */
+export function WidgetAction(props: WidgetActionProps) {
+  const { label, icon, onClick, ...rest } = props;
   const dropdownContext = React.useContext(WidgetActionDropdownContext);
   if (dropdownContext !== undefined) {
     return (
       <MenuItem
-        icon={props.icon}
+        startIcon={icon}
         onClick={() => {
-          props.onClick?.();
+          onClick?.();
           dropdownContext.onClose();
         }}
-        {...props.menuProps}
+        {...rest}
       >
-        {props.label}
+        {label}
       </MenuItem>
     );
   }
   return (
-    <TabBarButton
-      onClick={props.onClick}
-      label={props.label}
-      {...props.buttonProps}
-    >
-      {props.icon}
+    <TabBarButton onClick={onClick} label={label} {...rest}>
+      {icon}
     </TabBarButton>
   );
 }

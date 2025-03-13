@@ -8,17 +8,19 @@
 
 import * as React from "react";
 import { SvgDockTop } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
+import { WidgetAction } from "./WidgetAction.js";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** @internal */
 export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const label = useLabel("dockToolSettingsTitle");
+  const { translate } = useTranslation();
+  const label = translate("widget.tooltips.dockToolSettings");
   return (
-    <ActionButton
+    <WidgetAction
       icon={<SvgDockTop />}
       label={label}
       onClick={() => {
