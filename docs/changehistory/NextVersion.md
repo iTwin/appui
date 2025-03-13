@@ -9,7 +9,7 @@ Table of contents:
 
 ### Additions
 
-- Added a `layout` property to the `Frontstage` interface to allow specifying a custom layout component that overrides the standard widget layout.
+- Added a `layout` property to the `Frontstage` interface to allow specifying a custom layout component that overrides the standard widget layout. [#1243](https://github.com/iTwin/appui/pull/1243)
 
   ```tsx
   // Specify a custom layout for a frontstage.
@@ -37,7 +37,7 @@ Table of contents:
   }
   ```
 
-- Added the `StandardLayout` component, which can be used in the `layout` property of a `Frontstage`. The intended use case of this component, instead of simply omitting the layout property, is to add additional configuration to the standard layout or to add additional wrapper components.
+- Added the `StandardLayout` component, which can be used in the `layout` property of a `Frontstage`. The intended use case of this component, instead of simply omitting the layout property, is to add additional configuration to the standard layout or to add additional wrapper components. [#1243](https://github.com/iTwin/appui/pull/1243)
 
   ```tsx
   UiFramework.frontstages.addFrontstage({
@@ -49,4 +49,45 @@ Table of contents:
     ),
     ...
   });
+  ```
+
+- Added `widgetActions` prop to `StandardLayout` component which when combined with newly added `WidgetActions` and `WidgetAction` components allows customizing the default widget actions. [#1245](https://github.com/iTwin/appui/pull/1245)
+
+  To add a custom action to the left of the default widget actions:
+
+  ```tsx
+  // Define a custom action.
+  function CustomAction() {
+    return (
+      <WidgetAction
+        label="Custom action"
+        icon={<SvgPlaceholder />}
+        onClick={console.log}
+      />
+    );
+  }
+
+  // Add the custom action to the default widget actions.
+  <StandardLayout
+    widgetActions={
+      <WidgetActions
+        modifyActions={(defaultActions) => [
+          {
+            id: "custom-action",
+            action: CustomAction,
+          },
+          ...defaultActions,
+        ]}
+      />
+    }
+  />;
+  ```
+
+  The definition used by `defaultActions` argument of the `modifyActions` function includes an `id` property, which can be used to target specific actions. The `id` is defined as a string literal union type, allowing actions to be added or removed in the future.
+  For example, to remove all widget actions except the `popout`:
+
+  ```tsx
+  modifyActions={(defaultActions) =>
+    defaultActions.filter((action) => action.id === "popout")
+  }
   ```
