@@ -343,7 +343,7 @@ function SpatialHeader() {
           <SvgImodel />
         </Icon>
         <Text variant="subheading" as="h1" style={{ whiteSpace: "nowrap" }}>
-          Layout Demo
+          AppUI Test App
         </Text>
         <FrontstageSelectorMenu />
       </header>
