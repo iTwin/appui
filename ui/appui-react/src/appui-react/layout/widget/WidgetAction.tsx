@@ -18,8 +18,7 @@ interface WidgetActionProps extends React.HTMLAttributes<HTMLElement> {
   onClick?: () => void;
 }
 
-/**
- * A widget action rendered in a widget title bar.
+/** A widget action rendered in a widget title bar.
  * Should be used in {@link WidgetActions} component.
  * @alpha
  */

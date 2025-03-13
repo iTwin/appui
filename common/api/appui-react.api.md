@@ -4252,7 +4252,7 @@ export class StandardFrontstageProvider extends FrontstageProvider {
 }
 
 // @alpha
-export function StandardLayout(): React_2.JSX.Element;
+export function StandardLayout(props: StandardLayoutProps): React_2.JSX.Element;
 
 // @public
 export interface StandardLayoutToolbarItem {
@@ -5368,7 +5368,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "docked" | "popout" | "floating";
+    widgetLocation: "popout" | "docked" | "floating";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
@@ -5562,6 +5562,12 @@ export interface Widget {
 
 // @public
 export const WIDGET_OPACITY_DEFAULT = 0.9;
+
+// @alpha
+export function WidgetAction(props: WidgetActionProps): React_2.JSX.Element;
+
+// @alpha
+export function WidgetActions(props: WidgetActionsProps): React_2.JSX.Element;
 
 // @public
 export interface WidgetConfig extends Widget {
