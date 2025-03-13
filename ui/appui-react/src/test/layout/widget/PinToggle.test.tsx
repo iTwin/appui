@@ -20,7 +20,7 @@ describe("PinToggle", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole("button", { name: "Unpin panel" });
+    component.getByRole("button", { name: "widget.tooltips.unpinPanel" });
   });
 
   it("should render in unpinned panel", () => {
@@ -35,7 +35,7 @@ describe("PinToggle", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole("button", { name: "Pin panel" });
+    component.getByRole("button", { name: "widget.tooltips.pinPanel" });
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
@@ -49,7 +49,9 @@ describe("PinToggle", () => {
       </TestNineZoneProvider>
     );
 
-    const button = component.getByRole("button", { name: "Unpin panel" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.unpinPanel",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledOnce();

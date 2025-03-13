@@ -25,7 +25,9 @@ describe("PopoutToggle", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByRole("button", { name: "Popout" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.popoutActiveTab",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({

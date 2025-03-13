@@ -16,7 +16,9 @@ describe("Dock", () => {
         <Dock />
       </NineZoneDispatchContext.Provider>
     );
-    const button = component.getByRole("button", { name: "Dock" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.dockToolSettings",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({

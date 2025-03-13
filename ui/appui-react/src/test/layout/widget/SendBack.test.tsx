@@ -27,7 +27,7 @@ describe("SendBack", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole("button", { name: "Send back" });
+    component.getByRole("button", { name: "widget.tooltips.sendHome" });
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
@@ -42,7 +42,9 @@ describe("SendBack", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByRole("button", { name: "Send back" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.sendHome",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -62,7 +64,9 @@ describe("SendBack", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByRole("button", { name: "Send back" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.sendHome",
+    });
 
     fireEvent.mouseOver(button);
     expect(useActiveSendBackWidgetIdStore.getState()).equal("w1");
