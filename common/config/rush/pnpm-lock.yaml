@@ -3959,8 +3959,8 @@ packages:
     resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
     engines: {node: '>=4'}
 
-  axios@1.7.4:
-    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
+  axios@1.8.3:
+    resolution: {integrity: sha512-iP4DebzoNlP/YN2dpwCgb8zoCmhtkajzS48JvwmkSkXvPI3DHc7m+XYL5tGnSlJtR6nImXZmdCuN5aP8dh1d8A==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -9681,7 +9681,7 @@ snapshots:
       '@itwin/core-common': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
       '@itwin/imodels-access-common': 5.2.3(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0))
       '@itwin/imodels-client-authoring': 5.9.0(inversify@6.0.2)(reflect-metadata@0.1.14)
-      axios: 1.7.4
+      axios: 1.8.3
     transitivePeerDependencies:
       - debug
       - inversify
@@ -9720,7 +9720,7 @@ snapshots:
 
   '@itwin/imodels-client-management@5.9.0':
     dependencies:
-      axios: 1.7.4
+      axios: 1.8.3
     transitivePeerDependencies:
       - debug
 
@@ -9804,7 +9804,7 @@ snapshots:
   '@itwin/object-storage-core@2.2.4(inversify@6.0.2)(reflect-metadata@0.1.14)':
     dependencies:
       '@itwin/cloud-agnostic-core': 2.2.4(inversify@6.0.2)(reflect-metadata@0.1.14)
-      axios: 1.7.4
+      axios: 1.8.3
       inversify: 6.0.2
       reflect-metadata: 0.1.14
     transitivePeerDependencies:
@@ -9813,7 +9813,7 @@ snapshots:
   '@itwin/object-storage-core@2.3.0(inversify@6.0.2)(reflect-metadata@0.1.14)':
     dependencies:
       '@itwin/cloud-agnostic-core': 2.3.0(inversify@6.0.2)(reflect-metadata@0.1.14)
-      axios: 1.7.4
+      axios: 1.8.3
     optionalDependencies:
       inversify: 6.0.2
       reflect-metadata: 0.1.14
@@ -9831,7 +9831,7 @@ snapshots:
     dependencies:
       '@itwin/core-bentley': 4.4.0
       '@itwin/core-geometry': 4.4.0
-      axios: 1.7.4
+      axios: 1.8.3
     transitivePeerDependencies:
       - debug
 
@@ -11574,7 +11574,7 @@ snapshots:
 
   axe-core@4.10.2: {}
 
-  axios@1.7.4:
+  axios@1.8.3:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
