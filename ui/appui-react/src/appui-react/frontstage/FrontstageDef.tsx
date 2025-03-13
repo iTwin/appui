@@ -151,6 +151,11 @@ export class FrontstageDef {
     return this._contentGroup;
   }
 
+  /** @internal */
+  public get initialConfig(): Frontstage | undefined {
+    return this._initialConfig;
+  }
+
   private toStagePanelLocation(side: PanelSide): StagePanelLocation {
     switch (side) {
       case "bottom":

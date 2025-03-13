@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import "./TestPopoutFrontstage.scss";
 import * as React from "react";
-import { Frontstage } from "@itwin/appui-react";
+import { Frontstage, StandardLayout } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
 import { Button, Input, ProgressRadial } from "@itwin/itwinui-react";
 import { Logger } from "@itwin/core-bentley";
@@ -15,6 +15,11 @@ export const createTestPopoutFrontstage = () => {
   {
     const frontstage = createTestFrontstage({
       id: "test-popout",
+      layout: (
+        <TestPopoutProviders>
+          <StandardLayout />
+        </TestPopoutProviders>
+      ),
     });
 
     return {
@@ -133,12 +138,42 @@ function LinkTest() {
 
 function StateWidget() {
   const [value, setValue] = React.useState(0);
+  const { count, increment } = React.useContext(CounterContext);
   return (
     <>
       <Input defaultValue="Default value" />
       <Button onClick={() => setValue((prev) => prev + 1)}>
         Increment: {value}
       </Button>
+      <Button onClick={increment}>Counter: {count}</Button>
     </>
+  );
+}
+
+const CounterContext = React.createContext<{
+  count: number;
+  increment: () => void;
+}>({
+  count: 0,
+  increment: () => {},
+});
+
+function TestPopoutProviders({ children }: React.PropsWithChildren) {
+  const [value, setValue] = React.useState(0);
+  const increment = React.useCallback(() => {
+    setValue((prev) => prev + 1);
+  }, []);
+  return (
+    <CounterContext.Provider
+      value={React.useMemo(
+        () => ({
+          count: value,
+          increment,
+        }),
+        [value, increment]
+      )}
+    >
+      {children}
+    </CounterContext.Provider>
   );
 }

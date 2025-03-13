@@ -88,6 +88,7 @@ export { useUiItemsProviderBackstageItems } from "./appui-react/backstage/useUiI
 export {
   ConfigurableUiContentProps,
   ConfigurableUiContent,
+  StandardLayout,
 } from "./appui-react/configurableui/ConfigurableUiContent.js";
 export {
   ConfigurableBase,

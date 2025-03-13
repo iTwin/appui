@@ -2210,6 +2210,8 @@ export interface FrontstageConfig extends CommonProps {
     readonly contentManipulation?: WidgetConfig;
     readonly defaultTool?: string;
     readonly id: string;
+    // @alpha
+    readonly layout?: React.ReactNode;
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
     readonly statusBar?: WidgetConfig;
@@ -2282,6 +2284,8 @@ export class FrontstageDef {
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // (undocumented)
     get id(): string;
+    // @internal (undocumented)
+    get initialConfig(): Frontstage | undefined;
     // @internal
     initializeFromConfig(config: Frontstage): Promise<void>;
     // (undocumented)
@@ -4246,6 +4250,9 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     // (undocumented)
     get id(): string;
 }
+
+// @alpha
+export function StandardLayout(): React_2.JSX.Element;
 
 // @public
 export interface StandardLayoutToolbarItem {

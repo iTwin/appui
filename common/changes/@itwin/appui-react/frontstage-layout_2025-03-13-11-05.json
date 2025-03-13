@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Add `layout` prop to `Frontstage` interface.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
