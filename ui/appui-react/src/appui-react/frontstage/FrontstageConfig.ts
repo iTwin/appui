@@ -16,6 +16,7 @@ import type { WidgetConfig } from "../widgets/WidgetConfig.js";
 import type { Frontstage } from "./Frontstage.js";
 import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import type { StageUsage } from "./StageUsage.js";
+import type { StandardLayout } from "../configurableui/ConfigurableUiContent.js";
 
 /** Configuration from which a frontstage is created.
  * @public
