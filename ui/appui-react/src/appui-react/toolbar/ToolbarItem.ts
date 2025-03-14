@@ -162,6 +162,10 @@ export function isToolbarCustomItem(
 export interface ToolbarItemLayouts {
   /** Toolbar item configuration in a standard layout. */
   readonly standard?: StandardLayoutToolbarItem;
+  /** Allow additional layout specific configurations.
+   * @note Use unique keys to avoid conflicts.
+   */
+  readonly [layout: string]: unknown;
 }
 
 /** Describes toolbar item configuration specific to a standard layout.

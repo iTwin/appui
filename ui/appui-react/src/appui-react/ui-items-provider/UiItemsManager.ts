@@ -91,7 +91,9 @@ export class UiItemsManager {
   /** For use in unit testing
    * @internal */
   public static clearAllProviders() {
-    if (this._abstractAdapter) return this._abstractAdapter.clearAllProviders();
+    if (this._abstractAdapter) {
+      this._abstractAdapter.clearAllProviders();
+    }
 
     UiItemsManager._registeredUiItemsProviders.clear();
   }
@@ -141,52 +143,54 @@ export class UiItemsManager {
   }
 
   /**
-   * Registers a UiItemsProvider with the UiItemsManager.
-   * @param uiProvider the UI items provider to register.
-   * @param overrides the UI items provider to register.
+   * Registers an {@link UiItemsProvider}.
+   * Optional overrides can be specified to limit when the provider is allowed to provide items.
    */
   public static register(
     uiProvider: UiItemsProvider,
     overrides?: UiItemsProviderOverrides
   ): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.register(uiProvider, overrides);
-
     const providerId = overrides?.providerId ?? uiProvider.id;
-
     if (UiItemsManager.getUiItemsProvider(providerId)) {
       Logger.logInfo(
         UiFramework.loggerCategory("UiItemsManager"),
-        `UiItemsProvider (${providerId}) is already loaded`
+        `UiItemsProvider '${providerId}' is already registered`
       );
-    } else {
-      UiItemsManager._registeredUiItemsProviders.set(providerId, {
-        provider: uiProvider,
-        overrides,
-      });
-      Logger.logInfo(
-        UiFramework.loggerCategory("UiItemsManager"),
-        `UiItemsProvider ${uiProvider.id} registered as ${providerId} `
-      );
-
-      UiItemsManager.sendRegisteredEvent({ providerId });
+      return;
     }
+
+    // Using the same structure to support layout agnostic methods i.e. `getToolbarItems`.
+    UiItemsManager._registeredUiItemsProviders.set(providerId, {
+      provider: uiProvider,
+      overrides,
+    });
+
+    if (this._abstractAdapter) {
+      return this._abstractAdapter.register(uiProvider, overrides);
+    }
+
+    Logger.logInfo(
+      UiFramework.loggerCategory("UiItemsManager"),
+      `UiItemsProvider '${uiProvider.id}' registered as '${providerId}'`
+    );
+    UiItemsManager.sendRegisteredEvent({ providerId });
   }
 
-  /** Remove a specific UiItemsProvider from the list of available providers. */
+  /** Unregisters a specific {@link UiItemsProvider}. */
   public static unregister(providerId: string): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.unregister(providerId);
-
     const provider = UiItemsManager.getUiItemsProvider(providerId);
     if (!provider) return;
 
-    provider.onUnregister && provider.onUnregister();
-
     UiItemsManager._registeredUiItemsProviders.delete(providerId);
+    if (this._abstractAdapter) {
+      this._abstractAdapter.unregister(providerId);
+    }
+
+    provider.onUnregister?.();
+
     Logger.logInfo(
       UiFramework.loggerCategory("UiItemsManager"),
-      `UiItemsProvider (${providerId}) unloaded`
+      `UiItemsProvider '${providerId}' unregistered`
     );
 
     // trigger a refresh of the ui
@@ -214,13 +218,9 @@ export class UiItemsManager {
     return true;
   }
 
-  /** Called when the application is populating a toolbar so that any registered UiItemsProvider can add tool buttons that either either execute
-   * an action or specify a registered ToolId into toolbar.
-   * @param stageId a string identifier of the active stage.
-   * @param stageUsage the StageUsage of the active stage.
-   * @param usage usage of the toolbar
-   * @param orientation orientation of the toolbar
-   * @returns an array of error messages. The array will be empty if the load is successful, otherwise it is a list of one or more problems.
+  /** Returns registered toolbar items configured for the standard layout that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideToolbarItems} are returned by this method.
    */
   public static getToolbarButtonItems(
     stageId: string,
@@ -256,10 +256,35 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
-   * @param stageId a string identifier of the active stage.
-   * @param stageUsage the StageUsage of the active stage.
-   * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
+  /** Returns registered toolbar items that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are not returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideToolbarItems} are not returned by this method.
+   */
+  public static getToolbarItems(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<ToolbarItem>> {
+    const items: ProviderItem<ToolbarItem>[] = [];
+    // Not using `AbstractUiItemsManager`, since there's no way to check if provider items are allowed.
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+      const providerItems =
+        uiProvider.getToolbarItems?.().map((item) => ({
+          ...item,
+          providerId,
+        })) ?? [];
+      items.push(...providerItems);
+    });
+
+    return getUniqueItems(items);
+  }
+
+  /** Returns registered status bar items that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideStatusBarItems} are returned by this method.
    */
   public static getStatusBarItems(
     stageId: string,
@@ -289,8 +314,9 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
-   * @returns An array of BackstageItem that will be used to create controls for the backstage menu.
+  /** Returns registered backstage items.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideBackstageItems} are returned by this method.
    */
   public static getBackstageItems(): ReadonlyArray<
     ProviderItem<BackstageItem>
@@ -316,20 +342,51 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Called when the application is populating the Stage Panels so that any registered UiItemsProvider can add widgets
-   * @param stageId a string identifier of the active stage.
-   * @param stageUsage the StageUsage of the active stage.
-   * @param location the location within the stage.
-   * @param section the section within location.
-   * @returns An array of widgets.
+  /** Returns registered widgets that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are not returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideWidgets} are not returned by this method.
+   */
+  public static getWidgets(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<Widget>>;
+  /** Returns registered widgets configured for the standard layout that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideWidgets} are returned by this method.
    */
   public static getWidgets(
     stageId: string,
     stageUsage: string,
     location: StagePanelLocation,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    section?: StagePanelSection
+  ): ReadonlyArray<ProviderItem<Widget>>;
+  public static getWidgets(
+    stageId: string,
+    stageUsage: string,
+    location?: StagePanelLocation,
     section?: StagePanelSection
   ): ReadonlyArray<ProviderItem<Widget>> {
     const items: ProviderItem<Widget>[] = [];
+
+    // If location is not specified, return all registered widgets.
+    if (location === undefined) {
+      // Not using `AbstractUiItemsManager`, since there's no way to check if provider items are allowed.
+      UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+        const uiProvider = entry.provider;
+        const providerId = entry.overrides?.providerId ?? uiProvider.id;
+        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+        const providerItems =
+          uiProvider.getWidgets?.().map((item) => ({
+            ...item,
+            providerId,
+          })) ?? [];
+        items.push(...providerItems);
+      });
+      return getUniqueItems(items);
+    }
+
     if (this._abstractAdapter) {
       const abstractWidgets = this._abstractAdapter.getWidgets(
         stageId,
