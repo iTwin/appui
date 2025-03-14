@@ -141,39 +141,44 @@ export class UiItemsManager {
   }
 
   /**
-   * Registers a UiItemsProvider with the UiItemsManager.
-   * @param uiProvider the UI items provider to register.
-   * @param overrides the UI items provider to register.
+   * Registers an {@link UiItemsProvider}.
+   * Optional overrides can be specified to limit when the provider is allowed to provide items.
    */
   public static register(
     uiProvider: UiItemsProvider,
     overrides?: UiItemsProviderOverrides
   ): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.register(uiProvider, overrides);
-
     const providerId = overrides?.providerId ?? uiProvider.id;
-
     if (UiItemsManager.getUiItemsProvider(providerId)) {
       Logger.logInfo(
         UiFramework.loggerCategory("UiItemsManager"),
-        `UiItemsProvider (${providerId}) is already loaded`
+        `UiItemsProvider '${providerId}' is already registered`
       );
-    } else {
+      return;
+    }
+
+    if (this._abstractAdapter) {
+      // Using the same structure to support layout agnostic methods i.e. `getToolbarItems`.
       UiItemsManager._registeredUiItemsProviders.set(providerId, {
         provider: uiProvider,
         overrides,
       });
-      Logger.logInfo(
-        UiFramework.loggerCategory("UiItemsManager"),
-        `UiItemsProvider ${uiProvider.id} registered as ${providerId} `
-      );
-
-      UiItemsManager.sendRegisteredEvent({ providerId });
+      return this._abstractAdapter.register(uiProvider, overrides);
     }
+
+    UiItemsManager._registeredUiItemsProviders.set(providerId, {
+      provider: uiProvider,
+      overrides,
+    });
+    Logger.logInfo(
+      UiFramework.loggerCategory("UiItemsManager"),
+      `UiItemsProvider '${uiProvider.id}' registered as '${providerId}'`
+    );
+
+    UiItemsManager.sendRegisteredEvent({ providerId });
   }
 
-  /** Remove a specific UiItemsProvider from the list of available providers. */
+  /** Unregisters a specific {@link UiItemsProvider}. */
   public static unregister(providerId: string): void {
     if (this._abstractAdapter)
       return this._abstractAdapter.unregister(providerId);
@@ -220,7 +225,7 @@ export class UiItemsManager {
    * @param stageUsage the StageUsage of the active stage.
    * @param usage usage of the toolbar
    * @param orientation orientation of the toolbar
-   * @returns an array of error messages. The array will be empty if the load is successful, otherwise it is a list of one or more problems.
+   * @returns An array of toolbar items.
    */
   public static getToolbarButtonItems(
     stageId: string,
@@ -250,6 +255,32 @@ export class UiItemsManager {
           ...item,
           providerId,
         }));
+      items.push(...providerItems);
+    });
+
+    return getUniqueItems(items);
+  }
+
+  /** Returns registered toolbar items that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are not returned by this method.
+   * @note Items returned in {@link UiItemsProvider.provideToolbarItems} are not returned by this method.
+   */
+  public static getToolbarItems(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<ToolbarItem>> {
+    const items: ProviderItem<ToolbarItem>[] = [];
+    // Not using AbstractUiItemsManager for simplicity, since there's no way to check if the abstract provider is allowed for the frontstage.
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+      const providerItems =
+        uiProvider.getToolbarItems?.().map((item) => ({
+          ...item,
+          providerId,
+        })) ?? [];
       items.push(...providerItems);
     });
 
