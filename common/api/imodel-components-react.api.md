@@ -8,6 +8,7 @@ import { Cartographic } from '@itwin/core-common';
 import { ColorDef } from '@itwin/core-common';
 import type { CommonProps } from '@itwin/core-react';
 import type { DateFormatOptions } from '@itwin/components-react';
+import { EditorSpec } from '@itwin/components-react';
 import type { FormatProps } from '@itwin/core-quantity';
 import { FormatterSpec } from '@itwin/core-quantity';
 import { HSVColor } from '@itwin/core-common';
@@ -548,6 +549,9 @@ export interface PlaybackSettings {
 // @public
 export type PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) => void;
 
+// @beta
+export const QuantityEditorSpec: EditorSpec;
+
 // @alpha
 export function QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element;
 
@@ -891,6 +895,9 @@ export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, Wei
     // (undocumented)
     readonly state: Readonly<WeightEditorState>;
 }
+
+// @beta
+export const WeightEditorSpec: EditorSpec;
 
 // @public
 export class WeightPickerButton extends React_2.PureComponent<WeightPickerProps, WeightPickerState> {
