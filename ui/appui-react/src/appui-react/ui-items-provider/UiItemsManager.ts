@@ -286,10 +286,9 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
-   * @param stageId a string identifier of the active stage.
-   * @param stageUsage the StageUsage of the active stage.
-   * @returns An array of CommonStatusBarItem that will be used to create controls for the status bar.
+  /** Returns registered status bar items that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideStatusBarItems} are returned by this method.
    */
   public static getStatusBarItems(
     stageId: string,
@@ -319,8 +318,9 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Called when the application is populating the statusbar so that any registered UiItemsProvider can add status fields
-   * @returns An array of BackstageItem that will be used to create controls for the backstage menu.
+  /** Returns registered backstage items.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideBackstageItems} are returned by this method.
    */
   public static getBackstageItems(): ReadonlyArray<
     ProviderItem<BackstageItem>
