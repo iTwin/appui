@@ -4758,6 +4758,7 @@ export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomIt
 
 // @public
 export interface ToolbarItemLayouts {
+    readonly [layout: string]: unknown;
     readonly standard?: StandardLayoutToolbarItem;
 }
 
@@ -5193,7 +5194,9 @@ export class UiItemsManager {
     static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>>;
     static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>>;
     static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
+    static getToolbarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<ToolbarItem>>;
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
+    static getWidgets(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<Widget>>;
     static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>>;
     static get hasRegisteredProviders(): boolean;
     static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs>;
@@ -5699,6 +5702,7 @@ export class WidgetHost {
 
 // @public
 export interface WidgetLayouts {
+    readonly [layout: string]: unknown;
     readonly standard?: StandardLayoutWidget;
 }
 
