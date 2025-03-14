@@ -14,16 +14,21 @@ import {
   StagePanelState,
   StageUsage,
   StandardContentLayouts,
+  StandardLayout,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
+  UiFramework,
   UiItemsProvider,
   useConditionalValue,
   Widget,
+  WidgetAction,
+  WidgetActions,
   WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import {
+  SvgRefresh,
   SvgTextAlignCenter,
   SvgTextAlignJustify,
   SvgTextAlignLeft,
@@ -97,9 +102,37 @@ export function createWidgetApiFrontstage(): Frontstage {
   return {
     ...config,
     toolSettings,
+    layout: (
+      <StandardLayout
+        widgetActions={
+          <WidgetActions
+            modifyActions={(defaultActions) => [
+              {
+                id: "restore-layout",
+                action: RestoreLayoutWidgetAction,
+              },
+              ...defaultActions,
+            ]}
+          />
+        }
+      />
+    ),
   };
 }
 createWidgetApiFrontstage.stageId = "widget-api";
+
+function RestoreLayoutWidgetAction() {
+  return (
+    <WidgetAction
+      label="Restore layout"
+      icon={<SvgRefresh />}
+      onClick={() => {
+        const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
+        frontstageDef?.restoreLayout();
+      }}
+    />
+  );
+}
 
 function MyCustomViewOverlay() {
   const [visible, setVisible] = React.useState(

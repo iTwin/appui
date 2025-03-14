@@ -145,9 +145,9 @@ describe("<NineZone />", () => {
 describe("useLabel", () => {
   it("should return label", () => {
     const labels: NineZoneLabels = {
-      dockToolSettingsTitle: "test",
+      moreToolSettingsTitle: "test",
     };
-    const { result } = renderHook(() => useLabel("dockToolSettingsTitle"), {
+    const { result } = renderHook(() => useLabel("moreToolSettingsTitle"), {
       wrapper: (props: object) => (
         <NineZoneLabelsContext.Provider value={labels} {...props} />
       ),

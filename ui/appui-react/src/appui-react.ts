@@ -326,6 +326,9 @@ export {
   KeyinFieldLocalization,
 } from "./appui-react/keyins/Keyins.js";
 
+export { WidgetAction } from "./appui-react/layout/widget/WidgetAction.js";
+export { WidgetActions } from "./appui-react/layout/widget/WidgetActions.js";
+
 export { AppNotificationManager } from "./appui-react/messages/AppNotificationManager.js";
 export { InputFieldMessage } from "./appui-react/messages/InputField.js";
 export {

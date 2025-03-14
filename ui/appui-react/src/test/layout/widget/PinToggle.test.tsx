@@ -14,17 +14,13 @@ import { TestNineZoneProvider } from "../Providers.js";
 describe("PinToggle", () => {
   it("should render in pinned panel", () => {
     const component = render(
-      <TestNineZoneProvider
-        labels={{
-          unpinPanelTitle: "Unpin panel",
-        }}
-      >
+      <TestNineZoneProvider>
         <PanelSideContext.Provider value="bottom">
           <PinToggle />
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole("button", { name: "Unpin panel" });
+    component.getByRole("button", { name: "widget.tooltips.unpinPanel" });
   });
 
   it("should render in unpinned panel", () => {
@@ -33,38 +29,29 @@ describe("PinToggle", () => {
       draft.pinned = false;
     });
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{
-          pinPanelTitle: "Pin panel",
-        }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <PanelSideContext.Provider value="left">
           <PinToggle />
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole("button", { name: "Pin panel" });
+    component.getByRole("button", { name: "widget.tooltips.pinPanel" });
   });
 
   it("should dispatch PANEL_TOGGLE_PINNED", () => {
     const dispatch = vi.fn<NineZoneDispatch>();
     const state = createNineZoneState();
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{
-          unpinPanelTitle: "Unpin panel",
-        }}
-        dispatch={dispatch}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <PanelSideContext.Provider value="left">
           <PinToggle />
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
 
-    const button = component.getByRole("button", { name: "Unpin panel" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.unpinPanel",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledOnce();

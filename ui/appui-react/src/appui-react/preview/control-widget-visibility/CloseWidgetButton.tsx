@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
-import { ActionButton } from "../widget-action-dropdown/Button.js";
+import { WidgetAction } from "../../layout/widget/WidgetAction.js";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { useActiveTabId } from "../../layout/widget/Widget.js";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
@@ -19,7 +19,7 @@ export function CloseWidgetButton() {
   const dispatch = React.useContext(NineZoneDispatchContext);
 
   return (
-    <ActionButton
+    <WidgetAction
       icon={<SvgCloseSmall />}
       label="Close widget"
       onClick={() => {

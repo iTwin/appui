@@ -21,16 +21,13 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole("button", { name: "Send back" });
+    component.getByRole("button", { name: "widget.tooltips.sendHome" });
   });
 
   it("should dispatch TOOL_SETTINGS_DOCK", () => {
@@ -39,17 +36,15 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByRole("button", { name: "Send back" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.sendHome",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -63,16 +58,15 @@ describe("SendBack", () => {
     state = addTab(state, "t1");
     state = addFloatingWidget(state, "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        labels={{ sendWidgetHomeTitle: "Send back" }}
-      >
+      <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <SendBack />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByRole("button", { name: "Send back" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.sendHome",
+    });
 
     fireEvent.mouseOver(button);
     expect(useActiveSendBackWidgetIdStore.getState()).equal("w1");

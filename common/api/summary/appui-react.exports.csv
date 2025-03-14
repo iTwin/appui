@@ -795,6 +795,8 @@ deprecated;interface;ViewToolWidgetComposerProps
 public;class;ViewUtilities
 public;interface;Widget
 public;const;WIDGET_OPACITY_DEFAULT
+alpha;function;WidgetAction
+alpha;function;WidgetActions
 public;interface;WidgetConfig
 public;class;WidgetControl
 deprecated;class;WidgetControl
