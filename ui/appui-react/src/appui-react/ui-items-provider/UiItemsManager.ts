@@ -159,24 +159,20 @@ export class UiItemsManager {
       return;
     }
 
-    if (this._abstractAdapter) {
-      // Using the same structure to support layout agnostic methods i.e. `getToolbarItems`.
-      UiItemsManager._registeredUiItemsProviders.set(providerId, {
-        provider: uiProvider,
-        overrides,
-      });
-      return this._abstractAdapter.register(uiProvider, overrides);
-    }
-
+    // Using the same structure to support layout agnostic methods i.e. `getToolbarItems`.
     UiItemsManager._registeredUiItemsProviders.set(providerId, {
       provider: uiProvider,
       overrides,
     });
+
+    if (this._abstractAdapter) {
+      return this._abstractAdapter.register(uiProvider, overrides);
+    }
+
     Logger.logInfo(
       UiFramework.loggerCategory("UiItemsManager"),
       `UiItemsProvider '${uiProvider.id}' registered as '${providerId}'`
     );
-
     UiItemsManager.sendRegisteredEvent({ providerId });
   }
 
