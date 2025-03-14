@@ -33,7 +33,7 @@ test.describe("widget auto size", () => {
     await titleBarHandle.dragTo(frontstage, {
       // Drag top right corner of a handle.
       sourcePosition: {
-        x: boundingBox.width - 30,
+        x: boundingBox.width - 60,
         y: boundingBox.height - 5,
       },
       // Drag to top right corner of a frontstage.
