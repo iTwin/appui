@@ -1,6 +1,11 @@
 # Change Log - @itwin/core-react
 
-This log was last generated on Thu, 27 Feb 2025 08:07:36 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Mar 2025 17:37:48 GMT and should not be manually modified.
+
+## 5.3.0
+Fri, 14 Mar 2025 17:37:48 GMT
+
+_Version update only_
 
 ## 5.2.0
 Thu, 27 Feb 2025 08:07:36 GMT

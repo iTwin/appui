@@ -1,6 +1,15 @@
 # Change Log - @itwin/appui-react
 
-This log was last generated on Thu, 27 Feb 2025 08:07:36 GMT and should not be manually modified.
+This log was last generated on Fri, 14 Mar 2025 17:37:48 GMT and should not be manually modified.
+
+## 5.3.0
+Fri, 14 Mar 2025 17:37:48 GMT
+
+### Updates
+
+- Add `layout` prop to `Frontstage` interface.
+- Add additional methods to UiItemsManager that return items for custom layouts.
+- Add `widgetActions` prop to `StandardLayout` component.
 
 ## 5.2.0
 Thu, 27 Feb 2025 08:07:36 GMT
