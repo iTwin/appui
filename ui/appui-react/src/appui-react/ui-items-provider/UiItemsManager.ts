@@ -91,7 +91,9 @@ export class UiItemsManager {
   /** For use in unit testing
    * @internal */
   public static clearAllProviders() {
-    if (this._abstractAdapter) return this._abstractAdapter.clearAllProviders();
+    if (this._abstractAdapter) {
+      this._abstractAdapter.clearAllProviders();
+    }
 
     UiItemsManager._registeredUiItemsProviders.clear();
   }
@@ -180,18 +182,19 @@ export class UiItemsManager {
 
   /** Unregisters a specific {@link UiItemsProvider}. */
   public static unregister(providerId: string): void {
-    if (this._abstractAdapter)
-      return this._abstractAdapter.unregister(providerId);
-
     const provider = UiItemsManager.getUiItemsProvider(providerId);
     if (!provider) return;
 
-    provider.onUnregister && provider.onUnregister();
-
     UiItemsManager._registeredUiItemsProviders.delete(providerId);
+    if (this._abstractAdapter) {
+      this._abstractAdapter.unregister(providerId);
+    }
+
+    provider.onUnregister?.();
+
     Logger.logInfo(
       UiFramework.loggerCategory("UiItemsManager"),
-      `UiItemsProvider (${providerId}) unloaded`
+      `UiItemsProvider '${providerId}' unregistered`
     );
 
     // trigger a refresh of the ui
