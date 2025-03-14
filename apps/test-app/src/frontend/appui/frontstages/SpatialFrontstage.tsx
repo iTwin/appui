@@ -13,15 +13,11 @@ import {
   isBackstageStageLauncher,
   isToolbarActionItem,
   ProviderItem,
-  StagePanelLocation,
-  StagePanelSection,
   StageUsage,
   StandardContentLayouts,
   ToolbarItem,
   ToolbarItemLayouts,
   ToolbarItemUtilities,
-  ToolbarOrientation,
-  ToolbarUsage,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
@@ -86,31 +82,22 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
         icon: <SvgAdd />,
         label: "Add",
         layouts: {
-          // TODO: should not be necessary to specify the standard layout.
-          standard: {
-            usage: ToolbarUsage.ContentManipulation,
-            orientation: ToolbarOrientation.Vertical,
-          },
-          ...createSpatialToolbarItemLayouts({
+          spatial: {
             widgetId: "add-widget",
             location: "content-manipulation",
-          }),
-        },
+          },
+        } satisfies SpatialToolbarItemLayouts,
       }),
       ToolbarItemUtilities.createActionItem({
         id: "edit-tool",
         icon: <SvgEdit />,
         label: "Edit",
         layouts: {
-          standard: {
-            usage: ToolbarUsage.ContentManipulation,
-            orientation: ToolbarOrientation.Vertical,
-          },
-          ...createSpatialToolbarItemLayouts({
+          spatial: {
             widgetId: "edit-widget",
             location: "content-manipulation",
-          }),
-        },
+          },
+        } satisfies SpatialToolbarItemLayouts,
       }),
     ],
     getWidgets: () => [
@@ -118,24 +105,11 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
         id: "add-widget",
         content: <div>Widget `add` content</div>,
         label: "Add",
-        layouts: {
-          // TODO: should not be necessary to specify the standard layout.
-          standard: {
-            location: StagePanelLocation.Right,
-            section: StagePanelSection.End,
-          },
-        },
       },
       {
         id: "edit-widget",
         content: <div>Widget `edit` content</div>,
         label: "Edit",
-        layouts: {
-          standard: {
-            location: StagePanelLocation.Right,
-            section: StagePanelSection.End,
-          },
-        },
       },
     ],
   };
@@ -149,19 +123,11 @@ interface SpatialLayoutToolbarItem {
   readonly location: "content-manipulation";
 }
 
-interface SpatialToolbarItemLayouts extends ToolbarItemLayouts {
+type SpatialToolbarItemLayouts<
+  T extends ToolbarItemLayouts = ToolbarItemLayouts
+> = T & {
   readonly spatial: SpatialLayoutToolbarItem;
-}
-
-function createSpatialToolbarItemLayouts(
-  args: SpatialLayoutToolbarItem
-): SpatialToolbarItemLayouts {
-  return {
-    spatial: {
-      ...args,
-    },
-  };
-}
+};
 
 type SpatialToolbarItem<T extends ToolbarItem> = T & {
   readonly layouts: SpatialToolbarItemLayouts;
@@ -310,11 +276,9 @@ function useToolbarItems() {
     if (!frontstageDef) {
       return [];
     }
-    return UiItemsManager.getToolbarButtonItems(
+    return UiItemsManager.getToolbarItems(
       frontstageDef.id,
-      frontstageDef.usage,
-      ToolbarUsage.ContentManipulation,
-      ToolbarOrientation.Vertical
+      frontstageDef.usage
     );
   }, [frontstageDef]);
 }
@@ -325,12 +289,7 @@ function useWidgets() {
     if (!frontstageDef) {
       return [];
     }
-    return UiItemsManager.getWidgets(
-      frontstageDef.id,
-      frontstageDef.usage,
-      StagePanelLocation.Right,
-      StagePanelSection.End
-    );
+    return UiItemsManager.getWidgets(frontstageDef.id, frontstageDef.usage);
   }, [frontstageDef]);
 }
 

@@ -91,3 +91,111 @@ Table of contents:
     defaultActions.filter((action) => action.id === "popout")
   }
   ```
+
+- Added new methods to the `UiItemsManager` class to return items outside of the standard layout. These methods will not return items from the `UiItemsManager` of the `@itwin/appui-abstract` package. Additionally, items returned by the `provide*` methods of `UiItemsProvider` (e.g., `UiItemsProvider.provideWidgets`) will also be omitted. [#1246](https://github.com/iTwin/appui/pull/1246)
+
+  The `getToolbarItems` method will return all registered toolbar items for a frontstage. Use this method instead of the existing `getToolbarButtonItems` when items are needed for a custom layout.
+
+  ```tsx
+  UiItemsManager.register({
+    getToolbarItems: () => [
+      ToolbarItemUtilities.createActionItem({
+        id: "item1",
+        layouts: {
+          standard: {
+            usage: ToolbarUsage.ContentManipulation,
+            orientation: ToolbarOrientation.Horizontal,
+          },
+        },
+      }),
+      ToolbarItemUtilities.createActionItem({
+        id: "item2",
+      }),
+    ],
+  });
+
+  // Previous API: returns [item1]
+  UiItemsManager.getToolbarButtonItems(
+    fronstageId,
+    frontstageUsage,
+    ToolbarUsage.ContentManipulation,
+    ToolbarOrientation.Horizontal
+  );
+
+  // New API: returns [item1, item2]
+  UiItemsManager.getToolbarItems(fronstageId, frontstageUsage);
+  ```
+
+  The `getWidgets` method overload can now be used without the `location` and `section` arguments to return all registered widgets for a frontstage. Use this overload when widgets are needed for a custom layout.
+
+  ```tsx
+  UiItemsManager.register({
+    getWidgets: () => [
+      {
+        id: "widget1",
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+      {
+        id: "widget2",
+      },
+    ],
+  });
+
+  // Previous API: returns [widget1]
+  UiItemsManager.getWidgets(
+    fronstageId,
+    frontstageUsage,
+    StagePanelLocation.Right,
+    StagePanelSection.Start
+  );
+
+  // New API: returns [widget1, widget2]
+  UiItemsManager.getWidgets(fronstageId, frontstageUsage);
+  ```
+
+- Added an index signature to the `ToolbarItemLayouts` and `WidgetLayouts` interfaces to allow specifying additional layout-specific configurations for toolbar items and widgets. Consumers should use unique property names to avoid potential conflicts. [#1246](https://github.com/iTwin/appui/pull/1246)
+
+  ```tsx
+  // Define a helper type for type safety.
+  type CustomWidget<T extends Widget = Widget> = T & {
+    layouts: {
+      app_custom: {
+        message: string;
+      };
+    };
+  };
+
+  // Register widgets.
+  UiItemsManager.register({
+    getWidgets: () => [
+      {
+        id: "widget1",
+        layouts: {
+          app_custom: {
+            message: "Custom Layout",
+          },
+        },
+      } satisfies CustomWidget,
+      {
+        id: "widget2",
+      },
+    ],
+  });
+
+  // Get all registered widgets: [widget1, widget2]
+  const allWidgets = UiItemsManager.getWidgets(fronstageId, frontstageUsage);
+
+  // Filter widgets applicable to `app_custom` layout: [widget1]
+  const widgets = allWidgets.filter(
+    (widget): widget is CustomWidget<typeof widget> =>
+      "app_custom" in (widget.layouts ?? {})
+  );
+
+  // Access configuration specific to `app_custom` layout.
+  console.log(widgets[0].layouts.app_custom.message); // Prints "Custom Layout"
+  ```

@@ -78,7 +78,6 @@ export function createAbstractUiItemsManagerAdapter() {
 
 type Target = Pick<
   typeof UiItemsManager,
-  | "getWidgets"
   | "getToolbarButtonItems"
   | "getStatusBarItems"
   | "getBackstageItems"
