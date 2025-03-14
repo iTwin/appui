@@ -219,13 +219,9 @@ export class UiItemsManager {
     return true;
   }
 
-  /** Called when the application is populating a toolbar so that any registered UiItemsProvider can add tool buttons that either either execute
-   * an action or specify a registered ToolId into toolbar.
-   * @param stageId a string identifier of the active stage.
-   * @param stageUsage the StageUsage of the active stage.
-   * @param usage usage of the toolbar
-   * @param orientation orientation of the toolbar
-   * @returns An array of toolbar items.
+  /** Returns registered toolbar items configured for the standard layout that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideToolbarItems} are returned by this method.
    */
   public static getToolbarButtonItems(
     stageId: string,
@@ -263,14 +259,14 @@ export class UiItemsManager {
 
   /** Returns registered toolbar items that match the specified frontstage id and usage.
    * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are not returned by this method.
-   * @note Items returned in {@link UiItemsProvider.provideToolbarItems} are not returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideToolbarItems} are not returned by this method.
    */
   public static getToolbarItems(
     stageId: string,
     stageUsage: string
   ): ReadonlyArray<ProviderItem<ToolbarItem>> {
     const items: ProviderItem<ToolbarItem>[] = [];
-    // Not using AbstractUiItemsManager for simplicity, since there's no way to check if the abstract provider is allowed for the frontstage.
+    // Not using `AbstractUiItemsManager`, since there's no way to check if provider items are allowed.
     UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
       const uiProvider = entry.provider;
       const providerId = entry.overrides?.providerId ?? uiProvider.id;
@@ -347,20 +343,51 @@ export class UiItemsManager {
     return getUniqueItems(items);
   }
 
-  /** Called when the application is populating the Stage Panels so that any registered UiItemsProvider can add widgets
-   * @param stageId a string identifier of the active stage.
-   * @param stageUsage the StageUsage of the active stage.
-   * @param location the location within the stage.
-   * @param section the section within location.
-   * @returns An array of widgets.
+  /** Returns registered widgets that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are not returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideWidgets} are not returned by this method.
+   */
+  public static getWidgets(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<Widget>>;
+  /** Returns registered widgets configured for the standard layout that match the specified frontstage id and usage.
+   * @note Items registered in `UiItemsManager` of `@itwin/appui-abstract` are returned by this method.
+   * @note Items returned by {@link UiItemsProvider.provideWidgets} are returned by this method.
    */
   public static getWidgets(
     stageId: string,
     stageUsage: string,
     location: StagePanelLocation,
+    // eslint-disable-next-line @typescript-eslint/unified-signatures
+    section?: StagePanelSection
+  ): ReadonlyArray<ProviderItem<Widget>>;
+  public static getWidgets(
+    stageId: string,
+    stageUsage: string,
+    location?: StagePanelLocation,
     section?: StagePanelSection
   ): ReadonlyArray<ProviderItem<Widget>> {
     const items: ProviderItem<Widget>[] = [];
+
+    // If location is not specified, return all registered widgets.
+    if (location === undefined) {
+      // Not using `AbstractUiItemsManager`, since there's no way to check if provider items are allowed.
+      UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+        const uiProvider = entry.provider;
+        const providerId = entry.overrides?.providerId ?? uiProvider.id;
+        if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+        const providerItems =
+          uiProvider.getWidgets?.().map((item) => ({
+            ...item,
+            providerId,
+          })) ?? [];
+        items.push(...providerItems);
+      });
+      return getUniqueItems(items);
+    }
+
     if (this._abstractAdapter) {
       const abstractWidgets = this._abstractAdapter.getWidgets(
         stageId,

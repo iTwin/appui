@@ -107,24 +107,11 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
         id: "add-widget",
         content: <div>Widget `add` content</div>,
         label: "Add",
-        layouts: {
-          // TODO: should not be necessary to specify the standard layout.
-          standard: {
-            location: StagePanelLocation.Right,
-            section: StagePanelSection.End,
-          },
-        },
       },
       {
         id: "edit-widget",
         content: <div>Widget `edit` content</div>,
         label: "Edit",
-        layouts: {
-          standard: {
-            location: StagePanelLocation.Right,
-            section: StagePanelSection.End,
-          },
-        },
       },
     ],
   };
@@ -304,12 +291,7 @@ function useWidgets() {
     if (!frontstageDef) {
       return [];
     }
-    return UiItemsManager.getWidgets(
-      frontstageDef.id,
-      frontstageDef.usage,
-      StagePanelLocation.Right,
-      StagePanelSection.End
-    );
+    return UiItemsManager.getWidgets(frontstageDef.id, frontstageDef.usage);
   }, [frontstageDef]);
 }
 
