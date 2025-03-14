@@ -13,8 +13,6 @@ import {
   isBackstageStageLauncher,
   isToolbarActionItem,
   ProviderItem,
-  StagePanelLocation,
-  StagePanelSection,
   StageUsage,
   StandardContentLayouts,
   ToolbarItem,
