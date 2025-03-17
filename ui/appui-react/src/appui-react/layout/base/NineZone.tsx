@@ -50,15 +50,10 @@ export interface NineZoneProps {
 
 /** @internal */
 export interface NineZoneLabels {
-  dockToolSettingsTitle?: string;
   moreWidgetsTitle?: string;
   moreToolSettingsTitle?: string;
-  pinPanelTitle?: string;
   resizeGripTitle?: string;
-  sendWidgetHomeTitle?: string;
   toolSettingsHandleTitle?: string;
-  unpinPanelTitle?: string;
-  popoutActiveTab?: string;
 }
 
 /** @internal */

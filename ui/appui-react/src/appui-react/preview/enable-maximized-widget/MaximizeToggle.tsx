@@ -11,7 +11,7 @@ import {
   SvgWindowMaximize,
   SvgWindowMinimize,
 } from "@itwin/itwinui-icons-react";
-import { ActionButton } from "../widget-action-dropdown/Button.js";
+import { WidgetAction } from "../../layout/widget/WidgetAction.js";
 import { WidgetIdContext } from "../../layout/widget/Widget.js";
 import { MaximizedWidgetContext } from "./MaximizedWidget.js";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
@@ -39,7 +39,7 @@ export function MaximizeToggle() {
         };
 
   return (
-    <ActionButton
+    <WidgetAction
       icon={iconSpec}
       label={label}
       onClick={() => {

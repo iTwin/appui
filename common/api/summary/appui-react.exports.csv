@@ -594,6 +594,7 @@ public;class;StandardContentToolsUiItemsProvider
 public;interface;StandardFrontstageProps
 public;class;StandardFrontstageProvider
 deprecated;class;StandardFrontstageProvider
+alpha;function;StandardLayout
 public;interface;StandardLayoutToolbarItem
 public;interface;StandardLayoutWidget
 public;function;StandardMessageBox
@@ -794,6 +795,8 @@ deprecated;interface;ViewToolWidgetComposerProps
 public;class;ViewUtilities
 public;interface;Widget
 public;const;WIDGET_OPACITY_DEFAULT
+alpha;function;WidgetAction
+alpha;function;WidgetActions
 public;interface;WidgetConfig
 public;class;WidgetControl
 deprecated;class;WidgetControl

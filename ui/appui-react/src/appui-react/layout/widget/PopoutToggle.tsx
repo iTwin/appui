@@ -8,19 +8,21 @@
 
 import * as React from "react";
 import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
 import { useActiveTabId } from "./Widget.js";
 import { useLayout } from "../base/LayoutStore.js";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
+import { WidgetAction } from "./WidgetAction.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** @internal */
 export function PopoutToggle() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const activeTabId = useActiveTabId();
-  const label = useLabel("popoutActiveTab");
+  const { translate } = useTranslation();
+  const label = translate("widget.tooltips.popoutActiveTab");
 
   return (
-    <ActionButton
+    <WidgetAction
       icon={<SvgWindowPopout />}
       label={label}
       onClick={() => {

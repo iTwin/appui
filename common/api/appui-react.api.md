@@ -2210,6 +2210,8 @@ export interface FrontstageConfig extends CommonProps {
     readonly contentManipulation?: WidgetConfig;
     readonly defaultTool?: string;
     readonly id: string;
+    // @alpha
+    readonly layout?: React.ReactNode;
     readonly leftPanel?: StagePanelConfig;
     readonly rightPanel?: StagePanelConfig;
     readonly statusBar?: WidgetConfig;
@@ -2282,6 +2284,8 @@ export class FrontstageDef {
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // (undocumented)
     get id(): string;
+    // @internal (undocumented)
+    get initialConfig(): Frontstage | undefined;
     // @internal
     initializeFromConfig(config: Frontstage): Promise<void>;
     // (undocumented)
@@ -4247,6 +4251,9 @@ export class StandardFrontstageProvider extends FrontstageProvider {
     get id(): string;
 }
 
+// @alpha
+export function StandardLayout(props: StandardLayoutProps): React_2.JSX.Element;
+
 // @public
 export interface StandardLayoutToolbarItem {
     readonly orientation: ToolbarOrientation;
@@ -4751,6 +4758,7 @@ export type ToolbarItem = ToolbarActionItem | ToolbarGroupItem | ToolbarCustomIt
 
 // @public
 export interface ToolbarItemLayouts {
+    readonly [layout: string]: unknown;
     readonly standard?: StandardLayoutToolbarItem;
 }
 
@@ -5186,7 +5194,9 @@ export class UiItemsManager {
     static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>>;
     static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>>;
     static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
+    static getToolbarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<ToolbarItem>>;
     static getUiItemsProvider(providerId: string): UiItemsProvider | undefined;
+    static getWidgets(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<Widget>>;
     static getWidgets(stageId: string, stageUsage: string, location: StagePanelLocation, section?: StagePanelSection): ReadonlyArray<ProviderItem<Widget>>;
     static get hasRegisteredProviders(): boolean;
     static get onUiProviderRegisteredEvent(): BeUiEvent<UiItemsProviderRegisteredEventArgs>;
@@ -5361,7 +5371,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @alpha
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "docked" | "popout" | "floating";
+    widgetLocation: "popout" | "docked" | "floating";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
@@ -5556,6 +5566,12 @@ export interface Widget {
 // @public
 export const WIDGET_OPACITY_DEFAULT = 0.9;
 
+// @alpha
+export function WidgetAction(props: WidgetActionProps): React_2.JSX.Element;
+
+// @alpha
+export function WidgetActions(props: WidgetActionsProps): React_2.JSX.Element;
+
 // @public
 export interface WidgetConfig extends Widget {
     readonly labelKey?: string;
@@ -5686,6 +5702,7 @@ export class WidgetHost {
 
 // @public
 export interface WidgetLayouts {
+    readonly [layout: string]: unknown;
     readonly standard?: StandardLayoutWidget;
 }
 

@@ -9,24 +9,26 @@
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
 import { SvgPin, SvgPinHollow } from "@itwin/itwinui-icons-react";
-import { NineZoneDispatchContext, useLabel } from "../base/NineZone.js";
+import { NineZoneDispatchContext } from "../base/NineZone.js";
 import { PanelSideContext } from "../widget-panels/Panel.js";
 import { useLayout } from "../base/LayoutStore.js";
-import { ActionButton } from "../../preview/widget-action-dropdown/Button.js";
+import { WidgetAction } from "./WidgetAction.js";
 import { useMainPanelWidgetId } from "./usePanelWidgetId.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** @internal */
 export function PinToggle() {
   const side = React.useContext(PanelSideContext);
   assert(!!side);
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const pinLabel = useLabel("pinPanelTitle");
-  const unpinLabel = useLabel("unpinPanelTitle");
+  const { translate } = useTranslation();
+  const pinLabel = translate("widget.tooltips.pinPanel");
+  const unpinLabel = translate("widget.tooltips.unpinPanel");
   const pinned = useLayout((state) => state.panels[side].pinned);
 
   return (
-    <ActionButton
+    <WidgetAction
       icon={pinned ? <SvgPin /> : <SvgPinHollow />}
       label={pinned ? unpinLabel : pinLabel}
       onClick={() => {

@@ -19,19 +19,15 @@ describe("PopoutToggle", () => {
     state = addTab(state, "t1");
     state = addPanelWidget(state, "left", "w1", ["t1"]);
     const component = render(
-      <TestNineZoneProvider
-        defaultState={state}
-        dispatch={dispatch}
-        labels={{
-          popoutActiveTab: "Popout",
-        }}
-      >
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
         <WidgetIdContext.Provider value="w1">
           <PopoutToggle />
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.getByRole("button", { name: "Popout" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.popoutActiveTab",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({

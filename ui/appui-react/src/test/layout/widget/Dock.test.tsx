@@ -5,10 +5,7 @@
 import { fireEvent, render } from "@testing-library/react";
 import * as React from "react";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
-import {
-  NineZoneDispatchContext,
-  NineZoneLabelsContext,
-} from "../../../appui-react/layout/base/NineZone.js";
+import { NineZoneDispatchContext } from "../../../appui-react/layout/base/NineZone.js";
 import { Dock } from "../../../appui-react/layout/widget/Dock.js";
 
 describe("Dock", () => {
@@ -16,14 +13,12 @@ describe("Dock", () => {
     const dispatch = vi.fn<NineZoneDispatch>();
     const component = render(
       <NineZoneDispatchContext.Provider value={dispatch}>
-        <NineZoneLabelsContext.Provider
-          value={{ dockToolSettingsTitle: "Dock" }}
-        >
-          <Dock />
-        </NineZoneLabelsContext.Provider>
+        <Dock />
       </NineZoneDispatchContext.Provider>
     );
-    const button = component.getByRole("button", { name: "Dock" });
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.dockToolSettings",
+    });
     fireEvent.click(button);
 
     expect(dispatch).toHaveBeenCalledWith({

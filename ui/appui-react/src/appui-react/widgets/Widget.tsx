@@ -86,6 +86,10 @@ export interface Widget {
 export interface WidgetLayouts {
   /** Widget configuration in a standard layout. */
   readonly standard?: StandardLayoutWidget;
+  /** Allow additional layout specific configurations.
+   * @note Use unique keys to avoid conflicts.
+   */
+  readonly [layout: string]: unknown;
 }
 
 /** Describes widget configuration specific to a standard layout.
