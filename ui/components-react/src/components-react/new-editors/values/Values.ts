@@ -69,7 +69,8 @@ export type Value =
   | TextValue
   | BooleanValue
   | DateValue
-  | EnumValue;
+  | EnumValue
+  | object;
 
 /** @beta */
 // eslint-disable-next-line @typescript-eslint/no-redeclare

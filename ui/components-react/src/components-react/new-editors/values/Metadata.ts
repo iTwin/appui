@@ -17,7 +17,8 @@ export type ValueType =
   | "date"
   | "dateTime"
   | "enum"
-  | "instanceKey";
+  | "instanceKey"
+  | (string & {});
 
 /**
  * Additional metadata that is used along side value.

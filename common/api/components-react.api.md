@@ -3368,7 +3368,7 @@ export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
 };
 
 // @beta
-export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue | DateValue | EnumValue;
+export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue | DateValue | EnumValue | object;
 
 // @beta (undocumented)
 export namespace Value {
@@ -3391,7 +3391,7 @@ export interface ValueMetadata {
 }
 
 // @beta
-export type ValueType = "string" | "number" | "bool" | "date" | "dateTime" | "enum" | "instanceKey";
+export type ValueType = "string" | "number" | "bool" | "date" | "dateTime" | "enum" | "instanceKey" | (string & {});
 
 // @public
 export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
