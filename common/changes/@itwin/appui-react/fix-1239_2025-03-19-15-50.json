@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fix Firefox specific style loading issue of widget popouts.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
