@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Remove redundant spacing between toolbars when the app button or navigation aid is not displayed.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
