@@ -21,8 +21,8 @@ import { createEditorSpec } from "../../Types.js";
 import type { OldEditorMetadata } from "../Metadata.js";
 import { isOldEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
-import { Value } from "../../values/Values.js";
 import { useColorEditorParams } from "./UseEditorParams.js";
+import { isNumeric } from "../../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -38,7 +38,7 @@ export const ColorEditorSpec: EditorSpec = createEditorSpec({
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
     ) &&
     metadata.preferredEditor === StandardEditorNames.ColorPicker,
-  isValueSupported: Value.isNumeric,
+  isValueSupported: isNumeric,
   Editor: ColorEditor,
 });
 

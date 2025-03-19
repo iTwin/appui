@@ -9,7 +9,6 @@ import { createEditorSpec } from "../../Types.js";
 import type { OldEditorMetadata } from "../Metadata.js";
 import { isOldEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
-import { Value } from "../../values/Values.js";
 import type { SliderEditorParams } from "@itwin/appui-abstract";
 import {
   PropertyEditorParamTypes,
@@ -18,6 +17,7 @@ import {
 import { Button, Icon, Popover, Slider } from "@itwin/itwinui-react";
 import { useSliderEditorParams } from "./UseEditorParams.js";
 import { findIcon } from "../IconsRegistry.js";
+import { isNumeric } from "../../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -30,7 +30,7 @@ export const SliderEditorSpec = createEditorSpec({
       (param) => param.type === PropertyEditorParamTypes.Slider.valueOf()
     ) &&
     metadata.preferredEditor === StandardEditorNames.Slider,
-  isValueSupported: Value.isNumeric,
+  isValueSupported: isNumeric,
   Editor: SliderEditor,
 });
 

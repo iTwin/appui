@@ -14,8 +14,8 @@ import {
   type EditorProps,
   type EditorSpec,
   type NumericValue,
-  Value,
   type ValueMetadata,
+  ValueUtilities,
 } from "@itwin/components-react";
 import { QuantityInput } from "./QuantityInput.js";
 
@@ -30,7 +30,7 @@ export const QuantityEditorSpec: EditorSpec = createEditorSpec({
     metadata.type === "number" &&
     "quantityType" in metadata &&
     metadata.quantityType !== undefined,
-  isValueSupported: Value.isNumeric,
+  isValueSupported: ValueUtilities.isNumeric,
   Editor: QuantityEditor,
 });
 

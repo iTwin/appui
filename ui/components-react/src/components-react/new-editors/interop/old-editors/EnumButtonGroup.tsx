@@ -14,11 +14,11 @@ import { createEditorSpec } from "../../Types.js";
 import type { OldEditorMetadata } from "../Metadata.js";
 import { isOldEditorMetadata } from "../Metadata.js";
 import type { EnumValue } from "../../values/Values.js";
-import { Value } from "../../values/Values.js";
 import { useEnumMetadata } from "./UseEnumMetadata.js";
 import { useButtonGroupEditorParams } from "./UseEditorParams.js";
 import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
 import { findIcon } from "../IconsRegistry.js";
+import { isEnum } from "../../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -28,7 +28,7 @@ export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
     isOldEditorMetadata(metadata) &&
     metadata.type === "enum" &&
     metadata.preferredEditor === StandardEditorNames.EnumButtonGroup,
-  isValueSupported: Value.isEnum,
+  isValueSupported: isEnum,
   Editor: EnumButtonGroupEditor,
 });
 

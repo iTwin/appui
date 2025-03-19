@@ -7,8 +7,9 @@ import * as React from "react";
 import { Button, Popover, Textarea } from "@itwin/itwinui-react";
 import { createEditorSpec, type EditorProps } from "../../Types.js";
 import { isOldEditorMetadata, type OldEditorMetadata } from "../Metadata.js";
-import { type TextValue, Value } from "../../values/Values.js";
+import { type TextValue } from "../../values/Values.js";
 import { StandardEditorNames } from "@itwin/appui-abstract";
+import { isText } from "../../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -18,7 +19,7 @@ export const MultilineEditorSpec = createEditorSpec({
     isOldEditorMetadata(metadata) &&
     metadata.type === "string" &&
     metadata.preferredEditor === StandardEditorNames.MultiLine,
-  isValueSupported: Value.isText,
+  isValueSupported: isText,
   Editor: TextAreaEditor,
 });
 

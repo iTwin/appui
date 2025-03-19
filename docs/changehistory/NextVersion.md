@@ -217,7 +217,7 @@ Table of contents:
   export const CustomBoolEditorSpec: EditorSpec = createEditorSpec({
     isMetadataSupported: (metadata): metadata is ValueMetadata =>
       metadata.type === "bool",
-    isValueSupported: Value.isBoolean,
+    isValueSupported: ValueUtilities.isBoolean,
     Editor: CustomBooleanEditor,
   });
 

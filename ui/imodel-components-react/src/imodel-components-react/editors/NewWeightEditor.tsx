@@ -15,7 +15,7 @@ import {
   type EditorProps,
   type EditorSpec,
   type NumericValue,
-  Value,
+  ValueUtilities,
 } from "@itwin/components-react";
 
 /* v8 ignore start */
@@ -28,7 +28,7 @@ export const WeightEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.WeightPicker,
-  isValueSupported: Value.isNumeric,
+  isValueSupported: ValueUtilities.isNumeric,
   Editor: WeightEditor,
 });
 

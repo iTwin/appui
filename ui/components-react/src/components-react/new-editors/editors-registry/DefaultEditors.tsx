@@ -20,9 +20,15 @@ import { NumericInputEditorSpec as InteropNumericInputEditorSpec } from "../inte
 
 import { createEditorSpec, type EditorSpec } from "../Types.js";
 import type { EnumValueMetadata, ValueMetadata } from "../values/Metadata.js";
-import { Value } from "../values/Values.js";
 import { ToggleEditor } from "../editors/ToggleEditor.js";
 import { DateEditor } from "../editors/DateEditor.js";
+import {
+  isBoolean,
+  isDate,
+  isEnum,
+  isNumeric,
+  isText,
+} from "../values/ValueUtilities.js";
 
 /** v8 ignore start */
 
@@ -33,7 +39,7 @@ import { DateEditor } from "../editors/DateEditor.js";
 export const TextEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "string",
-  isValueSupported: Value.isText,
+  isValueSupported: isText,
   Editor: TextEditor,
 });
 
@@ -44,7 +50,7 @@ export const TextEditorSpec: EditorSpec = createEditorSpec({
 export const DateEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "date",
-  isValueSupported: Value.isDate,
+  isValueSupported: isDate,
   Editor: DateEditor,
 });
 
@@ -55,7 +61,7 @@ export const DateEditorSpec: EditorSpec = createEditorSpec({
 export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "dateTime",
-  isValueSupported: Value.isDate,
+  isValueSupported: isDate,
   Editor: DateTimeEditor,
 });
 
@@ -66,7 +72,7 @@ export const DateTimeEditorSpec: EditorSpec = createEditorSpec({
 export const BoolEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "bool",
-  isValueSupported: Value.isBoolean,
+  isValueSupported: isBoolean,
   Editor: BooleanEditor,
 });
 
@@ -77,7 +83,7 @@ export const BoolEditorSpec: EditorSpec = createEditorSpec({
 export const NumericEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "number",
-  isValueSupported: Value.isNumeric,
+  isValueSupported: isNumeric,
   Editor: NumericEditor,
 });
 
@@ -88,7 +94,7 @@ export const NumericEditorSpec: EditorSpec = createEditorSpec({
 export const EnumEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is EnumValueMetadata =>
     metadata.type === "enum",
-  isValueSupported: Value.isEnum,
+  isValueSupported: isEnum,
   Editor: EnumEditor,
 });
 
@@ -100,7 +106,7 @@ export const ToggleEditorSpec: EditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
     metadata.type === "bool" &&
     metadata.preferredEditor === StandardEditorNames.Toggle,
-  isValueSupported: Value.isBoolean,
+  isValueSupported: isBoolean,
   Editor: ToggleEditor,
 });
 

@@ -12,9 +12,16 @@ import type {
   NumericValue,
   TextValue,
 } from "../../components-react/new-editors/values/Values.js";
-import { Value } from "../../components-react/new-editors/values/Values.js";
+import {
+  isBoolean,
+  isDate,
+  isEnum,
+  isInstanceKey,
+  isNumeric,
+  isText,
+} from "../../components-react/new-editors/values/ValueUtilities.js";
 
-describe("Value", () => {
+describe("ValueUtilities", () => {
   const textValue: TextValue = { value: "test" };
   const numericValue: NumericValue = { rawValue: 1, displayValue: "1" };
   const booleanValue: BooleanValue = { value: true };
@@ -26,56 +33,56 @@ describe("Value", () => {
   };
 
   it("isText returns correct result", () => {
-    expect(Value.isText(textValue)).toBe(true);
-    expect(Value.isText(numericValue)).toBe(false);
-    expect(Value.isText(booleanValue)).toBe(false);
-    expect(Value.isText(dateValue)).toBe(false);
-    expect(Value.isText(enumValue)).toBe(false);
-    expect(Value.isText(instanceKeyValue)).toBe(false);
+    expect(isText(textValue)).toBe(true);
+    expect(isText(numericValue)).toBe(false);
+    expect(isText(booleanValue)).toBe(false);
+    expect(isText(dateValue)).toBe(false);
+    expect(isText(enumValue)).toBe(false);
+    expect(isText(instanceKeyValue)).toBe(false);
   });
 
   it("isNumeric returns correct result", () => {
-    expect(Value.isNumeric(textValue)).toBe(false);
-    expect(Value.isNumeric(numericValue)).toBe(true);
-    expect(Value.isNumeric(booleanValue)).toBe(false);
-    expect(Value.isNumeric(dateValue)).toBe(false);
-    expect(Value.isNumeric(enumValue)).toBe(false);
-    expect(Value.isNumeric(instanceKeyValue)).toBe(false);
+    expect(isNumeric(textValue)).toBe(false);
+    expect(isNumeric(numericValue)).toBe(true);
+    expect(isNumeric(booleanValue)).toBe(false);
+    expect(isNumeric(dateValue)).toBe(false);
+    expect(isNumeric(enumValue)).toBe(false);
+    expect(isNumeric(instanceKeyValue)).toBe(false);
   });
 
   it("isBoolean returns correct result", () => {
-    expect(Value.isBoolean(textValue)).toBe(false);
-    expect(Value.isBoolean(numericValue)).toBe(false);
-    expect(Value.isBoolean(booleanValue)).toBe(true);
-    expect(Value.isBoolean(dateValue)).toBe(false);
-    expect(Value.isBoolean(enumValue)).toBe(false);
-    expect(Value.isBoolean(instanceKeyValue)).toBe(false);
+    expect(isBoolean(textValue)).toBe(false);
+    expect(isBoolean(numericValue)).toBe(false);
+    expect(isBoolean(booleanValue)).toBe(true);
+    expect(isBoolean(dateValue)).toBe(false);
+    expect(isBoolean(enumValue)).toBe(false);
+    expect(isBoolean(instanceKeyValue)).toBe(false);
   });
 
   it("isDate returns correct result", () => {
-    expect(Value.isDate(textValue)).toBe(false);
-    expect(Value.isDate(numericValue)).toBe(false);
-    expect(Value.isDate(booleanValue)).toBe(false);
-    expect(Value.isDate(dateValue)).toBe(true);
-    expect(Value.isDate(enumValue)).toBe(false);
-    expect(Value.isDate(instanceKeyValue)).toBe(false);
+    expect(isDate(textValue)).toBe(false);
+    expect(isDate(numericValue)).toBe(false);
+    expect(isDate(booleanValue)).toBe(false);
+    expect(isDate(dateValue)).toBe(true);
+    expect(isDate(enumValue)).toBe(false);
+    expect(isDate(instanceKeyValue)).toBe(false);
   });
 
   it("isEnum returns correct result", () => {
-    expect(Value.isEnum(textValue)).toBe(false);
-    expect(Value.isEnum(numericValue)).toBe(false);
-    expect(Value.isEnum(booleanValue)).toBe(false);
-    expect(Value.isEnum(dateValue)).toBe(false);
-    expect(Value.isEnum(enumValue)).toBe(true);
-    expect(Value.isEnum(instanceKeyValue)).toBe(false);
+    expect(isEnum(textValue)).toBe(false);
+    expect(isEnum(numericValue)).toBe(false);
+    expect(isEnum(booleanValue)).toBe(false);
+    expect(isEnum(dateValue)).toBe(false);
+    expect(isEnum(enumValue)).toBe(true);
+    expect(isEnum(instanceKeyValue)).toBe(false);
   });
 
   it("isInstanceKey returns correct result", () => {
-    expect(Value.isInstanceKey(textValue)).toBe(false);
-    expect(Value.isInstanceKey(numericValue)).toBe(false);
-    expect(Value.isInstanceKey(booleanValue)).toBe(false);
-    expect(Value.isInstanceKey(dateValue)).toBe(false);
-    expect(Value.isInstanceKey(enumValue)).toBe(false);
-    expect(Value.isInstanceKey(instanceKeyValue)).toBe(true);
+    expect(isInstanceKey(textValue)).toBe(false);
+    expect(isInstanceKey(numericValue)).toBe(false);
+    expect(isInstanceKey(booleanValue)).toBe(false);
+    expect(isInstanceKey(dateValue)).toBe(false);
+    expect(isInstanceKey(enumValue)).toBe(false);
+    expect(isInstanceKey(instanceKeyValue)).toBe(true);
   });
 });

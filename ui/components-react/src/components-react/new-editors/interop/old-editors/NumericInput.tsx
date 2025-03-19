@@ -10,12 +10,12 @@ import { createEditorSpec } from "../../Types.js";
 import type { OldEditorMetadata } from "../Metadata.js";
 import { isOldEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
-import { Value } from "../../values/Values.js";
 import {
   useInputEditorSizeParams,
   useRangeEditorParams,
 } from "./UseEditorParams.js";
 import { Input } from "@itwin/itwinui-react";
+import { isNumeric } from "../../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -25,7 +25,7 @@ export const NumericInputEditorSpec: EditorSpec = createEditorSpec({
     isOldEditorMetadata(metadata) &&
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.NumericInput,
-  isValueSupported: Value.isNumeric,
+  isValueSupported: isNumeric,
   Editor: NumericInputEditor,
 });
 

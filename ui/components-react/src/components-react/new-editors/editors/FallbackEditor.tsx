@@ -6,7 +6,15 @@
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { EditorProps } from "../Types.js";
-import { Value } from "../values/Values.js";
+import type { Value } from "../values/Values.js";
+import {
+  isBoolean,
+  isDate,
+  isEnum,
+  isInstanceKey,
+  isNumeric,
+  isText,
+} from "../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -22,22 +30,22 @@ function getTextValue(value?: Value) {
   if (value === undefined) {
     return value;
   }
-  if (Value.isBoolean(value)) {
+  if (isBoolean(value)) {
     return value.value ? "true" : "false";
   }
-  if (Value.isDate(value)) {
+  if (isDate(value)) {
     return value.value.toDateString();
   }
-  if (Value.isEnum(value)) {
+  if (isEnum(value)) {
     return value.choice;
   }
-  if (Value.isNumeric(value)) {
+  if (isNumeric(value)) {
     return value.displayValue;
   }
-  if (Value.isText(value)) {
+  if (isText(value)) {
     return value.value;
   }
-  if (Value.isInstanceKey(value)) {
+  if (isInstanceKey(value)) {
     return value.label;
   }
   return "";

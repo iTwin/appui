@@ -14,13 +14,13 @@ import { createEditorSpec } from "../../Types.js";
 import type { OldEditorMetadata } from "../Metadata.js";
 import { isOldEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
-import { Value } from "../../values/Values.js";
 import {
   useCustomFormattedNumberParams,
   useIconEditorParams,
   useInputEditorSizeParams,
 } from "./UseEditorParams.js";
 import { findIcon } from "../IconsRegistry.js";
+import { isNumeric } from "../../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -34,7 +34,7 @@ export const CustomNumberEditorSpec = createEditorSpec({
         param.type === PropertyEditorParamTypes.CustomFormattedNumber.valueOf()
     ) &&
     metadata.preferredEditor === StandardEditorNames.NumberCustom,
-  isValueSupported: Value.isNumeric,
+  isValueSupported: isNumeric,
   Editor: CustomNumberEditor,
 });
 

@@ -17,8 +17,15 @@ import type {
   NumericValue,
   TextValue,
 } from "../values/Values.js";
-import { Value as NewEditorValue } from "../values/Values.js";
+import type { Value as NewEditorValue } from "../values/Values.js";
 import type { OldEditorMetadata } from "./Metadata.js";
+import {
+  isBoolean,
+  isDate,
+  isEnum,
+  isNumeric,
+  isText,
+} from "../values/ValueUtilities.js";
 
 /**
  * Interop utilities for converting between old and new editor values.
@@ -128,28 +135,28 @@ export namespace EditorInterop {
   export function convertToPrimitiveValue(
     newValue: NewEditorValue
   ): PrimitiveValue {
-    if (NewEditorValue.isText(newValue)) {
+    if (isText(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
         displayValue: newValue.value,
       };
     }
-    if (NewEditorValue.isNumeric(newValue)) {
+    if (isNumeric(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.rawValue,
         displayValue: newValue.displayValue,
       };
     }
-    if (NewEditorValue.isBoolean(newValue)) {
+    if (isBoolean(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
         displayValue: newValue.value.toString(),
       };
     }
-    if (NewEditorValue.isDate(newValue)) {
+    if (isDate(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.value,
@@ -157,13 +164,13 @@ export namespace EditorInterop {
       };
     }
 
-    if (NewEditorValue.isEnum(newValue)) {
+    if (isEnum(newValue)) {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.choice,
       };
     }
 
-    throw new Error("Invalid value type");
+    throw new Error("Unsupported value type");
   }
 }
