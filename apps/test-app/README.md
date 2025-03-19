@@ -38,6 +38,7 @@ _Optionally_ used to load an application in a specific configuration:
 - `menu` - allows disabling the rendering of menus if `0` is specified, i.e. <http://localhost:3000/?menu=0>.
 - `frontstageId` - opens a frontstage by specified frontstage id, uses a blank connection, i.e. <http://localhost:3000/blank?frontstageId=widget-api>.
 - `themeBridge` - enables the iTwinUI v5 theme bridge if `1` is specified, i.e. <http://localhost:3000/?themeBridge=1>.
+- `useDefaultPopoutUrl` - disables the default `/iTwinPopup.html` URL for popout widgets if `0` is specified, i.e. <http://localhost:3000/?useDefaultPopoutUrl=0>.
 
 Preview features:
 
