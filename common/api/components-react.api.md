@@ -1185,10 +1185,28 @@ export interface IPropertyValueRenderer {
 }
 
 // @beta
+function isBoolean(value: Value): value is BooleanValue;
+
+// @beta
+function isDate(value: Value): value is DateValue;
+
+// @beta
+function isEnum(value: Value): value is EnumValue;
+
+// @beta
+function isInstanceKey(value: Value): value is InstanceKeyValue;
+
+// @beta
+function isNumeric(value: Value): value is NumericValue;
+
+// @beta
 export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRuleGroupItem): item is PropertyFilterBuilderRuleGroup;
 
 // @beta
 export function isPropertyFilterRuleGroup(filter: PropertyFilter): filter is PropertyFilterRuleGroup;
+
+// @beta
+function isText(value: Value): value is TextValue;
 
 // @public
 export const isTreeDataProviderInterface: (provider: TreeDataProvider) => provider is ITreeDataProvider;
@@ -3370,16 +3388,6 @@ export function useVirtualizedPropertyGridLayoutStorage<T extends Element>(): {
 // @beta
 export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue | DateValue | EnumValue | object;
 
-// @beta (undocumented)
-export namespace Value {
-    export function isBoolean(value: Value): value is BooleanValue;
-    export function isDate(value: Value): value is DateValue;
-    export function isEnum(value: Value): value is EnumValue;
-    export function isInstanceKey(value: Value): value is InstanceKeyValue;
-    export function isNumeric(value: Value): value is NumericValue;
-    export function isText(value: Value): value is TextValue;
-}
-
 // @beta
 export interface ValueMetadata {
     // (undocumented)
@@ -3392,6 +3400,17 @@ export interface ValueMetadata {
 
 // @beta
 export type ValueType = "string" | "number" | "bool" | "date" | "dateTime" | "enum" | "instanceKey" | (string & {});
+
+declare namespace ValueUtilities {
+    export {
+        isText,
+        isNumeric,
+        isBoolean,
+        isDate,
+        isEnum,
+        isInstanceKey
+    }
+}
 
 // @public
 export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
