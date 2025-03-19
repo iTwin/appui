@@ -12,10 +12,12 @@
   box-sizing: border-box;
   height: 100%;
   grid-gap: 6px;
-  grid-template-columns: 1fr minmax($mls-navigation-aid-width, auto);
-  grid-template-rows: minmax($mls-navigation-aid-width, auto) 1fr;
+  grid-template-areas:
+    "htools button"
+    ". vtools";
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
   justify-items: end;
-  grid-template-areas: "htools button" ". vtools";
 
   &.nz-hidden {
     opacity: 0;
@@ -23,24 +25,34 @@
   }
 
   > .nz-navigation-aid-container {
+    grid-area: button;
+
+    min-width: $mls-navigation-aid-width;
+    min-height: $mls-navigation-aid-height;
+
     margin-bottom: 6px;
     pointer-events: auto;
-    grid-area: button;
 
     @include nz-widget-opacity;
   }
 
   > .nz-vertical-toolbar-container {
     grid-area: vtools;
+
     height: calc(100% - 60px);
     display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
     @include nz-widget-opacity;
+
+    &.nz-span {
+      grid-row: button / vtools;
+    }
   }
 
   > .nz-horizontal-toolbar-container {
     grid-area: htools;
+
     width: 100%;
     display: flex;
     flex-direction: row;
