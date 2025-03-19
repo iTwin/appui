@@ -31,8 +31,7 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
   onMouseLeave?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-/** NavigationArea widget is used in NavigationArea (Zone 1) and Navigation (Zone 3???) zones of 9-Zone UI.
- * @note Should be placed in [[Zone]] component.
+/** A component that renders toolbars in the top right corner of standard layout.
  * @internal
  */
 export function NavigationArea(props: NavigationAreaProps) {
@@ -56,7 +55,10 @@ export function NavigationArea(props: NavigationAreaProps) {
         </div>
       )}
       <div
-        className="nz-vertical-toolbar-container"
+        className={classnames(
+          "nz-vertical-toolbar-container",
+          !props.navigationAid && "nz-span"
+        )}
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
       >
