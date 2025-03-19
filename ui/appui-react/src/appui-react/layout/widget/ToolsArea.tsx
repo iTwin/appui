@@ -32,8 +32,7 @@ export interface ToolsAreaProps extends CommonProps, NoChildrenProps {
   onMouseLeave?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-/** ToolsArea widget is used in ToolsArea (top left) and Navigation (top right) zones of 9-Zone UI.
- * @note Should be placed in [[Zone]] component.
+/** A component that renders toolbars in the top left corner of standard layout.
  * @internal
  */
 export class ToolsArea extends React.PureComponent<ToolsAreaProps> {
@@ -53,7 +52,10 @@ export class ToolsArea extends React.PureComponent<ToolsAreaProps> {
           {button}
         </div>
         <div
-          className="nz-vertical-toolbar-container"
+          className={classnames(
+            "nz-vertical-toolbar-container",
+            !button && "nz-span"
+          )}
           onMouseEnter={this.props.onMouseEnter}
           onMouseLeave={this.props.onMouseLeave}
         >
