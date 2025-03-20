@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/core-react",
+      "comment": "Fixed web font icon sizes in IconComponent",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/core-react"
+}
