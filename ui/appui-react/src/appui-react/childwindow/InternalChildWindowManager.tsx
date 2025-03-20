@@ -40,6 +40,15 @@ function addChildHTML(window: Window) {
   `;
   doc.head.appendChild(style);
 
+  // Fixes a FF specific issue where document.baseURI is "about:blank"
+  const opener: Window | undefined = window.opener;
+  const baseURI = opener?.document.baseURI;
+  if (doc.baseURI === "about:blank" && baseURI) {
+    const base = doc.createElement("base");
+    base.href = baseURI;
+    doc.head.appendChild(base);
+  }
+
   const noScript = doc.createElement("noscript");
   noScript.textContent = "You need to enable JavaScript to run this app.";
   doc.body.appendChild(noScript);
