@@ -43,6 +43,7 @@ export {
   WeightEditor,
   WeightPropertyEditor,
 } from "./imodel-components-react/editors/WeightEditor.js";
+export { WeightEditorSpec } from "./imodel-components-react/editors/NewWeightEditor.js";
 
 export {
   QuantityInput,
@@ -53,6 +54,7 @@ export {
   QuantityNumberInputProps,
   StepFunctionProp,
 } from "./imodel-components-react/inputs/QuantityNumberInput.js";
+export { QuantityEditorSpec } from "./imodel-components-react/inputs/new-editors/QuantityEditor.js";
 
 export {
   LineWeightSwatch,

@@ -16,6 +16,7 @@ public;class;BasicPropertyEditor
 public;class;BooleanEditor
 public;class;BooleanPropertyEditor
 public;class;BooleanTypeConverter
+beta;interface;BooleanValue
 beta;interface;BuildFilterOptions
 public;interface;CategorizedPropertyItem
 public;type;CategorizedPropertyTypes
@@ -36,6 +37,7 @@ deprecated;interface;ControlledSelectableContentProps
 public;function;ControlledTree
 public;interface;ControlledTreeProps
 public;namespace;ConvertedPrimitives
+beta;function;createEditorSpec
 public;function;createMergedPropertyDataProvider
 public;function;CustomizablePropertyRenderer
 alpha;class;CustomNumberEditor
@@ -55,6 +57,7 @@ alpha;interface;DatePickerProps
 deprecated;interface;DatePickerProps
 public;class;DateTimeTypeConverter
 public;class;DateTimeTypeConverterBase
+beta;interface;DateValue
 public;const;DEFAULT_LINKS_HANDLER
 beta;function;defaultPropertyFilterBuilderRuleValidator
 deprecated;function;defaultPropertyFilterBuilderRuleValidator
@@ -67,11 +70,18 @@ public;interface;EditableTreeDataProvider
 public;function;EditorContainer
 public;interface;EditorContainerProps
 deprecated;interface;EditorContainerProps
+beta;interface;EditorProps
+beta;function;EditorRenderer
+beta;interface;EditorSpec
+beta;function;EditorsRegistryProvider
 public;class;EnumButtonGroupEditor
+beta;interface;EnumChoice
 public;class;EnumEditor
 public;class;EnumPropertyButtonGroupEditor
 public;class;EnumPropertyEditor
 public;class;EnumTypeConverter
+beta;interface;EnumValue
+beta;interface;EnumValueMetadata
 public;interface;ErrorObserver
 public;class;FavoritePropertiesRenderer
 alpha;function;FavoritePropertyList
@@ -87,6 +97,7 @@ public;type;FlatGridItem
 public;interface;FlatGridItemBase
 public;enum;FlatGridItemType
 public;class;FloatTypeConverter
+beta;function;FormattedNumericInput
 public;function;from
 beta;function;getPropertyFilterBuilderOperators
 public;function;getVisibleDescendants
@@ -117,6 +128,7 @@ public;interface;IMutableFlatPropertyGridItem
 public;interface;IMutableGridCategoryItem
 public;interface;IMutableGridItemFactory
 public;interface;IMutablePropertyGridModel
+beta;interface;InstanceKeyValue
 alpha;class;IntlFormatter
 deprecated;class;IntlFormatter
 public;class;IntTypeConverter
@@ -179,6 +191,7 @@ public;interface;NullableOperatorProcessor
 public;class;NumericInputEditor
 public;class;NumericInputPropertyEditor
 public;class;NumericTypeConverterBase
+beta;interface;NumericValue
 public;interface;Observable
 public;type;Observer
 public;type;OnItemsDeselectedCallback
@@ -264,6 +277,7 @@ public;class;PropertyList
 public;interface;PropertyListProps
 public;interface;PropertyPopupState
 public;class;PropertyRecordDataFiltererBase
+beta;function;PropertyRecordEditor
 public;const;PropertyRenderer
 public;interface;PropertyRendererProps
 public;interface;PropertyUpdatedArgs
@@ -304,6 +318,7 @@ public;class;TableStructValueRenderer
 public;class;TextareaEditor
 public;class;TextareaPropertyEditor
 public;class;TextEditor
+beta;interface;TextValue
 public;type;TimeFormat
 public;const;TimeFormat
 public;const;toDateString
@@ -378,6 +393,7 @@ public;class;UiComponents
 public;interface;Unsubscribable
 public;class;UrlPropertyValueRenderer
 public;function;useAsyncValue
+beta;function;useCommittableValue
 public;function;useControlledTreeEventsHandler
 public;function;useControlledTreeLayoutStorage
 beta;function;useDebouncedAsyncValue
@@ -401,6 +417,9 @@ public;function;useTreeModel
 public;function;useTreeModelSource
 public;function;useTreeNodeLoader
 public;function;useVirtualizedPropertyGridLayoutStorage
+beta;type;Value
+beta;interface;ValueMetadata
+beta;type;ValueType
 public;class;VirtualizedPropertyGrid
 public;interface;VirtualizedPropertyGridContext
 public;interface;VirtualizedPropertyGridProps
