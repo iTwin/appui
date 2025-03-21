@@ -97,7 +97,12 @@ export function Icon(props: IconProps) {
     // CSS icon
     return (
       <i
-        className={classnames("icon", iconString, props.className)}
+        className={classnames(
+          "icon",
+          "core-css-icon",
+          iconString,
+          props.className
+        )}
         style={props.style}
       />
     );
