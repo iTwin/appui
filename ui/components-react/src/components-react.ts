@@ -93,6 +93,33 @@ export {
 export { IntlFormatter } from "./components-react/datepicker/IntlFormatter.js";
 
 export {
+  BooleanValue,
+  DateValue,
+  EnumValue,
+  InstanceKeyValue,
+  NumericValue,
+  TextValue,
+  Value,
+} from "./components-react/new-editors/values/Values.js";
+export * as ValueUtilities from "./components-react/new-editors/values/ValueUtilities.js";
+export {
+  EnumChoice,
+  EnumValueMetadata,
+  ValueMetadata,
+  ValueType,
+} from "./components-react/new-editors/values/Metadata.js";
+export { EditorsRegistryProvider } from "./components-react/new-editors/editors-registry/EditorsRegistryProvider.js";
+export {
+  EditorProps,
+  EditorSpec,
+  createEditorSpec,
+} from "./components-react/new-editors/Types.js";
+export { EditorRenderer } from "./components-react/new-editors/EditorRenderer.js";
+export { useCommittableValue } from "./components-react/new-editors/UseCommittableValue.js";
+export { FormattedNumericInput } from "./components-react/new-editors/editors/FormattedNumericInput.js";
+export { PropertyRecordEditor } from "./components-react/new-editors/interop/PropertyRecordEditor.js";
+
+export {
   BooleanEditor,
   BooleanPropertyEditor,
 } from "./components-react/editors/BooleanEditor.js";

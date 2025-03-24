@@ -126,9 +126,6 @@ importers:
       '@itwin/itwinui-react-v5':
         specifier: npm:@itwin/itwinui-react@5.0.0-alpha.5
         version: '@itwin/itwinui-react@5.0.0-alpha.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)'
-      '@itwin/presentation-common':
-        specifier: ^4.0.0
-        version: 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0))(@itwin/core-quantity@4.4.0(@itwin/core-bentley@4.4.0))(@itwin/ecschema-metadata@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-quantity@4.4.0(@itwin/core-bentley@4.4.0)))
       '@itwin/reality-data-client':
         specifier: 1.2.2
         version: 1.2.2(@itwin/core-bentley@4.4.0)
@@ -2628,14 +2625,6 @@ packages:
         optional: true
       reflect-metadata:
         optional: true
-
-  '@itwin/presentation-common@4.4.0':
-    resolution: {integrity: sha512-k4cZQyMc3uTJ5BvGa2a7qT7tZiS09jKoKGQctzDpDnuMueLcW2+TG7nogKIKl+ded4tKT0zsCBsKXLmAXTQu6Q==}
-    peerDependencies:
-      '@itwin/core-bentley': ^4.4.0
-      '@itwin/core-common': ^4.4.0
-      '@itwin/core-quantity': ^4.4.0
-      '@itwin/ecschema-metadata': ^4.4.0
 
   '@itwin/reality-data-client@1.2.2':
     resolution: {integrity: sha512-Zbm6ooV4auni6yWNaIxOgd+/9H9TIeDH7kIAivepuFFLnJq2atzAj54SvsNfmNxdH6FDftC5U1NFMjnprwo89Q==}
@@ -9819,13 +9808,6 @@ snapshots:
       reflect-metadata: 0.1.14
     transitivePeerDependencies:
       - debug
-
-  '@itwin/presentation-common@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-common@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0))(@itwin/core-quantity@4.4.0(@itwin/core-bentley@4.4.0))(@itwin/ecschema-metadata@4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-quantity@4.4.0(@itwin/core-bentley@4.4.0)))':
-    dependencies:
-      '@itwin/core-bentley': 4.4.0
-      '@itwin/core-common': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-geometry@4.4.0)
-      '@itwin/core-quantity': 4.4.0(@itwin/core-bentley@4.4.0)
-      '@itwin/ecschema-metadata': 4.4.0(@itwin/core-bentley@4.4.0)(@itwin/core-quantity@4.4.0(@itwin/core-bentley@4.4.0))
 
   '@itwin/reality-data-client@1.2.2(@itwin/core-bentley@4.4.0)':
     dependencies:

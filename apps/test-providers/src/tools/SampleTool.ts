@@ -79,8 +79,7 @@ export class SampleTool extends PrimitiveTool {
 
   // Tool Setting Properties
   // ------------- Enum based picklist ---------------
-  // Example of async method used to populate enum values
-  private _getChoices = async () => {
+  private _getChoices = () => {
     return [
       { label: SampleTool.getOptionString("Red"), value: ToolOptions.Red },
       { label: SampleTool.getOptionString("White"), value: ToolOptions.White },

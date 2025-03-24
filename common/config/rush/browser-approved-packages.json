@@ -175,10 +175,6 @@
       "allowedCategories": [ "frontend", "internal" ]
     },
     {
-      "name": "@itwin/presentation-common",
-      "allowedCategories": [ "internal" ]
-    },
-    {
       "name": "@itwin/reality-data-client",
       "allowedCategories": [ "internal" ]
     },

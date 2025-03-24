@@ -11,7 +11,6 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { HighlightingComponentProps } from "../../../common/HighlightingComponentProps.js";
 import type { PropertyUpdatedArgs } from "../../../editors/EditorContainer.js";
-import { EditorContainer } from "../../../editors/EditorContainer.js";
 import { CommonPropertyRenderer } from "../../../properties/renderers/CommonPropertyRenderer.js";
 import type { PrimitiveRendererProps } from "../../../properties/renderers/PrimitivePropertyRenderer.js";
 import type { SharedRendererProps } from "../../../properties/renderers/PropertyRenderer.js";
@@ -20,6 +19,7 @@ import type { PropertyCategory } from "../../PropertyDataProvider.js";
 import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRenderer.js";
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
 import { Orientation } from "../../../common/Orientation.js";
+import { PropertyRecordEditor } from "../../../new-editors/interop/PropertyRecordEditor.js";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal
@@ -41,6 +41,8 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   ) => void;
   /** Called when property edit is cancelled. */
   onEditCancel?: () => void;
+  /** Used to switch between new and legacy editing system. */
+  editorSystem?: "legacy" | "new";
   /** Whether property value is displayed in expanded state. */
   isExpanded: boolean;
   /** Called when toggling between expanded and collapsed property value display state. */
@@ -65,7 +67,9 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
   const { propertyValueRendererManager, highlight, ...passthroughProps } =
     props;
 
-  const valueElementRenderer = () => <DisplayValue {...props} />;
+  const valueElementRenderer = () => (
+    <DisplayValue {...props} editorSystem={props.editorSystem ?? "legacy"} />
+  );
 
   const primitiveRendererProps: PrimitiveRendererProps = {
     ...passthroughProps,
@@ -140,6 +144,7 @@ interface DisplayValueProps {
   onClick?: (property: PropertyRecord, key?: string) => void;
   uniqueKey?: string;
   category?: PropertyCategory;
+  editorSystem: "legacy" | "new";
   onEditCancel?: () => void;
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -172,12 +177,14 @@ const DisplayValue: React.FC<DisplayValueProps> = (props) => {
     };
 
     return (
-      <EditorContainer
+      <PropertyRecordEditor
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
         onCancel={props.onEditCancel ?? (() => {})}
-        setFocus={props.isEditing}
         onClick={() => props.onClick?.(props.propertyRecord, props.uniqueKey)}
+        setFocus={props.isEditing}
+        editorSystem={props.editorSystem}
+        size="small"
       />
     );
   }
