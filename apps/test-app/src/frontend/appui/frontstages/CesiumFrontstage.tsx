@@ -15,30 +15,23 @@ import {
   ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { LabeledTextarea } from "@itwin/itwinui-react";
 import { SvgDeveloper, SvgScriptRun } from "@itwin/itwinui-icons-react";
 import { create } from "zustand";
 import ReactDOM from "react-dom";
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import "../../../userWorker";
 
 const cesiumContainerId = "cesiumContainer";
-const codeId = "code";
 
 interface CesiumStore {
   iFrameKey: number;
-  code: string;
+  editor: monaco.editor.IStandaloneCodeEditor | null;
 }
 
 const useCesiumStore = create<CesiumStore>(() => {
   return {
     iFrameKey: 0,
-    code: `const viewer = new Cesium.Viewer("cesiumContainer");
-/*viewer.camera.flyTo({
-  destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
-  orientation: {
-    heading: Cesium.Math.toRadians(0.0),
-    pitch: Cesium.Math.toRadians(-15.0),
-  }
-});*/`,
+    editor: null,
   };
 });
 
@@ -135,29 +128,43 @@ function run() {
       };
     });
   });
-  const code = useCesiumStore.getState().code;
-  window.eval(code); // TODO: this is a bad idea, but for now it works.
+  const editor = useCesiumStore.getState().editor;
+  if (!editor) return;
+  const value = editor.getValue();
+  window.eval(value); // TODO: this is a bad idea, but for now it works.
 }
 
+const defaultCode = `const viewer = new Cesium.Viewer("cesiumContainer");
+/*viewer.camera.flyTo({
+  destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
+  orientation: {
+    heading: Cesium.Math.toRadians(0.0),
+    pitch: Cesium.Math.toRadians(-15.0),
+  }
+});*/`;
+
 function CodeWidget() {
-  const code = useCesiumStore((state) => state.code);
-  return (
-    <LabeledTextarea
-      id={codeId}
-      value={code}
-      onChange={(e) => {
-        useCesiumStore.setState((state) => {
-          return {
-            ...state,
-            code: e.currentTarget.value,
-          };
-        });
-      }}
-      label=""
-      className={styles.code}
-      wrapperProps={{
-        className: styles.codeWrapper,
-      }}
-    />
-  );
+  const monacoEl = React.useRef(null);
+
+  React.useEffect(() => {
+    const newEditor = monaco.editor.create(monacoEl.current!, {
+      value: defaultCode,
+      language: "typescript",
+      automaticLayout: true,
+    });
+    useCesiumStore.setState((state) => {
+      if (state.editor) return state;
+      return {
+        ...state,
+        editor: newEditor,
+      };
+    });
+
+    return () => {
+      // TODO:
+      // newEditor.dispose();
+    };
+  }, []);
+
+  return <div className={styles.editor} ref={monacoEl}></div>;
 }

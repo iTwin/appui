@@ -383,6 +383,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "monaco-editor",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "npm-run-all",
       "allowedCategories": [ "frontend", "internal" ]
     },
