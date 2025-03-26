@@ -17,6 +17,7 @@ import { Route as SigninCallbackImport } from './routes/signin-callback'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as LocalImport } from './routes/local'
 import { Route as ITwinsImport } from './routes/iTwins'
+import { Route as CesiumImport } from './routes/cesium'
 import { Route as BriefcaseImport } from './routes/briefcase'
 import { Route as BlankImport } from './routes/blank'
 import { Route as LocalFileNameImport } from './routes/local_.$fileName'
@@ -52,6 +53,12 @@ const ITwinsRoute = ITwinsImport.update({
   path: '/iTwins',
   getParentRoute: () => rootRoute,
 } as any)
+
+const CesiumRoute = CesiumImport.update({
+  id: '/cesium',
+  path: '/cesium',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/cesium.lazy').then((d) => d.Route))
 
 const BriefcaseRoute = BriefcaseImport.update({
   id: '/briefcase',
@@ -116,6 +123,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BriefcaseImport
       parentRoute: typeof rootRoute
     }
+    '/cesium': {
+      id: '/cesium'
+      path: '/cesium'
+      fullPath: '/cesium'
+      preLoaderRoute: typeof CesiumImport
+      parentRoute: typeof rootRoute
+    }
     '/iTwins': {
       id: '/iTwins'
       path: '/iTwins'
@@ -174,6 +188,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
   '/briefcase': typeof BriefcaseRoute
+  '/cesium': typeof CesiumRoute
   '/iTwins': typeof ITwinsRoute
   '/local': typeof LocalRoute
   '/settings': typeof SettingsRoute
@@ -187,6 +202,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
   '/briefcase': typeof BriefcaseRoute
+  '/cesium': typeof CesiumRoute
   '/iTwins': typeof ITwinsRoute
   '/local': typeof LocalRoute
   '/settings': typeof SettingsRoute
@@ -201,6 +217,7 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
   '/briefcase': typeof BriefcaseRoute
+  '/cesium': typeof CesiumRoute
   '/iTwins': typeof ITwinsRoute
   '/local': typeof LocalRoute
   '/settings': typeof SettingsRoute
@@ -216,6 +233,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blank'
     | '/briefcase'
+    | '/cesium'
     | '/iTwins'
     | '/local'
     | '/settings'
@@ -228,6 +246,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blank'
     | '/briefcase'
+    | '/cesium'
     | '/iTwins'
     | '/local'
     | '/settings'
@@ -240,6 +259,7 @@ export interface FileRouteTypes {
     | '/'
     | '/blank'
     | '/briefcase'
+    | '/cesium'
     | '/iTwins'
     | '/local'
     | '/settings'
@@ -254,6 +274,7 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   BlankRoute: typeof BlankRoute
   BriefcaseRoute: typeof BriefcaseRoute
+  CesiumRoute: typeof CesiumRoute
   ITwinsRoute: typeof ITwinsRoute
   LocalRoute: typeof LocalRoute
   SettingsRoute: typeof SettingsRoute
@@ -267,6 +288,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   BlankRoute: BlankRoute,
   BriefcaseRoute: BriefcaseRoute,
+  CesiumRoute: CesiumRoute,
   ITwinsRoute: ITwinsRoute,
   LocalRoute: LocalRoute,
   SettingsRoute: SettingsRoute,
@@ -289,6 +311,7 @@ export const routeTree = rootRoute
         "/",
         "/blank",
         "/briefcase",
+        "/cesium",
         "/iTwins",
         "/local",
         "/settings",
@@ -306,6 +329,9 @@ export const routeTree = rootRoute
     },
     "/briefcase": {
       "filePath": "briefcase.tsx"
+    },
+    "/cesium": {
+      "filePath": "cesium.tsx"
     },
     "/iTwins": {
       "filePath": "iTwins.tsx"
