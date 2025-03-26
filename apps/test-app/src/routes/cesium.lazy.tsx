@@ -10,13 +10,16 @@ import {
   useFeatureOverrideParams,
   useSyncFrontstageParam,
 } from "../frontend/SearchParams";
+import { createCesiumFrontstage } from "../frontend/appui/frontstages/CesiumFrontstage";
 
 export const Route = createLazyFileRoute("/cesium")({
   component: Blank,
 });
 
 function Blank() {
-  useSyncFrontstageParam();
+  useSyncFrontstageParam({
+    defaultFrontstageId: createCesiumFrontstage.stageId,
+  });
   const featureOverrides = useFeatureOverrideParams();
   return (
     <PageLayout.Content>

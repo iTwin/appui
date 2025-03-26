@@ -20,6 +20,8 @@
   background: var(--iui-color-background-backdrop);
 
   > .nz-icon {
+    display: flex;
+
     svg {
       width: #{math.div(14, 16)}rem;
       height: #{math.div(14, 16)}rem;

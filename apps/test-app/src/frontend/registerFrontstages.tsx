@@ -55,6 +55,10 @@ import {
   createSpatialFrontstage,
   createSpatialFrontstageProvider,
 } from "./appui/frontstages/SpatialFrontstage";
+import {
+  createCesiumFrontstage,
+  createCesiumFrontstageProvider,
+} from "./appui/frontstages/CesiumFrontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
@@ -87,6 +91,7 @@ export function registerFrontstages({
     createPopoutWindowsFrontstage(),
     createITwinUIV2Frontstage(),
     createSpatialFrontstage(),
+    createCesiumFrontstage(),
   ];
   frontstages.forEach((frontstage) => {
     UiFramework.frontstages.addFrontstage(frontstage);
@@ -161,6 +166,9 @@ export function registerFrontstages({
   });
   UiItemsManager.register(createSpatialFrontstageProvider(), {
     stageIds: [createSpatialFrontstage.stageId],
+  });
+  UiItemsManager.register(createCesiumFrontstageProvider(), {
+    stageIds: [createCesiumFrontstage.stageId],
   });
 
   if (ProcessDetector.isElectronAppFrontend) {

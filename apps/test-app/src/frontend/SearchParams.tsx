@@ -15,14 +15,19 @@ export interface PreviewFeatureParams {
   reparentPopoutWidgets?: 0 | 1;
 }
 
-export function useSyncFrontstageParam() {
+export interface UseSyncFrontstageParamArgs {
+  defaultFrontstageId?: string;
+}
+
+export function useSyncFrontstageParam(args?: UseSyncFrontstageParamArgs) {
+  const { defaultFrontstageId } = args ?? {};
   const { frontstageId } = useSearch({ strict: false });
   const navigate = useNavigate();
   React.useEffect(() => {
     void UiFramework.frontstages.setActiveFrontstage(
-      frontstageId ?? createMainFrontstage.stageId
+      frontstageId ?? defaultFrontstageId ?? createMainFrontstage.stageId
     );
-  }, [frontstageId]);
+  }, [frontstageId, defaultFrontstageId]);
   React.useEffect(() => {
     return UiFramework.frontstages.onFrontstageActivatedEvent.addListener(
       (args) => {
