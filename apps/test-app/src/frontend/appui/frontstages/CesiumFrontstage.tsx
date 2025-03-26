@@ -20,16 +20,25 @@ import { SvgDeveloper, SvgScriptRun } from "@itwin/itwinui-icons-react";
 import { create } from "zustand";
 import ReactDOM from "react-dom";
 
-const cesiumContainer = "cesiumContainer";
-const code = "code";
+const cesiumContainerId = "cesiumContainer";
+const codeId = "code";
 
 interface CesiumStore {
   iFrameKey: number;
+  code: string;
 }
 
 const useCesiumStore = create<CesiumStore>(() => {
   return {
     iFrameKey: 0,
+    code: `const viewer = new Cesium.Viewer("cesiumContainer");
+/*viewer.camera.flyTo({
+  destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
+  orientation: {
+    heading: Cesium.Math.toRadians(0.0),
+    pitch: Cesium.Math.toRadians(-15.0),
+  }
+});*/`,
   };
 });
 
@@ -73,6 +82,7 @@ export function createCesiumFrontstageProvider(): UiItemsProvider {
           label: "Code",
           iconNode: <SvgDeveloper />,
           content: <CodeWidget />,
+          canPopout: true,
           layouts,
         },
       ];
@@ -94,7 +104,7 @@ function CesiumIFrame() {
   }, []);
   return (
     <div id="bucketFrame" key={iFrameKey} className={styles.bucket}>
-      <div id={cesiumContainer} style={{ height: "100%" }}></div>
+      <div id={cesiumContainerId} style={{ height: "100%" }}></div>
     </div>
   );
 }
@@ -125,25 +135,24 @@ function run() {
       };
     });
   });
-  const codeEl = document.getElementById(code);
-  if (!(codeEl instanceof HTMLTextAreaElement)) return;
-  window.eval(codeEl.value); // TODO: this is a bad idea, but for now it works.
+  const code = useCesiumStore.getState().code;
+  window.eval(code); // TODO: this is a bad idea, but for now it works.
 }
 
 function CodeWidget() {
-  const defaultValue = `const viewer = new Cesium.Viewer("cesiumContainer");
-/*viewer.camera.flyTo({
-  destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
-  orientation: {
-    heading: Cesium.Math.toRadians(0.0),
-    pitch: Cesium.Math.toRadians(-15.0),
-  }
-});*/`;
-
+  const code = useCesiumStore((state) => state.code);
   return (
     <LabeledTextarea
-      id={code}
-      defaultValue={defaultValue}
+      id={codeId}
+      value={code}
+      onChange={(e) => {
+        useCesiumStore.setState((state) => {
+          return {
+            ...state,
+            code: e.currentTarget.value,
+          };
+        });
+      }}
       label=""
       className={styles.code}
       wrapperProps={{
