@@ -279,6 +279,10 @@
       "allowedCategories": [ "frontend" ]
     },
     {
+      "name": "cesium",
+      "allowedCategories": [ "internal" ]
+    },
+    {
       "name": "classnames",
       "allowedCategories": [ "frontend", "internal" ]
     },

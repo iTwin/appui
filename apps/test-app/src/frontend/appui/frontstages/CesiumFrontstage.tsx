@@ -75,7 +75,7 @@ function CesiumIFrame() {
       className={styles.bucket}
       style={{ background: "red" }}
     >
-      <div id={cesiumContainer}></div>
+      <div id={cesiumContainer} style={{ height: "100%" }}></div>
     </div>
   );
 }
@@ -100,7 +100,14 @@ function createRunButton() {
 }
 
 function CodeWidget() {
-  const defaultValue = `console.log("Hello World")`;
+  const defaultValue = `const viewer = new Cesium.Viewer("cesiumContainer");
+  /*viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
+        orientation: {
+          heading: Cesium.Math.toRadians(0.0),
+          pitch: Cesium.Math.toRadians(-15.0),
+        }
+      });*/`;
   return (
     <LabeledTextarea
       id={code}

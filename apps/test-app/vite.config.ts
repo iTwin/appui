@@ -25,6 +25,9 @@ customLogger.warn = (msg, options) => {
   warn(msg, options);
 };
 
+const cesiumSource = "node_modules/cesium/Build/Cesium";
+const cesiumBaseUrl = "public";
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
@@ -46,6 +49,14 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [
+      viteStaticCopy({
+        targets: [
+          { src: `${cesiumSource}/ThirdParty`, dest: cesiumBaseUrl },
+          { src: `${cesiumSource}/Workers`, dest: cesiumBaseUrl },
+          { src: `${cesiumSource}/Assets`, dest: cesiumBaseUrl },
+          { src: `${cesiumSource}/Widgets`, dest: cesiumBaseUrl },
+        ],
+      }),
       TanStackRouterVite(),
       react(),
       viteStaticCopy({
@@ -95,6 +106,7 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       __BIM_FILES__: JSON.stringify(bimFiles),
+      CESIUM_BASE_URL: JSON.stringify(`/${cesiumBaseUrl}`),
     },
   };
 });
