@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import styles from "./CesiumFrontstage.module.scss";
 import {
   FrontstageUtilities,
   StagePanelLocation,
@@ -14,7 +15,11 @@ import {
   ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { SvgDeveloper, SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { LabeledTextarea } from "@itwin/itwinui-react";
+import { SvgDeveloper, SvgScriptRun } from "@itwin/itwinui-icons-react";
+
+const cesiumContainer = "cesiumContainer";
+const code = "code";
 
 export function createCesiumFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
@@ -26,7 +31,7 @@ export function createCesiumFrontstage() {
         {
           id: "viewport",
           classId: "",
-          content: <div>Hey</div>,
+          content: <CesiumIFrame />,
         },
       ],
     },
@@ -40,19 +45,7 @@ export function createCesiumFrontstageProvider(): UiItemsProvider {
   return {
     id,
     getToolbarItems: () => {
-      const layouts = {
-        standard: {
-          orientation: ToolbarOrientation.Horizontal,
-          usage: ToolbarUsage.ContentManipulation,
-        },
-      };
-      return [
-        ToolbarItemUtilities.createActionItem({
-          id: "hey",
-          icon: <SvgPlaceholder />,
-          layouts,
-        }),
-      ];
+      return [createRunButton()];
     },
     getWidgets: () => {
       const layouts = {
@@ -66,10 +59,57 @@ export function createCesiumFrontstageProvider(): UiItemsProvider {
           id: `code`,
           label: "Code",
           iconNode: <SvgDeveloper />,
-          content: <div>Widget 1</div>,
+          content: <CodeWidget />,
           layouts,
         },
       ];
     },
   };
+}
+
+// TODO: not really an iframe for simplicity.
+function CesiumIFrame() {
+  return (
+    <div
+      id="bucketFrame"
+      className={styles.bucket}
+      style={{ background: "red" }}
+    >
+      <div id={cesiumContainer}></div>
+    </div>
+  );
+}
+
+function createRunButton() {
+  return ToolbarItemUtilities.createActionItem({
+    id: "run",
+    label: "Run",
+    icon: <SvgScriptRun />,
+    execute: () => {
+      const codeEl = document.getElementById(code);
+      if (!(codeEl instanceof HTMLTextAreaElement)) return;
+      window.eval(codeEl.value); // TODO: this is a bad idea, but for now it works.
+    },
+    layouts: {
+      standard: {
+        orientation: ToolbarOrientation.Horizontal,
+        usage: ToolbarUsage.ContentManipulation,
+      },
+    },
+  });
+}
+
+function CodeWidget() {
+  const defaultValue = `console.log("Hello World")`;
+  return (
+    <LabeledTextarea
+      id={code}
+      defaultValue={defaultValue}
+      label=""
+      className={styles.code}
+      wrapperProps={{
+        className: styles.codeWrapper,
+      }}
+    />
+  );
 }
