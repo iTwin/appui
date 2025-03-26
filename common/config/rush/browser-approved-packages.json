@@ -536,7 +536,7 @@
     },
     {
       "name": "zustand",
-      "allowedCategories": [ "frontend" ]
+      "allowedCategories": [ "frontend", "internal" ]
     }
   ]
 }

@@ -106,6 +106,7 @@
     "@itwin/reality-data-client": "1.2.2",
     "@itwin/webgl-compatibility": "^4.0.0",
     "@tanstack/react-router": "^1.87.6",
+    "cesium": "~1.127.0",
     "classnames": "2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -113,7 +114,7 @@
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "ts-key-enum": "~2.0.12",
-    "cesium": "~1.127.0"
+    "zustand": "^4.4.1"
   },
   "browserslist": [
     "last 4 chrome version",

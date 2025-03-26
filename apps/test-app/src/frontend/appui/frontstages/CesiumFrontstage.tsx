@@ -17,9 +17,21 @@ import {
 } from "@itwin/appui-react";
 import { LabeledTextarea } from "@itwin/itwinui-react";
 import { SvgDeveloper, SvgScriptRun } from "@itwin/itwinui-icons-react";
+import { create } from "zustand";
+import ReactDOM from "react-dom";
 
 const cesiumContainer = "cesiumContainer";
 const code = "code";
+
+interface CesiumStore {
+  iFrameKey: number;
+}
+
+const useCesiumStore = create<CesiumStore>(() => {
+  return {
+    iFrameKey: 0,
+  };
+});
 
 export function createCesiumFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
@@ -36,6 +48,7 @@ export function createCesiumFrontstage() {
       ],
     },
     usage: StageUsage.General,
+    hideToolSettings: true,
   });
 }
 createCesiumFrontstage.stageId = "cesium";
@@ -69,12 +82,18 @@ export function createCesiumFrontstageProvider(): UiItemsProvider {
 
 // TODO: not really an iframe for simplicity.
 function CesiumIFrame() {
+  const iFrameKey = useCesiumStore((state) => state.iFrameKey);
+  React.useEffect(() => {
+    // Workaround to run initial code
+    const timeout = setTimeout(() => {
+      run();
+    }, 1);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
   return (
-    <div
-      id="bucketFrame"
-      className={styles.bucket}
-      style={{ background: "red" }}
-    >
+    <div id="bucketFrame" key={iFrameKey} className={styles.bucket}>
       <div id={cesiumContainer} style={{ height: "100%" }}></div>
     </div>
   );
@@ -86,9 +105,7 @@ function createRunButton() {
     label: "Run",
     icon: <SvgScriptRun />,
     execute: () => {
-      const codeEl = document.getElementById(code);
-      if (!(codeEl instanceof HTMLTextAreaElement)) return;
-      window.eval(codeEl.value); // TODO: this is a bad idea, but for now it works.
+      run();
     },
     layouts: {
       standard: {
@@ -99,15 +116,30 @@ function createRunButton() {
   });
 }
 
+function run() {
+  ReactDOM.flushSync(() => {
+    useCesiumStore.setState((state) => {
+      return {
+        ...state,
+        iFrameKey: state.iFrameKey + 1,
+      };
+    });
+  });
+  const codeEl = document.getElementById(code);
+  if (!(codeEl instanceof HTMLTextAreaElement)) return;
+  window.eval(codeEl.value); // TODO: this is a bad idea, but for now it works.
+}
+
 function CodeWidget() {
   const defaultValue = `const viewer = new Cesium.Viewer("cesiumContainer");
-  /*viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
-        orientation: {
-          heading: Cesium.Math.toRadians(0.0),
-          pitch: Cesium.Math.toRadians(-15.0),
-        }
-      });*/`;
+/*viewer.camera.flyTo({
+  destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
+  orientation: {
+    heading: Cesium.Math.toRadians(0.0),
+    pitch: Cesium.Math.toRadians(-15.0),
+  }
+});*/`;
+
   return (
     <LabeledTextarea
       id={code}
