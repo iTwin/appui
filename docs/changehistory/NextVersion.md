@@ -7,6 +7,12 @@ Table of contents:
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
 
+## @itwin/appui-react
+
+### Fixes
+
+- Simplify grid template definitions of standard layout to avoid CSS issues in `rsbuild` production build.
+
 ## @itwin/components-react
 
 ### Additions
