@@ -7,6 +7,19 @@ Table of contents:
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
 
+## @itwin/appui-react
+
+### Additions
+
+- Added `visibleToolSettings` prop to `StandardLayout` component which when enabled keeps the tool settings visible to the end user. This is especially useful when the tool settings is undocked as a regular widget as changing a tool or it's tool settings will show the tool settings widget via the `WidgetDef.show()` API.
+
+  ```tsx
+  UiFramework.frontstages.addFrontstage({
+    // ...
+    layout: <StandardLayout visibleToolSettings />,
+  });
+  ```
+
 ## @itwin/components-react
 
 ### Additions
