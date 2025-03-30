@@ -2,10 +2,18 @@
 
 Table of contents:
 
+- [@itwin/appui-react](#itwinappui-react)
+  - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions)
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
+
+## @itwin/appui-react
+
+### Fixes
+
+- Fixed an icon size of a backstage app button when web font icon is used.
 
 ## @itwin/components-react
 
@@ -13,7 +21,7 @@ Table of contents:
 
 - Added new system for rendering property value editing components. [#1166](https://github.com/iTwin/appui/pull/1166)
 
-  #### API overview
+  **API overview**
 
   - `EditorsRegistryProvider` - adds supplied editors to the registry held in `React` context. It supports nesting multiple `EditorsRegistryProvider` to allow registering custom editors specific for some component that have higher priority than the ones registered near the root of the application.
   - `useEditor` - hook to get the editor that should be used to edit the supplied value. First it looks for applicable editor in EditorsRegistry and if none was found it fallbacks to the default editors.
@@ -24,7 +32,7 @@ Table of contents:
   - `createEditorSpec` - an utility function to that provides a convenient way to defined editor spec for typed editors.
   - `PropertyRecordEditor` - React component that allows to use existing `PropertyRecord` type with the new editors system.
 
-  #### Rendering editor and registering custom editors
+  **Rendering editor and registering custom editors**
 
   Defining component that renders value editor:
 
@@ -138,11 +146,11 @@ Table of contents:
   }
   ```
 
-  #### Defining custom editors
+  **Defining custom editors**
 
   The goal of the new editors system is to remove the need for static editor registration and provide more convenient API for implementing custom editors. Current API has quite a lot optional properties that do not make sense (`propertyRecord` is optional but if it is `undefined` there is no way to figure out what to render):
 
-  ##### Custom editor using old system and react functional components:
+  **Custom editor using old system and react functional components**
 
   ```tsx
   const CustomBooleanEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
@@ -211,7 +219,7 @@ Table of contents:
   }
   ```
 
-  ##### Custom boolean editor using new system:
+  **Custom boolean editor using new system**
 
   ```tsx
   export const CustomBoolEditorSpec: EditorSpec = createEditorSpec({
