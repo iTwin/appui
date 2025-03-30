@@ -108,15 +108,21 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
 interface StandardLayoutProps {
   /** Overrides widget specific actions displayed in the title bar area.
    * Use {@link WidgetActions} component to customize widget actions.
+   * @alpha
    */
   widgetActions?: React.ReactNode;
+  /** When enabled keeps the tool settings visible to the end user.
+   * This is especially useful when the tool settings is undocked as a regular widget.
+   * @alpha
+   */
+  visibleToolSettings?: boolean;
 }
 
 /** The standard widget based layout used as a default layout for all frontstages.
  * @alpha
  */
 export function StandardLayout(props: StandardLayoutProps) {
-  const { widgetActions } = props;
+  const { widgetActions, visibleToolSettings = false } = props;
   const context = React.useContext(ConfigurableUiContext);
   const {
     appBackstage,
@@ -144,6 +150,7 @@ export function StandardLayout(props: StandardLayoutProps) {
       InternalConfigurableUiManager.activityTracker.terminate();
     };
   }, [idleTimeout, intervalTimeout]);
+  useVisibleToolSettings(visibleToolSettings);
 
   const setContentHovered = useCursorInformationStore(
     (state) => state.setContentHovered
@@ -259,4 +266,16 @@ function useToolbarOpacity(
       document.documentElement.style.removeProperty("--buic-toolbar-opacity");
     };
   }, [opacity]);
+}
+
+function useVisibleToolSettings(enabled: boolean) {
+  React.useEffect(() => {
+    if (!enabled) return;
+    return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
+      const frontstage = UiFramework.frontstages.activeFrontstageDef;
+      const toolSettings = frontstage?.toolSettings;
+      if (!toolSettings) return;
+      toolSettings.show();
+    });
+  }, [enabled]);
 }
