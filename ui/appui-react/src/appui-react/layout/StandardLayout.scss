@@ -10,16 +10,11 @@
     overflow: hidden;
 
     display: grid;
-    grid-template-columns:
-      [lp-start] minmax(0, auto) [lp-end] 1fr [rp-start] minmax(0, auto)
-      [rp-end];
-    grid-template-rows:
-      minmax(0, auto) [ts-end] minmax(0, auto) [tp-end] 1fr [bp-start] minmax(
+    grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+    grid-template-rows: minmax(0, auto) minmax(0, auto) 1fr minmax(0, auto) minmax(
         0,
         auto
-      )
-      [bp-end]
-      minmax(0, auto);
+      );
     grid-template-areas:
       "ts ts ts"
       "tp tp tp"

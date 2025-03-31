@@ -2,10 +2,14 @@
 
 Table of contents:
 
-- [@itwin/components-react](#itwincomponents-react)
+- [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
   - [Additions](#additions)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Fixes](#fixes)
+- [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions-1)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Additions](#additions-2)
 
 ## @itwin/appui-react
 
@@ -31,6 +35,9 @@ Table of contents:
 
 ### Fixes
 
+- Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
+- Simplify grid template definitions of standard layout to avoid CSS issues in `RsBuild` production build. [#1263](https://github.com/iTwin/appui/pull/1263)
+- Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar. [#1264](https://github.com/iTwin/appui/pull/1264)
 - Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component. [#1265](https://github.com/iTwin/appui/pull/1265)
 
 ## @itwin/components-react
@@ -39,7 +46,7 @@ Table of contents:
 
 - Added new system for rendering property value editing components. [#1166](https://github.com/iTwin/appui/pull/1166)
 
-  #### API overview
+  **API overview**
 
   - `EditorsRegistryProvider` - adds supplied editors to the registry held in `React` context. It supports nesting multiple `EditorsRegistryProvider` to allow registering custom editors specific for some component that have higher priority than the ones registered near the root of the application.
   - `useEditor` - hook to get the editor that should be used to edit the supplied value. First it looks for applicable editor in EditorsRegistry and if none was found it fallbacks to the default editors.
@@ -50,7 +57,7 @@ Table of contents:
   - `createEditorSpec` - an utility function to that provides a convenient way to defined editor spec for typed editors.
   - `PropertyRecordEditor` - React component that allows to use existing `PropertyRecord` type with the new editors system.
 
-  #### Rendering editor and registering custom editors
+  **Rendering editor and registering custom editors**
 
   Defining component that renders value editor:
 
@@ -164,11 +171,11 @@ Table of contents:
   }
   ```
 
-  #### Defining custom editors
+  **Defining custom editors**
 
   The goal of the new editors system is to remove the need for static editor registration and provide more convenient API for implementing custom editors. Current API has quite a lot optional properties that do not make sense (`propertyRecord` is optional but if it is `undefined` there is no way to figure out what to render):
 
-  ##### Custom editor using old system and react functional components:
+  **Custom editor using old system and react functional components**
 
   ```tsx
   const CustomBooleanEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
@@ -237,7 +244,7 @@ Table of contents:
   }
   ```
 
-  ##### Custom boolean editor using new system:
+  **Custom boolean editor using new system**
 
   ```tsx
   export const CustomBoolEditorSpec: EditorSpec = createEditorSpec({
