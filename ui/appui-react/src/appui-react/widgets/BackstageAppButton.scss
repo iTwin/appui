@@ -8,11 +8,16 @@
 }
 
 .uifw-widget-backstageAppButton_icon {
-  font-size: 1.5rem;
+  $size: 1.5rem;
+  font-size: $size;
 
   svg {
-    block-size: 1.5rem;
-    inline-size: 1.5rem;
+    block-size: $size;
+    inline-size: $size;
+  }
+
+  i {
+    font-size: $size;
   }
 }
 
