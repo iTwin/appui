@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import type { ListenerType } from "@itwin/core-react/internal";
 import { GlobalContextMenu } from "@itwin/core-react"; // ContextSubMenu,
 import { SessionStateActionId } from "../../redux/SessionState.js";
 import type { CursorMenuItemProps } from "../../shared/MenuItem.js";
@@ -17,114 +16,82 @@ import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher.js";
 import { UiFramework } from "../../UiFramework.js";
 import { Logger } from "@itwin/core-bentley";
 
-/** State for [[CursorPopupMenu]] component
- * @alpha
- */
-interface CursorPopupMenuState {
-  menuX: number;
-  menuY: number;
-  menuVisible: boolean;
-  items?: CursorMenuItemProps[];
-}
-
 /** Popup Menu to show at cursor typically used by tools to provide a right-click context menu.
  * @alpha
  */
-export class CursorPopupMenu extends React.PureComponent<
-  CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
-  CursorPopupMenuState
-> {
-  private _isMounted = false; // used to ensure _handleSyncUiEvent callback is not processed after componentWillUnmount is called
-  private _hostChildWindowId?: string;
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export function CursorPopupMenu(props: CommonProps) {
+  const windowIdRef = React.useRef<string | undefined>();
+  const [opened, setOpened] = React.useState(false);
+  const [x, setX] = React.useState(0);
+  const [y, setY] = React.useState(0);
+  const [items, setItems] = React.useState<CursorMenuItemProps[] | undefined>(
+    undefined
+  );
 
-  public override readonly state: CursorPopupMenuState = {
-    menuX: 0,
-    menuY: 0,
-    menuVisible: false,
-    items: undefined,
-  };
-
-  private _handleSyncUiEvent: ListenerType<
-    typeof SyncUiEventDispatcher.onSyncUiEvent
-  > = (args) => {
-    if (!this._isMounted) return;
-
-    if (
-      SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        SessionStateActionId.UpdateCursorMenu,
-      ])
-    ) {
-      const menuData = UiFramework.getCursorMenuData();
-      if (menuData && this._hostChildWindowId === menuData.childWindowId) {
-        this.setState({
-          menuVisible: menuData.items && menuData.items.length > 0,
-          items: menuData.items as CursorMenuItemProps[],
-          menuX: menuData.position.x,
-          menuY: menuData.position.y,
-        });
-      } else {
-        this.setState({ menuVisible: false, items: undefined });
-      }
-    }
-  };
-
-  public override componentDidMount() {
-    this._isMounted = true;
-    SyncUiEventDispatcher.onSyncUiEvent.addListener(this._handleSyncUiEvent);
-  }
-
-  public override componentWillUnmount() {
-    this._isMounted = false;
-    SyncUiEventDispatcher.onSyncUiEvent.removeListener(this._handleSyncUiEvent);
-  }
-
-  private _handleRefSet = (popupDiv: HTMLElement | null) => {
-    const parentWindow = popupDiv?.ownerDocument.defaultView ?? undefined;
-    // if the window is not a pop out set to undefined
-    this._hostChildWindowId = UiFramework.childWindows.findId(parentWindow);
-    Logger.logInfo(
-      UiFramework.loggerCategory("UiFramework"),
-      `Cursor Menu for ${this._hostChildWindowId ?? "main"} window`
-    );
-  };
-
-  public override render(): React.ReactNode {
-    const { menuX, menuY, items, menuVisible } = this.state;
-    const onClose = this._hideContextMenu;
-
-    return (
-      <div className="uifw-cursor-menu-container-div" ref={this._handleRefSet}>
-        {items && items.length > 0 && menuVisible && (
+  React.useEffect(() => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
+      if (
+        !SyncUiEventDispatcher.hasEventOfInterest(args.eventIds, [
           // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <GlobalContextMenu
-            className={this.props.className}
-            style={this.props.style}
-            identifier="cursor-popup-menu"
-            x={menuX}
-            y={menuY}
-            opened={menuVisible}
-            onEsc={onClose}
-            onOutsideClick={onClose}
-            edgeLimit={false}
-            autoflip={true}
-          >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            {MenuItemHelpers.createMenuItemNodes(
-              // eslint-disable-next-line @typescript-eslint/no-deprecated
-              MenuItemHelpers.createMenuItems(items, this._itemPicked)
-            )}
-          </GlobalContextMenu>
-        )}
-      </div>
-    );
-  }
+          SessionStateActionId.UpdateCursorMenu,
+        ])
+      )
+        return;
 
-  private _hideContextMenu = () => {
-    this.setState({ menuVisible: false });
+      const menuData = UiFramework.getCursorMenuData();
+      const windowId = windowIdRef.current;
+      if (!menuData || windowId !== menuData.childWindowId) {
+        setOpened(false);
+        setItems(undefined);
+        return;
+      }
+
+      setOpened(menuData.items && menuData.items.length > 0);
+      setItems(menuData.items);
+      setX(menuData.position.x);
+      setY(menuData.position.y);
+    });
+  }, []);
+
+  const onClose = () => {
+    setOpened(false);
   };
 
-  private _itemPicked = (): void => {
-    this._hideContextMenu();
-  };
+  return (
+    <div
+      className="uifw-cursor-menu-container-div"
+      ref={(el) => {
+        const parentWindow = el?.ownerDocument.defaultView ?? undefined;
+        const windowId = UiFramework.childWindows.findId(parentWindow);
+        windowIdRef.current = windowId;
+        Logger.logInfo(
+          UiFramework.loggerCategory("UiFramework"),
+          `Cursor Menu for ${windowId ?? "main"} window`
+        );
+      }}
+    >
+      {items && items.length > 0 && opened && (
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <GlobalContextMenu
+          className={props.className}
+          style={props.style}
+          identifier="cursor-popup-menu"
+          x={x}
+          y={y}
+          opened={opened}
+          onEsc={onClose}
+          onOutsideClick={onClose}
+          edgeLimit={false}
+          autoflip={true}
+        >
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+          {MenuItemHelpers.createMenuItemNodes(
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            MenuItemHelpers.createMenuItems(items, onClose)
+          )}
+        </GlobalContextMenu>
+      )}
+    </div>
+  );
 }

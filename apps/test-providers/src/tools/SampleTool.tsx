@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
+import * as React from "react";
 import {
   AngleDescription,
   BeButtonEvent,
@@ -40,6 +40,7 @@ import {
 } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import sampleToolSvg from "./SampleTool.svg";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 enum ToolOptions {
   Red,
@@ -463,18 +464,17 @@ export class SampleTool extends PrimitiveTool {
       const menuItems: CursorMenuItemProps[] = [];
       menuItems.push({
         id: "entry1",
-        item: {
-          label: "Label1",
-          icon: "icon-placeholder",
-          execute: () => {
-            this.showInfoFromCursorMenu("hello from entry1");
-          },
+        label: "Label1",
+        iconNode: <SvgPlaceholder />,
+        execute: () => {
+          this.showInfoFromCursorMenu("hello from entry1");
         },
       });
       menuItems.push({
         id: "entry2",
         item: {
           label: "Label2",
+          icon: "icon-placeholder",
           execute: () => {
             this.showInfoFromCursorMenu("hello from entry2");
           },
@@ -484,11 +484,21 @@ export class SampleTool extends PrimitiveTool {
         id: "entry3",
         item: {
           label: "Label3",
-          icon: "icon-placeholder",
           execute: () => {
             this.showInfoFromCursorMenu("hello from entry3");
           },
         },
+        iconRight: "icon-placeholder",
+      });
+      menuItems.push({
+        id: "entry4",
+        item: {
+          label: "Label4",
+          execute: () => {
+            this.showInfoFromCursorMenu("hello from entry4");
+          },
+        },
+        iconRightNode: <SvgPlaceholder />,
       });
 
       UiFramework.openCursorMenu({

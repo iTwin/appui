@@ -14,8 +14,12 @@ import {
   isToolbarGroupItem,
 } from "../../toolbar/ToolbarItem.js";
 import { ToolGroup } from "./ToolGroup.js";
+import type { ToolbarProps as OldToolbarProps } from "../Toolbar.js";
 
-interface ToolbarProps {
+/** These exist for backwards compatibility only. */
+type ToolbarInternalProps = Pick<OldToolbarProps, "onItemExecuted">;
+
+interface ToolbarProps extends ToolbarInternalProps {
   /** Definitions for items of the toolbar. */
   items: ToolbarItem[];
   /** Describes direction to which the panels are expanded. Orientation of the toolbar is determined based on this prop. Defaults to `bottom`.  */
@@ -29,16 +33,21 @@ export function Toolbar({
   items,
   expandsTo = "bottom",
   panelAlignment = "start",
+  onItemExecuted,
 }: ToolbarProps) {
   const [popoverOpen, setPopoverOpen] = React.useState(false);
   return (
     <ToolbarContext.Provider
-      value={{
-        expandsTo,
-        panelAlignment,
-        popoverOpen,
-        setPopoverOpen,
-      }}
+      value={React.useMemo(
+        () => ({
+          expandsTo,
+          panelAlignment,
+          popoverOpen,
+          setPopoverOpen,
+          onItemExecuted,
+        }),
+        [expandsTo, panelAlignment, popoverOpen, setPopoverOpen, onItemExecuted]
+      )}
     >
       <ToolGroup>
         {items.map((item) => {
@@ -59,7 +68,8 @@ export function Toolbar({
 }
 
 interface ToolbarContextProps
-  extends Pick<Required<ToolbarProps>, "expandsTo" | "panelAlignment"> {
+  extends Pick<Required<ToolbarProps>, "expandsTo" | "panelAlignment">,
+    Pick<ToolbarProps, "onItemExecuted"> {
   popoverOpen: boolean;
   setPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
