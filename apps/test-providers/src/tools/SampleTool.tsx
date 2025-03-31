@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
+import * as React from "react";
 import {
   AngleDescription,
   BeButtonEvent,
@@ -40,6 +40,7 @@ import {
 } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import sampleToolSvg from "./SampleTool.svg";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 enum ToolOptions {
   Red,
@@ -465,11 +466,11 @@ export class SampleTool extends PrimitiveTool {
         id: "entry1",
         item: {
           label: "Label1",
-          icon: "icon-placeholder",
           execute: () => {
             this.showInfoFromCursorMenu("hello from entry1");
           },
         },
+        iconNode: <SvgPlaceholder />,
       });
       menuItems.push({
         id: "entry2",
