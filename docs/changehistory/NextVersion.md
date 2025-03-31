@@ -11,7 +11,7 @@ Table of contents:
 
 ### Fixes
 
-- Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar.
+- Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar. [#1264](https://github.com/iTwin/appui/pull/1264)
 
 ## @itwin/components-react
 
