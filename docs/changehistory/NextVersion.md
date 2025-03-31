@@ -7,6 +7,32 @@ Table of contents:
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
 
+## @itwin/appui-react
+
+### Deprecations
+
+- Deprecated `iconRight` property of `CursorMenuItemProps` interface. Consumers should use newly added `iconRightNode` instead.
+
+  ```tsx
+  // Before
+  const item: CursorMenuItemProps = {
+    iconRight: "icon-placeholder",
+  };
+
+  // After
+  const item: CursorMenuItemProps = {
+    iconRightNode: <SvgPlaceholder />,
+  };
+  ```
+
+### Additions
+
+- Added `iconRightNode` property to `CursorMenuItemProps` which replaces deprecated web font icon specific `iconRight` property.
+
+### Fixes
+
+- Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component.
+
 ## @itwin/components-react
 
 ### Additions
