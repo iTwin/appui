@@ -13,7 +13,7 @@ Table of contents:
 
 ### Fixes
 
-- Fixed an icon size of a backstage app button when web font icon is used.
+- Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
 
 ## @itwin/components-react
 
