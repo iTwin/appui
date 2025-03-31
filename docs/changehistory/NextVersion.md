@@ -11,7 +11,7 @@ Table of contents:
 
 ### Deprecations
 
-- Deprecated `iconRight` property of `CursorMenuItemProps` interface. Consumers should use newly added `iconRightNode` instead.
+- Deprecated `iconRight` property of `CursorMenuItemProps` interface. Consumers should use newly added `iconRightNode` instead. [#1265](https://github.com/iTwin/appui/pull/1265)
 
   ```tsx
   // Before
@@ -27,11 +27,11 @@ Table of contents:
 
 ### Additions
 
-- Added `iconRightNode` property to `CursorMenuItemProps` which replaces deprecated web font icon specific `iconRight` property.
+- Added `iconRightNode` property to `CursorMenuItemProps` which replaces deprecated web font icon specific `iconRight` property. [#1265](https://github.com/iTwin/appui/pull/1265)
 
 ### Fixes
 
-- Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component.
+- Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component. [#1265](https://github.com/iTwin/appui/pull/1265)
 
 ## @itwin/components-react
 
