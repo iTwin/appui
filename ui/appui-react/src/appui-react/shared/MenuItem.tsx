@@ -47,8 +47,11 @@ export interface CursorMenuItemProps extends CommonProps {
   submenu?: CursorMenuItemProps[];
   /** Icon to display on right side of the menu item.
    * Name of icon WebFont entry or if specifying an imported SVG symbol use "webSvg:" prefix  to imported symbol Id.
+   * @deprecated in 5.4.0. Use {@link CursorMenuItemProps.iconRightNode} instead.
    */
   iconRight?: string | ConditionalStringValue;
+  /** Icon to display on right side of the menu item. */
+  iconRightNode?: React.ReactNode;
 
   // #region "ItemProps" properties previously extended from deprecated type.
 
@@ -121,11 +124,8 @@ export class MenuItem extends ItemDefBase {
 
     if (props.item) {
       this._actionItem = new CommandItemDef(props.item);
-      this._actionItem.iconElement = props.iconNode;
 
       // Copy over icon, label & badgeType from the item
-      if (!this.iconSpec) this.iconSpec = this._actionItem.iconSpec;
-      if (!this.iconElement) this.iconElement = this._actionItem.iconElement;
       if (!this.label) this.setLabel(this._actionItem.label);
       if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
       if (!this.badgeKind) this.badgeKind = this._actionItem.badgeKind;
@@ -133,7 +133,7 @@ export class MenuItem extends ItemDefBase {
     } else if (props.execute) {
       this._execute = props.execute;
     } else if (props.submenu) {
-      props.submenu.forEach((childProps: CursorMenuItemProps) => {
+      props.submenu.forEach((childProps) => {
         const childItem = new MenuItem(childProps, onSelection);
         this._submenu.push(childItem);
       });
@@ -145,7 +145,8 @@ export class MenuItem extends ItemDefBase {
       );
     }
 
-    this.iconRightSpec = props.iconRight;
+    this.iconSpec = props.iconNode ?? props.icon ?? this._actionItem?.iconSpec;
+    this.iconRightSpec = props.iconRightNode ?? props.iconRight;
   }
 
   public get id(): string {
@@ -182,7 +183,7 @@ export class MenuItemHelpers {
     onSelection?: () => void
   ): MenuItem[] {
     const menuItems = new Array<MenuItem>();
-    itemPropsList.forEach((itemProps: CursorMenuItemProps) => {
+    itemPropsList.forEach((itemProps) => {
       menuItems.push(new MenuItem(itemProps, onSelection));
     });
     return menuItems;
@@ -204,7 +205,7 @@ export class MenuItemHelpers {
     index: number
   ): React.ReactNode {
     const label = item.label;
-    const iconSpec = item.iconElement ?? item.iconSpec;
+    const iconSpec = item.iconSpec;
     const iconRightSpec = item.iconRightSpec;
     const badgeType = item.badgeType;
     const badgeKind = item.badgeKind;

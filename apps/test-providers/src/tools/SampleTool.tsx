@@ -464,18 +464,17 @@ export class SampleTool extends PrimitiveTool {
       const menuItems: CursorMenuItemProps[] = [];
       menuItems.push({
         id: "entry1",
-        item: {
-          label: "Label1",
-          execute: () => {
-            this.showInfoFromCursorMenu("hello from entry1");
-          },
-        },
+        label: "Label1",
         iconNode: <SvgPlaceholder />,
+        execute: () => {
+          this.showInfoFromCursorMenu("hello from entry1");
+        },
       });
       menuItems.push({
         id: "entry2",
         item: {
           label: "Label2",
+          icon: "icon-placeholder",
           execute: () => {
             this.showInfoFromCursorMenu("hello from entry2");
           },
@@ -485,11 +484,21 @@ export class SampleTool extends PrimitiveTool {
         id: "entry3",
         item: {
           label: "Label3",
-          icon: "icon-placeholder",
           execute: () => {
             this.showInfoFromCursorMenu("hello from entry3");
           },
         },
+        iconRight: "icon-placeholder",
+      });
+      menuItems.push({
+        id: "entry4",
+        item: {
+          label: "Label4",
+          execute: () => {
+            this.showInfoFromCursorMenu("hello from entry4");
+          },
+        },
+        iconRightNode: <SvgPlaceholder />,
       });
 
       UiFramework.openCursorMenu({
