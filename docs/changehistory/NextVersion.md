@@ -7,6 +7,12 @@ Table of contents:
 - [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
 
+## @itwin/appui-react
+
+### Fixes
+
+- Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar.
+
 ## @itwin/components-react
 
 ### Additions
