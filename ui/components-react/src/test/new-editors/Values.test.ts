@@ -13,6 +13,7 @@ import type {
   TextValue,
 } from "../../components-react/new-editors/values/Values.js";
 import {
+  areEqual,
   isBoolean,
   isDate,
   isEnum,
@@ -84,5 +85,97 @@ describe("ValueUtilities", () => {
     expect(isInstanceKey(dateValue)).toBe(false);
     expect(isInstanceKey(enumValue)).toBe(false);
     expect(isInstanceKey(instanceKeyValue)).toBe(true);
+  });
+
+  describe("areEqual", () => {
+    it("compares `undefined` value", () => {
+      expect(areEqual(undefined, undefined)).toBe(true);
+      expect(areEqual(undefined, { value: "text" })).toBe(false);
+      expect(areEqual({ value: "text" }, undefined)).toBe(false);
+    });
+
+    it("compares text values", () => {
+      expect(areEqual({ value: "text" }, { value: "text" })).toBe(true);
+      expect(areEqual({ value: "text" }, { value: "different-text" })).toBe(
+        false
+      );
+      expect(areEqual({ value: "different-text" }, { value: "text" })).toBe(
+        false
+      );
+    });
+
+    it("compares numeric values", () => {
+      expect(
+        areEqual(
+          { rawValue: 1, displayValue: "1" },
+          { rawValue: 1, displayValue: "1" }
+        )
+      ).toBe(true);
+      expect(
+        areEqual(
+          { rawValue: 1, displayValue: "1" },
+          { rawValue: 2, displayValue: "2" }
+        )
+      ).toBe(false);
+      expect(
+        areEqual(
+          { rawValue: 2, displayValue: "2" },
+          { rawValue: 1, displayValue: "1" }
+        )
+      ).toBe(false);
+    });
+
+    it("compares boolean values", () => {
+      expect(areEqual({ value: true }, { value: true })).toBe(true);
+      expect(areEqual({ value: true }, { value: false })).toBe(false);
+      expect(areEqual({ value: false }, { value: true })).toBe(false);
+    });
+
+    it("compares date values", () => {
+      const date = new Date("2025-01-01T00:00:00Z");
+      const differentDate = new Date("2025-02-01T00:00:00Z");
+      expect(areEqual({ value: date }, { value: date })).toBe(true);
+      expect(areEqual({ value: date }, { value: differentDate })).toBe(false);
+      expect(areEqual({ value: differentDate }, { value: date })).toBe(false);
+    });
+
+    it("compares enum values", () => {
+      expect(areEqual({ choice: 1 }, { choice: 1 })).toBe(true);
+      expect(areEqual({ choice: 1 }, { choice: 2 })).toBe(false);
+      expect(areEqual({ choice: 2 }, { choice: 1 })).toBe(false);
+    });
+
+    it("compares instance key values", () => {
+      expect(
+        areEqual(
+          { key: { id: "0x1", className: "Schema.Class" } },
+          { key: { id: "0x1", className: "Schema.Class" } }
+        )
+      ).toBe(true);
+      expect(
+        areEqual(
+          { key: { id: "0x1", className: "Schema.Class" } },
+          { key: { id: "0x2", className: "Schema.Class" } }
+        )
+      ).toBe(false);
+      expect(
+        areEqual(
+          { key: { id: "0x2", className: "Schema.Class" } },
+          { key: { id: "0x1", className: "Schema.Class" } }
+        )
+      ).toBe(false);
+      expect(
+        areEqual(
+          { key: { id: "0x1", className: "Schema.Class" } },
+          { key: { id: "0x1", className: "Schema.DifferentClass" } }
+        )
+      ).toBe(false);
+      expect(
+        areEqual(
+          { key: { id: "0x1", className: "Schema.DifferentClass" } },
+          { key: { id: "0x1", className: "Schema.Class" } }
+        )
+      ).toBe(false);
+    });
   });
 });
