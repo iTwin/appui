@@ -121,9 +121,11 @@ export class MenuItem extends ItemDefBase {
 
     if (props.item) {
       this._actionItem = new CommandItemDef(props.item);
+      this._actionItem.iconElement = props.iconNode;
 
       // Copy over icon, label & badgeType from the item
       if (!this.iconSpec) this.iconSpec = this._actionItem.iconSpec;
+      if (!this.iconElement) this.iconElement = this._actionItem.iconElement;
       if (!this.label) this.setLabel(this._actionItem.label);
       if (!this.badgeType) this.badgeType = this._actionItem.badgeType;
       if (!this.badgeKind) this.badgeKind = this._actionItem.badgeKind;
@@ -202,7 +204,7 @@ export class MenuItemHelpers {
     index: number
   ): React.ReactNode {
     const label = item.label;
-    const iconSpec = item.iconSpec;
+    const iconSpec = item.iconElement ?? item.iconSpec;
     const iconRightSpec = item.iconRightSpec;
     const badgeType = item.badgeType;
     const badgeKind = item.badgeKind;
