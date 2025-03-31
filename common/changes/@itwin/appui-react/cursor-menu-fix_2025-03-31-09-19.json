@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

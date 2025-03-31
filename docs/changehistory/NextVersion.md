@@ -3,19 +3,42 @@
 Table of contents:
 
 - [@itwin/appui-react](#itwinappui-react)
+  - [Deprecations](#deprecations)
+  - [Additions](#additions)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
-  - [Additions](#additions)
-- [@itwin/imodel-components-react](#itwinimodel-components-react)
   - [Additions](#additions-1)
+- [@itwin/imodel-components-react](#itwinimodel-components-react)
+  - [Additions](#additions-2)
 
 ## @itwin/appui-react
+
+### Deprecations
+
+- Deprecated `iconRight` property of `CursorMenuItemProps` interface. Consumers should use newly added `iconRightNode` instead. [#1265](https://github.com/iTwin/appui/pull/1265)
+
+  ```tsx
+  // Before
+  const item: CursorMenuItemProps = {
+    iconRight: "icon-placeholder",
+  };
+
+  // After
+  const item: CursorMenuItemProps = {
+    iconRightNode: <SvgPlaceholder />,
+  };
+  ```
+
+### Additions
+
+- Added `iconRightNode` property to `CursorMenuItemProps` which replaces deprecated web font icon specific `iconRight` property. [#1265](https://github.com/iTwin/appui/pull/1265)
 
 ### Fixes
 
 - Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
 - Simplify grid template definitions of standard layout to avoid CSS issues in `RsBuild` production build. [#1263](https://github.com/iTwin/appui/pull/1263)
 - Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar. [#1264](https://github.com/iTwin/appui/pull/1264)
+- Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component. [#1265](https://github.com/iTwin/appui/pull/1265)
 
 ## @itwin/components-react
 

@@ -212,7 +212,7 @@ public;interface;CursorMenuPayload
 public;class;CursorPopup
 public;function;CursorPopupContent
 public;class;CursorPopupManager
-alpha;class;CursorPopupMenu
+alpha;function;CursorPopupMenu
 public;interface;CursorPopupOptions
 public;type;CursorPopupProps
 public;class;CursorPopupRenderer
