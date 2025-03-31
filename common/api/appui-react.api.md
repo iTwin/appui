@@ -1398,7 +1398,9 @@ export interface CursorMenuItemProps extends CommonProps {
     // @deprecated
     icon?: IconSpec;
     iconNode?: React_2.ReactNode;
+    // @deprecated
     iconRight?: string | ConditionalStringValue;
+    iconRightNode?: React_2.ReactNode;
     // @deprecated
     iconSpec?: IconSpec;
     id: string;
@@ -1469,17 +1471,7 @@ export class CursorPopupManager {
 }
 
 // @alpha
-export class CursorPopupMenu extends React_2.PureComponent<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
-CursorPopupMenuState> {
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-    // (undocumented)
-    readonly state: CursorPopupMenuState;
-}
+export function CursorPopupMenu(props: CommonProps): React_2.JSX.Element;
 
 // @public
 export interface CursorPopupOptions {

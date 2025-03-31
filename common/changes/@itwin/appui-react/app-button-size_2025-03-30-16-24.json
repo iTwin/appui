@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Fixed an icon size of a backstage app button when web font icon is used.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

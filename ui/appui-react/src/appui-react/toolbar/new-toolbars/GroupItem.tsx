@@ -71,6 +71,7 @@ interface GroupMenuItemProps {
 
 /** @internal */
 export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
+  const { onItemExecuted } = React.useContext(ToolbarContext) ?? {};
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = useConditionalProp(item.icon);
   const label = useConditionalProp(item.label);
@@ -97,6 +98,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
       onClick={() => {
         if (isToolbarActionItem(item)) {
           item.execute();
+          onItemExecuted?.(item);
           onClose?.();
         }
       }}
