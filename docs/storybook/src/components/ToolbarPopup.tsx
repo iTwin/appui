@@ -16,7 +16,7 @@ export interface CardPopupStoryProps {
   placement: ShowToolbarParams[5];
 }
 
-/** [showCard](https://www.itwinjs.org/reference/appui-react/admin/frameworkuiadmin/showcard/) API can be used to show a card-at-cursor popup. */
+/** [UiFramework.showToolbar()](https://www.itwinjs.org/reference/appui-react/utilities/uiframework/showtoolbarstatic/) API can be used to show a toolbar popup. */
 export function ToolbarPopupStory({
   toolbarProps,
   location,
