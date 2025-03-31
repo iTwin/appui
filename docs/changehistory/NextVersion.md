@@ -15,6 +15,7 @@ Table of contents:
 
 - Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
 - Simplify grid template definitions of standard layout to avoid CSS issues in `RsBuild` production build. [#1263](https://github.com/iTwin/appui/pull/1263)
+- Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar. [#1264](https://github.com/iTwin/appui/pull/1264)
 
 ## @itwin/components-react
 

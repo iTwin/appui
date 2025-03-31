@@ -50,13 +50,18 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
  * @beta
  */
 export function Toolbar(props: ToolbarProps) {
-  const expandsTo = toDirection(props.expandsTo);
-  const panelAlignment = toPanelAlignment(props.panelAlignment);
+  const {
+    expandsTo: expandsToProp,
+    panelAlignment: panelAlignmentProp,
+    ...rest
+  } = props;
+  const expandsTo = toDirection(expandsToProp);
+  const panelAlignment = toPanelAlignment(panelAlignmentProp);
   return (
     <ToolGroupToolbar
       expandsTo={expandsTo}
       panelAlignment={panelAlignment}
-      items={props.items}
+      {...rest}
     />
   );
 }
