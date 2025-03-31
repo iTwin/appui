@@ -2,7 +2,7 @@
   "changes": [
     {
       "packageName": "@itwin/appui-react",
-      "comment": "Simplify grid template definitions of standard layout to avoid CSS issues in `rsbuild` production build.",
+      "comment": "Simplify grid template definitions of standard layout to avoid CSS issues in `RsBuild` production build.",
       "type": "none"
     }
   ],

@@ -14,7 +14,7 @@ Table of contents:
 ### Fixes
 
 - Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
-- Simplify grid template definitions of standard layout to avoid CSS issues in `rsbuild` production build. [#1263](https://github.com/iTwin/appui/pull/1263)
+- Simplify grid template definitions of standard layout to avoid CSS issues in `RsBuild` production build. [#1263](https://github.com/iTwin/appui/pull/1263)
 
 ## @itwin/components-react
 
