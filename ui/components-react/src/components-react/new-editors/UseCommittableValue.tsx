@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import type { Value } from "./values/Values.js";
+import { areEqual } from "./values/ValueUtilities.js";
 
 interface UseCommittableValueProps {
   initialValue?: Value;
@@ -52,6 +53,7 @@ export function useCommittableValue({
   onCancel,
   onCommit,
 }: UseCommittableValueProps) {
+  const initialValueRef = React.useRef(initialValue);
   const [currentValue, setCurrentValue] = React.useState<Value | undefined>(
     initialValue
   );
@@ -69,7 +71,10 @@ export function useCommittableValue({
   };
 
   const handleCommit = () => {
-    if (currentValueRef.current.state === "changed") {
+    if (
+      currentValueRef.current.state === "changed" &&
+      !areEqual(currentValueRef.current.value, initialValueRef.current)
+    ) {
       onCommit(currentValueRef.current.value);
       return;
     }

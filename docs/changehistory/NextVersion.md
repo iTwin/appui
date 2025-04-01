@@ -278,6 +278,8 @@ Table of contents:
 
   The new system removes all the code that was associated with class components and accessing values through editor `ref`. It is not clear if that was used/useful so the chosen approach is to add something similar later if that is still needed. Majority of that was used by `EditorContainer` that is replaced by `useCommittableValue` hook in the new system.
 
+- `useCommittableValue`: Avoid invoking `commit` if value is the same as the initial. [#1267](https://github.com/iTwin/appui/pull/1267)
+
 ## @itwin/imodel-components-react
 
 ### Additions

@@ -63,3 +63,42 @@ export function isEnum(value: Value): value is EnumValue {
 export function isInstanceKey(value: Value): value is InstanceKeyValue {
   return "key" in value && "id" in value.key && "className" in value.key;
 }
+
+/**
+ * Checks if two values are equal.
+ * @beta
+ */
+export function areEqual(
+  lhs: Value | undefined,
+  rhs: Value | undefined
+): boolean {
+  if (lhs === undefined && rhs === undefined) {
+    return true;
+  }
+  if (lhs === undefined) {
+    return false;
+  }
+  if (rhs === undefined) {
+    return false;
+  }
+
+  if (isNumeric(lhs) && isNumeric(rhs)) {
+    return lhs.rawValue === rhs.rawValue;
+  }
+  if (isText(lhs) && isText(rhs)) {
+    return lhs.value === rhs.value;
+  }
+  if (isBoolean(lhs) && isBoolean(rhs)) {
+    return lhs.value === rhs.value;
+  }
+  if (isDate(lhs) && isDate(rhs)) {
+    return lhs.value === rhs.value;
+  }
+  if (isInstanceKey(lhs) && isInstanceKey(rhs)) {
+    return lhs.key.id === rhs.key.id && lhs.key.className === rhs.key.className;
+  }
+  if (isEnum(lhs) && isEnum(rhs)) {
+    return lhs.choice === rhs.choice;
+  }
+  return false;
+}

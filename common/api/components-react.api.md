@@ -93,6 +93,9 @@ export interface ActiveMatchInfo {
 // @public
 export function adjustDateToTimezone(inDateTime: Date, utcOffset: number): Date;
 
+// @beta
+function areEqual(lhs: Value | undefined, rhs: Value | undefined): boolean;
+
 // @public
 export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
@@ -3408,7 +3411,8 @@ declare namespace ValueUtilities {
         isBoolean,
         isDate,
         isEnum,
-        isInstanceKey
+        isInstanceKey,
+        areEqual
     }
 }
 
