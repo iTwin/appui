@@ -17,6 +17,7 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { useEscapeSetFocusToHome } from "../hooks/useEscapeSetFocusToHome.js";
 import { useUiVisibility } from "../hooks/useUiVisibility.js";
+import type { LayoutStore } from "../layout/base/LayoutStore.js";
 import { createLayoutStore } from "../layout/base/LayoutStore.js";
 import type {
   NineZoneDispatch,
@@ -111,10 +112,13 @@ const widgetContent = <WidgetContent />;
 const toolSettingsContent = <ToolSettingsContent />;
 const widgetPanelsFrontstage = <WidgetPanelsFrontstageComponent />;
 
+/** @public */
+export let frontstageLayoutStore : LayoutStore | undefined;
+
 /** @internal */
 export function useLayoutStore(frontstageDef: FrontstageDef | undefined) {
   const layoutStore = React.useMemo(
-    () => createLayoutStore(frontstageDef?.nineZoneState),
+    () => { frontstageLayoutStore = createLayoutStore(frontstageDef?.nineZoneState); return frontstageLayoutStore;} ,
     [frontstageDef]
   );
   React.useEffect(() => {

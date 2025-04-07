@@ -15,31 +15,31 @@ import { assert } from "@itwin/core-bentley";
 import type { NineZoneState } from "../state/NineZoneState.js";
 import { createNineZoneState } from "../state/NineZoneState.js";
 
-/** @internal */
+/** @public */
 export type LayoutState = NineZoneState;
 
-/** @internal */
+/** @public */
 export type LayoutStore = StoreApi<LayoutState>;
 
-/** @internal */
+/** @public */
 export const LayoutStoreContext = React.createContext<LayoutStore | undefined>(
   undefined
 );
 LayoutStoreContext.displayName = "appui:LayoutStoreContext";
 
-/** @internal */
+/** @public */
 export function createLayoutStore(args?: Partial<LayoutState>): LayoutStore {
   return createStore<LayoutState>(() => createNineZoneState(args));
 }
 
-/** @internal */
+/** @public */
 export function useLayoutStore() {
   const store = React.useContext(LayoutStoreContext);
   assert(!!store, "LayoutStoreContext is not defined");
   return store;
 }
 
-/** @internal */
+/** @public */
 export function useLayout<SelectorOutput>(
   selector: (state: LayoutState) => SelectorOutput,
   multipleSlices = false
@@ -56,7 +56,7 @@ const optionalLayoutStore = createStore<LayoutState | undefined>(
   () => undefined
 );
 
-/** @internal */
+/** @public */
 export function useOptionalLayout<SelectorOutput>(
   selector: (state: LayoutState | undefined) => SelectorOutput,
   multipleSlices = false

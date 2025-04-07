@@ -658,6 +658,7 @@ export {
   ToolAssistanceField,
   ToolAssistanceFieldProps,
 } from "./appui-react/statusfields/toolassistance/ToolAssistanceField.js";
+export { ToolAssistanceWidgetContent } from "./appui-react/statusfields/toolassistance/ToolAssistanceWidgetContent.js";
 
 export {
   SyncUiEventDispatcher,
@@ -841,6 +842,9 @@ export { useWidget } from "./appui-react/widgets/useWidget.js";
 
 export { ToolInformation } from "./appui-react/toolsettings/ToolInformation.js";
 export { ToolUiProvider } from "./appui-react/toolsettings/ToolUiProvider.js";
+export { LayoutStore, LayoutState, LayoutStoreContext } from "./appui-react/layout/base/LayoutStore.js";
+export { NineZoneAction, ToolSettingsDockAction, ToolSettingsDragStartAction, WidgetDefAddToolSettingsAction, WidgetDragEndAction } from "./appui-react/layout/state/NineZoneAction.js";
+export { frontstageLayoutStore } from "./appui-react/widget-panels/Frontstage.js";
 
 // #region "SideEffects"
 

@@ -27,132 +27,132 @@ import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
 import type { PopoutBounds } from "./SavedTabState.js";
 
-/** @internal */
+/** @public */
 export interface ResizeAction {
   readonly type: "RESIZE";
   readonly size: SizeProps;
 }
 
-/** @internal */
+/** @public */
 export interface PanelToggleCollapsedAction {
   readonly type: "PANEL_TOGGLE_COLLAPSED";
   readonly side: PanelSide;
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetCollapsedAction {
   readonly type: "PANEL_SET_COLLAPSED";
   readonly collapsed: boolean;
   readonly side: PanelSide;
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetPinnedAction {
   readonly type: "PANEL_SET_PINNED";
   readonly side: PanelSide;
   readonly pinned: boolean;
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetSizeAction {
   readonly type: "PANEL_SET_SIZE";
   readonly side: PanelSide;
   readonly size: StagePanelSizeSpec | undefined;
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetMinSizeAction {
   readonly type: "PANEL_SET_MIN_SIZE";
   readonly side: PanelSide;
   readonly minSize: StagePanelSizeSpec;
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetMaxSizeAction {
   readonly type: "PANEL_SET_MAX_SIZE";
   readonly side: PanelSide;
   readonly maxSize: PanelState["maxSize"];
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetResizableAction {
   readonly type: "PANEL_SET_RESIZABLE";
   readonly side: PanelSide;
   readonly resizable: PanelState["resizable"];
 }
 
-/** @internal */
+/** @public */
 export interface PanelSetSplitterPercentAction {
   readonly type: "PANEL_SET_SPLITTER_VALUE";
   readonly side: PanelSide;
   readonly percent: number;
 }
 
-/** @internal */
+/** @public */
 export interface PanelToggleSpanAction {
   readonly type: "PANEL_TOGGLE_SPAN";
   readonly side: HorizontalPanelSide;
 }
 
-/** @internal */
+/** @public */
 export interface PanelTogglePinnedAction {
   readonly type: "PANEL_TOGGLE_PINNED";
   readonly side: PanelSide;
 }
 
-/** @internal */
+/** @public */
 export interface PanelInitializeAction {
   readonly type: "PANEL_INITIALIZE";
   readonly side: PanelSide;
   readonly size: number;
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetResizeAction {
   readonly type: "FLOATING_WIDGET_RESIZE";
   readonly id: FloatingWidgetState["id"];
   readonly resizeBy: RectangleProps;
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetSetBoundsAction {
   readonly type: "FLOATING_WIDGET_SET_BOUNDS";
   readonly id: FloatingWidgetState["id"];
   readonly bounds: RectangleProps;
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetBringToFrontAction {
   readonly type: "FLOATING_WIDGET_BRING_TO_FRONT";
   readonly id: FloatingWidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetClearUserSizedAction {
   readonly type: "FLOATING_WIDGET_CLEAR_USER_SIZED";
   readonly id: FloatingWidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetSetUserSizedAction {
   readonly type: "FLOATING_WIDGET_SET_USER_SIZED";
   readonly id: FloatingWidgetState["id"];
   readonly userSized: boolean;
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetSendBackAction {
   readonly type: "FLOATING_WIDGET_SEND_BACK";
   readonly id: FloatingWidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface PopoutWidgetSendBackAction {
   readonly type: "POPOUT_WIDGET_SEND_BACK";
   readonly id: PopoutWidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface PanelWidgetDragStartAction {
   readonly type: "PANEL_WIDGET_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -162,28 +162,28 @@ export interface PanelWidgetDragStartAction {
   readonly userSized?: boolean;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetDragAction {
   readonly type: "WIDGET_DRAG";
   readonly dragBy: XAndY;
   readonly floatingWidgetId: FloatingWidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetDragEndAction {
   readonly type: "WIDGET_DRAG_END";
   readonly floatingWidgetId: FloatingWidgetState["id"];
   readonly target: WidgetDragDropTargetState;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabAddToWidgetAction {
   readonly type: "WIDGET_TAB_ADD_TO_WIDGET";
   readonly id: TabState["id"];
   readonly widgetId: WidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabClickAction {
   readonly type: "WIDGET_TAB_CLICK";
   readonly side: PanelSide | undefined;
@@ -191,7 +191,7 @@ export interface WidgetTabClickAction {
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabDoubleClickAction {
   readonly type: "WIDGET_TAB_DOUBLE_CLICK";
   readonly side: PanelSide | undefined;
@@ -200,7 +200,7 @@ export interface WidgetTabDoubleClickAction {
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabDragStartAction {
   readonly type: "WIDGET_TAB_DRAG_START";
   readonly side: PanelSide | undefined;
@@ -211,26 +211,26 @@ export interface WidgetTabDragStartAction {
   readonly userSized?: boolean;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabDragAction {
   readonly type: "WIDGET_TAB_DRAG";
   readonly dragBy: XAndY;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabDragEndAction {
   readonly type: "WIDGET_TAB_DRAG_END";
   readonly id: TabState["id"];
   readonly target: TabDragDropTargetState;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabCloseAction {
   readonly type: "WIDGET_TAB_CLOSE";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabFloatAction {
   readonly type: "WIDGET_TAB_FLOAT";
   readonly id: TabState["id"];
@@ -238,32 +238,32 @@ export interface WidgetTabFloatAction {
   readonly size?: SizeProps;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabHideAction {
   readonly type: "WIDGET_TAB_HIDE";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabRemoveAction {
   readonly type: "WIDGET_TAB_REMOVE";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabSetLabelAction {
   readonly type: "WIDGET_TAB_SET_LABEL";
   readonly id: TabState["id"];
   readonly label: TabState["label"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabOpenAction {
   readonly type: "WIDGET_TAB_OPEN";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabPopoutAction {
   readonly type: "WIDGET_TAB_POPOUT";
   readonly id: TabState["id"];
@@ -271,49 +271,49 @@ export interface WidgetTabPopoutAction {
   readonly size?: SizeProps;
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabSetPopoutBoundsAction extends PopoutBounds {
   readonly type: "WIDGET_TAB_SET_POPOUT_BOUNDS";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabShowAction {
   readonly type: "WIDGET_TAB_SHOW";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabExpandAction {
   readonly type: "WIDGET_TAB_EXPAND";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabUnloadAction {
   readonly type: "WIDGET_TAB_UNLOAD";
   readonly id: TabState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface WidgetTabUpdateAction {
   readonly type: "WIDGET_TAB_UPDATE";
   readonly id: TabState["id"];
   readonly overrides: Partial<TabState>;
 }
 
-/** @internal */
+/** @public */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
 }
 
-/** @internal */
+/** @public */
 export interface ToolSettingsDockAction {
   readonly type: "TOOL_SETTINGS_DOCK";
 }
 
-/** @internal */
+/** @public */
 export interface WidgetDefAddAction {
   readonly type: "WIDGET_DEF_ADD";
   readonly id: TabState["id"];
@@ -330,14 +330,14 @@ export interface WidgetDefAddAction {
   };
 }
 
-/** @internal */
+/** @public */
 export interface WidgetDefAddToolSettingsAction {
   readonly type: "WIDGET_DEF_ADD_TOOL_SETTINGS";
   readonly id: TabState["id"];
   readonly overrides?: Partial<TabState>;
 }
 
-/** @internal */
+/** @public */
 export type NineZoneAction =
   | ResizeAction
   | PanelToggleCollapsedAction

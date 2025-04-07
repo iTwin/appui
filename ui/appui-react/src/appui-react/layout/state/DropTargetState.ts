@@ -10,27 +10,27 @@ import type { SizeProps } from "../../utils/SizeProps.js";
 import type { PanelSide } from "../widget-panels/PanelTypes.js";
 import type { FloatingWidgetState, WidgetState } from "./WidgetState.js";
 
-/** @internal */
+/** @public */
 export interface TabDropTargetState {
   readonly widgetId: WidgetState["id"];
   readonly tabIndex: number;
   readonly type: "tab";
 }
 
-/** @internal */
+/** @public */
 export interface WidgetDropTargetState {
   readonly widgetId: WidgetState["id"];
   readonly type: "widget";
 }
 
-/** @internal */
+/** @public */
 export interface PanelDropTargetState {
   readonly side: PanelSide;
   readonly newWidgetId: WidgetState["id"];
   readonly type: "panel";
 }
 
-/** @internal */
+/** @public */
 export interface SectionDropTargetState {
   readonly side: PanelSide;
   readonly newWidgetId: WidgetState["id"];
@@ -38,7 +38,7 @@ export interface SectionDropTargetState {
   readonly type: "section";
 }
 
-/** @internal */
+/** @public */
 export interface FloatingWidgetDropTargetState {
   readonly type: "floatingWidget";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -46,7 +46,7 @@ export interface FloatingWidgetDropTargetState {
 }
 
 /** Drop target of a tab drag action.
- * @internal
+ * @public
  */
 export type TabDragDropTargetState =
   | PanelDropTargetState
@@ -56,14 +56,14 @@ export type TabDragDropTargetState =
   | FloatingWidgetDropTargetState;
 
 /** Default drop target, when nothing is targeted.
- * @internal
+ * @public
  */
 export interface WindowDropTargetState {
   readonly type: "window";
 }
 
 /** Drop target of a widget drag action.
- * @internal
+ * @public
  */
 export type WidgetDragDropTargetState =
   | PanelDropTargetState
@@ -72,47 +72,47 @@ export type WidgetDragDropTargetState =
   | TabDropTargetState
   | WindowDropTargetState;
 
-/** @internal */
+/** @public */
 export type DropTargetState =
   | TabDragDropTargetState
   | WidgetDragDropTargetState;
 
-/** @internal */
+/** @public */
 export function isTabDropTargetState(
   state: DropTargetState
 ): state is TabDropTargetState {
   return state.type === "tab";
 }
 
-/** @internal */
+/** @public */
 export function isPanelDropTargetState(
   state: DropTargetState
 ): state is PanelDropTargetState {
   return state.type === "panel";
 }
 
-/** @internal */
+/** @public */
 export function isSectionDropTargetState(
   state: DropTargetState
 ): state is SectionDropTargetState {
   return state.type === "section";
 }
 
-/** @internal */
+/** @public */
 export function isWidgetDropTargetState(
   state: DropTargetState
 ): state is WidgetDropTargetState {
   return state.type === "widget";
 }
 
-/** @internal */
+/** @public */
 export function isWindowDropTargetState(
   state: WidgetDragDropTargetState
 ): state is WindowDropTargetState {
   return state.type === "window";
 }
 
-/** @internal */
+/** @public */
 export function isWidgetDragDropTargetState(
   state: DropTargetState
 ): state is WidgetDragDropTargetState {
@@ -120,7 +120,7 @@ export function isWidgetDragDropTargetState(
   return true;
 }
 
-/** @internal */
+/** @public */
 export function isTabDragDropTargetState(
   state: DropTargetState
 ): state is TabDragDropTargetState {
