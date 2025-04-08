@@ -173,7 +173,7 @@ export function StandardLayout(props: StandardLayoutProps) {
         style={context.style}
         onMouseMove={(e) => {
           const point = new Point(e.pageX, e.pageY);
-          CursorInformation.handleMouseMove(point);
+          CursorInformation.handleMouseMove(point, e.view.document);
 
           if (!(e.target instanceof Node)) return;
           const contentHovered = contentElementRef.current?.contains(e.target);
