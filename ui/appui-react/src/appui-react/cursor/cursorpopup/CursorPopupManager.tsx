@@ -338,16 +338,20 @@ export class CursorPopupManager {
   }
 }
 
+const relativePositions = Object.values(RelativePosition).filter(
+  (value): value is RelativePosition => typeof value !== "string"
+);
+
 /** CursorPopupRenderer React component.
  * @public
  */
 export function CursorPopupRenderer() {
-  const [_, forceUpdate] = React.useState({});
+  const [popups, setPopups] = React.useState(CursorPopupManager.popups);
   const [point, setPoint] = React.useState(new Point());
 
   React.useEffect(() => {
     return CursorPopupManager.onCursorPopupsChangedEvent.addListener(() => {
-      forceUpdate({});
+      setPopups(CursorPopupManager.popups);
     });
   }, []);
   React.useEffect(() => {
@@ -358,133 +362,106 @@ export function CursorPopupRenderer() {
     );
   }, []);
 
-  const renderRelativePosition = (
-    relativePosition: RelativePosition
-  ): React.ReactNode => {
-    const filteredInfo = CursorPopupManager.popups.filter(
-      (popupInfo: CursorPopupInfo) =>
-        popupInfo.renderRelativePosition === relativePosition
-    );
+  if (popups.length === 0) return undefined;
+  return (
+    <>
+      {relativePositions.map((position) => {
+        const filteredInfo = popups.filter(
+          (popupInfo) => popupInfo.renderRelativePosition === position
+        );
+        if (filteredInfo.length === 0) return null;
 
-    if (filteredInfo.length > 0) {
-      let totalDimension = 0;
-      const ascending =
-        relativePosition === RelativePosition.Right ||
-        relativePosition === RelativePosition.BottomRight ||
-        relativePosition === RelativePosition.Bottom ||
-        relativePosition === RelativePosition.BottomLeft;
+        let totalDimension = 0;
+        const positionPopups = filteredInfo
+          .sort((a, b) => {
+            const ascending =
+              position === RelativePosition.Right ||
+              position === RelativePosition.BottomRight ||
+              position === RelativePosition.Bottom ||
+              position === RelativePosition.BottomLeft;
+            return ascending
+              ? a.priority - b.priority
+              : b.priority - a.priority;
+          })
+          .map((popupInfo, index) => {
+            const title =
+              popupInfo.options !== undefined ? popupInfo.options.title : "";
+            const shadow =
+              popupInfo.options !== undefined
+                ? popupInfo.options.shadow
+                : false;
+            let offset = popupInfo.offset;
 
-      const positionPopups = filteredInfo
-        .sort((a: CursorPopupInfo, b: CursorPopupInfo): number =>
-          ascending ? a.priority - b.priority : b.priority - a.priority
-        )
-        .map((popupInfo: CursorPopupInfo, index: number) => {
-          const title =
-            popupInfo.options !== undefined ? popupInfo.options.title : "";
-          const shadow =
-            popupInfo.options !== undefined ? popupInfo.options.shadow : false;
-          let offset = popupInfo.offset;
+            if (index > 0)
+              offset = adjustOffset(
+                offset,
+                popupInfo.renderRelativePosition,
+                totalDimension
+              );
 
-          if (index > 0)
-            offset = adjustOffset(
-              offset,
-              popupInfo.renderRelativePosition,
-              totalDimension
+            if (popupInfo.popupSize)
+              totalDimension += getDimension(popupInfo.popupSize, position);
+
+            return (
+              <CursorPopup
+                key={popupInfo.id}
+                id={popupInfo.id}
+                content={popupInfo.content}
+                pt={point}
+                offset={offset}
+                relativePosition={popupInfo.renderRelativePosition}
+                title={title}
+                shadow={shadow}
+                onSizeKnown={(size) => {
+                  popupInfo.popupSize = size;
+                }}
+              />
             );
+          });
 
-          if (popupInfo.popupSize)
-            totalDimension += getDimension(
-              popupInfo.popupSize,
-              relativePosition
-            );
+        return <React.Fragment key={position}>{positionPopups}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
-          return (
-            <CursorPopup
-              key={popupInfo.id}
-              id={popupInfo.id}
-              content={popupInfo.content}
-              pt={point}
-              offset={offset}
-              relativePosition={popupInfo.renderRelativePosition}
-              title={title}
-              shadow={shadow}
-              onSizeKnown={(size) => {
-                popupInfo.popupSize = size;
-              }}
-            />
-          );
-        });
-
-      return (
-        <React.Fragment key={relativePosition.toString()}>
-          {positionPopups}
-        </React.Fragment>
-      );
-    }
-
-    return null;
-  };
-
-  const adjustOffset = (
-    offset: Point,
-    relativePosition: RelativePosition,
-    dimension: number
-  ): Point => {
-    let outOffset = Point.create(offset.toProps());
-
-    switch (relativePosition) {
-      case RelativePosition.Top:
-      case RelativePosition.Bottom:
-      case RelativePosition.TopLeft:
-      case RelativePosition.TopRight:
-      case RelativePosition.BottomLeft:
-      case RelativePosition.BottomRight:
-        outOffset = Point.create({ x: offset.x, y: offset.y + dimension });
-        break;
-      case RelativePosition.Left:
-      case RelativePosition.Right:
-        outOffset = Point.create({ x: offset.x + dimension, y: offset.y });
-        break;
-    }
-
-    return outOffset;
-  };
-
-  const getDimension = (
-    popupSize: SizeProps,
-    relativePosition: RelativePosition
-  ): number => {
-    let dimension = 0;
-
-    switch (relativePosition) {
-      case RelativePosition.Top:
-      case RelativePosition.Bottom:
-      case RelativePosition.TopLeft:
-      case RelativePosition.TopRight:
-      case RelativePosition.BottomLeft:
-      case RelativePosition.BottomRight:
-        dimension = popupSize.height;
-        break;
-      case RelativePosition.Left:
-      case RelativePosition.Right:
-        dimension = popupSize.width;
-        break;
-    }
-
-    return dimension;
-  };
-
-  if (CursorPopupManager.popupCount <= 0) return null;
-
-  const positions = new Array<React.ReactNode>();
-  let renderedPosition: React.ReactNode;
-  const begin = RelativePosition.Left;
-  const end = RelativePosition.BottomRight;
-
-  for (let position = begin; position <= end; position++) {
-    renderedPosition = renderRelativePosition(position);
-    if (renderedPosition) positions.push(renderedPosition);
+function adjustOffset(
+  offset: Point,
+  relativePosition: RelativePosition,
+  dimension: number
+) {
+  switch (relativePosition) {
+    case RelativePosition.Top:
+    case RelativePosition.Bottom:
+    case RelativePosition.TopLeft:
+    case RelativePosition.TopRight:
+    case RelativePosition.BottomLeft:
+    case RelativePosition.BottomRight:
+      return Point.create({ x: offset.x, y: offset.y + dimension });
+    case RelativePosition.Left:
+    case RelativePosition.Right:
+      return Point.create({ x: offset.x + dimension, y: offset.y });
   }
 
-  return positions;
+  return Point.create(offset.toProps());
+}
+
+function getDimension(
+  popupSize: SizeProps,
+  relativePosition: RelativePosition
+) {
+  switch (relativePosition) {
+    case RelativePosition.Top:
+    case RelativePosition.Bottom:
+    case RelativePosition.TopLeft:
+    case RelativePosition.TopRight:
+    case RelativePosition.BottomLeft:
+    case RelativePosition.BottomRight:
+      return popupSize.height;
+    case RelativePosition.Left:
+    case RelativePosition.Right:
+      return popupSize.width;
+  }
+
+  return 0;
 }
