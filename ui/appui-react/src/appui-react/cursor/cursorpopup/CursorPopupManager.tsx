@@ -10,7 +10,6 @@ import * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { ListenerType } from "@itwin/core-react/internal";
 import { Point } from "@itwin/core-react/internal";
 import { UiFramework } from "../../UiFramework.js";
 import { CursorPopupShow } from "./CursorPopup.js";
@@ -339,53 +338,29 @@ export class CursorPopupManager {
   }
 }
 
-/** State for the [[CursorPopupRenderer]] React component */
-interface CursorPopupRendererState {
-  pt: Point;
-}
-
 /** CursorPopupRenderer React component.
  * @public
  */
-export class CursorPopupRenderer extends React.Component<
-  any,
-  CursorPopupRendererState
-> {
-  constructor(props: any) {
-    super(props);
+export function CursorPopupRenderer() {
+  const [_, forceUpdate] = React.useState({});
+  const [point, setPoint] = React.useState(new Point());
 
-    this.state = {
-      pt: new Point(),
-    };
-  }
+  React.useEffect(() => {
+    return CursorPopupManager.onCursorPopupsChangedEvent.addListener(() => {
+      forceUpdate({});
+    });
+  }, []);
+  React.useEffect(() => {
+    return CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(
+      (args) => {
+        setPoint(Point.create(args.pt));
+      }
+    );
+  }, []);
 
-  public override render(): React.ReactNode {
-    if (CursorPopupManager.popupCount <= 0) return null;
-
-    return <>{this.renderPositions()}</>;
-  }
-
-  private _handleSizeKnown(popupInfo: CursorPopupInfo, size: SizeProps) {
-    popupInfo.popupSize = size;
-  }
-
-  private renderPositions(): React.ReactNode[] {
-    const positions = new Array<React.ReactNode>();
-    let renderedPosition: React.ReactNode;
-    const begin = RelativePosition.Left;
-    const end = RelativePosition.BottomRight;
-
-    for (let position = begin; position <= end; position++) {
-      renderedPosition = this.renderRelativePosition(position);
-      if (renderedPosition) positions.push(renderedPosition);
-    }
-
-    return positions;
-  }
-
-  private renderRelativePosition(
+  const renderRelativePosition = (
     relativePosition: RelativePosition
-  ): React.ReactNode {
+  ): React.ReactNode => {
     const filteredInfo = CursorPopupManager.popups.filter(
       (popupInfo: CursorPopupInfo) =>
         popupInfo.renderRelativePosition === relativePosition
@@ -411,14 +386,14 @@ export class CursorPopupRenderer extends React.Component<
           let offset = popupInfo.offset;
 
           if (index > 0)
-            offset = this.adjustOffset(
+            offset = adjustOffset(
               offset,
               popupInfo.renderRelativePosition,
               totalDimension
             );
 
           if (popupInfo.popupSize)
-            totalDimension += this.getDimension(
+            totalDimension += getDimension(
               popupInfo.popupSize,
               relativePosition
             );
@@ -428,14 +403,14 @@ export class CursorPopupRenderer extends React.Component<
               key={popupInfo.id}
               id={popupInfo.id}
               content={popupInfo.content}
-              pt={this.state.pt}
+              pt={point}
               offset={offset}
               relativePosition={popupInfo.renderRelativePosition}
               title={title}
               shadow={shadow}
-              onSizeKnown={(size: SizeProps) =>
-                this._handleSizeKnown(popupInfo, size)
-              }
+              onSizeKnown={(size) => {
+                popupInfo.popupSize = size;
+              }}
             />
           );
         });
@@ -448,37 +423,13 @@ export class CursorPopupRenderer extends React.Component<
     }
 
     return null;
-  }
+  };
 
-  private getDimension(
-    popupSize: SizeProps,
-    relativePosition: RelativePosition
-  ): number {
-    let dimension = 0;
-
-    switch (relativePosition) {
-      case RelativePosition.Top:
-      case RelativePosition.Bottom:
-      case RelativePosition.TopLeft:
-      case RelativePosition.TopRight:
-      case RelativePosition.BottomLeft:
-      case RelativePosition.BottomRight:
-        dimension = popupSize.height;
-        break;
-      case RelativePosition.Left:
-      case RelativePosition.Right:
-        dimension = popupSize.width;
-        break;
-    }
-
-    return dimension;
-  }
-
-  private adjustOffset(
+  const adjustOffset = (
     offset: Point,
     relativePosition: RelativePosition,
     dimension: number
-  ): Point {
+  ): Point => {
     let outOffset = Point.create(offset.toProps());
 
     switch (relativePosition) {
@@ -497,35 +448,43 @@ export class CursorPopupRenderer extends React.Component<
     }
 
     return outOffset;
-  }
-
-  public override componentDidMount(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.addListener(
-      this._handlePopupChangedEvent
-    );
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(
-      this._handleCursorPopupUpdatePositionEvent
-    );
-  }
-
-  public override componentWillUnmount(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.removeListener(
-      this._handlePopupChangedEvent
-    );
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
-      this._handleCursorPopupUpdatePositionEvent
-    );
-  }
-
-  private _handlePopupChangedEvent: ListenerType<
-    typeof CursorPopupManager.onCursorPopupsChangedEvent
-  > = () => {
-    this.forceUpdate();
   };
 
-  private _handleCursorPopupUpdatePositionEvent: ListenerType<
-    typeof CursorPopupManager.onCursorPopupUpdatePositionEvent
-  > = (args) => {
-    this.setState({ pt: Point.create(args.pt) });
+  const getDimension = (
+    popupSize: SizeProps,
+    relativePosition: RelativePosition
+  ): number => {
+    let dimension = 0;
+
+    switch (relativePosition) {
+      case RelativePosition.Top:
+      case RelativePosition.Bottom:
+      case RelativePosition.TopLeft:
+      case RelativePosition.TopRight:
+      case RelativePosition.BottomLeft:
+      case RelativePosition.BottomRight:
+        dimension = popupSize.height;
+        break;
+      case RelativePosition.Left:
+      case RelativePosition.Right:
+        dimension = popupSize.width;
+        break;
+    }
+
+    return dimension;
   };
+
+  if (CursorPopupManager.popupCount <= 0) return null;
+
+  const positions = new Array<React.ReactNode>();
+  let renderedPosition: React.ReactNode;
+  const begin = RelativePosition.Left;
+  const end = RelativePosition.BottomRight;
+
+  for (let position = begin; position <= end; position++) {
+    renderedPosition = renderRelativePosition(position);
+    if (renderedPosition) positions.push(renderedPosition);
+  }
+
+  return positions;
 }
