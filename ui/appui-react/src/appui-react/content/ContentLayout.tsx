@@ -253,7 +253,6 @@ class SingleContentContainer extends React.Component<SingleContentProps> {
         )}
         style={this.props.style}
         data-testid="single-content-container"
-        onMouseMove={UiFramework.visibility.handleContentMouseMove}
       >
         <ContentWrapper
           content={this.props.content}
@@ -660,29 +659,27 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
     contentNodes,
     true
   );
-  if (contentContainer) {
-    return (
-      <div
-        id="uifw-contentlayout-div"
-        className={props.className}
-        style={props.style}
-        key={`${contentGroupId}-${contentLayoutDef.id}`}
-        onMouseDown={() => {
-          UiFramework.content.setMouseDown(true);
-        }}
-        onMouseUp={() => {
-          UiFramework.content.setMouseDown(false);
-        }}
-        role="presentation"
-      >
-        <ContentLayoutContext.Provider value={contentGroup}>
-          {contentContainer}
-        </ContentLayoutContext.Provider>
-      </div>
-    );
-  }
+  if (!contentContainer) return null;
 
-  return null;
+  return (
+    <div
+      id="uifw-contentlayout-div"
+      className={props.className}
+      style={props.style}
+      key={`${contentGroupId}-${contentLayoutDef.id}`}
+      onMouseDown={() => {
+        UiFramework.content.setMouseDown(true);
+      }}
+      onMouseUp={() => {
+        UiFramework.content.setMouseDown(false);
+      }}
+      role="presentation"
+    >
+      <ContentLayoutContext.Provider value={contentGroup}>
+        {contentContainer}
+      </ContentLayoutContext.Provider>
+    </div>
+  );
 }
 
 const ContentLayoutContext = React.createContext<ContentGroup | undefined>(
