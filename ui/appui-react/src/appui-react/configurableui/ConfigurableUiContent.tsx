@@ -11,10 +11,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react/internal";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import {
-  CursorInformation,
-  useCursorInformationStore,
-} from "../cursor/CursorInformation.js";
+import { CursorInformation } from "../cursor/CursorInformation.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager.js";
 import { ModalDialogRenderer } from "../dialog/ModalDialogManager.js";
@@ -152,9 +149,6 @@ export function StandardLayout(props: StandardLayoutProps) {
   }, [idleTimeout, intervalTimeout]);
   useVisibleToolSettings(visibleToolSettings);
 
-  const setContentHovered = useCursorInformationStore(
-    (state) => state.setContentHovered
-  );
   return (
     <ConfigurableUiContext.Provider
       value={React.useMemo(
@@ -174,13 +168,6 @@ export function StandardLayout(props: StandardLayoutProps) {
         onMouseMove={(e) => {
           const point = new Point(e.pageX, e.pageY);
           CursorInformation.handleMouseMove(point, e.view.document);
-
-          if (!(e.target instanceof Node)) return;
-          const contentHovered = contentElementRef.current?.contains(e.target);
-          setContentHovered(contentHovered ?? false);
-        }}
-        onMouseLeave={() => {
-          setContentHovered(false);
         }}
         ref={(el) => setMainElement(el ?? undefined)}
       >

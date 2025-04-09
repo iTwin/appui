@@ -65,6 +65,7 @@ export function FloatingViewportContentWrapper({
   return (
     <div
       onMouseMove={UiFramework.visibility.handleContentMouseMove}
+      onMouseLeave={UiFramework.visibility.handleContentMouseLeave}
       className="uifw-dialog-imodel-content"
       style={{ height: "100%", position: "relative" }}
     >

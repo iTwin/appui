@@ -41,6 +41,11 @@ export interface FrameworkVisibility {
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ): void;
 
+  /** Handler for when the mouse moves over the content area */
+  handleContentMouseLeave(
+    _event?: React.MouseEvent<HTMLElement, MouseEvent>
+  ): void;
+
   /** Handler for when the mouse enters a widget */
   handleWidgetMouseEnter(
     _event?: React.MouseEvent<HTMLElement, MouseEvent>

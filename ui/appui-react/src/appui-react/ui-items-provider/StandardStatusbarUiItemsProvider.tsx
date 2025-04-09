@@ -85,7 +85,12 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
           id: "uifw.ToolAssistance",
           section: StatusBarSection.Left,
           itemPriority: 20,
-          content: <ToolAssistanceField />,
+          content: (
+            <ToolAssistanceField
+              cursorPromptTimeout={99999999}
+              promptAtContent={true}
+            />
+          ),
         })
       );
 

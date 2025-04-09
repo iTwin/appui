@@ -10,6 +10,7 @@ import {
   StagePanelSection,
   StatusBarItem,
   StatusBarItemUtilities,
+  ToolAssistanceField,
   ToolbarItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -164,6 +165,15 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
         id: "DisplayStyle",
         itemPriority: 400,
         content: <DisplayStyleField />,
+      }),
+      StatusBarItemUtilities.createCustomItem({
+        id: "ToolAssistance",
+        content: (
+          <ToolAssistanceField
+            cursorPromptTimeout={99999999}
+            promptAtContent={true}
+          />
+        ),
       }),
     ];
   }
