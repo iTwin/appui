@@ -46,5 +46,9 @@ export function App({ featureOverrides }: AppProps) {
 
 // Load iTwinUI v2 styles in popout widgets.
 function ChildWindow(props: React.PropsWithChildren<object>) {
-  return <IUI2_ThemeProvider>{props.children}</IUI2_ThemeProvider>;
+  return (
+    <IUI2_ThemeProvider style={{ height: "100%" }}>
+      {props.children}
+    </IUI2_ThemeProvider>
+  );
 }
