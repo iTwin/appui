@@ -32,7 +32,9 @@ export interface CursorPopupOptions {
   shadow?: boolean;
 }
 
-/** Information maintained by CursorPopupManager about a CursorPopup. */
+/** Information maintained by CursorPopupManager about a CursorPopup.
+ * @public
+ */
 interface CursorPopupInfo {
   id: string;
   content: React.ReactNode;
