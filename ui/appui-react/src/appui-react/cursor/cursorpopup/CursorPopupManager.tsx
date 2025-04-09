@@ -16,6 +16,7 @@ import { CursorPopupShow } from "./CursorPopup.js";
 import { CursorPopup } from "./CursorPopup.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
+import { ChildWindowContext } from "../../childwindow/ChildWindowRenderer.js";
 
 /** Options for the [[CursorPopupManager]] open method
  * @public
@@ -39,6 +40,7 @@ interface CursorPopupInfo {
   offset: Point;
   priority: number;
   options?: CursorPopupOptions;
+  targetDocument?: Document;
 
   renderRelativePosition: RelativePosition;
   popupSize?: SizeProps;
@@ -66,7 +68,7 @@ export class CursorPopupManager {
   /** @internal */
   public static clearPopups() {
     this._popups.length = 0;
-    CursorPopupManager._emitPopupsChangedEvent();
+    CursorPopupManager.onCursorPopupsChangedEvent.emit({});
   }
 
   public static get popups() {
@@ -77,13 +79,9 @@ export class CursorPopupManager {
     return this._popups.length;
   }
 
-  private static _emitPopupsChangedEvent(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.emit({});
-  }
-
   private static pushPopup(popupInfo: CursorPopupInfo): void {
     CursorPopupManager._popups.push(popupInfo);
-    CursorPopupManager._emitPopupsChangedEvent();
+    CursorPopupManager.onCursorPopupsChangedEvent.emit({});
   }
 
   /** Called to open popup with a new set of properties
@@ -95,11 +93,10 @@ export class CursorPopupManager {
     offset: XAndY,
     relativePosition: RelativePosition,
     priority: number = 0,
-    options?: CursorPopupOptions
+    options?: CursorPopupOptions,
+    targetDocument?: Document
   ) {
-    const popupInfo = CursorPopupManager._popups.find(
-      (info: CursorPopupInfo) => id === info.id
-    );
+    const popupInfo = CursorPopupManager._popups.find((info) => id === info.id);
     if (popupInfo) {
       CursorPopupManager.onCursorPopupFadeOutEvent.emit({
         id,
@@ -112,6 +109,7 @@ export class CursorPopupManager {
       popupInfo.renderRelativePosition = relativePosition;
       popupInfo.priority = priority;
       popupInfo.options = options;
+      popupInfo.targetDocument = targetDocument;
       CursorPopupManager.updatePosition(pt);
 
       if (popupInfo.cancelFadeOut) {
@@ -129,6 +127,7 @@ export class CursorPopupManager {
       options,
       renderRelativePosition: relativePosition,
       priority,
+      targetDocument,
     };
     CursorPopupManager.pushPopup(newPopupInfo);
     CursorPopupManager.updatePosition(pt);
@@ -165,8 +164,11 @@ export class CursorPopupManager {
 
   /** Called to move the open popup to new location
    */
-  public static updatePosition(pt: XAndY) {
-    CursorPopupManager.resetPopupsRenderRelativePosition(Point.create(pt));
+  public static updatePosition(pt: XAndY, targetDocument?: Document) {
+    CursorPopupManager.resetPopupsRenderRelativePosition(
+      Point.create(pt),
+      targetDocument
+    );
     CursorPopupManager.onCursorPopupUpdatePositionEvent.emit({ pt });
   }
 
@@ -215,29 +217,39 @@ export class CursorPopupManager {
     );
     if (index >= 0) {
       CursorPopupManager._popups.splice(index, 1);
-      CursorPopupManager._emitPopupsChangedEvent();
+      CursorPopupManager.onCursorPopupsChangedEvent.emit({});
     }
   }
 
-  private static resetPopupsRenderRelativePosition(pt: Point) {
-    CursorPopupManager.popups.forEach((popupInfo: CursorPopupInfo) => {
+  private static resetPopupsRenderRelativePosition(
+    pt: Point,
+    targetDocument: Document | undefined
+  ) {
+    CursorPopupManager.popups.forEach((popupInfo) => {
       popupInfo.renderRelativePosition = popupInfo.relativePosition;
+      popupInfo.targetDocument = targetDocument;
 
       const flipped = CursorPopupManager.validateRenderRelativePosition(
         pt,
-        popupInfo
+        popupInfo,
+        targetDocument
       );
 
       // If flipped, call again to validate again.
       if (flipped) {
-        CursorPopupManager.validateRenderRelativePosition(pt, popupInfo);
+        CursorPopupManager.validateRenderRelativePosition(
+          pt,
+          popupInfo,
+          targetDocument
+        );
       }
     });
   }
 
   private static validateRenderRelativePosition(
     pt: Point,
-    popupInfo: CursorPopupInfo
+    popupInfo: CursorPopupInfo,
+    targetDocument: Document | undefined
   ): boolean {
     const popupRect = CursorPopup.getPopupRect(
       pt,
@@ -245,11 +257,12 @@ export class CursorPopupManager {
       popupInfo.popupSize,
       popupInfo.renderRelativePosition
     );
+    const targetWindow = targetDocument?.defaultView ?? window;
     const { outPos, flipped } = CursorPopupManager.autoFlip(
       popupInfo.renderRelativePosition,
       popupRect,
-      window.innerWidth,
-      window.innerHeight
+      targetWindow.innerWidth,
+      targetWindow.innerHeight
     );
 
     if (flipped) popupInfo.renderRelativePosition = outPos;
@@ -346,12 +359,13 @@ const relativePositions = Object.values(RelativePosition).filter(
  * @public
  */
 export function CursorPopupRenderer() {
+  const popupWindow = React.useContext(ChildWindowContext) ?? window;
   const [popups, setPopups] = React.useState(CursorPopupManager.popups);
   const [point, setPoint] = React.useState(new Point());
 
   React.useEffect(() => {
     return CursorPopupManager.onCursorPopupsChangedEvent.addListener(() => {
-      setPopups(CursorPopupManager.popups);
+      setPopups([...CursorPopupManager.popups]);
     });
   }, []);
   React.useEffect(() => {
@@ -369,7 +383,7 @@ export function CursorPopupRenderer() {
         const filteredInfo = popups.filter(
           (popupInfo) => popupInfo.renderRelativePosition === position
         );
-        if (filteredInfo.length === 0) return null;
+        if (filteredInfo.length === 0) return undefined;
 
         let totalDimension = 0;
         const positionPopups = filteredInfo
@@ -384,6 +398,9 @@ export function CursorPopupRenderer() {
               : b.priority - a.priority;
           })
           .map((popupInfo, index) => {
+            const targetDocument = popupInfo.targetDocument ?? window.document;
+            if (popupWindow.document !== targetDocument) return undefined;
+
             const title =
               popupInfo.options !== undefined ? popupInfo.options.title : "";
             const shadow =
