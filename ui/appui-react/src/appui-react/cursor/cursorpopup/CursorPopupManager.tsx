@@ -226,6 +226,14 @@ export class CursorPopupManager {
     targetDocument: Document | undefined
   ) {
     CursorPopupManager.popups.forEach((popupInfo) => {
+      if (
+        popupInfo.cancelFadeOut &&
+        popupInfo.targetDocument !== targetDocument
+      ) {
+        // Popup if fading out - do not change target document.
+        return;
+      }
+
       popupInfo.renderRelativePosition = popupInfo.relativePosition;
       popupInfo.targetDocument = targetDocument;
 
