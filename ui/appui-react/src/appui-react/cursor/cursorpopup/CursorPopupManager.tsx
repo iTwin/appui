@@ -112,7 +112,7 @@ export class CursorPopupManager {
       popupInfo.priority = priority;
       popupInfo.options = options;
       popupInfo.targetDocument = targetDocument;
-      CursorPopupManager.updatePosition(pt);
+      CursorPopupManager.updatePosition(pt, targetDocument);
 
       if (popupInfo.cancelFadeOut) {
         popupInfo.cancelFadeOut();
@@ -132,7 +132,7 @@ export class CursorPopupManager {
       targetDocument,
     };
     CursorPopupManager.pushPopup(newPopupInfo);
-    CursorPopupManager.updatePosition(pt);
+    CursorPopupManager.updatePosition(pt, targetDocument);
   }
 
   /** Called to update popup with a new set of properties
@@ -375,12 +375,17 @@ export function CursorPopupRenderer() {
 
   React.useEffect(() => {
     return CursorPopupManager.onCursorPopupsChangedEvent.addListener(() => {
-      setPopups([...CursorPopupManager.popups]);
+      const allPopups = CursorPopupManager.popups;
+      const newPopups = allPopups.map((p) => ({ ...p }));
+      setPopups(newPopups);
     });
   }, []);
   React.useEffect(() => {
     return CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(
       (args) => {
+        const allPopups = CursorPopupManager.popups;
+        const newPopups = allPopups.map((p) => ({ ...p }));
+        setPopups(newPopups);
         setPoint(Point.create(args.pt));
       }
     );
