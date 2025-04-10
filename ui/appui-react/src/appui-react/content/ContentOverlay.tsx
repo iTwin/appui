@@ -14,6 +14,7 @@ import { useOptionalLayout } from "../layout/base/LayoutStore.js";
 import { getWidgetState } from "../widgets/WidgetDef.js";
 import { TabIdContext } from "../layout/widget/ContentRenderer.js";
 import { WidgetState } from "../widgets/WidgetState.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** Returns the number of content overlays.
  * @internal
@@ -38,6 +39,8 @@ export function ContentOverlay({
   return (
     <div
       className={classnames("uifw-content-contentOverlay", className)}
+      onMouseMove={UiFramework.visibility.handleContentMouseMove}
+      onMouseLeave={UiFramework.visibility.handleContentMouseLeave}
       {...other}
     >
       {children}
