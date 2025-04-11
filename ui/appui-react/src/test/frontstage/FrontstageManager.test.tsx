@@ -395,37 +395,19 @@ describe("FrontstageManager", () => {
 
       vi.advanceTimersByTime(200);
 
-      divContainer.dispatchEvent(
-        new MouseEvent("mousemove", {
-          bubbles: true,
-          cancelable: true,
-          buttons: 1,
-        })
-      );
-      divContainer.dispatchEvent(
-        new MouseEvent("mousemove", {
-          bubbles: true,
-          cancelable: true,
-          buttons: 1,
-        })
-      );
+      const ev = new MouseEvent("mousemove", {
+        bubbles: true,
+        cancelable: true,
+        buttons: 1,
+      });
+      vi.spyOn(ev, "view", "get").mockImplementation(() => ({} as Window));
+      divContainer.dispatchEvent(ev);
+      divContainer.dispatchEvent(ev);
 
       vi.advanceTimersByTime(200);
 
-      divContainer.dispatchEvent(
-        new MouseEvent("mousemove", {
-          bubbles: true,
-          cancelable: true,
-          buttons: 1,
-        })
-      );
-      divContainer.dispatchEvent(
-        new MouseEvent("mousemove", {
-          bubbles: true,
-          cancelable: true,
-          buttons: 1,
-        })
-      );
+      divContainer.dispatchEvent(ev);
+      divContainer.dispatchEvent(ev);
 
       await InternalFrontstageManager.deactivateFrontstageDef();
       expect(InternalFrontstageManager.activeFrontstageDef).toEqual(undefined);
