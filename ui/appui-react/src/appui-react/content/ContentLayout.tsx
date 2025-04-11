@@ -129,8 +129,6 @@ export function ContentWrapper(props: ContentWrapperProps) {
       style={props.style}
       active={active}
       onMouseDown={handleMouseDown}
-      onMouseMove={UiFramework.visibility.handleContentMouseMove}
-      onMouseLeave={UiFramework.visibility.handleContentMouseLeave}
       role="presentation"
     >
       {content}

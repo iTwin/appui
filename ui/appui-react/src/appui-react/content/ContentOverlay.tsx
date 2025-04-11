@@ -27,6 +27,7 @@ interface ContentOverlayProps extends React.ComponentProps<"div"> {
 }
 
 /** Overlay used to identify active content views.
+ * This component is treated as part of the application content and integrates with the `UiFramework.visibility` system to handle mouse events appropriately.
  * @beta
  */
 export function ContentOverlay({
