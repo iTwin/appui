@@ -168,12 +168,7 @@ export class ContentLayoutStageUiItemsProvider implements UiItemsProvider {
       }),
       StatusBarItemUtilities.createCustomItem({
         id: "ToolAssistance",
-        content: (
-          <ToolAssistanceField
-            cursorPromptTimeout={99999999}
-            promptAtContent={true}
-          />
-        ),
+        content: <ToolAssistanceField />,
       }),
     ];
   }
