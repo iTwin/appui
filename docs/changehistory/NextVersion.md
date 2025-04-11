@@ -41,6 +41,42 @@ Table of contents:
   });
   ```
 
+- Added `cursorDocument` getter to `CursorInformation` class. Added `targetDocument` optional argument to `updatePosition`, `update` and `open` methods of `CursorPopupManager` class. Added `targetDocument` property to `CursorPopupInfo` interface. These additions are used to support cursor based functionality in child windows and popout widgets by specifying a window document. [#1277](https://github.com/iTwin/appui/pull/1277)
+- Added `handleContentMouseLeave` property to `FrameworkVisibility` interface available via `UiFramework.visibility`. This new method together with existing `handleContentMouseMove` allows consumers to mark when cursor is interacting with the main content of the application - usually a viewport. These APIs are currently used by UI auto hide feature and `promptAtContent` feature of `ToolAssistanceField` component. [#1277](https://github.com/iTwin/appui/pull/1277)
+
+  By default content mouse events are handled by:
+
+  - `ContentOverlay` component
+  - `FloatingViewportContentWrapper` component
+  - When using `contentGroup` APIs of `Frontstage`
+
+  Consumers that want to display tool assistance cursor prompt in a widget or a widget popout should render `ContentOverlay` component:
+
+  ```tsx
+  function MyWidget() {
+    return (
+      <ContentOverlay>
+        <Viewport />
+      </ContentOverlay>
+    );
+  }
+  ```
+
+  Alternatively, to handle content mouse events manually:
+
+  ```tsx
+  function MyWidget() {
+    return (
+      <div
+        onMouseMove={UiFramework.visibility.handleContentMouseMove}
+        onMouseLeave={UiFramework.visibility.handleContentMouseLeave}
+      >
+        <Viewport />
+      </div>
+    );
+  }
+  ```
+
 ### Fixes
 
 - Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
