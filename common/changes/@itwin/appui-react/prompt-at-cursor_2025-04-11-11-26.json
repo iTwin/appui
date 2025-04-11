@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Display prompt at cursor in child windows.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
