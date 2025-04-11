@@ -143,7 +143,8 @@ export class CursorPopupManager {
     pt: XAndY,
     offset: XAndY,
     relativePosition: RelativePosition,
-    priority: number = 0
+    priority: number = 0,
+    targetDocument?: Document
   ) {
     const popupInfo = CursorPopupManager._popups.find(
       (info: CursorPopupInfo) => id === info.id
@@ -154,6 +155,7 @@ export class CursorPopupManager {
       popupInfo.relativePosition = relativePosition;
       popupInfo.renderRelativePosition = relativePosition;
       popupInfo.priority = priority;
+      popupInfo.targetDocument = targetDocument;
     } else {
       Logger.logError(
         UiFramework.loggerCategory("CursorPopupManager"),
