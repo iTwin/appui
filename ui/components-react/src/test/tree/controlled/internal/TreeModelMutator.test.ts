@@ -190,7 +190,7 @@ describe("TreeModelMutator", () => {
       isSelected: true,
     };
     const nodeToSelect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode({ label: "NodeToSeect" }),
+      ...createRandomMutableTreeModelNode({ label: "NodeToSelect" }),
       isSelected: false,
     };
 
