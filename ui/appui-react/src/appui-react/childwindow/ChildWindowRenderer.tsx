@@ -21,6 +21,7 @@ import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { copyStyles } from "./CopyStyles.js";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
+import { CursorPopupRenderer } from "../../appui-react.js";
 
 interface ChildWindowRendererProps {
   windowManager: InternalChildWindowManager;
@@ -77,22 +78,25 @@ function ChildWindow({ content, tabId, window }: ChildWindowProps) {
 
   const ChildWindowWrapper = childWindow ?? DefaultChildWindowWrapper;
   return ReactDOM.createPortal(
-    <TabIdContext.Provider value={tabId}>
-      <ThemeManager>
-        <ChildWindowWrapper>
-          <div className="uifw-child-window-container-host">
-            <PopupRenderer />
-            <ModalDialogRenderer />
-            <ModelessDialogRenderer />
-            <CursorPopupMenu />
-            <div className="uifw-child-window-container nz-widget-widget">
-              {content}
+    <ChildWindowContext.Provider value={window}>
+      <TabIdContext.Provider value={tabId}>
+        <ThemeManager>
+          <ChildWindowWrapper>
+            <div className="uifw-child-window-container-host">
+              <PopupRenderer />
+              <ModalDialogRenderer />
+              <ModelessDialogRenderer />
+              <CursorPopupMenu />
+              <div className="uifw-child-window-container nz-widget-widget">
+                {content}
+              </div>
+              <CursorPopupRenderer />
             </div>
-          </div>
-          <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
-        </ChildWindowWrapper>
-      </ThemeManager>
-    </TabIdContext.Provider>,
+            <div className="uifw-childwindow-internalChildWindowManager_portalContainer" />
+          </ChildWindowWrapper>
+        </ThemeManager>
+      </TabIdContext.Provider>
+    </ChildWindowContext.Provider>,
     container
   );
 }
@@ -119,3 +123,8 @@ const stylesUtils = (() => {
 function DefaultChildWindowWrapper(props: React.PropsWithChildren) {
   return <>{props.children}</>;
 }
+
+/** @internal */
+export const ChildWindowContext = React.createContext<Window | undefined>(
+  undefined
+);

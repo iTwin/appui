@@ -10,13 +10,13 @@ import * as React from "react";
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
 import type { XAndY } from "@itwin/core-geometry";
 import { RelativePosition } from "@itwin/appui-abstract";
-import type { ListenerType } from "@itwin/core-react/internal";
 import { Point } from "@itwin/core-react/internal";
 import { UiFramework } from "../../UiFramework.js";
 import { CursorPopupShow } from "./CursorPopup.js";
 import { CursorPopup } from "./CursorPopup.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
+import { ChildWindowContext } from "../../childwindow/ChildWindowRenderer.js";
 
 /** Options for the [[CursorPopupManager]] open method
  * @public
@@ -32,7 +32,9 @@ export interface CursorPopupOptions {
   shadow?: boolean;
 }
 
-/** Information maintained by CursorPopupManager about a CursorPopup. */
+/** Information maintained by CursorPopupManager about a CursorPopup.
+ * @public
+ */
 interface CursorPopupInfo {
   id: string;
   content: React.ReactNode;
@@ -40,6 +42,7 @@ interface CursorPopupInfo {
   offset: Point;
   priority: number;
   options?: CursorPopupOptions;
+  targetDocument?: Document;
 
   renderRelativePosition: RelativePosition;
   popupSize?: SizeProps;
@@ -67,7 +70,7 @@ export class CursorPopupManager {
   /** @internal */
   public static clearPopups() {
     this._popups.length = 0;
-    CursorPopupManager._emitPopupsChangedEvent();
+    CursorPopupManager.onCursorPopupsChangedEvent.emit({});
   }
 
   public static get popups() {
@@ -78,13 +81,9 @@ export class CursorPopupManager {
     return this._popups.length;
   }
 
-  private static _emitPopupsChangedEvent(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.emit({});
-  }
-
   private static pushPopup(popupInfo: CursorPopupInfo): void {
     CursorPopupManager._popups.push(popupInfo);
-    CursorPopupManager._emitPopupsChangedEvent();
+    CursorPopupManager.onCursorPopupsChangedEvent.emit({});
   }
 
   /** Called to open popup with a new set of properties
@@ -96,11 +95,10 @@ export class CursorPopupManager {
     offset: XAndY,
     relativePosition: RelativePosition,
     priority: number = 0,
-    options?: CursorPopupOptions
+    options?: CursorPopupOptions,
+    targetDocument?: Document
   ) {
-    const popupInfo = CursorPopupManager._popups.find(
-      (info: CursorPopupInfo) => id === info.id
-    );
+    const popupInfo = CursorPopupManager._popups.find((info) => id === info.id);
     if (popupInfo) {
       CursorPopupManager.onCursorPopupFadeOutEvent.emit({
         id,
@@ -113,7 +111,8 @@ export class CursorPopupManager {
       popupInfo.renderRelativePosition = relativePosition;
       popupInfo.priority = priority;
       popupInfo.options = options;
-      CursorPopupManager.updatePosition(pt);
+      popupInfo.targetDocument = targetDocument;
+      CursorPopupManager.updatePosition(pt, targetDocument);
 
       if (popupInfo.cancelFadeOut) {
         popupInfo.cancelFadeOut();
@@ -130,9 +129,10 @@ export class CursorPopupManager {
       options,
       renderRelativePosition: relativePosition,
       priority,
+      targetDocument,
     };
     CursorPopupManager.pushPopup(newPopupInfo);
-    CursorPopupManager.updatePosition(pt);
+    CursorPopupManager.updatePosition(pt, targetDocument);
   }
 
   /** Called to update popup with a new set of properties
@@ -143,7 +143,8 @@ export class CursorPopupManager {
     pt: XAndY,
     offset: XAndY,
     relativePosition: RelativePosition,
-    priority: number = 0
+    priority: number = 0,
+    targetDocument?: Document
   ) {
     const popupInfo = CursorPopupManager._popups.find(
       (info: CursorPopupInfo) => id === info.id
@@ -154,6 +155,7 @@ export class CursorPopupManager {
       popupInfo.relativePosition = relativePosition;
       popupInfo.renderRelativePosition = relativePosition;
       popupInfo.priority = priority;
+      popupInfo.targetDocument = targetDocument;
     } else {
       Logger.logError(
         UiFramework.loggerCategory("CursorPopupManager"),
@@ -166,8 +168,11 @@ export class CursorPopupManager {
 
   /** Called to move the open popup to new location
    */
-  public static updatePosition(pt: XAndY) {
-    CursorPopupManager.resetPopupsRenderRelativePosition(Point.create(pt));
+  public static updatePosition(pt: XAndY, targetDocument?: Document) {
+    CursorPopupManager.resetPopupsRenderRelativePosition(
+      Point.create(pt),
+      targetDocument
+    );
     CursorPopupManager.onCursorPopupUpdatePositionEvent.emit({ pt });
   }
 
@@ -216,29 +221,47 @@ export class CursorPopupManager {
     );
     if (index >= 0) {
       CursorPopupManager._popups.splice(index, 1);
-      CursorPopupManager._emitPopupsChangedEvent();
+      CursorPopupManager.onCursorPopupsChangedEvent.emit({});
     }
   }
 
-  private static resetPopupsRenderRelativePosition(pt: Point) {
-    CursorPopupManager.popups.forEach((popupInfo: CursorPopupInfo) => {
+  private static resetPopupsRenderRelativePosition(
+    pt: Point,
+    targetDocument: Document | undefined
+  ) {
+    CursorPopupManager.popups.forEach((popupInfo) => {
+      if (
+        popupInfo.cancelFadeOut &&
+        popupInfo.targetDocument !== targetDocument
+      ) {
+        // Popup if fading out - do not change target document.
+        return;
+      }
+
       popupInfo.renderRelativePosition = popupInfo.relativePosition;
+      popupInfo.targetDocument = targetDocument;
 
       const flipped = CursorPopupManager.validateRenderRelativePosition(
         pt,
-        popupInfo
+        popupInfo,
+        targetDocument
       );
 
       // If flipped, call again to validate again.
       if (flipped) {
-        CursorPopupManager.validateRenderRelativePosition(pt, popupInfo);
+        CursorPopupManager.validateRenderRelativePosition(
+          pt,
+          popupInfo,
+          targetDocument
+        );
       }
     });
   }
 
   private static validateRenderRelativePosition(
     pt: Point,
-    popupInfo: CursorPopupInfo
+    popupInfo: CursorPopupInfo,
+    targetDocument: Document | undefined
   ): boolean {
     const popupRect = CursorPopup.getPopupRect(
       pt,
@@ -246,11 +269,12 @@ export class CursorPopupManager {
       popupInfo.popupSize,
       popupInfo.renderRelativePosition
     );
+    const targetWindow = targetDocument?.defaultView ?? window;
     const { outPos, flipped } = CursorPopupManager.autoFlip(
       popupInfo.renderRelativePosition,
       popupRect,
-      window.innerWidth,
-      window.innerHeight
+      targetWindow.innerWidth,
+      targetWindow.innerHeight
     );
 
     if (flipped) popupInfo.renderRelativePosition = outPos;
@@ -339,193 +363,139 @@ export class CursorPopupManager {
   }
 }
 
-/** State for the [[CursorPopupRenderer]] React component */
-interface CursorPopupRendererState {
-  pt: Point;
-}
+const relativePositions = Object.values(RelativePosition).filter(
+  (value): value is RelativePosition => typeof value !== "string"
+);
 
 /** CursorPopupRenderer React component.
  * @public
  */
-export class CursorPopupRenderer extends React.Component<
-  any,
-  CursorPopupRendererState
-> {
-  constructor(props: any) {
-    super(props);
+export function CursorPopupRenderer() {
+  const popupWindow = React.useContext(ChildWindowContext) ?? window;
+  const [popups, setPopups] = React.useState(CursorPopupManager.popups);
+  const [point, setPoint] = React.useState(new Point());
 
-    this.state = {
-      pt: new Point(),
-    };
-  }
-
-  public override render(): React.ReactNode {
-    if (CursorPopupManager.popupCount <= 0) return null;
-
-    return <>{this.renderPositions()}</>;
-  }
-
-  private _handleSizeKnown(popupInfo: CursorPopupInfo, size: SizeProps) {
-    popupInfo.popupSize = size;
-  }
-
-  private renderPositions(): React.ReactNode[] {
-    const positions = new Array<React.ReactNode>();
-    let renderedPosition: React.ReactNode;
-    const begin = RelativePosition.Left;
-    const end = RelativePosition.BottomRight;
-
-    for (let position = begin; position <= end; position++) {
-      renderedPosition = this.renderRelativePosition(position);
-      if (renderedPosition) positions.push(renderedPosition);
-    }
-
-    return positions;
-  }
-
-  private renderRelativePosition(
-    relativePosition: RelativePosition
-  ): React.ReactNode {
-    const filteredInfo = CursorPopupManager.popups.filter(
-      (popupInfo: CursorPopupInfo) =>
-        popupInfo.renderRelativePosition === relativePosition
+  React.useEffect(() => {
+    return CursorPopupManager.onCursorPopupsChangedEvent.addListener(() => {
+      const allPopups = CursorPopupManager.popups;
+      const newPopups = allPopups.map((p) => ({ ...p }));
+      setPopups(newPopups);
+    });
+  }, []);
+  React.useEffect(() => {
+    return CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(
+      (args) => {
+        const allPopups = CursorPopupManager.popups;
+        const newPopups = allPopups.map((p) => ({ ...p }));
+        setPopups(newPopups);
+        setPoint(Point.create(args.pt));
+      }
     );
+  }, []);
 
-    if (filteredInfo.length > 0) {
-      let totalDimension = 0;
-      const ascending =
-        relativePosition === RelativePosition.Right ||
-        relativePosition === RelativePosition.BottomRight ||
-        relativePosition === RelativePosition.Bottom ||
-        relativePosition === RelativePosition.BottomLeft;
+  if (popups.length === 0) return undefined;
+  return (
+    <>
+      {relativePositions.map((position) => {
+        const filteredInfo = popups.filter(
+          (popupInfo) => popupInfo.renderRelativePosition === position
+        );
+        if (filteredInfo.length === 0) return undefined;
 
-      const positionPopups = filteredInfo
-        .sort((a: CursorPopupInfo, b: CursorPopupInfo): number =>
-          ascending ? a.priority - b.priority : b.priority - a.priority
-        )
-        .map((popupInfo: CursorPopupInfo, index: number) => {
-          const title =
-            popupInfo.options !== undefined ? popupInfo.options.title : "";
-          const shadow =
-            popupInfo.options !== undefined ? popupInfo.options.shadow : false;
-          let offset = popupInfo.offset;
+        let totalDimension = 0;
+        const positionPopups = filteredInfo
+          .sort((a, b) => {
+            const ascending =
+              position === RelativePosition.Right ||
+              position === RelativePosition.BottomRight ||
+              position === RelativePosition.Bottom ||
+              position === RelativePosition.BottomLeft;
+            return ascending
+              ? a.priority - b.priority
+              : b.priority - a.priority;
+          })
+          .map((popupInfo, index) => {
+            const targetDocument = popupInfo.targetDocument ?? window.document;
+            if (popupWindow.document !== targetDocument) return undefined;
 
-          if (index > 0)
-            offset = this.adjustOffset(
-              offset,
-              popupInfo.renderRelativePosition,
-              totalDimension
+            const title =
+              popupInfo.options !== undefined ? popupInfo.options.title : "";
+            const shadow =
+              popupInfo.options !== undefined
+                ? popupInfo.options.shadow
+                : false;
+            let offset = popupInfo.offset;
+
+            if (index > 0)
+              offset = adjustOffset(
+                offset,
+                popupInfo.renderRelativePosition,
+                totalDimension
+              );
+
+            if (popupInfo.popupSize)
+              totalDimension += getDimension(popupInfo.popupSize, position);
+
+            return (
+              <CursorPopup
+                key={popupInfo.id}
+                id={popupInfo.id}
+                content={popupInfo.content}
+                pt={point}
+                offset={offset}
+                relativePosition={popupInfo.renderRelativePosition}
+                title={title}
+                shadow={shadow}
+                onSizeKnown={(size) => {
+                  popupInfo.popupSize = size;
+                }}
+              />
             );
+          });
 
-          if (popupInfo.popupSize)
-            totalDimension += this.getDimension(
-              popupInfo.popupSize,
-              relativePosition
-            );
+        return <React.Fragment key={position}>{positionPopups}</React.Fragment>;
+      })}
+    </>
+  );
+}
 
-          return (
-            <CursorPopup
-              key={popupInfo.id}
-              id={popupInfo.id}
-              content={popupInfo.content}
-              pt={this.state.pt}
-              offset={offset}
-              relativePosition={popupInfo.renderRelativePosition}
-              title={title}
-              shadow={shadow}
-              onSizeKnown={(size: SizeProps) =>
-                this._handleSizeKnown(popupInfo, size)
-              }
-            />
-          );
-        });
-
-      return (
-        <React.Fragment key={relativePosition.toString()}>
-          {positionPopups}
-        </React.Fragment>
-      );
-    }
-
-    return null;
+function adjustOffset(
+  offset: Point,
+  relativePosition: RelativePosition,
+  dimension: number
+) {
+  switch (relativePosition) {
+    case RelativePosition.Top:
+    case RelativePosition.Bottom:
+    case RelativePosition.TopLeft:
+    case RelativePosition.TopRight:
+    case RelativePosition.BottomLeft:
+    case RelativePosition.BottomRight:
+      return Point.create({ x: offset.x, y: offset.y + dimension });
+    case RelativePosition.Left:
+    case RelativePosition.Right:
+      return Point.create({ x: offset.x + dimension, y: offset.y });
   }
 
-  private getDimension(
-    popupSize: SizeProps,
-    relativePosition: RelativePosition
-  ): number {
-    let dimension = 0;
+  return Point.create(offset.toProps());
+}
 
-    switch (relativePosition) {
-      case RelativePosition.Top:
-      case RelativePosition.Bottom:
-      case RelativePosition.TopLeft:
-      case RelativePosition.TopRight:
-      case RelativePosition.BottomLeft:
-      case RelativePosition.BottomRight:
-        dimension = popupSize.height;
-        break;
-      case RelativePosition.Left:
-      case RelativePosition.Right:
-        dimension = popupSize.width;
-        break;
-    }
-
-    return dimension;
+function getDimension(
+  popupSize: SizeProps,
+  relativePosition: RelativePosition
+) {
+  switch (relativePosition) {
+    case RelativePosition.Top:
+    case RelativePosition.Bottom:
+    case RelativePosition.TopLeft:
+    case RelativePosition.TopRight:
+    case RelativePosition.BottomLeft:
+    case RelativePosition.BottomRight:
+      return popupSize.height;
+    case RelativePosition.Left:
+    case RelativePosition.Right:
+      return popupSize.width;
   }
 
-  private adjustOffset(
-    offset: Point,
-    relativePosition: RelativePosition,
-    dimension: number
-  ): Point {
-    let outOffset = Point.create(offset.toProps());
-
-    switch (relativePosition) {
-      case RelativePosition.Top:
-      case RelativePosition.Bottom:
-      case RelativePosition.TopLeft:
-      case RelativePosition.TopRight:
-      case RelativePosition.BottomLeft:
-      case RelativePosition.BottomRight:
-        outOffset = Point.create({ x: offset.x, y: offset.y + dimension });
-        break;
-      case RelativePosition.Left:
-      case RelativePosition.Right:
-        outOffset = Point.create({ x: offset.x + dimension, y: offset.y });
-        break;
-    }
-
-    return outOffset;
-  }
-
-  public override componentDidMount(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.addListener(
-      this._handlePopupChangedEvent
-    );
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(
-      this._handleCursorPopupUpdatePositionEvent
-    );
-  }
-
-  public override componentWillUnmount(): void {
-    CursorPopupManager.onCursorPopupsChangedEvent.removeListener(
-      this._handlePopupChangedEvent
-    );
-    CursorPopupManager.onCursorPopupUpdatePositionEvent.removeListener(
-      this._handleCursorPopupUpdatePositionEvent
-    );
-  }
-
-  private _handlePopupChangedEvent: ListenerType<
-    typeof CursorPopupManager.onCursorPopupsChangedEvent
-  > = () => {
-    this.forceUpdate();
-  };
-
-  private _handleCursorPopupUpdatePositionEvent: ListenerType<
-    typeof CursorPopupManager.onCursorPopupUpdatePositionEvent
-  > = (args) => {
-    this.setState({ pt: Point.create(args.pt) });
-  };
+  return 0;
 }

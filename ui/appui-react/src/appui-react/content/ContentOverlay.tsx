@@ -14,6 +14,7 @@ import { useOptionalLayout } from "../layout/base/LayoutStore.js";
 import { getWidgetState } from "../widgets/WidgetDef.js";
 import { TabIdContext } from "../layout/widget/ContentRenderer.js";
 import { WidgetState } from "../widgets/WidgetState.js";
+import { UiFramework } from "../UiFramework.js";
 
 /** Returns the number of content overlays.
  * @internal
@@ -26,6 +27,7 @@ interface ContentOverlayProps extends React.ComponentProps<"div"> {
 }
 
 /** Overlay used to identify active content views.
+ * This component is treated as part of the application content and integrates with the `UiFramework.visibility` system to handle mouse events appropriately.
  * @beta
  */
 export function ContentOverlay({
@@ -38,6 +40,8 @@ export function ContentOverlay({
   return (
     <div
       className={classnames("uifw-content-contentOverlay", className)}
+      onMouseMove={UiFramework.visibility.handleContentMouseMove}
+      onMouseLeave={UiFramework.visibility.handleContentMouseLeave}
       {...other}
     >
       {children}

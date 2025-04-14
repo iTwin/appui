@@ -10,7 +10,6 @@ import { Key } from "ts-key-enum";
 import TestUtils from "../TestUtils.js";
 import { ConfigurableUiContent } from "../../appui-react/configurableui/ConfigurableUiContent.js";
 import { FrameworkToolAdmin } from "../../appui-react/tools/FrameworkToolAdmin.js";
-import { userEvent } from "@testing-library/user-event";
 import {
   CursorInformation,
   ThemeManager,
@@ -18,11 +17,6 @@ import {
 } from "../../appui-react.js";
 
 describe("ConfigurableUiContent", () => {
-  let theUserTo: ReturnType<typeof userEvent.setup>;
-  beforeEach(() => {
-    theUserTo = userEvent.setup();
-  });
-
   it("key presses should be handled", async () => {
     render(
       <Provider store={TestUtils.store}>
@@ -54,18 +48,14 @@ describe("ConfigurableUiContent", () => {
       </Provider>
     );
 
-    await theUserTo.pointer({
-      target: screen.getByRole("main"),
-      coords: { x: 10, y: 10 },
+    const ev = new MouseEvent("mousemove", {
+      clientX: 10,
+      clientY: 10,
+      bubbles: true,
     });
-
-    expect(spy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        oldPt: expect.anything(),
-        newPt: expect.anything(),
-        direction: expect.anything(),
-      })
-    );
+    vi.spyOn(ev, "view", "get").mockImplementation(() => ({} as Window));
+    screen.getByRole("main").dispatchEvent(ev);
+    expect(spy).toHaveBeenCalledOnce();
 
     removeListener();
   });

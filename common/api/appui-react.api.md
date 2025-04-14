@@ -1367,12 +1367,13 @@ export class CursorInformation {
     // @internal
     static clearCursorDirections(): void;
     static get cursorDirection(): CursorDirection;
+    static get cursorDocument(): Document | undefined;
     static get cursorPosition(): XAndY;
     static set cursorPosition(pt: XAndY);
     static get cursorX(): number;
     static get cursorY(): number;
     static getRelativePositionFromCursorDirection(cursorDirection: CursorDirection): RelativePosition;
-    static handleMouseMove(point: XAndY): void;
+    static handleMouseMove(point: XAndY, document?: Document): void;
     static readonly onCursorUpdatedEvent: CursorUpdatedEvent;
 }
 
@@ -1461,13 +1462,13 @@ export class CursorPopupManager {
     static readonly onCursorPopupUpdatePositionEvent: BeUiEvent<{
         pt: XAndY;
     }>;
-    static open(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions): void;
+    static open(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, options?: CursorPopupOptions, targetDocument?: Document): void;
     // (undocumented)
     static get popupCount(): number;
     // (undocumented)
     static get popups(): CursorPopupInfo[];
-    static update(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number): void;
-    static updatePosition(pt: XAndY): void;
+    static update(id: string, content: React_2.ReactNode, pt: XAndY, offset: XAndY, relativePosition: RelativePosition, priority?: number, targetDocument?: Document): void;
+    static updatePosition(pt: XAndY, targetDocument?: Document): void;
 }
 
 // @alpha
@@ -1497,15 +1498,7 @@ RequireAtLeastOne<{
 }>;
 
 // @public
-export class CursorPopupRenderer extends React_2.Component<any, CursorPopupRendererState> {
-    constructor(props: any);
-    // (undocumented)
-    componentDidMount(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
+export function CursorPopupRenderer(): React_2.JSX.Element | undefined;
 
 // @public @deprecated
 export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {
@@ -2166,6 +2159,7 @@ export class FrameworkUiAdmin extends UiAdmin {
 // @public
 export interface FrameworkVisibility {
     autoHideUi: boolean;
+    handleContentMouseLeave(_event?: React.MouseEvent<HTMLElement, MouseEvent>): void;
     handleContentMouseMove(_event?: React.MouseEvent<HTMLElement, MouseEvent>): void;
     handleFrontstageReady(): void;
     handleWidgetMouseEnter(_event?: React.MouseEvent<HTMLElement, MouseEvent>): void;

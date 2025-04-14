@@ -41,7 +41,10 @@ export class CursorPrompt {
     if (!this._removeListeners) {
       const listeners = [
         CursorInformation.onCursorUpdatedEvent.addListener((args) => {
-          CursorPopupManager.updatePosition(args.newPt);
+          CursorPopupManager.updatePosition(
+            args.newPt,
+            CursorInformation.cursorDocument
+          );
         }),
         useCursorInformationStore.subscribe((state) => {
           if (!promptAtContent) return;
@@ -109,7 +112,8 @@ export class CursorPrompt {
       new Point(20, 20),
       RelativePosition.BottomRight,
       0,
-      { shadow: true }
+      { shadow: true },
+      CursorInformation.cursorDocument
     );
   }
 

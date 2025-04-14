@@ -59,6 +59,7 @@ export class CursorUpdatedEvent extends UiEvent<CursorUpdatedEventArgs> {}
  */
 export class CursorInformation {
   private static _cursorPosition: Point = new Point();
+  private static _cursorDocument: Document | undefined;
   private static _cursorDirection: CursorDirection =
     CursorDirection.BottomRight;
 
@@ -86,12 +87,17 @@ export class CursorInformation {
     return this._cursorDirection;
   }
 
+  /** Gets the cursor document. */
+  public static get cursorDocument(): Document | undefined {
+    return this._cursorDocument;
+  }
+
   /** Gets the [[CursorUpdatedEvent]]. */
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onCursorUpdatedEvent = new CursorUpdatedEvent();
 
   /** Handles the mouse movement.  Sets the cursor position and direction and emits onCursorUpdatedEvent. */
-  public static handleMouseMove(point: XAndY): void {
+  public static handleMouseMove(point: XAndY, document?: Document): void {
     const oldPt = CursorInformation.cursorPosition;
     const direction = this._determineMostFrequentDirection(
       this._cursorDirections,
@@ -100,6 +106,7 @@ export class CursorInformation {
     );
 
     this.cursorPosition = point;
+    this._cursorDocument = document;
     this._cursorDirection = direction;
 
     this.onCursorUpdatedEvent.emit({ oldPt, newPt: point, direction });

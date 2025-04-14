@@ -6,6 +6,7 @@
  * @module Utilities
  */
 
+import { useCursorInformationStore } from "../cursor/CursorInformation.js";
 import {
   SyncUiEventDispatcher,
   SyncUiEventId,
@@ -209,8 +210,16 @@ export class InternalUiShowHideManager {
   public static handleContentMouseMove(
     _event?: React.MouseEvent<HTMLElement, MouseEvent>
   ) {
+    useCursorInformationStore.getState().setContentHovered(true);
     if (!InternalUiShowHideManager._autoHideUi) return;
     InternalUiShowHideManager.showUiAndResetTimer();
+  }
+
+  /** Handler for when the mouse leaves the content area */
+  public static handleContentMouseLeave(
+    _event?: React.MouseEvent<HTMLElement, MouseEvent>
+  ) {
+    useCursorInformationStore.getState().setContentHovered(false);
   }
 
   /** Handler for when the mouse enters a widget */

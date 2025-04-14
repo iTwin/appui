@@ -215,7 +215,7 @@ public;class;CursorPopupManager
 alpha;function;CursorPopupMenu
 public;interface;CursorPopupOptions
 public;type;CursorPopupProps
-public;class;CursorPopupRenderer
+public;function;CursorPopupRenderer
 public;class;CursorUpdatedEvent
 deprecated;class;CursorUpdatedEvent
 public;interface;CursorUpdatedEventArgs

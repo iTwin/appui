@@ -15,7 +15,7 @@ import { FloatingViewportContentControl } from "./ViewportContentControl.js";
 import { ContentWrapper } from "./ContentLayout.js";
 import { UiFramework } from "../UiFramework.js";
 import { useRefs } from "@itwin/core-react/internal";
-import { ContentOverlay } from "./ContentOverlay.js";
+import type { ContentOverlay } from "./ContentOverlay.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -64,7 +64,6 @@ export function FloatingViewportContentWrapper({
 }: FloatingViewportContentWrapperProps) {
   return (
     <div
-      onMouseMove={UiFramework.visibility.handleContentMouseMove}
       className="uifw-dialog-imodel-content"
       style={{ height: "100%", position: "relative" }}
     >
