@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import { PropertyCategoryLabelFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyCategoryLabelFilterer.js";
 import { FilteredType } from "../../../../components-react/propertygrid/dataproviders/filterers/PropertyDataFiltererBase.js";
 import type { PropertyCategory } from "../../../../components-react/propertygrid/PropertyDataProvider.js";
@@ -63,7 +63,7 @@ describe("PropertyCategoryLabelFilterer", () => {
     it("Should return lowercase string", () => {
       const filterer = new PropertyCategoryLabelFilterer();
 
-      const expectedText = faker.random.word();
+      const expectedText = "test filter";
       filterer.filterText = expectedText;
 
       expect(filterer.filterText).toEqual(expectedText.toLowerCase());
@@ -72,7 +72,7 @@ describe("PropertyCategoryLabelFilterer", () => {
     it("Should return filtering as enabled", () => {
       const filterer = new PropertyCategoryLabelFilterer();
 
-      filterer.filterText = faker.random.word();
+      filterer.filterText = "test filter";
 
       expect(filterer.isActive).toEqual(true);
     });

@@ -32,7 +32,7 @@ describe("TreeModelMutator", () => {
       treeNodeLoaderMock.object,
       false
     );
-    node = createRandomMutableTreeModelNode();
+    node = createRandomMutableTreeModelNode({ label: "Node-1" });
 
     treeModelSourceMock
       .setup((x) => x.getModel())
@@ -142,11 +142,11 @@ describe("TreeModelMutator", () => {
 
   describe("modifySelection", () => {
     const nodeToSelect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode(),
+      ...createRandomMutableTreeModelNode({ label: "NodeToSelect" }),
       isSelected: false,
     };
     const nodeToDeselect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode(),
+      ...createRandomMutableTreeModelNode({ label: "NodeToDeselect" }),
       isSelected: true,
     };
 
@@ -186,11 +186,11 @@ describe("TreeModelMutator", () => {
 
   describe("replaceSelection", () => {
     const selectedNode: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode(),
+      ...createRandomMutableTreeModelNode({ label: "NodeSelected" }),
       isSelected: true,
     };
     const nodeToSelect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode(),
+      ...createRandomMutableTreeModelNode({ label: "NodeToSeect" }),
       isSelected: false,
     };
 
@@ -230,7 +230,10 @@ describe("TreeModelMutator", () => {
   describe("clearSelection", () => {
     it("clears selection", () => {
       const selectedNodes: MutableTreeModelNode[] = [
-        { ...createRandomMutableTreeModelNode(), isSelected: true },
+        {
+          ...createRandomMutableTreeModelNode({ label: "NodeSelected" }),
+          isSelected: true,
+        },
       ];
       treeModelMock
         .setup((x) => x.iterateTreeModelNodes())

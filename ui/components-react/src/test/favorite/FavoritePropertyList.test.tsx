@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import * as React from "react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type {
@@ -28,8 +28,8 @@ describe("FavoritePropertyList", () => {
     ];
 
     data = {
-      label: PropertyRecord.fromString(faker.random.word()),
-      description: faker.random.words(),
+      label: PropertyRecord.fromString("Item Label"),
+      description: "Item Description",
       categories,
       records: {
         Favorite: records,

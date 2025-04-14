@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import { defer, from as rxjsFrom } from "rxjs";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { EmptyLocalization } from "@itwin/core-common";
@@ -610,31 +610,28 @@ describe("TreeDataSource", () => {
     describe("using TreeDataProviderRaw", () => {
       const rawProvider = [
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-1",
+          label: PropertyRecord.fromString("Root-1", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-1-1",
+              label: PropertyRecord.fromString("Child 1-1", "label"),
               children: [
                 {
-                  id: faker.random.uuid(),
-                  label: PropertyRecord.fromString(
-                    faker.random.word(),
-                    "label"
-                  ),
+                  id: "child-1-1-1",
+                  label: PropertyRecord.fromString("Child 1-1-1", "label"),
                 },
               ],
             },
           ],
         },
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-2",
+          label: PropertyRecord.fromString("Root 2", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-2-1",
+              label: PropertyRecord.fromString("Child 2-1", "label"),
             },
           ],
         },
@@ -677,8 +674,8 @@ describe("TreeDataSource", () => {
 
       it("returns empty array if parent is not found", async () => {
         const nonExistingNode = {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.word()),
+          id: "nonExisting",
+          label: PropertyRecord.fromString("Non Existing"),
         };
         const dataSource = new TreeDataSource(rawProvider);
 
@@ -732,31 +729,28 @@ describe("TreeDataSource", () => {
     describe("using TreeDataProviderPromise", () => {
       const rawProvider = [
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-1",
+          label: PropertyRecord.fromString("Root-1", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-1-1",
+              label: PropertyRecord.fromString("Child 1-1", "label"),
               children: [
                 {
-                  id: faker.random.uuid(),
-                  label: PropertyRecord.fromString(
-                    faker.random.word(),
-                    "label"
-                  ),
+                  id: "child-1-1-1",
+                  label: PropertyRecord.fromString("Child 1-1-1", "label"),
                 },
               ],
             },
           ],
         },
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-2",
+          label: PropertyRecord.fromString("Root 2", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-2-1",
+              label: PropertyRecord.fromString("Child 2-1", "label"),
             },
           ],
         },
@@ -802,8 +796,8 @@ describe("TreeDataSource", () => {
 
       it("returns empty array if parent is not found", async () => {
         const nonExistingNode = {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.word()),
+          id: "nonExisting",
+          label: PropertyRecord.fromString("Non Existing"),
         };
         const dataSource = new TreeDataSource(promiseProvider);
 

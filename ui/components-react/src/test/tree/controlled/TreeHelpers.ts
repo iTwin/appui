@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
 import type {
@@ -31,31 +31,44 @@ export function createTreeNodeInput(
 
 /** Returns random MutableTreeModelNode. */
 export const createRandomMutableTreeModelNode = (
-  parentNodeId?: string,
-  selected?: boolean,
-  label?: string
+  {
+    parentNodeId,
+    selected,
+    label,
+    numChildren,
+  }: {
+    parentNodeId?: string;
+    selected?: boolean;
+    label?: string;
+    numChildren?: number;
+  } = {
+    parentNodeId: "",
+    selected: false,
+    label: "test node",
+    numChildren: 0,
+  }
 ): MutableTreeModelNode => {
-  const nodeId = faker.random.uuid();
+  const nodeId = `${parentNodeId ?? ""}-${label ?? "test node"}`;
   const labelRecord = PropertyRecord.fromString(
-    label ?? faker.random.word(),
+    label ?? "Test Node Label",
     "label"
   );
   return {
     id: nodeId,
-    description: faker.random.word(),
-    isLoading: faker.random.boolean(),
+    description: "Test Description",
+    isLoading: false,
     label: labelRecord,
-    isExpanded: faker.random.boolean(),
-    isSelected: selected !== undefined ? selected : faker.random.boolean(),
+    isExpanded: false,
+    isSelected: selected ?? false,
     checkbox: {
       state: CheckBoxState.Off,
-      isVisible: faker.random.boolean(),
-      isDisabled: faker.random.boolean(),
+      isVisible: false,
+      isDisabled: false,
     },
-    depth: faker.random.number(),
+    depth: 0,
     item: createRandomTreeNodeItem(nodeId, parentNodeId, labelRecord),
     parentId: parentNodeId,
-    numChildren: faker.random.number(),
+    numChildren: numChildren ?? 0,
   };
 };
 
@@ -65,8 +78,14 @@ export const createRandomMutableTreeModelNodes = (
   parentId?: string
 ): MutableTreeModelNode[] => {
   const nodes: MutableTreeModelNode[] = [];
-  let nodesCount = count || faker.random.number({ min: 2, max: 10 });
-  while (nodesCount--) nodes.push(createRandomMutableTreeModelNode(parentId));
+  let nodesCount = count ?? 5;
+  while (nodesCount--)
+    nodes.push(
+      createRandomMutableTreeModelNode({
+        parentNodeId: parentId,
+        label: `Node-${nodesCount}`,
+      })
+    );
   return nodes;
 };
 
@@ -77,9 +96,12 @@ export const createRandomTreeNodeItems = (
   createChildren: boolean = true
 ): TreeNodeItemData[] => {
   const items: TreeNodeItemData[] = [];
-  let itemCount = count || faker.random.number({ min: 3, max: 9 });
+  let itemCount = count ?? 6;
   while (itemCount--) {
-    const treeNodeItem = createRandomTreeNodeItem(undefined, parentId);
+    const treeNodeItem = createRandomTreeNodeItem(
+      `test-item-${itemCount}`,
+      parentId
+    );
     if (itemCount % 2 === 0)
       items.push({
         ...treeNodeItem,
@@ -87,7 +109,7 @@ export const createRandomTreeNodeItems = (
           ? createRandomTreeNodeItems(undefined, treeNodeItem.id, false)
           : undefined,
       });
-    else items.push({ ...treeNodeItem, hasChildren: faker.random.boolean() });
+    else items.push({ ...treeNodeItem, hasChildren: false });
   }
 
   return items;
@@ -100,15 +122,15 @@ export const createRandomTreeNodeItem = (
   label?: PropertyRecord | string
 ): TreeNodeItem => {
   return {
-    id: itemId || faker.random.uuid(),
+    id: itemId ?? `${parentId ?? ""}-${itemId ?? "test node"}`,
     label: label
       ? label instanceof PropertyRecord
         ? label
         : PropertyRecord.fromString(label, "label")
-      : PropertyRecord.fromString(faker.random.word(), "label"),
-    autoExpand: faker.random.boolean(),
-    description: faker.random.word(),
-    icon: faker.random.word(),
+      : PropertyRecord.fromString("Test Node Label", "label"),
+    autoExpand: false,
+    description: "Test Description",
+    icon: "test-icon",
     parentId,
   };
 };

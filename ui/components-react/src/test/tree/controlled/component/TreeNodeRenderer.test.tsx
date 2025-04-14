@@ -22,7 +22,10 @@ describe("TreeNodeRenderer", () => {
   beforeEach(() => {
     treeActionsMock.reset();
     nodeLabel = "test node";
-    node = createRandomMutableTreeModelNode(undefined, undefined, nodeLabel);
+    node = createRandomMutableTreeModelNode({
+      label: nodeLabel,
+      numChildren: 2,
+    });
     node.isLoading = false;
   });
 

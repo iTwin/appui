@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import * as moq from "typemoq";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { CheckBoxState } from "@itwin/core-react";
@@ -80,8 +80,11 @@ describe("MutableTreeModel", () => {
     treeModel = new MutableTreeModel();
     (treeModel as any)._tree = treeMock.object;
 
-    rootNode = createRandomMutableTreeModelNode();
-    childNode = createRandomMutableTreeModelNode(rootNode.id);
+    rootNode = createRandomMutableTreeModelNode({ label: "Root-1" });
+    childNode = createRandomMutableTreeModelNode({
+      parentNodeId: rootNode.id,
+      label: "Child-1",
+    });
     rootNodesArray = new SparseArray<string>();
     rootNodesArray.set(0, rootNode.id);
     childNodesArray = new SparseArray<string>();
@@ -190,7 +193,7 @@ describe("MutableTreeModel", () => {
 
   describe("getChildren", () => {
     it("call tree for children", () => {
-      const parentId = faker.random.uuid();
+      const parentId = "parent-1";
       treeMock
         .setup((x) => x.getChildren(parentId))
         .verifiable(moq.Times.once());
@@ -201,8 +204,8 @@ describe("MutableTreeModel", () => {
 
   describe("getChildOffset", () => {
     it("calls tree for child offset", () => {
-      const parentId = faker.random.uuid();
-      const childId = faker.random.uuid();
+      const parentId = "parent-1";
+      const childId = "child-1";
       treeMock
         .setup((x) => x.getChildOffset(parentId, childId))
         .verifiable(moq.Times.once());
@@ -247,14 +250,14 @@ describe("MutableTreeModel", () => {
 
     it("sets children from TreeModelNodeInput", () => {
       const input: TreeModelNodeInput = {
-        id: faker.random.uuid(),
-        isExpanded: faker.random.boolean(),
-        label: PropertyRecord.fromString(faker.random.word(), "label"),
-        isLoading: faker.random.boolean(),
-        isSelected: faker.random.boolean(),
+        id: "root-1",
+        isExpanded: true,
+        label: PropertyRecord.fromString("Root 1", "label"),
+        isLoading: true,
+        isSelected: false,
         item: {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.word(), "label"),
+          id: "root-1",
+          label: PropertyRecord.fromString("Root 1", "label"),
         },
       };
 
@@ -293,7 +296,7 @@ describe("MutableTreeModel", () => {
 
   describe("insertChild", () => {
     it("inserts root node", () => {
-      const childCountBefore = faker.random.number(10);
+      const childCountBefore = 5;
       treeModel.setNumChildren(undefined, childCountBefore);
       treeMock
         .setup((x) =>
@@ -347,14 +350,14 @@ describe("MutableTreeModel", () => {
 
     it("inserts children from TreeModelNodeInput", () => {
       const input: TreeModelNodeInput = {
-        id: faker.random.uuid(),
-        isExpanded: faker.random.boolean(),
-        label: PropertyRecord.fromString(faker.random.word(), "label"),
-        isLoading: faker.random.boolean(),
-        isSelected: faker.random.boolean(),
+        id: "root-1",
+        isExpanded: false,
+        label: PropertyRecord.fromString("Root 1", "label"),
+        isLoading: false,
+        isSelected: true,
         item: {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.word(), "label"),
+          id: "root-1",
+          label: PropertyRecord.fromString("Root 1", "label"),
         },
       };
 
@@ -666,7 +669,7 @@ describe("MutableTreeModel", () => {
 
   describe("removeChild", () => {
     it("removes root node", () => {
-      const childCountBefore = faker.random.number(10);
+      const childCountBefore = 5;
       treeModel.setNumChildren(undefined, childCountBefore);
       treeMock
         .setup((x) => x.removeChild(undefined, rootNode.id))
@@ -822,11 +825,14 @@ describe("computeVisibleNodes", () => {
         numChildren: rootNodesArray.getLength(),
       }));
 
-    rootNode = createRandomMutableTreeModelNode();
+    rootNode = createRandomMutableTreeModelNode({ label: "Root-1" });
     rootNodesArray = new SparseArray<string>();
     rootNodesArray.set(0, rootNode.id);
 
-    childNode = createRandomMutableTreeModelNode(rootNode.id);
+    childNode = createRandomMutableTreeModelNode({
+      parentNodeId: rootNode.id,
+      label: "Child-1",
+    });
     childNodesArray = new SparseArray<string>();
     childNodesArray.set(0, childNode.id);
   });

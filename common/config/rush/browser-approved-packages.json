@@ -335,10 +335,6 @@
       "allowedCategories": [ "internal" ]
     },
     {
-      "name": "faker",
-      "allowedCategories": [ "frontend" ]
-    },
-    {
       "name": "glob",
       "allowedCategories": [ "tools" ]
     },

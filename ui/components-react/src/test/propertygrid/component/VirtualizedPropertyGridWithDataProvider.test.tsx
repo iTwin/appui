@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import * as React from "react";
 import { VariableSizeList } from "react-window";
 import * as moq from "typemoq";
@@ -53,8 +53,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     dataProvider = {
       onDataChanged: onDataChangedEvent,
       getData: async (): Promise<PropertyData> => ({
-        label: PropertyRecord.fromString(faker.random.word()),
-        description: faker.random.words(),
+        label: PropertyRecord.fromString("Item Label"),
+        description: "Item Description",
         categories,
         records: {
           Group_1: [records[0]],
@@ -181,8 +181,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       dataProvider = {
         onDataChanged: new PropertyDataChangeEvent(),
         getData: async (): Promise<PropertyData> => ({
-          label: PropertyRecord.fromString(faker.random.word()),
-          description: faker.random.words(),
+          label: PropertyRecord.fromString("Item Label"),
+          description: "Item Description",
           categories: [parentCategory],
           records: {
             [childCategory.name]: [
@@ -261,8 +261,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       dataProvider = {
         onDataChanged: new PropertyDataChangeEvent(),
         getData: async (): Promise<PropertyData> => ({
-          label: PropertyRecord.fromString(faker.random.word()),
-          description: faker.random.words(),
+          label: PropertyRecord.fromString("Item Label"),
+          description: "Item Description",
           categories: [rootCategory1, rootCategory2],
           records: {
             [rootCategory1.name]: [
@@ -356,8 +356,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       dataProvider = {
         onDataChanged: new PropertyDataChangeEvent(),
         getData: async (): Promise<PropertyData> => ({
-          label: PropertyRecord.fromString(faker.random.word()),
-          description: faker.random.words(),
+          label: PropertyRecord.fromString("Item Label"),
+          description: "Item Description",
           categories: [rootCategory1, rootCategory2],
           records: {
             [rootCategory1.name]: [
@@ -425,8 +425,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       );
 
       dataProvider.getData = async (): Promise<PropertyData> => ({
-        label: PropertyRecord.fromString(faker.random.word()),
-        description: faker.random.words(),
+        label: PropertyRecord.fromString("Item Label"),
+        description: "Item Description",
         categories: [
           ...categories,
           { name: "Group_3", label: "Group 3", expand: false },
@@ -450,21 +450,19 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
     // TODO: react 18 upgrade
     it.skip("doesn't rerender on intermediate data changes", async () => {
       const data: PropertyData = {
-        label: PropertyRecord.fromString(faker.random.word()),
-        categories: [
-          { label: faker.random.word(), name: "test", expand: true },
-        ],
+        label: PropertyRecord.fromString("Item Label"),
+        categories: [{ label: "Test Category", name: "test", expand: true }],
         records: {
           test: [
             new PropertyRecord(
               {
                 valueFormat: PropertyValueFormat.Primitive,
-                displayValue: faker.random.word(),
+                displayValue: "String Prop Value",
               },
               {
-                typename: faker.database.type(),
-                name: faker.random.word(),
-                displayLabel: faker.random.word(),
+                typename: "string",
+                name: "stringProp",
+                displayLabel: "String Property",
               }
             ),
           ],
@@ -787,7 +785,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         onDataChanged: new PropertyDataChangeEvent(),
         getData: async () => ({
           label: PropertyRecord.fromString("Test Label"),
-          description: faker.random.words(),
+          description: "Test Description",
           categories: [rootCategory],
           records: {
             [rootCategory.name]: [
@@ -1297,8 +1295,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       dataProvider = {
         onDataChanged: new PropertyDataChangeEvent(),
         getData: async (): Promise<PropertyData> => ({
-          label: PropertyRecord.fromString(faker.random.word()),
-          description: faker.random.words(),
+          label: PropertyRecord.fromString("Item Label"),
+          description: "Item Description",
           categories: [parentCategory],
           records: {
             [parentCategory.name]: [
@@ -1443,8 +1441,8 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
       dataProvider = {
         onDataChanged: new PropertyDataChangeEvent(),
         getData: async (): Promise<PropertyData> => ({
-          label: PropertyRecord.fromString(faker.random.word()),
-          description: faker.random.words(),
+          label: PropertyRecord.fromString("Item Label"),
+          description: "Item Description",
           categories: [parentCategory],
           records: {
             [parentCategory.name]: Array.from({ length: 1000 }).map(
