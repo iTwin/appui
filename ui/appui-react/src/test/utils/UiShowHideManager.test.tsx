@@ -198,7 +198,9 @@ describe("UiShowHideManager localStorage Wrapper", () => {
             contentLayout={myContentLayout}
           />
         );
-        const container = component.getByTestId("single-content-container");
+        const container = component
+          .getByTestId("single-content-container")
+          .getElementsByClassName("uifw-content-contentOverlay")[0];
         container.dispatchEvent(
           new MouseEvent("mousemove", {
             bubbles: true,
