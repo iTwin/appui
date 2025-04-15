@@ -14,7 +14,6 @@ import type {
   ToolAssistanceSection,
 } from "@itwin/core-frontend";
 import {
-  IModelApp,
   ToolAssistanceImage,
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
@@ -57,6 +56,7 @@ import {
   UiStateStorageStatus,
 } from "../../uistate/UiStateStorage.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { useActiveTool } from "../../hooks/useActiveTool.js";
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -126,6 +126,7 @@ export function ToolAssistanceField(props: Props) {
   const uiStateStorageCtx = React.useContext(UiStateStorageContext);
   const uiStateStorage = uiStateStorageProp ?? uiStateStorageCtx;
   const { translate } = useTranslation();
+  const activeTool = useActiveTool();
 
   const [state, setState] = React.useState<ToolAssistanceFieldState>(() => {
     return {
@@ -138,7 +139,8 @@ export function ToolAssistanceField(props: Props) {
     };
   });
 
-  const { showPromptAtCursor, toolIconSpec, mouseTouchTabIndex } = state;
+  const { showPromptAtCursor, toolIconSpec, mouseTouchTabIndex, instructions } =
+    state;
   const mainInstruction = state.instructions?.mainInstruction.text;
   const { open } = useCursorPrompt({
     show: showPromptAtCursor,
@@ -225,31 +227,22 @@ export function ToolAssistanceField(props: Props) {
     );
   }, [open]);
 
-  const { instructions } = state;
-  const dialogTitle = IModelApp.toolAdmin.activeTool
-    ? IModelApp.toolAdmin.activeTool.flyover
-    : translate("toolAssistance.title");
-  const mouseLabel = translate("toolAssistance.mouse");
-  const touchLabel = translate("toolAssistance.touch");
-  let prompt = "";
-  let tooltip = "";
-  let toolIcon: React.ReactNode;
-  let dialogContent: React.ReactNode;
+  const dialogTitle = activeTool?.flyover ?? translate("toolAssistance.title");
+  const tabs = [
+    translate("toolAssistance.mouse"),
+    translate("toolAssistance.touch"),
+  ];
 
-  const hasMouseInstructions = !!state.instructions?.sections?.some(
-    (section) => {
-      return section.instructions.some((instruction) =>
-        isMouseInstruction(instruction)
-      );
-    }
-  );
-  const hasTouchInstructions = !!state.instructions?.sections?.some(
-    (section) => {
-      return section.instructions.some((instruction) =>
-        isTouchInstruction(instruction)
-      );
-    }
-  );
+  const hasMouseInstructions = !!instructions?.sections?.some((section) => {
+    return section.instructions.some((instruction) =>
+      isMouseInstruction(instruction)
+    );
+  });
+  const hasTouchInstructions = !!instructions?.sections?.some((section) => {
+    return section.instructions.some((instruction) =>
+      isTouchInstruction(instruction)
+    );
+  });
 
   const isMobileBrowser = React.useMemo(() => {
     return ProcessDetector.isMobileBrowser;
@@ -258,122 +251,33 @@ export function ToolAssistanceField(props: Props) {
   const showTouchInstructions = hasTouchInstructions;
   const showMouseTouchTabs = showMouseInstructions && showTouchInstructions;
 
-  if (instructions) {
-    prompt = instructions.mainInstruction.text;
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    toolIcon = <Icon iconSpec={state.toolIconSpec} />;
+  const sectionInstructions = (instructions?.sections ?? [])
+    .map((section) => {
+      const displayableInstructions = getDisplayableInstructions(section);
+      return {
+        displayableInstructions,
+        section,
+      };
+    })
+    .filter((section) => {
+      return section.displayableInstructions.length > 0;
+    });
 
-    const sectionInstructions = (instructions.sections ?? [])
-      .map((section) => {
-        const displayableInstructions = getDisplayableInstructions(section);
-        return {
-          displayableInstructions,
-          section,
-        };
-      })
-      .filter((section) => {
-        return section.displayableInstructions.length > 0;
-      });
-
-    dialogContent = (
-      <div>
-        {showMouseTouchTabs && (
-          <Tabs.Wrapper type="pill" value={String(mouseTouchTabIndex)}>
-            <Tabs.TabList className="uifw-toolAssistance-tabs">
-              {[mouseLabel, touchLabel].map((label, index) => (
-                <Tabs.Tab
-                  key={index}
-                  className="uifw-tab"
-                  value={String(index)}
-                  label={label}
-                  onClick={async () => {
-                    setState((prev) => ({
-                      ...prev,
-                      mouseTouchTabIndex: index,
-                    }));
-                    void uiStateStorage.saveSetting(
-                      toolAssistanceKey,
-                      mouseTouchTabIndexKey,
-                      index
-                    );
-                  }}
-                />
-              ))}
-            </Tabs.TabList>
-          </Tabs.Wrapper>
-        )}
-
-        <div className="uifw-toolAssistance-content">
-          <NZ_ToolAssistanceInstruction
-            key="main"
-            image={
-              <InstructionImage instruction={instructions.mainInstruction} />
-            }
-            text={instructions.mainInstruction.text}
-            isNew={instructions.mainInstruction.isNew}
-          />
-
-          {sectionInstructions.map((sectionInstruction, index) => {
-            const { section, displayableInstructions } = sectionInstruction;
-            return (
-              <React.Fragment key={index.toString()}>
-                <ToolAssistanceSeparator>
-                  {section.label}
-                </ToolAssistanceSeparator>
-                {displayableInstructions.map((instruction, index1) => {
-                  return (
-                    <NZ_ToolAssistanceInstruction
-                      key={`${index1.toString()}-${index.toString()}`}
-                      image={<InstructionImage instruction={instruction} />}
-                      text={instruction.text}
-                      isNew={instruction.isNew}
-                    />
-                  );
-                })}
-              </React.Fragment>
-            );
-          })}
-
-          {includePromptAtCursor && (
-            <>
-              <ToolAssistanceSeparator key="prompt-sep" />
-              <ToolAssistanceItem key="prompt-item">
-                <ToggleSwitch
-                  label={translate("toolAssistance.promptAtCursor")}
-                  labelPosition="right"
-                  checked={state.showPromptAtCursor}
-                  onChange={(e) => {
-                    const checked = e.target.checked;
-                    setState((prev) => ({
-                      ...prev,
-                      showPromptAtCursor: checked,
-                    }));
-                    void uiStateStorage.saveSetting(
-                      toolAssistanceKey,
-                      showPromptAtCursorKey,
-                      checked
-                    );
-                  }}
-                />
-              </ToolAssistanceItem>
-            </>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  if (prompt) tooltip = prompt;
-
-  if (IModelApp.toolAdmin.activeTool)
-    tooltip = `${IModelApp.toolAdmin.activeTool.flyover} > ${tooltip}  `;
-
-  if (tooltip) {
+  const prompt = instructions?.mainInstruction.text;
+  const tooltip = React.useMemo(() => {
     const lineBreak = "\u000d\u000a";
-    tooltip = tooltip + lineBreak;
-  }
-
-  tooltip += translate("toolAssistance.moreInfo");
+    const moreInfo = translate("toolAssistance.moreInfo");
+    const postfix = `${lineBreak}${moreInfo}`;
+    if (activeTool) {
+      return `${activeTool.flyover}${
+        prompt ? ` > ${prompt}` : undefined
+      }${postfix}`;
+    }
+    if (prompt) {
+      return `${prompt}${postfix}`;
+    }
+    return moreInfo;
+  }, [prompt, activeTool, translate]);
 
   return (
     <StatusBarPopover
@@ -385,38 +289,126 @@ export function ToolAssistanceField(props: Props) {
       content={
         <ToolAssistanceDialog
           buttons={
-            <>
-              {!state.isPinned && (
-                <StatusBarDialog.TitleBarButton
-                  onClick={() => {
-                    setState((prev) => ({ ...prev, isPinned: true }));
-                  }}
-                  title={translate("toolAssistance.pin")}
-                >
-                  <SvgPin />
-                </StatusBarDialog.TitleBarButton>
+            <StatusBarDialog.TitleBarButton
+              onClick={() => {
+                if (state.isPinned) {
+                  setIsOpen(false);
+                  return;
+                }
+                setState((prev) => ({ ...prev, isPinned: true }));
+              }}
+              title={translate(
+                state.isPinned ? "dialog.close" : "toolAssistance.pin"
               )}
-              {state.isPinned && (
-                <StatusBarDialog.TitleBarButton
-                  onClick={() => {
-                    setIsOpen(false);
-                  }}
-                  title={translate("dialog.close")}
-                >
-                  <SvgClose />
-                </StatusBarDialog.TitleBarButton>
-              )}
-            </>
+            >
+              {state.isPinned ? <SvgClose /> : <SvgPin />}
+            </StatusBarDialog.TitleBarButton>
           }
           title={dialogTitle}
         >
-          {dialogContent}
+          <div>
+            {showMouseTouchTabs && (
+              <Tabs.Wrapper type="pill" value={String(mouseTouchTabIndex)}>
+                <Tabs.TabList className="uifw-toolAssistance-tabs">
+                  {tabs.map((tab, index) => (
+                    <Tabs.Tab
+                      key={index}
+                      className="uifw-tab"
+                      value={String(index)}
+                      label={tab}
+                      onClick={async () => {
+                        setState((prev) => ({
+                          ...prev,
+                          mouseTouchTabIndex: index,
+                        }));
+                        void uiStateStorage.saveSetting(
+                          toolAssistanceKey,
+                          mouseTouchTabIndexKey,
+                          index
+                        );
+                      }}
+                    />
+                  ))}
+                </Tabs.TabList>
+              </Tabs.Wrapper>
+            )}
+            {instructions ? (
+              <div className="uifw-toolAssistance-content">
+                <NZ_ToolAssistanceInstruction
+                  key="main"
+                  image={
+                    <InstructionImage
+                      instruction={instructions.mainInstruction}
+                    />
+                  }
+                  text={instructions.mainInstruction.text}
+                  isNew={instructions.mainInstruction.isNew}
+                />
+
+                {sectionInstructions.map((sectionInstruction, index) => {
+                  const { section, displayableInstructions } =
+                    sectionInstruction;
+                  return (
+                    <React.Fragment key={index.toString()}>
+                      <ToolAssistanceSeparator>
+                        {section.label}
+                      </ToolAssistanceSeparator>
+                      {displayableInstructions.map((instruction, index1) => {
+                        return (
+                          <NZ_ToolAssistanceInstruction
+                            key={`${index1.toString()}-${index.toString()}`}
+                            image={
+                              <InstructionImage instruction={instruction} />
+                            }
+                            text={instruction.text}
+                            isNew={instruction.isNew}
+                          />
+                        );
+                      })}
+                    </React.Fragment>
+                  );
+                })}
+
+                {includePromptAtCursor && (
+                  <>
+                    <ToolAssistanceSeparator key="prompt-sep" />
+                    <ToolAssistanceItem key="prompt-item">
+                      <ToggleSwitch
+                        label={translate("toolAssistance.promptAtCursor")}
+                        labelPosition="right"
+                        checked={state.showPromptAtCursor}
+                        onChange={(e) => {
+                          const checked = e.target.checked;
+                          setState((prev) => ({
+                            ...prev,
+                            showPromptAtCursor: checked,
+                          }));
+                          void uiStateStorage.saveSetting(
+                            toolAssistanceKey,
+                            showPromptAtCursorKey,
+                            checked
+                          );
+                        }}
+                      />
+                    </ToolAssistanceItem>
+                  </>
+                )}
+              </div>
+            ) : undefined}
+          </div>
         </ToolAssistanceDialog>
       }
     >
       <Button
         styleType="borderless"
-        startIcon={<>{toolIcon}</>}
+        startIcon={
+          instructions ? (
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            <Icon iconSpec={state.toolIconSpec} />
+          ) : (
+            <></>
+          )
+        }
         className={classnames(
           "uifw-statusFields-toolAssistance-toolAssistanceField",
           props.className
