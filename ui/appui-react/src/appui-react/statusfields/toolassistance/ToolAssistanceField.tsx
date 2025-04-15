@@ -56,6 +56,7 @@ import {
   type UiStateStorage,
   UiStateStorageStatus,
 } from "../../uistate/UiStateStorage.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -124,6 +125,7 @@ export function ToolAssistanceField(props: Props) {
   } = props;
   const uiStateStorageCtx = React.useContext(UiStateStorageContext);
   const uiStateStorage = uiStateStorageProp ?? uiStateStorageCtx;
+  const { translate } = useTranslation();
 
   const [state, setState] = React.useState<ToolAssistanceFieldState>(() => {
     return {
@@ -212,7 +214,7 @@ export function ToolAssistanceField(props: Props) {
       }));
       open();
     });
-  }, [open, state.toolIconSpec]);
+  }, [open]);
   React.useEffect(() => {
     return UiFramework.frontstages.onToolIconChangedEvent.addListener(
       (args) => {
@@ -223,14 +225,14 @@ export function ToolAssistanceField(props: Props) {
         open();
       }
     );
-  }, [open, state.instructions]);
+  }, [open]);
 
   const { instructions } = state;
   const dialogTitle = IModelApp.toolAdmin.activeTool
     ? IModelApp.toolAdmin.activeTool.flyover
-    : UiFramework.translate("toolAssistance.title");
-  const mouseLabel = UiFramework.translate("toolAssistance.mouse");
-  const touchLabel = UiFramework.translate("toolAssistance.touch");
+    : translate("toolAssistance.title");
+  const mouseLabel = translate("toolAssistance.mouse");
+  const touchLabel = translate("toolAssistance.touch");
   let prompt = "";
   let tooltip = "";
   let toolIcon: React.ReactNode;
@@ -263,12 +265,9 @@ export function ToolAssistanceField(props: Props) {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolIcon = <Icon iconSpec={state.toolIconSpec} />;
 
-    let displayableSections: ToolAssistanceSection[] | undefined;
-    if (instructions.sections) {
-      displayableSections = instructions.sections.filter((section) =>
-        sectionHasDisplayableInstructions(section)
-      );
-    }
+    const displayableSections = instructions.sections?.filter((section) =>
+      sectionHasDisplayableInstructions(section)
+    );
 
     dialogContent = (
       <div>
@@ -336,7 +335,7 @@ export function ToolAssistanceField(props: Props) {
               <ToolAssistanceSeparator key="prompt-sep" />
               <ToolAssistanceItem key="prompt-item">
                 <ToggleSwitch
-                  label={UiFramework.translate("toolAssistance.promptAtCursor")}
+                  label={translate("toolAssistance.promptAtCursor")}
                   labelPosition="right"
                   checked={state.showPromptAtCursor}
                   onChange={(e) => {
@@ -370,7 +369,7 @@ export function ToolAssistanceField(props: Props) {
     tooltip = tooltip + lineBreak;
   }
 
-  tooltip += UiFramework.translate("toolAssistance.moreInfo");
+  tooltip += translate("toolAssistance.moreInfo");
 
   return (
     <StatusBarPopover
@@ -388,7 +387,7 @@ export function ToolAssistanceField(props: Props) {
                   onClick={() => {
                     setState((prev) => ({ ...prev, isPinned: true }));
                   }}
-                  title={UiFramework.translate("toolAssistance.pin")}
+                  title={translate("toolAssistance.pin")}
                 >
                   <SvgPin />
                 </StatusBarDialog.TitleBarButton>
@@ -398,7 +397,7 @@ export function ToolAssistanceField(props: Props) {
                   onClick={() => {
                     setIsOpen(false);
                   }}
-                  title={UiFramework.translate("dialog.close")}
+                  title={translate("dialog.close")}
                 >
                   <SvgClose />
                 </StatusBarDialog.TitleBarButton>
