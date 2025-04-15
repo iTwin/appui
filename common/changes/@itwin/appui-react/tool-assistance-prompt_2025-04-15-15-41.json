@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Changed `ToolAssistanceField` from class to functional component.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}
