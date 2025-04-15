@@ -8,7 +8,7 @@ import { CheckBoxState } from "@itwin/core-react";
 import { fireEvent, render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { TreeNodeRenderer } from "../../../../components-react/tree/controlled/component/TreeNodeRenderer.js";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "../TreeHelpers.js";
 
 import type { TreeActions } from "../../../../components-react/tree/controlled/TreeActions.js";
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
@@ -22,7 +22,7 @@ describe("TreeNodeRenderer", () => {
   beforeEach(() => {
     treeActionsMock.reset();
     nodeLabel = "test node";
-    node = createRandomMutableTreeModelNode({
+    node = createTestMutableTreeModelNode({
       label: nodeLabel,
       numChildren: 2,
     });

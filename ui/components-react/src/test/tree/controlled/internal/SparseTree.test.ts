@@ -9,8 +9,8 @@ import {
   SparseTree,
 } from "../../../../components-react/tree/controlled/internal/SparseTree.js";
 import {
-  createRandomMutableTreeModelNode,
-  createRandomMutableTreeModelNodes,
+  createTestMutableTreeModelNode,
+  createTestMutableTreeModelNodes,
 } from "../TreeHelpers.js";
 
 describe("SparseTree", () => {
@@ -39,7 +39,7 @@ describe("SparseTree", () => {
 
   describe("getNode", () => {
     it("gets node", () => {
-      const nodes = createRandomMutableTreeModelNodes();
+      const nodes = createTestMutableTreeModelNodes();
       sparseTree.setChildren(undefined, nodes, 0);
       const result = sparseTree.getNode(nodes[0].id);
       expect(result).to.deep.eq(nodes[0]);
@@ -59,7 +59,7 @@ describe("SparseTree", () => {
     });
 
     it("returns offset", () => {
-      const node = createRandomMutableTreeModelNode();
+      const node = createTestMutableTreeModelNode();
       const offset = 5;
       sparseTree.setChildren(undefined, [node], offset);
       expect(sparseTree.getChildOffset(undefined, node.id)).toEqual(offset);
@@ -68,7 +68,7 @@ describe("SparseTree", () => {
 
   describe("setChildren", () => {
     describe("setting root nodes", () => {
-      const rootNodes = createRandomMutableTreeModelNodes();
+      const rootNodes = createTestMutableTreeModelNodes();
 
       it("sets root nodes", () => {
         sparseTree.setChildren(undefined, rootNodes, 0);
@@ -83,8 +83,8 @@ describe("SparseTree", () => {
       let secondChildrenPage: Node[];
 
       beforeEach(() => {
-        firstChildrenPage = createRandomMutableTreeModelNodes();
-        secondChildrenPage = createRandomMutableTreeModelNodes();
+        firstChildrenPage = createTestMutableTreeModelNodes(3, "page-1");
+        secondChildrenPage = createTestMutableTreeModelNodes(3, "page-2");
 
         sparseTree.setChildren(undefined, [rootNode], 0);
       });
@@ -112,8 +112,7 @@ describe("SparseTree", () => {
         verifyNodes(result, [...firstChildrenPage, ...secondChildrenPage]);
       });
 
-      // TODO: vitest
-      it.skip("overrides existing children", () => {
+      it("overrides existing children", () => {
         sparseTree.setNumChildren(rootNode.id, firstChildrenPage.length);
         sparseTree.setChildren(rootNode.id, firstChildrenPage, 0);
         sparseTree.setChildren(rootNode.id, secondChildrenPage, 1);
@@ -134,7 +133,7 @@ describe("SparseTree", () => {
     });
 
     it("inserts child node", () => {
-      const childNode = createRandomMutableTreeModelNode();
+      const childNode = createTestMutableTreeModelNode();
       sparseTree.setChildren(undefined, [rootNode], 0);
       sparseTree.insertChild(rootNode.id, childNode, 0);
       const result = sparseTree.getChildren(rootNode.id)!;
@@ -143,11 +142,11 @@ describe("SparseTree", () => {
     });
 
     it("inserts child node between existing children", () => {
-      const childNodes = createRandomMutableTreeModelNodes(2);
+      const childNodes = createTestMutableTreeModelNodes(2);
       sparseTree.setChildren(undefined, [rootNode], 0);
       sparseTree.setChildren(rootNode.id, childNodes, 0);
 
-      const newNode = createRandomMutableTreeModelNode();
+      const newNode = createTestMutableTreeModelNode();
       sparseTree.insertChild(rootNode.id, newNode, 1);
 
       const result = sparseTree.getChildren(rootNode.id)!;
@@ -320,7 +319,7 @@ describe("SparseTree", () => {
 
     it("clears subtree when setting root node children count", () => {
       sparseTree.setChildren(undefined, [rootNode], 0);
-      const childNodes = createRandomMutableTreeModelNodes();
+      const childNodes = createTestMutableTreeModelNodes();
       sparseTree.setChildren(rootNode.id, childNodes, 0);
       sparseTree.setNumChildren(undefined, 10);
       const children = sparseTree.getChildren(rootNode.id);
@@ -331,7 +330,7 @@ describe("SparseTree", () => {
   describe("removeChild", () => {
     describe("by child id", () => {
       it("removes root node", () => {
-        const rootNodes = createRandomMutableTreeModelNodes(3);
+        const rootNodes = createTestMutableTreeModelNodes(3);
         sparseTree.setChildren(undefined, rootNodes, 0);
         sparseTree.removeChild(undefined, rootNodes[1].id);
         const children = sparseTree.getChildren(undefined)!;
@@ -340,7 +339,7 @@ describe("SparseTree", () => {
       });
 
       it("removes child node", () => {
-        const childNodes = createRandomMutableTreeModelNodes(3);
+        const childNodes = createTestMutableTreeModelNodes(3);
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(rootNode.id, childNodes[1].id);
@@ -365,7 +364,7 @@ describe("SparseTree", () => {
       });
 
       it("removes child subtree", () => {
-        const childNodes = createRandomMutableTreeModelNodes();
+        const childNodes = createTestMutableTreeModelNodes();
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(undefined, rootNode.id);
@@ -376,7 +375,7 @@ describe("SparseTree", () => {
 
     describe("by child index", () => {
       it("removes root node", () => {
-        const rootNodes = createRandomMutableTreeModelNodes(3);
+        const rootNodes = createTestMutableTreeModelNodes(3);
         sparseTree.setChildren(undefined, rootNodes, 0);
         sparseTree.removeChild(undefined, 1);
         const children = sparseTree.getChildren(undefined)!;
@@ -385,7 +384,7 @@ describe("SparseTree", () => {
       });
 
       it("removes child node", () => {
-        const childNodes = createRandomMutableTreeModelNodes(3);
+        const childNodes = createTestMutableTreeModelNodes(3);
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(rootNode.id, 1);
@@ -410,7 +409,7 @@ describe("SparseTree", () => {
       });
 
       it("removes child subtree", () => {
-        const childNodes = createRandomMutableTreeModelNodes();
+        const childNodes = createTestMutableTreeModelNodes();
         sparseTree.setChildren(undefined, [rootNode], 0);
         sparseTree.setChildren(rootNode.id, childNodes, 0);
         sparseTree.removeChild(undefined, 0);
@@ -433,7 +432,7 @@ describe("SparseTree", () => {
     });
 
     it("deletes child nodes", () => {
-      const childNodes = createRandomMutableTreeModelNodes();
+      const childNodes = createTestMutableTreeModelNodes();
       sparseTree.setChildren(rootNode.id, childNodes, 0);
       sparseTree.deleteSubtree(rootNode.id);
       const children = sparseTree.getChildren(rootNode.id);
@@ -664,7 +663,7 @@ describe("SparseArray", () => {
   });
 
   describe("iterateValues", () => {
-    it.skip("FLAKY:iterates through existing values", () => {
+    it("iterates through existing values", () => {
       testItems.forEach((item) => sparseArray.set(item.index, item.value));
       for (const [value, index] of sparseArray.iterateValues()) {
         const expectedItem = testItems.find((item) => item.index === index);

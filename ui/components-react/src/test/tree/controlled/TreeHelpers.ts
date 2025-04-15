@@ -30,7 +30,7 @@ export function createTreeNodeInput(
 }
 
 /** Returns random MutableTreeModelNode. */
-export const createRandomMutableTreeModelNode = (
+export const createTestMutableTreeModelNode = (
   {
     parentNodeId,
     selected,
@@ -66,14 +66,14 @@ export const createRandomMutableTreeModelNode = (
       isDisabled: false,
     },
     depth: 0,
-    item: createRandomTreeNodeItem(nodeId, parentNodeId, labelRecord),
+    item: createTestTreeNodeItem(nodeId, parentNodeId, labelRecord),
     parentId: parentNodeId,
     numChildren: numChildren ?? 0,
   };
 };
 
 /** Returns multiple random MutableTreeModelNode. */
-export const createRandomMutableTreeModelNodes = (
+export const createTestMutableTreeModelNodes = (
   count?: number,
   parentId?: string
 ): MutableTreeModelNode[] => {
@@ -81,7 +81,7 @@ export const createRandomMutableTreeModelNodes = (
   let nodesCount = count ?? 5;
   while (nodesCount--)
     nodes.push(
-      createRandomMutableTreeModelNode({
+      createTestMutableTreeModelNode({
         parentNodeId: parentId,
         label: `Node-${nodesCount}`,
       })
@@ -90,7 +90,7 @@ export const createRandomMutableTreeModelNodes = (
 };
 
 /** Returns multiple random TreeNodeItem. */
-export const createRandomTreeNodeItems = (
+export const createTestTreeNodeItems = (
   count?: number,
   parentId?: string,
   createChildren: boolean = true
@@ -98,7 +98,7 @@ export const createRandomTreeNodeItems = (
   const items: TreeNodeItemData[] = [];
   let itemCount = count ?? 6;
   while (itemCount--) {
-    const treeNodeItem = createRandomTreeNodeItem(
+    const treeNodeItem = createTestTreeNodeItem(
       `test-item-${itemCount}`,
       parentId
     );
@@ -106,7 +106,7 @@ export const createRandomTreeNodeItems = (
       items.push({
         ...treeNodeItem,
         children: createChildren
-          ? createRandomTreeNodeItems(undefined, treeNodeItem.id, false)
+          ? createTestTreeNodeItems(undefined, treeNodeItem.id, false)
           : undefined,
       });
     else items.push({ ...treeNodeItem, hasChildren: false });
@@ -116,7 +116,7 @@ export const createRandomTreeNodeItems = (
 };
 
 /** Returns random TreeNodeItem */
-export const createRandomTreeNodeItem = (
+export const createTestTreeNodeItem = (
   itemId?: string,
   parentId?: string,
   label?: PropertyRecord | string

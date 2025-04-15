@@ -23,7 +23,7 @@ import type {
   VisibleTreeNodes,
 } from "../../../../components-react/tree/controlled/TreeModel.js";
 import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "../TreeHelpers.js";
 
 type Selection = string | RangeSelection;
 
@@ -50,7 +50,7 @@ describe("TreeSelectionManager", () => {
 
   function createTreeModelNode(props?: Partial<TreeModelNode>) {
     return {
-      ...createRandomMutableTreeModelNode({ label: props?.id }),
+      ...createTestMutableTreeModelNode({ label: props?.id }),
       isLoading: false,
       isSelected: false,
       ...props,

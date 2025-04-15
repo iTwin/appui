@@ -13,7 +13,7 @@ import type {
 } from "../../../../components-react/tree/controlled/TreeModel.js";
 import type { TreeModelSource } from "../../../../components-react/tree/controlled/TreeModelSource.js";
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader.js";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "../TreeHelpers.js";
 import type { Mock } from "vitest";
 
 describe("TreeModelMutator", () => {
@@ -32,7 +32,7 @@ describe("TreeModelMutator", () => {
       treeNodeLoaderMock.object,
       false
     );
-    node = createRandomMutableTreeModelNode({ label: "Node-1" });
+    node = createTestMutableTreeModelNode({ label: "Node-1" });
 
     treeModelSourceMock
       .setup((x) => x.getModel())
@@ -142,11 +142,11 @@ describe("TreeModelMutator", () => {
 
   describe("modifySelection", () => {
     const nodeToSelect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode({ label: "NodeToSelect" }),
+      ...createTestMutableTreeModelNode({ label: "NodeToSelect" }),
       isSelected: false,
     };
     const nodeToDeselect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode({ label: "NodeToDeselect" }),
+      ...createTestMutableTreeModelNode({ label: "NodeToDeselect" }),
       isSelected: true,
     };
 
@@ -186,11 +186,11 @@ describe("TreeModelMutator", () => {
 
   describe("replaceSelection", () => {
     const selectedNode: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode({ label: "NodeSelected" }),
+      ...createTestMutableTreeModelNode({ label: "NodeSelected" }),
       isSelected: true,
     };
     const nodeToSelect: MutableTreeModelNode = {
-      ...createRandomMutableTreeModelNode({ label: "NodeToSelect" }),
+      ...createTestMutableTreeModelNode({ label: "NodeToSelect" }),
       isSelected: false,
     };
 
@@ -231,7 +231,7 @@ describe("TreeModelMutator", () => {
     it("clears selection", () => {
       const selectedNodes: MutableTreeModelNode[] = [
         {
-          ...createRandomMutableTreeModelNode({ label: "NodeSelected" }),
+          ...createTestMutableTreeModelNode({ label: "NodeSelected" }),
           isSelected: true,
         },
       ];

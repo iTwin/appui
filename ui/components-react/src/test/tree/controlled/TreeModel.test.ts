@@ -23,7 +23,7 @@ import {
   isTreeModelRootNode,
   MutableTreeModel,
 } from "../../../components-react/tree/controlled/TreeModel.js";
-import { createRandomMutableTreeModelNode } from "./TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "./TreeHelpers.js";
 
 const createTreeModelNode = (
   parentNode: TreeModelNode | TreeModelRootNode,
@@ -80,8 +80,8 @@ describe("MutableTreeModel", () => {
     treeModel = new MutableTreeModel();
     (treeModel as any)._tree = treeMock.object;
 
-    rootNode = createRandomMutableTreeModelNode({ label: "Root-1" });
-    childNode = createRandomMutableTreeModelNode({
+    rootNode = createTestMutableTreeModelNode({ label: "Root-1" });
+    childNode = createTestMutableTreeModelNode({
       parentNodeId: rootNode.id,
       label: "Child-1",
     });
@@ -825,11 +825,11 @@ describe("computeVisibleNodes", () => {
         numChildren: rootNodesArray.getLength(),
       }));
 
-    rootNode = createRandomMutableTreeModelNode({ label: "Root-1" });
+    rootNode = createTestMutableTreeModelNode({ label: "Root-1" });
     rootNodesArray = new SparseArray<string>();
     rootNodesArray.set(0, rootNode.id);
 
-    childNode = createRandomMutableTreeModelNode({
+    childNode = createTestMutableTreeModelNode({
       parentNodeId: rootNode.id,
       label: "Child-1",
     });
@@ -1010,7 +1010,7 @@ describe("computeVisibleNodes", () => {
 
 describe("isTreeModelNode", () => {
   it("returns true for TreeModelNode", () => {
-    const node: TreeModelNode = createRandomMutableTreeModelNode();
+    const node: TreeModelNode = createTestMutableTreeModelNode();
     expect(isTreeModelNode(node)).toEqual(true);
   });
 
@@ -1040,7 +1040,7 @@ describe("isTreeModelRootNode", () => {
   });
 
   it("returns false for TreeModelNode", () => {
-    const node: TreeModelNode = createRandomMutableTreeModelNode();
+    const node: TreeModelNode = createTestMutableTreeModelNode();
     expect(isTreeModelRootNode(node)).toEqual(false);
   });
 
