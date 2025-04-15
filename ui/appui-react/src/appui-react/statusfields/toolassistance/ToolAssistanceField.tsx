@@ -100,10 +100,6 @@ interface ToolAssistanceFieldState {
   instructions: ToolAssistanceInstructions | undefined;
   toolIconSpec: string;
   showPromptAtCursor: boolean;
-  includeMouseInstructions: boolean;
-  includeTouchInstructions: boolean;
-  showMouseInstructions: boolean;
-  showTouchInstructions: boolean;
   mouseTouchTabIndex: number;
   isPinned: boolean;
   isOpen: boolean;
@@ -130,15 +126,10 @@ export function ToolAssistanceField(props: Props) {
   const uiStateStorage = uiStateStorageProp ?? uiStateStorageCtx;
 
   const [state, setState] = React.useState<ToolAssistanceFieldState>(() => {
-    const isMobileBrowser = ProcessDetector.isMobileBrowser;
     return {
       instructions: undefined,
       toolIconSpec: "",
       showPromptAtCursor: defaultPromptAtCursor,
-      includeMouseInstructions: !isMobileBrowser,
-      includeTouchInstructions: true,
-      showMouseInstructions: false,
-      showTouchInstructions: false,
       mouseTouchTabIndex: 0,
       isPinned: false,
       isOpen: false,
@@ -177,8 +168,8 @@ export function ToolAssistanceField(props: Props) {
       (instruction) => {
         return (
           isBothInstruction(instruction) ||
-          (state.showMouseInstructions && isMouseInstruction(instruction)) ||
-          (state.showTouchInstructions && isTouchInstruction(instruction))
+          (showMouseInstructions && isMouseInstruction(instruction)) ||
+          (showTouchInstructions && isTouchInstruction(instruction))
         );
       }
     );
@@ -259,11 +250,13 @@ export function ToolAssistanceField(props: Props) {
       );
     }
   );
-  const showMouseTouchTabs =
-    state.showMouseInstructions &&
-    state.showTouchInstructions &&
-    hasMouseInstructions &&
-    hasTouchInstructions;
+
+  const isMobileBrowser = React.useMemo(() => {
+    return ProcessDetector.isMobileBrowser;
+  }, []);
+  const showMouseInstructions = !isMobileBrowser && hasMouseInstructions;
+  const showTouchInstructions = hasTouchInstructions;
+  const showMouseTouchTabs = showMouseInstructions && hasTouchInstructions;
 
   if (instructions) {
     prompt = instructions.mainInstruction.text;
@@ -289,14 +282,9 @@ export function ToolAssistanceField(props: Props) {
                   value={String(index)}
                   label={label}
                   onClick={async () => {
-                    const showMouseInstructions = index === 0;
-                    const showTouchInstructions = index === 1;
-
                     setState((prev) => ({
                       ...prev,
                       mouseTouchTabIndex: index,
-                      showMouseInstructions,
-                      showTouchInstructions,
                     }));
                     void uiStateStorage.saveSetting(
                       toolAssistanceKey,
