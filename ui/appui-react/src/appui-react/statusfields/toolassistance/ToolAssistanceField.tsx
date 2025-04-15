@@ -19,12 +19,12 @@ import {
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { FillCentered, Icon, UiStateEntry } from "@itwin/core-react";
+import { FillCentered, Icon } from "@itwin/core-react";
 import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../../UiFramework.js";
-import { CursorPrompt } from "../../cursor/cursorprompt/CursorPrompt.js";
+import { useCursorPrompt } from "../../cursor/cursorprompt/CursorPrompt.js";
 import { MessageManager } from "../../messages/MessageManager.js";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage.js";
 import "./ToolAssistanceField.scss";
@@ -80,17 +80,21 @@ export interface ToolAssistanceFieldProps extends CommonProps {
 
 interface Props
   extends Omit<
-    ToolAssistanceFieldProps,
-    | "includePromptAtCursor"
-    | "cursorPromptTimeout"
-    | "fadeOutCursorPrompt"
-    | "defaultPromptAtCursor"
-  > {
-  includePromptAtCursor?: ToolAssistanceFieldProps["includePromptAtCursor"];
-  cursorPromptTimeout?: ToolAssistanceFieldProps["cursorPromptTimeout"];
-  fadeOutCursorPrompt?: ToolAssistanceFieldProps["fadeOutCursorPrompt"];
-  defaultPromptAtCursor?: ToolAssistanceFieldProps["defaultPromptAtCursor"];
-}
+      ToolAssistanceFieldProps,
+      | "includePromptAtCursor"
+      | "cursorPromptTimeout"
+      | "fadeOutCursorPrompt"
+      | "defaultPromptAtCursor"
+    >,
+    Partial<
+      Pick<
+        ToolAssistanceFieldProps,
+        | "includePromptAtCursor"
+        | "cursorPromptTimeout"
+        | "fadeOutCursorPrompt"
+        | "defaultPromptAtCursor"
+      >
+    > {}
 
 interface ToolAssistanceFieldState {
   instructions: ToolAssistanceInstructions | undefined;
@@ -98,7 +102,6 @@ interface ToolAssistanceFieldState {
   showPromptAtCursor: boolean;
   includeMouseInstructions: boolean;
   includeTouchInstructions: boolean;
-  showMouseTouchTabs: boolean;
   showMouseInstructions: boolean;
   showTouchInstructions: boolean;
   mouseTouchTabIndex: number;
@@ -121,10 +124,11 @@ export function ToolAssistanceField(props: Props) {
     fadeOutCursorPrompt = true,
     defaultPromptAtCursor = false,
     uiStateStorage: uiStateStorageProp,
+    promptAtContent = false,
   } = props;
   const uiStateStorageCtx = React.useContext(UiStateStorageContext);
   const uiStateStorage = uiStateStorageProp ?? uiStateStorageCtx;
-  const _cursorPrompt = React.useRef(new CursorPrompt());
+
   const [state, setState] = React.useState<ToolAssistanceFieldState>(() => {
     const isMobileBrowser = ProcessDetector.isMobileBrowser;
     return {
@@ -133,13 +137,23 @@ export function ToolAssistanceField(props: Props) {
       showPromptAtCursor: defaultPromptAtCursor,
       includeMouseInstructions: !isMobileBrowser,
       includeTouchInstructions: true,
-      showMouseTouchTabs: false,
       showMouseInstructions: false,
       showTouchInstructions: false,
       mouseTouchTabIndex: 0,
       isPinned: false,
       isOpen: false,
     };
+  });
+
+  const { showPromptAtCursor, toolIconSpec } = state;
+  const mainInstruction = state.instructions?.mainInstruction.text;
+  const { open } = useCursorPrompt({
+    show: showPromptAtCursor,
+    timeout: cursorPromptTimeout,
+    iconSpec: toolIconSpec,
+    instruction: mainInstruction,
+    fadeOut: fadeOutCursorPrompt,
+    promptAtContent,
   });
 
   const setIsOpen = (isOpen: boolean) => {
@@ -170,21 +184,6 @@ export function ToolAssistanceField(props: Props) {
     );
     return displayableInstructions;
   };
-  // const showCursorPrompt = () => {
-  //   const instruction = state.instructions?.mainInstruction.text;
-  //   if (!state.showPromptAtCursor || !instruction) {
-  //     this._cursorPrompt.close(fadeOutCursorPrompt);
-  //     return;
-  //   }
-
-  //   this._cursorPrompt.open({
-  //     timeout: cursorPromptTimeout,
-  //     fadeout: fadeOutCursorPrompt,
-  //     iconSpec: state.toolIconSpec,
-  //     instruction,
-  //     promptAtContent: props.promptAtContent ?? false,
-  //   });
-  // }
 
   React.useEffect(() => {
     void (async () => {
@@ -216,86 +215,24 @@ export function ToolAssistanceField(props: Props) {
   }, [uiStateStorage]);
   React.useEffect(() => {
     return MessageManager.onToolAssistanceChangedEvent.addListener((args) => {
-      let showMouseTouchTabs = false;
-      let showMouseInstructions = false;
-      let showTouchInstructions = false;
-
-      if (args.instructions && args.instructions.sections) {
-        const hasMouseInstructions = args.instructions.sections.some(
-          (section) => {
-            return section.instructions.some((instruction) =>
-              isMouseInstruction(instruction)
-            );
-          }
-        );
-        const hasTouchInstructions = args.instructions.sections.some(
-          (section) => {
-            return section.instructions.some((instruction) =>
-              isTouchInstruction(instruction)
-            );
-          }
-        );
-
-        if (
-          state.includeMouseInstructions &&
-          state.includeTouchInstructions &&
-          hasMouseInstructions &&
-          hasTouchInstructions
-        ) {
-          showMouseTouchTabs = true;
-          showMouseInstructions = state.mouseTouchTabIndex === 0;
-          showTouchInstructions = state.mouseTouchTabIndex === 1;
-        } else {
-          if (state.includeMouseInstructions && hasMouseInstructions)
-            showMouseInstructions = true;
-          else if (state.includeTouchInstructions && hasTouchInstructions)
-            showTouchInstructions = true;
-        }
-      }
-
-      setState(
-        (prev) => ({
-          ...prev,
-          instructions: args.instructions,
-          showMouseTouchTabs,
-          showMouseInstructions,
-          showTouchInstructions,
-        })
-        // () => {
-        //   this._showCursorPrompt();
-        // }
-      );
+      setState((prev) => ({
+        ...prev,
+        instructions: args.instructions,
+      }));
+      open();
     });
-  }, [
-    state.includeMouseInstructions,
-    state.includeTouchInstructions,
-    state.mouseTouchTabIndex,
-  ]);
+  }, [open, state.toolIconSpec]);
   React.useEffect(() => {
     return UiFramework.frontstages.onToolIconChangedEvent.addListener(
       (args) => {
-        setState(
-          (prev) => ({
-            ...prev,
-            toolIconSpec: args.iconSpec,
-          })
-          // () => {
-          //   this._showCursorPrompt();
-          // }
-        );
+        setState((prev) => ({
+          ...prev,
+          toolIconSpec: args.iconSpec,
+        }));
+        open();
       }
     );
-  }, []);
-  React.useEffect(() => {
-    const cursorPrompt = _cursorPrompt.current;
-    return () => {
-      cursorPrompt.close(fadeOutCursorPrompt);
-    };
-  });
-  React.useEffect(() => {
-    if (!state.showPromptAtCursor)
-      _cursorPrompt.current.close(fadeOutCursorPrompt);
-  }, [fadeOutCursorPrompt, state.showPromptAtCursor]);
+  }, [open, state.instructions]);
 
   const { instructions } = state;
   const dialogTitle = IModelApp.toolAdmin.activeTool
@@ -307,6 +244,26 @@ export function ToolAssistanceField(props: Props) {
   let tooltip = "";
   let toolIcon: React.ReactNode;
   let dialogContent: React.ReactNode;
+
+  const hasMouseInstructions = !!state.instructions?.sections?.some(
+    (section) => {
+      return section.instructions.some((instruction) =>
+        isMouseInstruction(instruction)
+      );
+    }
+  );
+  const hasTouchInstructions = !!state.instructions?.sections?.some(
+    (section) => {
+      return section.instructions.some((instruction) =>
+        isTouchInstruction(instruction)
+      );
+    }
+  );
+  const showMouseTouchTabs =
+    state.showMouseInstructions &&
+    state.showTouchInstructions &&
+    hasMouseInstructions &&
+    hasTouchInstructions;
 
   if (instructions) {
     prompt = instructions.mainInstruction.text;
@@ -322,7 +279,7 @@ export function ToolAssistanceField(props: Props) {
 
     dialogContent = (
       <div>
-        {state.showMouseTouchTabs && (
+        {showMouseTouchTabs && (
           <Tabs.Wrapper type="pill" value={String(state.mouseTouchTabIndex)}>
             <Tabs.TabList className="uifw-toolAssistance-tabs">
               {[mouseLabel, touchLabel].map((label, index) => (
@@ -335,18 +292,16 @@ export function ToolAssistanceField(props: Props) {
                     const showMouseInstructions = index === 0;
                     const showTouchInstructions = index === 1;
 
-                    setState(
-                      (prev) => ({
-                        ...prev,
-                        mouseTouchTabIndex: index,
-                        showMouseInstructions,
-                        showTouchInstructions,
-                      })
-                      // async () => {
-                      //   await this._mouseTouchTabIndexSetting.saveSetting(
-                      //     uiStateStorage
-                      //   );
-                      // }
+                    setState((prev) => ({
+                      ...prev,
+                      mouseTouchTabIndex: index,
+                      showMouseInstructions,
+                      showTouchInstructions,
+                    }));
+                    void uiStateStorage.saveSetting(
+                      toolAssistanceKey,
+                      mouseTouchTabIndexKey,
+                      index
                     );
                   }}
                 />
@@ -397,16 +352,15 @@ export function ToolAssistanceField(props: Props) {
                   labelPosition="right"
                   checked={state.showPromptAtCursor}
                   onChange={(e) => {
-                    setState(
-                      (prev) => ({
-                        ...prev,
-                        showPromptAtCursor: e.target.checked,
-                      })
-                      // async () => {
-                      //   await this._showPromptAtCursorSetting.saveSetting(
-                      //     uiStateStorage
-                      //   );
-                      // }
+                    const checked = e.target.checked;
+                    setState((prev) => ({
+                      ...prev,
+                      showPromptAtCursor: checked,
+                    }));
+                    void uiStateStorage.saveSetting(
+                      toolAssistanceKey,
+                      showPromptAtCursorKey,
+                      checked
                     );
                   }}
                 />
