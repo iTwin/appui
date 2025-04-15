@@ -471,25 +471,21 @@ export function useDragItem<T extends DragItem>(args: UseDragItemArgs<T>) {
 /** @internal */
 export function useDraggedItem() {
   const dragManager = React.useContext(DragManagerContext);
-  const [draggedItem, setDraggedItem] = React.useState<DragItem | undefined>(
-    dragManager.draggedItem?.item
+  const subscribe = React.useCallback(
+    (onStoreChange: () => void) => {
+      const listeners = [
+        dragManager.onDragStart.addListener(onStoreChange),
+        dragManager.onDragUpdate.addListener(onStoreChange),
+        dragManager.onDragEnd.addListener(onStoreChange),
+      ];
+      return () => listeners.forEach((l) => l());
+    },
+    [dragManager]
   );
-  React.useEffect(() => {
-    return dragManager.onDragStart.addListener((item) => {
-      setDraggedItem(item);
-    });
+  const getSnapshot = React.useCallback(() => {
+    return dragManager.draggedItem?.item;
   }, [dragManager]);
-  React.useEffect(() => {
-    return dragManager.onDragUpdate.addListener((item) => {
-      setDraggedItem(item);
-    });
-  }, [dragManager]);
-  React.useEffect(() => {
-    return dragManager.onDragEnd.addListener(() => {
-      setDraggedItem(undefined);
-    });
-  }, [dragManager]);
-  return draggedItem;
+  return React.useSyncExternalStore(subscribe, getSnapshot);
 }
 
 /** @internal */

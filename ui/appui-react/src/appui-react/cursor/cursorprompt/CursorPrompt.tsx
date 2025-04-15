@@ -19,6 +19,7 @@ import {
 } from "../CursorInformation.js";
 import { CursorPopupManager } from "../cursorpopup/CursorPopupManager.js";
 import { UiFramework } from "../../UiFramework.js";
+import { useDraggedItem } from "../../layout/base/DragManager.js";
 
 interface UseCursorPromptArgs {
   show: boolean;
@@ -30,7 +31,7 @@ interface UseCursorPromptArgs {
 }
 
 const popupId = "cursor-prompt";
-const category = UiFramework.loggerCategory("useCursorPrompt");
+const getCategory = () => UiFramework.loggerCategory("useCursorPrompt");
 
 /** @internal */
 export function useCursorPrompt(args: UseCursorPromptArgs) {
@@ -40,20 +41,42 @@ export function useCursorPrompt(args: UseCursorPromptArgs) {
     lastArgsRef.current = args;
   }, [args]);
 
-  const [isOpen, setIsOpen] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const timerRef = React.useRef<Timer | undefined>();
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const dragged = !!useDraggedItem();
+  // Workaround to make sure the prompt is not shown when dragging a widget.
+  const [draggedRecently, setDraggedRecently] = React.useState(false);
+  React.useEffect(() => {
+    if (dragged) {
+      Logger.logTrace(getCategory(), "dragged recently");
+      setDraggedRecently(true);
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    const timer = new Timer(250);
+    timer.setOnExecute(() => {
+      Logger.logTrace(getCategory(), "reset dragged recently");
+      setDraggedRecently(false);
+    });
+    timer.start();
+    return () => {
+      timer.stop();
+    };
+  }, [dragged]);
 
   const contentHovered = useCursorInformationStore(
     (state) => state.contentHovered
   );
-
   const shouldOpen = React.useMemo(() => {
     if (!show) return false;
     if (!isOpen) return false;
+    if (promptAtContent && (dragged || draggedRecently)) return false;
     if (promptAtContent && !contentHovered) return false;
     return true;
-  }, [show, isOpen, promptAtContent, contentHovered]);
+  }, [show, isOpen, dragged, draggedRecently, promptAtContent, contentHovered]);
 
   React.useEffect(() => {
     if (timeout === Number.POSITIVE_INFINITY) return;
@@ -61,7 +84,7 @@ export function useCursorPrompt(args: UseCursorPromptArgs) {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const timer = new Timer(timeout);
     timer.setOnExecute(() => {
-      Logger.logTrace(category, "timer expired");
+      Logger.logTrace(getCategory(), "timer expired");
       setIsOpen(false);
     });
     timer.delay = timeout;
@@ -74,7 +97,7 @@ export function useCursorPrompt(args: UseCursorPromptArgs) {
     if (!shouldOpen) return;
     if (!instruction) return;
 
-    Logger.logTrace(category, "open");
+    Logger.logTrace(getCategory(), "open");
     CursorPopupManager.open(
       popupId,
       <CursorPrompt iconSpec={iconSpec} instruction={instruction} />,
@@ -86,7 +109,7 @@ export function useCursorPrompt(args: UseCursorPromptArgs) {
       CursorInformation.cursorDocument
     );
     return () => {
-      Logger.logTrace(category, "close");
+      Logger.logTrace(getCategory(), "close");
       CursorPopupManager.close(popupId, false, lastArgsRef.current.fadeOut);
     };
   }, [shouldOpen, instruction, iconSpec]);
@@ -100,7 +123,7 @@ export function useCursorPrompt(args: UseCursorPromptArgs) {
   }, []);
 
   const open = React.useCallback(() => {
-    Logger.logTrace(category, "request open");
+    Logger.logTrace(getCategory(), "request open");
     setIsOpen(true);
     timerRef.current?.start();
   }, []);
