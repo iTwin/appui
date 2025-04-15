@@ -138,7 +138,7 @@ export function ToolAssistanceField(props: Props) {
     };
   });
 
-  const { showPromptAtCursor, toolIconSpec } = state;
+  const { showPromptAtCursor, toolIconSpec, mouseTouchTabIndex } = state;
   const mainInstruction = state.instructions?.mainInstruction.text;
   const { open } = useCursorPrompt({
     show: showPromptAtCursor,
@@ -159,19 +159,17 @@ export function ToolAssistanceField(props: Props) {
     setState((prev) => ({ ...prev, ...newState }));
   };
 
-  const sectionHasDisplayableInstructions = (
-    section: ToolAssistanceSection
-  ) => {
-    const displayableInstructions = getDisplayableInstructions(section);
-    return displayableInstructions.length > 0;
-  };
   const getDisplayableInstructions = (section: ToolAssistanceSection) => {
     const displayableInstructions = section.instructions.filter(
       (instruction) => {
         return (
           isBothInstruction(instruction) ||
-          (showMouseInstructions && isMouseInstruction(instruction)) ||
-          (showTouchInstructions && isTouchInstruction(instruction))
+          (showMouseInstructions &&
+            mouseTouchTabIndex === 0 &&
+            isMouseInstruction(instruction)) ||
+          (showTouchInstructions &&
+            mouseTouchTabIndex === 1 &&
+            isTouchInstruction(instruction))
         );
       }
     );
@@ -258,21 +256,29 @@ export function ToolAssistanceField(props: Props) {
   }, []);
   const showMouseInstructions = !isMobileBrowser && hasMouseInstructions;
   const showTouchInstructions = hasTouchInstructions;
-  const showMouseTouchTabs = showMouseInstructions && hasTouchInstructions;
+  const showMouseTouchTabs = showMouseInstructions && showTouchInstructions;
 
   if (instructions) {
     prompt = instructions.mainInstruction.text;
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolIcon = <Icon iconSpec={state.toolIconSpec} />;
 
-    const displayableSections = instructions.sections?.filter((section) =>
-      sectionHasDisplayableInstructions(section)
-    );
+    const sectionInstructions = (instructions.sections ?? [])
+      .map((section) => {
+        const displayableInstructions = getDisplayableInstructions(section);
+        return {
+          displayableInstructions,
+          section,
+        };
+      })
+      .filter((section) => {
+        return section.displayableInstructions.length > 0;
+      });
 
     dialogContent = (
       <div>
         {showMouseTouchTabs && (
-          <Tabs.Wrapper type="pill" value={String(state.mouseTouchTabIndex)}>
+          <Tabs.Wrapper type="pill" value={String(mouseTouchTabIndex)}>
             <Tabs.TabList className="uifw-toolAssistance-tabs">
               {[mouseLabel, touchLabel].map((label, index) => (
                 <Tabs.Tab
@@ -307,28 +313,26 @@ export function ToolAssistanceField(props: Props) {
             isNew={instructions.mainInstruction.isNew}
           />
 
-          {displayableSections &&
-            displayableSections.map((section, index) => {
-              return (
-                <React.Fragment key={index.toString()}>
-                  <ToolAssistanceSeparator>
-                    {section.label}
-                  </ToolAssistanceSeparator>
-                  {getDisplayableInstructions(section).map(
-                    (instruction, index1) => {
-                      return (
-                        <NZ_ToolAssistanceInstruction
-                          key={`${index1.toString()}-${index.toString()}`}
-                          image={<InstructionImage instruction={instruction} />}
-                          text={instruction.text}
-                          isNew={instruction.isNew}
-                        />
-                      );
-                    }
-                  )}
-                </React.Fragment>
-              );
-            })}
+          {sectionInstructions.map((sectionInstruction, index) => {
+            const { section, displayableInstructions } = sectionInstruction;
+            return (
+              <React.Fragment key={index.toString()}>
+                <ToolAssistanceSeparator>
+                  {section.label}
+                </ToolAssistanceSeparator>
+                {displayableInstructions.map((instruction, index1) => {
+                  return (
+                    <NZ_ToolAssistanceInstruction
+                      key={`${index1.toString()}-${index.toString()}`}
+                      image={<InstructionImage instruction={instruction} />}
+                      text={instruction.text}
+                      isNew={instruction.isNew}
+                    />
+                  );
+                })}
+              </React.Fragment>
+            );
+          })}
 
           {includePromptAtCursor && (
             <>
