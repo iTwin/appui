@@ -34,13 +34,14 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 import { UiComponents } from "../UiComponents.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
+import type { IconNodeEditorParams } from "../../internal.js";
 
 /** @internal */
 interface CustomNumberEditorState {
   inputValue: string;
   size?: number;
   maxLength?: number;
-  iconSpec?: string;
+  iconSpec?: React.ReactNode;
 }
 
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
@@ -237,7 +238,7 @@ export class CustomNumberEditor
     };
     let size: number | undefined;
     let maxLength: number | undefined;
-    let iconSpec: string | undefined;
+    let iconSpec: React.ReactNode | undefined;
 
     if (
       record.property &&
@@ -259,6 +260,15 @@ export class CustomNumberEditor
       ) as IconEditorParams;
       if (iconParams) {
         iconSpec = iconParams.definition.iconSpec;
+      }
+
+      const iconNodeParam = record.property.editor.params.find(
+        (param): param is IconNodeEditorParams =>
+          param.type ===
+          ("appui-icon-node" satisfies IconNodeEditorParams["type"])
+      );
+      if (iconNodeParam) {
+        iconSpec = iconNodeParam.icon;
       }
     }
 

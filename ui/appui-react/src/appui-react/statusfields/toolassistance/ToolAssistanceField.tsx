@@ -28,33 +28,36 @@ import { MessageManager } from "../../messages/MessageManager.js";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage.js";
 import "./ToolAssistanceField.scss";
 
-import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
+import {
+  SvgAdd,
+  SvgClose,
+  SvgCursorClick,
+  SvgGestureOneFingerDrag,
+  SvgGestureOneFingerTap,
+  SvgGestureOneFingerTapDouble,
+  SvgGesturePinch,
+  SvgGestureTwoFingerDrag,
+  SvgGestureTwoFingerTap,
+  SvgMouseClickLeft,
+  SvgMouseClickRight,
+  SvgMouseClickWheel,
+  SvgPin,
+} from "@itwin/itwinui-icons-react";
 import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog.js";
 import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction.js";
 import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item.js";
 import { ToolAssistanceSeparator } from "../../layout/footer/tool-assistance/Separator.js";
 import { StatusBarDialog } from "../../statusbar/dialog/Dialog.js";
-import acceptPointIcon from "./accept-point.svg";
-import cursorClickIcon from "./cursor-click.svg";
-import oneTouchDragIcon from "./gesture-one-finger-drag.svg";
-import oneTouchDoubleTapIcon from "./gesture-one-finger-tap-double.svg";
-import oneTouchTapIcon from "./gesture-one-finger-tap.svg";
-import twoTouchPinchIcon from "./gesture-pinch.svg";
-import twoTouchDragIcon from "./gesture-two-finger-drag.svg";
-import twoTouchTapIcon from "./gesture-two-finger-tap.svg";
-import clickLeftDragIcon from "./mouse-click-left-drag.svg";
-import clickLeftIcon from "./mouse-click-left.svg";
-import clickRightDragIcon from "./mouse-click-right-drag.svg";
-import clickRightIcon from "./mouse-click-right.svg";
-import clickMouseWheelDragIcon from "./mouse-click-wheel-drag.svg";
-import mouseWheelClickIcon from "./mouse-click-wheel.svg";
-import touchCursorDragIcon from "./touch-cursor-pan.svg";
-import touchCursorTapIcon from "./touch-cursor-point.svg";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 import {
   type UiStateStorage,
   UiStateStorageStatus,
 } from "../../uistate/UiStateStorage.js";
+import { SvgTouchCursorPoint } from "../../icons/SvgTouchCursorPoint.js";
+import { SvgTouchCursorPan } from "../../icons/SvgTouchCursorPan.js";
+import { SvgMouseClickLeftDrag } from "../../icons/SvgMouseClickLeftDrag.js";
+import { SvgMouseClickRightDrag } from "../../icons/SvgMouseClickRightDrag.js";
+import { SvgMouseClickWheelDrag } from "../../icons/SvgMouseClickWheelDrag.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
 
@@ -540,65 +543,65 @@ function InstructionSvgImage({
     instruction.image !== ToolAssistanceImage.Keyboard
   ) {
     const toolAssistanceImage: ToolAssistanceImage = instruction.image;
-    let svgImage = "";
+    let svgImage: React.ReactNode;
 
     switch (toolAssistanceImage) {
       case ToolAssistanceImage.AcceptPoint:
-        svgImage = acceptPointIcon;
+        svgImage = <SvgAdd />;
         break;
       case ToolAssistanceImage.CursorClick:
-        svgImage = cursorClickIcon;
+        svgImage = <SvgCursorClick />;
         break;
       case ToolAssistanceImage.LeftClick:
-        svgImage = clickLeftIcon;
+        svgImage = <SvgMouseClickLeft />;
         break;
       case ToolAssistanceImage.RightClick:
-        svgImage = clickRightIcon;
+        svgImage = <SvgMouseClickRight />;
         break;
       case ToolAssistanceImage.MouseWheel:
-        svgImage = mouseWheelClickIcon;
+        svgImage = <SvgMouseClickWheel />;
         break;
       case ToolAssistanceImage.LeftClickDrag:
-        svgImage = clickLeftDragIcon;
+        svgImage = <SvgMouseClickLeftDrag />;
         className = mediumSize
           ? "uifw-toolassistance-svg-medium-wide"
           : "uifw-toolassistance-svg-wide";
         break;
       case ToolAssistanceImage.RightClickDrag:
-        svgImage = clickRightDragIcon;
+        svgImage = <SvgMouseClickRightDrag />;
         className = mediumSize
           ? "uifw-toolassistance-svg-medium-wide"
           : "uifw-toolassistance-svg-wide";
         break;
       case ToolAssistanceImage.MouseWheelClickDrag:
-        svgImage = clickMouseWheelDragIcon;
+        svgImage = <SvgMouseClickWheelDrag />;
         className = mediumSize
           ? "uifw-toolassistance-svg-medium-wide"
           : "uifw-toolassistance-svg-wide";
         break;
       case ToolAssistanceImage.OneTouchTap:
-        svgImage = oneTouchTapIcon;
+        svgImage = <SvgGestureOneFingerTap />;
         break;
       case ToolAssistanceImage.OneTouchDoubleTap:
-        svgImage = oneTouchDoubleTapIcon;
+        svgImage = <SvgGestureOneFingerTapDouble />;
         break;
       case ToolAssistanceImage.OneTouchDrag:
-        svgImage = oneTouchDragIcon;
+        svgImage = <SvgGestureOneFingerDrag />;
         break;
       case ToolAssistanceImage.TwoTouchTap:
-        svgImage = twoTouchTapIcon;
+        svgImage = <SvgGestureTwoFingerTap />;
         break;
       case ToolAssistanceImage.TwoTouchDrag:
-        svgImage = twoTouchDragIcon;
+        svgImage = <SvgGestureTwoFingerDrag />;
         break;
       case ToolAssistanceImage.TwoTouchPinch:
-        svgImage = twoTouchPinchIcon;
+        svgImage = <SvgGesturePinch />;
         break;
       case ToolAssistanceImage.TouchCursorTap:
-        svgImage = touchCursorTapIcon;
+        svgImage = <SvgTouchCursorPoint />;
         break;
       case ToolAssistanceImage.TouchCursorDrag:
-        svgImage = touchCursorDragIcon;
+        svgImage = <SvgTouchCursorPan />;
         className = mediumSize
           ? "uifw-toolassistance-svg-medium-wide"
           : "uifw-toolassistance-svg-wide";

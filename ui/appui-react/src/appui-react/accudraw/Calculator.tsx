@@ -17,7 +17,7 @@ import { Button, Input } from "@itwin/itwinui-react";
 import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine.js";
 import { SquareButton } from "./SquareButton.js";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
-import backspaceIcon from "./backspace.svg";
+import { SvgBackspace } from "../icons/SvgBackspace.js";
 
 type SquareButtonProps = React.ComponentProps<typeof SquareButton>;
 
@@ -274,7 +274,7 @@ class CalculatorKeyPad extends React.PureComponent<CalculatorKeyPadProps> {
         >
           <div className="uifw-calculator-button-svg">
             {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={backspaceIcon} />
+            <Icon iconSpec={<SvgBackspace />} />
           </div>
         </OperatorButton>
         <OperatorButton

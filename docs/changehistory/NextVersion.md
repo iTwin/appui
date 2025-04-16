@@ -82,6 +82,7 @@ Table of contents:
 
 - Converted `CursorPopupRenderer` from a class component to a functional component. [#1277](https://github.com/iTwin/appui/pull/1277)
 - Converted `ToolAssistanceField` from a class component to a functional component to resolve timing issues with prompt fade-out. Additionally, the tool assistance cursor prompt is no longer displayed when dragging a widget container or widget tab if `promptAtContent` is enabled. [#1283](https://github.com/iTwin/appui/pull/1283)
+- Inlined all `.svg` icons as React components to avoid usage of `<svg-loader>` which is prone to issues if bundler is misconfigured. [#1284](https://github.com/iTwin/appui/pull/1284)
 
 ### Fixes
 
