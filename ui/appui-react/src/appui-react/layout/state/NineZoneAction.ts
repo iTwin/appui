@@ -335,6 +335,7 @@ export interface WidgetDefAddToolSettingsAction {
   readonly type: "WIDGET_DEF_ADD_TOOL_SETTINGS";
   readonly id: TabState["id"];
   readonly overrides?: Partial<TabState>;
+  readonly panelSection?: WidgetDefAddAction["panelSection"];
 }
 
 /** @internal */

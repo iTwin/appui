@@ -78,6 +78,19 @@ Table of contents:
   }
   ```
 
+- Added `toolSettings.defaultLocation` prop to the `StandardLayout` component which allows consumers to specify the initial tool settings location as a docked widget. [#1268](https://github.com/iTwin/appui/pull/1268)
+
+  ```tsx
+  <StandardLayout
+    toolSettings={{
+      defaultLocation: {
+        location: StagePanelLocation.Right,
+        section: StagePanelSection.Start,
+      },
+    }}
+  />
+  ```
+
 ### Changes
 
 - Converted `CursorPopupRenderer` from a class component to a functional component. [#1277](https://github.com/iTwin/appui/pull/1277)

@@ -390,7 +390,13 @@ function openPopoutWidgets(frontstageDef: FrontstageDef) {
 /** Adds frontstageDef widgets that are missing in NineZoneState.
  * @internal
  */
-export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef) {
+export function addFrontstageWidgetDefs(
+  frontstageDef: FrontstageDef,
+  args?: InitializeNineZoneStateArgs
+) {
+  const { toolSettings } = args ?? {};
+  const { defaultLocation: toolSettingsLocation } = toolSettings ?? {};
+
   [
     StagePanelLocation.Left,
     StagePanelLocation.Right,
@@ -411,6 +417,20 @@ export function addFrontstageWidgetDefs(frontstageDef: FrontstageDef) {
       type: "WIDGET_DEF_ADD_TOOL_SETTINGS",
       id: toolSettingsWidgetDef.id,
       overrides: toTabArgs(toolSettingsWidgetDef),
+      panelSection: toolSettingsLocation
+        ? (() => {
+            const side = toPanelSide(toolSettingsLocation.location);
+            const id = getWidgetPanelSectionId(
+              side,
+              toolSettingsLocation.section
+            );
+            return {
+              id,
+              side,
+              index: toolSettingsLocation.section,
+            };
+          })()
+        : undefined,
     });
   }
 }
@@ -565,8 +585,19 @@ export function initializePanel(
 /** @internal */
 export const stateVersion = 20; // this needs to be bumped when NineZoneState is changed (to recreate the layout).
 
+type ConfigurableUiContextArgs = React.ContextType<
+  typeof ConfigurableUiContext
+>;
+
+interface InitializeNineZoneStateArgs {
+  toolSettings: ConfigurableUiContextArgs["toolSettings"];
+}
+
 /** @internal */
-export function initializeNineZoneState(frontstageDef: FrontstageDef) {
+export function initializeNineZoneState(
+  frontstageDef: FrontstageDef,
+  args?: InitializeNineZoneStateArgs
+) {
   frontstageDef.batch(() => {
     frontstageDef.nineZoneState = defaultNineZone;
 
@@ -577,7 +608,7 @@ export function initializeNineZoneState(frontstageDef: FrontstageDef) {
         size,
       });
 
-    addFrontstageWidgetDefs(frontstageDef);
+    addFrontstageWidgetDefs(frontstageDef, args);
 
     initializePanel(frontstageDef, StagePanelLocation.Left);
     initializePanel(frontstageDef, StagePanelLocation.Right);
@@ -711,19 +742,18 @@ export interface WidgetPanelsFrontstageState {
 
 /** @internal */
 export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
+  const configurableUi = React.useContext(ConfigurableUiContext);
   const uiStateStorage = useUiStateStorageHandler();
+  const configurableUiRef = React.useRef(configurableUi);
   const uiStateStorageRef = React.useRef(uiStateStorage);
-  const isMountedRef = React.useRef(false);
-  React.useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, []);
   React.useEffect(() => {
     uiStateStorageRef.current = uiStateStorage;
   }, [uiStateStorage]);
   React.useEffect(() => {
+    configurableUiRef.current = configurableUi;
+  }, [configurableUi]);
+  React.useEffect(() => {
+    let didCancel = false;
     async function fetchFrontstageState() {
       // Switching to previously initialized frontstage.
       if (frontstageDef.nineZoneState) {
@@ -738,7 +768,7 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
         FRONTSTAGE_SETTINGS_NAMESPACE,
         getFrontstageStateSettingName(id)
       );
-      if (!isMountedRef.current) return;
+      if (didCancel) return;
 
       if (isFrontstageStateSettingResult(settingResult)) {
         const setting = settingResult.setting;
@@ -750,9 +780,14 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
           return;
         }
       }
-      initializeNineZoneState(frontstageDef);
+      initializeNineZoneState(frontstageDef, {
+        toolSettings: configurableUiRef.current?.toolSettings,
+      });
     }
     void fetchFrontstageState();
+    return () => {
+      didCancel = true;
+    };
   }, [frontstageDef]);
 }
 
