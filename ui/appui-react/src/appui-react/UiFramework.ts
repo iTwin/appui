@@ -294,7 +294,6 @@ export class UiFramework {
 
     const { frontstages } = args ?? {};
     UiFramework._frontstages = frontstages;
-    console.log("INITIALIZED", UiFramework._frontstages);
 
     /* if store is undefined then the StateManager class should have been initialized by parent app and the apps default set of reducers registered with it.
       If the app has no reducers to add and does not initialize a StateManager then just initialize the StateManager with the default framework reducer now */
