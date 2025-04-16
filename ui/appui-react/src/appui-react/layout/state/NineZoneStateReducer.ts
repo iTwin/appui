@@ -11,7 +11,7 @@ import { Point, Rectangle } from "@itwin/core-react/internal";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState.js";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation.js";
-import type { NineZoneAction } from "./NineZoneAction.js";
+import type { NineZoneAction, WidgetDefAddAction } from "./NineZoneAction.js";
 import {
   isPanelDropTargetState,
   isSectionDropTargetState,
@@ -73,7 +73,10 @@ import {
   isPanelWidgetRestoreState,
   type PanelWidgetRestoreState,
 } from "./WidgetRestoreState.js";
-import { addDockedToolSettings } from "./internal/ToolSettingsStateHelpers.js";
+import {
+  addDockedToolSettings,
+  addWidgetToolSettings,
+} from "./internal/ToolSettingsStateHelpers.js";
 
 /** @internal */
 export function NineZoneStateReducer(
@@ -901,29 +904,14 @@ export function NineZoneStateReducer(
         });
       }
 
-      // Add to a panel section.
-      const side = action.panelSection.side;
-      // Add to an existing panel section.
-      if (action.panelSection.id in state.widgets) {
-        return addTabToWidget(state, action.id, action.panelSection.id);
-      }
-
-      const panel = state.panels[side];
-      // Add to a new panel section.
-      if (panel.widgets.length < panel.maxWidgetCount) {
-        return addPanelWidget(state, side, action.panelSection.id, [action.id]);
-      }
-
-      // Can't add additional sections, add to an existing one.
-      const sectionIndex = Math.min(
-        action.panelSection.index,
-        panel.widgets.length - 1
-      );
-      const existingSectionId = panel.widgets[sectionIndex];
-      return addTabToWidget(state, action.id, existingSectionId);
+      return addTabToPanelSection(state, action.id, action.panelSection);
     }
     case "WIDGET_DEF_ADD_TOOL_SETTINGS": {
       state = addTab(state, action.id, action.overrides);
+      if (action.panelSection) {
+        state = addTabToPanelSection(state, action.id, action.panelSection);
+        return addWidgetToolSettings(state, action.id);
+      }
       return addDockedToolSettings(state, action.id);
     }
   }
@@ -1034,4 +1022,28 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   }
 
   return removeTabFromWidget(state, id);
+}
+
+function addTabToPanelSection(
+  state: NineZoneState,
+  tabId: TabState["id"],
+  panelSection: WidgetDefAddAction["panelSection"]
+) {
+  // Add to a panel section.
+  const { side, id, index } = panelSection;
+  // Add to an existing panel section.
+  if (id in state.widgets) {
+    return addTabToWidget(state, tabId, id);
+  }
+
+  const panel = state.panels[side];
+  // Add to a new panel section.
+  if (panel.widgets.length < panel.maxWidgetCount) {
+    return addPanelWidget(state, side, id, [tabId]);
+  }
+
+  // Can't add additional sections, add to an existing one.
+  const sectionIndex = Math.min(index, panel.widgets.length - 1);
+  const existingSectionId = panel.widgets[sectionIndex];
+  return addTabToWidget(state, tabId, existingSectionId);
 }
