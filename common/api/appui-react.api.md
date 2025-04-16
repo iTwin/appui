@@ -35,6 +35,8 @@ import { CompassMode } from '@itwin/core-frontend';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
 import { ConfigurableUiActionsUnion as ConfigurableUiActionsUnion_2 } from './ConfigurableUiState.js';
+import { ContentControlActivatedEventArgs as ContentControlActivatedEventArgs_2 } from '../content/ContentControl.js';
+import { ContentLayoutActivatedEventArgs as ContentLayoutActivatedEventArgs_2 } from '../content/ContentLayout.js';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import { DeepReadonlyArray as DeepReadonlyArray_2 } from './redux-ts.js';
 import { DeepReadonlyObject as DeepReadonlyObject_2 } from './redux-ts.js';
@@ -64,6 +66,7 @@ import { MessageBoxType } from '@itwin/core-frontend';
 import { MessageBoxValue } from '@itwin/core-frontend';
 import { MessageSeverity } from '@itwin/appui-abstract';
 import type { MessageType } from '@itwin/core-react';
+import { NavigationAidActivatedEventArgs as NavigationAidActivatedEventArgs_2 } from '../navigationaids/NavigationAidControl.js';
 import type { NoChildrenProps } from '@itwin/core-react';
 import { NotificationManager } from '@itwin/core-frontend';
 import { NotifyMessageDetails } from '@itwin/core-frontend';
@@ -75,6 +78,7 @@ import { Orientation } from '@itwin/components-react';
 import { OutputMessageAlert } from '@itwin/core-frontend';
 import { OutputMessagePriority } from '@itwin/core-frontend';
 import { OutputMessageType } from '@itwin/core-frontend';
+import { PanelStateChangedEventArgs as PanelStateChangedEventArgs_2 } from '../stagepanels/StagePanelDef.js';
 import type { PlaybackSettings } from '@itwin/imodel-components-react';
 import { Point } from '@itwin/core-react/internal';
 import type { Point2d } from '@itwin/core-geometry';
@@ -127,6 +131,7 @@ import type { ViewportProps } from '@itwin/imodel-components-react';
 import type { ViewState } from '@itwin/core-frontend';
 import type { ViewStateProp } from '@itwin/imodel-components-react';
 import type { ViewStateProps } from '@itwin/core-common';
+import { WidgetStateChangedEventArgs as WidgetStateChangedEventArgs_2 } from '../widgets/WidgetDef.js';
 import type { XAndY } from '@itwin/core-geometry';
 
 // @public @deprecated
@@ -1584,6 +1589,98 @@ export function DefaultDialogGridContainer({ componentGenerator, isToolSettings,
     componentGenerator: ComponentGenerator;
     isToolSettings?: boolean;
 }): React_2.JSX.Element;
+
+// @alpha (undocumented)
+export class DefaultFrameworkFrontstages implements FrameworkFrontstages {
+    // (undocumented)
+    get activeFrontstageDef(): FrontstageDef | undefined;
+    // (undocumented)
+    get activeFrontstageId(): string;
+    // (undocumented)
+    get activeModalFrontstage(): ModalFrontstageInfo | undefined;
+    // (undocumented)
+    get activeNestedFrontstage(): FrontstageDef | undefined;
+    // (undocumented)
+    get activeToolId(): string;
+    // (undocumented)
+    get activeToolInformation(): ToolInformation | undefined;
+    // (undocumented)
+    addFrontstage(...args: Parameters<FrameworkFrontstages["addFrontstage"]>): void;
+    // (undocumented)
+    addFrontstageProvider(...args: Parameters<FrameworkFrontstages["addFrontstageProvider"]>): void;
+    // (undocumented)
+    clearFrontstageDefs(...args: Parameters<FrameworkFrontstages["clearFrontstageDefs"]>): void;
+    // (undocumented)
+    clearFrontstageProviders(...args: Parameters<FrameworkFrontstages["clearFrontstageProviders"]>): void;
+    // (undocumented)
+    clearFrontstages(...args: Parameters<FrameworkFrontstages["clearFrontstages"]>): void;
+    // (undocumented)
+    closeModalFrontstage(...args: Parameters<FrameworkFrontstages["closeModalFrontstage"]>): void;
+    // (undocumented)
+    closeNestedFrontstage(...args: Parameters<FrameworkFrontstages["closeNestedFrontstage"]>): Promise<void>;
+    // (undocumented)
+    deactivateFrontstageDef(...args: Parameters<FrameworkFrontstages["deactivateFrontstageDef"]>): Promise<void>;
+    // (undocumented)
+    findWidget(...args: Parameters<FrameworkFrontstages["findWidget"]>): WidgetDef | undefined;
+    // (undocumented)
+    getFrontstageDef(...args: Parameters<FrameworkFrontstages["getFrontstageDef"]>): Promise<FrontstageDef | undefined>;
+    // (undocumented)
+    hasFrontstage(...args: Parameters<FrameworkFrontstages["hasFrontstage"]>): boolean;
+    // (undocumented)
+    get isLoading(): boolean;
+    // (undocumented)
+    get modalFrontstageCount(): number;
+    // (undocumented)
+    get nestedFrontstageCount(): number;
+    // (undocumented)
+    get onCloseModalFrontstageRequestedEvent(): BeUiEvent<ModalFrontstageRequestedCloseEventArgs>;
+    // (undocumented)
+    get onContentControlActivatedEvent(): BeUiEvent<ContentControlActivatedEventArgs_2>;
+    // (undocumented)
+    get onContentLayoutActivatedEvent(): BeUiEvent<ContentLayoutActivatedEventArgs_2>;
+    // (undocumented)
+    get onFrontstageActivatedEvent(): BeUiEvent<FrontstageActivatedEventArgs>;
+    // (undocumented)
+    get onFrontstageDeactivatedEvent(): BeUiEvent<FrontstageDeactivatedEventArgs>;
+    // (undocumented)
+    get onFrontstageReadyEvent(): BeUiEvent<FrontstageReadyEventArgs>;
+    // (undocumented)
+    get onModalFrontstageChangedEvent(): BeUiEvent<ModalFrontstageChangedEventArgs>;
+    // (undocumented)
+    get onModalFrontstageClosedEvent(): BeUiEvent<ModalFrontstageClosedEventArgs>;
+    // (undocumented)
+    get onNavigationAidActivatedEvent(): BeUiEvent<NavigationAidActivatedEventArgs_2>;
+    // (undocumented)
+    get onPanelPinnedChangedEvent(): BeUiEvent<PanelPinnedChangedEventArgs>;
+    // (undocumented)
+    get onPanelStateChangedEvent(): BeUiEvent<PanelStateChangedEventArgs_2>;
+    // (undocumented)
+    get onToolActivatedEvent(): BeUiEvent<ToolActivatedEventArgs>;
+    // (undocumented)
+    get onToolIconChangedEvent(): BeUiEvent<ToolIconChangedEventArgs>;
+    // (undocumented)
+    get onToolSettingsReloadEvent(): BeUiEvent<void>;
+    // (undocumented)
+    get onWidgetStateChangedEvent(): BeUiEvent<WidgetStateChangedEventArgs_2>;
+    // (undocumented)
+    openModalFrontstage(...args: Parameters<FrameworkFrontstages["openModalFrontstage"]>): void;
+    // (undocumented)
+    openNestedFrontstage(...args: Parameters<FrameworkFrontstages["openNestedFrontstage"]>): Promise<void>;
+    // (undocumented)
+    setActiveFrontstage(...args: Parameters<FrameworkFrontstages["setActiveFrontstage"]>): Promise<void>;
+    // (undocumented)
+    setActiveFrontstageDef(...args: Parameters<FrameworkFrontstages["setActiveFrontstageDef"]>): Promise<void>;
+    // (undocumented)
+    setActiveNavigationAid(...args: Parameters<FrameworkFrontstages["setActiveNavigationAid"]>): void;
+    // (undocumented)
+    setActiveTool(...args: Parameters<FrameworkFrontstages["setActiveTool"]>): void;
+    // (undocumented)
+    setActiveToolId(...args: Parameters<FrameworkFrontstages["setActiveToolId"]>): void;
+    // (undocumented)
+    setWidgetState(...args: Parameters<FrameworkFrontstages["setWidgetState"]>): boolean;
+    // (undocumented)
+    updateModalFrontstage(...args: Parameters<FrameworkFrontstages["updateModalFrontstage"]>): void;
+}
 
 // @public
 export interface DefaultNavigationTools {
@@ -5054,9 +5151,9 @@ export class UiFramework {
     static hideKeyinPalette(): boolean;
     static hideMenuButton(id: string): boolean;
     static hideToolbar(): boolean;
-    static initialize(): Promise<void>;
+    static initialize(args?: UiFrameworkInitializeArgs): Promise<void>;
     // @deprecated
-    static initialize(store: Store<any, AnyAction> | undefined, frameworkStateKey?: string): Promise<void>;
+    static initialize(store: Store<any, AnyAction> | undefined, frameworkStateKey?: string, args?: UiFrameworkInitializeArgs): Promise<void>;
     static get initialized(): boolean;
     static initializeStateFromUserSettingsProviders(immediateSync?: boolean): Promise<void>;
     // @alpha
