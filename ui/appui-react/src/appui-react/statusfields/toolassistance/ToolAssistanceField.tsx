@@ -164,14 +164,16 @@ export function ToolAssistanceField(props: Props) {
   const getDisplayableInstructions = (section: ToolAssistanceSection) => {
     const displayableInstructions = section.instructions.filter(
       (instruction) => {
+        const includeMouseInstructions = showMouseTouchTabs
+          ? mouseTouchTabIndex === 0 && showMouseInstructions
+          : showMouseInstructions;
+        const includeTouchInstructions = showMouseTouchTabs
+          ? mouseTouchTabIndex === 1 && showTouchInstructions
+          : showTouchInstructions;
         return (
           isBothInstruction(instruction) ||
-          (showMouseInstructions &&
-            mouseTouchTabIndex === 0 &&
-            isMouseInstruction(instruction)) ||
-          (showTouchInstructions &&
-            mouseTouchTabIndex === 1 &&
-            isTouchInstruction(instruction))
+          (includeMouseInstructions && isMouseInstruction(instruction)) ||
+          (includeTouchInstructions && isTouchInstruction(instruction))
         );
       }
     );

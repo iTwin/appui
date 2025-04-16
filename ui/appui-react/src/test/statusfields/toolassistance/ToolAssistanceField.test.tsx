@@ -18,6 +18,7 @@ import {
   UiFramework,
 } from "../../../appui-react.js";
 import { selectorMatches, storageMock, userEvent } from "../../TestUtils.js";
+import { DragManagerProvider } from "../../layout/Providers.js";
 
 describe(`ToolAssistanceField`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -40,7 +41,9 @@ describe(`ToolAssistanceField`, () => {
   } as Window);
 
   it("ToolAssistanceField should mount", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     notifications.outputPrompt("Hello World!");
@@ -55,7 +58,10 @@ describe(`ToolAssistanceField`, () => {
 
   it("ToolAssistanceField should display prompt", async () => {
     const wrapper = render(
-      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
+      <ToolAssistanceField uiStateStorage={uiSettingsStorage} />,
+      {
+        wrapper: DragManagerProvider,
+      }
     );
 
     const notifications = new AppNotificationManager();
@@ -66,7 +72,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("dialog should open and close on click", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     notifications.outputPrompt("Hello World!");
@@ -83,7 +91,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("passing isNew:true should use newDot", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -123,7 +133,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with a single key should generate key image", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -148,7 +160,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should support known icons and multiple sections", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -270,7 +284,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with a key containing multiple chars should use large key", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -298,7 +314,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with 2 keys should use medium keys", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -326,7 +344,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with a modifier key should a medium modifier key & medium key", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -357,7 +377,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("ToolAssistanceImage.Keyboard with bottomRow should use small keys", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -386,7 +408,9 @@ describe(`ToolAssistanceField`, () => {
 
   it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
     const spy = vi.spyOn(Logger, "logError");
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -394,8 +418,9 @@ describe(`ToolAssistanceField`, () => {
       "Press a key" /* No keyboardInfo */
     );
     const instructions = ToolAssistance.createInstructions(mainInstruction);
-
     notifications.setToolAssistance(instructions);
+
+    await theUserTo.click(screen.getByRole("button"));
 
     await waitFor(() => {
       expect(spy).toHaveBeenCalled();
@@ -404,7 +429,9 @@ describe(`ToolAssistanceField`, () => {
 
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
     const spy = vi.spyOn(Logger, "logError");
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createKeyboardInstruction(
@@ -412,8 +439,9 @@ describe(`ToolAssistanceField`, () => {
       "Press key"
     );
     const instructions = ToolAssistance.createInstructions(mainInstruction);
-
     notifications.setToolAssistance(instructions);
+
+    await theUserTo.click(screen.getByRole("button"));
 
     await waitFor(() => {
       expect(spy).toHaveBeenCalled();
@@ -421,7 +449,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("createModifierKeyInstruction should generate valid instruction", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -483,7 +513,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should support svg icons in string-based instruction.image", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -508,7 +540,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should support webfont icons in string-based instruction.image", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -536,7 +570,9 @@ describe(`ToolAssistanceField`, () => {
 
   it("invalid modifier key info along with image should log error", async () => {
     const spy = vi.spyOn(Logger, "logError");
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -549,6 +585,8 @@ describe(`ToolAssistanceField`, () => {
     const instructions = ToolAssistance.createInstructions(mainInstruction);
     notifications.setToolAssistance(instructions);
 
+    await theUserTo.click(screen.getByRole("button"));
+
     await waitFor(() => {
       expect(spy).toHaveBeenCalled();
     });
@@ -559,7 +597,10 @@ describe(`ToolAssistanceField`, () => {
       <>
         <div data-testid={"outside"} />
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
-      </>
+      </>,
+      {
+        wrapper: DragManagerProvider,
+      }
     );
 
     await theUserTo.click(screen.getByRole("button"));
@@ -576,7 +617,10 @@ describe(`ToolAssistanceField`, () => {
       <>
         <div data-testid={"outside"} />
         <ToolAssistanceField uiStateStorage={uiSettingsStorage} />
-      </>
+      </>,
+      {
+        wrapper: DragManagerProvider,
+      }
     );
 
     await theUserTo.click(screen.getByRole("button"));
@@ -589,7 +633,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("dialog should open and close on click, even if pinned", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
@@ -605,7 +651,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should set showPromptAtCursor on toggle click", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
     await theUserTo.click(screen.getByRole("button"));
 
     const notifications = new AppNotificationManager();
@@ -629,7 +677,10 @@ describe(`ToolAssistanceField`, () => {
       <ToolAssistanceField
         uiStateStorage={uiSettingsStorage}
         defaultPromptAtCursor={true}
-      />
+      />,
+      {
+        wrapper: DragManagerProvider,
+      }
     );
 
     const spy = vi.fn();
@@ -656,7 +707,10 @@ describe(`ToolAssistanceField`, () => {
       <ToolAssistanceField
         uiStateStorage={uiSettingsStorage}
         defaultPromptAtCursor={true}
-      />
+      />,
+      {
+        wrapper: DragManagerProvider,
+      }
     );
 
     const spy = vi.fn();
@@ -693,7 +747,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("mouse & touch instructions should generate tabs", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const mainInstruction = ToolAssistance.createInstruction(
       ToolAssistanceImage.CursorClick,
@@ -738,7 +794,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("touch instructions should show", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(
@@ -765,7 +823,9 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("dialog should open, pin and close on click", async () => {
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />);
+    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
+      wrapper: DragManagerProvider,
+    });
 
     const helloWorld = "Hello World!";
     const notifications = new AppNotificationManager();
