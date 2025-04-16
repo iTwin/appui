@@ -20,7 +20,7 @@ import type {
 } from "../../../components-react/tree/controlled/TreeModel.js";
 import type { TreeModelSource } from "../../../components-react/tree/controlled/TreeModelSource.js";
 import type { ITreeNodeLoader } from "../../../components-react/tree/controlled/TreeNodeLoader.js";
-import { createRandomMutableTreeModelNode } from "./TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "./TreeHelpers.js";
 
 describe("TreeEventHandler", () => {
   let eventHandler: TreeEventHandler;
@@ -43,7 +43,7 @@ describe("TreeEventHandler", () => {
     modelSourceMock
       .setup((x) => x.getModel())
       .returns(() => treeModelMock.object);
-    testNode = createRandomMutableTreeModelNode();
+    testNode = createTestMutableTreeModelNode();
 
     eventHandler = new TreeEventHandler(params);
     modelMutator = (eventHandler as any)._modelMutator;
@@ -106,7 +106,7 @@ describe("TreeEventHandler", () => {
       const change1 = {
         selectedNodeItems: [testNode.item],
       };
-      const secondNode = createRandomMutableTreeModelNode();
+      const secondNode = createTestMutableTreeModelNode();
       const change2 = {
         selectedNodeItems: [secondNode.item],
       };

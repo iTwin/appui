@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import { defer, from as rxjsFrom } from "rxjs";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import { EmptyLocalization } from "@itwin/core-common";
@@ -20,8 +20,8 @@ import { UiComponents } from "../../../components-react/UiComponents.js";
 import { extractSequence } from "../../common/ObservableTestHelpers.js";
 import { ResolvablePromise } from "../../test-helpers/misc.js";
 import {
-  createRandomTreeNodeItem,
-  createRandomTreeNodeItems,
+  createTestTreeNodeItem,
+  createTestTreeNodeItems,
   createTreeNodeInput,
 } from "./TreeHelpers.js";
 
@@ -53,7 +53,7 @@ const extractLoadedNodeIds = async (obs: Observable<TreeNodeLoadResult>) => {
   return loadResult[0].loadedNodes.map((item) => item.id);
 };
 
-function createTestTreeNodeItem(
+function createTreeNodeItem(
   item: Partial<DelayLoadedTreeNodeItem> & { id: string }
 ): DelayLoadedTreeNodeItem {
   return {
@@ -89,8 +89,8 @@ describe("TreeNodeLoader", () => {
   describe("loadNode", () => {
     it("loads all root nodes", async () => {
       dataProviderStub.getNodes.mockResolvedValue([
-        createTestTreeNodeItem({ id: "A" }),
-        createTestTreeNodeItem({ id: "B" }),
+        createTreeNodeItem({ id: "A" }),
+        createTreeNodeItem({ id: "B" }),
       ]);
       dataProviderStub.getNodesCount.mockResolvedValue(2);
 
@@ -107,8 +107,8 @@ describe("TreeNodeLoader", () => {
       dataProviderStub.getNodes.mockImplementation(async (parent) => {
         return parent?.id === "A"
           ? [
-              createTestTreeNodeItem({ id: "A-1" }),
-              createTestTreeNodeItem({ id: "A-2" }),
+              createTreeNodeItem({ id: "A-1" }),
+              createTreeNodeItem({ id: "A-2" }),
             ]
           : [];
       });
@@ -178,8 +178,8 @@ describe("TreeNodeLoader", () => {
 
       // resolve nodes promise
       await nodesPromise.resolve([
-        createTestTreeNodeItem({ id: "A" }),
-        createTestTreeNodeItem({ id: "B" }),
+        createTreeNodeItem({ id: "A" }),
+        createTreeNodeItem({ id: "B" }),
       ]);
 
       expect(modelSource.getModel().getNode("A")).toEqual(undefined);
@@ -262,10 +262,10 @@ describe("PagedTreeNodeLoader", () => {
   describe("loadNode", () => {
     it("loads root nodes page when asking for first node", async () => {
       const rootNodes = [
-        createTestTreeNodeItem({ id: "A" }),
-        createTestTreeNodeItem({ id: "B" }),
-        createTestTreeNodeItem({ id: "C" }),
-        createTestTreeNodeItem({ id: "D" }),
+        createTreeNodeItem({ id: "A" }),
+        createTreeNodeItem({ id: "B" }),
+        createTreeNodeItem({ id: "C" }),
+        createTreeNodeItem({ id: "D" }),
       ];
       dataProviderStub.getNodesCount.mockResolvedValue(4);
       dataProviderStub.getNodes.mockImplementation(
@@ -285,10 +285,10 @@ describe("PagedTreeNodeLoader", () => {
 
     it("loads child nodes page when asking for first child", async () => {
       const childNodes = [
-        createTestTreeNodeItem({ id: "A-1" }),
-        createTestTreeNodeItem({ id: "A-2" }),
-        createTestTreeNodeItem({ id: "A-3" }),
-        createTestTreeNodeItem({ id: "A-4" }),
+        createTreeNodeItem({ id: "A-1" }),
+        createTreeNodeItem({ id: "A-2" }),
+        createTreeNodeItem({ id: "A-3" }),
+        createTreeNodeItem({ id: "A-4" }),
       ];
       dataProviderStub.getNodesCount.mockImplementation(async () => 4);
       dataProviderStub.getNodes.mockImplementation(
@@ -313,14 +313,14 @@ describe("PagedTreeNodeLoader", () => {
 
     it("loads children of auto expanded node", async () => {
       const rootNodes = [
-        createTestTreeNodeItem({ id: "A", autoExpand: true }),
-        createTestTreeNodeItem({ id: "B" }),
+        createTreeNodeItem({ id: "A", autoExpand: true }),
+        createTreeNodeItem({ id: "B" }),
       ];
       const childNodes = [
-        createTestTreeNodeItem({ id: "A-1" }),
-        createTestTreeNodeItem({ id: "A-2" }),
-        createTestTreeNodeItem({ id: "A-3" }),
-        createTestTreeNodeItem({ id: "A-4" }),
+        createTreeNodeItem({ id: "A-1" }),
+        createTreeNodeItem({ id: "A-2" }),
+        createTreeNodeItem({ id: "A-3" }),
+        createTreeNodeItem({ id: "A-4" }),
       ];
       dataProviderStub.getNodesCount.mockImplementation(async (parent) =>
         parent?.id === "A" ? 4 : 2
@@ -348,10 +348,10 @@ describe("PagedTreeNodeLoader", () => {
 
     it("loads two pages of root nodes", async () => {
       const rootNodes = [
-        createTestTreeNodeItem({ id: "A" }),
-        createTestTreeNodeItem({ id: "B" }),
-        createTestTreeNodeItem({ id: "C" }),
-        createTestTreeNodeItem({ id: "D" }),
+        createTreeNodeItem({ id: "A" }),
+        createTreeNodeItem({ id: "B" }),
+        createTreeNodeItem({ id: "C" }),
+        createTreeNodeItem({ id: "D" }),
       ];
       dataProviderStub.getNodesCount.mockResolvedValue(4);
       dataProviderStub.getNodes.mockImplementation(
@@ -445,8 +445,8 @@ describe("PagedTreeNodeLoader", () => {
 
       // resolve nodes promise
       await nodesPromise.resolve([
-        createTestTreeNodeItem({ id: "A" }),
-        createTestTreeNodeItem({ id: "B" }),
+        createTreeNodeItem({ id: "A" }),
+        createTreeNodeItem({ id: "B" }),
       ]);
 
       expect(modelSource.getModel().getNode("A")).toEqual(undefined);
@@ -576,7 +576,7 @@ describe("AbstractTreeNodeLoader", () => {
         numChildren: 1,
         hierarchyItems: [
           {
-            item: createTestTreeNodeItem({ id: "A" }),
+            item: createTreeNodeItem({ id: "A" }),
           },
         ],
       };
@@ -610,31 +610,28 @@ describe("TreeDataSource", () => {
     describe("using TreeDataProviderRaw", () => {
       const rawProvider = [
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-1",
+          label: PropertyRecord.fromString("Root-1", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-1-1",
+              label: PropertyRecord.fromString("Child 1-1", "label"),
               children: [
                 {
-                  id: faker.random.uuid(),
-                  label: PropertyRecord.fromString(
-                    faker.random.word(),
-                    "label"
-                  ),
+                  id: "child-1-1-1",
+                  label: PropertyRecord.fromString("Child 1-1-1", "label"),
                 },
               ],
             },
           ],
         },
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-2",
+          label: PropertyRecord.fromString("Root 2", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-2-1",
+              label: PropertyRecord.fromString("Child 2-1", "label"),
             },
           ],
         },
@@ -677,8 +674,8 @@ describe("TreeDataSource", () => {
 
       it("returns empty array if parent is not found", async () => {
         const nonExistingNode = {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.word()),
+          id: "nonExisting",
+          label: PropertyRecord.fromString("Non Existing"),
         };
         const dataSource = new TreeDataSource(rawProvider);
 
@@ -709,7 +706,7 @@ describe("TreeDataSource", () => {
     });
 
     describe("using TreeDataProviderMethod", () => {
-      const nodeItems = createRandomTreeNodeItems(2);
+      const nodeItems = createTestTreeNodeItems(2);
       const methodProvider = async () => nodeItems;
 
       it("loads one node", async () => {
@@ -732,31 +729,28 @@ describe("TreeDataSource", () => {
     describe("using TreeDataProviderPromise", () => {
       const rawProvider = [
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-1",
+          label: PropertyRecord.fromString("Root-1", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-1-1",
+              label: PropertyRecord.fromString("Child 1-1", "label"),
               children: [
                 {
-                  id: faker.random.uuid(),
-                  label: PropertyRecord.fromString(
-                    faker.random.word(),
-                    "label"
-                  ),
+                  id: "child-1-1-1",
+                  label: PropertyRecord.fromString("Child 1-1-1", "label"),
                 },
               ],
             },
           ],
         },
         {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.uuid(), "label"),
+          id: "root-2",
+          label: PropertyRecord.fromString("Root 2", "label"),
           children: [
             {
-              id: faker.random.uuid(),
-              label: PropertyRecord.fromString(faker.random.word(), "label"),
+              id: "child-2-1",
+              label: PropertyRecord.fromString("Child 2-1", "label"),
             },
           ],
         },
@@ -802,8 +796,8 @@ describe("TreeDataSource", () => {
 
       it("returns empty array if parent is not found", async () => {
         const nonExistingNode = {
-          id: faker.random.uuid(),
-          label: PropertyRecord.fromString(faker.random.word()),
+          id: "nonExisting",
+          label: PropertyRecord.fromString("Non Existing"),
         };
         const dataSource = new TreeDataSource(promiseProvider);
 
@@ -869,7 +863,7 @@ describe("handleLoadedNodeHierarchy", () => {
       parentId: undefined,
       offset: 0,
       numChildren: 4,
-      hierarchyItems: createRandomTreeNodeItems(6).map((item) => ({ item })),
+      hierarchyItems: createTestTreeNodeItems(6).map((item) => ({ item })),
     };
 
     handleLoadedNodeHierarchy(modelSource, loadedHierarchy);
@@ -886,11 +880,11 @@ describe("handleLoadedNodeHierarchy", () => {
       numChildren: 1,
       hierarchyItems: [
         {
-          item: createRandomTreeNodeItem(),
+          item: createTestTreeNodeItem(),
           numChildren: 1,
           children: [
             {
-              item: createRandomTreeNodeItem(),
+              item: createTestTreeNodeItem(),
             },
           ],
         },
@@ -910,7 +904,7 @@ describe("handleLoadedNodeHierarchy", () => {
   });
 
   it("handles loaded hierarchy with child for existing parent node", () => {
-    const parentNode = createRandomTreeNodeItem();
+    const parentNode = createTestTreeNodeItem();
     modelSource.modifyModel((model) => {
       model.setNumChildren(undefined, 1);
       model.setChildren(
@@ -928,7 +922,7 @@ describe("handleLoadedNodeHierarchy", () => {
       numChildren: 1,
       hierarchyItems: [
         {
-          item: createRandomTreeNodeItems(1, parentNode.id)[0],
+          item: createTestTreeNodeItems(1, parentNode.id)[0],
         },
       ],
     };
@@ -943,7 +937,7 @@ describe("handleLoadedNodeHierarchy", () => {
   });
 
   it("does not add children if parent was collapsed and children should be disposed", () => {
-    const parentNode = createRandomTreeNodeItem();
+    const parentNode = createTestTreeNodeItem();
     modelSource.modifyModel((model) => {
       model.setChildren(
         undefined,
@@ -958,7 +952,7 @@ describe("handleLoadedNodeHierarchy", () => {
       numChildren: undefined,
       hierarchyItems: [
         {
-          item: createRandomTreeNodeItems(1, parentNode.id)[0],
+          item: createTestTreeNodeItems(1, parentNode.id)[0],
         },
       ],
     };
@@ -970,12 +964,12 @@ describe("handleLoadedNodeHierarchy", () => {
   });
 
   it("updates existing expanded nodes in the same position", () => {
-    const root1 = createRandomTreeNodeItem("root1", undefined, "root-node-1");
-    const root2 = createRandomTreeNodeItem("root2", undefined, "root-node-2");
-    const root3 = createRandomTreeNodeItem("root3", undefined, "root-node-3");
-    const child1 = createRandomTreeNodeItem("child1", root2.id, "child-node-1");
-    const child2 = createRandomTreeNodeItem("child2", root3.id, "child-node-2");
-    const newNode = createRandomTreeNodeItem(
+    const root1 = createTestTreeNodeItem("root1", undefined, "root-node-1");
+    const root2 = createTestTreeNodeItem("root2", undefined, "root-node-2");
+    const root3 = createTestTreeNodeItem("root3", undefined, "root-node-3");
+    const child1 = createTestTreeNodeItem("child1", root2.id, "child-node-1");
+    const child2 = createTestTreeNodeItem("child2", root3.id, "child-node-2");
+    const newNode = createTestTreeNodeItem(
       "new-root1",
       undefined,
       "new-root-node"
