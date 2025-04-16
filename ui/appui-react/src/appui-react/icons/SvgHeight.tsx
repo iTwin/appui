@@ -22,13 +22,10 @@ export function SvgHeight() {
       enableBackground="new 0 0 16 16"
       xmlSpace="preserve"
     >
-      <title>distance</title>
+      <title>height</title>
       <g>
         <rect x="4" width="1" height="16" />
-        <polygon
-          points="12,15 10.125,15 12,12 10,12 10,4 12,4 10.125,1 12,1 12,0 7,0 7,1 8.875,1 7,4 9,4 9,12 7,12 8.875,15 7,15 7,16
-		12,16 	"
-        />
+        <polygon points="12,15 10.125,15 12,12 10,12 10,4 12,4 10.125,1 12,1 12,0 7,0 7,1 8.875,1 7,4 9,4 9,12 7,12 8.875,15 7,15 7,16 12,16" />
       </g>
     </svg>
   );

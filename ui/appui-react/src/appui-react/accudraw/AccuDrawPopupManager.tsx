@@ -16,10 +16,10 @@ import type { CursorMenuItemProps } from "../shared/MenuItem.js";
 import { MenuItemHelpers } from "../shared/MenuItem.js";
 import { CalculatorPopup } from "./CalculatorPopup.js";
 import { MenuButtonPopup } from "./MenuButtonPopup.js";
-import { SvgHeight2 } from "../icons/SvgHeight2.js";
 import { SvgDistance } from "../icons/SvgDistance.js";
 import { SvgAngle } from "../icons/SvgAngle.js";
 import { addIconNodeParam } from "@itwin/components-react/internal";
+import { SvgHeight } from "../icons/SvgHeight.js";
 
 /** AccuDraw Popup Manager class
  * @public
@@ -177,7 +177,7 @@ export class AccuDrawPopupManager {
     onCancel: () => void
   ): boolean {
     const propertyDescription = new LengthDescription();
-    addIconNodeParam(propertyDescription, <SvgHeight2 />);
+    addIconNodeParam(propertyDescription, <SvgHeight />);
     return PopupManager.showInputEditor(
       el,
       pt,

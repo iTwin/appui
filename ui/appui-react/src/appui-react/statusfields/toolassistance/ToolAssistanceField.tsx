@@ -30,7 +30,21 @@ import { MessageManager } from "../../messages/MessageManager.js";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage.js";
 import "./ToolAssistanceField.scss";
 
-import { SvgClose, SvgPin } from "@itwin/itwinui-icons-react";
+import {
+  SvgAdd,
+  SvgClose,
+  SvgCursorClick,
+  SvgGestureOneFingerDrag,
+  SvgGestureOneFingerTap,
+  SvgGestureOneFingerTapDouble,
+  SvgGesturePinch,
+  SvgGestureTwoFingerDrag,
+  SvgGestureTwoFingerTap,
+  SvgMouseClickLeft,
+  SvgMouseClickRight,
+  SvgMouseClickWheel,
+  SvgPin,
+} from "@itwin/itwinui-icons-react";
 import { ToolAssistanceDialog } from "../../layout/footer/tool-assistance/Dialog.js";
 import { ToolAssistanceInstruction as NZ_ToolAssistanceInstruction } from "../../layout/footer/tool-assistance/Instruction.js";
 import { ToolAssistanceItem } from "../../layout/footer/tool-assistance/Item.js";
@@ -43,19 +57,8 @@ import {
   UiStateStorageStatus,
 } from "../../uistate/UiStateStorage.js";
 import { LocalStateStorage } from "../../uistate/LocalStateStorage.js";
-import { SvgAcceptPoint } from "../../icons/SvgAcceptPoint.js";
-import { SvgCursorClick } from "../../icons/SvgCursorClick.js";
-import { SvgGestureOneFingerDrag } from "../../icons/SvgGestureOneFingerDrag.js";
-import { SvgGestureTwoFingerTap } from "../../icons/SvgGestureTwoFingerTap.js";
-import { SvgGestureTwoFingerDrag } from "../../icons/SvgGestureTwoFingerDrag.js";
-import { SvgGesturePinch } from "../../icons/SvgGesturePinch.js";
 import { SvgTouchCursorPoint } from "../../icons/SvgTouchCursorPoint.js";
-import { SvgGestureOneFingerTapDouble } from "../../icons/SvgGestureOneFingerTapDouble.js";
-import { SvgGestureOneFingerTap } from "../../icons/SvgGestureOneFingerTap.js";
 import { SvgTouchCursorPan } from "../../icons/SvgTouchCursorPan.js";
-import { SvgMouseClickWheel } from "../../icons/SvgMouseClickWheel.js";
-import { SvgMouseClickRight } from "../../icons/SvgMouseClickRight.js";
-import { SvgMouseClickLeft } from "../../icons/SvgMouseClickLeft.js";
 import { SvgMouseClickLeftDrag } from "../../icons/SvgMouseClickLeftDrag.js";
 import { SvgMouseClickRightDrag } from "../../icons/SvgMouseClickRightDrag.js";
 import { SvgMouseClickWheelDrag } from "../../icons/SvgMouseClickWheelDrag.js";
@@ -670,7 +673,7 @@ export class ToolAssistanceField extends React.Component<
 
       switch (toolAssistanceImage) {
         case ToolAssistanceImage.AcceptPoint:
-          svgImage = <SvgAcceptPoint />;
+          svgImage = <SvgAdd />;
           break;
         case ToolAssistanceImage.CursorClick:
           svgImage = <SvgCursorClick />;
