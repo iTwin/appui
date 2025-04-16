@@ -229,12 +229,6 @@ export function ToolAssistanceField(props: Props) {
     );
   }, [open]);
 
-  const dialogTitle = activeTool?.flyover ?? translate("toolAssistance.title");
-  const tabs = [
-    translate("toolAssistance.mouse"),
-    translate("toolAssistance.touch"),
-  ];
-
   const hasMouseInstructions = !!instructions?.sections?.some((section) => {
     return section.instructions.some((instruction) =>
       isMouseInstruction(instruction)
@@ -271,9 +265,7 @@ export function ToolAssistanceField(props: Props) {
     const moreInfo = translate("toolAssistance.moreInfo");
     const postfix = `${lineBreak}${moreInfo}`;
     if (activeTool) {
-      return `${activeTool.flyover}${
-        prompt ? ` > ${prompt}` : undefined
-      }${postfix}`;
+      return `${activeTool.flyover}${prompt ? ` > ${prompt}` : ""}${postfix}`;
     }
     if (prompt) {
       return `${prompt}${postfix}`;
@@ -281,6 +273,11 @@ export function ToolAssistanceField(props: Props) {
     return moreInfo;
   }, [prompt, activeTool, translate]);
 
+  const dialogTitle = activeTool?.flyover ?? translate("toolAssistance.title");
+  const tabs = [
+    translate("toolAssistance.mouse"),
+    translate("toolAssistance.touch"),
+  ];
   return (
     <StatusBarPopover
       visible={state.isOpen}

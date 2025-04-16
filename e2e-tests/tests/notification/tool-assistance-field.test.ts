@@ -12,7 +12,7 @@ test("tool assistance field test", async ({ page, baseURL }) => {
 
   await page
     .getByRole("button", {
-      name: "Measure Distance > Click for more information",
+      name: "Measure Distance Click for more information",
     })
     .click();
 
