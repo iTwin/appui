@@ -18,10 +18,10 @@ import { getCSSColorFromDef } from "@itwin/imodel-components-react/internal";
 import { AccuDrawInputField } from "./AccuDrawInputField.js";
 import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";
-import angleIconSvg from "./angle.svg";
-import distanceIconSvg from "./distance.svg";
 import { UiFramework } from "../UiFramework.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
+import { SvgDistance } from "../icons/SvgDistance.js";
+import { SvgAngle } from "../icons/SvgAngle.js";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @public
@@ -411,7 +411,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             data-testid="uifw-accudraw-distance"
             label={distanceLabel}
             // eslint-disable-next-line @typescript-eslint/no-deprecated
-            iconSpec={uiSettings?.distanceIcon ?? distanceIconSvg}
+            iconSpec={uiSettings?.distanceIcon ?? <SvgDistance />}
             icon={uiSettings?.distanceIconNode}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.DIST_Item, stringValue)
@@ -431,7 +431,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             data-testid="uifw-accudraw-angle"
             label={angleLabel}
             // eslint-disable-next-line @typescript-eslint/no-deprecated
-            iconSpec={uiSettings?.angleIcon ?? angleIconSvg}
+            iconSpec={uiSettings?.angleIcon ?? <SvgAngle />}
             icon={uiSettings?.angleIconNode}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.ANGLE_Item, stringValue)
