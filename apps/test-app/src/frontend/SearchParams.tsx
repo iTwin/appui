@@ -17,11 +17,14 @@ export interface PreviewFeatureParams {
 
 export function useSyncFrontstageParam() {
   const { frontstageId } = useSearch({ strict: false });
+  const lastFrontstageId = React.useRef("");
   const navigate = useNavigate();
   React.useEffect(() => {
-    void UiFramework.frontstages.setActiveFrontstage(
-      frontstageId ?? createMainFrontstage.stageId
-    );
+    const newStageId = frontstageId ?? createMainFrontstage.stageId;
+    if (lastFrontstageId.current === newStageId) return;
+    if (UiFramework.frontstages.activeFrontstageId === newStageId) return;
+    void UiFramework.frontstages.setActiveFrontstage(newStageId);
+    lastFrontstageId.current = newStageId;
   }, [frontstageId]);
   React.useEffect(() => {
     return UiFramework.frontstages.onFrontstageActivatedEvent.addListener(

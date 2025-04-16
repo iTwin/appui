@@ -101,6 +101,10 @@ interface ShowInputEditorOptions {
   onCancel: () => void;
 }
 
+interface UiFrameworkInitializeArgs {
+  frontstages?: FrameworkFrontstages;
+}
+
 /** Interface to be implemented but any classes that wants to load their user settings when the UiStateEntry storage class is set.
  * @public
  */
@@ -175,7 +179,10 @@ export class UiFramework {
 
   /** Manage access to frontstages and related helper methods. */
   public static get frontstages(): FrameworkFrontstages {
-    return InternalFrontstageManager;
+    if (!UiFramework._frontstages) {
+      return InternalFrontstageManager;
+    }
+    return UiFramework._frontstages;
   }
 
   /** Manage access and behavior of the tool settings. */
@@ -227,6 +234,7 @@ export class UiFramework {
     string,
     UserSettingsProvider
   > = new Map<string, UserSettingsProvider>();
+  private static _frontstages: FrameworkFrontstages | undefined;
   public static useDefaultPopoutUrl = false;
   private static readonly CONTEXT_MENU_OFFSET = -8;
 
@@ -251,7 +259,9 @@ export class UiFramework {
   public static readonly onUiVisibilityChanged = new UiVisibilityChangedEvent();
 
   /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore. */
-  public static async initialize(): Promise<void>;
+  public static async initialize(
+    args?: UiFrameworkInitializeArgs
+  ): Promise<void>;
   /** Called by the application to initialize the UiFramework. Also initializes UIIModelComponents, UiComponents, UiCore.
    * @param store The single Redux store created by the host application. If this is `undefined` then it is assumed that the [[StateManager]] is being used to provide the Redux store.
    * @param frameworkStateKey The name of the key used by the app when adding the UiFramework state into the Redux store. If not defined "frameworkState" is assumed. This value is ignored if [[StateManager]] is being used. The StateManager use "frameworkState".
@@ -261,12 +271,14 @@ export class UiFramework {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     store: Store<any, AnyAction> | undefined,
     // eslint-disable-next-line @typescript-eslint/unified-signatures
-    frameworkStateKey?: string
+    frameworkStateKey?: string,
+    args?: UiFrameworkInitializeArgs
   ): Promise<void>;
   public static async initialize(
     // eslint-disable-next-line @typescript-eslint/no-deprecated
-    store?: Store<any, AnyAction> | undefined,
-    frameworkStateKey?: string
+    storeOrArgs?: Store<any, AnyAction> | UiFrameworkInitializeArgs | undefined,
+    frameworkStateKey?: string,
+    args?: UiFrameworkInitializeArgs
   ): Promise<void> {
     // TODO: check `arguments` to determine between redux & no-redux initializers.
     if (UiFramework._initialized) {
@@ -276,6 +288,13 @@ export class UiFramework {
       );
       return;
     }
+
+    const { store, args: initializeArgs } = parseInitializeArgs(storeOrArgs);
+    args = initializeArgs ?? args;
+
+    const { frontstages } = args ?? {};
+    UiFramework._frontstages = frontstages;
+    console.log("INITIALIZED", UiFramework._frontstages);
 
     /* if store is undefined then the StateManager class should have been initialized by parent app and the apps default set of reducers registered with it.
       If the app has no reducers to add and does not initialize a StateManager then just initialize the StateManager with the default framework reducer now */
@@ -1519,4 +1538,28 @@ function dispatchSyncUiEvent(eventId: string, immediateSync = false) {
     return;
   }
   SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
+}
+
+function parseInitializeArgs(
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  arg: Store<any, AnyAction> | UiFrameworkInitializeArgs | undefined
+) {
+  if (!arg) {
+    return {
+      store: undefined,
+      args: undefined,
+    };
+  }
+
+  if ("dispatch" in arg) {
+    return {
+      store: arg,
+      args: undefined,
+    };
+  }
+
+  return {
+    store: undefined,
+    args: arg,
+  };
 }
