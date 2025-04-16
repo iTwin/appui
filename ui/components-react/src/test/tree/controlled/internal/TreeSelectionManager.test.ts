@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import * as moq from "typemoq";
 import { Key } from "ts-key-enum";
 import type { SelectionHandler } from "../../../../components-react/common/selection/SelectionHandler.js";
@@ -23,7 +23,7 @@ import type {
   VisibleTreeNodes,
 } from "../../../../components-react/tree/controlled/TreeModel.js";
 import { isTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "../TreeHelpers.js";
 
 type Selection = string | RangeSelection;
 
@@ -50,7 +50,7 @@ describe("TreeSelectionManager", () => {
 
   function createTreeModelNode(props?: Partial<TreeModelNode>) {
     return {
-      ...createRandomMutableTreeModelNode(),
+      ...createTestMutableTreeModelNode({ label: props?.id }),
       isLoading: false,
       isSelected: false,
       ...props,
@@ -121,7 +121,10 @@ describe("TreeSelectionManager", () => {
     });
 
     it("ctrl selects nodes", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => false);
@@ -141,7 +144,10 @@ describe("TreeSelectionManager", () => {
     });
 
     it("shift selects nodes", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       const spy = vi.spyOn(
         extendedSelectionManager.onSelectionReplaced,
@@ -162,7 +168,10 @@ describe("TreeSelectionManager", () => {
     });
 
     it("shift + ctrl selects nodes", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => true);
@@ -182,7 +191,10 @@ describe("TreeSelectionManager", () => {
     });
 
     it("cmd selects nodes", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       const spy = vi.spyOn(extendedSelectionManager.onSelectionChanged, "emit");
       eventMock.setup((x) => x.shiftKey).returns(() => false);
@@ -204,7 +216,10 @@ describe("TreeSelectionManager", () => {
 
   describe("onNodeMouseDown", () => {
     it("selects nodes by dragging", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       const spy = vi.spyOn(selectionHandler, "completeDragAction");
       const changeSpy = vi.spyOn(
@@ -288,8 +303,8 @@ describe("TreeSelectionManager", () => {
 
     it("selects node", () => {
       const nodes = [
-        createTreeModelNode({ isSelected: false }),
-        createTreeModelNode({ isSelected: false }),
+        createTreeModelNode({ id: "node-1", isSelected: false }),
+        createTreeModelNode({ id: "node-2", isSelected: false }),
       ];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
@@ -313,8 +328,8 @@ describe("TreeSelectionManager", () => {
 
     it("shift selects nodes", () => {
       const nodes = [
-        createTreeModelNode({ isSelected: false }),
-        createTreeModelNode({ isSelected: false }),
+        createTreeModelNode({ id: "node-1", isSelected: false }),
+        createTreeModelNode({ id: "node-2", isSelected: false }),
       ];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
@@ -339,7 +354,10 @@ describe("TreeSelectionManager", () => {
     });
 
     it("Home should select top node", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[1].id, eventMock.object);
       const spy = vi.spyOn(
@@ -361,7 +379,10 @@ describe("TreeSelectionManager", () => {
     });
 
     it("End should select bottom node", () => {
-      const nodes = [createTreeModelNode(), createTreeModelNode()];
+      const nodes = [
+        createTreeModelNode({ id: "node-1" }),
+        createTreeModelNode({ id: "node-2" }),
+      ];
       setupModelWithNodes(nodes);
       extendedSelectionManager.onNodeClicked(nodes[0].id, eventMock.object);
       const spy = vi.spyOn(
@@ -554,14 +575,14 @@ describe("TreeSelectionManager", () => {
 describe("isRangeSelection", () => {
   it("returns true for RangeSelection", () => {
     const rangeSelection: RangeSelection = {
-      from: faker.random.uuid(),
-      to: faker.random.uuid(),
+      from: "node-1",
+      to: "node-5",
     };
     expect(isRangeSelection(rangeSelection)).toEqual(true);
   });
 
   it("returns false for IndividualSelection", () => {
-    const individualSelection: IndividualSelection = [faker.random.uuid()];
+    const individualSelection: IndividualSelection = ["node-1"];
     expect(isRangeSelection(individualSelection)).toEqual(false);
   });
 });

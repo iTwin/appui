@@ -26,7 +26,6 @@ import type {
   PropertyCategory,
   PropertyData,
 } from "../../../../../components-react/propertygrid/PropertyDataProvider.js";
-import * as faker from "faker";
 import type { IPropertyGridModel } from "../../../../../components-react/propertygrid/internal/PropertyGridModel.js";
 
 /** @internal */
@@ -386,7 +385,7 @@ export class FlatGridTestUtils {
     records.forEach((child) => {
       const gridType = this.valueTypeToFlatGridType(child.value.valueFormat);
       const mock = this.createMockCategorizedProperty(
-        faker.random.words(),
+        `testKey-${gridType}`,
         gridType
       );
 
@@ -436,7 +435,7 @@ export class FlatGridTestUtils {
       .filter((value) => value.isVisible)
       .map((value) =>
         FlatGridTestUtils.createMockCategorizedProperty(
-          faker.random.words(),
+          `testKey-${value.type}`,
           value.type,
           false
         )
@@ -463,7 +462,7 @@ export class FlatGridTestUtils {
       .filter((value) => !value.isVisible)
       .map((value) =>
         FlatGridTestUtils.createMockCategorizedProperty(
-          faker.random.words(),
+          `testKey-${value.type}`,
           value.type,
           false
         )

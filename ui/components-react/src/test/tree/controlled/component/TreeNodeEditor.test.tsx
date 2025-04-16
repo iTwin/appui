@@ -6,13 +6,13 @@ import * as React from "react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react";
 import { TreeNodeEditor } from "../../../../components-react/tree/controlled/component/TreeNodeEditor.js";
 import type { MutableTreeModelNode } from "../../../../components-react/tree/controlled/TreeModel.js";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "../TreeHelpers.js";
 
 describe("TreeNodeEditor", () => {
   let testNode: MutableTreeModelNode;
 
   beforeEach(() => {
-    testNode = createRandomMutableTreeModelNode();
+    testNode = createTestMutableTreeModelNode();
   });
 
   it("renders editor", () => {

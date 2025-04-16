@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import * as faker from "faker";
 import { PropertyRecord } from "@itwin/appui-abstract";
 import type { PropertyCategory, PropertyData } from "../../components-react.js";
 import { FavoritePropertiesRenderer } from "../../components-react/favorite/FavoritePropertiesRenderer.js";
@@ -23,8 +22,8 @@ describe("FavoritePropertiesRenderer", () => {
     ];
 
     public getData = async (): Promise<PropertyData> => ({
-      label: PropertyRecord.fromString(faker.random.word()),
-      description: faker.random.words(),
+      label: PropertyRecord.fromString("Item Label"),
+      description: "Item Description",
       categories: this._categories,
       records: {
         Favorite: this._records,

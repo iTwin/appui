@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { LabelPropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/LabelPropertyDataFilterer.js";
@@ -12,9 +12,9 @@ import { TestUtils } from "../../../TestUtils.js";
 describe("LabelPropertyDataFilterer", () => {
   describe("When filter text not set", () => {
     const recordsToTest: PropertyRecord[] = [
-      TestUtils.createPrimitiveStringProperty(faker.random.word(), "value1"),
-      TestUtils.createArrayProperty(faker.random.word()),
-      TestUtils.createStructProperty(faker.random.word()),
+      TestUtils.createPrimitiveStringProperty("stringProp", "value1"),
+      TestUtils.createArrayProperty("arrayProp"),
+      TestUtils.createStructProperty("structProp"),
     ];
 
     describe("[get] filterText", () => {
@@ -58,7 +58,7 @@ describe("LabelPropertyDataFilterer", () => {
     it("Should return lowercase string", () => {
       const filterer = new LabelPropertyDataFilterer();
 
-      const expectedText = faker.random.word();
+      const expectedText = "test filter";
       filterer.filterText = expectedText;
 
       expect(filterer.filterText).toEqual(expectedText.toLowerCase());
@@ -67,7 +67,7 @@ describe("LabelPropertyDataFilterer", () => {
     it("Should return filtering as enabled", () => {
       const filterer = new LabelPropertyDataFilterer();
 
-      filterer.filterText = faker.random.word();
+      filterer.filterText = "test filter";
 
       expect(filterer.isActive).toEqual(true);
     });

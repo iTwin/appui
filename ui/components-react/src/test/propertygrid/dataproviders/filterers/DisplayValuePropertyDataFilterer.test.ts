@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as faker from "faker";
+
 import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { DisplayValuePropertyDataFilterer } from "../../../../components-react/propertygrid/dataproviders/filterers/DisplayValuePropertyDataFilterer.js";
@@ -14,11 +14,7 @@ describe("DisplayValuePropertyDataFilterer", () => {
     const recordsToTest: PropertyRecord[] = [
       TestUtils.createPrimitiveStringProperty("Property", "value1", undefined),
       TestUtils.createPrimitiveStringProperty("Property", "value1", ""),
-      TestUtils.createPrimitiveStringProperty(
-        "Property",
-        "value1",
-        faker.random.word()
-      ),
+      TestUtils.createPrimitiveStringProperty("Property", "value1", "Value 1"),
       TestUtils.createArrayProperty("Array"),
       TestUtils.createStructProperty("Struct"),
     ];
@@ -64,7 +60,7 @@ describe("DisplayValuePropertyDataFilterer", () => {
     it("Should return lowercase string", () => {
       const filterer = new DisplayValuePropertyDataFilterer();
 
-      const expectedText = faker.random.word();
+      const expectedText = "test filter";
       filterer.filterText = expectedText;
 
       expect(filterer.filterText).toEqual(expectedText.toLowerCase());
@@ -73,7 +69,7 @@ describe("DisplayValuePropertyDataFilterer", () => {
     it("Should return filtering as enabled", () => {
       const filterer = new DisplayValuePropertyDataFilterer();
 
-      filterer.filterText = faker.random.word();
+      filterer.filterText = "test filter";
 
       expect(filterer.isActive).toEqual(true);
     });

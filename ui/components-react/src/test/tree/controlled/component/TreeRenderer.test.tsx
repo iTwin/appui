@@ -27,7 +27,7 @@ import {
 import type { ITreeNodeLoader } from "../../../../components-react/tree/controlled/TreeNodeLoader.js";
 import type { HighlightableTreeProps } from "../../../../components-react/tree/HighlightingEngine.js";
 import { HighlightingEngine } from "../../../../components-react/tree/HighlightingEngine.js";
-import { createRandomMutableTreeModelNode } from "../TreeHelpers.js";
+import { createTestMutableTreeModelNode } from "../TreeHelpers.js";
 
 describe("TreeRenderer", () => {
   const visibleNodesMock = moq.Mock.ofType<VisibleTreeNodes>();
@@ -64,7 +64,7 @@ describe("TreeRenderer", () => {
 
   it("renders with loaded node", () => {
     const label = "test node";
-    const node = createRandomMutableTreeModelNode(undefined, undefined, label);
+    const node = createTestMutableTreeModelNode({ label });
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node);
 
@@ -102,7 +102,7 @@ describe("TreeRenderer", () => {
     });
 
     it("renders placeholder and starts loading node with parent", () => {
-      const parentNode = createRandomMutableTreeModelNode();
+      const parentNode = createTestMutableTreeModelNode();
       const node: TreeModelNodePlaceholder = {
         parentId: parentNode.id,
         childIndex: 0,
@@ -128,7 +128,7 @@ describe("TreeRenderer", () => {
     });
 
     it("renders placeholder node but does not start loading if parent node is not found", () => {
-      const parentNode = createRandomMutableTreeModelNode();
+      const parentNode = createTestMutableTreeModelNode();
       const node: TreeModelNodePlaceholder = {
         parentId: parentNode.id,
         childIndex: 0,
@@ -180,7 +180,7 @@ describe("TreeRenderer", () => {
 
   it("rerenders with loaded node", () => {
     const label = "test node";
-    const node = createRandomMutableTreeModelNode(undefined, undefined, label);
+    const node = createTestMutableTreeModelNode({ label });
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node);
 
@@ -189,11 +189,7 @@ describe("TreeRenderer", () => {
     getByText(label);
 
     const newLabel = "test node";
-    const newNode = createRandomMutableTreeModelNode(
-      undefined,
-      undefined,
-      newLabel
-    );
+    const newNode = createTestMutableTreeModelNode({ label: newLabel });
     const newVisibleNodesMock = moq.Mock.ofType<VisibleTreeNodes>();
     newVisibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
     newVisibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => newNode);
@@ -209,22 +205,14 @@ describe("TreeRenderer", () => {
   });
 
   it("rerenders when node height changes", () => {
-    const node1 = createRandomMutableTreeModelNode(
-      undefined,
-      undefined,
-      "test_node_1"
-    );
-    const node2 = createRandomMutableTreeModelNode(
-      undefined,
-      undefined,
-      "test_node_2"
-    );
+    const node1 = createTestMutableTreeModelNode({ label: "test_node_1" });
+    const node2 = createTestMutableTreeModelNode({ label: "test_node_2" });
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 2);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
     visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
 
     const NodeRenderer: React.FC<TreeNodeRendererProps> = (props) => {
-      return <>{(props.node.label.value as PrimitiveValue).value}</>;
+      return <>{(props.node.label.value as PrimitiveValue).value as string}</>;
     };
 
     const { rerender, getByText } = render(
@@ -252,14 +240,10 @@ describe("TreeRenderer", () => {
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 2);
     visibleNodesMock
       .setup((x) => x.getAtIndex(0))
-      .returns(() =>
-        createRandomMutableTreeModelNode(undefined, undefined, "test node")
-      );
+      .returns(() => createTestMutableTreeModelNode({ label: "test node" }));
     visibleNodesMock
       .setup((x) => x.getAtIndex(1))
-      .returns(() =>
-        createRandomMutableTreeModelNode(undefined, undefined, "test node 1")
-      );
+      .returns(() => createTestMutableTreeModelNode({ label: "test node 1" }));
 
     const spy = vi.fn();
 
@@ -278,12 +262,10 @@ describe("TreeRenderer", () => {
 
   it("scrolls to highlighted node", () => {
     const node2label = "Node 2";
-    const node1 = createRandomMutableTreeModelNode();
-    const node2 = createRandomMutableTreeModelNode(
-      undefined,
-      undefined,
-      node2label
-    );
+    const node1 = createTestMutableTreeModelNode();
+    const node2 = createTestMutableTreeModelNode({
+      label: node2label,
+    });
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 2);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
     visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
@@ -332,7 +314,7 @@ describe("TreeRenderer", () => {
 
   it("calls treeActions.onTreeKeyDown & onTreeKeyUp", () => {
     const label = "test node";
-    const node = createRandomMutableTreeModelNode(undefined, undefined, label);
+    const node = createTestMutableTreeModelNode({ label });
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node);
 
@@ -356,7 +338,7 @@ describe("TreeRenderer", () => {
   it("calls onNodeEditorClosed when node.editingInfo changes to undefined", () => {
     const spy = vi.fn();
     const label = "test node";
-    const node = createRandomMutableTreeModelNode(undefined, undefined, label);
+    const node = createTestMutableTreeModelNode({ label });
     visibleNodesMock.setup((x) => x.getNumNodes()).returns(() => 1);
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node);
 
@@ -393,7 +375,10 @@ describe("TreeRenderer", () => {
       visibleNodesMock
         .setup((x) => x.getAtIndex(moq.It.isAnyNumber()))
         .returns((index) =>
-          createRandomMutableTreeModelNode(undefined, false, `Node ${index}`)
+          createTestMutableTreeModelNode({
+            selected: false,
+            label: `Node ${index}`,
+          })
         );
       visibleNodesMock
         .setup((x) => x.getIndexOfNode("test_id"))
