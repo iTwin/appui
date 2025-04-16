@@ -179,7 +179,6 @@ export function StandardLayout(props: StandardLayoutProps) {
             {appBackstage}
             <WidgetPanelsFrontstage />
 
-            <ElementTooltip />
             <PointerMessage />
             {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <KeyboardShortcutMenu />
@@ -188,6 +187,7 @@ export function StandardLayout(props: StandardLayoutProps) {
             <CursorPopupMenu />
             <CursorPopupRenderer />
             <PopupRenderer />
+            <ElementTooltip />
             <MessageRenderer />
             <ChildWindowRenderer windowManager={appUi.windowManager} />
             <div

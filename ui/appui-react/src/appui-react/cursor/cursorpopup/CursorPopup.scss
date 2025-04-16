@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
 @use "../../variables" as *;
 
 .uifw-cursorpopup {
@@ -17,6 +18,8 @@
   height: fit-content;
   width: fit-content;
   transition: opacity 500ms;
+
+  @include uicore-z-index(tooltip);
 
   > .uifw-cursorpopup-title {
     min-height: $uifw-popup-title-bar-min-height;
