@@ -35,13 +35,16 @@ import type { ContentProps } from "../content/ContentGroup.js";
 import { ChildWindowRenderer } from "../childwindow/ChildWindowRenderer.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import type { WidgetActions } from "../layout/widget/WidgetActions.js";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   ConfigurableUiContentProps & {
     contentElementRef?: React.RefObject<HTMLElement>;
-    widgetActions?: React.ReactNode;
+    widgetActions?: StandardLayoutProps["widgetActions"];
+    toolSettings?: StandardLayoutProps["toolSettings"];
   }
 >({});
 
@@ -102,6 +105,11 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
   );
 }
 
+interface ToolSettingsLocation {
+  section: StagePanelSection;
+  location: StagePanelLocation;
+}
+
 interface StandardLayoutProps {
   /** Overrides widget specific actions displayed in the title bar area.
    * Use {@link WidgetActions} component to customize widget actions.
@@ -113,13 +121,22 @@ interface StandardLayoutProps {
    * @alpha
    */
   visibleToolSettings?: boolean;
+  /** Tool settings related configuration.
+   * @alpha
+   */
+  toolSettings?: {
+    /** The default location of the tool settings. Only used when initializing the layout and ignored when restoring a saved layout.
+     * @alpha
+     */
+    defaultLocation?: ToolSettingsLocation;
+  };
 }
 
 /** The standard widget based layout used as a default layout for all frontstages.
  * @alpha
  */
 export function StandardLayout(props: StandardLayoutProps) {
-  const { widgetActions, visibleToolSettings = false } = props;
+  const { widgetActions, visibleToolSettings = false, toolSettings } = props;
   const context = React.useContext(ConfigurableUiContext);
   const {
     appBackstage,
@@ -156,8 +173,9 @@ export function StandardLayout(props: StandardLayoutProps) {
           ...context,
           contentElementRef,
           widgetActions,
+          toolSettings,
         }),
-        [context, widgetActions]
+        [context, widgetActions, toolSettings]
       )}
     >
       <main

@@ -55,6 +55,7 @@ import {
   createSpatialFrontstage,
   createSpatialFrontstageProvider,
 } from "./appui/frontstages/SpatialFrontstage";
+import { createTestToolSettingsFrontstage } from "./appui/frontstages/TestToolSettingsFrontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
@@ -80,6 +81,7 @@ export function registerFrontstages({
     createTestPanelFrontstage(),
     createTestWidgetFrontstage(),
     createTestPopoutFrontstage(),
+    createTestToolSettingsFrontstage(),
     createWidgetApiFrontstage(),
     createCustomContentFrontstage(),
     createContentLayoutFrontstage(),
