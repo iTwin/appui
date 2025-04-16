@@ -674,7 +674,7 @@ public;class;ToolAssistanceChangedEvent
 deprecated;class;ToolAssistanceChangedEvent
 public;interface;ToolAssistanceChangedEventArgs
 deprecated;interface;ToolAssistanceChangedEventArgs
-public;class;ToolAssistanceField
+public;function;ToolAssistanceField
 public;interface;ToolAssistanceFieldProps
 beta;function;Toolbar
 public;const;TOOLBAR_OPACITY_DEFAULT

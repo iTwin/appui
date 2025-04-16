@@ -105,7 +105,6 @@ import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
-import type { ToolAssistanceInstruction } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
 import type { ToolbarOpacitySetting } from '@itwin/components-react';
 import { ToolbarPanelAlignment } from '@itwin/components-react';
@@ -117,7 +116,7 @@ import type { UiDataProvider } from '@itwin/appui-abstract';
 import { UiEvent } from '@itwin/appui-abstract';
 import { UiLayoutDataProvider } from '@itwin/appui-abstract';
 import { UiStateEntry } from '@itwin/core-react';
-import { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
+import type { UiStateStorage as UiStateStorage_2 } from '@itwin/core-react';
 import type { UiStateStorageResult as UiStateStorageResult_2 } from '@itwin/core-react';
 import { UiStateStorageStatus as UiStateStorageStatus_2 } from '@itwin/core-react';
 import type { UnitSystemKey } from '@itwin/core-quantity';
@@ -4644,25 +4643,7 @@ export interface ToolAssistanceChangedEventArgs {
 }
 
 // @public
-export class ToolAssistanceField extends React_2.Component<ToolAssistanceFieldProps, ToolAssistanceFieldState> {
-    constructor(p: ToolAssistanceFieldProps);
-    // (undocumented)
-    componentDidMount(): Promise<void>;
-    // @internal (undocumented)
-    componentDidUpdate(): void;
-    // (undocumented)
-    componentWillUnmount(): void;
-    // @internal (undocumented)
-    context: React_2.ContextType<typeof UiStateStorageContext>;
-    // @internal (undocumented)
-    static contextType: React_2.Context<UiStateStorage_2>;
-    // (undocumented)
-    static readonly defaultProps: Pick<ToolAssistanceFieldProps, "includePromptAtCursor" | "uiStateStorage" | "cursorPromptTimeout" | "fadeOutCursorPrompt" | "defaultPromptAtCursor">;
-    // @internal (undocumented)
-    static getInstructionImage(instruction: ToolAssistanceInstruction): React_2.ReactNode;
-    // (undocumented)
-    render(): React_2.ReactNode;
-}
+export function ToolAssistanceField(props: Props): React_2.JSX.Element;
 
 // @public
 export interface ToolAssistanceFieldProps extends CommonProps {

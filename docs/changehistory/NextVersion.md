@@ -5,6 +5,7 @@ Table of contents:
 - [@itwin/appui-react](#itwinappui-react)
   - [Deprecations](#deprecations)
   - [Additions](#additions)
+  - [Changes](#changes)
   - [Fixes](#fixes)
 - [@itwin/components-react](#itwincomponents-react)
   - [Additions](#additions-1)
@@ -77,12 +78,18 @@ Table of contents:
   }
   ```
 
+### Changes
+
+- Converted `CursorPopupRenderer` from a class component to a functional component. [#1277](https://github.com/iTwin/appui/pull/1277)
+- Converted `ToolAssistanceField` from a class component to a functional component to resolve timing issues with prompt fade-out. Additionally, the tool assistance cursor prompt is no longer displayed when dragging a widget container or widget tab if `promptAtContent` is enabled. [#1283](https://github.com/iTwin/appui/pull/1283)
+
 ### Fixes
 
 - Fixed an icon size of a backstage app button when web font icon is used. [#1262](https://github.com/iTwin/appui/pull/1262)
 - Simplify grid template definitions of standard layout to avoid CSS issues in `RsBuild` production build. [#1263](https://github.com/iTwin/appui/pull/1263)
 - Fixed `onItemExecuted` prop of the `Toolbar` component which was omitted from the initial implementation of the updated toolbar. [#1264](https://github.com/iTwin/appui/pull/1264)
 - Fixed `iconNode` property rendering of `CursorMenuItemProps` interface in `CursorPopupMenu` component. [#1265](https://github.com/iTwin/appui/pull/1265)
+- Fixed tool assistance cursor prompt stacking to correctly rendered above floating widgets. [#1283](https://github.com/iTwin/appui/pull/1283)
 
 ## @itwin/components-react
 
