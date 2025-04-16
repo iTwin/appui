@@ -40,7 +40,7 @@
     "test": "vitest",
     "docs": "npm run -s docs:extract && npm run -s docs:reference && npm run -s docs:changelog",
     "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/reference/components-react",
-    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/components-react/file.json --excludeGlob=**/declarations.d.ts --tsIndexFile=./components-react.ts --onlyJson",
+    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/components-react/file.json --tsIndexFile=./components-react.ts --onlyJson",
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src/test --recursive --out=../../generated-docs/extract"
   },
   "keywords": [
