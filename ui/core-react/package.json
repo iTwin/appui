@@ -1,6 +1,6 @@
 {
   "name": "@itwin/core-react",
-  "version": "5.4.0-dev.0",
+  "version": "5.4.0-dev.1",
   "description": "A react component library of iTwin.js UI general purpose components",
   "type": "module",
   "types": "./lib/core-react.d.ts",
