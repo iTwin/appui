@@ -26,6 +26,7 @@ import type { WidgetState } from "../widgets/WidgetState.js";
 import type { Frontstage } from "../frontstage/Frontstage.js";
 import { FrameworkContent } from "./FrameworkContent.js";
 import type { ModalFrontstageButton } from "../frontstage/ModalFrontstageButton.js";
+import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 
 /** Frontstage Activated Event Args interface.
  * @public
@@ -411,4 +412,178 @@ export interface FrameworkFrontstages {
    * @returns Nested Frontstage count
    */
   readonly nestedFrontstageCount: number;
+}
+
+/** @alpha */
+export class DefaultFrameworkFrontstages implements FrameworkFrontstages {
+  public get isLoading() {
+    return InternalFrontstageManager.isLoading;
+  }
+  public get onFrontstageDeactivatedEvent() {
+    return InternalFrontstageManager.onFrontstageDeactivatedEvent;
+  }
+  public get onFrontstageActivatedEvent() {
+    return InternalFrontstageManager.onFrontstageActivatedEvent;
+  }
+  public get onFrontstageReadyEvent() {
+    return InternalFrontstageManager.onFrontstageReadyEvent;
+  }
+  public get onModalFrontstageChangedEvent() {
+    return InternalFrontstageManager.onModalFrontstageChangedEvent;
+  }
+  public get onModalFrontstageClosedEvent() {
+    return InternalFrontstageManager.onModalFrontstageClosedEvent;
+  }
+  public get onCloseModalFrontstageRequestedEvent() {
+    return InternalFrontstageManager.onCloseModalFrontstageRequestedEvent;
+  }
+  public get onToolActivatedEvent() {
+    return InternalFrontstageManager.onToolActivatedEvent;
+  }
+  public get onToolSettingsReloadEvent() {
+    return InternalFrontstageManager.onToolSettingsReloadEvent;
+  }
+  public get onToolIconChangedEvent() {
+    return InternalFrontstageManager.onToolIconChangedEvent;
+  }
+  public get onContentLayoutActivatedEvent() {
+    return InternalFrontstageManager.onContentLayoutActivatedEvent;
+  }
+  public get onContentControlActivatedEvent() {
+    return InternalFrontstageManager.onContentControlActivatedEvent;
+  }
+  public get onNavigationAidActivatedEvent() {
+    return InternalFrontstageManager.onNavigationAidActivatedEvent;
+  }
+  public get onWidgetStateChangedEvent() {
+    return InternalFrontstageManager.onWidgetStateChangedEvent;
+  }
+  public get onPanelStateChangedEvent() {
+    return InternalFrontstageManager.onPanelStateChangedEvent;
+  }
+  public get onPanelPinnedChangedEvent() {
+    return InternalFrontstageManager.onPanelPinnedChangedEvent;
+  }
+  public get activeFrontstageDef() {
+    return InternalFrontstageManager.activeFrontstageDef;
+  }
+  public get activeFrontstageId() {
+    return InternalFrontstageManager.activeFrontstageId;
+  }
+  public get activeToolId() {
+    return InternalFrontstageManager.activeToolId;
+  }
+  public get activeToolInformation() {
+    return InternalFrontstageManager.activeToolInformation;
+  }
+  public get activeModalFrontstage() {
+    return InternalFrontstageManager.activeModalFrontstage;
+  }
+  public get modalFrontstageCount() {
+    return InternalFrontstageManager.modalFrontstageCount;
+  }
+  public get activeNestedFrontstage() {
+    return InternalFrontstageManager.activeNestedFrontstage;
+  }
+  public get nestedFrontstageCount() {
+    return InternalFrontstageManager.nestedFrontstageCount;
+  }
+  public clearFrontstageDefs(
+    ...args: Parameters<FrameworkFrontstages["clearFrontstageDefs"]>
+  ) {
+    return InternalFrontstageManager.clearFrontstageDefs(...args);
+  }
+  public clearFrontstageProviders(
+    ...args: Parameters<FrameworkFrontstages["clearFrontstageProviders"]>
+  ) {
+    return InternalFrontstageManager.clearFrontstageProviders(...args);
+  }
+  public clearFrontstages(
+    ...args: Parameters<FrameworkFrontstages["clearFrontstages"]>
+  ) {
+    return InternalFrontstageManager.clearFrontstages(...args);
+  }
+  public addFrontstageProvider(
+    ...args: Parameters<FrameworkFrontstages["addFrontstageProvider"]>
+  ) {
+    return InternalFrontstageManager.addFrontstageProvider(...args);
+  }
+  public addFrontstage(
+    ...args: Parameters<FrameworkFrontstages["addFrontstage"]>
+  ) {
+    return InternalFrontstageManager.addFrontstage(...args);
+  }
+  public async getFrontstageDef(
+    ...args: Parameters<FrameworkFrontstages["getFrontstageDef"]>
+  ) {
+    return InternalFrontstageManager.getFrontstageDef(...args);
+  }
+  public hasFrontstage(
+    ...args: Parameters<FrameworkFrontstages["hasFrontstage"]>
+  ) {
+    return InternalFrontstageManager.hasFrontstage(...args);
+  }
+  public async setActiveFrontstage(
+    ...args: Parameters<FrameworkFrontstages["setActiveFrontstage"]>
+  ) {
+    return InternalFrontstageManager.setActiveFrontstage(...args);
+  }
+  public async setActiveFrontstageDef(
+    ...args: Parameters<FrameworkFrontstages["setActiveFrontstageDef"]>
+  ) {
+    return InternalFrontstageManager.setActiveFrontstageDef(...args);
+  }
+  public async deactivateFrontstageDef(
+    ...args: Parameters<FrameworkFrontstages["deactivateFrontstageDef"]>
+  ) {
+    return InternalFrontstageManager.deactivateFrontstageDef(...args);
+  }
+  public setActiveToolId(
+    ...args: Parameters<FrameworkFrontstages["setActiveToolId"]>
+  ) {
+    return InternalFrontstageManager.setActiveToolId(...args);
+  }
+  public setActiveTool(
+    ...args: Parameters<FrameworkFrontstages["setActiveTool"]>
+  ) {
+    return InternalFrontstageManager.setActiveTool(...args);
+  }
+  public openModalFrontstage(
+    ...args: Parameters<FrameworkFrontstages["openModalFrontstage"]>
+  ) {
+    return InternalFrontstageManager.openModalFrontstage(...args);
+  }
+  public closeModalFrontstage(
+    ...args: Parameters<FrameworkFrontstages["closeModalFrontstage"]>
+  ) {
+    return InternalFrontstageManager.closeModalFrontstage(...args);
+  }
+  public updateModalFrontstage(
+    ...args: Parameters<FrameworkFrontstages["updateModalFrontstage"]>
+  ) {
+    return InternalFrontstageManager.updateModalFrontstage(...args);
+  }
+  public setActiveNavigationAid(
+    ...args: Parameters<FrameworkFrontstages["setActiveNavigationAid"]>
+  ) {
+    return InternalFrontstageManager.setActiveNavigationAid(...args);
+  }
+  public setWidgetState(
+    ...args: Parameters<FrameworkFrontstages["setWidgetState"]>
+  ) {
+    return InternalFrontstageManager.setWidgetState(...args);
+  }
+  public findWidget(...args: Parameters<FrameworkFrontstages["findWidget"]>) {
+    return InternalFrontstageManager.findWidget(...args);
+  }
+  public async openNestedFrontstage(
+    ...args: Parameters<FrameworkFrontstages["openNestedFrontstage"]>
+  ) {
+    return InternalFrontstageManager.openNestedFrontstage(...args);
+  }
+  public async closeNestedFrontstage(
+    ...args: Parameters<FrameworkFrontstages["closeNestedFrontstage"]>
+  ) {
+    return InternalFrontstageManager.closeNestedFrontstage(...args);
+  }
 }
