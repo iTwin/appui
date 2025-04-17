@@ -91,6 +91,29 @@ Table of contents:
   />
   ```
 
+- Added `DefaultFrameworkFrontstages` class which can be used with updated `UiFramework.initialize()` to override the default `UiFramework.frontstages` implementation. This might be useful when managing frontstages or modifying frontstage navigation. [#1286](https://github.com/iTwin/appui/pull/1286)
+
+  To add a simple confirmation dialog to the frontstage navigation:
+
+  ```tsx
+  import { DefaultFrameworkFrontstages, UiFramework } from "@itwin/appui-react";
+
+  class CustomFrontstages extends DefaultFrameworkFrontstages {
+    public override async setActiveFrontstageDef(
+      ...args: Parameters<FrameworkFrontstages["setActiveFrontstageDef"]>
+    ) {
+      if (!window.confirm("Are you sure?")) {
+        return;
+      }
+      return super.setActiveFrontstageDef(...args);
+    }
+  }
+
+  await UiFramework.initialize({
+    frontstages: new CustomFrontstages(),
+  });
+  ```
+
 ### Changes
 
 - Converted `CursorPopupRenderer` from a class component to a functional component. [#1277](https://github.com/iTwin/appui/pull/1277)

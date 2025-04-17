@@ -245,8 +245,8 @@ export {
   ModelessDialogChangedEvent,
 } from "./appui-react/framework/FrameworkDialogs.js";
 export {
+  DefaultFrameworkFrontstages,
   FrameworkFrontstages,
-  ModalFrontstageInfo,
   FrontstageActivatedEvent,
   FrontstageActivatedEventArgs,
   FrontstageDeactivatedEvent,
@@ -257,6 +257,7 @@ export {
   ModalFrontstageChangedEventArgs,
   ModalFrontstageClosedEvent,
   ModalFrontstageClosedEventArgs,
+  ModalFrontstageInfo,
   ModalFrontstageRequestedCloseEvent,
   ModalFrontstageRequestedCloseEventArgs,
   ToolActivatedEvent,

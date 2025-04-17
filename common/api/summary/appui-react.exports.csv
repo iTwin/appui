@@ -234,6 +234,7 @@ public;interface;DefaultContentTools
 public;interface;DefaultContentToolsAppData
 deprecated;interface;DefaultContentToolsAppData
 public;function;DefaultDialogGridContainer
+alpha;class;DefaultFrameworkFrontstages
 public;interface;DefaultNavigationTools
 public;interface;DefaultStatusbarItems
 public;function;DefaultViewOverlay
