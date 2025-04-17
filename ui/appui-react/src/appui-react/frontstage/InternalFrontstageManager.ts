@@ -606,7 +606,7 @@ export class InternalFrontstageManager {
       if (topMostStageItem.modalFrontstage.notifyCloseRequest)
         UiFramework.frontstages.onCloseModalFrontstageRequestedEvent.emit({
           modalFrontstage: topMostStageItem.modalFrontstage,
-          stageCloseFunc: this.popModalFrontstage,
+          stageCloseFunc: () => this.popModalFrontstage(),
         });
       else this.popModalFrontstage();
     }
