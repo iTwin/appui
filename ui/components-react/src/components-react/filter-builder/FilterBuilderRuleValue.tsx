@@ -15,7 +15,7 @@ import { Flex, Text } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue.js";
 import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
 import { useTranslation } from "../l10n/useTranslation.js";
-import { PropertyRecordEditor } from "../../components-react.js";
+import { PropertyRecordEditor } from "../new-editors/interop/PropertyRecordEditor.js";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
