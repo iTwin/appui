@@ -7,6 +7,7 @@ import { UiFramework } from "@itwin/appui-react";
 import {
   PropertyFilterBuilderProps,
   PropertyFilterBuilderRenderer,
+  PropertyFilterBuilderRuleValue,
   usePropertyFilterBuilder,
 } from "@itwin/components-react";
 import { IModelApp } from "@itwin/core-frontend";
@@ -24,10 +25,13 @@ export function FilterBuilderStory(props: FilterBuilderComponentProps) {
 type FilterBuilderComponentProps = Pick<
   PropertyFilterBuilderProps,
   "properties" | "initialFilter"
->;
+> & {
+  editorSystem: "new" | "legacy";
+};
 
 function FilterBuilderComponent({
   initialFilter,
+  editorSystem,
   ...props
 }: FilterBuilderComponentProps) {
   const { rootGroup, actions, buildFilter } = usePropertyFilterBuilder({
@@ -53,6 +57,15 @@ function FilterBuilderComponent({
         {...props}
         actions={actions}
         rootGroup={rootGroup}
+        ruleValueRenderer={React.useCallback(
+          (valueProps) => (
+            <PropertyFilterBuilderRuleValue
+              {...valueProps}
+              editorSystem={editorSystem}
+            />
+          ),
+          [editorSystem]
+        )}
       />
       <Button onClick={() => buildFilter()}>Validate</Button>
     </div>

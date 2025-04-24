@@ -39,6 +39,14 @@ export const WithInitialFilter: Story = {
   },
 };
 
+export const WithNewEditorSystem: Story = {
+  args: {
+    initialFilter: createInitialFilter(),
+    properties: createProperties(),
+    editorSystem: "new",
+  },
+};
+
 function createProperties(): PropertyDescription[] {
   return [
     {
