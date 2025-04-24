@@ -62,6 +62,11 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/859
    */
   controlWidgetVisibility: boolean | WidgetDef["id"][];
+  /**
+   * If `true`, the tool settings will be using the new editor API. The new system delivers same default editors as the old one.
+   * However, in order to use custom editors they need to be provided using `EditorsRegistryProvider` component.
+   */
+  toolSettingsNewEditors: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -76,6 +81,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   allowBearingLettersInAccuDrawInputFields: undefined,
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
+  toolSettingsNewEditors: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
