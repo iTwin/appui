@@ -596,7 +596,7 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
 }
 
 // @beta
-export function EditorRenderer(props: EditorProps): React_3.JSX.Element | null;
+export function EditorRenderer({ statusMessage, ...editorProps }: EditorRendererProps): React_3.JSX.Element | null;
 
 // @beta
 export interface EditorSpec {
@@ -2114,6 +2114,7 @@ export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleV
 
 // @beta
 export interface PropertyFilterBuilderRuleValueProps {
+    editorSystem?: "legacy" | "new";
     onChange: (value: PropertyValue) => void;
     property: PropertyDescription;
     value?: PropertyValue;

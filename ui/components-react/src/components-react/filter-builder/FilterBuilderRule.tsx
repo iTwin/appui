@@ -9,8 +9,7 @@
 import "./FilterBuilderRule.scss";
 import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
-import { SvgStatusError } from "@itwin/itwinui-icons-react";
-import { Flex, Text } from "@itwin/itwinui-react";
+import { Flex, StatusMessage } from "@itwin/itwinui-react";
 import {
   PropertyFilterBuilderContext,
   PropertyFilterBuilderRuleRenderingContext,
@@ -147,10 +146,9 @@ export function PropertyFilterBuilderRuleRenderer(
           <div className="fb-property-value">
             {valueRenderer(property, operator)}
             {rule.errorMessage ? (
-              <Flex>
-                <SvgStatusError />
-                <Text>{rule.errorMessage}</Text>
-              </Flex>
+              <StatusMessage status="negative">
+                {rule.errorMessage}
+              </StatusMessage>
             ) : null}
           </div>
         ) : null}
