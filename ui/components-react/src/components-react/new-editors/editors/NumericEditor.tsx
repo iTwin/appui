@@ -25,12 +25,15 @@ export function NumericEditor({
   return (
     <Input
       value={currentValue.displayValue}
-      onChange={(e) =>
+      onChange={(e) => {
+        const parsedValue = parseFloat(e.target.value);
         onChange({
-          rawValue: parseFloat(e.target.value),
+          rawValue: Number.isNaN(parsedValue)
+            ? undefined
+            : parseFloat(e.target.value),
           displayValue: e.target.value,
-        })
-      }
+        });
+      }}
       size={size}
       disabled={disabled}
     />

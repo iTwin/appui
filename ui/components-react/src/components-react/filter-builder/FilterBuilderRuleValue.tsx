@@ -15,6 +15,7 @@ import { Flex, Text } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue.js";
 import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
 import { useTranslation } from "../l10n/useTranslation.js";
+import { PropertyRecordEditor } from "../new-editors/interop/PropertyRecordEditor.js";
 
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
@@ -27,6 +28,12 @@ export interface PropertyFilterBuilderRuleValueProps {
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   */
+  editorSystem?: "legacy" | "new";
 }
 
 /**
@@ -59,6 +66,7 @@ function FilterBuilderRulePrimitiveValueRenderer({
   property,
   value,
   onChange,
+  editorSystem,
 }: PropertyFilterBuilderRuleValueProps) {
   const propertyRecord = React.useMemo(() => {
     return new PropertyRecord(
@@ -75,12 +83,12 @@ function FilterBuilderRulePrimitiveValueRenderer({
   );
 
   return (
-    <EditorContainer
+    <PropertyRecordEditor
       propertyRecord={propertyRecord}
       onCancel={() => {}}
       onCommit={onValueChange}
-      setFocus={false}
-      shouldCommitOnChange={false}
+      size="small"
+      editorSystem={editorSystem}
     />
   );
 }
