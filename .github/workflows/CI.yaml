@@ -27,6 +27,26 @@ jobs:
 
       - run: pnpm install
 
+  audit:
+    name: Audit node modules
+    needs: install
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - run: pnpm install
+      - run: pnpm audit
+
   check:
     name: Check code quality
     runs-on: ubuntu-latest
@@ -44,9 +64,7 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install
-
       - run: pnpm cspell
-
       - run: pnpm prettier
 
   test:
@@ -71,7 +89,5 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install
-
       - run: pnpm build
-
       - run: pnpm cover
