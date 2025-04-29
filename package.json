@@ -10,6 +10,9 @@
     "lint": "pnpm --recursive --parallel lint",
     "test": "pnpm --recursive test"
   },
+  "dependencies": {
+    "cspell": "^8.19.3"
+  },
   "packageManager": "pnpm@10.10.0",
   "engines": {
     "node": ">=22.11.0"
