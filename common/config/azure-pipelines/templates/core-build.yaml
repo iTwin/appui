@@ -40,10 +40,6 @@ steps:
     displayName: rush lint
     workingDirectory: ${{ parameters.workingDir }}
 
-  - script: node common/scripts/install-run-rush.js prettier
-    displayName: rush prettier
-    workingDirectory: ${{ parameters.workingDir }}
-
   # Run unit tests only if version bump. GH actions will run the tests on PRs.
   - script: npm run cover
     displayName: appui-react tests

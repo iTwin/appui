@@ -45,7 +45,9 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm exec cspell lint ** --gitignore
+      - run: pnpm cspell
+
+      - run: pnpm prettier
 
   test:
     name: Run unit tests
@@ -72,4 +74,4 @@ jobs:
 
       - run: pnpm build
 
-      - run: pnpm --recursive --parallel cover
+      - run: pnpm cover

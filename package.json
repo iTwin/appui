@@ -5,13 +5,18 @@
   "license": "MIT",
   "scripts": {
     "build": "pnpm --recursive build",
-    "clean": "pnpm --recursive clean",
+    "clean": "pnpm --recursive --parallel clean",
     "docs": "pnpm --recursive --parallel docs",
     "lint": "pnpm --recursive --parallel lint",
-    "test": "pnpm --recursive test"
+    "test": "pnpm --recursive --parallel test",
+    "cover": "pnpm --recursive --parallel cover",
+    "cspell": "pnpm exec cspell lint \"**\" --gitignore",
+    "prettier": "pnpm exec prettier --check .",
+    "prettier:fix": "pnpm exec prettier --write ."
   },
   "dependencies": {
-    "cspell": "^8.19.3"
+    "cspell": "^8.19.3",
+    "prettier": "^2.8.8"
   },
   "packageManager": "pnpm@10.10.0",
   "engines": {
