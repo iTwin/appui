@@ -40,7 +40,7 @@
     "test": "vitest",
     "docs": "npm run -s docs:extract && npm run -s docs:reference && npm run -s docs:changelog",
     "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/reference/components-react",
-    "docs:reference": "betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/components-react/file.json --tsIndexFile=./components-react.ts --onlyJson",
+    "docs:reference": "cross-env NODE_PROJECT_ROOT_DIRECTORY=../../ betools docs --includes=../../generated-docs/extract --json=../../generated-docs/reference/components-react/file.json --tsIndexFile=./components-react.ts --onlyJson",
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src/test --recursive --out=../../generated-docs/extract"
   },
   "keywords": [
@@ -81,6 +81,7 @@
     "@types/react-window": "^1.8.2",
     "@vitest/coverage-v8": "^3.0.6",
     "cpx2": "^3.0.0",
+    "cross-env": "^5.1.4",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "~8.8.0",
     "ignore-styles": "^5.0.1",

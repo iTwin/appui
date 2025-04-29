@@ -4,12 +4,11 @@
   "description": "Monorepo for iTwin.js AppUI",
   "license": "MIT",
   "scripts": {
-    "build": "pnpm --filter=\"./ui/**\" --filter=\"./apps/**\" build",
-    "clean": "echo NOTE: use 'rush clean' instead",
-    "docs": "echo NOTE: use 'rush docs' instead",
-    "lint": "echo NOTE: use 'rush lint' instead",
-    "test": "echo NOTE: use 'rush test' instead",
-    "test:integration": "echo NOTE: use 'rush test:integration' instead"
+    "build": "pnpm --recursive build",
+    "clean": "pnpm --recursive clean",
+    "docs": "pnpm --recursive --parallel docs",
+    "lint": "pnpm --recursive --parallel lint",
+    "test": "pnpm --recursive test"
   },
   "packageManager": "pnpm@10.10.0",
   "engines": {

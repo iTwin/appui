@@ -448,6 +448,9 @@ importers:
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
+      cross-env:
+        specifier: ^5.1.4
+        version: 5.2.1
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
@@ -587,6 +590,9 @@ importers:
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
+      cross-env:
+        specifier: ^5.1.4
+        version: 5.2.1
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
@@ -705,6 +711,9 @@ importers:
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
+      cross-env:
+        specifier: ^5.1.4
+        version: 5.2.1
       eslint:
         specifier: ^8.57.1
         version: 8.57.1
@@ -823,6 +832,9 @@ importers:
       cpx2:
         specifier: ^3.0.0
         version: 3.0.2
+      cross-env:
+        specifier: ^5.1.4
+        version: 5.2.1
       eslint:
         specifier: ^8.57.1
         version: 8.57.1

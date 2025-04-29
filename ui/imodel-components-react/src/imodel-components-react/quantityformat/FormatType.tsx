@@ -93,6 +93,7 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
   const { translate } = useTranslation();
   const handleFormatTypeChange = React.useCallback(
     (newType: FormatType) => {
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const type = formatTypeToString(newType);
       let precision: number | undefined;
       let stationOffsetSize: number | undefined;
@@ -102,6 +103,7 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
       ) {
         case FormatType.Scientific:
           precision = DecimalPrecision.Six;
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           scientificType = scientificTypeToString(ScientificType.Normalized);
           break;
         case FormatType.Decimal:

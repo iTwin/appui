@@ -175,6 +175,7 @@ class BearingParserSpec extends ParserSpec {
       this.format.customProps?.angleDirection === "counter-clockwise";
 
     // const parsedRadians = Parser.parseToQuantityValue(inString, this.format, this.unitConversions);
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const parsedRadians = Parser.parseToQuantityValue(
       adjustedString,
       this.format,
