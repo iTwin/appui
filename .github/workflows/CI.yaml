@@ -92,3 +92,26 @@ jobs:
       - run: pnpm install
       - run: pnpm build
       - run: pnpm cover
+
+  e2e:
+    name: Run e2e tests
+    needs: install
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.46.1-jammy
+    strategy:
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - run: pnpm install
+      - run: pnpm build
+
+      - run: pnpm --filter=e2e-tests exec playwright test
+        env:
+          HOME: /root
