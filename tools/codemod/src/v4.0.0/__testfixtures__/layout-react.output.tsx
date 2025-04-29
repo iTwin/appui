@@ -5,11 +5,13 @@
 import { StatusBarDialog, StatusBarIndicator, StatusBarSeparator } from "@itwin/appui-react";
 
 function App() {
-  return (<>
-    <StatusBarDialog>
-      <StatusBarDialog.TitleBar />
-    </StatusBarDialog>
-    <StatusBarIndicator />
-    <StatusBarSeparator />
-  </>);
+  return (
+    <>
+      <StatusBarDialog>
+        <StatusBarDialog.TitleBar />
+      </StatusBarDialog>
+      <StatusBarIndicator />
+      <StatusBarSeparator />
+    </>
+  );
 }
