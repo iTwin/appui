@@ -17,30 +17,22 @@ jobs:
   extract-api:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout branch
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - name: Configure git
-        run: |
-          git config --local user.email imodeljs-admin@users.noreply.github.com
-          git config --local user.name imodeljs-admin
-
-      - name: Setup node
-        uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v3
         with:
-          node-version: 20.x
+          version: 10
 
-      - name: Rush install
-        run: node common/scripts/install-run-rush.js install
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
 
-      - name: Rush build
-        run: node common/scripts/install-run-rush.js build -v -p max --to-version-policy prerelease-monorepo-lockStep
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm extract-api
 
-      - name: Rush extract-api
-        run: node common/scripts/install-run-rush.js extract-api
-
-      - name: Publish extracted api
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: extracted-api
           path: common/api

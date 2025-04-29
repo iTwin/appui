@@ -36,7 +36,7 @@
     "cover": "vitest run --coverage",
     "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
     "lint:fix": "npm run -s lint -- --fix",
-    "extract-api": "betools extract-api --entry=./lib/core-react",
+    "extract-api": "betools extract-api --entry=./lib/core-react --apiReportFolder=../../common/api --apiReportTempFolder=../../common/temp/api --apiSummaryFolder=../../common/api/summary",
     "test": "vitest",
     "docs": "npm run -s docs:reference && npm run -s docs:changelog",
     "docs:changelog": "cpx ./CHANGELOG.md ../../generated-docs/reference/core-react",

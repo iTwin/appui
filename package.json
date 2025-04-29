@@ -11,6 +11,7 @@
     "lint:copyright": "pnpm exec tsx common/scripts/copyright-linter.ts",
     "test": "pnpm --recursive --parallel test",
     "cover": "pnpm --recursive --parallel cover",
+    "extract-api": "pnpm --recursive --parallel extract-api",
     "cspell": "pnpm exec cspell lint \"**\" --gitignore",
     "prettier": "pnpm exec prettier --check .",
     "prettier:fix": "pnpm exec prettier --write ."
