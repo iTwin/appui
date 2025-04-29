@@ -159,7 +159,7 @@ describe("QuantityInput", () => {
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
-    expect(spanElement.textContent).to.be.eql(`405:-0 1/4`); // TODO: does this match Native formatter?
+    expect(spanElement.textContent).to.be.eql(`405-0 1/4`);
 
     await theUserTo.click(screen.getByTestId("show-unit-label-checkbox"));
     expect(spy).toHaveBeenCalledOnce();
