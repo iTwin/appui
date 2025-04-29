@@ -66,6 +66,7 @@ jobs:
       - run: pnpm install
       - run: pnpm cspell
       - run: pnpm prettier
+      - run: pnpm lint:copyright
 
   test:
     name: Run unit tests
