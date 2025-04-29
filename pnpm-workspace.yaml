@@ -1,0 +1,4 @@
+packages:
+  - ui/*
+  - apps/*
+  - e2e-tests

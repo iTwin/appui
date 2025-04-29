@@ -1,29 +1,24 @@
 {
   "name": "appui",
   "private": true,
-  "description": "iTwin.js appui components",
+  "description": "Monorepo for iTwin.js AppUI",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/iTwin/appui"
-  },
   "scripts": {
     "build": "echo NOTE: use 'rush build' instead",
     "clean": "echo NOTE: use 'rush clean' instead",
     "docs": "echo NOTE: use 'rush docs' instead",
     "lint": "echo NOTE: use 'rush lint' instead",
     "test": "echo NOTE: use 'rush test' instead",
-    "test:integration": "echo NOTE: use 'rush test:integration' instead",
-    "preinstall": "echo ERROR: use 'rush install' instead && exit 1"
+    "test:integration": "echo NOTE: use 'rush test:integration' instead"
   },
-  "keywords": [
-    "AppUI",
-    "Bentley",
-    "BIM",
-    "iModel",
-    "digital-twin",
-    "iTwin"
-  ],
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=22.11.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iTwin/appui"
+  },
   "author": {
     "name": "Bentley Systems, Inc.",
     "url": "http://www.bentley.com"
