@@ -67,6 +67,8 @@ jobs:
       - run: pnpm cspell
       - run: pnpm prettier
       - run: pnpm lint:copyright
+      - run: pnpm lint
+      - run: pnpm docs
 
   test:
     name: Run unit tests
@@ -92,6 +94,10 @@ jobs:
       - run: pnpm install
       - run: pnpm build
       - run: pnpm cover
+
+      - name: Run codemod tests
+        run: npm run test
+        working-directory: tools/codemod
 
   e2e:
     name: Run e2e tests

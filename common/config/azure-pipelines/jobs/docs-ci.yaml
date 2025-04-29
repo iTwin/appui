@@ -39,24 +39,19 @@ stages:
             clean: true
 
           - task: NodeTool@0
-            displayName: Use Node 20.x
+            displayName: Use Node 22
             inputs:
-              versionSpec: 20.x
+              versionSpec: 22
               checkLatest: true
 
-          - script: |
-              git config --local user.email imodeljs-admin@users.noreply.github.com
-              git config --local user.name imodeljs-admin
-            displayName: Setup git config
+          - script: pnpm install
+            displayName: Run 'pnpm install'
 
-          - script: node common/scripts/install-run-rush.js install
-            displayName: rush install
+          - script: pnpm build
+            displayName: Run 'pnpm build'
 
-          - script: node common/scripts/install-run-rush.js build
-            displayName: rush build
-
-          - script: node common/scripts/install-run-rush.js docs
-            displayName: rush docs
+          - script: pnpm docs
+            displayName: Run 'pnpm docs'
 
           - task: CopyFiles@2
             displayName: "Copy generated docs to: $(Build.StagingDirectory)"
