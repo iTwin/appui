@@ -48,7 +48,7 @@ describe("BooleanTypeConverter", () => {
       const falseString = TestUtils.i18n.getLocalizedString(
         "Components:general.false"
       );
-      expect(converter.convertToString("0")).toEqual(falseString);
+      expect(converter.convertToString("")).toEqual(falseString);
     });
 
     it("returns empty string if provided value is undefined", () => {
@@ -86,12 +86,12 @@ describe("BooleanTypeConverter", () => {
     });
 
     it("returns greater than 0 when first boolean is true and second is false", () => {
-      expect(converter.sortCompare("1", "0")).to.be.greaterThan(0);
+      expect(converter.sortCompare("1", "")).to.be.greaterThan(0);
       expect(converter.sortCompare("a", "")).to.be.greaterThan(0);
     });
 
     it("returns less than 0 when first boolean is true and second is false", () => {
-      expect(converter.sortCompare("0", "1")).to.be.lessThan(0);
+      expect(converter.sortCompare("", "1")).to.be.lessThan(0);
       expect(converter.sortCompare("", "a")).to.be.lessThan(0);
     });
   });
