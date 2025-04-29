@@ -4,7 +4,7 @@
   "description": "Monorepo for iTwin.js AppUI",
   "license": "MIT",
   "scripts": {
-    "build": "echo NOTE: use 'rush build' instead",
+    "build": "pnpm --filter=\"./ui/**\" --filter=\"./apps/**\" build",
     "clean": "echo NOTE: use 'rush clean' instead",
     "docs": "echo NOTE: use 'rush docs' instead",
     "lint": "echo NOTE: use 'rush lint' instead",
