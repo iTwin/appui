@@ -49,6 +49,9 @@ const availableFeatures: AvailableFeatures = {
   enableColorlessAccuDrawInputFields: {
     label: "Enable colorless AccuDraw input fields",
   },
+  toolSettingsNewEditors: {
+    label: "Enable new tool settings editors",
+  },
 };
 
 function PreviewFeatureList() {

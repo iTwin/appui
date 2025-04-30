@@ -2,8 +2,16 @@
 
 Table of contents:
 
-- [@itwin/components-react](#itwincomponents-react)
+- [@itwin/appui-react](#itwinappui-react)
   - [Additions](#additions)
+- [@itwin/components-react](#itwincomponents-react)
+  - [Additions](#additions-1)
+
+## @itwin/appui-react
+
+### Additions
+
+- Added `toolSettingsNewEditors` preview feature for enabling new editors system in tool settings. [#1289](https://github.com/iTwin/appui/pull/1289)
 
 ## @itwin/components-react
 
