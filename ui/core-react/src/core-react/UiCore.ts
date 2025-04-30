@@ -76,7 +76,7 @@ export class UiCore {
       return "";
     }
     return UiCore._localization.getLocalizedString(
-      `${UiCore.localizationNamespace}:${key}`
+      `${UiCore.localizationNamespace}:${String(key)}`
     );
   }
 

@@ -48,6 +48,7 @@ export namespace ToolbarItemUtilities {
     return {
       id,
       itemPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       label,
       execute,
@@ -117,6 +118,7 @@ export namespace ToolbarItemUtilities {
     return {
       id,
       itemPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       label,
       items,
@@ -184,6 +186,7 @@ export namespace ToolbarItemUtilities {
     return {
       id,
       itemPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       label,
       panelContent,

@@ -105,6 +105,7 @@ export class StandardContentToolsProvider extends BaseUiItemsProvider {
       stageAppData?: any
     ) => boolean
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     super(providerId, isSupportedStage);
     this.uiItemsProvider = new StandardContentToolsUiItemsProvider(
       defaultContentTools

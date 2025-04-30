@@ -14,7 +14,7 @@
     "preview": "vite preview --port 3000",
     "clean": "rimraf -g lib build dist .rush/temp/package-deps*.json",
     "electron": "run-p start:webserver start:electron",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\" 1>&2",
+    "lint": "eslint ./src/**/*.{ts,tsx}",
     "start": "run-p start:webserver start:backend",
     "start:electron": "cross-env NODE_ENV=development electron ./lib/backend/main.js",
     "start:electron:prod": "electron ./lib/backend/main.js",

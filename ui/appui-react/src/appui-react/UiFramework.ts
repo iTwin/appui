@@ -425,7 +425,7 @@ export class UiFramework {
     options?: TranslationOptions
   ): string {
     return IModelApp.localization.getLocalizedString(
-      `${UiFramework.localizationNamespace}:${key}`,
+      `${UiFramework.localizationNamespace}:${String(key)}`,
       options
     );
   }

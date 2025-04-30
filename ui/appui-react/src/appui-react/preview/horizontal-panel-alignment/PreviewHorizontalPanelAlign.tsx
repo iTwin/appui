@@ -172,6 +172,7 @@ export function PreviewHorizontalPanelAlignButton() {
             setAlignment(side, align);
             onClose?.();
           }}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           icon={getIcon(side, align)}
           isSelected={alignments[side] === align}
         >
@@ -183,6 +184,7 @@ export function PreviewHorizontalPanelAlignButton() {
   if (dropdownContext !== undefined) {
     return (
       <MenuItem
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         icon={getIcon(side, alignments[side])}
         subMenuItems={getMenuItems(dropdownContext.onClose)}
       >

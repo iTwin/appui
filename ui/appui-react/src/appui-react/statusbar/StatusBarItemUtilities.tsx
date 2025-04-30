@@ -53,6 +53,7 @@ export namespace StatusBarItemUtilities {
       id,
       section,
       itemPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       tooltip,
       execute,
@@ -127,6 +128,7 @@ export namespace StatusBarItemUtilities {
       id,
       section,
       itemPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       label,
       labelSide,

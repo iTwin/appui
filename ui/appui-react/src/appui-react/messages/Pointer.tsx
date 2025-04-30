@@ -164,7 +164,7 @@ export class PointerMessage extends React.Component<
                 className={`icon ${MessageContainer.getIconClassName(
                   severity
                 )}`}
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
+                // eslint-disable-next-line @typescript-eslint/no-deprecated, @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
                 iconSpec={`${MessageContainer.getIcon(severity, false)}`}
               />
             </span>

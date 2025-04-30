@@ -74,6 +74,7 @@ export interface StandardFrontstageProps {
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export class StandardFrontstageProvider extends FrontstageProvider {
   constructor(private props: StandardFrontstageProps) {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     super();
   }
 

@@ -443,6 +443,7 @@ export function CursorPopupRenderer() {
                 content={popupInfo.content}
                 pt={point}
                 offset={offset}
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 relativePosition={popupInfo.renderRelativePosition}
                 title={title}
                 shadow={shadow}

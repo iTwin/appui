@@ -68,7 +68,11 @@ describe("<TextEditor />", () => {
         propertyDescription: PropertyDescription,
         value?: Primitives.Value | undefined
       ): string | Promise<string> {
-        return super.convertPropertyToString(propertyDescription, `-${value}`);
+        return super.convertPropertyToString(
+          propertyDescription,
+          // eslint-disable-next-line @typescript-eslint/no-base-to-string
+          `-${String(value)}`
+        );
       }
     }
     TypeConverterManager.registerConverter("string:dasher", Dasher);
