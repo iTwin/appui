@@ -50,7 +50,7 @@ stages:
           - script: pnpm build
             displayName: Run 'pnpm build'
 
-          - script: pnpm docs
+          - script: pnpm run docs
             displayName: Run 'pnpm docs'
 
           - task: CopyFiles@2

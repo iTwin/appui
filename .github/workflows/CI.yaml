@@ -69,7 +69,7 @@ jobs:
       - run: pnpm lint:copyright
       - run: pnpm build
       - run: pnpm lint
-      - run: pnpm docs
+      - run: pnpm run docs
 
   test:
     name: Run unit tests
