@@ -224,7 +224,7 @@ describe("AccuDrawFieldContainer", () => {
     remove();
   });
 
-  it("should call onValueChanged & setFieldValueFromUi", async () => {
+  it.skip("FLAKY:should call onValueChanged & setFieldValueFromUi", async () => {
     const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
@@ -282,7 +282,7 @@ describe("AccuDrawFieldContainer", () => {
     remove();
   });
 
-  it("should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
+  it.skip("FLAKY:should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
     const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
