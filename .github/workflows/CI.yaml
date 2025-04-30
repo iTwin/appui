@@ -67,6 +67,7 @@ jobs:
       - run: pnpm cspell
       - run: pnpm prettier
       - run: pnpm lint:copyright
+      - run: pnpm build
       - run: pnpm lint
       - run: pnpm docs
 
