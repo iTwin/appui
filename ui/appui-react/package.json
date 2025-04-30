@@ -33,7 +33,7 @@
     "compat:esm": "cpx \"./src/**/*.{*css,svg}\" ./lib/esm",
     "clean": "rimraf -g lib .rush/temp/package-deps*.json",
     "cover": "vitest run --coverage",
-    "lint": "eslint ./src/**/*.{ts,tsx}",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "lint:fix": "npm run -s lint -- --fix",
     "extract-api": "betools extract-api --entry=./lib/appui-react --apiReportFolder=../../common/api --apiReportTempFolder=../../common/temp/api --apiSummaryFolder=../../common/api/summary",
     "test": "vitest",

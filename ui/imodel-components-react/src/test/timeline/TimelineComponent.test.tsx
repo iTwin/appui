@@ -18,6 +18,8 @@ import { TestUtils } from "../TestUtils.js";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import { userEvent } from "@testing-library/user-event";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 class TestTimelineDataProvider extends BaseTimelineDataProvider {
   public playing = false;
   public pointerCallbackCalled = false;

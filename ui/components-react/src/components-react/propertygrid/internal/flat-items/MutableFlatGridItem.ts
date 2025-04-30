@@ -281,7 +281,9 @@ export abstract class MutableCategorizedProperty
 
       default:
         const unhandledType: never = valueType;
-        throw Error(`Property Value Format not handled: ${unhandledType}`);
+        throw Error(
+          `Property Value Format not handled: ${String(unhandledType)}`
+        );
     }
   }
 

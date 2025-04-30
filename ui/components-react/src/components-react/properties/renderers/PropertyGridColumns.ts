@@ -70,7 +70,9 @@ export class PropertyGridColumnStyleProvider {
       default:
         const unhandledOrientationType: never = orientation; // Compile time check that all cases handled
         throw new Error(
-          `Unhandled orientation type: ${unhandledOrientationType}. Was new orientation added ? `
+          `Unhandled orientation type: ${String(
+            unhandledOrientationType
+          )}. Was new orientation added ? `
         );
     }
   }

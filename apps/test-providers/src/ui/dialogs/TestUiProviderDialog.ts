@@ -315,7 +315,9 @@ export class AbstractDialogDataProvider extends DialogLayoutDataProvider {
   }
 
   private showInfoFromUi(updatedValue: DialogPropertySyncItem) {
-    const msg = `Property '${updatedValue.propertyName}' updated to value ${updatedValue.value.value}`;
+    const msg = `Property '${
+      updatedValue.propertyName
+    }' updated to value ${String(updatedValue.value.value)}`;
     IModelApp.notifications.outputMessage(
       new NotifyMessageDetails(OutputMessagePriority.Info, msg)
     );

@@ -153,7 +153,9 @@ export class MutableGridItemFactory implements IMutableGridItemFactory {
       default:
         const unhandledRecordType: never = valueFormat;
         throw new Error(
-          `Unhandled property record type. Was a new type added? ${unhandledRecordType}`
+          `Unhandled property record type. Was a new type added? ${String(
+            unhandledRecordType
+          )}`
         );
     }
   }

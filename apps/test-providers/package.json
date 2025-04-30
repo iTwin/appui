@@ -17,7 +17,7 @@
     "clean": "rimraf -g lib .rush/temp/package-deps*.json",
     "cover": "",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
-    "lint": "eslint ./src/**/*.{ts,tsx}",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "test": ""
   },
   "keywords": [

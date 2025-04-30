@@ -227,7 +227,9 @@ export class FlatGridTestUtils {
 
       default:
         const unhandledType: never = valueType;
-        throw Error(`Property Value Format not handled: ${unhandledType}`);
+        throw Error(
+          `Property Value Format not handled: ${String(unhandledType)}`
+        );
     }
   }
 
@@ -373,7 +375,7 @@ export class FlatGridTestUtils {
 
       default:
         const unhandledType: never = type;
-        throw new Error(`Unhandled FlatGridItemType: ${unhandledType}`);
+        throw new Error(`Unhandled FlatGridItemType: ${String(unhandledType)}`);
     }
   }
 
