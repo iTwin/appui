@@ -47,6 +47,26 @@ jobs:
       - run: pnpm install
       - run: pnpm audit
 
+  extract-api:
+    name: Extract API
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm extract-api
+
   check:
     name: Check code quality
     runs-on: ubuntu-latest
