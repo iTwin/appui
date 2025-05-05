@@ -43,6 +43,9 @@ stages:
               versionSpec: 22
               checkLatest: true
 
+          - script: corepack enable
+            displayName: "Enable corepack"
+
           - script: pnpm install
             displayName: Run 'pnpm install'
 
