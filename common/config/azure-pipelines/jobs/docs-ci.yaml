@@ -2,7 +2,6 @@ trigger:
   branches:
     include:
       - master
-      - release/*
 
 pr:
   drafts: false
@@ -95,7 +94,7 @@ stages:
               $commitMsg = @"
               $(Build.SourceVersionMessage)
               "@
-              if ($commitMsg -match '^(\d+.\d+.\d+)$') {
+              if ($commitMsg.Contains("[publish docs]")) {
                 Write-Host `'$commitMsg`'` is a major/minor/patch version bump
                 Write-Host '##vso[task.setvariable variable=ShouldTag;]True'
               } else {
