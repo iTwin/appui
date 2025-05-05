@@ -99,6 +99,7 @@ jobs:
       - name: Run codemod tests
         run: npm run test
         working-directory: tools/codemod
+        if: matrix.os == 'macos-latest'
 
   e2e:
     name: Run e2e tests
