@@ -21,37 +21,28 @@
 
 ## About this Repository
 
-This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) that holds the source code to multiple iTwin.js AppUI npm packages. It is built using [Rush](http://rushjs.io/).
-
-See [rush.json](./rush.json) for the complete list of packages.
-
-Each package has its own **node_modules** directory that contains symbolic links to _common_ dependencies managed by Rush.
+This repository is a [monorepo](https://en.wikipedia.org/wiki/Monorepo) that holds the source code to multiple iTwin.js AppUI npm packages. It is built using [pnpm](https://pnpm.io/).
 
 ## Prerequisites
 
 - [Git](https://git-scm.com/)
 - [Node](https://nodejs.org/en/): an installation of the latest security patch of Node 20. The Node installation also includes the **npm** package manager.
-- [Rush](https://github.com/Microsoft/web-build-tools/wiki/Rush): to install `npm install -g @microsoft/rush`
-- [TypeScript](https://www.typescriptlang.org/): this is listed as a devDependency, so if you're building it from source, you will get it with `rush install`.
-- [Visual Studio Code](https://code.visualstudio.com/): an optional dependency, but the repository structure is optimized for its use
+- [pnpm](https://pnpm.io/): to install `npm install -g pnpm`
+- [TypeScript](https://www.typescriptlang.org/)
+- [Visual Studio Code](https://code.visualstudio.com/): repository structure is optimized for this editor
 
 > See [supported platforms](https://www.itwinjs.org/learning/supportedplatforms/) for further information.
 
 ## Build Instructions
 
 1. Clone repository (first time) with `git clone` or pull updates to the repository (subsequent times) with `git pull`
-2. Install dependencies: `rush install`
-3. Clean: `rush clean`
-4. Rebuild source: `rush rebuild`
-5. Run tests: `rush cover`
-
-The `-v` option for `rush` is short for `--verbose` which results in a more verbose command.
+2. Install dependencies: `pnpm install`
+3. Build source: `pnpm build`
+4. Run tests: `pnpm test`
 
 The above commands iterate and perform their action against each package in the monorepo.
 
-For incremental builds, the `rush build` command can be used to only build packages that have changes versus `rush rebuild` which always rebuilds all packages.
-
-> Note: It is a good idea to `rush install` after each `git pull` as dependencies may have changed.
+> Note: It is a good idea to `pnpm install` after each `git pull` as dependencies may have changed.
 
 ---
 
