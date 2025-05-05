@@ -1,0 +1,10 @@
+{
+  "changes": [
+    {
+      "packageName": "@itwin/appui-react",
+      "comment": "Added preview feature for enabling new editors system in tool settings.",
+      "type": "none"
+    }
+  ],
+  "packageName": "@itwin/appui-react"
+}

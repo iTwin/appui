@@ -21,10 +21,12 @@ import {
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
+import { PropertyRecordEditor } from "@itwin/components-react";
 import { EditorContainer } from "@itwin/components-react";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
+import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolsSettingsNewEditors.js";
 
 function EditorLabel({
   uiDataProvider,
@@ -187,15 +189,29 @@ function PropertyEditor({
   );
   const handleCancel = () => {};
 
+  const useNewEditors = useToolSettingsNewEditors();
+
   return (
     <div key={initialItem.property.name} className={className}>
-      <EditorContainer
-        key={initialItem.property.name}
-        propertyRecord={propertyRecord}
-        setFocus={setFocus}
-        onCommit={handleCommit}
-        onCancel={onCancel ?? handleCancel}
-      />
+      {useNewEditors ? (
+        <PropertyRecordEditor
+          key={initialItem.property.name}
+          propertyRecord={propertyRecord}
+          setFocus={setFocus}
+          onCommit={handleCommit}
+          onCancel={onCancel ?? handleCancel}
+          editorSystem="new"
+          size="small"
+        />
+      ) : (
+        <EditorContainer
+          key={initialItem.property.name}
+          propertyRecord={propertyRecord}
+          setFocus={setFocus}
+          onCommit={handleCommit}
+          onCancel={onCancel ?? handleCancel}
+        />
+      )}
     </div>
   );
 }
