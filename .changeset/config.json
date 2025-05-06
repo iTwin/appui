@@ -19,5 +19,8 @@
     "test-app",
     "e2e-tests",
     "appui-storybook"
-  ]
+  ],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  }
 }
