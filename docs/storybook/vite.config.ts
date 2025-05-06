@@ -3,21 +3,9 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { defineConfig } from "vite";
-import {
-  esbuildCommonjs,
-  viteCommonjs,
-  Options,
-} from "@originjs/vite-plugin-commonjs";
 import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import tsconfigPaths from "vite-tsconfig-paths";
-
-// Fixes: ReferenceError: require is not defined
-function fixedViteCommonjs(options: Options) {
-  const plugin = viteCommonjs(options);
-  plugin.apply = undefined;
-  return plugin;
-}
 
 const localeDirs = [
   "./node_modules/@itwin/appui-react/lib/public/locales",
@@ -44,9 +32,6 @@ export default defineConfig({
         },
       },
     }),
-    fixedViteCommonjs({
-      include: ["@itwin/core-frontend"],
-    }),
     viteStaticCopy({
       targets: [
         ...localeDirs.map((dir) => ({
@@ -69,10 +54,5 @@ export default defineConfig({
         replacement: "$1",
       },
     ],
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      plugins: [esbuildCommonjs(["@itwin/core-frontend"])],
-    },
   },
 });
