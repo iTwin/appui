@@ -54,19 +54,19 @@
     "url": "http://www.bentley.com"
   },
   "peerDependencies": {
-    "@itwin/appui-abstract": "^4.0.0",
-    "@itwin/core-bentley": "^4.0.0",
+    "@itwin/appui-abstract": "^4.0.0 || ^5.0.0",
+    "@itwin/core-bentley": "^4.0.0 || ^5.0.0",
     "@itwin/core-react": "workspace:^5.5.0-dev.0",
     "@itwin/itwinui-react": "^3.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@itwin/appui-abstract": "^4.0.0",
+    "@itwin/appui-abstract": "catalog:",
     "@itwin/build-tools": "4.10.2",
-    "@itwin/core-bentley": "^4.0.0",
-    "@itwin/core-common": "^4.0.0",
-    "@itwin/core-i18n": "^4.0.0",
+    "@itwin/core-bentley": "catalog:",
+    "@itwin/core-common": "catalog:",
+    "@itwin/core-i18n": "catalog:",
     "@itwin/core-react": "workspace:*",
     "@itwin/eslint-plugin": "5.1.0",
     "@itwin/itwinui-react": "^3.17.0",
