@@ -28,5 +28,8 @@ catalog:
   "@itwin/hypermodeling-frontend": rc
   "@itwin/webgl-compatibility": rc
 
+onlyBuiltDependencies:
+  - "@bentley/imodeljs-native"
+
 patchedDependencies:
   "@changesets/assemble-release-plan": patches/@changesets__assemble-release-plan.patch
