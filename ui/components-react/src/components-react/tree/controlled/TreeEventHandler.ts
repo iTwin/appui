@@ -6,8 +6,9 @@
  * @module Tree
  */
 
+import "../../common/DisposePolyfill.js";
+
 import { Subject, takeUntil } from "rxjs";
-import type { IDisposable } from "@itwin/core-bentley";
 import { TreeModelMutator } from "./internal/TreeModelMutator.js";
 import type { Subscription } from "./Observable.js";
 import { toRxjsObservable } from "./Observable.js";
@@ -50,7 +51,7 @@ export interface TreeEventHandlerParams {
  * Default tree event handler.
  * @public
  */
-export class TreeEventHandler implements TreeEvents, IDisposable {
+export class TreeEventHandler implements TreeEvents, Disposable {
   private _modelMutator: TreeModelMutator;
   private _editingParams?: TreeEditingParams;
 
@@ -66,9 +67,15 @@ export class TreeEventHandler implements TreeEvents, IDisposable {
     this._editingParams = params.editingParams;
   }
 
-  /** Disposes tree event handler. */
-  public dispose() {
+  public [Symbol.dispose](): void {
     this._disposed.next();
+  }
+
+  /** Disposes tree event handler.
+   * @deprecated in 5.5.0. Use `[Symbol.dispose]` instead.
+   */
+  public dispose() {
+    this[Symbol.dispose]();
   }
 
   public get modelSource() {
