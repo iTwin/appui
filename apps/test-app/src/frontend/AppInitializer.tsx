@@ -107,6 +107,8 @@ function createInitializer() {
       await ElectronApp.startup({
         iModelApp: options,
       });
+    } else if (config.tests) {
+      await IModelApp.startup(options);
     } else {
       await LocalhostIpcApp.startup({
         iModelApp: options,

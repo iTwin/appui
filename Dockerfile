@@ -34,6 +34,9 @@ RUN pnpm install
 COPY ui ui
 COPY apps apps
 
+# Build for tests
+ENV IMJS_TESTS=1
+
 # Build
 RUN pnpm --filter e2e-tests... build
 

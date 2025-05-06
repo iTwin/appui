@@ -16,12 +16,6 @@ Pass additional arguments to playwright to run specific tests or update the snap
 npm run test:e2e -- widget.test.ts --update-snapshots
 ```
 
-Enable trace to debug the tests:
-
-```sh
-npm run test:e2e -- widget.test.ts --trace on
-```
-
 To see the generated report on a host:
 
 ```sh
