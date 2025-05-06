@@ -20,7 +20,6 @@ import type { EnumerationChoice } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
-import type { IDisposable } from '@itwin/core-bentley';
 import { immerable } from 'immer';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
@@ -775,9 +774,10 @@ export enum FilteringInputStatus {
 }
 
 // @public
-export class FilteringPropertyDataProvider implements IPropertyDataProvider, IDisposable {
+export class FilteringPropertyDataProvider implements IPropertyDataProvider, Disposable {
+    [Symbol.dispose](): void;
     constructor(_dataProvider: IPropertyDataProvider, _filterer: IPropertyDataFilterer);
-    // (undocumented)
+    // @deprecated (undocumented)
     dispose(): void;
     // (undocumented)
     getData(): Promise<FilteredPropertyData>;
@@ -2902,8 +2902,10 @@ export interface TreeEditingParams {
 }
 
 // @public
-export class TreeEventHandler implements TreeEvents, IDisposable {
+export class TreeEventHandler implements TreeEvents, Disposable {
+    [Symbol.dispose](): void;
     constructor(params: TreeEventHandlerParams);
+    // @deprecated
     dispose(): void;
     // (undocumented)
     get modelSource(): TreeModelSource;

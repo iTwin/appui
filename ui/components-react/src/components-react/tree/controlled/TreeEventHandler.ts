@@ -67,6 +67,7 @@ export class TreeEventHandler implements TreeEvents, Disposable {
     this._editingParams = params.editingParams;
   }
 
+  /** Destructor. Must be called to clean up.  */
   public [Symbol.dispose](): void {
     this._disposed.next();
   }
