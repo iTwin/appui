@@ -27,3 +27,6 @@ catalog:
   "@itwin/frontend-devtools": rc
   "@itwin/hypermodeling-frontend": rc
   "@itwin/webgl-compatibility": rc
+
+patchedDependencies:
+  "@changesets/assemble-release-plan": patches/@changesets__assemble-release-plan.patch
