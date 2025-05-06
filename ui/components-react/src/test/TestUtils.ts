@@ -110,7 +110,6 @@ export class TestUtils {
     const property = new PropertyRecord(value, description);
     property.isReadonly = false;
     property.autoExpand = autoExpand;
-    if (property.autoExpand === undefined) delete property.autoExpand;
 
     return property;
   }
