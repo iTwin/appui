@@ -61,7 +61,7 @@ buttonText = useTranslation("dialog.ok");
 ```
 
 - Run `npm run extract-api` to update the `*api.md` file for the package
-- Write unit tests for the new component or class. The tests should cover as many code statements, branches, functions and lines as possible (100% is the goal). To run the tests, run `npm run test` or `rush test`. To run coverage, run `npm run cover`. To see the coverage report, open the report from one of the following directories in your browser:
+- Write unit tests for the new component or class. The tests should cover as many code statements, branches, functions and lines as possible (100% is the goal). To run the tests, run `npm run test` or `pnpm test`. To run coverage, run `npm run cover`. To see the coverage report, open the report from one of the following directories in your browser:
   - appui/ui/appui-react/lib/test/coverage/lcov-report/index.html
   - appui/ui/components-react/lib/test/coverage/lcov-report/index.html
   - appui/ui/core-react/lib/test/coverage/lcov-report/index.html

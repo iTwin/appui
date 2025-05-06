@@ -12,9 +12,9 @@
     "build:frontend": "npm run copy:webfont && npm run pseudolocalize && vite build",
     "package:cjs": "node ./scripts/package-cjs.js ./lib",
     "preview": "vite preview --port 3000",
-    "clean": "rimraf -g lib build dist .rush/temp/package-deps*.json",
+    "clean": "rimraf -g lib build dist",
     "electron": "run-p start:webserver start:electron",
-    "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "start": "run-p start:webserver start:backend",
     "start:electron": "cross-env NODE_ENV=development electron ./lib/backend/main.js",
     "start:electron:prod": "electron ./lib/backend/main.js",
@@ -61,7 +61,7 @@
     "rimraf": "^6.0.1",
     "sass": "^1.80.3",
     "typescript": "~5.6.2",
-    "vite": "^5.4.7",
+    "vite": "^6.3.4",
     "vite-plugin-static-copy": "^1.0.6"
   },
   "dependencies": {

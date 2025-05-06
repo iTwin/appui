@@ -82,7 +82,7 @@ export class UiIModelComponents {
       return "";
     }
     return IModelApp.localization.getLocalizedString(
-      `${UiIModelComponents.localizationNamespace}:${key}`
+      `${UiIModelComponents.localizationNamespace}:${String(key)}`
     );
   }
 

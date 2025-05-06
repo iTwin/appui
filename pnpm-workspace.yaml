@@ -1,0 +1,6 @@
+packages:
+  - ui/*
+  - apps/*
+  - e2e-tests
+  - tools/codemod
+  - docs/storybook

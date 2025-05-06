@@ -26,6 +26,7 @@ export function createPopoutWindowsFrontstage() {
         },
       ],
     },
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     cornerButton: <BackstageAppButton icon="icon-bentley-systems" />,
   });
 }

@@ -1,3 +1,8 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+
 /**
  * Do not import packages directly in this file or it will cause issue
  * with resolutions (either CI or VSCode)
@@ -26,6 +31,7 @@ module.exports = [
       ],
       "no-duplicate-imports": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
+      "@typescript-eslint/unbound-method": "off",
     },
   },
   {

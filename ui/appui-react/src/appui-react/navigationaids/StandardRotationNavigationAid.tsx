@@ -44,6 +44,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
 
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     super(info, options);
     this.reactNode = <StandardRotationNavigationAid />;
   }

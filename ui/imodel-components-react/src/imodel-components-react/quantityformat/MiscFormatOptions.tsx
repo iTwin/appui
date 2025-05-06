@@ -76,6 +76,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
 
   const handleShowSignChange = React.useCallback(
     (option: ShowSignOption) => {
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       const newShowSignOption = showSignOptionToString(option);
       const newFormatProps = {
         ...formatProps,
@@ -177,6 +178,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     (type: ScientificType) => {
       const newFormatProps = {
         ...formatProps,
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         scientificType: scientificTypeToString(type),
       };
       handleSetFormatProps(newFormatProps);

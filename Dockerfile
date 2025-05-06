@@ -4,17 +4,18 @@
 #----------------------------------------------------------------------------------------------
 FROM mcr.microsoft.com/playwright:v1.46.1-jammy
 
-# Install rush
-RUN npm install -g @microsoft/rush
+# Install pnpm
+RUN --mount=type=cache,target=/root/.npm \
+    npm install -g pnpm@10
 
 # Set the work directory
 WORKDIR /appui
 
-# Copy for `rush install`
-COPY rush.json ./
-COPY common/autoinstallers common/autoinstallers
+# Copy for `pnpm install`
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
 COPY common/scripts common/scripts
-COPY common/config common/config
 COPY docs/storybook/package.json docs/storybook/
 COPY e2e-tests/package.json e2e-tests/
 COPY apps/test-providers/package.json apps/test-providers/
@@ -26,14 +27,14 @@ COPY ui/core-react/package.json ui/core-react/
 COPY ui/imodel-components-react/package.json ui/imodel-components-react/
 
 # Install dependencies
-RUN rush install --to e2e-tests
+RUN pnpm install
 
-# Copy for `rush build`
+# Copy for `pnpm build`
 COPY ui ui
 COPY apps apps
 
 # Build
-RUN rush build --to e2e-tests
+RUN pnpm --filter e2e-tests... build
 
 # Copy for `playwright`
 COPY e2e-tests e2e-tests

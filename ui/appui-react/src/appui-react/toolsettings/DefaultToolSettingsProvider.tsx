@@ -43,6 +43,7 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
 export class DefaultToolSettingsProvider extends ToolUiProvider {
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     super(info, options);
     this._dataProvider = new ToolSettingsUiDataProvider();
   }

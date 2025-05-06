@@ -2,8 +2,6 @@
 *
 
 # Add back only the files that we want
-!common/autoinstallers
-!common/config/rush
 !common/scripts
 !docs/storybook
 !e2e-tests/tests
@@ -12,15 +10,12 @@
 !apps
 !ui
 !tools
-!rush.json
+!package.json
+!pnpm-lock.yaml
+!pnpm-workspace.yaml
 
 # Dependency directories
 **/node_modules
-
-# Rush specific
-**/.rush
-**/CHANGELOG.*
-**/*.md
 
 # Playwright specific
 **/playwright-report

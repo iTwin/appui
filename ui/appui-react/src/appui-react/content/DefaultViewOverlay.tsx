@@ -95,6 +95,7 @@ export function DefaultViewOverlay({
               analysisAnimationTimelineDataProvider.initialDuration
             }
             totalDuration={analysisAnimationTimelineDataProvider.duration}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             minimized={true}
             onChange={
               analysisAnimationTimelineDataProvider.onAnimationFractionChanged
@@ -118,6 +119,7 @@ export function DefaultViewOverlay({
             endDate={scheduleTimelineDataProvider.end}
             initialDuration={scheduleTimelineDataProvider.initialDuration}
             totalDuration={scheduleTimelineDataProvider.duration}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             minimized={true}
             onChange={scheduleTimelineDataProvider.onAnimationFractionChanged}
             onPlayPause={onPlayPause}

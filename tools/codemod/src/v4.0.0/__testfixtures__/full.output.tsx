@@ -5,10 +5,12 @@
 import { StatusBarDialog, ToolbarWithOverflow } from "@itwin/appui-react";
 
 function App() {
-  return (<>
-    <StatusBarDialog />
-    <ToolbarWithOverflow />
-  </>);
+  return (
+    <>
+      <StatusBarDialog />
+      <ToolbarWithOverflow />
+    </>
+  );
 }
 
 function RetFrontstage() {

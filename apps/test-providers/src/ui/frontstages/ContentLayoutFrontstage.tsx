@@ -96,6 +96,7 @@ export function createContentLayoutFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
     id: createContentLayoutFrontstage.stageId,
     contentGroupProps: contentGroupProvider,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     cornerButton: <BackstageAppButton icon="icon-bentley-systems" />,
     usage: StageUsage.General,
   });

@@ -137,7 +137,7 @@ export function KeyinPalettePanel({
           message = translate("keyinbrowser.exceptionOccurred");
           detailedMessage = `${translate(
             "keyinbrowser.exceptionOccurred"
-          )}: ${ex}`;
+          )}: ${String(ex)}`;
         }
       }
 

@@ -1,29 +1,38 @@
 {
   "name": "appui",
   "private": true,
-  "description": "iTwin.js appui components",
+  "description": "Monorepo for iTwin.js AppUI",
   "license": "MIT",
+  "scripts": {
+    "build": "pnpm --recursive build",
+    "clean": "pnpm --recursive --parallel clean",
+    "docs": "pnpm --recursive --parallel docs",
+    "lint": "pnpm --recursive --parallel lint",
+    "lint:copyright": "pnpm exec tsx common/scripts/copyright-linter.ts",
+    "test": "pnpm --recursive --parallel test",
+    "cover": "pnpm --recursive --parallel cover",
+    "extract-api": "pnpm --recursive --parallel extract-api",
+    "cspell": "pnpm exec cspell lint \"**\" --gitignore",
+    "prettier": "pnpm exec prettier --check .",
+    "prettier:fix": "pnpm exec prettier --write .",
+    "release": "npm run build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.2",
+    "@types/node": "20.17.8",
+    "cspell": "^8.19.3",
+    "fast-glob": "^3.3.3",
+    "prettier": "^2.8.8",
+    "tsx": "^4.19.4"
+  },
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/iTwin/appui"
   },
-  "scripts": {
-    "build": "echo NOTE: use 'rush build' instead",
-    "clean": "echo NOTE: use 'rush clean' instead",
-    "docs": "echo NOTE: use 'rush docs' instead",
-    "lint": "echo NOTE: use 'rush lint' instead",
-    "test": "echo NOTE: use 'rush test' instead",
-    "test:integration": "echo NOTE: use 'rush test:integration' instead",
-    "preinstall": "echo ERROR: use 'rush install' instead && exit 1"
-  },
-  "keywords": [
-    "AppUI",
-    "Bentley",
-    "BIM",
-    "iModel",
-    "digital-twin",
-    "iTwin"
-  ],
   "author": {
     "name": "Bentley Systems, Inc.",
     "url": "http://www.bentley.com"

@@ -263,6 +263,7 @@ export class PopupManager {
       <KeyinPalettePopup
         keyins={keyins}
         id={id}
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         el={el}
         onItemExecuted={onItemExecuted}
         onCancel={cancelFn}
@@ -455,6 +456,7 @@ export class PopupManager {
         title={title}
         items={toolbarProps ? toolbarProps.items : undefined}
         placement={placement}
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         orientation={Orientation.Horizontal}
         onCancel={onCancel}
         onItemExecuted={onItemExecuted}
@@ -498,6 +500,7 @@ export class PopupManager {
         title={title}
         items={toolbarProps?.items}
         placement={placement}
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         orientation={Orientation.Horizontal}
         onCancel={onCancel}
         onItemExecuted={onItemExecuted}

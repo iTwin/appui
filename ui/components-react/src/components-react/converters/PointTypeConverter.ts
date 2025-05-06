@@ -58,6 +58,7 @@ export abstract class BasePointTypeConverter extends TypeConverter {
         components.map(async (c) => (isPromiseLike(c) ? c : Promise.resolve(c)))
       ).then((c) => c.join(", "));
     }
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     return components.join(", ");
   }
 

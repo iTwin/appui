@@ -12,6 +12,7 @@ import { Flex } from "@itwin/itwinui-react";
 export class SampleContentControl extends ContentControl {
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(info: ConfigurableCreateInfo, options: any) {
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     super(info, options);
     this.reactNode = (
       <div className="test-content-container">

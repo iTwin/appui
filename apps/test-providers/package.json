@@ -14,10 +14,10 @@
     "build": "npm run copy:css && npm run copy:locale && tsc",
     "copy:css": "cpx \"./src/**/*.{*css,json,svg}\" ./lib",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
-    "clean": "rimraf -g lib .rush/temp/package-deps*.json",
+    "clean": "rimraf -g lib",
     "cover": "",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
-    "lint": "eslint -f visualstudio \"./src/**/*.{ts,tsx}\" 1>&2",
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
     "test": ""
   },
   "keywords": [
@@ -33,7 +33,7 @@
   "license": "MIT",
   "devDependencies": {
     "@itwin/build-tools": "4.10.2",
-    "@itwin/eslint-plugin": "5.0.0-dev.2",
+    "@itwin/eslint-plugin": "5.1.0",
     "@types/react": "^18.3.12",
     "cpx2": "^3.0.0",
     "inversify": "^6.0.1",

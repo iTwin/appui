@@ -92,7 +92,7 @@ describe("ElementSeparator", () => {
             return;
           default:
             const unhandledType: never = callbackType;
-            throw new Error(`Unhandled test type: ${unhandledType}`);
+            throw new Error(`Unhandled test type: ${String(unhandledType)}`);
         }
       });
 

@@ -2,7 +2,6 @@ trigger:
   branches:
     include:
       - master
-      - release/*
 
 pr:
   drafts: false
@@ -39,24 +38,22 @@ stages:
             clean: true
 
           - task: NodeTool@0
-            displayName: Use Node 20.x
+            displayName: Use Node 22
             inputs:
-              versionSpec: 20.x
+              versionSpec: 22
               checkLatest: true
 
-          - script: |
-              git config --local user.email imodeljs-admin@users.noreply.github.com
-              git config --local user.name imodeljs-admin
-            displayName: Setup git config
+          - script: corepack enable
+            displayName: "Enable corepack"
 
-          - script: node common/scripts/install-run-rush.js install
-            displayName: rush install
+          - script: pnpm install
+            displayName: Run 'pnpm install'
 
-          - script: node common/scripts/install-run-rush.js build
-            displayName: rush build
+          - script: pnpm build
+            displayName: Run 'pnpm build'
 
-          - script: node common/scripts/install-run-rush.js docs
-            displayName: rush docs
+          - script: pnpm run docs
+            displayName: Run 'pnpm docs'
 
           - task: CopyFiles@2
             displayName: "Copy generated docs to: $(Build.StagingDirectory)"
@@ -100,7 +97,7 @@ stages:
               $commitMsg = @"
               $(Build.SourceVersionMessage)
               "@
-              if ($commitMsg -match '^(\d+.\d+.\d+)$') {
+              if ($commitMsg.Contains("[publish docs]")) {
                 Write-Host `'$commitMsg`'` is a major/minor/patch version bump
                 Write-Host '##vso[task.setvariable variable=ShouldTag;]True'
               } else {

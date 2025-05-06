@@ -12,16 +12,8 @@ dist
 coverage
 full_stack_test_results
 integration_test_results
-!tools/build
-
-# rush-specific
 /common/temp
-package-deps.json
-/**/.rush
-*.build.log
-*.build.error.log
-common/autoinstallers/*/.npmrc
-*.log
+!tools/build
 
 # pnpm
 .pnpm-debug.log

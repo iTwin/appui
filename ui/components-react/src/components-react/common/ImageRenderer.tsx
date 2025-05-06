@@ -153,7 +153,7 @@ export class ImageRenderer {
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         throw new UiError(
           UiComponents.loggerCategory("ImageRenderer"),
-          `Can't handle sourceType: "${unhandledSourceType}"`
+          `Can't handle sourceType: "${String(unhandledSourceType)}"`
         );
     }
   }

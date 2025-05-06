@@ -51,6 +51,7 @@ export namespace BackstageItemUtilities {
       id: frontstageId,
       stageId: frontstageId,
       groupPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       itemPriority,
       label,
@@ -130,6 +131,7 @@ export namespace BackstageItemUtilities {
     return {
       execute,
       groupPriority,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       icon,
       id: itemId,
       itemPriority,

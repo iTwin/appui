@@ -58,6 +58,7 @@ export async function getSavedViewLayoutProps(
   if (!result.setting) return undefined;
 
   // Parse StageContentLayoutProps
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   const savedViewLayoutProps: StageContentLayoutProps | undefined =
     result.setting;
 

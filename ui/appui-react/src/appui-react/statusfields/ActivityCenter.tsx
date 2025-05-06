@@ -47,7 +47,7 @@ export function ActivityCenterField(props: CommonProps) {
 
   const moreDetails = translate("activityCenter.moreDetails");
   // eslint-disable-next-line @typescript-eslint/no-base-to-string
-  const tooltip = `${message}-${moreDetails}`;
+  const tooltip = `${String(message)}-${moreDetails}`;
 
   return (
     // eslint-disable-next-line @typescript-eslint/no-deprecated

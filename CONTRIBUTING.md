@@ -65,8 +65,8 @@ You can read more about [Contributor License Agreements](https://en.wikipedia.or
 
 ## Getting started
 
-1. Install dependencies using `rush install`.
-2. Run build using `rush rebuild`.
+1. Install dependencies using `pnpm install`.
+2. Run build using `pnpm build`.
 3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-app` or `storybook` (see [Testing options](#testing-options)).
 4. In a new terminal, `cd` into `apps/test-app` and run `npm run start:webserver`.
 
@@ -74,17 +74,17 @@ You can read more about [Contributor License Agreements](https://en.wikipedia.or
 
 ### Ensure unit tests pass when run locally
 
-`rush cover`
+`pnpm cover`
 
-> Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/cjs/test/coverage/lcov-report/index.html`. Ensure integration tests pass: See [the related Readme](./e2e-tests/README.md)
+> Each packages will generate a detailed coverage HTML report which can be accessed in `ui/[package]/lib/test/coverage/lcov-report/index.html`. Ensure integration tests pass: See [the related Readme](./e2e-tests/README.md)
 
 ### Ensure linting passes when run locally
 
-`rush lint` / `rush lint:fix`
+`pnpm lint`
 
 ### Ensure prettier passes when run locally
 
-`rush prettier` / `rush prettier:fix`
+`pnpm prettier` / `pnpm prettier:fix`
 
 ## Checking and documenting changes
 
@@ -92,31 +92,24 @@ You can read more about [Contributor License Agreements](https://en.wikipedia.or
 
 ### Check for API signature changes
 
-`rush extract-api`
+`pnpm extract-api`
 
 This will update the signature files, located in `common/api`. **Note:** before doing this, first do the following:
 
-- Cleanup your build output: `rush clean`
-- Rebuild the project: `rush build`
+- Cleanup your build output: `pnpm clean`
+- Rebuild the project: `pnpm build`
 
 Review any diffs to the API signature files in the `common/api` directory to ensure they are compatible with the intended release of the package.
 
 If any differences are in packages not modified on this branch, revert the changes before committing.
 
+> Note: The CI build will break if changes are pushed without running `pnpm extract-api` (if the API was changed).
+
 ### Add changelog entry
 
-`rush change`
+`pnpm changeset`
 
-Follow prompts to enter a change description or press ENTER if the change does not warrant a changelog entry. If multiple packages have changed, multiple sets of prompts will be presented. If the changes are only to non-published packages (like the **test-app**), then `rush change` will indicate that a changelog entry is not needed.
-
-Completing the `rush change` prompts will cause new changelog entry JSON files to be created.
-
-If using the command line, this process can be completed in one step by running `rushchange.bat` from the root directory.
-**Only use `rushchange.bat` if none of the changes require a changelog entry.**
-
-> Note: The CI build will break if changes are pushed without running `rush change` and `rush extract-api` (if the API was changed).
-
-Here is a sample [changelog](https://github.com/microsoft/rushstack/blob/master/apps/rush/CHANGELOG.md) to demonstrate the level of detail expected.
+Follow the prompts to enter changesets from which the changelog is generated. [See README.md for more info](./.changeset/README.md)
 
 ---
 
@@ -139,29 +132,6 @@ There is a [storybook](https://storybook.js.org/) that can be used to test chang
 Storybook is deployed with each PR build and can be accessed through the **Storybook preview** link in the PR checks. (Direct link: `https://itwin.github.io/appui/[PR_NUMBER]`) So adding stories for a feature facilitates PR reviews.
 
 It is also deployed with master and can be accessed through this URL: <https://itwin.github.io/appui/storybook>
-
----
-
-### Updating dependencies/devDependencies on packages within the monorepo
-
-The version numbers of internal dependencies should not be manually edited.
-These will be automatically updated by the overall _version bump_ workflow.
-Note that the packages are published by CI builds only.
-
-### Updating dependencies/devDependencies on packages external to monorepo
-
-Use these instructions to update dependencies and devDependencies on external packages (ones that live outside of this monorepo).
-
-1. Edit the appropriate `package.json` file to update the semantic version range
-2. Run `rush check` to make sure that you are specifying consistent versions across the repository
-3. Run `rush update` to make sure the newer version of the module specified in #1 is installed
-
----
-
-### Other NPM scripts
-
-1. Build TypeDoc documentation for all packages: `rush docs`
-2. Build TypeDoc documentation for a single package: `cd ui\core-react` and then `npm run docs`
 
 ---
 

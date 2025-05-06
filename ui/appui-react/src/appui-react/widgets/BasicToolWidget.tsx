@@ -131,6 +131,7 @@ export function BasicToolWidget(props: BasicToolWidgetProps) {
   return (
     <ToolWidgetComposer
       className={className}
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       cornerItem={<BackstageAppButton icon={props.icon} />}
       horizontalToolbar={
         <ToolbarComposer
