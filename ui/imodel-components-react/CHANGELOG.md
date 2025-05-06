@@ -1,6 +1,11 @@
 # Change Log - @itwin/imodel-components-react
 
-This log was last generated on Thu, 20 Mar 2025 11:10:28 GMT and should not be manually modified.
+## 5.4.0
+Thu, 17 Apr 2025 09:55:41 GMT
+
+### Updates
+
+- Added Quantity and Weight property editor specifications for the new editors system.
 
 ## 5.3.1
 Thu, 20 Mar 2025 11:10:28 GMT
@@ -577,7 +582,7 @@ Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
 
-- Fix for losing viewport content after clicking PW link 
+- Fix for losing viewport content after clicking PW link
 
 ## 3.1.3
 Fri, 15 Apr 2022 13:49:25 GMT
