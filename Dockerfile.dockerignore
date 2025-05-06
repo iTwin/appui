@@ -8,6 +8,7 @@
 !e2e-tests/playwright.config.ts
 !e2e-tests/package.json
 !apps
+!patches
 !ui
 !tools
 !package.json

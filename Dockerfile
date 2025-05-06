@@ -18,6 +18,7 @@ COPY pnpm-workspace.yaml ./
 COPY common/scripts common/scripts
 COPY docs/storybook/package.json docs/storybook/
 COPY e2e-tests/package.json e2e-tests/
+COPY patches/ patches/
 COPY apps/test-providers/package.json apps/test-providers/
 COPY apps/test-app/package.json apps/test-app/
 COPY tools/codemod/package.json tools/codemod/
