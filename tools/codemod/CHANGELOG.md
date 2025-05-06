@@ -1,7 +1,5 @@
 # Change Log - @itwin/appui-codemod
 
-This log was last generated on Mon, 29 May 2023 09:30:28 GMT and should not be manually modified.
-
 ## 0.1.0
 Mon, 29 May 2023 09:30:28 GMT
 
