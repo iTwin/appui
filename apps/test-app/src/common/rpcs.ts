@@ -17,6 +17,7 @@ export function getSupportedRpcs(): RpcInterfaceDefinition[] {
   return [
     IModelReadRpcInterface,
     IModelTileRpcInterface,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     SnapshotIModelRpcInterface,
     ECSchemaRpcInterface,
   ];

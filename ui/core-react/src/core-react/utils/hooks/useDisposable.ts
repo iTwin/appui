@@ -16,6 +16,7 @@ import type { IDisposable } from "@itwin/core-bentley";
  * @deprecated in 4.9.0. This hook is not compatible with React 18 Strict mode. Use [[useOptionalDisposable]] or `useState` + `useEffect` for
  * creating and disposing disposable resources.
  */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function useDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable
 ): TDisposable {
@@ -47,6 +48,7 @@ export function useDisposable<TDisposable extends IDisposable>(
  * @public
  * @deprecated in 4.15.0. Use `useState` + `useEffect` for creating and disposing disposable resources.
  */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function useOptionalDisposable<TDisposable extends IDisposable>(
   createDisposable: () => TDisposable | undefined
 ): TDisposable | undefined {

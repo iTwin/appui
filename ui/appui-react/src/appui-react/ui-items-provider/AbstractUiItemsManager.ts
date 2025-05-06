@@ -52,7 +52,7 @@ import { isStatusBarCustomItem } from "../statusbar/StatusBarItem.js";
 
 const _abstract = abstract;
 
-// @ts-ignore Removed in 4.0
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined =
   // @ts-ignore Removed in 4.0
   _abstract.UiItemsManager;
@@ -424,7 +424,6 @@ function createAbstractToUiItemsProviderAdapter(
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 function getBadgeType(badgeKind: BadgeKind | undefined) {
   switch (badgeKind) {
     case "new":
