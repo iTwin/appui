@@ -32,7 +32,6 @@ import {
   InspectUiItemInfoToolProvider,
   MessageUiItemsProvider,
 } from "@itwin/appui-test-providers";
-import { ProcessDetector } from "@itwin/core-bentley";
 import {
   createEditorFrontstage,
   createEditorFrontstageProvider,
@@ -45,7 +44,7 @@ import {
 } from "./appui/frontstages/WidgetApiFrontstage";
 import { createLanguageProvider } from "./Localization";
 import { createStatusBarUiItemsProvider } from "./appui/providers/StatusbarUiItemsProvider";
-import { IModelConnection, ViewState } from "@itwin/core-frontend";
+import { IModelConnection, IpcApp, ViewState } from "@itwin/core-frontend";
 import {
   createITwinUIV2Frontstage,
   createITwinUIV2FrontstageProvider,
@@ -165,7 +164,7 @@ export function registerFrontstages({
     stageIds: [createSpatialFrontstage.stageId],
   });
 
-  if (ProcessDetector.isElectronAppFrontend) {
+  if (IpcApp.isValid) {
     UiFramework.frontstages.addFrontstage(createEditorFrontstage());
     UiItemsManager.register(createEditorFrontstageProvider(), {
       stageIds: [createEditorFrontstage.stageId],

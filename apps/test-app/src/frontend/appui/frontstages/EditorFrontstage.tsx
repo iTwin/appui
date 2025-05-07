@@ -12,10 +12,14 @@ import {
   StagePanelSection,
   StageUsage,
   StandardContentLayouts,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "@itwin/appui-test-providers";
+import { CreateCircleTool } from "../../tools/CreateCircleTool";
 
 export function createEditorFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
@@ -47,6 +51,16 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
         groupPriority: 400,
         label: "Editor",
         icon: <SvgEdit />,
+      }),
+    ],
+    getToolbarItems: () => [
+      ToolbarItemUtilities.createForTool(CreateCircleTool, {
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
       }),
     ],
     getWidgets: () => {
