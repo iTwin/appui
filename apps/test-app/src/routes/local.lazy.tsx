@@ -31,7 +31,10 @@ function Local() {
             name={fileName}
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
-              if (ProcessDetector.isElectronAppFrontend) {
+              // IpcApp is not initialized yet.
+              const isIpcApp =
+                ProcessDetector.isElectronAppFrontend || !config.tests;
+              if (isIpcApp) {
                 const filePath = `${config.bimDir}/${fileName}`;
                 void navigate({
                   to: "/briefcase",
