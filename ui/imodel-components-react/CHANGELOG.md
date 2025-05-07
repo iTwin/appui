@@ -1,21 +1,6 @@
 # Change Log - @itwin/imodel-components-react
 
-## 5.5.0
-
-### Minor Changes
-
-- c619667: Updated peer dependencies to support iTwin.js core v5 packages.
-
-### Patch Changes
-
-- Updated dependencies [c619667]
-- Updated dependencies [c619667]
-- Updated dependencies [a69108d]
-  - @itwin/components-react@5.5.0
-  - @itwin/core-react@5.5.0
-
 ## 5.4.0
-
 Thu, 17 Apr 2025 09:55:41 GMT
 
 ### Updates
@@ -23,25 +8,21 @@ Thu, 17 Apr 2025 09:55:41 GMT
 - Added Quantity and Weight property editor specifications for the new editors system.
 
 ## 5.3.1
-
 Thu, 20 Mar 2025 11:10:28 GMT
 
 _Version update only_
 
 ## 5.3.0
-
 Fri, 14 Mar 2025 17:37:48 GMT
 
 _Version update only_
 
 ## 5.2.0
-
 Thu, 27 Feb 2025 08:07:36 GMT
 
 _Version update only_
 
 ## 5.1.0
-
 Thu, 30 Jan 2025 09:15:23 GMT
 
 ### Updates
@@ -49,25 +30,21 @@ Thu, 30 Jan 2025 09:15:23 GMT
 - cSpell fixes
 
 ## 5.0.5
-
 Tue, 21 Jan 2025 11:38:58 GMT
 
 _Version update only_
 
 ## 5.0.4
-
 Fri, 17 Jan 2025 14:12:03 GMT
 
 _Version update only_
 
 ## 5.0.3
-
 Fri, 17 Jan 2025 11:42:02 GMT
 
 _Version update only_
 
 ## 5.0.2
-
 Thu, 16 Jan 2025 12:04:12 GMT
 
 ### Updates
@@ -75,13 +52,11 @@ Thu, 16 Jan 2025 12:04:12 GMT
 - Use import attributes for json imports.
 
 ## 5.0.1
-
 Wed, 15 Jan 2025 11:47:00 GMT
 
 _Version update only_
 
 ## 5.0.0
-
 Mon, 16 Dec 2024 11:43:27 GMT
 
 ### Updates
@@ -98,43 +73,36 @@ Mon, 16 Dec 2024 11:43:27 GMT
 - Replace buic variables with iTwinUI CSS variables.
 
 ## 4.17.6
-
 Wed, 20 Nov 2024 14:27:46 GMT
 
 _Version update only_
 
 ## 4.17.5
-
 Thu, 14 Nov 2024 08:22:04 GMT
 
 _Version update only_
 
 ## 4.17.4
-
 Fri, 08 Nov 2024 14:41:23 GMT
 
 _Version update only_
 
 ## 4.17.3
-
 Wed, 06 Nov 2024 09:04:20 GMT
 
 _Version update only_
 
 ## 4.17.2
-
 Wed, 30 Oct 2024 14:46:15 GMT
 
 _Version update only_
 
 ## 4.17.1
-
 Wed, 09 Oct 2024 10:50:47 GMT
 
 _Version update only_
 
 ## 4.17.0
-
 Thu, 19 Sep 2024 12:50:53 GMT
 
 ### Updates
@@ -142,37 +110,31 @@ Thu, 19 Sep 2024 12:50:53 GMT
 - Deprecated component props in favor of type helper
 
 ## 4.16.5
-
 Tue, 10 Sep 2024 16:40:46 GMT
 
 _Version update only_
 
 ## 4.16.4
-
 Wed, 04 Sep 2024 08:10:19 GMT
 
 _Version update only_
 
 ## 4.16.3
-
 Tue, 03 Sep 2024 14:32:22 GMT
 
 _Version update only_
 
 ## 4.16.2
-
 Wed, 28 Aug 2024 06:32:12 GMT
 
 _Version update only_
 
 ## 4.16.1
-
 Fri, 16 Aug 2024 08:18:14 GMT
 
 _Version update only_
 
 ## 4.16.0
-
 Wed, 07 Aug 2024 12:38:32 GMT
 
 ### Updates
@@ -181,67 +143,56 @@ Wed, 07 Aug 2024 12:38:32 GMT
 - Added `trackContainerProps` property to `TimelineComponent`.
 
 ## 4.15.5
-
 Wed, 24 Jul 2024 16:09:26 GMT
 
 _Version update only_
 
 ## 4.15.4
-
 Mon, 22 Jul 2024 21:27:52 GMT
 
 _Version update only_
 
 ## 4.15.3
-
 Mon, 15 Jul 2024 12:12:01 GMT
 
 _Version update only_
 
 ## 4.15.2
-
 Wed, 10 Jul 2024 11:54:56 GMT
 
 _Version update only_
 
 ## 4.15.1
-
 Tue, 09 Jul 2024 09:23:12 GMT
 
 _Version update only_
 
 ## 4.15.0
-
 Fri, 28 Jun 2024 09:09:37 GMT
 
 _Version update only_
 
 ## 4.14.2
-
 Mon, 22 Jul 2024 21:23:09 GMT
 
 _Version update only_
 
 ## 4.14.1
-
 Tue, 11 Jun 2024 15:58:29 GMT
 
 _Version update only_
 
 ## 4.14.0
-
 Thu, 06 Jun 2024 08:24:21 GMT
 
 _Version update only_
 
 ## 4.13.4
-
 Tue, 21 May 2024 08:21:34 GMT
 
 _Version update only_
 
 ## 4.13.3
-
 Fri, 17 May 2024 09:43:31 GMT
 
 ### Updates
@@ -250,19 +201,16 @@ Fri, 17 May 2024 09:43:31 GMT
 - upgrade to TypeScript@5.3.3 and @itwin/build-tools@4.6.x
 
 ## 4.13.2
-
 Wed, 08 May 2024 08:24:46 GMT
 
 _Version update only_
 
 ## 4.13.1
-
 Tue, 07 May 2024 15:01:46 GMT
 
 _Version update only_
 
 ## 4.13.0
-
 Tue, 07 May 2024 08:44:06 GMT
 
 ### Updates
@@ -270,13 +218,11 @@ Tue, 07 May 2024 08:44:06 GMT
 - Deprecated all UI event classes.
 
 ## 4.12.0
-
 Fri, 05 Apr 2024 09:55:35 GMT
 
 _Version update only_
 
 ## 4.11.0
-
 Thu, 21 Mar 2024 16:38:04 GMT
 
 ### Updates
@@ -288,7 +234,6 @@ Thu, 21 Mar 2024 16:38:04 GMT
 - Removed memoization for translated strings in components.
 
 ## 4.10.0
-
 Mon, 26 Feb 2024 15:50:45 GMT
 
 ### Updates
@@ -297,7 +242,6 @@ Mon, 26 Feb 2024 15:50:45 GMT
 - Use iTwinUI 3.x.
 
 ## 4.9.0
-
 Tue, 06 Feb 2024 08:56:40 GMT
 
 ### Updates
@@ -305,31 +249,26 @@ Tue, 06 Feb 2024 08:56:40 GMT
 - ignore appui-abstract eslint deprecation m
 
 ## 4.8.3
-
 Tue, 30 Jan 2024 09:04:27 GMT
 
 _Version update only_
 
 ## 4.8.2
-
 Wed, 24 Jan 2024 12:37:04 GMT
 
 _Version update only_
 
 ## 4.8.1
-
 Thu, 11 Jan 2024 13:05:42 GMT
 
 _Version update only_
 
 ## 4.8.0
-
 Thu, 21 Dec 2023 14:08:43 GMT
 
 _Version update only_
 
 ## 4.7.2
-
 Wed, 20 Dec 2023 23:11:37 GMT
 
 ### Updates
@@ -337,7 +276,6 @@ Wed, 20 Dec 2023 23:11:37 GMT
 - Revert Viewport creation delay from 0x0.
 
 ## 4.7.1
-
 Thu, 07 Dec 2023 19:40:17 GMT
 
 ### Updates
@@ -345,7 +283,6 @@ Thu, 07 Dec 2023 19:40:17 GMT
 - `ViewportComponent` will now wait to have positive space before creating iTwin.js viewport.
 
 ## 4.7.0
-
 Fri, 01 Dec 2023 20:01:16 GMT
 
 ### Updates
@@ -355,49 +292,41 @@ Fri, 01 Dec 2023 20:01:16 GMT
 - Remove additional `changeView` call on `ViewportComponent` mount.
 
 ## 4.6.3
-
 Wed, 25 Oct 2023 09:39:22 GMT
 
 _Version update only_
 
 ## 4.6.2
-
 Tue, 17 Oct 2023 19:16:23 GMT
 
 _Version update only_
 
 ## 4.6.1
-
 Thu, 12 Oct 2023 16:59:20 GMT
 
 _Version update only_
 
 ## 4.6.0
-
 Wed, 04 Oct 2023 18:05:34 GMT
 
 _Version update only_
 
 ## 4.5.1
-
 Fri, 08 Sep 2023 16:10:53 GMT
 
 _Version update only_
 
 ## 4.5.0
-
 Wed, 06 Sep 2023 17:29:22 GMT
 
 _Version update only_
 
 ## 4.4.0
-
 Tue, 15 Aug 2023 18:02:09 GMT
 
 _Version update only_
 
 ## 4.3.0
-
 Mon, 17 Jul 2023 10:16:20 GMT
 
 ### Updates
@@ -405,7 +334,6 @@ Mon, 17 Jul 2023 10:16:20 GMT
 - Update sinon to 15.2.0 and @types/sinon to 10.0.15
 
 ## 4.2.0
-
 Tue, 27 Jun 2023 14:50:22 GMT
 
 ### Updates
@@ -414,7 +342,6 @@ Tue, 27 Jun 2023 14:50:22 GMT
 - Update `@itwin/itwinui-react` version to 2.11.6.
 
 ## 4.1.0
-
 Mon, 29 May 2023 14:05:04 GMT
 
 ### Updates
@@ -423,13 +350,11 @@ Mon, 29 May 2023 14:05:04 GMT
 - Change arrow-click rotation logic to allow rotation to rotated faces.
 
 ## 4.0.1
-
 Fri, 19 May 2023 12:24:31 GMT
 
 _Version update only_
 
 ## 4.0.0
-
 Mon, 01 May 2023 13:32:16 GMT
 
 ### Updates
@@ -448,19 +373,16 @@ Mon, 01 May 2023 13:32:16 GMT
 - Remove webfont icons from components.
 
 ## 3.7.2
-
 Wed, 12 Apr 2023 13:12:42 GMT
 
 _Version update only_
 
 ## 3.7.1
-
 Mon, 03 Apr 2023 15:15:37 GMT
 
 _Version update only_
 
 ## 3.7.0
-
 Wed, 29 Mar 2023 15:02:27 GMT
 
 ### Updates
@@ -471,25 +393,21 @@ Wed, 29 Mar 2023 15:02:27 GMT
 - Update @deprecated comments
 
 ## 3.6.3
-
 Mon, 27 Mar 2023 16:26:47 GMT
 
 _Version update only_
 
 ## 3.6.2
-
 Fri, 17 Mar 2023 17:52:32 GMT
 
 _Version update only_
 
 ## 3.6.1
-
 Fri, 24 Feb 2023 22:00:48 GMT
 
 _Version update only_
 
 ## 3.6.0
-
 Wed, 08 Feb 2023 14:58:40 GMT
 
 ### Updates
@@ -497,43 +415,36 @@ Wed, 08 Feb 2023 14:58:40 GMT
 - Use EmptyLocalization for localization in tests to increase test performance
 
 ## 3.5.6
-
 Fri, 24 Feb 2023 16:02:47 GMT
 
 _Version update only_
 
 ## 3.5.5
-
 Thu, 26 Jan 2023 22:53:27 GMT
 
 _Version update only_
 
 ## 3.5.4
-
 Wed, 18 Jan 2023 15:27:15 GMT
 
 _Version update only_
 
 ## 3.5.3
-
 Fri, 13 Jan 2023 17:23:07 GMT
 
 _Version update only_
 
 ## 3.5.2
-
 Wed, 11 Jan 2023 16:46:30 GMT
 
 _Version update only_
 
 ## 3.5.1
-
 Thu, 15 Dec 2022 16:38:29 GMT
 
 _Version update only_
 
 ## 3.5.0
-
 Wed, 07 Dec 2022 19:12:37 GMT
 
 ### Updates
@@ -541,49 +452,41 @@ Wed, 07 Dec 2022 19:12:37 GMT
 - Unpin classnames package
 
 ## 3.4.7
-
 Wed, 30 Nov 2022 14:28:19 GMT
 
 _Version update only_
 
 ## 3.4.6
-
 Tue, 22 Nov 2022 14:24:19 GMT
 
 _Version update only_
 
 ## 3.4.5
-
 Thu, 17 Nov 2022 21:32:50 GMT
 
 _Version update only_
 
 ## 3.4.4
-
 Thu, 10 Nov 2022 19:32:17 GMT
 
 _Version update only_
 
 ## 3.4.3
-
 Fri, 28 Oct 2022 13:34:58 GMT
 
 _Version update only_
 
 ## 3.4.2
-
 Mon, 24 Oct 2022 13:23:45 GMT
 
 _Version update only_
 
 ## 3.4.1
-
 Mon, 17 Oct 2022 20:06:51 GMT
 
 _Version update only_
 
 ## 3.4.0
-
 Thu, 13 Oct 2022 20:24:47 GMT
 
 ### Updates
@@ -592,37 +495,31 @@ Thu, 13 Oct 2022 20:24:47 GMT
 - Fix/Remove skipped tests
 
 ## 3.3.5
-
 Tue, 27 Sep 2022 11:50:59 GMT
 
 _Version update only_
 
 ## 3.3.4
-
 Thu, 08 Sep 2022 19:00:05 GMT
 
 _Version update only_
 
 ## 3.3.3
-
 Tue, 06 Sep 2022 20:54:19 GMT
 
 _Version update only_
 
 ## 3.3.2
-
 Thu, 01 Sep 2022 14:37:22 GMT
 
 _Version update only_
 
 ## 3.3.1
-
 Fri, 26 Aug 2022 15:40:02 GMT
 
 _Version update only_
 
 ## 3.3.0
-
 Thu, 18 Aug 2022 19:08:02 GMT
 
 ### Updates
@@ -634,55 +531,46 @@ Thu, 18 Aug 2022 19:08:02 GMT
 - Update iTwinUI-react to 1.38.1
 
 ## 3.2.9
-
 Fri, 26 Aug 2022 14:21:40 GMT
 
 _Version update only_
 
 ## 3.2.8
-
 Tue, 09 Aug 2022 15:52:41 GMT
 
 _Version update only_
 
 ## 3.2.7
-
 Mon, 01 Aug 2022 13:36:56 GMT
 
 _Version update only_
 
 ## 3.2.6
-
 Fri, 15 Jul 2022 19:04:43 GMT
 
 _Version update only_
 
 ## 3.2.5
-
 Wed, 13 Jul 2022 15:45:53 GMT
 
 _Version update only_
 
 ## 3.2.4
-
 Tue, 21 Jun 2022 18:06:33 GMT
 
 _Version update only_
 
 ## 3.2.3
-
 Fri, 17 Jun 2022 15:18:39 GMT
 
 _Version update only_
 
 ## 3.2.2
-
 Fri, 10 Jun 2022 16:11:37 GMT
 
 _Version update only_
 
 ## 3.2.1
-
 Tue, 07 Jun 2022 15:02:56 GMT
 
 ### Updates
@@ -690,7 +578,6 @@ Tue, 07 Jun 2022 15:02:56 GMT
 - Remove fix height from ColorPicker dialog.
 
 ## 3.2.0
-
 Fri, 20 May 2022 13:10:54 GMT
 
 ### Updates
@@ -698,25 +585,21 @@ Fri, 20 May 2022 13:10:54 GMT
 - Fix for losing viewport content after clicking PW link
 
 ## 3.1.3
-
 Fri, 15 Apr 2022 13:49:25 GMT
 
 _Version update only_
 
 ## 3.1.2
-
 Wed, 06 Apr 2022 22:27:56 GMT
 
 _Version update only_
 
 ## 3.1.1
-
 Thu, 31 Mar 2022 15:55:48 GMT
 
 _Version update only_
 
 ## 3.1.0
-
 Tue, 29 Mar 2022 20:53:47 GMT
 
 ### Updates
@@ -730,19 +613,16 @@ Tue, 29 Mar 2022 20:53:47 GMT
 - Update to latest itwinui-react.
 
 ## 3.0.3
-
 Fri, 25 Mar 2022 15:10:02 GMT
 
 _Version update only_
 
 ## 3.0.2
-
 Thu, 10 Mar 2022 21:18:13 GMT
 
 _Version update only_
 
 ## 3.0.1
-
 Thu, 24 Feb 2022 15:26:55 GMT
 
 ### Updates
@@ -750,7 +630,6 @@ Thu, 24 Feb 2022 15:26:55 GMT
 - Avoid processing stale viewStates that reference closed imodels.
 
 ## 3.0.0
-
 Mon, 24 Jan 2022 14:00:52 GMT
 
 ### Updates
@@ -765,7 +644,7 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - tool.run and tool.parseAndRun are now async methods
 - Deprecate obsolete code.
 - Create empty frontstage and UiItemsProviders to populate it and update how ContentGroups are defined.
-- update immer to fix security warning
+-  update immer to fix security warning
 - Deprecate and promote apis
 - Deprecate obsolete APIs. Publish beta APIs from last release.
 - Upgraded itwinui-react to 1.16.2. Fixed editor sizes.
@@ -784,3 +663,4 @@ Mon, 24 Jan 2022 14:00:52 GMT
 - Update to latest types/react package
 - Update ViewportComponent to function component that properly processes async method to get viewState.
 - Lock down and update version numbers so docs will build.
+
