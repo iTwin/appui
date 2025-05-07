@@ -51,7 +51,7 @@ export interface TreeEventHandlerParams {
  * Default tree event handler.
  * @public
  */
-export class TreeEventHandler implements TreeEvents, Disposable {
+export class TreeEventHandler implements TreeEvents {
   private _modelMutator: TreeModelMutator;
   private _editingParams?: TreeEditingParams;
 

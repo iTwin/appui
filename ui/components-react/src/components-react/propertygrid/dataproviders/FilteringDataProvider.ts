@@ -58,9 +58,7 @@ export interface FilteredPropertyData extends PropertyData {
  * [[IPropertyDataProvider]] implementation which filters wrapped provider [[PropertyData]] using passed [[IPropertyDataFilterer]].
  * @public
  */
-export class FilteringPropertyDataProvider
-  implements IPropertyDataProvider, Disposable
-{
+export class FilteringPropertyDataProvider implements IPropertyDataProvider {
   public onDataChanged = new PropertyDataChangeEvent();
   private _filteredPropertyData: Promise<FilteredPropertyData> | undefined =
     undefined;
