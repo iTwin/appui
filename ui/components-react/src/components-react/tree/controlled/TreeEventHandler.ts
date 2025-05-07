@@ -68,7 +68,7 @@ export class TreeEventHandler implements TreeEvents, Disposable {
   }
 
   /** Destructor. Must be called to clean up.  */
-  public [Symbol.dispose](): void {
+  public [Symbol.dispose]() {
     this._disposed.next();
   }
 
