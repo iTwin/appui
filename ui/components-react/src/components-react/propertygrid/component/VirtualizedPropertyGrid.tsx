@@ -105,7 +105,7 @@ export interface PropertyGridInternalContext {
 }
 
 /**
- * Context of the surrounding [VirtualizedPropertyGrid]($components-react) component.
+ * Context of the surrounding [[VirtualizedPropertyGrid]] component.
  * @public
  */
 export interface VirtualizedPropertyGridContext {

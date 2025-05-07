@@ -22,7 +22,12 @@ import {
   RegisterUiProviderTool,
 } from "@itwin/appui-test-providers";
 import { BentleyCloudRpcManager, RpcConfiguration } from "@itwin/core-common";
-import { IModelApp, IModelAppOptions, ToolAdmin } from "@itwin/core-frontend";
+import {
+  IModelApp,
+  IModelAppOptions,
+  LocalhostIpcApp,
+  ToolAdmin,
+} from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
 import { getSupportedRpcs } from "../common/rpcs";
 import { config } from "./config";
@@ -102,8 +107,12 @@ function createInitializer() {
       await ElectronApp.startup({
         iModelApp: options,
       });
-    } else {
+    } else if (config.tests) {
       await IModelApp.startup(options);
+    } else {
+      await LocalhostIpcApp.startup({
+        iModelApp: options,
+      });
     }
 
     ToolAdmin.exceptionHandler = async (err) =>

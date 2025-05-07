@@ -52,8 +52,9 @@ import { isStatusBarCustomItem } from "../statusbar/StatusBarItem.js";
 
 const _abstract = abstract;
 
-// @ts-ignore Removed in 4.0
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const AbstractUiItemsManager: typeof AbstractUiItemsManagerType | undefined =
+  // @ts-ignore Removed in 4.0
   _abstract.UiItemsManager;
 // @ts-ignore Removed in 4.0
 const isAbstractStatusBarCustomItem = _abstract.isAbstractStatusBarCustomItem;
@@ -65,6 +66,18 @@ const AbstractStagePanelLocation = _abstract.StagePanelLocation; // eslint-disab
 type AbstractStagePanelSection = _abstract.StagePanelSection;
 // @ts-ignore Removed in 4.0
 const AbstractStagePanelSection = _abstract.StagePanelSection; // eslint-disable-line @typescript-eslint/no-redeclare
+// @ts-ignore Removed in 4.0
+type AbstractToolbarUsage = _abstract.ToolbarUsage;
+// @ts-ignore Removed in 4.0
+const AbstractToolbarUsage = _abstract.ToolbarUsage; // eslint-disable-line @typescript-eslint/no-redeclare
+// @ts-ignore Removed in 4.0
+type AbstractToolbarOrientation = _abstract.ToolbarOrientation;
+// @ts-ignore Removed in 4.0
+const AbstractToolbarOrientation = _abstract.ToolbarOrientation; // eslint-disable-line @typescript-eslint/no-redeclare
+// @ts-ignore Removed in 4.0
+type AbstractZoneLocation = _abstract.AbstractZoneLocation;
+// @ts-ignore Removed in 4.0
+const AbstractZoneLocation = _abstract.AbstractZoneLocation; // eslint-disable-line @typescript-eslint/no-redeclare
 
 const AbstractToolbarItemUtilities = abstract.ToolbarItemUtilities;
 
@@ -263,17 +276,21 @@ function createUiItemsProviderToAbstractAdapter(
       const abstractItems = items.map((item) => toAbstractBackstageItem(item));
       return abstractItems;
     },
-    provideStatusBarItems: (stageId, stageUsage, _stageAppData) => {
+    provideStatusBarItems: (
+      stageId: string,
+      stageUsage: string,
+      _stageAppData: any
+    ) => {
       const items = provider.provideStatusBarItems(stageId, stageUsage);
       const abstractItems = items.map((item) => toAbstractStatusBarItem(item));
       return abstractItems;
     },
     provideToolbarButtonItems: (
-      stageId,
-      stageUsage,
-      usage,
-      orientation,
-      _stageAppData
+      stageId: string,
+      stageUsage: string,
+      usage: AbstractToolbarUsage,
+      orientation: AbstractToolbarOrientation,
+      _stageAppData: any
     ) => {
       const items = provider.provideToolbarItems(
         stageId,
@@ -285,12 +302,12 @@ function createUiItemsProviderToAbstractAdapter(
       return abstractItems;
     },
     provideWidgets: (
-      stageId,
-      stageUsage,
-      abstractLocation,
-      abstractSection,
-      _zoneLocation,
-      _stageAppData
+      stageId: string,
+      stageUsage: string,
+      abstractLocation: AbstractStagePanelLocation,
+      abstractSection: AbstractStagePanelSection,
+      _zoneLocation: AbstractZoneLocation,
+      _stageAppData: any
     ) => {
       const location = fromAbstractStagePanelLocation(abstractLocation);
       const section =
@@ -407,7 +424,6 @@ function createAbstractToUiItemsProviderAdapter(
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 function getBadgeType(badgeKind: BadgeKind | undefined) {
   switch (badgeKind) {
     case "new":

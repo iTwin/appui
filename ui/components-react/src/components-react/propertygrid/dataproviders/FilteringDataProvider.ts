@@ -6,9 +6,10 @@
  * @module PropertyGrid
  */
 
+import "../../common/DisposePolyfill.js";
+
 import type { PropertyRecord, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
-import type { IDisposable } from "@itwin/core-bentley";
 import type { HighlightInfo } from "../../common/HighlightingComponentProps.js";
 import type { CategoryRecordsDict } from "../internal/flat-items/MutableGridCategory.js";
 import type {
@@ -58,7 +59,7 @@ export interface FilteredPropertyData extends PropertyData {
  * @public
  */
 export class FilteringPropertyDataProvider
-  implements IPropertyDataProvider, IDisposable
+  implements IPropertyDataProvider, Disposable
 {
   public onDataChanged = new PropertyDataChangeEvent();
   private _filteredPropertyData: Promise<FilteredPropertyData> | undefined =
@@ -82,9 +83,15 @@ export class FilteringPropertyDataProvider
       });
   }
 
-  public dispose(): void {
+  /** Destructor. Must be called to clean up.  */
+  public [Symbol.dispose]() {
     this._disposeDataChangedListener();
     this._disposeFilterChangedListener();
+  }
+
+  /** @deprecated in 5.5.0. Use `[Symbol.dispose]` instead. */
+  public dispose(): void {
+    this[Symbol.dispose]();
   }
 
   public async getData(): Promise<FilteredPropertyData> {

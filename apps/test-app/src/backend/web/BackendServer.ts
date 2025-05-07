@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { Logger } from "@itwin/core-bentley";
 import { IModelJsExpressServer } from "@itwin/express-server";
-import { IModelHost, IModelHostOptions } from "@itwin/core-backend";
+import { IModelHostOptions, LocalhostIpcHost } from "@itwin/core-backend";
 import { BentleyCloudRpcManager } from "@itwin/core-common";
 import { getSupportedRpcs } from "../../common/rpcs";
 import { loggerCategory } from "../logging";
@@ -27,5 +27,7 @@ export async function initializeWeb(opts?: IModelHostOptions) {
     loggerCategory,
     `Web backend for test-app listening on port ${port}`
   );
-  await IModelHost.startup(opts);
+  await LocalhostIpcHost.startup({
+    iModelHost: opts,
+  });
 }

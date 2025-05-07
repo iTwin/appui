@@ -177,7 +177,6 @@ export class WidgetDef {
   public get badgeType(): BadgeType | undefined {
     return this._badge;
   }
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   public get badgeKind(): BadgeKind | undefined {
     return this._badgeKind;
   }

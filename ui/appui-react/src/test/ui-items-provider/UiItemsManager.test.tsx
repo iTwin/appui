@@ -126,9 +126,7 @@ describe("UiItemsManager", () => {
   });
 
   describe("unregister", () => {
-    describe("AbstractUiItemsManager", () => {
-      if (!AbstractUiItemsManager) return;
-
+    describe.skipIf(!AbstractUiItemsManager)("AbstractUiItemsManager", () => {
       it("should un-register a provider", () => {
         UiItemsManager.register({
           id: "provider1",
@@ -156,9 +154,7 @@ describe("UiItemsManager", () => {
   });
 
   describe("onUiProviderRegisteredEvent", () => {
-    describe("AbstractUiItemsManager", () => {
-      if (!AbstractUiItemsManager) return;
-
+    describe.skipIf(!AbstractUiItemsManager)("AbstractUiItemsManager", () => {
       it("should emit events", () => {
         const spy = vi.fn();
         const abstractSpy = vi.fn();
@@ -200,9 +196,7 @@ describe("UiItemsManager", () => {
       ]);
     });
 
-    describe("AbstractUiItemsManager", () => {
-      if (!AbstractUiItemsManager) return;
-
+    describe.skipIf(!AbstractUiItemsManager)("AbstractUiItemsManager", () => {
       it("should provide toolbar items", () => {
         const execute1 = vi.fn();
         const execute3 = vi.fn();
@@ -500,9 +494,7 @@ describe("UiItemsManager", () => {
       ]);
     });
 
-    describe("AbstractUiItemsManager", () => {
-      if (!AbstractUiItemsManager) return;
-
+    describe.skipIf(!AbstractUiItemsManager)("AbstractUiItemsManager", () => {
       it("should provide status bar items", () => {
         const execute2 = vi.fn();
         const execute4 = vi.fn();
@@ -757,9 +749,7 @@ describe("UiItemsManager", () => {
       ]);
     });
 
-    describe("AbstractUiItemsManager", () => {
-      if (!AbstractUiItemsManager) return;
-
+    describe.skipIf(!AbstractUiItemsManager)("AbstractUiItemsManager", () => {
       it("should provide backstage items", () => {
         const execute = vi.fn();
         UiItemsManager.register({
@@ -955,9 +945,7 @@ describe("UiItemsManager", () => {
       );
     });
 
-    describe("AbstractUiItemsManager", () => {
-      if (!AbstractUiItemsManager) return;
-
+    describe.skipIf(!AbstractUiItemsManager)("AbstractUiItemsManager", () => {
       it("should provide widgets", () => {
         UiItemsManager.register({
           id: "provider1",

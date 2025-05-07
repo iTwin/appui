@@ -143,6 +143,8 @@ jobs:
 
       - run: pnpm install
       - run: pnpm build
+        env:
+          IMJS_TESTS: 1
 
       - run: pnpm --filter=e2e-tests exec playwright test
         env:

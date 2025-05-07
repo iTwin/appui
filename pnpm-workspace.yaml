@@ -5,5 +5,31 @@ packages:
   - tools/codemod
   - docs/storybook
 
+catalog:
+  # iTwin.js core packages
+  "@itwin/appui-abstract": rc
+  "@itwin/core-backend": rc
+  "@itwin/core-bentley": rc
+  "@itwin/core-common": rc
+  "@itwin/core-electron": rc
+  "@itwin/core-frontend": rc
+  "@itwin/core-geometry": rc
+  "@itwin/core-i18n": rc
+  "@itwin/core-orbitgt": rc
+  "@itwin/core-quantity": rc
+  "@itwin/ecschema-metadata": rc
+  "@itwin/ecschema-rpcinterface-common": rc
+  "@itwin/ecschema-rpcinterface-impl": rc
+  "@itwin/editor-backend": rc
+  "@itwin/editor-common": rc
+  "@itwin/editor-frontend": rc
+  "@itwin/express-server": rc
+  "@itwin/frontend-devtools": rc
+  "@itwin/hypermodeling-frontend": rc
+  "@itwin/webgl-compatibility": rc
+
+onlyBuiltDependencies:
+  - "@bentley/imodeljs-native"
+
 patchedDependencies:
   "@changesets/assemble-release-plan": patches/@changesets__assemble-release-plan.patch

@@ -20,6 +20,7 @@ import type { IDisposable } from "@itwin/core-bentley";
  * @public
  * @deprecated in 4.15.0. Not use by AppUI.
  */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class ScrollPositionMaintainer implements IDisposable {
   private _storage: Map<Element, number>;
   public constructor(el: Element) {

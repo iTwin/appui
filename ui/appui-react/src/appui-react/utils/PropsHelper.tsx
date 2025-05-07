@@ -77,7 +77,7 @@ export class PropsHelper {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     iconSpec: IconSpec,
     internalData?: Map<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    // eslint-disable-next-line @typescript-eslint/no-deprecated, @typescript-eslint/no-redundant-type-constituents
   ): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
     if (!iconSpec || !React.isValidElement(iconSpec)) return {};
 
