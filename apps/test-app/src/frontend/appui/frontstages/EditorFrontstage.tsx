@@ -55,6 +55,7 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
     ],
     getToolbarItems: () => [
       ToolbarItemUtilities.createForTool(CreateCircleTool, {
+        label: "Create Circle",
         layouts: {
           standard: {
             orientation: ToolbarOrientation.Horizontal,
