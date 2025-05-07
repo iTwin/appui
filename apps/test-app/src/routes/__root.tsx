@@ -227,9 +227,12 @@ function AppBreadcrumbs() {
     );
   }
   if (briefcaseMatch) {
-    const filename = briefcaseMatch.search.filePath.replace(/^.*[\\/]/, "");
+    const fileName =
+      "filePath" in briefcaseMatch.search
+        ? briefcaseMatch.search.filePath.replace(/^.*[\\/]/, "")
+        : briefcaseMatch.search.fileName;
     items.push(
-      <HeaderButton key="briefcase" name={filename} startIcon={<SvgImodel />} />
+      <HeaderButton key="briefcase" name={fileName} startIcon={<SvgImodel />} />
     );
   }
 

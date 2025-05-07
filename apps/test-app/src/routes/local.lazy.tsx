@@ -35,10 +35,12 @@ function Local() {
               const isIpcApp =
                 ProcessDetector.isElectronAppFrontend || !config.tests;
               if (isIpcApp) {
-                const filePath = `${config.bimDir}/${fileName}`;
                 void navigate({
                   to: "/briefcase",
-                  search: (prev) => ({ ...prev, filePath }),
+                  search: (prev) => {
+                    const { filePath: _, ...rest } = prev;
+                    return { ...rest, fileName };
+                  },
                 });
                 return;
               }
@@ -65,7 +67,10 @@ function Local() {
 
             void navigate({
               to: "/briefcase",
-              search: (prev) => ({ ...prev, filePath }),
+              search: (prev) => {
+                const { fileName: _, ...rest } = prev;
+                return { ...rest, filePath };
+              },
             });
           }}
           style={{ marginTop: "var(--iui-size-l)" }}
