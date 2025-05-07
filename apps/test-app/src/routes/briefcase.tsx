@@ -29,6 +29,10 @@ export const Route = createFileRoute("/briefcase")({
       viewState,
     };
   },
+  onLeave: (ctx) => {
+    const iModelConnection = ctx.loaderData?.iModelConnection;
+    void iModelConnection?.close();
+  },
   validateSearch: (search: AppParams & { filePath: string }) => {
     return search;
   },
