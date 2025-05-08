@@ -37,7 +37,6 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public static override toolId = "CreateCircle";
   private _point?: Point3d;
   private _current?: Arc3d;
-  private _lastEv?: BeButtonEvent;
 
   private _radiusProperty: DialogProperty<number> | undefined;
   public get radiusProperty() {
@@ -62,6 +61,11 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
       }
     }
     return super.targetCategory;
+  }
+
+  public override get targetModelId(): Id64String {
+    if (!this.briefcase) return "";
+    return super.targetModelId;
   }
 
   public override isCompatibleViewport(
@@ -126,7 +130,6 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     ev: BeButtonEvent,
     isDynamics: boolean
   ) {
-    this._lastEv = ev;
     if (!isDynamics) {
       this._point = ev.point.clone();
     }
@@ -140,7 +143,7 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   }
 
   protected override async cancelPoint(ev: BeButtonEvent): Promise<boolean> {
-    if (this.isComplete(ev) && this.briefcase) {
+    if (this.isComplete(ev)) {
       await this.createElement();
     }
     return true;
@@ -166,7 +169,6 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
 
     if (updatedValue.propertyName === this.radiusProperty.name) {
       IModelApp.toolAdmin.simulateMotionEvent(); // this will not update the dynamics if the mouse has left the viewport
-      IModelApp.toolAdmin.updateDynamics(this._lastEv); // workaround until simulateMotionEvent is fixed
     }
     return true;
   }
