@@ -34,7 +34,9 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
       try {
         const toolAdmin = IModelApp.toolAdmin;
         await toolAdmin.activeTool?.applyToolSettingPropertyChange(syncItem);
-        toolAdmin.simulateMotionEvent();
+        if ("simulateMotionEvent" in toolAdmin) {
+          toolAdmin.simulateMotionEvent();
+        }
       } catch (err) {
         UnexpectedErrors.handle(err);
       }
