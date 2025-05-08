@@ -18,13 +18,41 @@ import {
   AccuDrawHintBuilder,
   BeButton,
   BeButtonEvent,
+  Viewport,
 } from "@itwin/core-frontend";
 import { Arc3d, Point3d, YawPitchRollAngles } from "@itwin/core-geometry";
+import { Id64String } from "@itwin/core-bentley";
 
+/** Tool to test dynamic graphics and tool settings.
+ * Will not insert an element, but will show a circle at the point clicked.
+ */
 class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public static override toolId = "CreateCircle";
   private _point?: Point3d;
   private _current?: Arc3d;
+
+  public override get targetCategory(): Id64String {
+    if (!this.briefcase) {
+      for (const category of this.targetView?.view.categorySelector
+        .categories ?? []) {
+        return category;
+      }
+    }
+    return super.targetCategory;
+  }
+
+  public override isCompatibleViewport(
+    vp: Viewport | undefined,
+    isSelectedViewChange: boolean
+  ) {
+    const iModel = vp?.iModel;
+    if (iModel && !iModel.isBriefcaseConnection()) {
+      this.targetView = vp;
+      return true;
+    }
+
+    return super.isCompatibleViewport(vp, isSelectedViewChange);
+  }
 
   protected override getPlacementProps(): PlacementProps | undefined {
     const vp = this.targetView;
@@ -88,7 +116,7 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   }
 
   protected override async cancelPoint(ev: BeButtonEvent): Promise<boolean> {
-    if (this.isComplete(ev)) {
+    if (this.isComplete(ev) && this.briefcase) {
       await this.createElement();
     }
     return true;
