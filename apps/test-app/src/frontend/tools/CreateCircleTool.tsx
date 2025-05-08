@@ -18,10 +18,17 @@ import {
   AccuDrawHintBuilder,
   BeButton,
   BeButtonEvent,
+  IModelApp,
+  LengthDescription,
   Viewport,
 } from "@itwin/core-frontend";
 import { Arc3d, Point3d, YawPitchRollAngles } from "@itwin/core-geometry";
 import { Id64String } from "@itwin/core-bentley";
+import {
+  DialogItem,
+  DialogProperty,
+  DialogPropertySyncItem,
+} from "@itwin/appui-abstract";
 
 /** Tool to test dynamic graphics and tool settings.
  * Will not insert an element, but will show a circle at the point clicked.
@@ -30,6 +37,22 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public static override toolId = "CreateCircle";
   private _point?: Point3d;
   private _current?: Arc3d;
+  private _lastEv?: BeButtonEvent;
+
+  private _radiusProperty: DialogProperty<number> | undefined;
+  public get radiusProperty() {
+    if (!this._radiusProperty)
+      this._radiusProperty = new DialogProperty<number>(
+        new LengthDescription("radius", "Radius"),
+        1,
+        undefined
+      );
+    return this._radiusProperty;
+  }
+
+  public get radius(): number {
+    return this.radiusProperty.value;
+  }
 
   public override get targetCategory(): Id64String {
     if (!this.briefcase) {
@@ -103,12 +126,13 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     ev: BeButtonEvent,
     isDynamics: boolean
   ) {
+    this._lastEv = ev;
     if (!isDynamics) {
       this._point = ev.point.clone();
     }
 
     if (!this._point) return;
-    this._current = Arc3d.createXY(this._point, 2);
+    this._current = Arc3d.createXY(this._point, this.radius);
   }
 
   protected override isComplete(ev: BeButtonEvent): boolean {
@@ -125,6 +149,26 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public override async onRestartTool(): Promise<void> {
     const tool = new CreateCircleTool();
     if (!(await tool.run())) return this.exitTool();
+  }
+
+  public override supplyToolSettingsProperties(): DialogItem[] | undefined {
+    this.initializeToolSettingPropertyValues([this.radiusProperty]);
+
+    return [
+      this.radiusProperty.toDialogItem({ rowPriority: 0, columnIndex: 0 }),
+    ];
+  }
+
+  public override async applyToolSettingPropertyChange(
+    updatedValue: DialogPropertySyncItem
+  ): Promise<boolean> {
+    if (!this.changeToolSettingPropertyValue(updatedValue)) return false;
+
+    if (updatedValue.propertyName === this.radiusProperty.name) {
+      IModelApp.toolAdmin.simulateMotionEvent(); // this will not update the dynamics if the mouse has left the viewport
+      IModelApp.toolAdmin.updateDynamics(this._lastEv); // workaround until simulateMotionEvent is fixed
+    }
+    return true;
   }
 }
 
