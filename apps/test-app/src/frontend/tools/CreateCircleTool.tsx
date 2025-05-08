@@ -166,10 +166,6 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     updatedValue: DialogPropertySyncItem
   ): Promise<boolean> {
     if (!this.changeToolSettingPropertyValue(updatedValue)) return false;
-
-    if (updatedValue.propertyName === this.radiusProperty.name) {
-      IModelApp.toolAdmin.simulateMotionEvent(); // this will not update the dynamics if the mouse has left the viewport
-    }
     return true;
   }
 }
