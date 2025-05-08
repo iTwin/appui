@@ -26,6 +26,7 @@ import {
   IModelApp,
   IModelAppOptions,
   LocalhostIpcApp,
+  LocalUnitFormatProvider,
   ToolAdmin,
 } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
@@ -115,6 +116,10 @@ function createInitializer() {
         iModelApp: options,
       });
     }
+
+    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(
+      new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)
+    );
 
     ToolAdmin.exceptionHandler = async (err) =>
       Promise.resolve(UnexpectedErrors.handle(err));
