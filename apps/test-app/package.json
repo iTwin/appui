@@ -105,7 +105,7 @@
     "@itwin/itwinui-layouts-css": "~0.4.0",
     "@itwin/reality-data-client": "1.2.2",
     "@itwin/webgl-compatibility": "catalog:",
-    "@tanstack/react-router": "^1.87.6",
+    "@tanstack/react-router": "^1.120.2",
     "classnames": "2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
