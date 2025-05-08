@@ -43,25 +43,13 @@ function Local() {
             name={fileName}
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
-              if (openBriefcase) {
-                void navigate({
-                  to: "/briefcase",
-                  search: (prev) => {
-                    const { filePath: _, ...rest } = prev;
-                    return { ...rest, fileName };
-                  },
-                });
-                return;
-              }
               void navigate({
-                to: "/local/$fileName",
+                to: openBriefcase
+                  ? ("/briefcase/$fileName" as const)
+                  : ("/local/$fileName" as const),
                 params: { fileName },
                 search: (prev) => {
-                  const {
-                    fileName: _fileName,
-                    filePath: _filePath,
-                    ...rest
-                  } = prev;
+                  const { filePath: _, ...rest } = prev;
                   return rest;
                 },
               });
@@ -78,15 +66,19 @@ function Local() {
             });
             if (val.canceled) return;
 
-            const filePath = val.filePaths[0];
-            if (!filePath) return;
+            const fullFilePath = val.filePaths[0];
+            if (!fullFilePath) return;
+
+            const fileName = fullFilePath.split("/").pop();
+            const filePath = fullFilePath.substring(
+              0,
+              fullFilePath.lastIndexOf("/")
+            );
 
             void navigate({
-              to: "/briefcase",
-              search: (prev) => {
-                const { fileName: _, ...rest } = prev;
-                return { ...rest, filePath };
-              },
+              to: "/briefcase/$fileName",
+              params: { fileName },
+              search: (prev) => ({ ...prev, filePath }),
             });
           }}
           style={{ marginTop: "var(--iui-size-l)" }}

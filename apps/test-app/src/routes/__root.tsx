@@ -66,7 +66,10 @@ function AppRoot() {
   const navigate = useNavigate();
   const matchRoute = useMatchRoute();
   const localMatch = matchRoute({ to: "/local", fuzzy: true });
-  const briefcaseMatch = matchRoute({ to: "/briefcase", fuzzy: true });
+  const briefcaseMatch = matchRoute({
+    to: "/briefcase/$fileName",
+    fuzzy: true,
+  });
   const blankMatch = matchRoute({ to: "/blank", fuzzy: true });
   const iTwinsMatch = matchRoute({ to: "/iTwins", fuzzy: true });
   const iTwinMatch = matchRoute({ to: "/iTwin/$iTwinId", fuzzy: true });
@@ -214,7 +217,10 @@ function RouterDevToolsButton() {
 
 function AppBreadcrumbs() {
   const matchRoute = useMatchRoute();
-  const briefcaseMatch = useMatch({ from: "/briefcase", shouldThrow: false });
+  const briefcaseMatch = useMatch({
+    from: "/briefcase/$fileName",
+    shouldThrow: false,
+  });
   const localBim = matchRoute({ to: "/local/$fileName" });
   const items = [];
   if (localBim) {
@@ -227,10 +233,7 @@ function AppBreadcrumbs() {
     );
   }
   if (briefcaseMatch) {
-    const fileName =
-      "filePath" in briefcaseMatch.search
-        ? briefcaseMatch.search.filePath.replace(/^.*[\\/]/, "")
-        : briefcaseMatch.search.fileName;
+    const fileName = briefcaseMatch.params.fileName;
     items.push(
       <HeaderButton key="briefcase" name={fileName} startIcon={<SvgImodel />} />
     );

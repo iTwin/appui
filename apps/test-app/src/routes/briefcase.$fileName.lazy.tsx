@@ -12,7 +12,7 @@ import {
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { useEditorToolSettings } from "../frontend/appui/useEditorToolSettings";
 
-export const Route = createLazyFileRoute("/briefcase")({
+export const Route = createLazyFileRoute("/briefcase/$fileName")({
   component: Briefcase,
 });
 

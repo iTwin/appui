@@ -10,18 +10,19 @@ import { UiFramework } from "@itwin/appui-react";
 import { AppParams } from "../frontend/SearchParams";
 import { registerFrontstages } from "../frontend/registerFrontstages";
 import { config } from "../frontend/config";
+import { ProcessDetector } from "@itwin/core-bentley";
 
-export const Route = createFileRoute("/briefcase")({
+export const Route = createFileRoute("/briefcase/$fileName")({
   loaderDeps: ({ search }) => {
-    if ("fileName" in search) return { fileName: search.fileName };
-    return { filePath: search.filePath };
+    if ("filePath" in search && typeof search.filePath === "string")
+      return { filePath: search.filePath };
+    return {};
   },
   loader: async (ctx) => {
     await appInitializer.initialize();
 
-    const fileName = ctx.deps.fileName
-      ? `${config.bimDir}/${ctx.deps.fileName}`
-      : ctx.deps.filePath!;
+    const filePath = ctx.deps.filePath ?? config.bimDir;
+    const fileName = `${filePath}/${ctx.params.fileName}`;
     const iModelConnection = await BriefcaseConnection.openFile({
       fileName,
     });
@@ -41,9 +42,13 @@ export const Route = createFileRoute("/briefcase")({
     void iModelConnection?.close();
   },
   validateSearch: (
-    search: AppParams & ({ filePath: string } | { fileName: string })
-  ) => {
-    return search;
+    search: AppParams & { filePath?: string }
+  ): AppParams & { filePath?: string } => {
+    if (ProcessDetector.isElectronAppFrontend) {
+      return search;
+    }
+    const { filePath: _filePath, ...rest } = search;
+    return rest;
   },
   shouldReload: (ctx) => {
     return ctx.cause === "enter";

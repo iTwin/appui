@@ -17,10 +17,10 @@ import { Route as SigninCallbackImport } from './routes/signin-callback'
 import { Route as SettingsImport } from './routes/settings'
 import { Route as LocalImport } from './routes/local'
 import { Route as ITwinsImport } from './routes/iTwins'
-import { Route as BriefcaseImport } from './routes/briefcase'
 import { Route as BlankImport } from './routes/blank'
 import { Route as LocalFileNameImport } from './routes/local_.$fileName'
 import { Route as ITwinITwinIdImport } from './routes/iTwin_.$iTwinId'
+import { Route as BriefcaseFileNameImport } from './routes/briefcase.$fileName'
 import { Route as ITwinITwinIdIModelIModelIdImport } from './routes/iTwin.$iTwinId.iModel.$iModelId'
 
 // Create Virtual Routes
@@ -53,12 +53,6 @@ const ITwinsRoute = ITwinsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const BriefcaseRoute = BriefcaseImport.update({
-  id: '/briefcase',
-  path: '/briefcase',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/briefcase.lazy').then((d) => d.Route))
-
 const BlankRoute = BlankImport.update({
   id: '/blank',
   path: '/blank',
@@ -82,6 +76,14 @@ const ITwinITwinIdRoute = ITwinITwinIdImport.update({
   path: '/iTwin/$iTwinId',
   getParentRoute: () => rootRoute,
 } as any)
+
+const BriefcaseFileNameRoute = BriefcaseFileNameImport.update({
+  id: '/briefcase/$fileName',
+  path: '/briefcase/$fileName',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/briefcase.$fileName.lazy').then((d) => d.Route),
+)
 
 const ITwinITwinIdIModelIModelIdRoute = ITwinITwinIdIModelIModelIdImport.update(
   {
@@ -107,13 +109,6 @@ declare module '@tanstack/react-router' {
       path: '/blank'
       fullPath: '/blank'
       preLoaderRoute: typeof BlankImport
-      parentRoute: typeof rootRoute
-    }
-    '/briefcase': {
-      id: '/briefcase'
-      path: '/briefcase'
-      fullPath: '/briefcase'
-      preLoaderRoute: typeof BriefcaseImport
       parentRoute: typeof rootRoute
     }
     '/iTwins': {
@@ -142,6 +137,13 @@ declare module '@tanstack/react-router' {
       path: '/signin-callback'
       fullPath: '/signin-callback'
       preLoaderRoute: typeof SigninCallbackImport
+      parentRoute: typeof rootRoute
+    }
+    '/briefcase/$fileName': {
+      id: '/briefcase/$fileName'
+      path: '/briefcase/$fileName'
+      fullPath: '/briefcase/$fileName'
+      preLoaderRoute: typeof BriefcaseFileNameImport
       parentRoute: typeof rootRoute
     }
     '/iTwin_/$iTwinId': {
@@ -173,11 +175,11 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
-  '/briefcase': typeof BriefcaseRoute
   '/iTwins': typeof ITwinsRoute
   '/local': typeof LocalRoute
   '/settings': typeof SettingsRoute
   '/signin-callback': typeof SigninCallbackRoute
+  '/briefcase/$fileName': typeof BriefcaseFileNameRoute
   '/iTwin/$iTwinId': typeof ITwinITwinIdRoute
   '/local/$fileName': typeof LocalFileNameRoute
   '/iTwin/$iTwinId/iModel/$iModelId': typeof ITwinITwinIdIModelIModelIdRoute
@@ -186,11 +188,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
-  '/briefcase': typeof BriefcaseRoute
   '/iTwins': typeof ITwinsRoute
   '/local': typeof LocalRoute
   '/settings': typeof SettingsRoute
   '/signin-callback': typeof SigninCallbackRoute
+  '/briefcase/$fileName': typeof BriefcaseFileNameRoute
   '/iTwin/$iTwinId': typeof ITwinITwinIdRoute
   '/local/$fileName': typeof LocalFileNameRoute
   '/iTwin/$iTwinId/iModel/$iModelId': typeof ITwinITwinIdIModelIModelIdRoute
@@ -200,11 +202,11 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
-  '/briefcase': typeof BriefcaseRoute
   '/iTwins': typeof ITwinsRoute
   '/local': typeof LocalRoute
   '/settings': typeof SettingsRoute
   '/signin-callback': typeof SigninCallbackRoute
+  '/briefcase/$fileName': typeof BriefcaseFileNameRoute
   '/iTwin_/$iTwinId': typeof ITwinITwinIdRoute
   '/local_/$fileName': typeof LocalFileNameRoute
   '/iTwin/$iTwinId/iModel/$iModelId': typeof ITwinITwinIdIModelIModelIdRoute
@@ -215,11 +217,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/blank'
-    | '/briefcase'
     | '/iTwins'
     | '/local'
     | '/settings'
     | '/signin-callback'
+    | '/briefcase/$fileName'
     | '/iTwin/$iTwinId'
     | '/local/$fileName'
     | '/iTwin/$iTwinId/iModel/$iModelId'
@@ -227,11 +229,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/blank'
-    | '/briefcase'
     | '/iTwins'
     | '/local'
     | '/settings'
     | '/signin-callback'
+    | '/briefcase/$fileName'
     | '/iTwin/$iTwinId'
     | '/local/$fileName'
     | '/iTwin/$iTwinId/iModel/$iModelId'
@@ -239,11 +241,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/blank'
-    | '/briefcase'
     | '/iTwins'
     | '/local'
     | '/settings'
     | '/signin-callback'
+    | '/briefcase/$fileName'
     | '/iTwin_/$iTwinId'
     | '/local_/$fileName'
     | '/iTwin/$iTwinId/iModel/$iModelId'
@@ -253,11 +255,11 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   BlankRoute: typeof BlankRoute
-  BriefcaseRoute: typeof BriefcaseRoute
   ITwinsRoute: typeof ITwinsRoute
   LocalRoute: typeof LocalRoute
   SettingsRoute: typeof SettingsRoute
   SigninCallbackRoute: typeof SigninCallbackRoute
+  BriefcaseFileNameRoute: typeof BriefcaseFileNameRoute
   ITwinITwinIdRoute: typeof ITwinITwinIdRoute
   LocalFileNameRoute: typeof LocalFileNameRoute
   ITwinITwinIdIModelIModelIdRoute: typeof ITwinITwinIdIModelIModelIdRoute
@@ -266,11 +268,11 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   BlankRoute: BlankRoute,
-  BriefcaseRoute: BriefcaseRoute,
   ITwinsRoute: ITwinsRoute,
   LocalRoute: LocalRoute,
   SettingsRoute: SettingsRoute,
   SigninCallbackRoute: SigninCallbackRoute,
+  BriefcaseFileNameRoute: BriefcaseFileNameRoute,
   ITwinITwinIdRoute: ITwinITwinIdRoute,
   LocalFileNameRoute: LocalFileNameRoute,
   ITwinITwinIdIModelIModelIdRoute: ITwinITwinIdIModelIModelIdRoute,
@@ -288,11 +290,11 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/blank",
-        "/briefcase",
         "/iTwins",
         "/local",
         "/settings",
         "/signin-callback",
+        "/briefcase/$fileName",
         "/iTwin_/$iTwinId",
         "/local_/$fileName",
         "/iTwin/$iTwinId/iModel/$iModelId"
@@ -303,9 +305,6 @@ export const routeTree = rootRoute
     },
     "/blank": {
       "filePath": "blank.tsx"
-    },
-    "/briefcase": {
-      "filePath": "briefcase.tsx"
     },
     "/iTwins": {
       "filePath": "iTwins.tsx"
@@ -318,6 +317,9 @@ export const routeTree = rootRoute
     },
     "/signin-callback": {
       "filePath": "signin-callback.tsx"
+    },
+    "/briefcase/$fileName": {
+      "filePath": "briefcase.$fileName.tsx"
     },
     "/iTwin_/$iTwinId": {
       "filePath": "iTwin_.$iTwinId.tsx"
