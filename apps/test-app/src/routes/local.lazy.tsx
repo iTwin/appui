@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { FluidGrid, PageLayout } from "@itwin/itwinui-layouts-react";
 import { SvgImodelHollow } from "@itwin/itwinui-icons-react";
-import { Button, Tile } from "@itwin/itwinui-react";
+import { Button, Tile, ToggleSwitch } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 
@@ -20,8 +20,21 @@ export const Route = createLazyFileRoute("/local")({
 
 function Local() {
   const navigate = useNavigate();
+  const [toggleValue, setToggleValue] = React.useState(false);
+  const openBriefcase = ProcessDetector.isElectronAppFrontend || toggleValue;
   return (
     <PageLayout.Content padded={true}>
+      <PageLayout.ToolsArea
+        left={<></>}
+        right={
+          <ToggleSwitch
+            label="Briefcase"
+            labelPosition="left"
+            checked={toggleValue}
+            onChange={(e) => setToggleValue(e.currentTarget.checked)}
+          />
+        }
+      />
       <FluidGrid>
         {window.__BIM_FILES__.map((fileName, index) => (
           <Tile
@@ -30,7 +43,7 @@ function Local() {
             name={fileName}
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
-              if (ProcessDetector.isElectronAppFrontend) {
+              if (openBriefcase) {
                 void navigate({
                   to: "/briefcase",
                   search: (prev) => {
@@ -43,7 +56,14 @@ function Local() {
               void navigate({
                 to: "/local/$fileName",
                 params: { fileName },
-                search: (prev) => prev,
+                search: (prev) => {
+                  const {
+                    fileName: _fileName,
+                    filePath: _filePath,
+                    ...rest
+                  } = prev;
+                  return rest;
+                },
               });
             }}
           />

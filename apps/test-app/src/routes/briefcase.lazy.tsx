@@ -13,10 +13,10 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { useEditorToolSettings } from "../frontend/appui/useEditorToolSettings";
 
 export const Route = createLazyFileRoute("/briefcase")({
-  component: Local,
+  component: Briefcase,
 });
 
-function Local() {
+function Briefcase() {
   const { iModelConnection } = Route.useLoaderData();
   useSyncFrontstageParam();
   useEditorToolSettings();

@@ -18,7 +18,6 @@ import {
   AccuDrawHintBuilder,
   BeButton,
   BeButtonEvent,
-  IModelApp,
   LengthDescription,
   Viewport,
 } from "@itwin/core-frontend";
