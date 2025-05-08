@@ -30,6 +30,7 @@ catalog:
 
 onlyBuiltDependencies:
   - "@bentley/imodeljs-native"
+  - electron
 
 patchedDependencies:
   "@changesets/assemble-release-plan": patches/@changesets__assemble-release-plan.patch
