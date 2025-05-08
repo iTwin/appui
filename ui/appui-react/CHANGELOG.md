@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.6.0
+
+### Minor Changes
+
+- 6c97fa4: Updated the tool settings data provider to invoke `IModelApp.toolAdmin.simulateMotionEvent` after applying the tool setting property change. This causes the update to the dynamic graphics of the active tool without requiring an explicit motion event. `simulateMotionEvent` is only available from `v5.0` of `@itwin/core-frontend`.
+
+### Patch Changes
+
+- @itwin/components-react@5.6.0
+- @itwin/core-react@5.6.0
+- @itwin/imodel-components-react@5.6.0
+
 ## 5.5.0
 
 ### Minor Changes
