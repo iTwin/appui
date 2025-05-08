@@ -3,34 +3,95 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-
 import { CreateElementWithDynamicsTool } from "@itwin/editor-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgCircle } from "@itwin/itwinui-icons-react";
 import {
+  Code,
+  ElementGeometry,
   FlatBufferGeometryStream,
   GeometricElementProps,
   JsonGeometryStream,
   PlacementProps,
 } from "@itwin/core-common";
+import {
+  AccuDrawHintBuilder,
+  BeButton,
+  BeButtonEvent,
+} from "@itwin/core-frontend";
+import { Arc3d, Point3d, YawPitchRollAngles } from "@itwin/core-geometry";
 
 class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public static override toolId = "CreateCircle";
+  private _point?: Point3d;
+  private _current?: Arc3d;
 
   protected override getPlacementProps(): PlacementProps | undefined {
-    throw new Error("Method not implemented.");
+    const vp = this.targetView;
+    if (!vp || !this._point) {
+      return undefined;
+    }
+
+    const origin = this._point;
+    const angles = new YawPitchRollAngles();
+    const matrix = AccuDrawHintBuilder.getCurrentRotation(vp, true, true);
+    ElementGeometry.Builder.placementAnglesFromPoints(
+      [this._point],
+      matrix?.getColumn(2),
+      angles
+    );
+    return { origin, angles };
   }
 
   protected override getGeometryProps(
-    _placement: PlacementProps
+    placement: PlacementProps
   ): JsonGeometryStream | FlatBufferGeometryStream | undefined {
-    throw new Error("Method not implemented.");
+    if (!this._current) {
+      return undefined;
+    }
+
+    const builder = new ElementGeometry.Builder();
+    builder.setLocalToWorldFromPlacement(placement);
+    if (!builder.appendGeometryQuery(this._current)) {
+      return undefined;
+    }
+
+    return { format: "flatbuffer", data: builder.entries };
   }
 
   protected override getElementProps(
-    _placement: PlacementProps
+    placement: PlacementProps
   ): GeometricElementProps | undefined {
-    throw new Error("Method not implemented.");
+    return {
+      classFullName: "Generic:PhysicalObject",
+      model: this.targetModelId,
+      category: this.targetCategory,
+      code: Code.createEmpty(),
+      placement,
+    };
+  }
+
+  public override async updateElementData(
+    ev: BeButtonEvent,
+    isDynamics: boolean
+  ) {
+    if (!isDynamics) {
+      this._point = ev.point.clone();
+    }
+
+    if (!this._point) return;
+    this._current = Arc3d.createXY(this._point, 2);
+  }
+
+  protected override isComplete(ev: BeButtonEvent): boolean {
+    return ev.button === BeButton.Reset && !!this._point;
+  }
+
+  protected override async cancelPoint(ev: BeButtonEvent): Promise<boolean> {
+    if (this.isComplete(ev)) {
+      await this.createElement();
+    }
+    return true;
   }
 
   public override async onRestartTool(): Promise<void> {
