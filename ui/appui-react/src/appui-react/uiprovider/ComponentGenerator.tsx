@@ -10,10 +10,8 @@ import "./DefaultDialogGridContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type {
-  BaseDialogItem,
   DialogItem,
   DialogItemValue,
-  DialogPropertySyncItem,
   DialogRow,
 } from "@itwin/appui-abstract";
 import {
@@ -52,9 +50,9 @@ function EditorLabel({
       const mySyncItem = args.properties.find(
         (syncItem) => syncItem.propertyName === item.property.name
       );
-      if (mySyncItem) {
-        setIsDisabled(!!mySyncItem.isDisabled);
-      }
+
+      if (!mySyncItem) return;
+      setIsDisabled(!!mySyncItem.isDisabled);
     });
   }, [uiDataProvider, item]);
 
@@ -73,113 +71,81 @@ function EditorLabel({
   );
 }
 
-function PropertyEditor({
-  uiDataProvider,
-  initialItem,
-  isLock = false,
-  setFocus,
-  onCancel,
-}: {
+function PropertyEditor(props: {
   uiDataProvider: UiLayoutDataProvider;
-  initialItem: BaseDialogItem;
-  isLock?: boolean;
-  setFocus?: boolean;
+  itemPropertyName: string;
+  lockPropertyName?: string;
   onCancel?: () => void;
 }) {
-  const dialogItem = React.useMemo(() => {
-    return uiDataProvider.items.find(
-      (item) => item.property.name === initialItem.property.name
+  const { uiDataProvider, itemPropertyName, lockPropertyName, onCancel } =
+    props;
+  const propertyName = lockPropertyName ?? itemPropertyName;
+  const isLock = !!lockPropertyName;
+  const getPropertyRecord = React.useCallback(() => {
+    const dialogItem = uiDataProvider.items.find(
+      (item) => item.property.name === itemPropertyName
     );
-  }, [uiDataProvider, initialItem]);
-  const getLatestRecordValue = React.useCallback(
-    (initial: BaseDialogItem) => {
-      let newRecord = UiLayoutDataProvider.getPropertyRecord(initial);
+    if (!dialogItem) return undefined;
 
-      const foundItem = isLock
-        ? uiDataProvider.items.find(
-            (item) => item.lockProperty?.property.name === initial.property.name
-          )
-        : uiDataProvider.items.find(
-            (item) => item.property.name === initial.property.name
-          );
-      if (!foundItem) return newRecord;
+    const recordItem = isLock ? dialogItem.lockProperty : dialogItem;
+    if (!recordItem) return undefined;
 
-      if (isLock) {
-        newRecord = newRecord.copyWithNewValue({
-          value: foundItem.lockProperty!.value.value,
-          valueFormat: PropertyValueFormat.Primitive,
-        });
-        newRecord.isDisabled = foundItem.lockProperty!.isDisabled;
-        if (newRecord.property.editor) {
-          newRecord.property.editor.name ??= LockPropertyEditorName;
-        }
-        return newRecord;
-      }
+    const newRecord = UiLayoutDataProvider.getPropertyRecord(recordItem);
+    if (isLock && newRecord.property.editor) {
+      newRecord.property.editor.name ??= LockPropertyEditorName;
+    }
 
-      newRecord = newRecord.copyWithNewValue({
-        value: foundItem.value.value,
-        valueFormat: PropertyValueFormat.Primitive,
-      });
-      newRecord.isDisabled = foundItem.isDisabled;
-      return newRecord;
-    },
-    [isLock, uiDataProvider.items]
+    if (!isLock) {
+      // Lock property should have no effect on the disabled state.
+      newRecord.isDisabled = dialogItem.isDisabled;
+    }
+    return newRecord;
+  }, [isLock, uiDataProvider, itemPropertyName]);
+
+  const [propertyRecord, setPropertyRecord] = React.useState(() =>
+    getPropertyRecord()
   );
 
-  const currentRecord = getLatestRecordValue(initialItem);
-  const [propertyRecord, setPropertyRecord] = React.useState(currentRecord);
-
-  // monitor tool for sync UI events
   React.useEffect(() => {
     return uiDataProvider.onSyncPropertiesChangeEvent.addListener((args) => {
       const mySyncItem = args.properties.find(
-        (syncItem: DialogPropertySyncItem) =>
-          syncItem.propertyName === initialItem.property.name
+        (syncItem) => syncItem.propertyName === propertyName
       );
-      if (mySyncItem) {
-        const newPropertyValue = propertyRecord.copyWithNewValue(
-          {
-            value: mySyncItem.value.value,
-            valueFormat: PropertyValueFormat.Primitive,
-            displayValue: mySyncItem.value.displayValue,
-          },
-          mySyncItem.property
-        );
+      if (!mySyncItem) return;
+      if (!propertyRecord) return;
 
-        if (mySyncItem.property) {
-          if (mySyncItem.property.name === mySyncItem.propertyName) {
-            newPropertyValue.isDisabled = mySyncItem.isDisabled;
-            setPropertyRecord(newPropertyValue);
-          } else {
-            Logger.logError(
-              "PropertyEditor",
-              `Error trying to replace propertyName=${mySyncItem.propertyName} with property named ${mySyncItem.property.name}`
-            );
-          }
-        } else {
+      const newPropertyValue = propertyRecord.copyWithNewValue(
+        {
+          value: mySyncItem.value.value,
+          valueFormat: PropertyValueFormat.Primitive,
+          displayValue: mySyncItem.value.displayValue,
+        },
+        mySyncItem.property
+      );
+
+      if (mySyncItem.property) {
+        if (mySyncItem.property.name === mySyncItem.propertyName) {
           newPropertyValue.isDisabled = mySyncItem.isDisabled;
           setPropertyRecord(newPropertyValue);
+        } else {
+          Logger.logError(
+            "PropertyEditor",
+            `Error trying to replace propertyName=${mySyncItem.propertyName} with property named ${mySyncItem.property.name}`
+          );
         }
+      } else {
+        newPropertyValue.isDisabled = mySyncItem.isDisabled;
+        setPropertyRecord(newPropertyValue);
       }
     });
-  }, [uiDataProvider, propertyRecord, initialItem.property.name]);
+  }, [uiDataProvider, propertyRecord, propertyName]);
 
   React.useEffect(() => {
     return uiDataProvider.onItemsReloadedEvent.addListener(() => {
-      const newItem = findDialogItem(
-        uiDataProvider,
-        initialItem.property.name,
-        isLock
-      );
-      if (!newItem) return;
-      setPropertyRecord(getLatestRecordValue(newItem));
+      setPropertyRecord(getPropertyRecord());
     });
-  }, [uiDataProvider, initialItem.property.name, getLatestRecordValue, isLock]);
+  }, [uiDataProvider, getPropertyRecord]);
 
-  const className = React.useMemo(
-    () => (isLock ? "uifw-default-property-lock" : "uifw-default-editor"),
-    [isLock]
-  );
   const handleCommit = React.useCallback(
     (commit: PropertyUpdatedArgs) => {
       // UiLayoutDataProvider supports only primitive property types
@@ -188,30 +154,37 @@ function PropertyEditor({
           commit.propertyRecord.value.valueFormat ===
             PropertyValueFormat.Primitive
       );
+      if (!propertyRecord) return;
+
       const newPropertyValue = propertyRecord.copyWithNewValue(commit.newValue);
-      const syncItem: DialogPropertySyncItem = {
+      uiDataProvider.applyUiPropertyChange({
         value: commit.newValue as DialogItemValue,
-        propertyName: initialItem.property.name,
+        propertyName,
         isDisabled: newPropertyValue.isDisabled,
-      };
-      uiDataProvider.applyUiPropertyChange(syncItem);
+      });
       // Now have the uiDataProvider refetch the latest property values from the tool
       uiDataProvider.reloadDialogItems(true);
     },
-    [initialItem.property.name, propertyRecord, uiDataProvider]
+    [propertyName, propertyRecord, uiDataProvider]
   );
-  const handleCancel = () => {};
+  const handleCancel = React.useCallback(() => {}, []);
 
   const useNewEditors = useToolSettingsNewEditors();
 
+  if (!propertyRecord) return null;
   return (
-    <div key={initialItem.property.name} className={className}>
-      <PropertyEditorProvider dialogItem={dialogItem} isLock={isLock}>
+    <div
+      key={propertyName}
+      className={isLock ? "uifw-default-property-lock" : "uifw-default-editor"}
+    >
+      <PropertyEditorProvider
+        uiDataProvider={uiDataProvider}
+        itemPropertyName={itemPropertyName}
+        lockPropertyName={lockPropertyName}
+      >
         {useNewEditors ? (
           <PropertyRecordEditor
-            key={initialItem.property.name}
             propertyRecord={propertyRecord}
-            setFocus={setFocus}
             onCommit={handleCommit}
             onCancel={onCancel ?? handleCancel}
             editorSystem="new"
@@ -219,9 +192,7 @@ function PropertyEditor({
           />
         ) : (
           <EditorContainer
-            key={initialItem.property.name}
             propertyRecord={propertyRecord}
-            setFocus={setFocus}
             onCommit={handleCommit}
             onCancel={onCancel ?? handleCancel}
           />
@@ -244,14 +215,19 @@ export class ComponentGenerator {
     return this._uiDataProvider;
   }
 
-  private getEditor(item: BaseDialogItem, isLock = false): React.ReactNode {
+  private getEditor(item: DialogItem, isLock = false): React.ReactNode {
+    const propertyName = item.property.name;
+    const lockPropertyName = (() => {
+      if (!isLock) return undefined;
+      assert(!!item.lockProperty);
+      return item.lockProperty.property.name;
+    })();
     return (
       <PropertyEditor
-        key={item.property.name}
+        key={lockPropertyName ?? propertyName}
         uiDataProvider={this.uiDataProvider}
-        initialItem={item}
-        isLock={isLock}
-        setFocus={false}
+        itemPropertyName={propertyName}
+        lockPropertyName={lockPropertyName}
         onCancel={this._onCancel}
       />
     );
@@ -336,7 +312,7 @@ export class ComponentGenerator {
   ): React.ReactNode {
     const record = UiLayoutDataProvider.getPropertyRecord(rowItem);
     const lockEditor = UiLayoutDataProvider.hasAssociatedLockProperty(rowItem)
-      ? this.getEditor(rowItem.lockProperty!, true)
+      ? this.getEditor(rowItem, true)
       : null;
     const label = UiLayoutDataProvider.editorWantsLabel(rowItem)
       ? this.getEditorLabel(rowItem)
@@ -418,20 +394,6 @@ export class ComponentGenerator {
       this.getToolSettingsEntry(row, index)
     );
   }
-}
-
-function findDialogItem(
-  uiDataProvider: UiLayoutDataProvider,
-  propertyName: string,
-  isLock: boolean
-) {
-  const dialogItem = uiDataProvider.items.find((item) => {
-    if (isLock) {
-      return item.lockProperty?.property.name === propertyName;
-    }
-    return item.property.name === propertyName;
-  });
-  return isLock ? dialogItem?.lockProperty : dialogItem;
 }
 
 interface LeftLockAndLabelProps {

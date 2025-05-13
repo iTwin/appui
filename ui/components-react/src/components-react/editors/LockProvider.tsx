@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import type { DialogItem } from "@itwin/appui-abstract";
+import type { UiLayoutDataProvider } from "@itwin/appui-abstract";
 
 /** @internal */
 export const LockContext = React.createContext<{
@@ -37,33 +37,37 @@ export function LockProvider({ children }: React.PropsWithChildren) {
 }
 
 /** @internal */
-export const PropertyEditorContext = React.createContext<{
-  dialogItem: DialogItem | undefined;
-  isLock: boolean;
-}>(null!);
+export const PropertyEditorContext = React.createContext<
+  | {
+      uiDataProvider: UiLayoutDataProvider;
+      itemPropertyName: string;
+      lockPropertyName: string | undefined;
+    }
+  | undefined
+>(undefined);
 
 type PropertyEditorContextType = React.ContextType<
   typeof PropertyEditorContext
 >;
 
-interface PropertyEditorProviderProps extends PropertyEditorContextType {
+interface PropertyEditorProviderProps
+  extends NonNullable<PropertyEditorContextType> {
   children?: React.ReactNode;
 }
 
 /** @internal */
-export function PropertyEditorProvider({
-  children,
-  dialogItem,
-  isLock,
-}: PropertyEditorProviderProps) {
+export function PropertyEditorProvider(props: PropertyEditorProviderProps) {
+  const { children, uiDataProvider, itemPropertyName, lockPropertyName } =
+    props;
   return (
     <PropertyEditorContext.Provider
       value={React.useMemo(
         () => ({
-          dialogItem,
-          isLock,
+          uiDataProvider,
+          itemPropertyName,
+          lockPropertyName,
         }),
-        [dialogItem, isLock]
+        [uiDataProvider, itemPropertyName, lockPropertyName]
       )}
     >
       {children}

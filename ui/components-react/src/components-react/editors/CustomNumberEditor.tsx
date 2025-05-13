@@ -374,16 +374,24 @@ const LockNumberEditor = React.forwardRef<
   LockNumberEditorProps
 >(function LockNumberEditor(props, forwardedRef) {
   const { icon, ...rest } = props;
-  const { isLock, dialogItem } = React.useContext(PropertyEditorContext);
+  const { lockPropertyName, itemPropertyName, uiDataProvider } =
+    React.useContext(PropertyEditorContext) ?? {};
   const { setInlineLock } = React.useContext(LockContext);
-  const hasLockDecoration = !isLock && !!dialogItem?.lockProperty;
+  const dialogItem = React.useMemo(
+    () =>
+      uiDataProvider?.items.find(
+        (item) => item.property.name === itemPropertyName
+      ),
+    [uiDataProvider, itemPropertyName]
+  );
+  const hasLockDecoration = !lockPropertyName && !!dialogItem?.lockProperty;
   React.useLayoutEffect(() => {
     setInlineLock(hasLockDecoration);
     return () => {
       setInlineLock(false);
     };
   }, [setInlineLock, hasLockDecoration]);
-  if (!isLock && dialogItem?.lockProperty) {
+  if (hasLockDecoration) {
     return (
       <InputWithDecorations size="small">
         {icon && (
