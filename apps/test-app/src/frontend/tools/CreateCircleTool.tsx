@@ -29,13 +29,14 @@ import {
   DialogPropertySyncItem,
   PropertyDescriptionHelper,
 } from "@itwin/appui-abstract";
+import { addIconNodeParam } from "@itwin/components-react/internal";
 
 /** Tool to test dynamic graphics and tool settings.
  * Will not insert an element, but will show a circle at the point clicked.
  */
 class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public static override toolId = "CreateCircle";
-  private _point?: Point3d;
+  private _points: Point3d[] = [];
   private _current?: Arc3d;
 
   private _useRadiusProperty: DialogProperty<boolean> | undefined;
@@ -48,17 +49,22 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     return this._useRadiusProperty;
   }
 
+  public get useRadius() {
+    return this.useRadiusProperty.value;
+  }
+
   private _radiusProperty: DialogProperty<number> | undefined;
   public get radiusProperty() {
-    if (!this._radiusProperty)
-      this._radiusProperty = new DialogProperty(
-        new LengthDescription("radius", "Radius"),
-        1
-      );
+    if (!this._radiusProperty) {
+      const description = new LengthDescription("radius", "Radius");
+      addIconNodeParam(description, <SvgCircle />);
+      this._radiusProperty = new DialogProperty(description, 1);
+    }
+
     return this._radiusProperty;
   }
 
-  public get radius(): number {
+  public get radius() {
     return this.radiusProperty.value;
   }
 
@@ -92,15 +98,15 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
 
   protected override getPlacementProps(): PlacementProps | undefined {
     const vp = this.targetView;
-    if (!vp || !this._point) {
+    if (!vp || this._points.length === 0) {
       return undefined;
     }
 
-    const origin = this._point;
+    const origin = this._points[0];
     const angles = new YawPitchRollAngles();
     const matrix = AccuDrawHintBuilder.getCurrentRotation(vp, true, true);
     ElementGeometry.Builder.placementAnglesFromPoints(
-      [this._point],
+      [origin],
       matrix?.getColumn(2),
       angles
     );
@@ -140,15 +146,29 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     isDynamics: boolean
   ) {
     if (!isDynamics) {
-      this._point = ev.point.clone();
+      if (this.useRadius) {
+        this._points = [ev.point.clone()];
+      } else {
+        this._points.push(ev.point.clone());
+      }
     }
 
-    if (!this._point) return;
-    this._current = Arc3d.createXY(this._point, this.radius);
+    if (this._points.length === 0) return;
+
+    const center = this._points[0];
+    const edge = this._points[1] ?? ev.point;
+    const radius = this.useRadius
+      ? this.radius
+      : Math.max(1, center.distance(edge));
+    this._current = Arc3d.createXY(center, radius);
   }
 
   protected override isComplete(ev: BeButtonEvent): boolean {
-    return ev.button === BeButton.Reset && !!this._point;
+    if (this.useRadius) {
+      return ev.button === BeButton.Reset && this._points.length > 0;
+    }
+
+    return ev.button === BeButton.Reset && this._points.length > 1;
   }
 
   protected override async cancelPoint(ev: BeButtonEvent): Promise<boolean> {
@@ -169,8 +189,6 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
       this.radiusProperty,
     ]);
 
-    this.radiusProperty.isDisabled = !this.useRadiusProperty.value;
-
     const useRadiusLock = this.useRadiusProperty.toDialogItem({
       rowPriority: 0,
       columnIndex: 0,
@@ -188,6 +206,11 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   ): Promise<boolean> {
     if (!this.changeToolSettingPropertyValue(updatedValue)) return false;
     return true;
+  }
+
+  /** @internal */
+  protected override syncToolSettingPropertyValue() {
+    // Avoid syncing the lock and disabled states: https://github.com/iTwin/itwinjs-core/blob/74603f8bd278e03a1dae74e827b51bb6f0880f85/core/frontend/src/tools/Tool.ts#L791
   }
 
   protected override getToolSettingPropertyLocked(
