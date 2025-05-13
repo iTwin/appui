@@ -407,13 +407,13 @@ function LeftLockAndLabel({
   label,
   multiplePropertiesOnRow,
 }: LeftLockAndLabelProps) {
-  const { inlineLock } = React.useContext(LockContext);
+  const { lockDecoration } = React.useContext(LockContext) ?? {};
   const classNames = multiplePropertiesOnRow
     ? "uifw-default-lock-and-label uifw-default-wide-only-display"
     : "uifw-default-lock-and-label";
   return (
     <div className={classNames}>
-      {inlineLock ? undefined : lockEditor}
+      {lockDecoration ? undefined : lockEditor}
       {label}
     </div>
   );

@@ -34,12 +34,11 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 import { UiComponents } from "../UiComponents.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
+import type { IconNodeEditorParams } from "../../internal.js";
 import {
-  type IconNodeEditorParams,
-  LockContext,
-  PropertyEditorContext,
-} from "../../internal.js";
-import { SvgLock } from "@itwin/itwinui-icons-react";
+  LockButtonInputDecoration,
+  useLockDecoration,
+} from "./LockProvider.js";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -374,24 +373,8 @@ const LockNumberEditor = React.forwardRef<
   LockNumberEditorProps
 >(function LockNumberEditor(props, forwardedRef) {
   const { icon, ...rest } = props;
-  const { lockPropertyName, itemPropertyName, uiDataProvider } =
-    React.useContext(PropertyEditorContext) ?? {};
-  const { setInlineLock } = React.useContext(LockContext);
-  const dialogItem = React.useMemo(
-    () =>
-      uiDataProvider?.items.find(
-        (item) => item.property.name === itemPropertyName
-      ),
-    [uiDataProvider, itemPropertyName]
-  );
-  const hasLockDecoration = !lockPropertyName && !!dialogItem?.lockProperty;
-  React.useLayoutEffect(() => {
-    setInlineLock(hasLockDecoration);
-    return () => {
-      setInlineLock(false);
-    };
-  }, [setInlineLock, hasLockDecoration]);
-  if (hasLockDecoration) {
+  const lockDecoration = useLockDecoration();
+  if (lockDecoration) {
     return (
       <InputWithDecorations size="small">
         {icon && (
@@ -405,9 +388,7 @@ const LockNumberEditor = React.forwardRef<
           data-testid="components-customnumber-editor"
           size="small"
         />
-        <InputWithDecorations.Button label="Icon button" size="small">
-          <SvgLock />
-        </InputWithDecorations.Button>
+        <LockButtonInputDecoration />
       </InputWithDecorations>
     );
   }

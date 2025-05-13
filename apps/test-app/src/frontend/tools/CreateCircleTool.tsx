@@ -204,13 +204,21 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public override async applyToolSettingPropertyChange(
     updatedValue: DialogPropertySyncItem
   ): Promise<boolean> {
+    console.log(
+      "applyToolSettingPropertyChange",
+      updatedValue.value,
+      updatedValue.propertyName
+    );
     if (!this.changeToolSettingPropertyValue(updatedValue)) return false;
     return true;
   }
 
   /** @internal */
-  protected override syncToolSettingPropertyValue() {
+  protected override syncToolSettingPropertyValue(
+    property: DialogProperty<any>
+  ) {
     // Avoid syncing the lock and disabled states: https://github.com/iTwin/itwinjs-core/blob/74603f8bd278e03a1dae74e827b51bb6f0880f85/core/frontend/src/tools/Tool.ts#L791
+    this.syncToolSettingsProperties([property.syncItem]);
   }
 
   protected override getToolSettingPropertyLocked(

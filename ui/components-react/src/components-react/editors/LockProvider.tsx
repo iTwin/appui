@@ -8,27 +8,31 @@
 
 import * as React from "react";
 import type { UiLayoutDataProvider } from "@itwin/appui-abstract";
+import { InputWithDecorations } from "@itwin/itwinui-react";
+import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 
 /** @internal */
-export const LockContext = React.createContext<{
-  inlineLock: boolean;
-  setInlineLock: (inlineLock: boolean) => void;
-}>({
-  inlineLock: false,
-  setInlineLock: () => {},
-});
+export const LockContext = React.createContext<
+  | {
+      /** Describes if the lock is displayed as an editor decoration. */
+      lockDecoration: boolean;
+      /** Called by editors that display lock decoration. */
+      setLockDecoration: (lockDecoration: boolean) => void;
+    }
+  | undefined
+>(undefined);
 
 /** @internal */
 export function LockProvider({ children }: React.PropsWithChildren) {
-  const [inlineLock, setInlineLock] = React.useState(false);
+  const [lockDecoration, setLockDecoration] = React.useState(false);
   return (
     <LockContext.Provider
       value={React.useMemo(
         () => ({
-          inlineLock,
-          setInlineLock,
+          lockDecoration,
+          setLockDecoration,
         }),
-        [inlineLock]
+        [lockDecoration]
       )}
     >
       {children}
@@ -41,6 +45,7 @@ export const PropertyEditorContext = React.createContext<
   | {
       uiDataProvider: UiLayoutDataProvider;
       itemPropertyName: string;
+      /** Specified when rendering a lock editor. */
       lockPropertyName: string | undefined;
     }
   | undefined
@@ -72,5 +77,98 @@ export function PropertyEditorProvider(props: PropertyEditorProviderProps) {
     >
       {children}
     </PropertyEditorContext.Provider>
+  );
+}
+
+/** This hook should be used to mark editors that support lock decorations.
+ * Returns if the lock decoration should be displayed.
+ * @internal
+ */
+export function useLockDecoration() {
+  const { lockPropertyName, itemPropertyName, uiDataProvider } =
+    React.useContext(PropertyEditorContext) ?? {};
+  const { setLockDecoration } = React.useContext(LockContext) ?? {};
+  const dialogItem = React.useMemo(
+    () =>
+      uiDataProvider?.items.find(
+        (item) => item.property.name === itemPropertyName
+      ),
+    [uiDataProvider, itemPropertyName]
+  );
+  const lockDecoration = !lockPropertyName && !!dialogItem?.lockProperty;
+  React.useLayoutEffect(() => {
+    if (!setLockDecoration) return;
+    setLockDecoration(lockDecoration);
+    return () => {
+      setLockDecoration(false);
+    };
+  }, [setLockDecoration, lockDecoration]);
+  return lockDecoration;
+}
+
+interface UseLockPropertyArgs {
+  provider: UiLayoutDataProvider;
+  itemPropertyName: string;
+}
+
+function useLockProperty(args: UseLockPropertyArgs | undefined) {
+  const { provider, itemPropertyName } = args ?? {};
+  const subscribe = React.useCallback(
+    (onStoreChange: () => void) => {
+      const listeners = provider
+        ? [
+            provider.onItemsReloadedEvent.addListener(onStoreChange),
+            provider.onSyncPropertiesChangeEvent.addListener(onStoreChange),
+          ]
+        : [];
+      return () => listeners.forEach((l) => l());
+    },
+    [provider]
+  );
+  const getSnapshot = React.useCallback(() => {
+    if (!provider) return undefined;
+    if (!itemPropertyName) return undefined;
+    const dialogItem = provider.items.find(
+      (item) => item.property.name === itemPropertyName
+    );
+    return dialogItem?.lockProperty;
+  }, [provider, itemPropertyName]);
+  return React.useSyncExternalStore(subscribe, getSnapshot);
+}
+
+/** @internal */
+export function LockButtonInputDecoration() {
+  const { itemPropertyName, uiDataProvider } =
+    React.useContext(PropertyEditorContext) ?? {};
+  const lockProperty = useLockProperty(
+    uiDataProvider && itemPropertyName
+      ? {
+          provider: uiDataProvider,
+          itemPropertyName,
+        }
+      : undefined
+  );
+  const isLocked = !!lockProperty?.value.value;
+  return (
+    <InputWithDecorations.Button
+      isActive={isLocked}
+      label="Toggle lock"
+      size="small"
+      onClick={() => {
+        if (!uiDataProvider) return;
+        if (!lockProperty) return;
+
+        uiDataProvider.applyUiPropertyChange({
+          value: {
+            ...lockProperty.value,
+            value: !isLocked,
+          },
+          propertyName: lockProperty.property.name,
+        });
+        uiDataProvider.reloadDialogItems();
+      }}
+    >
+      {isLocked ? <SvgLock /> : <SvgLockUnlocked />}
+    </InputWithDecorations.Button>
   );
 }
