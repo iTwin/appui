@@ -16,7 +16,7 @@ import type { FormatSet } from "@itwin/ecschema-metadata";
  */
 interface FormatSetSelectorProps {
   /** The currently selected FormatSet */
-  selectedFormatSet: FormatSet;
+  selectedFormatSet?: FormatSet;
   /** The callback to call when the FormatSet is changed */
   onFormatSetChanged: (newFormatSet: FormatSet) => void;
   /** The available FormatSets */
@@ -46,7 +46,6 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
     label: formatSet.label,
   }));
 
-  const formatSetKey = selectedFormatSet.label;
 
   return (
     <div className="quantity-format-set-selector-container">
@@ -55,7 +54,7 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
       </span>
       <Select
         data-testid="format-set-selector"
-        value={formatSetKey}
+        value={selectedFormatSet?.label ?? null}
         options={formatSetOptions}
         onChange={handleFormatSetChanged}
         size="small"
