@@ -6,18 +6,19 @@
  * @module ToolSettings
  */
 
-import { IModelApp } from "@itwin/core-frontend";
+import "./ToolSettings.scss";
 import * as React from "react";
+import { LockProvider } from "@itwin/components-react/internal";
+import { IModelApp } from "@itwin/core-frontend";
+import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { useLayout } from "../layout/base/LayoutStore.js";
 import { DockedToolSettings } from "../layout/tool-settings/Docked.js";
 import { DockedToolSetting } from "../layout/tool-settings/Setting.js";
 import { ScrollableWidgetContent } from "../layout/widget/Content.js";
-import "./ToolSettings.scss";
 import { useActiveToolId } from "../hooks/useActiveToolId.js";
 import { useTranslation } from "../hooks/useTranslation.js";
-import { Text } from "@itwin/itwinui-react";
 import { DockedBar } from "./DockedBar.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 
@@ -96,8 +97,10 @@ export function ToolSettingsDockedContent() {
       >
         {entries.map((entry, index) => (
           <DockedToolSetting key={index}>
-            {entry.labelNode}
-            {entry.editorNode}
+            <LockProvider>
+              {entry.labelNode}
+              {entry.editorNode}
+            </LockProvider>
           </DockedToolSetting>
         ))}
       </DockedToolSettings>

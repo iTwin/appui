@@ -21,12 +21,16 @@ import {
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { PropertyRecordEditor } from "@itwin/components-react";
-import { EditorContainer } from "@itwin/components-react";
-import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
+import { EditorContainer, PropertyRecordEditor } from "@itwin/components-react";
+import {
+  LockContext,
+  PropertyEditorProvider,
+} from "@itwin/components-react/internal";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
+import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolsSettingsNewEditors.js";
+import { LockPropertyEditorName } from "./LockEditor.js";
 
 function EditorLabel({
   uiDataProvider,
@@ -82,6 +86,11 @@ function PropertyEditor({
   setFocus?: boolean;
   onCancel?: () => void;
 }) {
+  const dialogItem = React.useMemo(() => {
+    return uiDataProvider.items.find(
+      (item) => item.property.name === initialItem.property.name
+    );
+  }, [uiDataProvider, initialItem]);
   const getLatestRecordValue = React.useCallback(
     (initial: BaseDialogItem) => {
       let newRecord = UiLayoutDataProvider.getPropertyRecord(initial);
@@ -93,21 +102,25 @@ function PropertyEditor({
         : uiDataProvider.items.find(
             (item) => item.property.name === initial.property.name
           );
-      if (foundItem) {
-        if (isLock) {
-          newRecord = newRecord.copyWithNewValue({
-            value: foundItem.lockProperty!.value.value,
-            valueFormat: PropertyValueFormat.Primitive,
-          });
-          newRecord.isDisabled = foundItem.lockProperty!.isDisabled;
-        } else {
-          newRecord = newRecord.copyWithNewValue({
-            value: foundItem.value.value,
-            valueFormat: PropertyValueFormat.Primitive,
-          });
-          newRecord.isDisabled = foundItem.isDisabled;
+      if (!foundItem) return newRecord;
+
+      if (isLock) {
+        newRecord = newRecord.copyWithNewValue({
+          value: foundItem.lockProperty!.value.value,
+          valueFormat: PropertyValueFormat.Primitive,
+        });
+        newRecord.isDisabled = foundItem.lockProperty!.isDisabled;
+        if (newRecord.property.editor) {
+          newRecord.property.editor.name ??= LockPropertyEditorName;
         }
+        return newRecord;
       }
+
+      newRecord = newRecord.copyWithNewValue({
+        value: foundItem.value.value,
+        valueFormat: PropertyValueFormat.Primitive,
+      });
+      newRecord.isDisabled = foundItem.isDisabled;
       return newRecord;
     },
     [isLock, uiDataProvider.items]
@@ -193,25 +206,27 @@ function PropertyEditor({
 
   return (
     <div key={initialItem.property.name} className={className}>
-      {useNewEditors ? (
-        <PropertyRecordEditor
-          key={initialItem.property.name}
-          propertyRecord={propertyRecord}
-          setFocus={setFocus}
-          onCommit={handleCommit}
-          onCancel={onCancel ?? handleCancel}
-          editorSystem="new"
-          size="small"
-        />
-      ) : (
-        <EditorContainer
-          key={initialItem.property.name}
-          propertyRecord={propertyRecord}
-          setFocus={setFocus}
-          onCommit={handleCommit}
-          onCancel={onCancel ?? handleCancel}
-        />
-      )}
+      <PropertyEditorProvider dialogItem={dialogItem} isLock={isLock}>
+        {useNewEditors ? (
+          <PropertyRecordEditor
+            key={initialItem.property.name}
+            propertyRecord={propertyRecord}
+            setFocus={setFocus}
+            onCommit={handleCommit}
+            onCancel={onCancel ?? handleCancel}
+            editorSystem="new"
+            size="small"
+          />
+        ) : (
+          <EditorContainer
+            key={initialItem.property.name}
+            propertyRecord={propertyRecord}
+            setFocus={setFocus}
+            onCommit={handleCommit}
+            onCancel={onCancel ?? handleCancel}
+          />
+        )}
+      </PropertyEditorProvider>
     </div>
   );
 }
@@ -229,18 +244,14 @@ export class ComponentGenerator {
     return this._uiDataProvider;
   }
 
-  private getEditor(
-    item: BaseDialogItem,
-    isLock = false,
-    setFocus = false
-  ): React.ReactNode {
+  private getEditor(item: BaseDialogItem, isLock = false): React.ReactNode {
     return (
       <PropertyEditor
         key={item.property.name}
         uiDataProvider={this.uiDataProvider}
         initialItem={item}
         isLock={isLock}
-        setFocus={setFocus}
+        setFocus={false}
         onCancel={this._onCancel}
       />
     );
@@ -330,14 +341,14 @@ export class ComponentGenerator {
     const label = UiLayoutDataProvider.editorWantsLabel(rowItem)
       ? this.getEditorLabel(rowItem)
       : null;
-    const classNames = multiplePropertiesOnRow
-      ? "uifw-default-lock-and-label uifw-default-wide-only-display"
-      : "uifw-default-lock-and-label";
+
     return (
-      <div key={`lock-${record.property.name}`} className={classNames}>
-        {lockEditor}
-        {label}
-      </div>
+      <LeftLockAndLabel
+        key={`lock-${record.property.name}`}
+        lockEditor={lockEditor}
+        label={label}
+        multiplePropertiesOnRow={multiplePropertiesOnRow}
+      />
     );
   }
 
@@ -403,7 +414,7 @@ export class ComponentGenerator {
 
   /** ToolSettingsEntries are used by the tool settings bar. */
   public getToolSettingsEntries(): ToolSettingsEntry[] {
-    return this.uiDataProvider.rows.map((row: DialogRow, index: number) =>
+    return this.uiDataProvider.rows.map((row, index) =>
       this.getToolSettingsEntry(row, index)
     );
   }
@@ -421,4 +432,27 @@ function findDialogItem(
     return item.property.name === propertyName;
   });
   return isLock ? dialogItem?.lockProperty : dialogItem;
+}
+
+interface LeftLockAndLabelProps {
+  lockEditor?: React.ReactNode;
+  label?: React.ReactNode;
+  multiplePropertiesOnRow: boolean;
+}
+
+function LeftLockAndLabel({
+  lockEditor,
+  label,
+  multiplePropertiesOnRow,
+}: LeftLockAndLabelProps) {
+  const { inlineLock } = React.useContext(LockContext);
+  const classNames = multiplePropertiesOnRow
+    ? "uifw-default-lock-and-label uifw-default-wide-only-display"
+    : "uifw-default-lock-and-label";
+  return (
+    <div className={classNames}>
+      {inlineLock ? undefined : lockEditor}
+      {label}
+    </div>
+  );
 }

@@ -3,11 +3,18 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 export {
+  LockContext,
+  LockProvider,
+  PropertyEditorContext,
+  PropertyEditorProvider,
+} from "./components-react/editors/LockProvider.js";
+
+export { useTranslation } from "./components-react/l10n/useTranslation.js";
+
+export {
   addIconNodeParam,
   IconNodeEditorParams,
 } from "./components-react/properties/IconNodeEditorParam.js";
-
-export { useTranslation } from "./components-react/l10n/useTranslation.js";
 
 export { GroupTool } from "./components-react/toolbar/groupPanel/tool/Tool.js";
 export { GroupColumn } from "./components-react/toolbar/groupPanel/Column.js";
