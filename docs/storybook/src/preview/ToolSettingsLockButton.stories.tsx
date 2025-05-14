@@ -8,7 +8,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { PreviewStory } from "./ToolSettingsLockButton";
-import { LockPropertyTool } from "../tools/LockPropertyTool";
+import {
+  LockPropertyTool,
+  createLockPropertyTool,
+} from "../tools/LockPropertyTool";
 import { removeProperty } from "../Utils";
 
 const meta = {
@@ -38,6 +41,22 @@ export const Default: Story = {
     onInitialize: async () => {
       IModelApp.tools.register(
         LockPropertyTool,
+        UiFramework.localizationNamespace
+      );
+    },
+    onFrontstageActivated: async () => {
+      await IModelApp.tools.run(LockPropertyTool.toolId);
+    },
+  },
+};
+
+export const CustomLabel: Story = {
+  args: {
+    onInitialize: async () => {
+      IModelApp.tools.register(
+        createLockPropertyTool({
+          lockLabel: "Toggle myProperty lock",
+        }),
         UiFramework.localizationNamespace
       );
     },

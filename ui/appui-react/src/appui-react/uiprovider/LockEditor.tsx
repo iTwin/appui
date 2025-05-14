@@ -52,10 +52,12 @@ const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
       [currentValue, props.propertyRecord]
     );
 
+    const displayLabel = props.propertyRecord?.property.displayLabel;
+    const label = displayLabel ? displayLabel : "Toggle lock";
     return (
       <IconButton
         ref={ref}
-        label="Toggle lock"
+        label={label}
         size="small"
         styleType="borderless"
         isActive={currentValue}
