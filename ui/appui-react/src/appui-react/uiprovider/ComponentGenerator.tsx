@@ -26,7 +26,8 @@ import { EditorContainer } from "@itwin/components-react";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
-import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolsSettingsNewEditors.js";
+import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolSettingsNewEditors.js";
+import { useLockButtonPropertyRecord } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
 
 function EditorLabel({
   uiDataProvider,
@@ -114,7 +115,8 @@ function PropertyEditor({
   );
 
   const currentRecord = getLatestRecordValue(initialItem);
-  const [propertyRecord, setPropertyRecord] = React.useState(currentRecord);
+  const [_propertyRecord, setPropertyRecord] = React.useState(currentRecord);
+  const propertyRecord = useLockButtonPropertyRecord(_propertyRecord, isLock);
 
   // monitor tool for sync UI events
   React.useEffect(() => {
