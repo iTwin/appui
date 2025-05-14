@@ -156,6 +156,21 @@ function PropertyEditor(props: {
       );
       if (!propertyRecord) return;
 
+      const dialogItem = uiDataProvider.items.find(
+        (item) => item.property.name === itemPropertyName
+      );
+      if (dialogItem && dialogItem.lockProperty) {
+        // Lock the property when edited.
+        const lockProperty = dialogItem.lockProperty;
+        uiDataProvider.applyUiPropertyChange({
+          value: {
+            ...lockProperty.value,
+            value: true,
+          },
+          propertyName: lockProperty.property.name,
+        });
+      }
+
       const newPropertyValue = propertyRecord.copyWithNewValue(commit.newValue);
       uiDataProvider.applyUiPropertyChange({
         value: commit.newValue as DialogItemValue,
@@ -165,7 +180,7 @@ function PropertyEditor(props: {
       // Now have the uiDataProvider refetch the latest property values from the tool
       uiDataProvider.reloadDialogItems(true);
     },
-    [propertyName, propertyRecord, uiDataProvider]
+    [propertyName, propertyRecord, uiDataProvider, itemPropertyName]
   );
   const handleCancel = React.useCallback(() => {}, []);
 
