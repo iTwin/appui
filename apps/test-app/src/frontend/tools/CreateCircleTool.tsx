@@ -18,6 +18,7 @@ import {
   AccuDrawHintBuilder,
   BeButton,
   BeButtonEvent,
+  IModelApp,
   LengthDescription,
   Viewport,
 } from "@itwin/core-frontend";
@@ -67,6 +68,8 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public get radius() {
     return this.radiusProperty.value;
   }
+
+  private _useEnteredRadius = false;
 
   public override get targetCategory(): Id64String {
     if (!this.briefcase) {
@@ -145,6 +148,10 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     ev: BeButtonEvent,
     isDynamics: boolean
   ) {
+    if (!simulated) {
+      this._useEnteredRadius = false;
+    }
+
     if (!isDynamics) {
       if (this.useRadius) {
         this._points = [ev.point.clone()];
@@ -157,9 +164,16 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
 
     const center = this._points[0];
     const edge = this._points[1] ?? ev.point;
-    const radius = this.useRadius
-      ? this.radius
-      : Math.max(1, center.distance(edge));
+    const radius =
+      this.useRadius || this._useEnteredRadius
+        ? this.radius
+        : Math.max(1, center.distance(edge));
+
+    if (radius !== this.radius && !this._useEnteredRadius) {
+      this.radiusProperty.value = radius;
+      this.syncToolSettingsProperties([this.radiusProperty.syncItem]);
+    }
+
     this._current = Arc3d.createXY(center, radius);
   }
 
@@ -209,6 +223,12 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
       updatedValue.value,
       updatedValue.propertyName
     );
+    if (
+      updatedValue.propertyName === this.radiusProperty.name ||
+      updatedValue.propertyName === this.useRadiusProperty.name
+    ) {
+      this._useEnteredRadius = true;
+    }
     if (!this.changeToolSettingPropertyValue(updatedValue)) return false;
     return true;
   }
@@ -227,6 +247,26 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
     if (property === this.useRadiusProperty) return this.radiusProperty;
     return undefined;
   }
+
+  public override async run(...args: any[]) {
+    determineSimulatedEvent();
+    return super.run(...args);
+  }
+}
+
+// Workaround to determine if the motion event is simulated.
+let simulated = false;
+let isDetermined = false;
+function determineSimulatedEvent() {
+  if (isDetermined) return;
+
+  isDetermined = true;
+  const simulateMotionEvent = IModelApp.toolAdmin.simulateMotionEvent;
+  IModelApp.toolAdmin.simulateMotionEvent = (...args) => {
+    simulated = true;
+    simulateMotionEvent.bind(IModelApp.toolAdmin)(...args);
+    simulated = false;
+  };
 }
 
 export const CreateCircleTool = ToolUtilities.defineIcon(
