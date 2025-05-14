@@ -27,6 +27,7 @@ import {
   DialogItem,
   DialogProperty,
   DialogPropertySyncItem,
+  PropertyDescriptionHelper,
 } from "@itwin/appui-abstract";
 
 /** Tool to test dynamic graphics and tool settings.
@@ -36,6 +37,20 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   public static override toolId = "CreateCircle";
   private _point?: Point3d;
   private _current?: Arc3d;
+
+  private _useRadiusProperty: DialogProperty<boolean> | undefined;
+  public get useRadiusProperty() {
+    if (!this._useRadiusProperty)
+      this._useRadiusProperty = new DialogProperty(
+        PropertyDescriptionHelper.buildLockPropertyDescription("useRadius"),
+        false
+      );
+    return this._useRadiusProperty;
+  }
+
+  public get useRadius() {
+    return this.useRadiusProperty.value;
+  }
 
   private _radiusProperty: DialogProperty<number> | undefined;
   public get radiusProperty() {
@@ -154,10 +169,20 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   }
 
   public override supplyToolSettingsProperties(): DialogItem[] | undefined {
-    this.initializeToolSettingPropertyValues([this.radiusProperty]);
+    this.initializeToolSettingPropertyValues([
+      this.useRadiusProperty,
+      this.radiusProperty,
+    ]);
 
+    const useRadiusLock = this.useRadiusProperty.toDialogItem({
+      rowPriority: 0,
+      columnIndex: 0,
+    });
     return [
-      this.radiusProperty.toDialogItem({ rowPriority: 0, columnIndex: 0 }),
+      this.radiusProperty.toDialogItem(
+        { rowPriority: 0, columnIndex: 0 },
+        useRadiusLock
+      ),
     ];
   }
 
@@ -166,6 +191,13 @@ class CreateCircleToolBase extends CreateElementWithDynamicsTool {
   ): Promise<boolean> {
     if (!this.changeToolSettingPropertyValue(updatedValue)) return false;
     return true;
+  }
+
+  protected override getToolSettingPropertyLocked(
+    property: DialogProperty<any>
+  ): DialogProperty<any> | undefined {
+    if (property === this.useRadiusProperty) return this.radiusProperty;
+    return undefined;
   }
 }
 
