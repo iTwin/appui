@@ -358,6 +358,7 @@ export class ComponentGenerator {
         lockEditor={lockEditor}
         label={label}
         multiplePropertiesOnRow={multiplePropertiesOnRow}
+        itemPropertyName={rowItem.property.name}
       />
     );
   }
@@ -448,14 +449,17 @@ interface LeftLockAndLabelProps {
   lockEditor?: React.ReactNode;
   label?: React.ReactNode;
   multiplePropertiesOnRow: boolean;
+  itemPropertyName: string;
 }
 
-function LeftLockAndLabel({
-  lockEditor,
-  label,
-  multiplePropertiesOnRow,
-}: LeftLockAndLabelProps) {
-  const { lockDecoration } = React.useContext(LockContext) ?? {};
+function LeftLockAndLabel(props: LeftLockAndLabelProps) {
+  const { lockEditor, label, multiplePropertiesOnRow, itemPropertyName } =
+    props;
+  const { lockDecorations } = React.useContext(LockContext) ?? {};
+  const lockDecoration = React.useMemo(() => {
+    return lockDecorations?.[itemPropertyName];
+  }, [lockDecorations, itemPropertyName]);
+
   const classNames = multiplePropertiesOnRow
     ? "uifw-default-lock-and-label uifw-default-wide-only-display"
     : "uifw-default-lock-and-label";

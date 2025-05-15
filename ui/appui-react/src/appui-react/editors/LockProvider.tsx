@@ -11,6 +11,7 @@ import type { UiLayoutDataProvider } from "@itwin/appui-abstract";
 import { assert } from "@itwin/core-bentley";
 import { InputWithDecorations } from "@itwin/itwinui-react";
 import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
+import { produce } from "immer";
 
 /** This is used to notify the parent component that the lock decoration is displayed in the editor
  * and a separate lock editor should not be displayed.
@@ -19,24 +20,44 @@ import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 export const LockContext = React.createContext<
   | {
       /** Describes if the lock is displayed as an editor decoration. */
-      lockDecoration: boolean;
+      lockDecorations: Record<string, true>;
       /** Called by editors that display lock decoration. */
-      setLockDecoration: (lockDecoration: boolean) => void;
+      setLockDecoration: (
+        propertyName: string,
+        lockDecoration: boolean
+      ) => void;
     }
   | undefined
 >(undefined);
 
 /** @internal */
 export function LockProvider({ children }: React.PropsWithChildren) {
-  const [lockDecoration, setLockDecoration] = React.useState(false);
+  const [lockDecorations, setLockDecorations] = React.useState<
+    Record<string, true>
+  >({});
+  const setLockDecoration = React.useCallback(
+    (propertyName: string, lockDecoration: boolean) => {
+      setLockDecorations(
+        produce((draft) => {
+          if (lockDecoration) {
+            draft[propertyName] = true;
+            return;
+          }
+
+          delete draft[propertyName];
+        })
+      );
+    },
+    []
+  );
   return (
     <LockContext.Provider
       value={React.useMemo(
         () => ({
-          lockDecoration,
+          lockDecorations,
           setLockDecoration,
         }),
-        [lockDecoration]
+        [lockDecorations, setLockDecoration]
       )}
     >
       {children}
@@ -116,11 +137,12 @@ export function useLockDecoration() {
     !!lockButtonEnabled && !lockPropertyName && !!dialogItem?.lockProperty;
   React.useLayoutEffect(() => {
     if (!setLockDecoration) return;
-    setLockDecoration(lockDecoration);
+    if (!itemPropertyName) return;
+    setLockDecoration(itemPropertyName, lockDecoration);
     return () => {
-      setLockDecoration(false);
+      setLockDecoration(itemPropertyName, false);
     };
-  }, [setLockDecoration, lockDecoration]);
+  }, [setLockDecoration, lockDecoration, itemPropertyName]);
   return lockDecoration;
 }
 
