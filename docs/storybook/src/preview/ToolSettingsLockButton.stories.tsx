@@ -50,13 +50,27 @@ export const Default: Story = {
   },
 };
 
-export const CustomLabel: Story = {
+export const DisplayLabel: Story = {
   args: {
     onInitialize: async () => {
       IModelApp.tools.register(
         createLockPropertyTool({
           lockLabel: "Toggle myProperty lock",
         }),
+        UiFramework.localizationNamespace
+      );
+    },
+    onFrontstageActivated: async () => {
+      await IModelApp.tools.run(LockPropertyTool.toolId);
+    },
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    onInitialize: async () => {
+      IModelApp.tools.register(
+        createLockPropertyTool({ disabled: true }),
         UiFramework.localizationNamespace
       );
     },

@@ -14,16 +14,24 @@ Added `toolSettingsLockButton` preview feature, which when enabled will render a
 </PreviewFeaturesProvider>
 ```
 
-Custom label can be specified via the `displayLabel` of the lock `PropertyDescription`.
+Displayed icon button can be customized via the `BaseDialogItem` interface.
 
 ```ts
-const property =
+const propertyDescription =
   PropertyDescriptionHelper.buildLockPropertyDescription("useLength");
-property.displayLabel = "Toggle length lock";
-// Displays an icon button with the label "Toggle length lock".
+propertyDescription.displayLabel = "Toggle length lock";
+
+const property: BaseDialogItem = {
+  value: {
+    value: true,
+  },
+  property: propertyDescription,
+  isDisabled: true,
+};
+// Displays an active, disabled icon button with a custom label.
 ```
 
-Custom lock editor components can displayed by customizing the lock `PropertyDescription`, even if `toolSettingsLockButton` is enabled.
+Custom lock editor components can still be displayed by customizing the lock `PropertyDescription`, even if `toolSettingsLockButton` is enabled.
 
 ```ts
 const property =

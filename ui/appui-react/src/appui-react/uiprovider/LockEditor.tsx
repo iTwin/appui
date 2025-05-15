@@ -54,6 +54,7 @@ const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
 
     const displayLabel = props.propertyRecord?.property.displayLabel;
     const label = displayLabel ? displayLabel : "Toggle lock";
+    const disabled = props.propertyRecord?.isDisabled;
     return (
       <IconButton
         ref={ref}
@@ -61,6 +62,7 @@ const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
         size="small"
         styleType="borderless"
         isActive={currentValue}
+        disabled={disabled}
         onClick={() => {
           if (!props.propertyRecord || !props.onCommit) return;
           props.onCommit({

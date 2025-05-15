@@ -12,10 +12,11 @@ import { PrimitiveTool } from "@itwin/core-frontend";
 
 interface CreateLockPropertyToolArgs {
   lockLabel?: string;
+  disabled?: boolean;
 }
 
 export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
-  const { lockLabel } = args ?? {};
+  const { lockLabel, disabled } = args ?? {};
   return class LockPropertyTool extends PrimitiveTool {
     public static override toolId = "LockPropertyTool";
 
@@ -38,6 +39,7 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
       if (lockLabel) {
         lockPropertyDescription.displayLabel = lockLabel;
       }
+
       return [
         {
           property: PropertyDescriptionHelper.buildCheckboxDescription(
@@ -57,6 +59,7 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
               value: this._myLockPropertyValue,
             },
             property: lockPropertyDescription,
+            isDisabled: disabled,
           },
         },
       ];
