@@ -27,7 +27,7 @@ import {
   UiAdmin,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
-import { Input } from "@itwin/itwinui-react";
+import { Input, InputWithDecorations } from "@itwin/itwinui-react";
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
@@ -35,6 +35,10 @@ import { UiComponents } from "../UiComponents.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import type { IconNodeEditorParams } from "../../internal.js";
+import {
+  LockButtonInputDecoration,
+  useLockDecoration,
+} from "./LockProvider.js";
 
 /** @internal */
 interface CustomNumberEditorState {
@@ -344,32 +348,19 @@ export class CustomNumberEditor
       onKeyDown: this._onKeyPress,
     };
 
-    let reactNode: React.ReactNode;
-    if (this.state.iconSpec) {
+    const icon = this.state.iconSpec ? (
       // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const icon = <Icon iconSpec={this.state.iconSpec} />;
-      reactNode = (
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <IconInput
-          {...inputProps}
-          ref={this._inputElement}
-          icon={icon}
-          data-testid="components-customnumber-editor"
-        />
-      );
-    } else {
-      reactNode = (
-        <Input
-          {...inputProps}
-          ref={this._inputElement}
-          data-testid="components-customnumber-editor"
-          size="small"
-          id={this.props.propertyRecord?.property.name}
-        />
-      );
-    }
+      <Icon iconSpec={this.state.iconSpec} />
+    ) : undefined;
 
-    return reactNode;
+    return (
+      <LockNumberEditor
+        {...inputProps}
+        ref={this._inputElement}
+        id={this.props.propertyRecord?.property.name}
+        icon={icon}
+      />
+    );
   }
 }
 
@@ -385,3 +376,53 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
+
+interface LockNumberEditorProps extends InputProps {
+  icon?: React.ReactNode;
+}
+
+const LockNumberEditor = React.forwardRef<
+  HTMLInputElement,
+  LockNumberEditorProps
+>(function LockNumberEditor(props, forwardedRef) {
+  const { icon, ...rest } = props;
+  const lockDecoration = useLockDecoration();
+  if (lockDecoration) {
+    return (
+      <InputWithDecorations size="small">
+        {icon && (
+          <InputWithDecorations.Icon size="small">
+            {icon}
+          </InputWithDecorations.Icon>
+        )}
+        <InputWithDecorations.Input
+          {...rest}
+          ref={forwardedRef}
+          data-testid="components-customnumber-editor"
+          size="small"
+        />
+        <LockButtonInputDecoration />
+      </InputWithDecorations>
+    );
+  }
+
+  if (icon) {
+    return (
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      <IconInput
+        {...rest}
+        ref={forwardedRef}
+        icon={icon}
+        data-testid="components-customnumber-editor"
+      />
+    );
+  }
+  return (
+    <Input
+      {...rest}
+      ref={forwardedRef}
+      data-testid="components-customnumber-editor"
+      size="small"
+    />
+  );
+});
