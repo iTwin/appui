@@ -27,7 +27,6 @@ import { Label } from "@itwin/itwinui-react";
 import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolSettingsNewEditors.js";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { useLockButtonPropertyRecord } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
-import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
 import {
   LockContext,
   PropertyEditorProvider,

@@ -9,10 +9,7 @@
 import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
 import { CustomNumberPropertyEditor } from "./CustomNumber.js";
 import { registerDefaultPropertyEditor } from "@itwin/components-react/internal";
-import {
-  LockPropertyEditor,
-  LockPropertyEditorName,
-} from "../uiprovider/LockEditor.js";
+import { LockPropertyEditor, LockPropertyEditorName } from "./LockEditor.js";
 
 /** @internal */
 export function registerEditors() {
