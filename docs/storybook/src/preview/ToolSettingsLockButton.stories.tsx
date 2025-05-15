@@ -2,16 +2,10 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { UiFramework } from "@itwin/appui-react";
-import { IModelApp } from "@itwin/core-frontend";
 import type { Meta, StoryObj } from "@storybook/react";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { PreviewStory } from "./ToolSettingsLockButton";
-import {
-  LockPropertyTool,
-  createLockPropertyTool,
-} from "../tools/LockPropertyTool";
 import { removeProperty } from "../Utils";
 
 const meta = {
@@ -25,8 +19,7 @@ const meta = {
     },
   },
   argTypes: {
-    onFrontstageActivated: removeProperty(),
-    onInitialize: removeProperty(),
+    propertyType: removeProperty(),
   },
   args: {
     toolSettingsLockButton: true,
@@ -36,46 +29,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    onInitialize: async () => {
-      IModelApp.tools.register(
-        LockPropertyTool,
-        UiFramework.localizationNamespace
-      );
-    },
-    onFrontstageActivated: async () => {
-      await IModelApp.tools.run(LockPropertyTool.toolId);
-    },
-  },
-};
+export const Default: Story = {};
 
 export const DisplayLabel: Story = {
   args: {
-    onInitialize: async () => {
-      IModelApp.tools.register(
-        createLockPropertyTool({
-          lockLabel: "Toggle myProperty lock",
-        }),
-        UiFramework.localizationNamespace
-      );
-    },
-    onFrontstageActivated: async () => {
-      await IModelApp.tools.run(LockPropertyTool.toolId);
-    },
+    lockLabel: "Toggle myProperty lock",
   },
 };
 
 export const Disabled: Story = {
   args: {
-    onInitialize: async () => {
-      IModelApp.tools.register(
-        createLockPropertyTool({ disabled: true }),
-        UiFramework.localizationNamespace
-      );
-    },
-    onFrontstageActivated: async () => {
-      await IModelApp.tools.run(LockPropertyTool.toolId);
-    },
+    disabled: true,
+  },
+};
+
+export const Input: Story = {
+  args: {
+    propertyType: "number",
   },
 };

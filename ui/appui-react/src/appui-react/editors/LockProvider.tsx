@@ -172,7 +172,6 @@ export function LockButtonInputDecoration() {
       size="small"
       styleType="borderless"
       onClick={() => {
-        if (!provider) return;
         if (!lockProperty) return;
 
         provider.applyUiPropertyChange({
