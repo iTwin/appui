@@ -160,11 +160,17 @@ export function LockButtonInputDecoration() {
     itemPropertyName,
   });
   const isLocked = !!lockProperty?.value.value;
+
+  const displayLabel = lockProperty?.property.displayLabel;
+  const label = displayLabel ? displayLabel : "Toggle lock";
+  const disabled = lockProperty?.isDisabled;
   return (
     <InputWithDecorations.Button
       isActive={isLocked}
-      label="Toggle lock"
+      label={label}
+      disabled={disabled}
       size="small"
+      styleType="borderless"
       onClick={() => {
         if (!provider) return;
         if (!lockProperty) return;
