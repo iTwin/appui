@@ -50,6 +50,7 @@ export function LockProvider({ children }: React.PropsWithChildren) {
  */
 export const PropertyEditorContext = React.createContext<
   | {
+      lockButtonEnabled: boolean;
       uiDataProvider: UiLayoutDataProvider;
       itemPropertyName: string;
       /** Specified when rendering a lock editor. */
@@ -69,17 +70,23 @@ interface PropertyEditorProviderProps
 
 /** @internal */
 export function PropertyEditorProvider(props: PropertyEditorProviderProps) {
-  const { children, uiDataProvider, itemPropertyName, lockPropertyName } =
-    props;
+  const {
+    children,
+    lockButtonEnabled,
+    uiDataProvider,
+    itemPropertyName,
+    lockPropertyName,
+  } = props;
   return (
     <PropertyEditorContext.Provider
       value={React.useMemo(
         () => ({
+          lockButtonEnabled,
           uiDataProvider,
           itemPropertyName,
           lockPropertyName,
         }),
-        [uiDataProvider, itemPropertyName, lockPropertyName]
+        [uiDataProvider, itemPropertyName, lockPropertyName, lockButtonEnabled]
       )}
     >
       {children}
@@ -92,8 +99,12 @@ export function PropertyEditorProvider(props: PropertyEditorProviderProps) {
  * @internal
  */
 export function useLockDecoration() {
-  const { lockPropertyName, itemPropertyName, uiDataProvider } =
-    React.useContext(PropertyEditorContext) ?? {};
+  const {
+    lockButtonEnabled,
+    lockPropertyName,
+    itemPropertyName,
+    uiDataProvider,
+  } = React.useContext(PropertyEditorContext) ?? {};
   const { setLockDecoration } = React.useContext(LockContext) ?? {};
   const dialogItem = React.useMemo(
     () =>
@@ -102,7 +113,8 @@ export function useLockDecoration() {
       ),
     [uiDataProvider, itemPropertyName]
   );
-  const lockDecoration = !lockPropertyName && !!dialogItem?.lockProperty;
+  const lockDecoration =
+    !!lockButtonEnabled && !lockPropertyName && !!dialogItem?.lockProperty;
   React.useLayoutEffect(() => {
     if (!setLockDecoration) return;
     setLockDecoration(lockDecoration);
