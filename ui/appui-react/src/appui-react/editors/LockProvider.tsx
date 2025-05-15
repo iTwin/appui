@@ -8,13 +8,13 @@
 
 import * as React from "react";
 import type { UiLayoutDataProvider } from "@itwin/appui-abstract";
-import { assert } from "@itwin/core-bentley";
 import { InputWithDecorations } from "@itwin/itwinui-react";
 import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 import { produce } from "immer";
+import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
 
 /** This is used to notify the parent component that the lock decoration is displayed in the editor
- * and a separate lock editor should not be displayed.
+ * and a separate lock component should not be displayed as a sibling.
  * @internal
  */
 export const LockContext = React.createContext<
@@ -70,7 +70,6 @@ export function LockProvider({ children }: React.PropsWithChildren) {
  */
 export const PropertyEditorContext = React.createContext<
   | {
-      lockButtonEnabled: boolean;
       uiDataProvider: UiLayoutDataProvider;
       itemPropertyName: string;
       /** Specified when rendering a lock editor. */
@@ -90,23 +89,17 @@ interface PropertyEditorProviderProps
 
 /** @internal */
 export function PropertyEditorProvider(props: PropertyEditorProviderProps) {
-  const {
-    children,
-    lockButtonEnabled,
-    uiDataProvider,
-    itemPropertyName,
-    lockPropertyName,
-  } = props;
+  const { children, uiDataProvider, itemPropertyName, lockPropertyName } =
+    props;
   return (
     <PropertyEditorContext.Provider
       value={React.useMemo(
         () => ({
-          lockButtonEnabled,
           uiDataProvider,
           itemPropertyName,
           lockPropertyName,
         }),
-        [uiDataProvider, itemPropertyName, lockPropertyName, lockButtonEnabled]
+        [uiDataProvider, itemPropertyName, lockPropertyName]
       )}
     >
       {children}
@@ -114,18 +107,13 @@ export function PropertyEditorProvider(props: PropertyEditorProviderProps) {
   );
 }
 
-/** This hook should be used to mark editors that support lock decorations.
- * Returns if the lock decoration should be displayed.
+/** Returns `true` if the lock decoration should be displayed.
  * @internal
  */
 export function useLockDecoration() {
-  const {
-    lockButtonEnabled,
-    lockPropertyName,
-    itemPropertyName,
-    uiDataProvider,
-  } = React.useContext(PropertyEditorContext) ?? {};
-  const { setLockDecoration } = React.useContext(LockContext) ?? {};
+  const { lockPropertyName, itemPropertyName, uiDataProvider } =
+    React.useContext(PropertyEditorContext) ?? {};
+  const { toolSettingsLockButton } = usePreviewFeatures();
   const dialogItem = React.useMemo(
     () =>
       uiDataProvider?.items.find(
@@ -133,17 +121,9 @@ export function useLockDecoration() {
       ),
     [uiDataProvider, itemPropertyName]
   );
-  const lockDecoration =
-    !!lockButtonEnabled && !lockPropertyName && !!dialogItem?.lockProperty;
-  React.useLayoutEffect(() => {
-    if (!setLockDecoration) return;
-    if (!itemPropertyName) return;
-    setLockDecoration(itemPropertyName, lockDecoration);
-    return () => {
-      setLockDecoration(itemPropertyName, false);
-    };
-  }, [setLockDecoration, lockDecoration, itemPropertyName]);
-  return lockDecoration;
+  return (
+    !!toolSettingsLockButton && !lockPropertyName && !!dialogItem?.lockProperty
+  );
 }
 
 interface UseLockPropertyArgs {
@@ -151,20 +131,22 @@ interface UseLockPropertyArgs {
   itemPropertyName: string;
 }
 
-function useLockProperty(args: UseLockPropertyArgs) {
-  const { provider, itemPropertyName } = args;
+function useLockProperty(args: UseLockPropertyArgs | undefined) {
+  const { provider, itemPropertyName } = args ?? {};
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
-      const listeners = [
-        provider.onItemsReloadedEvent.addListener(onStoreChange),
-        provider.onSyncPropertiesChangeEvent.addListener(onStoreChange),
-      ];
+      const listeners = provider
+        ? [
+            provider.onItemsReloadedEvent.addListener(onStoreChange),
+            provider.onSyncPropertiesChangeEvent.addListener(onStoreChange),
+          ]
+        : [];
       return () => listeners.forEach((l) => l());
     },
     [provider]
   );
   const getSnapshot = React.useCallback(() => {
-    const dialogItem = provider.items.find(
+    const dialogItem = provider?.items.find(
       (item) => item.property.name === itemPropertyName
     );
     return dialogItem?.lockProperty;
@@ -172,17 +154,37 @@ function useLockProperty(args: UseLockPropertyArgs) {
   return React.useSyncExternalStore(subscribe, getSnapshot);
 }
 
-/** @internal */
+/** This component displays a lock button in the property editor when the `toolSettingsLockButton` preview feature is enabled.
+ * @alpha
+ */
 export function LockButtonInputDecoration() {
-  const context = React.useContext(PropertyEditorContext);
-  assert(!!context);
-  const { itemPropertyName, uiDataProvider: provider } = context;
-  const lockProperty = useLockProperty({
-    provider,
-    itemPropertyName,
-  });
-  const isLocked = !!lockProperty?.value.value;
+  const { itemPropertyName, uiDataProvider: provider } =
+    React.useContext(PropertyEditorContext) ?? {};
+  const { setLockDecoration } = React.useContext(LockContext) ?? {};
+  const lockDecoration = useLockDecoration();
 
+  const lockProperty = useLockProperty(
+    provider && itemPropertyName
+      ? {
+          provider,
+          itemPropertyName,
+        }
+      : undefined
+  );
+
+  React.useLayoutEffect(() => {
+    if (!lockDecoration) return;
+    if (!setLockDecoration) return;
+    if (!itemPropertyName) return;
+    setLockDecoration(itemPropertyName, true);
+    return () => {
+      setLockDecoration(itemPropertyName, false);
+    };
+  }, [setLockDecoration, itemPropertyName, lockDecoration]);
+
+  if (!lockDecoration) return null;
+
+  const isLocked = !!lockProperty?.value.value;
   const displayLabel = lockProperty?.property.displayLabel;
   const label = displayLabel ? displayLabel : "Toggle lock";
   const disabled = lockProperty?.isDisabled;
@@ -194,6 +196,7 @@ export function LockButtonInputDecoration() {
       size="small"
       styleType="borderless"
       onClick={() => {
+        if (!provider) return;
         if (!lockProperty) return;
 
         provider.applyUiPropertyChange({

@@ -207,6 +207,8 @@ export {
   UiDataProvidedDialogProps,
 } from "./appui-react/dialog/UiDataProvidedDialog.js";
 
+export { LockButtonInputDecoration } from "./appui-react/editors/LockProvider.js";
+
 export {
   InputStatus,
   ValidationTextbox,

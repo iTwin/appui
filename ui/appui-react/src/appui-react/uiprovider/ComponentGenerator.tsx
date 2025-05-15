@@ -203,10 +203,8 @@ function PropertyEditor(props: {
   const useNewEditors = useToolSettingsNewEditors();
 
   const lockPropertyName = isLock ? initialItem.property.name : undefined;
-  const { toolSettingsLockButton } = usePreviewFeatures();
   return (
     <PropertyEditorProvider
-      lockButtonEnabled={!!toolSettingsLockButton}
       uiDataProvider={uiDataProvider}
       itemPropertyName={itemPropertyName ?? initialItem.property.name}
       lockPropertyName={lockPropertyName}
