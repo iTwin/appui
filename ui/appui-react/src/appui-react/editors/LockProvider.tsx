@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import type { UiLayoutDataProvider } from "@itwin/appui-abstract";
+import { assert } from "@itwin/core-bentley";
 import { InputWithDecorations } from "@itwin/itwinui-react";
 import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 
@@ -128,23 +129,19 @@ interface UseLockPropertyArgs {
   itemPropertyName: string;
 }
 
-function useLockProperty(args: UseLockPropertyArgs | undefined) {
-  const { provider, itemPropertyName } = args ?? {};
+function useLockProperty(args: UseLockPropertyArgs) {
+  const { provider, itemPropertyName } = args;
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {
-      const listeners = provider
-        ? [
-            provider.onItemsReloadedEvent.addListener(onStoreChange),
-            provider.onSyncPropertiesChangeEvent.addListener(onStoreChange),
-          ]
-        : [];
+      const listeners = [
+        provider.onItemsReloadedEvent.addListener(onStoreChange),
+        provider.onSyncPropertiesChangeEvent.addListener(onStoreChange),
+      ];
       return () => listeners.forEach((l) => l());
     },
     [provider]
   );
   const getSnapshot = React.useCallback(() => {
-    if (!provider) return undefined;
-    if (!itemPropertyName) return undefined;
     const dialogItem = provider.items.find(
       (item) => item.property.name === itemPropertyName
     );
@@ -155,16 +152,13 @@ function useLockProperty(args: UseLockPropertyArgs | undefined) {
 
 /** @internal */
 export function LockButtonInputDecoration() {
-  const { itemPropertyName, uiDataProvider } =
-    React.useContext(PropertyEditorContext) ?? {};
-  const lockProperty = useLockProperty(
-    uiDataProvider && itemPropertyName
-      ? {
-          provider: uiDataProvider,
-          itemPropertyName,
-        }
-      : undefined
-  );
+  const context = React.useContext(PropertyEditorContext);
+  assert(!!context);
+  const { itemPropertyName, uiDataProvider: provider } = context;
+  const lockProperty = useLockProperty({
+    provider,
+    itemPropertyName,
+  });
   const isLocked = !!lockProperty?.value.value;
   return (
     <InputWithDecorations.Button
@@ -172,17 +166,17 @@ export function LockButtonInputDecoration() {
       label="Toggle lock"
       size="small"
       onClick={() => {
-        if (!uiDataProvider) return;
+        if (!provider) return;
         if (!lockProperty) return;
 
-        uiDataProvider.applyUiPropertyChange({
+        provider.applyUiPropertyChange({
           value: {
             ...lockProperty.value,
             value: !isLocked,
           },
           propertyName: lockProperty.property.name,
         });
-        uiDataProvider.reloadDialogItems();
+        provider.reloadDialogItems();
       }}
     >
       {isLocked ? <SvgLock /> : <SvgLockUnlocked />}
