@@ -18,6 +18,7 @@ interface CreateLockPropertyToolArgs {
   disabled?: boolean;
   propertyOverrides?: Partial<PropertyDescription>;
   initialValue?: DialogItemValue["value"];
+  additionalProperties?: DialogItem[];
 }
 
 export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
@@ -26,6 +27,7 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
     disabled,
     propertyOverrides,
     initialValue = false,
+    additionalProperties = [],
   } = args ?? {};
   return class LockPropertyTool extends PrimitiveTool {
     public static override toolId = "LockPropertyTool";
@@ -75,6 +77,7 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
             isDisabled: disabled,
           },
         },
+        ...additionalProperties,
       ];
     }
 

@@ -3,6 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import {
+  CustomFormattedNumberParams,
+  DialogItem,
+  PropertyEditorParamTypes,
+  StandardEditorNames,
+  StandardTypeNames,
+} from "@itwin/appui-abstract";
+import {
   IModelViewportControl,
   PreviewFeatures,
   PreviewFeaturesProvider,
@@ -16,12 +23,6 @@ import {
   LockPropertyTool,
   createLockPropertyTool,
 } from "../tools/LockPropertyTool";
-import {
-  CustomFormattedNumberParams,
-  PropertyEditorParamTypes,
-  StandardEditorNames,
-  StandardTypeNames,
-} from "@itwin/appui-abstract";
 
 type PreviewStoryProps = Pick<
   Required<PreviewFeatures>,
@@ -30,6 +31,7 @@ type PreviewStoryProps = Pick<
   lockLabel?: string;
   disabled?: boolean;
   propertyType?: `${StandardTypeNames.Boolean}` | `${StandardTypeNames.Number}`;
+  additionalProperties?: DialogItem[];
 };
 
 /** `toolSettingsLockButton` preview feature. Displays the default tool settings lock editor as an icon button rather than a checkbox. */
@@ -84,6 +86,7 @@ export function PreviewStory(props: PreviewStoryProps) {
                     }
                   : {}),
               },
+              additionalProperties: props.additionalProperties,
             }),
             UiFramework.localizationNamespace
           );
