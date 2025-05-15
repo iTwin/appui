@@ -118,12 +118,12 @@ export abstract class DataControllerBase implements DataController {
   }
 }
 
+const editors: { [index: string]: new () => PropertyEditorBase } = {};
+
 /** Manages Property Editors. Property Editors are registered with and created by the manager.
  * @public
  */
 export class PropertyEditorManager {
-  private static _editors: { [index: string]: new () => PropertyEditorBase } =
-    {};
   private static _dataControllers: {
     [index: string]: new () => DataControllerBase;
   } = {};
@@ -133,27 +133,15 @@ export class PropertyEditorManager {
     editor: new () => PropertyEditorBase,
     editorName?: string
   ): void {
-    const fullEditorName = PropertyEditorManager.getFullEditorName(
-      editType,
-      editorName
-    );
+    const fullEditorName = getFullEditorName(editType, editorName);
 
-    if (PropertyEditorManager._editors.hasOwnProperty(fullEditorName)) {
-      const nameOfEditor = PropertyEditorManager._editors[fullEditorName].name;
+    if (editors.hasOwnProperty(fullEditorName)) {
+      const nameOfEditor = editors[fullEditorName].name;
       throw Error(
         `PropertyEditorManager.registerEditor error: type '${fullEditorName}' already registered to '${nameOfEditor}'`
       );
     }
-    PropertyEditorManager._editors[fullEditorName] = editor;
-  }
-
-  private static getFullEditorName(
-    editType: string,
-    editorName?: string
-  ): string {
-    let fullEditorName = editType;
-    if (editorName) fullEditorName += `:${editorName}`;
-    return fullEditorName;
+    editors[fullEditorName] = editor;
   }
 
   public static registerDataController(
@@ -181,16 +169,12 @@ export class PropertyEditorManager {
     editorName?: string,
     dataControllerName?: string
   ): PropertyEditorBase {
-    const fullEditorName = PropertyEditorManager.getFullEditorName(
-      editType,
-      editorName
-    );
+    const fullEditorName = getFullEditorName(editType, editorName);
 
     let editor: PropertyEditorBase;
-    if (PropertyEditorManager._editors.hasOwnProperty(fullEditorName))
-      editor = new PropertyEditorManager._editors[fullEditorName]();
-    else if (PropertyEditorManager._editors.hasOwnProperty(editType))
-      editor = new PropertyEditorManager._editors[editType]();
+    if (editors.hasOwnProperty(fullEditorName))
+      editor = new editors[fullEditorName]();
+    else if (editors.hasOwnProperty(editType)) editor = new editors[editType]();
     else editor = new BasicPropertyEditor();
 
     if (dataControllerName) {
@@ -211,11 +195,8 @@ export class PropertyEditorManager {
   }
 
   public static hasCustomEditor(editType: string, editorName: string): boolean {
-    const fullEditorName = PropertyEditorManager.getFullEditorName(
-      editType,
-      editorName
-    );
-    return PropertyEditorManager._editors.hasOwnProperty(fullEditorName);
+    const fullEditorName = getFullEditorName(editType, editorName);
+    return editors.hasOwnProperty(fullEditorName);
   }
 }
 
@@ -227,4 +208,27 @@ export class BasicPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
     return <TextEditor />;
   }
+}
+
+function getFullEditorName(editType: string, editorName?: string) {
+  let fullEditorName = editType;
+  if (editorName) fullEditorName += `:${editorName}`;
+  return fullEditorName;
+}
+
+/** Used to override the default property editors from the `appui-react` package.
+ * @internal
+ */
+export function registerDefaultPropertyEditor(
+  editType: string,
+  editor: new () => PropertyEditorBase,
+  editorName?: string,
+  override = false
+) {
+  const fullEditorName = getFullEditorName(editType, editorName);
+
+  // Ignore if already registered and override is disabled.
+  if (editors.hasOwnProperty(fullEditorName) && !override) return;
+
+  editors[fullEditorName] = editor;
 }

@@ -8,7 +8,6 @@
 
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { LockProvider } from "@itwin/components-react/internal";
 import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
@@ -21,6 +20,7 @@ import { useActiveToolId } from "../hooks/useActiveToolId.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { DockedBar } from "./DockedBar.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { LockProvider } from "../editors/LockProvider.js";
 
 /** Defines a ToolSettings property entry.
  * @public

@@ -22,16 +22,16 @@ import {
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
 import { EditorContainer, PropertyRecordEditor } from "@itwin/components-react";
-import {
-  LockContext,
-  PropertyEditorProvider,
-} from "@itwin/components-react/internal";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
 import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolSettingsNewEditors.js";
 import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
 import { useLockButtonPropertyRecord } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
 import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
+import {
+  LockContext,
+  PropertyEditorProvider,
+} from "../editors/LockProvider.js";
 
 function EditorLabel({
   uiDataProvider,

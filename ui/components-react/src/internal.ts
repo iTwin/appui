@@ -2,12 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-export {
-  LockContext,
-  LockProvider,
-  PropertyEditorContext,
-  PropertyEditorProvider,
-} from "./components-react/editors/LockProvider.js";
+export { InternalCustomNumberEditorProps } from "./components-react/editors/CustomNumberEditor.js";
+export { registerDefaultPropertyEditor } from "./components-react/editors/PropertyEditorManager.js";
 
 export { useTranslation } from "./components-react/l10n/useTranslation.js";
 

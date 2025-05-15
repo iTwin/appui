@@ -35,17 +35,19 @@ import { UiComponents } from "../UiComponents.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import type { IconNodeEditorParams } from "../../internal.js";
-import {
-  LockButtonInputDecoration,
-  useLockDecoration,
-} from "./LockProvider.js";
 
-/** @internal */
 interface CustomNumberEditorState {
   inputValue: string;
   size?: number;
   maxLength?: number;
   iconSpec?: React.ReactNode;
+}
+
+/** Workaround to add internal props, since `CustomNumberEditor` uses both composition and inheritance.
+ * @internal
+ */
+export interface InternalCustomNumberEditorProps {
+  decoration?: React.ReactNode;
 }
 
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
@@ -318,6 +320,7 @@ export class CustomNumberEditor
   };
 
   public override render(): React.ReactNode {
+    const { decoration } = this.props as InternalCustomNumberEditorProps;
     const minSize = this.state.size ? this.state.size : 8;
     const minWidthStyle: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
@@ -359,6 +362,7 @@ export class CustomNumberEditor
         ref={this._inputElement}
         id={this.props.propertyRecord?.property.name}
         icon={icon}
+        decoration={decoration}
       />
     );
   }
@@ -379,15 +383,15 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
 
 interface LockNumberEditorProps extends InputProps {
   icon?: React.ReactNode;
+  decoration?: React.ReactNode;
 }
 
 const LockNumberEditor = React.forwardRef<
   HTMLInputElement,
   LockNumberEditorProps
 >(function LockNumberEditor(props, forwardedRef) {
-  const { icon, ...rest } = props;
-  const lockDecoration = useLockDecoration();
-  if (lockDecoration) {
+  const { icon, decoration, ...rest } = props;
+  if (decoration) {
     return (
       <InputWithDecorations size="small">
         {icon && (
@@ -401,7 +405,7 @@ const LockNumberEditor = React.forwardRef<
           data-testid="components-customnumber-editor"
           size="small"
         />
-        <LockButtonInputDecoration />
+        {decoration}
       </InputWithDecorations>
     );
   }

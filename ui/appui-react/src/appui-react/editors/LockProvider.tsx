@@ -11,8 +11,6 @@ import type { UiLayoutDataProvider } from "@itwin/appui-abstract";
 import { InputWithDecorations } from "@itwin/itwinui-react";
 import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 
-/** TODO: These `ToolSettings` specific APIs should live in `appui-react` package. */
-
 /** This is used to notify the parent component that the lock decoration is displayed in the editor
  * and a separate lock editor should not be displayed.
  * @internal
