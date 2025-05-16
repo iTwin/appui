@@ -69,16 +69,28 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
     value: SnapMode.Bisector as number,
     icon: <SvgSnapsBisector />,
   },
-  {
-    labelKey: "snapModeField.perpendicularPoint",
-    value: SnapMode.PerpendicularPoint as number,
-    icon: <SvgPlaceholder />,
-  },
-  {
-    labelKey: "snapModeField.tangentPoint",
-    value: SnapMode.TangentPoint as number,
-    icon: <SvgPlaceholder />,
-  },
+  // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
+  ...(SnapMode.PerpendicularPoint === undefined
+    ? []
+    : [
+        {
+          labelKey: "snapModeField.perpendicularPoint",
+          // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
+          value: SnapMode.PerpendicularPoint as number,
+          icon: <SvgPlaceholder />,
+        },
+      ]),
+  // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
+  ...(SnapMode.TangentPoint === undefined
+    ? []
+    : [
+        {
+          labelKey: "snapModeField.tangentPoint",
+          // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
+          value: SnapMode.TangentPoint as number,
+          icon: <SvgPlaceholder />,
+        },
+      ]),
 ];
 
 /** Defines properties supported by the SnapMode Field Component. */
