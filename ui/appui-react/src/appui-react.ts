@@ -849,15 +849,32 @@ export { ToolUiProvider } from "./appui-react/toolsettings/ToolUiProvider.js";
 
 // #region "SideEffects"
 
+import { StandardTypeNames } from "@itwin/appui-abstract";
+import { PropertyEditorManager } from "@itwin/components-react";
 import { UiFramework } from "./appui-react/UiFramework.js";
 import { DefaultToolSettingsProvider } from "./appui-react/toolsettings/DefaultToolSettingsProvider.js";
 import { IModelViewportControl } from "./appui-react/content/IModelViewport.js";
+import {
+  LockPropertyEditor,
+  LockPropertyEditorName,
+} from "./appui-react/uiprovider/LockEditor.js";
 
 UiFramework.controls.register(
   "DefaultToolSettings",
   DefaultToolSettingsProvider
 );
 UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);
+
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Bool,
+  LockPropertyEditor,
+  LockPropertyEditorName
+);
+PropertyEditorManager.registerEditor(
+  StandardTypeNames.Boolean,
+  LockPropertyEditor,
+  LockPropertyEditorName
+);
 
 // #endregion "SideEffects"
 
