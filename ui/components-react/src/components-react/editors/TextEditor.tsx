@@ -21,9 +21,13 @@ import {
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
-import { Input } from "@itwin/itwinui-react";
+import { Input, InputWithDecorations } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager.js";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
+import type {
+  InternalInputEditorProps,
+  PropertyEditorProps,
+  TypeEditor,
+} from "./EditorContainer.js";
 import { UiComponents } from "../UiComponents.js";
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
@@ -171,6 +175,7 @@ export class TextEditor
   }
 
   public override render(): React.ReactNode {
+    const { decoration } = this.props as InternalInputEditorProps;
     const className = classnames(
       "components-cell-editor",
       "components-text-editor",
@@ -191,35 +196,70 @@ export class TextEditor
       onBlur: this.props.onBlur,
       onChange: this._updateInputValue,
       autoFocus: this.props.setFocus && !this.state.isDisabled,
+      "aria-label": UiComponents.translate("editor.text"),
     };
 
-    inputProps["aria-label"] = UiComponents.translate("editor.text");
-
-    let reactNode: React.ReactNode;
-    if (this.state.iconSpec) {
+    const icon = this.state.iconSpec ? (
       // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const icon = <Icon iconSpec={this.state.iconSpec} />;
-      reactNode = (
+      <Icon iconSpec={this.state.iconSpec} />
+    ) : undefined;
+    return (
+      <LockTextEditor
+        {...inputProps}
+        ref={this._inputElement}
+        id={this.props.propertyRecord?.property.name}
+        icon={icon}
+        decoration={decoration}
+      />
+    );
+  }
+}
+
+interface LockTextEditorProps extends InputProps {
+  icon?: React.ReactNode;
+  decoration?: React.ReactNode;
+}
+
+const LockTextEditor = React.forwardRef<HTMLInputElement, LockTextEditorProps>(
+  function LockTextEditor(props, forwardedRef) {
+    const { icon, decoration, ...rest } = props;
+    if (decoration) {
+      return (
+        <InputWithDecorations size="small">
+          {icon && (
+            <InputWithDecorations.Icon size="small">
+              {icon}
+            </InputWithDecorations.Icon>
+          )}
+          <InputWithDecorations.Input
+            {...rest}
+            ref={forwardedRef}
+            data-testid="components-text-editor"
+            size="small"
+          />
+          {decoration}
+        </InputWithDecorations>
+      );
+    }
+
+    if (icon) {
+      return (
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         <IconInput
-          {...inputProps}
-          ref={this._inputElement}
+          {...rest}
+          ref={forwardedRef}
           icon={icon}
           data-testid="components-text-editor"
         />
       );
-    } else {
-      reactNode = (
-        <Input
-          {...inputProps}
-          ref={this._inputElement}
-          data-testid="components-text-editor"
-          size="small"
-          id={this.props.propertyRecord?.property.name}
-        />
-      );
     }
-
-    return reactNode;
+    return (
+      <Input
+        {...rest}
+        ref={forwardedRef}
+        data-testid="components-text-editor"
+        size="small"
+      />
+    );
   }
-}
+);

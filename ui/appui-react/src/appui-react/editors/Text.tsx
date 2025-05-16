@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import {
-  CustomNumberEditor as BaseCustomNumberEditor,
-  CustomNumberPropertyEditor as BaseCustomNumberPropertyEditor,
+  TextEditor as BaseTextEditor,
+  BasicPropertyEditor as BaseTextPropertyEditor,
 } from "@itwin/components-react";
 import type { InternalInputEditorProps } from "@itwin/components-react/internal";
 import {
@@ -18,24 +18,19 @@ import {
 } from "./LockProvider.js";
 
 /** @internal */
-export class CustomNumberPropertyEditor extends BaseCustomNumberPropertyEditor {
+export class TextPropertyEditor extends BaseTextPropertyEditor {
   public override get reactNode(): React.ReactNode {
-    return <CustomNumberEditor />;
+    return <TextEditor />;
   }
 }
 
-const CustomNumberEditor = React.forwardRef<BaseCustomNumberEditor>(
-  function CustomNumberEditor(props, forwardedRef) {
-    const lockDecoration = useLockDecoration();
-    const internalProps = {
-      decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
-    } satisfies InternalInputEditorProps;
-    return (
-      <BaseCustomNumberEditor
-        {...props}
-        {...internalProps}
-        ref={forwardedRef}
-      />
-    );
-  }
-);
+const TextEditor = React.forwardRef<BaseTextEditor>(function TextEditor(
+  props,
+  forwardedRef
+) {
+  const lockDecoration = useLockDecoration();
+  const internalProps = {
+    decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
+  } satisfies InternalInputEditorProps;
+  return <BaseTextEditor {...props} {...internalProps} ref={forwardedRef} />;
+});

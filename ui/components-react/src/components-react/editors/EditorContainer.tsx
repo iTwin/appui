@@ -55,6 +55,13 @@ export interface PropertyEditorProps extends CommonProps {
   shouldCommitOnChange?: boolean;
 }
 
+/** Workaround to add internal props without major refactor, since editors uses both composition and inheritance.
+ * @internal
+ */
+export interface InternalInputEditorProps {
+  decoration?: React.ReactNode;
+}
+
 /** [[EditorContainer]] React component properties
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof EditorContainer>`
