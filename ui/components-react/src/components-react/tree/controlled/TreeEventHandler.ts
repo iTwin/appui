@@ -67,16 +67,20 @@ export class TreeEventHandler implements TreeEvents, Disposable {
     this._editingParams = params.editingParams;
   }
 
+  #dispose() {
+    this._disposed.next();
+  }
+
   /** Destructor. Must be called to clean up.  */
   public [Symbol.dispose]() {
-    this._disposed.next();
+    this.#dispose();
   }
 
   /** Disposes tree event handler.
    * @deprecated in 5.5.0. Use `[Symbol.dispose]` instead.
    */
   public dispose() {
-    this[Symbol.dispose]();
+    this.#dispose();
   }
 
   public get modelSource() {
