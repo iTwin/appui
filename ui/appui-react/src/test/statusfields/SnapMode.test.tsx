@@ -5,7 +5,7 @@
 import * as React from "react";
 import { Provider } from "react-redux";
 import { render, screen } from "@testing-library/react";
-import { SnapMode } from "@itwin/core-frontend";
+import { ITWINJS_CORE_VERSION, SnapMode } from "@itwin/core-frontend";
 import type { ListenerType } from "@itwin/core-react/internal";
 import {
   SnapModeField,
@@ -33,7 +33,9 @@ describe("SnapModeField", () => {
     const snaps = container.parentElement!.querySelectorAll(
       ".nz-footer-snapMode-snap"
     );
-    expect(snaps.length).to.eql(7);
+
+    const coreMajorVersion = Number(ITWINJS_CORE_VERSION.split(".")[0]);
+    expect(snaps.length).to.eql(coreMajorVersion === 4 ? 7 : 9);
 
     await theUserTo.click(snapModeButton); // Closes popup
   });

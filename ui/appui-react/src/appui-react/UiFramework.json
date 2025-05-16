@@ -62,7 +62,9 @@
     "origin": "Origin",
     "midpoint": "Midpoint",
     "bisector": "Bisector",
-    "multi": "Multiple"
+    "multi": "Multiple",
+    "perpendicularPoint": "Perpendicular point",
+    "tangentPoint": "Tangent point"
   },
   "selectionScopeField": {
     "label": "Scope",

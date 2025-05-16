@@ -5,15 +5,16 @@
 import React from "react";
 import {
   SelectionScopeField,
+  SnapModeField,
   StandardStatusbarUiItemsProvider,
   StatusBarItemUtilities,
   StatusBarSection,
   UiItemsProvider,
 } from "@itwin/appui-react";
+import { useAccuSnapStore } from "../AppAccuSnap";
 
 export function createStatusBarUiItemsProvider() {
   const standardProvider = new StandardStatusbarUiItemsProvider({
-    accuSnapModePicker: true,
     activityCenter: true,
     messageCenter: true,
     postToolAssistanceSeparator: true,
@@ -34,6 +35,12 @@ export function createStatusBarUiItemsProvider() {
           itemPriority: 20,
           content: <AppSelectionScope />,
         }),
+        StatusBarItemUtilities.createCustomItem({
+          id: "snap-mode",
+          section: StatusBarSection.Center,
+          itemPriority: 10,
+          content: <AppSnapModeField />,
+        }),
       ];
     },
   } satisfies UiItemsProvider;
@@ -50,6 +57,18 @@ function AppSelectionScope() {
       ]}
       activeScope={scope}
       onChange={setScope}
+    />
+  );
+}
+
+function AppSnapModeField() {
+  const snapMode = useAccuSnapStore();
+  return (
+    <SnapModeField
+      snapMode={snapMode}
+      onChange={(newMode) => {
+        useAccuSnapStore.setState(newMode);
+      }}
     />
   );
 }
