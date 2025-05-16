@@ -1,0 +1,202 @@
+var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l, _m, _n, _o;
+import { j as jsxRuntimeExports } from "./index-C8SlDwFz.js";
+import { A as AppUiDecorator } from "./Decorators-_fBFu_1E.js";
+import { A as AppUiStory, P as Page } from "./AppUiStory-BQKHRroc.js";
+import { d as PropertyEditorParamTypes, e as StandardEditorNames } from "./Dialog-B4AlSohG.js";
+import { aa as PreviewFeaturesProvider, I as IModelApp, U as UiFramework, e as IModelViewportControl, k as StandardContentLayouts, ae as DialogProperty, v as PropertyDescriptionHelper, af as LengthDescription } from "./appui-react-CshDS9F4.js";
+import { c as createFrontstage, r as removeProperty } from "./Utils-C8WlYJ7Q.js";
+import { L as LockPropertyTool, c as createLockPropertyTool } from "./LockPropertyTool-Q6eq-UrE.js";
+import "./index-DVOlmhHI.js";
+import "./index-CdGyBOBZ.js";
+import "./index-BkPtAnId.js";
+import "./iframe-CY2-t6FD.js";
+import "./index-XG6mIJUL.js";
+import "./index-BdOSk9or.js";
+import "./DemoIModel-selgNRA5.js";
+import "./SvgCloseSmall-D3lYHYdV.js";
+import "./client-DmvY241V.js";
+import "./index-6lyHBX71.js";
+import "./v4-CjlX8hrF.js";
+function PreviewStory(props) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    PreviewFeaturesProvider,
+    {
+      features: {
+        toolSettingsLockButton: props.toolSettingsLockButton
+      },
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+        AppUiStory,
+        {
+          layout: "fullscreen",
+          demoIModel: { default: "blank" },
+          frontstages: [
+            createFrontstage({
+              contentGroupProps: {
+                id: "ViewportContentGroup",
+                layout: StandardContentLayouts.singleView,
+                contents: [
+                  {
+                    id: "ViewportContent",
+                    classId: IModelViewportControl
+                  }
+                ]
+              },
+              hideToolSettings: false
+            })
+          ],
+          onInitialize: async () => {
+            IModelApp.tools.register(
+              createLockPropertyTool({
+                lockLabel: props.lockLabel,
+                disabled: props.disabled,
+                initialValue: props.propertyType === "number" ? 1 : void 0,
+                propertyOverrides: {
+                  typename: props.propertyType,
+                  ...props.propertyType === "number" ? {
+                    editor: {
+                      name: StandardEditorNames.NumberCustom,
+                      params: [
+                        {
+                          type: PropertyEditorParamTypes.CustomFormattedNumber,
+                          formatFunction: (x) => x.toString(),
+                          parseFunction: (x) => ({
+                            value: Number(x),
+                            parseError: void 0
+                          })
+                        }
+                      ]
+                    }
+                  } : {}
+                },
+                additionalProperties: props.additionalProperties
+              }),
+              UiFramework.localizationNamespace
+            );
+          },
+          onFrontstageActivated: async () => {
+            await IModelApp.tools.run(LockPropertyTool.toolId);
+          }
+        }
+      )
+    }
+  );
+}
+PreviewStory.__docgenInfo = { "description": "`toolSettingsLockButton` preview feature. Displays the default tool settings lock editor as an icon button rather than a checkbox.", "methods": [], "displayName": "PreviewStory", "props": { "lockLabel": { "required": false, "tsType": { "name": "string" }, "description": "" }, "disabled": { "required": false, "tsType": { "name": "boolean" }, "description": "" }, "propertyType": { "required": false, "tsType": { "name": "union", "raw": "`${StandardTypeNames.Boolean}` | `${StandardTypeNames.Number}`", "elements": [{ "name": "literal", "value": "`${StandardTypeNames.Boolean}`" }, { "name": "literal", "value": "`${StandardTypeNames.Number}`" }] }, "description": "" }, "additionalProperties": { "required": false, "tsType": { "name": "Array", "elements": [{ "name": "DialogItem" }], "raw": "DialogItem[]" }, "description": "" } } };
+const meta = {
+  title: "PreviewFeatures/ToolSettingsLockButton",
+  component: PreviewStory,
+  tags: ["autodocs"],
+  decorators: [AppUiDecorator],
+  parameters: {
+    docs: {
+      page: () => /* @__PURE__ */ jsxRuntimeExports.jsx(Page, {})
+    }
+  },
+  argTypes: {
+    propertyType: removeProperty()
+  },
+  args: {
+    toolSettingsLockButton: true
+  }
+};
+const Default = {};
+const DisplayLabel = {
+  args: {
+    lockLabel: "Toggle myProperty lock"
+  }
+};
+const Disabled = {
+  args: {
+    disabled: true
+  }
+};
+const Input = {
+  args: {
+    propertyType: "number"
+  }
+};
+const MultipleProperties = {
+  args: {
+    additionalProperties: (() => {
+      const useRadius = new DialogProperty(PropertyDescriptionHelper.buildLockPropertyDescription("useRadius"), false);
+      useRadius.description.displayLabel = "Lock radius property";
+      const radius = new DialogProperty(PropertyDescriptionHelper.buildToggleDescription("radius", "Radius"), 1);
+      const useLength = new DialogProperty(PropertyDescriptionHelper.buildLockPropertyDescription("useLength"), false);
+      useLength.description.displayLabel = "Lock length property";
+      const length = new DialogProperty(new LengthDescription("length", "Length"), 1);
+      return [radius.toDialogItem({
+        columnIndex: 0,
+        rowPriority: 1
+      }, useRadius.toDialogItem({
+        columnIndex: 0,
+        rowPriority: 1
+      })), length.toDialogItem({
+        columnIndex: 0,
+        rowPriority: 1
+      }, useLength.toDialogItem({
+        columnIndex: 0,
+        rowPriority: 1
+      }))];
+    })()
+  }
+};
+Default.parameters = {
+  ...Default.parameters,
+  docs: {
+    ...(_a = Default.parameters) == null ? void 0 : _a.docs,
+    source: {
+      originalSource: "{}",
+      ...(_c = (_b = Default.parameters) == null ? void 0 : _b.docs) == null ? void 0 : _c.source
+    }
+  }
+};
+DisplayLabel.parameters = {
+  ...DisplayLabel.parameters,
+  docs: {
+    ...(_d = DisplayLabel.parameters) == null ? void 0 : _d.docs,
+    source: {
+      originalSource: '{\n  args: {\n    lockLabel: "Toggle myProperty lock"\n  }\n}',
+      ...(_f = (_e = DisplayLabel.parameters) == null ? void 0 : _e.docs) == null ? void 0 : _f.source
+    }
+  }
+};
+Disabled.parameters = {
+  ...Disabled.parameters,
+  docs: {
+    ...(_g = Disabled.parameters) == null ? void 0 : _g.docs,
+    source: {
+      originalSource: "{\n  args: {\n    disabled: true\n  }\n}",
+      ...(_i = (_h = Disabled.parameters) == null ? void 0 : _h.docs) == null ? void 0 : _i.source
+    }
+  }
+};
+Input.parameters = {
+  ...Input.parameters,
+  docs: {
+    ...(_j = Input.parameters) == null ? void 0 : _j.docs,
+    source: {
+      originalSource: '{\n  args: {\n    propertyType: "number"\n  }\n}',
+      ...(_l = (_k = Input.parameters) == null ? void 0 : _k.docs) == null ? void 0 : _l.source
+    }
+  }
+};
+MultipleProperties.parameters = {
+  ...MultipleProperties.parameters,
+  docs: {
+    ...(_m = MultipleProperties.parameters) == null ? void 0 : _m.docs,
+    source: {
+      originalSource: '{\n  args: {\n    additionalProperties: (() => {\n      const useRadius = new DialogProperty(PropertyDescriptionHelper.buildLockPropertyDescription("useRadius"), false);\n      useRadius.description.displayLabel = "Lock radius property";\n      const radius = new DialogProperty(PropertyDescriptionHelper.buildToggleDescription("radius", "Radius"), 1);\n      const useLength = new DialogProperty(PropertyDescriptionHelper.buildLockPropertyDescription("useLength"), false);\n      useLength.description.displayLabel = "Lock length property";\n      const length = new DialogProperty(new LengthDescription("length", "Length"), 1);\n      return [radius.toDialogItem({\n        columnIndex: 0,\n        rowPriority: 1\n      }, useRadius.toDialogItem({\n        columnIndex: 0,\n        rowPriority: 1\n      })), length.toDialogItem({\n        columnIndex: 0,\n        rowPriority: 1\n      }, useLength.toDialogItem({\n        columnIndex: 0,\n        rowPriority: 1\n      }))];\n    })()\n  }\n}',
+      ...(_o = (_n = MultipleProperties.parameters) == null ? void 0 : _n.docs) == null ? void 0 : _o.source
+    }
+  }
+};
+const __namedExportsOrder = ["Default", "DisplayLabel", "Disabled", "Input", "MultipleProperties"];
+export {
+  Default,
+  Disabled,
+  DisplayLabel,
+  Input,
+  MultipleProperties,
+  __namedExportsOrder,
+  meta as default
+};

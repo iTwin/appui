@@ -1,0 +1,24 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-lb {
+  display: flex;
+  align-items: center;
+}
+.core-lb > .lb-container {
+  background-color: var(--iui-color-background-disabled);
+  flex: 1;
+}
+.core-lb > .lb-container > .fill {
+  height: 100%;
+  background-color: var(--iui-color-icon-accent);
+  transition: width 0.3s linear;
+}
+.core-lb > .percent {
+  flex: initial;
+  opacity: 0.85;
+  width: 3em;
+  font-size: 0.9em;
+  margin-left: 0.3em;
+}
