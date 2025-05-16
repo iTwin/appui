@@ -54,7 +54,7 @@ export const Input: Story = {
   },
 };
 
-export const MultipleProperties: Story = {
+export const EditorGroup: Story = {
   args: {
     additionalProperties: (() => {
       const useRadius = new DialogProperty(
@@ -94,6 +94,44 @@ export const MultipleProperties: Story = {
             columnIndex: 0,
             rowPriority: 1,
           })
+        ),
+      ];
+    })(),
+  },
+};
+
+export const DefaultEditors: Story = {
+  args: {
+    additionalProperties: (() => {
+      function createDialogItem<T>(dialogProperty: DialogProperty<T>) {
+        const lock = new DialogProperty(
+          PropertyDescriptionHelper.buildLockPropertyDescription(
+            `use${dialogProperty.name}`
+          ),
+          false
+        );
+        lock.description.displayLabel = `Lock ${dialogProperty.description.displayLabel} property`;
+        return dialogProperty.toDialogItem(
+          {
+            columnIndex: 0,
+            rowPriority: 1,
+          },
+          lock.toDialogItem({
+            columnIndex: 0,
+            rowPriority: 1,
+          })
+        );
+      }
+
+      return [
+        createDialogItem(
+          new DialogProperty(
+            PropertyDescriptionHelper.buildTextEditorDescription(
+              "text",
+              "Text"
+            ),
+            "Hello"
+          )
         ),
       ];
     })(),
