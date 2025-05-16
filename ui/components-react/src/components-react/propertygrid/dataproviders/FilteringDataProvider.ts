@@ -83,15 +83,19 @@ export class FilteringPropertyDataProvider
       });
   }
 
-  /** Destructor. Must be called to clean up.  */
-  public [Symbol.dispose]() {
+  #dispose() {
     this._disposeDataChangedListener();
     this._disposeFilterChangedListener();
   }
 
+  /** Destructor. Must be called to clean up.  */
+  public [Symbol.dispose]() {
+    this.#dispose();
+  }
+
   /** @deprecated in 5.5.0. Use `[Symbol.dispose]` instead. */
   public dispose(): void {
-    this[Symbol.dispose]();
+    this.#dispose();
   }
 
   public async getData(): Promise<FilteredPropertyData> {
