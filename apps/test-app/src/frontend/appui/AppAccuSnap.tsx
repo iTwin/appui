@@ -3,12 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { AccuSnap, SnapMode } from "@itwin/core-frontend";
+import { create } from "zustand";
+
+export const useAccuSnapStore = create<SnapMode>(() => SnapMode.Nearest);
 
 export class AppAccuSnap extends AccuSnap {
   public override getActiveSnapModes(): SnapMode[] {
     const snaps: SnapMode[] = [];
 
-    const snapMode = SnapMode.Nearest; // TODO: read from store
+    const snapMode = useAccuSnapStore.getState();
     if (snapMode) {
       if ((snapMode & SnapMode.Bisector) === (SnapMode.Bisector as number))
         snaps.push(SnapMode.Bisector);

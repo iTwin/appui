@@ -66,6 +66,9 @@ catalogs:
     '@itwin/webgl-compatibility':
       specifier: rc
       version: 5.0.0-dev.112
+    zustand:
+      specifier: ^4.4.1
+      version: 4.5.6
 
 patchedDependencies:
   '@changesets/assemble-release-plan':
@@ -241,6 +244,9 @@ importers:
       ts-key-enum:
         specifier: ~2.0.12
         version: 2.0.13
+      zustand:
+        specifier: 'catalog:'
+        version: 4.5.6(@types/react@18.3.20)(immer@10.1.1)(react@18.3.1)
     devDependencies:
       '@itwin/build-tools':
         specifier: 4.10.2
@@ -672,7 +678,7 @@ importers:
         specifier: ~2.0.12
         version: 2.0.13
       zustand:
-        specifier: ^4.4.1
+        specifier: 'catalog:'
         version: 4.5.6(@types/react@18.3.20)(immer@10.1.1)(react@18.3.1)
     devDependencies:
       '@itwin/appui-abstract':
