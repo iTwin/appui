@@ -3126,6 +3126,9 @@ export type LocalStateStorage = LocalStateStorage_2;
 // @public (undocumented)
 export const LocalStateStorage: typeof LocalStateStorage_2;
 
+// @alpha
+export function LockButtonInputDecoration(): React_2.JSX.Element | null;
+
 // @public (undocumented)
 export class MenuButton extends React_2.PureComponent<MenuButtonProps, MenuButtonState> {
     constructor(props: MenuButtonProps);

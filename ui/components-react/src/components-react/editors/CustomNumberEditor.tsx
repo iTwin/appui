@@ -27,7 +27,7 @@ import {
   UiAdmin,
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
-import { Input } from "@itwin/itwinui-react";
+import { Input, InputWithDecorations } from "@itwin/itwinui-react";
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
@@ -36,12 +36,18 @@ import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import type { IconNodeEditorParams } from "../../internal.js";
 
-/** @internal */
 interface CustomNumberEditorState {
   inputValue: string;
   size?: number;
   maxLength?: number;
   iconSpec?: React.ReactNode;
+}
+
+/** Workaround to add internal props, since `CustomNumberEditor` uses both composition and inheritance.
+ * @internal
+ */
+export interface InternalCustomNumberEditorProps {
+  decoration?: React.ReactNode;
 }
 
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
@@ -314,6 +320,7 @@ export class CustomNumberEditor
   };
 
   public override render(): React.ReactNode {
+    const { decoration } = this.props as InternalCustomNumberEditorProps;
     const minSize = this.state.size ? this.state.size : 8;
     const minWidthStyle: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
@@ -344,32 +351,20 @@ export class CustomNumberEditor
       onKeyDown: this._onKeyPress,
     };
 
-    let reactNode: React.ReactNode;
-    if (this.state.iconSpec) {
+    const icon = this.state.iconSpec ? (
       // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const icon = <Icon iconSpec={this.state.iconSpec} />;
-      reactNode = (
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <IconInput
-          {...inputProps}
-          ref={this._inputElement}
-          icon={icon}
-          data-testid="components-customnumber-editor"
-        />
-      );
-    } else {
-      reactNode = (
-        <Input
-          {...inputProps}
-          ref={this._inputElement}
-          data-testid="components-customnumber-editor"
-          size="small"
-          id={this.props.propertyRecord?.property.name}
-        />
-      );
-    }
+      <Icon iconSpec={this.state.iconSpec} />
+    ) : undefined;
 
-    return reactNode;
+    return (
+      <LockNumberEditor
+        {...inputProps}
+        ref={this._inputElement}
+        id={this.props.propertyRecord?.property.name}
+        icon={icon}
+        decoration={decoration}
+      />
+    );
   }
 }
 
@@ -385,3 +380,53 @@ export class CustomNumberPropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
+
+interface LockNumberEditorProps extends InputProps {
+  icon?: React.ReactNode;
+  decoration?: React.ReactNode;
+}
+
+const LockNumberEditor = React.forwardRef<
+  HTMLInputElement,
+  LockNumberEditorProps
+>(function LockNumberEditor(props, forwardedRef) {
+  const { icon, decoration, ...rest } = props;
+  if (decoration) {
+    return (
+      <InputWithDecorations size="small">
+        {icon && (
+          <InputWithDecorations.Icon size="small">
+            {icon}
+          </InputWithDecorations.Icon>
+        )}
+        <InputWithDecorations.Input
+          {...rest}
+          ref={forwardedRef}
+          data-testid="components-customnumber-editor"
+          size="small"
+        />
+        {decoration}
+      </InputWithDecorations>
+    );
+  }
+
+  if (icon) {
+    return (
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      <IconInput
+        {...rest}
+        ref={forwardedRef}
+        icon={icon}
+        data-testid="components-customnumber-editor"
+      />
+    );
+  }
+  return (
+    <Input
+      {...rest}
+      ref={forwardedRef}
+      data-testid="components-customnumber-editor"
+      size="small"
+    />
+  );
+});

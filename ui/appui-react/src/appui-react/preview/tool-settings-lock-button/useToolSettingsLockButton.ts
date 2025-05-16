@@ -9,7 +9,7 @@ import {
   StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
-import { LockPropertyEditorName } from "../../uiprovider/LockEditor.js";
+import { LockPropertyEditorName } from "../../editors/LockEditor.js";
 
 /** @internal */
 export function useLockButtonPropertyRecord(

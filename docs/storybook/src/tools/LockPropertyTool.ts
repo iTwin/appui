@@ -5,22 +5,34 @@
 import { action } from "@storybook/addon-actions";
 import {
   DialogItem,
+  DialogItemValue,
   DialogPropertySyncItem,
+  PropertyDescription,
   PropertyDescriptionHelper,
+  StandardTypeNames,
 } from "@itwin/appui-abstract";
 import { PrimitiveTool } from "@itwin/core-frontend";
 
 interface CreateLockPropertyToolArgs {
   lockLabel?: string;
   disabled?: boolean;
+  propertyOverrides?: Partial<PropertyDescription>;
+  initialValue?: DialogItemValue["value"];
+  additionalProperties?: DialogItem[];
 }
 
 export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
-  const { lockLabel, disabled } = args ?? {};
+  const {
+    lockLabel,
+    disabled,
+    propertyOverrides,
+    initialValue = false,
+    additionalProperties = [],
+  } = args ?? {};
   return class LockPropertyTool extends PrimitiveTool {
     public static override toolId = "LockPropertyTool";
 
-    private _myPropertyValue = false;
+    private _myPropertyValue = initialValue;
     private _myLockPropertyValue = true;
 
     public override requireWriteableTarget() {
@@ -40,12 +52,15 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
         lockPropertyDescription.displayLabel = lockLabel;
       }
 
+      const typename = propertyOverrides?.typename ?? StandardTypeNames.Boolean;
       return [
         {
-          property: PropertyDescriptionHelper.buildCheckboxDescription(
-            "myProperty",
-            "My Property"
-          ),
+          property: {
+            name: "myProperty",
+            displayLabel: "My Property",
+            ...propertyOverrides,
+            typename,
+          },
           value: {
             value: this._myPropertyValue,
           },
@@ -62,6 +77,7 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
             isDisabled: disabled,
           },
         },
+        ...additionalProperties,
       ];
     }
 
