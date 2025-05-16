@@ -405,6 +405,7 @@ beta;interface;ListPickerProps
 beta;interface;ListPickerPropsExtended
 public;type;LocalStateStorage
 public;const;LocalStateStorage
+alpha;function;LockButtonInputDecoration
 public;class;MenuButton
 public;class;MenuButtonPopup
 public;interface;MenuButtonPopupProps
