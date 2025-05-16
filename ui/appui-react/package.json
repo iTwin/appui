@@ -60,6 +60,7 @@
     "@itwin/core-frontend": "^4.0.0 || ^5.0.0",
     "@itwin/core-geometry": "^4.0.0 || ^5.0.0",
     "@itwin/core-quantity": "^4.0.0 || ^5.0.0",
+    "@itwin/ecschema-metadata": "^5.0.0",
     "@itwin/core-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-react": "^3.15.0",
