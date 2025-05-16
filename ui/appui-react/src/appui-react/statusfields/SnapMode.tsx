@@ -23,6 +23,7 @@ import { SvgSnapsMidpoint } from "../icons/snaps/SvgSnapsMidpoint.js";
 import { SvgSnapsNearest } from "../icons/snaps/SvgSnapsNearest.js";
 import { SvgSnapsOrigin } from "../icons/snaps/SvgSnapsOrigin.js";
 import { SvgSnaps } from "../icons/snaps/SvgSnaps.js";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -67,6 +68,16 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
     labelKey: "snapModeField.bisector",
     value: SnapMode.Bisector as number,
     icon: <SvgSnapsBisector />,
+  },
+  {
+    labelKey: "snapModeField.perpendicularPoint",
+    value: SnapMode.PerpendicularPoint as number,
+    icon: <SvgPlaceholder />,
+  },
+  {
+    labelKey: "snapModeField.tangentPoint",
+    value: SnapMode.TangentPoint as number,
+    icon: <SvgPlaceholder />,
   },
 ];
 
