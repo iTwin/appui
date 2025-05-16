@@ -847,6 +847,9 @@ export { useWidget } from "./appui-react/widgets/useWidget.js";
 export { ToolInformation } from "./appui-react/toolsettings/ToolInformation.js";
 export { ToolUiProvider } from "./appui-react/toolsettings/ToolUiProvider.js";
 
+/** @internal */
+export const x = 10;
+
 // #region "SideEffects"
 
 import { UiFramework } from "./appui-react/UiFramework.js";
