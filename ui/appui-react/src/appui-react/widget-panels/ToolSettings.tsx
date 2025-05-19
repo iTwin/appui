@@ -21,6 +21,7 @@ import { useTranslation } from "../hooks/useTranslation.js";
 import { DockedBar } from "./DockedBar.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { LockProvider } from "../editors/LockProvider.js";
+import { ToolSettingsEditorsProvider } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -88,22 +89,24 @@ export function ToolSettingsDockedContent() {
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedBar placement="top">
-      <DockedToolSettings
-        itemId={
-          InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ??
-          "none"
-        }
-        key={forceRefreshKey}
-      >
-        {entries.map((entry, index) => (
-          <DockedToolSetting key={index}>
-            <LockProvider>
-              {entry.labelNode}
-              {entry.editorNode}
-            </LockProvider>
-          </DockedToolSetting>
-        ))}
-      </DockedToolSettings>
+      <ToolSettingsEditorsProvider>
+        <DockedToolSettings
+          itemId={
+            InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ??
+            "none"
+          }
+          key={forceRefreshKey}
+        >
+          {entries.map((entry, index) => (
+            <DockedToolSetting key={index}>
+              <LockProvider>
+                {entry.labelNode}
+                {entry.editorNode}
+              </LockProvider>
+            </DockedToolSetting>
+          ))}
+        </DockedToolSettings>
+      </ToolSettingsEditorsProvider>
     </DockedBar>
   );
 }

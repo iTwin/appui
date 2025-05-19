@@ -8,8 +8,11 @@ import {
   type PropertyRecord,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
+import type { EditorSpec } from "@itwin/components-react";
+import { EditorsRegistryProvider } from "@itwin/components-react";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { LockPropertyEditorName } from "../../editors/LockEditor.js";
+import { LockEditorSpec } from "../../new-editors/LockEditor.js";
 
 /** @internal */
 export function useLockButtonPropertyRecord(
@@ -43,4 +46,19 @@ function isDefaultLockEditor(property: PropertyDescription) {
     return false;
   if (property.editor?.name) return false;
   return true;
+}
+
+/** @internal */
+export function ToolSettingsEditorsProvider({
+  children,
+}: React.PropsWithChildren) {
+  return (
+    <EditorsRegistryProvider
+      editors={React.useCallback((editors: EditorSpec[]) => {
+        return [...editors, LockEditorSpec];
+      }, [])}
+    >
+      {children}
+    </EditorsRegistryProvider>
+  );
 }
