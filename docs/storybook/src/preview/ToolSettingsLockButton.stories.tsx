@@ -56,7 +56,7 @@ export const Input: Story = {
 
 export const EditorGroup: Story = {
   args: {
-    additionalProperties: (() => {
+    properties: (() => {
       const useRadius = new DialogProperty(
         PropertyDescriptionHelper.buildLockPropertyDescription("useRadius"),
         false
@@ -102,7 +102,7 @@ export const EditorGroup: Story = {
 
 export const DefaultEditors: Story = {
   args: {
-    additionalProperties: (() => {
+    properties: (() => {
       let rowPriority = 1;
       function createDialogItem<T>(dialogProperty: DialogProperty<T>) {
         rowPriority++;

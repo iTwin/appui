@@ -31,7 +31,7 @@ type PreviewStoryProps = Pick<
   lockLabel?: string;
   disabled?: boolean;
   propertyType?: `${StandardTypeNames.Boolean}` | `${StandardTypeNames.Number}`;
-  additionalProperties?: DialogItem[];
+  properties?: DialogItem[];
 };
 
 /** `toolSettingsLockButton` preview feature. Displays the default tool settings lock editor as an icon button rather than a checkbox. */
@@ -86,7 +86,7 @@ export function PreviewStory(props: PreviewStoryProps) {
                     }
                   : {}),
               },
-              additionalProperties: props.additionalProperties,
+              properties: props.properties,
             }),
             UiFramework.localizationNamespace
           );
