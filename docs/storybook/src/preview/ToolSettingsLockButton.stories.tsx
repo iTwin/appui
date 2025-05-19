@@ -103,7 +103,9 @@ export const EditorGroup: Story = {
 export const DefaultEditors: Story = {
   args: {
     additionalProperties: (() => {
+      let rowPriority = 1;
       function createDialogItem<T>(dialogProperty: DialogProperty<T>) {
+        rowPriority++;
         const lock = new DialogProperty(
           PropertyDescriptionHelper.buildLockPropertyDescription(
             `use${dialogProperty.name}`
@@ -114,11 +116,11 @@ export const DefaultEditors: Story = {
         return dialogProperty.toDialogItem(
           {
             columnIndex: 0,
-            rowPriority: 1,
+            rowPriority,
           },
           lock.toDialogItem({
             columnIndex: 0,
-            rowPriority: 1,
+            rowPriority,
           })
         );
       }
@@ -131,6 +133,21 @@ export const DefaultEditors: Story = {
               "Text"
             ),
             "Hello"
+          )
+        ),
+        createDialogItem(
+          new DialogProperty(
+            PropertyDescriptionHelper.buildNumberEditorDescription(
+              "numeric",
+              "Numeric"
+            ),
+            10
+          )
+        ),
+        createDialogItem(
+          new DialogProperty(
+            new LengthDescription("customNumber", "Custom number"),
+            10
           )
         ),
       ];

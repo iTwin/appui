@@ -7,10 +7,11 @@
  */
 
 import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
-import { CustomNumberPropertyEditor } from "./CustomNumber.js";
 import { registerDefaultPropertyEditor } from "@itwin/components-react/internal";
 import { LockPropertyEditor, LockPropertyEditorName } from "./LockEditor.js";
+import { CustomNumberPropertyEditor } from "./CustomNumber.js";
 import { TextPropertyEditor } from "./Text.js";
+import { NumericInputPropertyEditor } from "./Numeric.js";
 
 /** @internal */
 export function registerEditors() {
@@ -25,6 +26,30 @@ export function registerEditors() {
     StandardTypeNames.String,
     TextPropertyEditor,
     undefined,
+    true
+  );
+  registerDefaultPropertyEditor(
+    StandardTypeNames.Number,
+    NumericInputPropertyEditor,
+    StandardEditorNames.NumericInput,
+    true
+  );
+  registerDefaultPropertyEditor(
+    StandardTypeNames.Int,
+    NumericInputPropertyEditor,
+    StandardEditorNames.NumericInput,
+    true
+  );
+  registerDefaultPropertyEditor(
+    StandardTypeNames.Float,
+    NumericInputPropertyEditor,
+    StandardEditorNames.NumericInput,
+    true
+  );
+  registerDefaultPropertyEditor(
+    StandardTypeNames.Double,
+    NumericInputPropertyEditor,
+    StandardEditorNames.NumericInput,
     true
   );
   registerDefaultPropertyEditor(

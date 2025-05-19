@@ -19,7 +19,7 @@ import {
 
 /** @internal */
 export class TextPropertyEditor extends BaseTextPropertyEditor {
-  public override get reactNode(): React.ReactNode {
+  public override get reactNode() {
     return <TextEditor />;
   }
 }

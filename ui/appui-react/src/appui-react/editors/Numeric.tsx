@@ -8,8 +8,8 @@
 
 import * as React from "react";
 import {
-  CustomNumberEditor as BaseCustomNumberEditor,
-  CustomNumberPropertyEditor as BaseCustomNumberPropertyEditor,
+  NumericInputEditor as BaseNumericInputEditor,
+  NumericInputPropertyEditor as BaseNumericInputPropertyEditor,
 } from "@itwin/components-react";
 import type { InternalInputEditorProps } from "@itwin/components-react/internal";
 import {
@@ -18,20 +18,20 @@ import {
 } from "./LockProvider.js";
 
 /** @internal */
-export class CustomNumberPropertyEditor extends BaseCustomNumberPropertyEditor {
+export class NumericInputPropertyEditor extends BaseNumericInputPropertyEditor {
   public override get reactNode() {
-    return <CustomNumberEditor />;
+    return <NumericEditor />;
   }
 }
 
-const CustomNumberEditor = React.forwardRef<BaseCustomNumberEditor>(
-  function CustomNumberEditor(props, forwardedRef) {
+const NumericEditor = React.forwardRef<BaseNumericInputEditor>(
+  function NumericEditor(props, forwardedRef) {
     const lockDecoration = useLockDecoration();
     const internalProps = {
       decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
     } satisfies InternalInputEditorProps;
     return (
-      <BaseCustomNumberEditor
+      <BaseNumericInputEditor
         {...props}
         {...internalProps}
         ref={forwardedRef}
