@@ -9,7 +9,7 @@
 import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
 import {
   BasicPropertyEditor,
-  PropertyEditorManager,
+  registerDefaultPropertyEditor,
 } from "./PropertyEditorManager.js";
 import {
   DateTimePropertyEditor,
@@ -28,125 +28,113 @@ import { TogglePropertyEditor } from "./ToggleEditor.js";
 
 /** @internal */
 export function registerEditors() {
-  PropertyEditorManager.registerEditor(
-    StandardTypeNames.Bool,
-    BooleanPropertyEditor
-  );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(StandardTypeNames.Bool, BooleanPropertyEditor);
+  registerDefaultPropertyEditor(
     StandardTypeNames.Boolean,
     BooleanPropertyEditor
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Boolean,
     ImageCheckBoxPropertyEditor,
     StandardEditorNames.ImageCheckBox
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Bool,
     ImageCheckBoxPropertyEditor,
     StandardEditorNames.ImageCheckBox
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Bool,
     TogglePropertyEditor,
     StandardEditorNames.Toggle
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Boolean,
     TogglePropertyEditor,
     StandardEditorNames.Toggle
   );
 
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Number,
     NumericInputPropertyEditor,
     StandardEditorNames.NumericInput
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Int,
     NumericInputPropertyEditor,
     StandardEditorNames.NumericInput
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Float,
     NumericInputPropertyEditor,
     StandardEditorNames.NumericInput
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Double,
     NumericInputPropertyEditor,
     StandardEditorNames.NumericInput
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Number,
     SliderPropertyEditor,
     StandardEditorNames.Slider
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Int,
     SliderPropertyEditor,
     StandardEditorNames.Slider
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Float,
     SliderPropertyEditor,
     StandardEditorNames.Slider
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Double,
     SliderPropertyEditor,
     StandardEditorNames.Slider
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Number,
     CustomNumberPropertyEditor,
     StandardEditorNames.NumberCustom
   );
 
-  PropertyEditorManager.registerEditor(
-    StandardTypeNames.Text,
-    BasicPropertyEditor
-  );
-  PropertyEditorManager.registerEditor(
-    StandardTypeNames.String,
-    BasicPropertyEditor
-  );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(StandardTypeNames.Text, BasicPropertyEditor);
+  registerDefaultPropertyEditor(StandardTypeNames.String, BasicPropertyEditor);
+  registerDefaultPropertyEditor(
     StandardTypeNames.Text,
     IconPropertyEditor,
     StandardEditorNames.IconPicker
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.String,
     IconPropertyEditor,
     StandardEditorNames.IconPicker
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Text,
     TextareaPropertyEditor,
     StandardEditorNames.MultiLine
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.String,
     TextareaPropertyEditor,
     StandardEditorNames.MultiLine
   );
 
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.Enum,
     EnumPropertyButtonGroupEditor,
     StandardEditorNames.EnumButtonGroup
   );
-  PropertyEditorManager.registerEditor(
-    StandardTypeNames.Enum,
-    EnumPropertyEditor
-  );
+  registerDefaultPropertyEditor(StandardTypeNames.Enum, EnumPropertyEditor);
 
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.ShortDate,
     ShortDateTimePropertyEditor
   );
-  PropertyEditorManager.registerEditor(
+  registerDefaultPropertyEditor(
     StandardTypeNames.DateTime,
     DateTimePropertyEditor
   );

@@ -6,8 +6,9 @@
  * @module ToolSettings
  */
 
-import { IModelApp } from "@itwin/core-frontend";
 import * as React from "react";
+import { IModelApp } from "@itwin/core-frontend";
+import { Text } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { useLayout } from "../layout/base/LayoutStore.js";
@@ -17,9 +18,9 @@ import { ScrollableWidgetContent } from "../layout/widget/Content.js";
 import "./ToolSettings.scss";
 import { useActiveToolId } from "../hooks/useActiveToolId.js";
 import { useTranslation } from "../hooks/useTranslation.js";
-import { Text } from "@itwin/itwinui-react";
 import { DockedBar } from "./DockedBar.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
+import { LockProvider } from "../editors/LockProvider.js";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -96,8 +97,10 @@ export function ToolSettingsDockedContent() {
       >
         {entries.map((entry, index) => (
           <DockedToolSetting key={index}>
-            {entry.labelNode}
-            {entry.editorNode}
+            <LockProvider>
+              {entry.labelNode}
+              {entry.editorNode}
+            </LockProvider>
           </DockedToolSetting>
         ))}
       </DockedToolSettings>
@@ -189,9 +192,11 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        {node ?? frontstageDef?.activeToolEmptyNode ?? (
-          <EmptyToolSettingsLabel toolId={activeToolId} />
-        )}
+        <LockProvider>
+          {node ?? frontstageDef?.activeToolEmptyNode ?? (
+            <EmptyToolSettingsLabel toolId={activeToolId} />
+          )}
+        </LockProvider>
       </ScrollableWidgetContent>
     </div>
   );
