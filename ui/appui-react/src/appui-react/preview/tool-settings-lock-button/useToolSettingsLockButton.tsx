@@ -15,6 +15,7 @@ import { LockPropertyEditorName } from "../../editors/LockEditor.js";
 import { LockEditorSpec } from "../../new-editors/LockEditor.js";
 import { TextEditorSpec } from "../../new-editors/TextEditor.js";
 import { NumericEditorSpec } from "../../new-editors/NumericEditor.js";
+import { CustomNumberEditorSpec } from "../../new-editors/CustomNumberEditor.js";
 
 /** @internal */
 export function useLockButtonPropertyRecord(
@@ -57,7 +58,13 @@ export function ToolSettingsEditorsProvider({
   return (
     <EditorsRegistryProvider
       editors={React.useCallback((editors: EditorSpec[]) => {
-        return [...editors, LockEditorSpec, TextEditorSpec, NumericEditorSpec];
+        return [
+          ...editors,
+          LockEditorSpec,
+          TextEditorSpec,
+          NumericEditorSpec,
+          CustomNumberEditorSpec,
+        ];
       }, [])}
     >
       {children}
