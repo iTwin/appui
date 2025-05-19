@@ -26,7 +26,7 @@ import {
 
 type PreviewStoryProps = Pick<
   Required<PreviewFeatures>,
-  "toolSettingsLockButton"
+  "toolSettingsLockButton" | "toolSettingsNewEditors"
 > & {
   lockLabel?: string;
   disabled?: boolean;
@@ -40,6 +40,7 @@ export function PreviewStory(props: PreviewStoryProps) {
     <PreviewFeaturesProvider
       features={{
         toolSettingsLockButton: props.toolSettingsLockButton,
+        toolSettingsNewEditors: props.toolSettingsNewEditors,
       }}
     >
       <AppUiStory
