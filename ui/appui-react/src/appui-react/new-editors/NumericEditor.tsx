@@ -7,7 +7,7 @@ import * as React from "react";
 import { InputWithDecorations } from "@itwin/itwinui-react";
 import type {
   EditorProps,
-  TextValue,
+  NumericValue,
   ValueMetadata,
 } from "@itwin/components-react";
 import { createEditorSpec, ValueUtilities } from "@itwin/components-react";
@@ -16,32 +16,43 @@ import { LockButtonInputDecoration } from "../editors/LockProvider.js";
 /* v8 ignore start */
 
 /** @internal */
-export const TextEditorSpec = createEditorSpec({
+export const NumericEditorSpec = createEditorSpec({
   isMetadataSupported: (metadata): metadata is ValueMetadata =>
-    metadata.type === "string",
-  isValueSupported: ValueUtilities.isText,
-  Editor: TextEditor,
+    metadata.type === "number",
+  isValueSupported: ValueUtilities.isNumeric,
+  Editor: NumericEditor,
 });
 
-function TextEditor({
+function NumericEditor({
   value,
   onChange,
   size,
   disabled,
-}: EditorProps<ValueMetadata, TextValue>) {
-  const currentValue = value ? value : { value: "" };
-
+}: EditorProps<ValueMetadata, NumericValue>) {
+  const currentValue = getNumericValue(value);
   return (
     <InputWithDecorations size={size}>
       <InputWithDecorations.Input
-        value={currentValue.value}
-        onChange={(e) => onChange({ value: e.target.value })}
+        value={currentValue.displayValue}
+        onChange={(e) => {
+          const parsedValue = parseFloat(e.target.value);
+          onChange({
+            rawValue: Number.isNaN(parsedValue)
+              ? undefined
+              : parseFloat(e.target.value),
+            displayValue: e.target.value,
+          });
+        }}
         size={size}
         disabled={disabled}
       />
       <LockButtonInputDecoration />
     </InputWithDecorations>
   );
+}
+
+function getNumericValue(value: NumericValue | undefined): NumericValue {
+  return value ? value : { rawValue: undefined, displayValue: "" };
 }
 
 /* v8 ignore stop */

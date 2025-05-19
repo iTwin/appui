@@ -32,7 +32,7 @@ export const LockEditorSpec = createEditorSpec({
 /** Used in tool settings as the default lock editor when `toolSettingsLockButton` preview feature is enabled.
  * @internal
  */
-export function LockEditor({
+function LockEditor({
   value,
   onChange,
   commit,
