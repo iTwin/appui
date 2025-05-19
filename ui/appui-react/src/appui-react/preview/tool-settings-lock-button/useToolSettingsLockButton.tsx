@@ -13,6 +13,7 @@ import { EditorsRegistryProvider } from "@itwin/components-react";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { LockPropertyEditorName } from "../../editors/LockEditor.js";
 import { LockEditorSpec } from "../../new-editors/LockEditor.js";
+import { TextEditorSpec } from "../../new-editors/TextEditor.js";
 
 /** @internal */
 export function useLockButtonPropertyRecord(
@@ -55,7 +56,7 @@ export function ToolSettingsEditorsProvider({
   return (
     <EditorsRegistryProvider
       editors={React.useCallback((editors: EditorSpec[]) => {
-        return [...editors, LockEditorSpec];
+        return [...editors, LockEditorSpec, TextEditorSpec];
       }, [])}
     >
       {children}

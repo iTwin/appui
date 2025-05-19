@@ -37,6 +37,7 @@ export function LockEditor({
   onChange,
   commit,
   disabled,
+  size,
 }: EditorProps<ValueMetadata, BooleanValue>) {
   const context = React.useContext(PropertyEditorContext);
   const property = useLockProperty(
@@ -54,7 +55,7 @@ export function LockEditor({
   return (
     <IconButton
       label={label}
-      size="small"
+      size={size}
       styleType="borderless"
       isActive={currentValue}
       disabled={disabled}
