@@ -60,10 +60,10 @@ export function ToolSettingsEditorsProvider({
       editors={React.useCallback((editors: EditorSpec[]) => {
         return [
           ...editors,
+          CustomNumberEditorSpec,
           LockEditorSpec,
           TextEditorSpec,
           NumericEditorSpec,
-          CustomNumberEditorSpec,
         ];
       }, [])}
     >
