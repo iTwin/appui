@@ -1,0 +1,35 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uifw-toolbar-newToolbars-item {
+  // Temporary icon color fix when used with deprecated icon spec.
+  .uifw-icon-spec {
+    &.core-css-icon {
+      color: var(--_uifw-toolbar-item-color);
+    }
+
+    &.core-svg-icon svg {
+      fill: inherit;
+    }
+  }
+
+  --_uifw-toolbar-item-color: var(--iui-color-icon);
+
+  &:where(:hover, :active) {
+    --_uifw-toolbar-item-color: var(--iui-color-icon-hover);
+  }
+
+  &:where(
+      [disabled],
+      :disabled,
+      [aria-disabled="true"],
+      [data-iui-disabled="true"]
+    ) {
+    --_uifw-toolbar-item-color: var(--iui-color-icon-disabled);
+
+    &:where(:hover, :focus-visible) {
+      --_uifw-toolbar-item-color: var(--iui-color-icon-disabled-hover);
+    }
+  }
+}
