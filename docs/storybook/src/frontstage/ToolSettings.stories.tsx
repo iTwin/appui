@@ -7,6 +7,7 @@ import {
   IModelViewportControl,
   StandardContentLayouts,
   UiFramework,
+  WidgetState,
 } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../Decorators";
@@ -99,5 +100,19 @@ export const CustomEditor: Story = {
     onFrontstageActivated: async () => {
       await IModelApp.tools.run(CustomEditorTool.toolId);
     },
+  },
+};
+
+export const Floating: Story = {
+  args: {
+    frontstages: [
+      {
+        ...meta.args.frontstages[0],
+        toolSettings: {
+          id: "tool-settings",
+          defaultState: WidgetState.Floating,
+        },
+      },
+    ],
   },
 };
