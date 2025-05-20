@@ -28,26 +28,22 @@ import {
 } from "@itwin/appui-abstract";
 import { Icon, IconInput } from "@itwin/core-react";
 import { Input, InputWithDecorations } from "@itwin/itwinui-react";
-
-type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
-
 import { UiComponents } from "../UiComponents.js";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
+import type {
+  InternalInputEditorProps,
+  PropertyEditorProps,
+  TypeEditor,
+} from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import type { IconNodeEditorParams } from "../../internal.js";
+
+type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
 interface CustomNumberEditorState {
   inputValue: string;
   size?: number;
   maxLength?: number;
   iconSpec?: React.ReactNode;
-}
-
-/** Workaround to add internal props, since `CustomNumberEditor` uses both composition and inheritance.
- * @internal
- */
-export interface InternalCustomNumberEditorProps {
-  decoration?: React.ReactNode;
 }
 
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
@@ -320,7 +316,7 @@ export class CustomNumberEditor
   };
 
   public override render(): React.ReactNode {
-    const { decoration } = this.props as InternalCustomNumberEditorProps;
+    const { decoration } = this.props as InternalInputEditorProps;
     const minSize = this.state.size ? this.state.size : 8;
     const minWidthStyle: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,

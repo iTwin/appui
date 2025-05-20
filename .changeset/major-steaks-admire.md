@@ -4,6 +4,12 @@
 
 Updated tool settings to display the lock button as an input decoration when the `toolSettingsLockButton` preview feature is enabled.
 
+Editors that support the lock button input decoration:
+
+- Text editor
+- Numeric editor
+- Custom number editor
+
 A separate control will still be displayed as a sibling if the lock cannot be displayed by the editor. Common cases include:
 
 - Non-input editors (i.e. locking a toggle property)

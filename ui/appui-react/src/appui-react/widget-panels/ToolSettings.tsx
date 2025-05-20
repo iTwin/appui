@@ -192,11 +192,9 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        <LockProvider>
-          {node ?? frontstageDef?.activeToolEmptyNode ?? (
-            <EmptyToolSettingsLabel toolId={activeToolId} />
-          )}
-        </LockProvider>
+        {node ?? frontstageDef?.activeToolEmptyNode ?? (
+          <EmptyToolSettingsLabel toolId={activeToolId} />
+        )}
       </ScrollableWidgetContent>
     </div>
   );
