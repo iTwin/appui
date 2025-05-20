@@ -8,6 +8,16 @@ export { registerDefaultPropertyEditor } from "./components-react/editors/Proper
 export { useTranslation } from "./components-react/l10n/useTranslation.js";
 
 export {
+  CustomNumberEditor,
+  CustomNumberEditorSpec,
+} from "./components-react/new-editors/interop/old-editors/CustomNumber.js";
+
+export {
+  OldEditorMetadata,
+  isOldEditorMetadata,
+} from "./components-react/new-editors/interop/Metadata.js";
+
+export {
   addIconNodeParam,
   IconNodeEditorParams,
 } from "./components-react/properties/IconNodeEditorParam.js";

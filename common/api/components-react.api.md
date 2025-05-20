@@ -608,7 +608,7 @@ export interface EditorSpec {
 // @beta
 export function EditorsRegistryProvider({ children, editors, }: {
     children: React_3.ReactNode;
-    editors: EditorSpec[];
+    editors: EditorSpec[] | ((editors: EditorSpec[]) => EditorSpec[]);
 }): React_3.JSX.Element;
 
 // @public

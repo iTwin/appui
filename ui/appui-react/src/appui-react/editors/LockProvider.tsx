@@ -131,7 +131,8 @@ interface UseLockPropertyArgs {
   itemPropertyName: string;
 }
 
-function useLockProperty(args: UseLockPropertyArgs | undefined) {
+/** @internal */
+export function useLockProperty(args: UseLockPropertyArgs | undefined) {
   const { provider, itemPropertyName } = args ?? {};
   const subscribe = React.useCallback(
     (onStoreChange: () => void) => {

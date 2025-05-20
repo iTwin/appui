@@ -2,7 +2,7 @@
 "@itwin/appui-react": minor
 ---
 
-Updated tool settings to display the lock button as an input decoration when the `toolSettingsLockButton` preview feature is enabled.
+Updated tool settings to display the lock button as an input decoration when the `toolSettingsLockButton` preview feature is enabled. This is supported when using the new editor system via the `toolSettingsNewEditors` preview feature.
 
 Editors that support the lock button input decoration:
 

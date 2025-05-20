@@ -28,6 +28,7 @@ const meta = {
   },
   args: {
     toolSettingsLockButton: true,
+    toolSettingsNewEditors: false,
   },
 } satisfies Meta<typeof PreviewStory>;
 
