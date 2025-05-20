@@ -28,6 +28,10 @@ catalog:
   "@itwin/hypermodeling-frontend": rc
   "@itwin/webgl-compatibility": rc
 
+  # iTwinUI packages
+  "@stratakit/bricks": ^0.2.0
+  "@stratakit/foundations": ^0.1.3
+
 onlyBuiltDependencies:
   - "@bentley/imodeljs-native"
   - electron

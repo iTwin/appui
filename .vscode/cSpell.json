@@ -1,7 +1,9 @@
 {
   "version": "0.2",
   "language": "en",
-  "ignorePaths": ["**/pnpm-lock.yaml"],
+  "ignorePaths": [
+    "**/pnpm-lock.yaml"
+  ],
   "words": [
     "accu",
     "accudraw",
@@ -220,6 +222,7 @@
     "srcset",
     "stagepanels",
     "statusfields",
+    "stratakit",
     "stringifier",
     "subcats",
     "sublabel",
