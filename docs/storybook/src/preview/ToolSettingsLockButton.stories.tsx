@@ -55,9 +55,9 @@ export const Input: Story = {
   },
 };
 
-export const MultipleProperties: Story = {
+export const EditorGroup: Story = {
   args: {
-    additionalProperties: (() => {
+    properties: (() => {
       const useRadius = new DialogProperty(
         PropertyDescriptionHelper.buildLockPropertyDescription("useRadius"),
         false
@@ -95,6 +95,61 @@ export const MultipleProperties: Story = {
             columnIndex: 0,
             rowPriority: 1,
           })
+        ),
+      ];
+    })(),
+  },
+};
+
+export const DefaultEditors: Story = {
+  args: {
+    properties: (() => {
+      let rowPriority = 1;
+      function createDialogItem<T>(dialogProperty: DialogProperty<T>) {
+        rowPriority++;
+        const lock = new DialogProperty(
+          PropertyDescriptionHelper.buildLockPropertyDescription(
+            `use${dialogProperty.name}`
+          ),
+          false
+        );
+        lock.description.displayLabel = `Lock ${dialogProperty.description.displayLabel} property`;
+        return dialogProperty.toDialogItem(
+          {
+            columnIndex: 0,
+            rowPriority,
+          },
+          lock.toDialogItem({
+            columnIndex: 0,
+            rowPriority,
+          })
+        );
+      }
+
+      return [
+        createDialogItem(
+          new DialogProperty(
+            PropertyDescriptionHelper.buildTextEditorDescription(
+              "text",
+              "Text"
+            ),
+            "Hello"
+          )
+        ),
+        createDialogItem(
+          new DialogProperty(
+            PropertyDescriptionHelper.buildNumberEditorDescription(
+              "numeric",
+              "Numeric"
+            ),
+            10
+          )
+        ),
+        createDialogItem(
+          new DialogProperty(
+            new LengthDescription("customNumber", "Custom number"),
+            10
+          )
         ),
       ];
     })(),

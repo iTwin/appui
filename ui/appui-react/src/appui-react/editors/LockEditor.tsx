@@ -83,7 +83,7 @@ const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
 
 /** @internal */
 export class LockPropertyEditor extends PropertyEditorBase {
-  public get reactNode(): React.ReactNode {
+  public get reactNode() {
     return <LockEditor />;
   }
 }

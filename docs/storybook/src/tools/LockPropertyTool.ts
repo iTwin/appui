@@ -18,7 +18,7 @@ interface CreateLockPropertyToolArgs {
   disabled?: boolean;
   propertyOverrides?: Partial<PropertyDescription>;
   initialValue?: DialogItemValue["value"];
-  additionalProperties?: DialogItem[];
+  properties?: DialogItem[];
 }
 
 export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
@@ -27,7 +27,7 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
     disabled,
     propertyOverrides,
     initialValue = false,
-    additionalProperties = [],
+    properties,
   } = args ?? {};
   return class LockPropertyTool extends PrimitiveTool {
     public static override toolId = "LockPropertyTool";
@@ -53,32 +53,33 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
       }
 
       const typename = propertyOverrides?.typename ?? StandardTypeNames.Boolean;
-      return [
-        {
-          property: {
-            name: "myProperty",
-            displayLabel: "My Property",
-            ...propertyOverrides,
-            typename,
-          },
-          value: {
-            value: this._myPropertyValue,
-          },
-          editorPosition: {
-            columnIndex: 0,
-            rowPriority: 0,
-          },
-          isDisabled: !this._myLockPropertyValue,
-          lockProperty: {
-            value: {
-              value: this._myLockPropertyValue,
+      return (
+        properties ?? [
+          {
+            property: {
+              name: "myProperty",
+              displayLabel: "My Property",
+              ...propertyOverrides,
+              typename,
             },
-            property: lockPropertyDescription,
-            isDisabled: disabled,
+            value: {
+              value: this._myPropertyValue,
+            },
+            editorPosition: {
+              columnIndex: 0,
+              rowPriority: 0,
+            },
+            isDisabled: !this._myLockPropertyValue,
+            lockProperty: {
+              value: {
+                value: this._myLockPropertyValue,
+              },
+              property: lockPropertyDescription,
+              isDisabled: disabled,
+            },
           },
-        },
-        ...additionalProperties,
-      ];
+        ]
+      );
     }
 
     public override async applyToolSettingPropertyChange(

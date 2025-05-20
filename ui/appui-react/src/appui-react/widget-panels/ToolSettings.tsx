@@ -196,11 +196,9 @@ export function ToolSettingsWidgetContent() {
     >
       <ScrollableWidgetContent>
         <ToolSettingsEditorsProvider>
-          <LockProvider>
-            {node ?? frontstageDef?.activeToolEmptyNode ?? (
-              <EmptyToolSettingsLabel toolId={activeToolId} />
-            )}
-          </LockProvider>
+          {node ?? frontstageDef?.activeToolEmptyNode ?? (
+            <EmptyToolSettingsLabel toolId={activeToolId} />
+          )}
         </ToolSettingsEditorsProvider>
       </ScrollableWidgetContent>
     </div>
