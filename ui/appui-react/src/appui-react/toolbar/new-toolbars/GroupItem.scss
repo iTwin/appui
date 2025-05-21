@@ -2,11 +2,11 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-.uifw-toolbar-newToolbars-groupItem {
+.uifw-toolbar-newToolbars-groupMenuItem {
   // Temporary icon color fix when used with deprecated icon spec.
   .uifw-icon-spec {
     &.core-css-icon {
-      color: var(--_uifw-toolbar-item-color);
+      color: var(--_uifw-toolbar-group-menu-item-color);
     }
 
     &.core-svg-icon svg {
@@ -14,20 +14,22 @@
     }
   }
 
-  --_uifw-toolbar-item-color: var(--iui-color-icon);
+  --_uifw-toolbar-group-menu-item-color: var(--iui-color-icon);
 
   &:where([data-iui-active="true"]) {
-    --_uifw-toolbar-item-color: var(--iui-color-text-accent);
+    --_uifw-toolbar-group-menu-item-color: var(--iui-color-text-accent);
   }
 
   &:where([data-iui-disabled="true"]) {
-    --_uifw-toolbar-item-color: var(--iui-color-icon-disabled);
+    --_uifw-toolbar-group-menu-item-color: var(--iui-color-icon-disabled);
 
     &:where(
         [data-iui-actionable="true"]:hover,
         [data-iui-actionable="true"]:focus-visible
       ) {
-      --_uifw-toolbar-item-color: var(--iui-color-icon-disabled-hover);
+      --_uifw-toolbar-group-menu-item-color: var(
+        --iui-color-icon-disabled-hover
+      );
     }
   }
 }

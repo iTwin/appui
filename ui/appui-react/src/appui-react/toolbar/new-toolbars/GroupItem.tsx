@@ -93,7 +93,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   );
   return (
     <MenuItem
-      className="uifw-toolbar-newToolbars-groupItem"
+      className="uifw-toolbar-newToolbars-groupMenuItem"
       startIcon={startIcon}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
