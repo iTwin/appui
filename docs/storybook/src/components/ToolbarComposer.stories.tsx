@@ -313,7 +313,7 @@ export const ItemDef: Story = {
   },
 };
 
-export const Icons: Story = {
+export const Icons = {
   args: {
     items: [
       ToolbarItemUtilities.createActionItem({
@@ -342,6 +342,19 @@ export const Icons: Story = {
         "Font Icon",
         () => {}
       ),
+    ],
+  },
+} satisfies Story;
+
+export const GroupIcons: Story = {
+  args: {
+    items: [
+      ToolbarItemUtilities.createGroupItem({
+        id: "group",
+        label: "Group",
+        icon: <SvgPlaceholder />,
+        items: [...Icons.args.items],
+      }),
     ],
   },
 };
