@@ -60,6 +60,7 @@ import { SvgMouseClickRightDrag } from "../../icons/SvgMouseClickRightDrag.js";
 import { SvgMouseClickWheelDrag } from "../../icons/SvgMouseClickWheelDrag.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
+import { useControlledState } from "../../hooks/useControlledState.js";
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -82,6 +83,8 @@ export interface ToolAssistanceFieldProps extends CommonProps {
   promptAtContent?: boolean;
 }
 
+type PopoverProps = React.ComponentProps<typeof StatusBarPopover>;
+
 interface Props
   extends Omit<
       ToolAssistanceFieldProps,
@@ -98,15 +101,24 @@ interface Props
         | "fadeOutCursorPrompt"
         | "defaultPromptAtCursor"
       >
-    > {}
+    >,
+    Pick<PopoverProps, "visible" | "onVisibleChange"> {
+  /**
+   * Controlled flag for whether the popover is pinned.
+   */
+  pinned?: boolean;
+  /**
+   * Callback invoked every time the popover is pinned or unpinned as a result
+   * of internal logic. Should be used alongside `pinned` prop.
+   */
+  onPinnedChange?: (pinned: boolean) => void;
+}
 
 interface ToolAssistanceFieldState {
   instructions: ToolAssistanceInstructions | undefined;
   toolIconSpec: string;
   showPromptAtCursor: boolean;
   mouseTouchTabIndex: number;
-  isPinned: boolean;
-  isOpen: boolean;
 }
 
 const toolAssistanceKey = "ToolAssistance";
@@ -125,6 +137,10 @@ export function ToolAssistanceField(props: Props) {
     defaultPromptAtCursor = false,
     uiStateStorage: uiStateStorageProp,
     promptAtContent = false,
+    visible: visibleProp,
+    onVisibleChange,
+    pinned: pinnedProp,
+    onPinnedChange,
   } = props;
   const uiStateStorageCtx = React.useContext(UiStateStorageContext);
   const uiStateStorage = uiStateStorageProp ?? uiStateStorageCtx;
@@ -137,8 +153,6 @@ export function ToolAssistanceField(props: Props) {
       toolIconSpec: "",
       showPromptAtCursor: defaultPromptAtCursor,
       mouseTouchTabIndex: 0,
-      isPinned: false,
-      isOpen: false,
     };
   });
 
@@ -154,14 +168,11 @@ export function ToolAssistanceField(props: Props) {
     promptAtContent,
   });
 
-  const setIsOpen = (isOpen: boolean) => {
-    let newState = {
-      isOpen,
-    };
-    if (!isOpen && state.isPinned) {
-      newState = { ...newState, ...{ isPinned: false } };
+  const handleClose = () => {
+    if (pinned) {
+      setPinned(false);
     }
-    setState((prev) => ({ ...prev, ...newState }));
+    setVisible(false);
   };
 
   const getDisplayableInstructions = (section: ToolAssistanceSection) => {
@@ -281,29 +292,35 @@ export function ToolAssistanceField(props: Props) {
     translate("toolAssistance.mouse"),
     translate("toolAssistance.touch"),
   ];
+  const [visible, setVisible] = useControlledState(
+    false,
+    visibleProp,
+    onVisibleChange as React.Dispatch<React.SetStateAction<boolean>>
+  );
+  const [pinned, setPinned] = useControlledState(
+    false,
+    pinnedProp,
+    onPinnedChange as React.Dispatch<React.SetStateAction<boolean>>
+  );
   return (
     <StatusBarPopover
-      visible={state.isOpen}
-      onVisibleChange={(visible) => {
-        setIsOpen(visible);
-      }}
-      closeOnOutsideClick={!state.isPinned}
+      visible={visible}
+      onVisibleChange={setVisible}
+      closeOnOutsideClick={!pinned}
       content={
         <ToolAssistanceDialog
           buttons={
             <StatusBarDialog.TitleBarButton
               onClick={() => {
-                if (state.isPinned) {
-                  setIsOpen(false);
+                if (pinned) {
+                  handleClose();
                   return;
                 }
-                setState((prev) => ({ ...prev, isPinned: true }));
+                setPinned(true);
               }}
-              title={translate(
-                state.isPinned ? "dialog.close" : "toolAssistance.pin"
-              )}
+              title={translate(pinned ? "dialog.close" : "toolAssistance.pin")}
             >
-              {state.isPinned ? <SvgClose /> : <SvgPin />}
+              {pinned ? <SvgClose /> : <SvgPin />}
             </StatusBarDialog.TitleBarButton>
           }
           title={dialogTitle}
