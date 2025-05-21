@@ -20,12 +20,7 @@
     --_uifw-toolbar-item-color: var(--iui-color-icon-hover);
   }
 
-  &:where(
-      [disabled],
-      :disabled,
-      [aria-disabled="true"],
-      [data-iui-disabled="true"]
-    ) {
+  &:where(:disabled, [aria-disabled="true"]) {
     --_uifw-toolbar-item-color: var(--iui-color-icon-disabled);
 
     &:where(:hover, :focus-visible) {
