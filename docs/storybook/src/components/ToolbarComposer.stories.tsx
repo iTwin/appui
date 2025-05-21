@@ -350,11 +350,32 @@ export const GroupIcons: Story = {
   args: {
     items: [
       ToolbarItemUtilities.createGroupItem({
-        id: "group",
-        label: "Group",
+        id: "group-node",
+        label: "Icon Node",
         icon: <SvgPlaceholder />,
         items: [...Icons.args.items],
       }),
+      ToolbarItemUtilities.createGroupItem(
+        "group-spec-node",
+        0,
+        <SvgPlaceholder />,
+        "Icon Spec Node",
+        [...Icons.args.items]
+      ),
+      ToolbarItemUtilities.createGroupItem(
+        "group-svg-loader",
+        0,
+        placeholderIcon,
+        "SVG Loader",
+        [...Icons.args.items]
+      ),
+      ToolbarItemUtilities.createGroupItem(
+        "group-font-icon",
+        0,
+        "icon-placeholder",
+        "Font Icon",
+        [...Icons.args.items]
+      ),
     ],
   },
 };
