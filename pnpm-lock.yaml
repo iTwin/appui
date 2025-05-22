@@ -6,6 +6,12 @@ settings:
 
 catalogs:
   default:
+    '@bentley/icons-generic':
+      specifier: ^1.0.34
+      version: 1.0.34
+    '@bentley/icons-generic-webfont':
+      specifier: ^1.0.34
+      version: 1.0.34
     '@itwin/appui-abstract':
       specifier: rc
       version: 5.0.0-dev.112
@@ -66,6 +72,12 @@ catalogs:
     '@itwin/webgl-compatibility':
       specifier: rc
       version: 5.0.0-dev.112
+    '@stratakit/bricks':
+      specifier: ^0.2.0
+      version: 0.2.0
+    '@stratakit/foundations':
+      specifier: ^0.1.3
+      version: 0.1.3
 
 patchedDependencies:
   '@changesets/assemble-release-plan':
@@ -98,10 +110,10 @@ importers:
   apps/test-app:
     dependencies:
       '@bentley/icons-generic':
-        specifier: ^1.0.34
+        specifier: 'catalog:'
         version: 1.0.34
       '@bentley/icons-generic-webfont':
-        specifier: ^1.0.34
+        specifier: 'catalog:'
         version: 1.0.34
       '@itwin/appui-abstract':
         specifier: 'catalog:'
@@ -208,15 +220,18 @@ importers:
       '@itwin/itwinui-react-v2':
         specifier: npm:@itwin/itwinui-react@^2.12.26
         version: '@itwin/itwinui-react@2.12.26(react-dom@18.3.1(react@18.3.1))(react@18.3.1)'
-      '@itwin/itwinui-react-v5':
-        specifier: npm:@itwin/itwinui-react@5.0.0-alpha.5
-        version: '@itwin/itwinui-react@5.0.0-alpha.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)'
       '@itwin/reality-data-client':
         specifier: 1.2.2
         version: 1.2.2(@itwin/core-bentley@5.0.0-dev.112)
       '@itwin/webgl-compatibility':
         specifier: 'catalog:'
         version: 5.0.0-dev.112
+      '@stratakit/bricks':
+        specifier: 'catalog:'
+        version: 0.2.0(@stratakit/foundations@0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/foundations':
+        specifier: 'catalog:'
+        version: 0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-router':
         specifier: ^1.120.2
         version: 1.120.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -321,7 +336,7 @@ importers:
   apps/test-providers:
     dependencies:
       '@bentley/icons-generic':
-        specifier: ^1.0.34
+        specifier: 'catalog:'
         version: 1.0.34
       '@itwin/appui-abstract':
         specifier: 'catalog:'
@@ -417,8 +432,11 @@ importers:
 
   docs/storybook:
     dependencies:
+      '@bentley/icons-generic':
+        specifier: 'catalog:'
+        version: 1.0.34
       '@bentley/icons-generic-webfont':
-        specifier: ^1.0.34
+        specifier: 'catalog:'
         version: 1.0.34
       '@itwin/appui-abstract':
         specifier: 'catalog:'
@@ -468,9 +486,12 @@ importers:
       '@itwin/itwinui-react':
         specifier: ^3.17.0
         version: 3.18.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@itwin/itwinui-react-v5':
-        specifier: npm:@itwin/itwinui-react@5.0.0-alpha.5
-        version: '@itwin/itwinui-react@5.0.0-alpha.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)'
+      '@stratakit/bricks':
+        specifier: 'catalog:'
+        version: 0.2.0(@stratakit/foundations@0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/foundations':
+        specifier: 'catalog:'
+        version: 0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -2688,12 +2709,6 @@ packages:
       react: '>=17.0.0'
       react-dom: '>=17.0.0'
 
-  '@itwin/itwinui-react@5.0.0-alpha.5':
-    resolution: {integrity: sha512-KvEOL3fl4Vd9xUpy3vRjPdDij1ON6E0cB1kMLBtRWdUqNZVBvjNmT1A+DaQGTvK9mlCypi9KWduCynNGu3F0Sw==}
-    peerDependencies:
-      react: '>=18.0.0'
-      react-dom: '>=18.0.0'
-
   '@itwin/object-storage-azure@2.3.0':
     resolution: {integrity: sha512-WHECH+aBo9OVk5xcY5cdGnj5g08d2jMQefm6Q4rvHcqlfFtCKh4hfUMkaU5GAF8peNZxkxy06Goe206RWTtsVw==}
     peerDependencies:
@@ -3318,6 +3333,19 @@ packages:
     resolution: {integrity: sha512-6VjZg8HJ2Op7+KV7ihJpYrDnFtd9D1jrQnUS8LckcpuBXrIEbaut5+34ObY8ssQnSqkk2GwIZBBBQYQBCVvkOw==}
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
+
+  '@stratakit/bricks@0.2.0':
+    resolution: {integrity: sha512-aJhs1dfrl4EpUKQUrxlliLnZakoFna3ttC8cYdYlBvPwROuLvfxhU1dlUQAxr6LSh+30sq8asdQ2CXCJCV8Tqg==}
+    peerDependencies:
+      '@stratakit/foundations': ^0.1.3
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
+  '@stratakit/foundations@0.1.3':
+    resolution: {integrity: sha512-2E5Yhk7jmghk4qG5k1ZKbbtMfQzgruI6kWOi3vwZ+5isuRi7vbHxE4L3SC6R5Sn+yOpX9YnfetAtSuDrnEbqbA==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@swc/core-darwin-arm64@1.11.21':
     resolution: {integrity: sha512-v6gjw9YFWvKulCw3ZA1dY+LGMafYzJksm1mD4UZFZ9b36CyHFowYVYug1ajYRIRqEvvfIhHUNV660zTLoVFR8g==}
@@ -10021,13 +10049,6 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-table: 7.8.0(react@18.3.1)
 
-  '@itwin/itwinui-react@5.0.0-alpha.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@ariakit/react': 0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      classnames: 2.5.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   '@itwin/object-storage-azure@2.3.0(inversify@6.0.3)(reflect-metadata@0.1.14)':
     dependencies:
       '@azure/core-paging': 1.6.2
@@ -10846,6 +10867,21 @@ snapshots:
   '@storybook/theming@8.6.12(storybook@8.6.12(prettier@3.5.3))':
     dependencies:
       storybook: 8.6.12(prettier@3.5.3)
+
+  '@stratakit/bricks@0.2.0(@stratakit/foundations@0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@ariakit/react': 0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/foundations': 0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      classnames: 2.5.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@stratakit/foundations@0.1.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@ariakit/react': 0.4.17(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      classnames: 2.5.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@swc/core-darwin-arm64@1.11.21':
     optional: true

@@ -5,7 +5,7 @@
 import React from "react";
 import type { Decorator } from "@storybook/react";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { Root } from "@itwin/itwinui-react-v5/bricks";
+import { Root } from "@stratakit/foundations";
 
 export const withThemeBridge: Decorator = (Story, context) => {
   const themeBridge = !!context.globals.themeBridge;

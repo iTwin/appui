@@ -12,6 +12,6 @@
   @include triangle-bottom-right(
     $width: 5px,
     $height: 5px,
-    $color: currentColor
+    $color: var(--_uifw-toolbar-item-color, currentColor)
   );
 }

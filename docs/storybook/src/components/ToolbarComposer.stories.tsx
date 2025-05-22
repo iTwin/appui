@@ -28,8 +28,10 @@ import {
   SvgAndroid,
   SvgClipboard,
   SvgExport,
+  SvgPlaceholder,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
+import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
@@ -306,6 +308,73 @@ export const ItemDef: Story = {
             [eventId]
           ),
         })
+      ),
+    ],
+  },
+};
+
+export const Icons = {
+  args: {
+    items: [
+      ToolbarItemUtilities.createActionItem({
+        id: "node",
+        label: "Icon Node",
+        icon: <SvgPlaceholder />,
+      }),
+      ToolbarItemUtilities.createActionItem(
+        "spec-node",
+        0,
+        <SvgPlaceholder />,
+        "Icon Spec Node",
+        () => {}
+      ),
+      ToolbarItemUtilities.createActionItem(
+        "svg-loader",
+        0,
+        placeholderIcon,
+        "SVG Loader",
+        () => {}
+      ),
+      ToolbarItemUtilities.createActionItem(
+        "font-icon",
+        0,
+        "icon-placeholder",
+        "Font Icon",
+        () => {}
+      ),
+    ],
+  },
+} satisfies Story;
+
+export const GroupIcons: Story = {
+  args: {
+    items: [
+      ToolbarItemUtilities.createGroupItem({
+        id: "group-node",
+        label: "Icon Node",
+        icon: <SvgPlaceholder />,
+        items: [...Icons.args.items],
+      }),
+      ToolbarItemUtilities.createGroupItem(
+        "group-spec-node",
+        0,
+        <SvgPlaceholder />,
+        "Icon Spec Node",
+        [...Icons.args.items]
+      ),
+      ToolbarItemUtilities.createGroupItem(
+        "group-svg-loader",
+        0,
+        placeholderIcon,
+        "SVG Loader",
+        [...Icons.args.items]
+      ),
+      ToolbarItemUtilities.createGroupItem(
+        "group-font-icon",
+        0,
+        "icon-placeholder",
+        "Font Icon",
+        [...Icons.args.items]
       ),
     ],
   },

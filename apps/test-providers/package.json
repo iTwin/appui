@@ -45,7 +45,7 @@
     "eslint-config-prettier": "~8.8.0"
   },
   "dependencies": {
-    "@bentley/icons-generic": "^1.0.34",
+    "@bentley/icons-generic": "catalog:",
     "@itwin/core-bentley": "catalog:",
     "@itwin/core-geometry": "catalog:",
     "@itwin/core-common": "catalog:",
