@@ -43,6 +43,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         labelProps={labelProps}
         style={props.style}
         ref={ref}
+        data-item-id={item.id}
         {...other}
       >
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
