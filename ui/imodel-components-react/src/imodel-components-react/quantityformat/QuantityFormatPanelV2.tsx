@@ -7,168 +7,48 @@
  */
 
 import * as React from "react";
+import { IModelApp } from "@itwin/core-frontend";
 import type {
-  CustomFormatPropEditorSpec,
-  QuantityTypeArg,
-} from "@itwin/core-frontend";
-import {
-  getQuantityTypeKey,
-  IModelApp,
-  isCheckboxFormatPropEditorSpec,
-  isCustomQuantityTypeDefinition,
-  isTextInputFormatPropEditorSpec,
-  isTextSelectFormatPropEditorSpec,
-} from "@itwin/core-frontend";
-import type {
+  FormatDefinition,
   FormatProps,
   UnitProps,
   UnitsProvider,
 } from "@itwin/core-quantity";
-import { Checkbox, Input, Select } from "@itwin/itwinui-react";
 import { FormatPanel } from "./FormatPanel.js";
-import { DeepCompare } from "@itwin/core-geometry";
 
-function createTextInputFormatPropEditor(
-  key: string,
-  label: string,
-  inProps: FormatProps,
-  getString: (props: FormatProps) => string,
-  setString: (props: FormatProps, value: string) => FormatProps,
-  fireFormatChange: (newProps: FormatProps) => void
-) {
-  const value = getString(inProps);
-  return (
-    <React.Fragment key={`${key}`}>
-      <span key={`${key}-label`} className={"uicore-label"}>
-        {label}
-      </span>
-      <Input
-        data-testid={`${key}-editor`}
-        key={`${key}-editor`}
-        value={value}
-        size="small"
-        onChange={(e) => {
-          const newProps = setString(inProps, e.currentTarget.value);
-          fireFormatChange(newProps);
-        }}
-      />
-    </React.Fragment>
-  );
-}
-function createSelectFormatPropEditor(
-  key: string,
-  label: string,
-  options: { label: string; value: string }[],
-  inProps: FormatProps,
-  getString: (props: FormatProps) => string,
-  setString: (props: FormatProps, value: string) => FormatProps,
-  fireFormatChange: (newProps: FormatProps) => void
-) {
-  const value = getString(inProps);
-  return (
-    <React.Fragment key={`${key}`}>
-      <span key={`${key}-label`} className={"uicore-label"}>
-        {label}
-      </span>
-      <Select
-        data-testid={`${key}-editor`}
-        key={`${key}-editor`}
-        value={value}
-        options={options}
-        size={"small"}
-        onChange={(newValue) => {
-          const newProps = setString(inProps, newValue);
-          fireFormatChange(newProps);
-        }}
-      />
-    </React.Fragment>
-  );
-}
-
-function createCheckboxFormatPropEditor(
-  key: string,
-  label: string,
-  inProps: FormatProps,
-  getBool: (props: FormatProps) => boolean,
-  setBool: (props: FormatProps, isChecked: boolean) => FormatProps,
-  fireFormatChange: (newProps: FormatProps) => void
-) {
-  const isChecked = getBool(inProps);
-  return (
-    <React.Fragment key={`${key}`}>
-      <span key={`${key}-label`} className={"uicore-label"}>
-        {label}
-      </span>
-      <Checkbox
-        data-testid={`${key}-editor`}
-        key={`${key}-editor`}
-        checked={isChecked}
-        onChange={(e) => {
-          const newProps = setBool(inProps, e.target.checked);
-          fireFormatChange(newProps);
-        }}
-      />
-    </React.Fragment>
-  );
-}
-
-function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
-  const compare = new DeepCompare();
-  return compare.compare(obj1, obj2);
-}
-
-/** Properties of [[QuantityFormatPanel]] component.
+/** Interface for the props of the QuantityFormatPanelV2 component.
  * @alpha
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof QuantityFormatPanel>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface QuantityFormatPanelProps {
-  quantityType: QuantityTypeArg;
-  onFormatChange?: (format: FormatProps) => void;
-  /** props below are to be passed on to FormatPanel */
-  showSample?: boolean;
+export interface QuantityFormatPanelV2Props {
+  formatDefinition: FormatDefinition;
+  onFormatChange: (format: FormatDefinition) => void;
   initialMagnitude?: number;
   enableMinimumProperties?: boolean;
 }
-
 /** Component to set properties that control Quantity Formatting.
  * @alpha
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export function QuantityFormatPanelV2(props: QuantityFormatPanelProps) {
-  const { quantityType, onFormatChange, ...otherProps } = props;
-  const [formatProps, setFormatProps] = React.useState<FormatProps>();
-  const initialFormatProps = React.useRef<FormatProps>();
+export function QuantityFormatPanelV2({
+  formatDefinition,
+  onFormatChange,
+  initialMagnitude,
+  enableMinimumProperties,
+}: QuantityFormatPanelV2Props) {
+  const [formatProps, setFormatProps] = React.useState<FormatProps>({ ...formatDefinition });
 
-  const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps>();
+  // const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps>();
 
-  React.useEffect(() => {
-    const newFormatProps =
-      IModelApp.quantityFormatter.getFormatPropsByQuantityType(quantityType);
-    if (!initialFormatProps.current)
-      initialFormatProps.current = newFormatProps;
-    setFormatProps(newFormatProps);
-    const quantityTypeKey = getQuantityTypeKey(quantityType);
-    const quantityTypeDefinition =
-      IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
-    if (quantityTypeDefinition)
-      setPersistenceUnit(quantityTypeDefinition.persistenceUnit);
-    else
-      throw Error(`Unable to locate a quantity type with type ${quantityType}`);
-  }, [quantityType]); // no dependencies defined as we want this to run on every render
-
-  // handle case where quantityType does not change but the formatProps for that quantity type has (ie after a Set or Clear)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  React.useEffect(() => {
-    const newFormatProps =
-      IModelApp.quantityFormatter.getFormatPropsByQuantityType(quantityType);
-    if (initialFormatProps.current && newFormatProps) {
-      if (!formatAreEqual(newFormatProps, initialFormatProps.current)) {
-        initialFormatProps.current = newFormatProps;
-        setFormatProps(newFormatProps);
-      }
-    }
-  }); // no dependencies defined as we want this to run on every render
+  // TODO: Refactor to try to retrieve persistence unit from the sync spec registry in Quantity Formatter, based on formatDefinition.key.
+  // React.useEffect(() =>
+  //   const quantityTypeKey = getQuantityTypeKey(quantityType);
+  //   const quantityTypeDefinition =
+  //     IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
+  //   if (quantityTypeDefinition)
+  //     setPersistenceUnit(quantityTypeDefinition.persistenceUnit);
+  //   else
+  //     throw Error(`Unable to locate a quantity type with type ${quantityType}`);
+  // }, []); // no dependencies defined as we want this to run on every render
 
   const handleOnFormatChanged = React.useCallback(
     async (newProps: FormatProps) => {
@@ -178,99 +58,31 @@ export function QuantityFormatPanelV2(props: QuantityFormatPanelProps) {
     [onFormatChange]
   );
 
-  const createCustomPropEditors = React.useCallback(
-    (
-      specs: CustomFormatPropEditorSpec[],
-      inProps: FormatProps,
-      fireFormatChange: (newProps: FormatProps) => void
-    ) => {
-      return specs.map((spec, index) => {
-        if (isCheckboxFormatPropEditorSpec(spec))
-          return createCheckboxFormatPropEditor(
-            `${spec.editorType}-${index}`,
-            spec.label,
-            inProps,
-            spec.getBool,
-            spec.setBool,
-            fireFormatChange
-          );
-        if (isTextSelectFormatPropEditorSpec(spec))
-          return createSelectFormatPropEditor(
-            `${spec.editorType}-${index}`,
-            spec.label,
-            spec.selectOptions,
-            inProps,
-            spec.getString,
-            spec.setString,
-            fireFormatChange
-          );
 
-        if (isTextInputFormatPropEditorSpec(spec))
-          return createTextInputFormatPropEditor(
-            `${spec.editorType}-${index}`,
-            spec.label,
-            inProps,
-            spec.getString,
-            spec.setString,
-            fireFormatChange
-          );
-
-        return <div key={index} />;
-      });
-    },
-    []
-  );
-
-  const providePrimaryChildren = React.useCallback(
-    (
-      inProps: FormatProps,
-      fireFormatChange: (newProps: FormatProps) => void
-    ) => {
-      const quantityTypeKey = getQuantityTypeKey(quantityType);
-      const quantityTypeDefinition =
-        IModelApp.quantityFormatter.quantityTypesRegistry.get(quantityTypeKey);
-      if (
-        quantityTypeDefinition &&
-        isCustomQuantityTypeDefinition(quantityTypeDefinition) &&
-        quantityTypeDefinition.isCompatibleFormatProps(inProps)
-      ) {
-        if (quantityTypeDefinition.primaryPropEditorSpecs)
-          return createCustomPropEditors(
-            quantityTypeDefinition.primaryPropEditorSpecs,
-            inProps,
-            fireFormatChange
-          );
-      }
-      return null;
-    },
-    [createCustomPropEditors, quantityType]
-  );
-
-  // TODO: Later refactor to use IModelApp.quantityFormatter.createFormatterSpec()
+  // TODO: Review if we should just drop this useCallback, and move the function into FormatPanel...
   const provideFormatSpec = React.useCallback(
     async (
       inProps: FormatProps,
       _persistenceUnit: UnitProps,
       _unitsProvider: UnitsProvider
     ) => {
-      return IModelApp.quantityFormatter.generateFormatterSpecByType(
-        quantityType,
-        inProps
+      return IModelApp.quantityFormatter.createFormatterSpec(
+        {
+          formatProps: inProps,
+          persistenceUnitName: _persistenceUnit.name,
+        }
       );
     },
-    [quantityType]
+    []
   );
 
   return (
     <div className="components-quantityFormat-quantityPanel">
-      {persistenceUnit && formatProps && (
+      {formatProps && (
         <FormatPanel
           onFormatChange={handleOnFormatChanged}
-          {...otherProps}
           initialFormat={formatProps}
           unitsProvider={IModelApp.quantityFormatter.unitsProvider}
-          persistenceUnit={persistenceUnit}
-          providePrimaryChildren={providePrimaryChildren}
           provideFormatSpec={provideFormatSpec}
         />
       )}
