@@ -30,7 +30,7 @@ import { MiscFormatOptions } from "./MiscFormatOptions.js";
 export interface FormatPanelProps extends CommonProps {
   initialFormat: FormatProps;
   unitsProvider: UnitsProvider;
-  persistenceUnit: Promise<UnitProps> | UnitProps;
+  persistenceUnit?: Promise<UnitProps> | UnitProps;
   showSample?: boolean;
   initialMagnitude?: number;
   // if true a only primary format properties are initially displayed and a "More/Less" link is added.
@@ -114,6 +114,7 @@ export function FormatPanel(props: FormatPanelProps) {
 
   React.useEffect(() => {
     async function fetchFormatSpec() {
+      if (!persistenceUnit) return;
       const pu = await persistenceUnit;
       let newFormatSpec: FormatterSpec;
       if (provideFormatSpec) {
