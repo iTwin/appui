@@ -5,7 +5,9 @@
 import { AccuSnap, SnapMode } from "@itwin/core-frontend";
 import { create } from "zustand";
 
-export const useAccuSnapStore = create<SnapMode>(() => SnapMode.Nearest);
+export const useAccuSnapStore = create<SnapMode>(
+  () => SnapMode.NearestKeypoint
+);
 
 export class AppAccuSnap extends AccuSnap {
   public override getActiveSnapModes(): SnapMode[] {
