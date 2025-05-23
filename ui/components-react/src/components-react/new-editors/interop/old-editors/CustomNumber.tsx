@@ -38,13 +38,20 @@ export const CustomNumberEditorSpec = createEditorSpec({
   Editor: CustomNumberEditor,
 });
 
-function CustomNumberEditor({
+interface CustomNumberEditorProps
+  extends EditorProps<OldEditorMetadata, NumericValue> {
+  decoration?: React.ReactNode;
+}
+
+/** @internal */
+export function CustomNumberEditor({
   metadata,
   value,
   onChange,
   size,
   disabled,
-}: EditorProps<OldEditorMetadata, NumericValue>) {
+  decoration,
+}: CustomNumberEditorProps) {
   const formatParams = useCustomFormattedNumberParams(metadata);
   const sizeParams = useInputEditorSizeParams(metadata);
   const iconParams = useIconEditorParams(metadata);
@@ -96,6 +103,7 @@ function CustomNumberEditor({
         onChange={handleChange}
         value={inputValue}
       />
+      {decoration}
     </InputWithDecorations>
   );
 }

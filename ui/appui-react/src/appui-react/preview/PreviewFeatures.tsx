@@ -67,6 +67,12 @@ interface KnownPreviewFeatures {
    * However, in order to use custom editors they need to be provided using `EditorsRegistryProvider` component.
    */
   toolSettingsNewEditors: boolean;
+  /**
+   * If `true`, the default tool settings lock editor will be rendered as an icon button rather than a checkbox.
+   * Consumers can still use a custom component to render the lock by customizing the `PropertyDescription`.
+   * Additionally, the icon button will be rendered as an input decoration in editors that support it.
+   */
+  toolSettingsLockButton: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -82,6 +88,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
   toolSettingsNewEditors: undefined,
+  toolSettingsLockButton: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.

@@ -1,5 +1,12 @@
 # Change Log - @itwin/components-react
 
+## 5.6.0
+
+### Patch Changes
+
+- a4b74f9: Fix potential infinite recursion in dispose methods of `TreeEventHandler` and `FilteringPropertyDataProvider` classes.
+  - @itwin/core-react@5.6.0
+
 ## 5.5.0
 
 ### Minor Changes
