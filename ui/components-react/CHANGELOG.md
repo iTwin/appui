@@ -1,5 +1,37 @@
 # Change Log - @itwin/components-react
 
+## 5.7.0
+
+### Minor Changes
+
+- fd58c9f: Updated the `editors` prop of `EditorsRegistryProvider` component. You can now either supply a list of editors or provide a function that customizes the current list of editors, allowing full control over the final set of editors.
+
+  ```tsx
+  // New editors are higher priority than existing ones.
+  <EditorsRegistryProvider editors={(editors) => [...newEditors, ...editors]} />
+
+  // New editors are lower priority than existing ones.
+  <EditorsRegistryProvider editors={(editors) => [...editors, ...newEditors]} />
+
+  // Filter the editors.
+  <EditorsRegistryProvider
+    editors={(editors) =>
+      editors.filter((e) =>
+        e.applies(
+          {
+            type: "bool",
+          },
+          undefined
+        )
+      )
+    }
+  />
+  ```
+
+### Patch Changes
+
+- @itwin/core-react@5.7.0
+
 ## 5.6.0
 
 ### Patch Changes
