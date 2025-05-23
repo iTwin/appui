@@ -207,6 +207,8 @@ export {
   UiDataProvidedDialogProps,
 } from "./appui-react/dialog/UiDataProvidedDialog.js";
 
+export { LockButtonInputDecoration } from "./appui-react/editors/LockProvider.js";
+
 export {
   InputStatus,
   ValidationTextbox,
@@ -852,12 +854,15 @@ export { ToolUiProvider } from "./appui-react/toolsettings/ToolUiProvider.js";
 import { UiFramework } from "./appui-react/UiFramework.js";
 import { DefaultToolSettingsProvider } from "./appui-react/toolsettings/DefaultToolSettingsProvider.js";
 import { IModelViewportControl } from "./appui-react/content/IModelViewport.js";
+import { registerEditors } from "./appui-react/editors/registerEditors.js";
 
 UiFramework.controls.register(
   "DefaultToolSettings",
   DefaultToolSettingsProvider
 );
 UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);
+
+registerEditors();
 
 // #endregion "SideEffects"
 

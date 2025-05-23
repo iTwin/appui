@@ -52,6 +52,9 @@ const availableFeatures: AvailableFeatures = {
   toolSettingsNewEditors: {
     label: "Enable new tool settings editors",
   },
+  toolSettingsLockButton: {
+    label: "Enable tool settings lock button",
+  },
 };
 
 function PreviewFeatureList() {

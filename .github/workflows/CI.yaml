@@ -69,6 +69,8 @@ jobs:
       - run: pnpm install
       - run: pnpm build
       - run: pnpm extract-api
+        env:
+          TF_BUILD: 1
 
   check:
     name: Check code quality

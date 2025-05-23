@@ -105,14 +105,15 @@
     "@itwin/itwinui-layouts-css": "~0.4.0",
     "@itwin/reality-data-client": "1.2.2",
     "@itwin/webgl-compatibility": "catalog:",
-    "@tanstack/react-router": "^1.87.6",
+    "@tanstack/react-router": "^1.120.2",
     "classnames": "2.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "~9.0.1",
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
-    "ts-key-enum": "~2.0.12"
+    "ts-key-enum": "~2.0.12",
+    "zustand": "catalog:"
   },
   "browserslist": [
     "last 4 chrome version",

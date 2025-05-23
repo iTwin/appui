@@ -20,8 +20,13 @@ import {
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { NumberInput } from "@itwin/core-react";
-import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
+import type {
+  InternalInputEditorProps,
+  PropertyEditorProps,
+  TypeEditor,
+} from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
+import { InputWithDecorations } from "@itwin/itwinui-react";
 
 /** @internal */
 interface NumericInputEditorState {
@@ -178,6 +183,7 @@ export class NumericInputEditor
   }
 
   public override render(): React.ReactNode {
+    const { decoration } = this.props as InternalInputEditorProps;
     const className = classnames(
       "components-cell-editor",
       "components-numeric-input-editor",
@@ -190,8 +196,7 @@ export class NumericInputEditor
     };
 
     return (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <NumberInput
+      <NumericEditor
         ref={this._inputElement}
         className={className}
         style={style}
@@ -206,6 +211,7 @@ export class NumericInputEditor
         onChange={this._updateValue}
         autoFocus={this.props.setFocus && !this.state.isDisabled} // eslint-disable-line jsx-a11y/no-autofocus
         isControlled={this.props.shouldCommitOnChange}
+        decoration={decoration}
       />
     );
   }
@@ -224,3 +230,59 @@ export class NumericInputPropertyEditor extends PropertyEditorBase {
     return false;
   }
 }
+
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+type NumberInputProps = React.ComponentProps<typeof NumberInput>;
+
+interface NumericEditorProps extends Omit<NumberInputProps, "step"> {
+  decoration?: React.ReactNode;
+  step?: number;
+}
+
+const NumericEditor = React.forwardRef<HTMLInputElement, NumericEditorProps>(
+  function NumericEditor(props, forwardedRef) {
+    const { decoration, ...rest } = props;
+    if (decoration) {
+      return (
+        <LockNumericEditor
+          {...rest}
+          ref={forwardedRef}
+          decoration={decoration}
+        />
+      );
+    }
+
+    return (
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      <NumberInput ref={forwardedRef} {...rest} />
+    );
+  }
+);
+
+interface LockNumericEditorProps extends NumericEditorProps {
+  decoration: React.ReactNode;
+}
+
+const LockNumericEditor = React.forwardRef<
+  HTMLInputElement,
+  LockNumericEditorProps
+>(function LockNumericEditor(props, forwardedRef) {
+  const { decoration, precision, onChange, isControlled, ...rest } = props;
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    onChange?.(Number(value), value);
+  };
+  return (
+    <InputWithDecorations size="small">
+      <InputWithDecorations.Input
+        {...rest}
+        ref={forwardedRef}
+        type="number"
+        onChange={handleChange}
+        size="small"
+      />
+      {decoration}
+    </InputWithDecorations>
+  );
+});

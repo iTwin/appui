@@ -1,5 +1,148 @@
 # Change Log - @itwin/appui-react
 
+## 5.7.0
+
+### Minor Changes
+
+- 6a13347: Add `data-item-id` attributes to toolbar items of `Toolbar` component.
+- ba32702: Added new `SnapMode.PerpendicularPoint` and `SnapMode.TangentPoint` options to the `SnapModeField` component. These new snap modes are only available when using the `@itwin/core-frontend@>=5.0.0`.
+- e3f7b56: Updated tool settings to display the lock button as an input decoration when the `toolSettingsLockButton` preview feature is enabled. This is supported when using the new editor system via the `toolSettingsNewEditors` preview feature.
+
+  Editors that support the lock button input decoration:
+
+  - Text editor
+  - Numeric editor
+  - Custom number editor
+
+  A separate control will still be displayed as a sibling if the lock cannot be displayed by the editor. Common cases include:
+
+  - Non-input editors (i.e. locking a toggle property)
+  - Custom editors (i.e. custom editor implementations that do not display the lock decoration)
+
+  Note that a separate lock control can only be displayed for the first dialog item in a row. Consider this scenario:
+
+  ```tsx
+  const useX = new DialogProperty();
+  const x = new DialogProperty();
+
+  const useY = new DialogProperty();
+  const y = new DialogProperty();
+
+  // Tool is supplying these tool setting properties.
+  const dialogItems = [
+    x.toDialogItem(
+      {
+        columnIndex: 0,
+        rowPriority: 1,
+      },
+      useX.toDialogItem({ columnIndex: 0, rowPriority: 1 })
+    ),
+    y.toDialogItem(
+      {
+        columnIndex: 0,
+        rowPriority: 1,
+      },
+      useY.toDialogItem({ columnIndex: 0, rowPriority: 1 })
+    ),
+  ];
+
+  // The old behavior would display the lock as a separate control for the first dialog item of the row, which is `x`.
+  // The new behavior will display the lock as an input decoration for both `x` and `y`. A separate lock control might be displayed for `x` only.
+  ```
+
+  Added `LockButtonInputDecoration` component to allow consumers to display the lock button as an input decoration in custom editors. For now this component is only compatible with the [iTwinUI Input](https://itwinui.bentley.com/docs/inputwithdecorations), but additional APIs can be exposed in the future. Usage example:
+
+  ```tsx
+  function MyCustomEditor(props) {
+    // ...
+    return (
+      <InputWithDecorations>
+        {/* ... */}
+        <LockButtonInputDecoration />
+      </InputWithDecorations>
+    );
+  }
+  ```
+
+- fe40d0a: Add `visible`, `onVisibleChange`, `pinned` and `onPinnedChange` props to `ToolAssistanceField` component. These props can be used to manually control the visibility and pinned state of the field.
+
+  ```tsx
+  function CustomField(props) {
+    // Field is open by default
+    const [visible, setVisible] = React.useState(true);
+    return (
+      <ToolAssistanceField
+        {...props}
+        visible={visible}
+        // Update the state so the field can be opened/closed
+        onVisibleChange={setVisible}
+        // Field is always pinned
+        pinned={true}
+      />
+    );
+  }
+  ```
+
+### Patch Changes
+
+- Updated dependencies [fd58c9f]
+  - @itwin/components-react@5.7.0
+  - @itwin/imodel-components-react@5.7.0
+  - @itwin/core-react@5.7.0
+
+## 5.6.0
+
+### Minor Changes
+
+- 1d29f92: Added `toolSettingsLockButton` preview feature, which when enabled will render an icon button instead of a checkbox as the default tool settings lock editor.
+
+  ```tsx
+  <PreviewFeaturesProvider
+    features={{
+      toolSettingsLockButton: true,
+    }}
+  >
+    <App />
+  </PreviewFeaturesProvider>
+  ```
+
+  Displayed icon button can be customized via the `BaseDialogItem` interface.
+
+  ```ts
+  const propertyDescription =
+    PropertyDescriptionHelper.buildLockPropertyDescription("useLength");
+  propertyDescription.displayLabel = "Toggle length lock";
+
+  const property: BaseDialogItem = {
+    value: {
+      value: true,
+    },
+    property: propertyDescription,
+    isDisabled: true,
+  };
+  // Displays an active, disabled icon button with a custom label.
+  ```
+
+  Custom lock editor components can still be displayed by customizing the lock `PropertyDescription`, even if `toolSettingsLockButton` is enabled.
+
+  ```ts
+  const property =
+    PropertyDescriptionHelper.buildLockPropertyDescription("useRadius");
+  property.editor = {
+    name: StandardEditorNames.Toggle,
+  };
+  // Displays a switch component.
+  ```
+
+- 6c97fa4: Updated the tool settings data provider to invoke `IModelApp.toolAdmin.simulateMotionEvent` after applying the tool setting property change. This causes the update to the dynamic graphics of the active tool without requiring an explicit motion event. `simulateMotionEvent` is only available from `v5.0` of `@itwin/core-frontend`.
+
+### Patch Changes
+
+- Updated dependencies [a4b74f9]
+  - @itwin/components-react@5.6.0
+  - @itwin/imodel-components-react@5.6.0
+  - @itwin/core-react@5.6.0
+
 ## 5.5.0
 
 ### Minor Changes

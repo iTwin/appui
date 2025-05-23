@@ -30,9 +30,17 @@ class ToolSettingsUiDataProvider extends UiLayoutDataProvider {
   public override applyUiPropertyChange = (
     syncItem: DialogPropertySyncItem
   ) => {
-    IModelApp.toolAdmin.activeTool
-      ?.applyToolSettingPropertyChange(syncItem)
-      .catch((err) => UnexpectedErrors.handle(err));
+    void (async () => {
+      try {
+        const toolAdmin = IModelApp.toolAdmin;
+        await toolAdmin.activeTool?.applyToolSettingPropertyChange(syncItem);
+        if ("simulateMotionEvent" in toolAdmin) {
+          toolAdmin.simulateMotionEvent();
+        }
+      } catch (err) {
+        UnexpectedErrors.handle(err);
+      }
+    })();
   };
 }
 

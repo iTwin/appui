@@ -26,6 +26,7 @@ import {
   IModelApp,
   IModelAppOptions,
   LocalhostIpcApp,
+  LocalUnitFormatProvider,
   ToolAdmin,
 } from "@itwin/core-frontend";
 import { ITwinLocalization } from "@itwin/core-i18n";
@@ -44,6 +45,7 @@ import { TestAppLocalization } from "./useTranslation";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { IModelsClient } from "@itwin/imodels-client-management";
+import { CreateCircleTool } from "./tools/CreateCircleTool";
 
 function createInitializer() {
   let initializing: Promise<void> | undefined;
@@ -115,6 +117,10 @@ function createInitializer() {
       });
     }
 
+    await IModelApp.quantityFormatter.setUnitFormattingSettingsProvider(
+      new LocalUnitFormatProvider(IModelApp.quantityFormatter, true)
+    );
+
     ToolAdmin.exceptionHandler = async (err) =>
       Promise.resolve(UnexpectedErrors.handle(err));
     await IModelApp.localization.registerNamespace(
@@ -131,6 +137,7 @@ function createInitializer() {
       appUiTestProvidersModule,
       AppUiTestProviders.localizationNamespace
     );
+    CreateCircleTool.register(TestAppLocalization.namespace);
     RegisterUiProviderTool.providers.push(createW1Provider());
     RegisterUiProviderTool.providers.push(createUpdatedUiItemsProvider());
 

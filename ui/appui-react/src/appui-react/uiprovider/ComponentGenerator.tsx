@@ -21,12 +21,16 @@ import {
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { PropertyRecordEditor } from "@itwin/components-react";
-import { EditorContainer } from "@itwin/components-react";
-import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
+import { EditorContainer, PropertyRecordEditor } from "@itwin/components-react";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
-import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolsSettingsNewEditors.js";
+import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolSettingsNewEditors.js";
+import type { ToolSettingsEntry } from "../widget-panels/ToolSettings.js";
+import { useLockButtonPropertyRecord } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
+import {
+  LockContext,
+  PropertyEditorProvider,
+} from "../editors/LockProvider.js";
 
 function EditorLabel({
   uiDataProvider,
@@ -69,19 +73,24 @@ function EditorLabel({
   );
 }
 
-function PropertyEditor({
-  uiDataProvider,
-  initialItem,
-  isLock = false,
-  setFocus,
-  onCancel,
-}: {
+function PropertyEditor(props: {
   uiDataProvider: UiLayoutDataProvider;
+  // Property or a lock property.
   initialItem: BaseDialogItem;
+  // If a lock property is rendered, this prop contains the property name of the property that the lock property locks.
+  itemPropertyName: string;
   isLock?: boolean;
   setFocus?: boolean;
   onCancel?: () => void;
 }) {
+  const {
+    uiDataProvider,
+    initialItem,
+    itemPropertyName,
+    isLock = false,
+    setFocus,
+    onCancel,
+  } = props;
   const getLatestRecordValue = React.useCallback(
     (initial: BaseDialogItem) => {
       let newRecord = UiLayoutDataProvider.getPropertyRecord(initial);
@@ -114,7 +123,8 @@ function PropertyEditor({
   );
 
   const currentRecord = getLatestRecordValue(initialItem);
-  const [propertyRecord, setPropertyRecord] = React.useState(currentRecord);
+  const [_propertyRecord, setPropertyRecord] = React.useState(currentRecord);
+  const propertyRecord = useLockButtonPropertyRecord(_propertyRecord, isLock);
 
   // monitor tool for sync UI events
   React.useEffect(() => {
@@ -191,28 +201,35 @@ function PropertyEditor({
 
   const useNewEditors = useToolSettingsNewEditors();
 
+  const lockPropertyName = isLock ? initialItem.property.name : undefined;
   return (
-    <div key={initialItem.property.name} className={className}>
-      {useNewEditors ? (
-        <PropertyRecordEditor
-          key={initialItem.property.name}
-          propertyRecord={propertyRecord}
-          setFocus={setFocus}
-          onCommit={handleCommit}
-          onCancel={onCancel ?? handleCancel}
-          editorSystem="new"
-          size="small"
-        />
-      ) : (
-        <EditorContainer
-          key={initialItem.property.name}
-          propertyRecord={propertyRecord}
-          setFocus={setFocus}
-          onCommit={handleCommit}
-          onCancel={onCancel ?? handleCancel}
-        />
-      )}
-    </div>
+    <PropertyEditorProvider
+      uiDataProvider={uiDataProvider}
+      itemPropertyName={itemPropertyName ?? initialItem.property.name}
+      lockPropertyName={lockPropertyName}
+    >
+      <div key={initialItem.property.name} className={className}>
+        {useNewEditors ? (
+          <PropertyRecordEditor
+            key={initialItem.property.name}
+            propertyRecord={propertyRecord}
+            setFocus={setFocus}
+            onCommit={handleCommit}
+            onCancel={onCancel ?? handleCancel}
+            editorSystem="new"
+            size="small"
+          />
+        ) : (
+          <EditorContainer
+            key={initialItem.property.name}
+            propertyRecord={propertyRecord}
+            setFocus={setFocus}
+            onCommit={handleCommit}
+            onCancel={onCancel ?? handleCancel}
+          />
+        )}
+      </div>
+    </PropertyEditorProvider>
   );
 }
 
@@ -232,13 +249,15 @@ export class ComponentGenerator {
   private getEditor(
     item: BaseDialogItem,
     isLock = false,
-    setFocus = false
+    setFocus = false,
+    itemPropertyName?: string
   ): React.ReactNode {
     return (
       <PropertyEditor
         key={item.property.name}
         uiDataProvider={this.uiDataProvider}
         initialItem={item}
+        itemPropertyName={itemPropertyName ?? item.property.name}
         isLock={isLock}
         setFocus={setFocus}
         onCancel={this._onCancel}
@@ -330,14 +349,14 @@ export class ComponentGenerator {
     const label = UiLayoutDataProvider.editorWantsLabel(rowItem)
       ? this.getEditorLabel(rowItem)
       : null;
-    const classNames = multiplePropertiesOnRow
-      ? "uifw-default-lock-and-label uifw-default-wide-only-display"
-      : "uifw-default-lock-and-label";
     return (
-      <div key={`lock-${record.property.name}`} className={classNames}>
-        {lockEditor}
-        {label}
-      </div>
+      <LeftLockAndLabel
+        key={`lock-${record.property.name}`}
+        lockEditor={lockEditor}
+        label={label}
+        multiplePropertiesOnRow={multiplePropertiesOnRow}
+        itemPropertyName={rowItem.property.name}
+      />
     );
   }
 
@@ -421,4 +440,30 @@ function findDialogItem(
     return item.property.name === propertyName;
   });
   return isLock ? dialogItem?.lockProperty : dialogItem;
+}
+
+interface LeftLockAndLabelProps {
+  lockEditor?: React.ReactNode;
+  label?: React.ReactNode;
+  multiplePropertiesOnRow: boolean;
+  itemPropertyName: string;
+}
+
+function LeftLockAndLabel(props: LeftLockAndLabelProps) {
+  const { lockEditor, label, multiplePropertiesOnRow, itemPropertyName } =
+    props;
+  const { lockDecorations } = React.useContext(LockContext) ?? {};
+  const lockDecoration = React.useMemo(() => {
+    return lockDecorations?.[itemPropertyName];
+  }, [lockDecorations, itemPropertyName]);
+
+  const classNames = multiplePropertiesOnRow
+    ? "uifw-default-lock-and-label uifw-default-wide-only-display"
+    : "uifw-default-lock-and-label";
+  return (
+    <div className={classNames}>
+      {lockDecoration ? undefined : lockEditor}
+      {label}
+    </div>
+  );
 }

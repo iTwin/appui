@@ -9,9 +9,9 @@
 import "./DefaultDialogGridContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { DialogRow } from "@itwin/appui-abstract";
 import { ToolSettingsContentContext } from "../widgets/ToolSettingsContent.js";
 import type { ComponentGenerator } from "./ComponentGenerator.js";
+import { LockProvider } from "../editors/LockProvider.js";
 
 enum LayoutMode {
   Wide = 0,
@@ -56,9 +56,11 @@ export function DialogGridContainer({
   const className = classnames("uifw-default-container", containerClassName);
   return (
     <div className={className}>
-      {componentGenerator.uiDataProvider.rows.map(
-        (row: DialogRow, index: number) => componentGenerator.getRow(row, index)
-      )}
+      {componentGenerator.uiDataProvider.rows.map((row, index) => (
+        <LockProvider key={index}>
+          {componentGenerator.getRow(row, index)}
+        </LockProvider>
+      ))}
     </div>
   );
 }

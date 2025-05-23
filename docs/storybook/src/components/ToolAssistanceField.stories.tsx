@@ -17,12 +17,16 @@ import {
 } from "@itwin/core-frontend";
 import { AppUiStory } from "src/AppUiStory";
 import { createFrontstage } from "src/Utils";
+import { ToggleSwitch } from "@itwin/itwinui-react";
+import { BeEvent } from "@itwin/core-bentley";
+import { action } from "@storybook/addon-actions";
 
-const StoryDecorator: Decorator = (Story) => {
+const StoryDecorator: Decorator = (Story, { parameters }) => {
   return (
     <AppUiStory
       frontstages={[
         createFrontstage({
+          content: parameters.content,
           hideStatusBar: false,
         }),
       ]}
@@ -124,5 +128,85 @@ export const PromptAtContent: Story = {
   args: {
     cursorPromptTimeout: Number.POSITIVE_INFINITY,
     promptAtContent: true,
+  },
+};
+
+const store = (() => {
+  let state = {
+    visible: false,
+    pinned: false,
+  };
+  const onChange = new BeEvent();
+  return {
+    state,
+    onChange,
+    setVisible: (visible: boolean) => {
+      state.visible = visible;
+      onChange.raiseEvent();
+    },
+    setPinned: (pinned: boolean) => {
+      state.pinned = pinned;
+      onChange.raiseEvent();
+    },
+  };
+})();
+
+function ControlledContent() {
+  const [visible, setVisible] = React.useState(store.state.visible);
+  const [pinned, setPinned] = React.useState(store.state.pinned);
+  React.useEffect(() => {
+    return store.onChange.addListener(() => {
+      setVisible(store.state.visible);
+      setPinned(store.state.pinned);
+    });
+  }, []);
+  return (
+    <div>
+      <ToggleSwitch
+        label="Visible"
+        checked={visible}
+        onChange={() => {
+          store.setVisible(!visible);
+        }}
+      />
+      <ToggleSwitch
+        label="Pinned"
+        checked={pinned}
+        onChange={() => {
+          store.setPinned(!pinned);
+        }}
+      />
+    </div>
+  );
+}
+
+function ControlledField(
+  props: React.ComponentProps<typeof ToolAssistanceField>
+) {
+  const [visible, setVisible] = React.useState(store.state.visible);
+  const [pinned, setPinned] = React.useState(store.state.pinned);
+  React.useEffect(() => {
+    return store.onChange.addListener(() => {
+      setVisible(store.state.visible);
+      setPinned(store.state.pinned);
+    });
+  }, []);
+  return (
+    <ToolAssistanceField
+      {...props}
+      visible={visible}
+      onVisibleChange={action("onVisibleChange")}
+      pinned={pinned}
+      onPinnedChange={action("onPinnedChange")}
+    />
+  );
+}
+
+export const Controlled: Story = {
+  parameters: {
+    content: <ControlledContent />,
+  },
+  render: (props) => {
+    return <ControlledField {...props} />;
   },
 };

@@ -28,8 +28,12 @@ catalog:
   "@itwin/hypermodeling-frontend": rc
   "@itwin/webgl-compatibility": rc
 
+  # Other packages
+  zustand: ^4.4.1
+
 onlyBuiltDependencies:
   - "@bentley/imodeljs-native"
+  - electron
 
 patchedDependencies:
   "@changesets/assemble-release-plan": patches/@changesets__assemble-release-plan.patch

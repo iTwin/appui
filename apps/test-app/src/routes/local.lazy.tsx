@@ -10,10 +10,9 @@ import {
 } from "@tanstack/react-router";
 import { FluidGrid, PageLayout } from "@itwin/itwinui-layouts-react";
 import { SvgImodelHollow } from "@itwin/itwinui-icons-react";
-import { Button, Tile } from "@itwin/itwinui-react";
+import { Button, Tile, ToggleSwitch } from "@itwin/itwinui-react";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
-import { config } from "../frontend/config";
 
 export const Route = createLazyFileRoute("/local")({
   component: Local,
@@ -21,8 +20,21 @@ export const Route = createLazyFileRoute("/local")({
 
 function Local() {
   const navigate = useNavigate();
+  const [toggleValue, setToggleValue] = React.useState(false);
+  const openBriefcase = ProcessDetector.isElectronAppFrontend || toggleValue;
   return (
     <PageLayout.Content padded={true}>
+      <PageLayout.ToolsArea
+        left={<></>}
+        right={
+          <ToggleSwitch
+            label="Briefcase"
+            labelPosition="left"
+            checked={toggleValue}
+            onChange={(e) => setToggleValue(e.currentTarget.checked)}
+          />
+        }
+      />
       <FluidGrid>
         {window.__BIM_FILES__.map((fileName, index) => (
           <Tile
@@ -31,18 +43,15 @@ function Local() {
             name={fileName}
             thumbnail={<SvgImodelHollow />}
             onClick={() => {
-              if (ProcessDetector.isElectronAppFrontend) {
-                const filePath = `${config.bimDir}/${fileName}`;
-                void navigate({
-                  to: "/briefcase",
-                  search: (prev) => ({ ...prev, filePath }),
-                });
-                return;
-              }
               void navigate({
-                to: "/local/$fileName",
+                to: openBriefcase
+                  ? ("/briefcase/$fileName" as const)
+                  : ("/local/$fileName" as const),
                 params: { fileName },
-                search: (prev) => prev,
+                search: (prev) => {
+                  const { filePath: _, ...rest } = prev;
+                  return rest;
+                },
               });
             }}
           />
@@ -57,11 +66,18 @@ function Local() {
             });
             if (val.canceled) return;
 
-            const filePath = val.filePaths[0];
-            if (!filePath) return;
+            const fullFilePath = val.filePaths[0];
+            if (!fullFilePath) return;
+
+            const fileName = fullFilePath.split("/").pop();
+            const filePath = fullFilePath.substring(
+              0,
+              fullFilePath.lastIndexOf("/")
+            );
 
             void navigate({
-              to: "/briefcase",
+              to: "/briefcase/$fileName",
+              params: { fileName },
               search: (prev) => ({ ...prev, filePath }),
             });
           }}

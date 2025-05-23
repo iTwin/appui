@@ -1,7 +1,7 @@
 {
   "version": "0.2",
   "language": "en",
-  "ignorePaths": ["**/pnpm-lock.yaml"],
+  "ignorePaths": ["**/pnpm-lock.yaml", "**/pnpm-workspace.yaml"],
   "words": [
     "accu",
     "accudraw",
@@ -78,6 +78,7 @@
     "expandab",
     "exton",
     "featureoverrideschanged",
+    "flatbuffer",
     "flatbuffers",
     "floatingviewportcontainerdiv",
     "focustrap",

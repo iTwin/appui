@@ -73,6 +73,8 @@ export function AppUiStory(props: AppUiStoryProps) {
       });
       await UiFramework.initialize(undefined);
 
+      await IModelApp.quantityFormatter.setActiveUnitSystem("metric");
+
       BentleyCloudRpcManager.initializeClient(
         {
           info: {
