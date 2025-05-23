@@ -23,7 +23,8 @@ import { SvgSnapsMidpoint } from "../icons/snaps/SvgSnapsMidpoint.js";
 import { SvgSnapsNearest } from "../icons/snaps/SvgSnapsNearest.js";
 import { SvgSnapsOrigin } from "../icons/snaps/SvgSnapsOrigin.js";
 import { SvgSnaps } from "../icons/snaps/SvgSnaps.js";
-import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { SvgSnapsPerpendicular } from "../icons/snaps/SvgSnapsPerpendicular.js";
+import { SvgSnapsTangent } from "../icons/snaps/SvgSnapsTangent.js";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -77,7 +78,7 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
           labelKey: "snapModeField.perpendicularPoint",
           // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
           value: SnapMode.PerpendicularPoint as number,
-          icon: <SvgPlaceholder />,
+          icon: <SvgSnapsPerpendicular />,
         },
       ]),
   // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
@@ -88,7 +89,7 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
           labelKey: "snapModeField.tangentPoint",
           // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
           value: SnapMode.TangentPoint as number,
-          icon: <SvgPlaceholder />,
+          icon: <SvgSnapsTangent />,
         },
       ]),
 ];
