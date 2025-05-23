@@ -16,20 +16,13 @@ import {
 import type {
   FormatDefinition,
   FormatProps,
-  UnitSystemKey,
 } from "@itwin/core-quantity";
 import {
   FormatSample,
   QuantityFormatPanel,
 } from "@itwin/imodel-components-react";
-import {
-  Listbox,
-  ListboxItem,
-  useSaveBeforeActivatingNewSettingsTab,
-  useSaveBeforeClosingSettingsContainer,
-} from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework.js";
-import { Button, Dialog } from "@itwin/itwinui-react";
+import { Button, Dialog, List, ListItem } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import type { SettingsTabEntry } from "../SettingsManager.js";
@@ -149,31 +142,21 @@ export function QuantityFormatSettingsPage({
     [activeFormatDefinition, activeFormatSet]
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  useSaveBeforeActivatingNewSettingsTab(
-    UiFramework.settingsManager,
-    saveChanges
-  );
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  useSaveBeforeClosingSettingsContainer(
-    UiFramework.settingsManager,
-    saveChanges
-  );
-
   const processListboxValueChange = React.useCallback(
     (newFormatDefinition: FormatDefinition) => {
 
       setActiveFormatDefinition(newFormatDefinition);
       setSaveEnabled(false);
-      setClearEnabled(
-        IModelApp.quantityFormatter.hasActiveOverride(newQuantityType, true)
-      );
+      // setClearEnabled(
+      //   IModelApp.quantityFormatter.hasActiveOverride(newQuantityType, true)
+      // );
     },
     []
   );
 
   const onListboxValueChange = React.useCallback(
     (newQuantityType: string) => {
+      // Handle old format definition, and new format definition.
       if (activeFormatterSpec) {
         const formatProps = activeFormatterSpec.format.toJSON();
         const formatPropsInUse = IModelApp.quantityFormatter
@@ -199,12 +182,23 @@ export function QuantityFormatSettingsPage({
       }
       processListboxValueChange(newQuantityType);
     },
-    [activeFormatterSpec, activeQuantityType, processListboxValueChange]
+    [activeFormatDefinition, activeQuantityType, processListboxValueChange]
   );
 
+
+  const onFormatSetChanged = React.useCallback(
+    (newFormatSet: FormatSet) => {
+      setActiveFormatSet(newFormatSet);
+      setActiveFormatDefinition(undefined); // maybe add a clearActiveFormatDefinition method? If we need more handling...
+      setSaveEnabled(false);
+    },
+    []
+  );
+
+  // TODO: Figure out if we can pass in/ specify a persistence unit for current format set. If we can, we can use the preview formatting option.
   const handleOnFormatChanged = React.useCallback(
     async (formatProps: FormatProps) => {
-      if (activeFormatterSpec) {
+      if (activeFormatDefinition) {
         const newSpec =
           await IModelApp.quantityFormatter.generateFormatterSpecByType(
             activeQuantityType,
@@ -219,7 +213,7 @@ export function QuantityFormatSettingsPage({
         setActiveFormatterSpec(newSpec);
       }
     },
-    [activeFormatterSpec, activeQuantityType]
+    [activeFormatDefinition, activeQuantityType]
   );
 
   const handleOnFormatSave = React.useCallback(async () => {
@@ -238,76 +232,53 @@ export function QuantityFormatSettingsPage({
     setClearEnabled(false);
   }, [activeQuantityType]);
 
-  const processNewUnitSystem = React.useCallback(
-    async (unitSystem: UnitSystemKey) => {
-      await IModelApp.quantityFormatter.setActiveUnitSystem(unitSystem);
-    },
-    []
-  );
-
-  const handleUnitSystemSelected = React.useCallback(
-    async (unitSystem: UnitSystemKey) => {
-      if (unitSystem === activeUnitSystemKey) return;
-      saveChanges(processNewUnitSystem, unitSystem);
-    },
-    [activeUnitSystemKey, processNewUnitSystem, saveChanges]
-  );
-
   return (
     <div className="quantity-formatting-container">
       <FormatSetSelector
-        selectedFormatSet={undefined}
-        availableUnitSystems={availableUnitSystems}
-        onUnitSystemSelected={handleUnitSystemSelected}
+        selectedFormatSet={activeFormatSet}
+        availableFormatSets={currentFormatSets}
+        onFormatSetChanged={onFormatSetChanged}
       />
       <span className="uifw-quantity-format-section-label">
         {translate("settings.quantity-formatting.formatSectionLabel")}
       </span>
       <div className="uifw-quantity-types-container">
         <div className="left-panel">
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Listbox
+          <List
             id="uifw-quantity-types-list"
             className="uifw-quantity-types"
-            onListboxValueChange={onListboxValueChange}
-            selectedValue={activeQuantityType}
           >
-            {[...IModelApp.quantityFormatter.quantityTypesRegistry.keys()].map(
-              (key) => {
-                const entry =
-                  IModelApp.quantityFormatter.quantityTypesRegistry.get(key)!;
-                const description = entry.description;
-                const label = entry.label;
-                return (
-                  // eslint-disable-next-line @typescript-eslint/no-deprecated
-                  <ListboxItem
-                    key={entry.key}
-                    className="quantity-type-list-entry"
-                    value={entry.key}
-                  >
-                    <span
-                      className="map-source-list-entry-name"
-                      title={description}
-                    >
-                      {label}
-                    </span>
-                  </ListboxItem>
-                );
-              }
-            )}
-          </Listbox>
+            {activeFormatSet && activeFormatSet.formats &&
+              Object.entries(activeFormatSet.formats).map(([key, formatDef]) => (
+              <ListItem
+                key={key}
+                className="quantity-type-list-entry"
+                onClick={() => setActiveFormatDefinition(formatDef)}
+                active={activeFormatDefinition?.name === key}
+              >
+
+                <ListItem.Content className="quantity-type-list-entry">
+                  <span className="map-source-list-entry-name">{formatDef.label || key}</span>
+                  {formatDef.description && (
+                    <ListItem.Description>{formatDef.description}</ListItem.Description>
+                  )}
+                </ListItem.Content>
+              </ListItem>
+              ))
+            }
+          </List>
         </div>
         <div className="right-panel">
-          {activeFormatterSpec && (
+          {activeFormatDefinition && (
             <>
               <div className="uifw-quantity-types-right-top">
-                <div className="uifw-quantity-types-right-top-sample">
+                {/* <div className="uifw-quantity-types-right-top-sample">
                   <FormatSample
                     formatSpec={activeFormatterSpec}
                     initialMagnitude={1234.56}
                     hideLabels
                   />
-                </div>
+                </div> */}
               </div>
               <div className="uifw-quantity-types-formats">
                 <QuantityFormatPanel
@@ -326,7 +297,7 @@ export function QuantityFormatSettingsPage({
                 <Button
                   styleType="default"
                   onClick={handleOnFormatReset}
-                  disabled={!clearEnabled}
+                  disabled={saveEnabled}
                 >
                   {translate("settings.quantity-formatting.clearButtonLabel")}
                 </Button>
