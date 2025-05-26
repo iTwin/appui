@@ -29,11 +29,11 @@ const TextEditor = React.forwardRef<BaseTextEditor>(function TextEditor(
   props,
   forwardedRef
 ) {
+  const shouldCommitOnChange = useToolSettingsKeyPressCommit();
   const lockDecoration = useLockDecoration();
   const internalProps = {
     decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
   } satisfies InternalInputEditorProps;
-  const shouldCommitOnChange = useToolSettingsKeyPressCommit();
   return (
     <BaseTextEditor
       {...props}

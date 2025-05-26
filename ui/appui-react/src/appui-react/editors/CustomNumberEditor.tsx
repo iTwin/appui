@@ -16,6 +16,7 @@ import {
   LockButtonInputDecoration,
   useLockDecoration,
 } from "./LockProvider.js";
+import { useToolSettingsKeyPressCommit } from "../preview/tool-settings-key-press-commit/useToolSettingsKeyPressCommit.js";
 
 /** @internal */
 export class CustomNumberPropertyEditor extends BaseCustomNumberPropertyEditor {
@@ -26,6 +27,7 @@ export class CustomNumberPropertyEditor extends BaseCustomNumberPropertyEditor {
 
 const CustomNumberEditor = React.forwardRef<BaseCustomNumberEditor>(
   function CustomNumberEditor(props, forwardedRef) {
+    const shouldCommitOnChange = useToolSettingsKeyPressCommit();
     const lockDecoration = useLockDecoration();
     const internalProps = {
       decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
@@ -34,6 +36,7 @@ const CustomNumberEditor = React.forwardRef<BaseCustomNumberEditor>(
       <BaseCustomNumberEditor
         {...props}
         {...internalProps}
+        shouldCommitOnChange={shouldCommitOnChange}
         ref={forwardedRef}
       />
     );

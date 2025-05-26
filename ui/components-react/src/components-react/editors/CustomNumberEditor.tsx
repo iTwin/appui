@@ -156,9 +156,24 @@ export class CustomNumberEditor
     if (readonly || disabled) return;
 
     if (this._isMounted)
-      this.setState({
-        inputValue: userInput,
-      });
+      this.setState(
+        {
+          inputValue: userInput,
+        },
+        async () => {
+          if (!this.props.shouldCommitOnChange) return;
+          if (!this.props.onCommit) return;
+          if (!this.props.propertyRecord) return;
+
+          const newValue = await this.getPropertyValue();
+          if (!newValue) return;
+
+          this.props.onCommit({
+            propertyRecord: this.props.propertyRecord,
+            newValue,
+          });
+        }
+      );
   }
 
   private _updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
