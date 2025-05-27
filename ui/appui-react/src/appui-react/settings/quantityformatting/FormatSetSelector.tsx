@@ -31,13 +31,20 @@ interface FormatSetSelectorProps {
  * @beta
  */
 export function FormatSetSelector(props: FormatSetSelectorProps) {
-  const { selectedFormatSet, onFormatSetChanged, availableFormatSets, createNewFormatSet } = props;
+  const {
+    selectedFormatSet,
+    onFormatSetChanged,
+    availableFormatSets,
+    createNewFormatSet,
+  } = props;
   const handleFormatSetChanged = React.useCallback(
     (formatSetName: string) => {
       const foundFormatSet = availableFormatSets.find(
         (formatSet) => formatSet.name === formatSetName
       );
-      foundFormatSet && onFormatSetChanged && onFormatSetChanged(foundFormatSet);
+      foundFormatSet &&
+        onFormatSetChanged &&
+        onFormatSetChanged(foundFormatSet);
     },
     [availableFormatSets, onFormatSetChanged]
   );
@@ -47,22 +54,17 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
     label: formatSet.label,
   }));
 
-
   const openCreateFormatSetDialog = React.useCallback(() => {
     if (!createNewFormatSet) {
       return;
     }
     UiFramework.dialogs.modal.open(
-      <CreateFormatSetDialog
-        createNewFormatSet={createNewFormatSet}
-      />
-    )
+      <CreateFormatSetDialog createNewFormatSet={createNewFormatSet} />
+    );
   }, [createNewFormatSet]);
   return (
     <div className="quantity-format-set-selector-container">
-      <span className={"uicore-label"}>
-        Available Format Sets
-      </span>
+      <span className={"uicore-label"}>Available Format Sets</span>
       <Select
         data-testid="format-set-selector"
         value={selectedFormatSet?.label ?? null}
@@ -71,7 +73,11 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
         size="small"
       />
       {createNewFormatSet && (
-        <IconButton data-testid="open-format-set-dialog" onClick={openCreateFormatSetDialog} label="Create new Format Set">
+        <IconButton
+          data-testid="open-format-set-dialog"
+          onClick={openCreateFormatSetDialog}
+          label="Create new Format Set"
+        >
           <SvgAdd />
         </IconButton>
       )}
@@ -84,22 +90,27 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
  * @returns
  */
 export function CreateFormatSetDialog({
-  createNewFormatSet
+  createNewFormatSet,
 }: {
   createNewFormatSet: (newFormatSet: FormatSet) => void;
 }) {
-
   const [isOpen, setIsOpen] = React.useState(true);
   const [name, setName] = React.useState<string | undefined>(undefined);
   const [label, setLabel] = React.useState<string | undefined>(undefined);
 
-  const onNameChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-  }, []);
+  const onNameChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setName(event.target.value);
+    },
+    []
+  );
 
-  const onLabelChange = React.useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setLabel(event.target.value);
-  }, []);
+  const onLabelChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setLabel(event.target.value);
+    },
+    []
+  );
 
   const readyToSave = React.useCallback(() => {
     return !!name && !!label;
@@ -110,13 +121,13 @@ export function CreateFormatSetDialog({
       const newFormatSet: FormatSet = {
         name: name!,
         label: label!,
-        formats: {}
+        formats: {},
       };
       createNewFormatSet(newFormatSet);
     }
     setIsOpen(false);
     handleClose();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [readyToSave]);
 
   const handleClose = React.useCallback(() => {
@@ -125,12 +136,10 @@ export function CreateFormatSetDialog({
   }, []);
 
   return (
-    <Dialog
-      isOpen={isOpen}
-    >
+    <Dialog isOpen={isOpen}>
       <Dialog.Backdrop />
       <Dialog.Main>
-        <Dialog.TitleBar titleText="New Format Set"/>
+        <Dialog.TitleBar titleText="New Format Set" />
         <Dialog.Content>
           <LabeledInput
             displayStyle="inline"
@@ -150,8 +159,21 @@ export function CreateFormatSetDialog({
           />
         </Dialog.Content>
         <Dialog.ButtonBar>
-          <Button data-testid="format-set-add" styleType="high-visibility" disabled={!readyToSave()} onClick={handleOk}>Save</Button>
-          <Button data-testid="format-set-cancel" styleType="default" onClick={handleClose}>Cancel</Button>
+          <Button
+            data-testid="format-set-add"
+            styleType="high-visibility"
+            disabled={!readyToSave()}
+            onClick={handleOk}
+          >
+            Save
+          </Button>
+          <Button
+            data-testid="format-set-cancel"
+            styleType="default"
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
         </Dialog.ButtonBar>
       </Dialog.Main>
     </Dialog>

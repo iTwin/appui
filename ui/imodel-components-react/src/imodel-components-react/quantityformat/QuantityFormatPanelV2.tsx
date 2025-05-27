@@ -33,7 +33,9 @@ export function QuantityFormatPanelV2({
   onFormatChange,
   initialMagnitude,
 }: QuantityFormatPanelV2Props) {
-  const [formatProps, setFormatProps] = React.useState<FormatProps>({ ...formatDefinition });
+  const [formatProps, setFormatProps] = React.useState<FormatProps>({
+    ...formatDefinition,
+  });
 
   // const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps>();
 
@@ -56,7 +58,6 @@ export function QuantityFormatPanelV2({
     [onFormatChange]
   );
 
-
   // TODO: Review if we should just drop this useCallback, and move the function into FormatPanel...
   const provideFormatSpec = React.useCallback(
     async (
@@ -64,12 +65,10 @@ export function QuantityFormatPanelV2({
       _persistenceUnit: UnitProps,
       _unitsProvider: UnitsProvider
     ) => {
-      return IModelApp.quantityFormatter.createFormatterSpec(
-        {
-          formatProps: inProps,
-          persistenceUnitName: _persistenceUnit.name,
-        }
-      );
+      return IModelApp.quantityFormatter.createFormatterSpec({
+        formatProps: inProps,
+        persistenceUnitName: _persistenceUnit.name,
+      });
     },
     []
   );
