@@ -9,6 +9,7 @@ import { ColorDef } from '@itwin/core-common';
 import type { CommonProps } from '@itwin/core-react';
 import type { DateFormatOptions } from '@itwin/components-react';
 import { EditorSpec } from '@itwin/components-react';
+import type { FormatDefinition } from '@itwin/core-quantity';
 import type { FormatProps } from '@itwin/core-quantity';
 import { FormatterSpec } from '@itwin/core-quantity';
 import { HSVColor } from '@itwin/core-common';
@@ -413,7 +414,7 @@ export interface FormatPanelProps extends CommonProps {
     // (undocumented)
     onFormatChange?: (format: FormatProps) => void;
     // (undocumented)
-    persistenceUnit: Promise<UnitProps> | UnitProps;
+    persistenceUnit?: Promise<UnitProps> | UnitProps;
     // (undocumented)
     provideFormatSpec?: (formatProps: FormatProps, persistenceUnit: UnitProps, unitsProvider: UnitsProvider) => Promise<FormatterSpec>;
     // (undocumented)
@@ -566,6 +567,19 @@ export interface QuantityFormatPanelProps extends CommonProps {
     // (undocumented)
     quantityType: QuantityTypeArg;
     showSample?: boolean;
+}
+
+// @alpha
+export function QuantityFormatPanelV2({ formatDefinition, onFormatChange, initialMagnitude, }: QuantityFormatPanelV2Props): React_2.JSX.Element;
+
+// @alpha
+export interface QuantityFormatPanelV2Props {
+    // (undocumented)
+    formatDefinition: FormatDefinition;
+    // (undocumented)
+    initialMagnitude?: number;
+    // (undocumented)
+    onFormatChange: (format: FormatDefinition) => void;
 }
 
 // @beta
