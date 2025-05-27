@@ -55,6 +55,9 @@ const availableFeatures: AvailableFeatures = {
   toolSettingsLockButton: {
     label: "Enable tool settings lock button",
   },
+  toolSettingsKeyPressCommit: {
+    label: "Enable tool settings commit on key press",
+  },
 };
 
 function PreviewFeatureList() {
