@@ -23,7 +23,6 @@ export interface QuantityFormatPanelV2Props {
   formatDefinition: FormatDefinition;
   onFormatChange: (format: FormatDefinition) => void;
   initialMagnitude?: number;
-  enableMinimumProperties?: boolean;
 }
 /** Component to set properties that control Quantity Formatting.
  * @alpha
@@ -33,7 +32,6 @@ export function QuantityFormatPanelV2({
   formatDefinition,
   onFormatChange,
   initialMagnitude,
-  enableMinimumProperties,
 }: QuantityFormatPanelV2Props) {
   const [formatProps, setFormatProps] = React.useState<FormatProps>({ ...formatDefinition });
 
@@ -82,6 +80,7 @@ export function QuantityFormatPanelV2({
         <FormatPanel
           onFormatChange={handleOnFormatChanged}
           initialFormat={formatProps}
+          initialMagnitude={initialMagnitude}
           unitsProvider={IModelApp.quantityFormatter.unitsProvider}
           provideFormatSpec={provideFormatSpec}
         />

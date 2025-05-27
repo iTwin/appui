@@ -9,17 +9,12 @@
 import "./QuantityFormat.scss";
 import * as React from "react";
 import { DeepCompare } from "@itwin/core-geometry";
-import type { QuantityTypeKey } from "@itwin/core-frontend";
-import {
-  IModelApp,
-} from "@itwin/core-frontend";
 import type {
   FormatDefinition,
   FormatProps,
 } from "@itwin/core-quantity";
 import {
-  FormatSample,
-  QuantityFormatPanel,
+  QuantityFormatPanelV2,
 } from "@itwin/imodel-components-react";
 import { UiFramework } from "../../UiFramework.js";
 import { Button, Dialog, List, ListItem } from "@itwin/itwinui-react";
@@ -80,7 +75,6 @@ export function QuantityFormatSettingsPage({
   const [activeFormatSet, setActiveFormatSet] = React.useState<FormatSet | undefined>(undefined);
   const [currentFormatSets, setFormatSets] = React.useState<FormatSet[]>(formatSets || []);
   const [saveEnabled, setSaveEnabled] = React.useState(false);
-  const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
 
   // const saveChanges = React.useCallback(
   //   (afterSaveFunction: (args: any) => void, args?: any) => {
@@ -115,74 +109,33 @@ export function QuantityFormatSettingsPage({
     // TODO: Figure out if want to call a passed in updateFormatSet() props function... If we do, then update deps of other react callbacks to include updateFormatSet.
   }, []);
 
-  const saveChanges = React.useCallback(
-    (afterSaveFunction: (args: any) => void, args?: any) => {
-      if (activeFormatDefinition && activeFormatSet) {
-        const foundFormat = activeFormatSet.formats[activeFormatDefinition.name ??  ""];
+  const processListboxValueChange = React.useCallback(
+    (newFormatDefinition: FormatDefinition) => {
+      setActiveFormatDefinition(newFormatDefinition);
+      setSaveEnabled(false);
+    }, []);
 
-        if (
-          foundFormat &&
-          !formatAreEqual(foundFormat, activeFormatDefinition)
-        ) {
+  const onListItemChange = React.useCallback(
+    (newFormatDefinition: FormatDefinition) => {
+      // Handle old format definition, and new format definition.
+      if (activeFormatSet && activeFormatDefinition) {
+        const originalFormatDefinition = activeFormatSet.formats[activeFormatDefinition.name ?? "temp"];
+        if (originalFormatDefinition && !formatAreEqual(originalFormatDefinition, newFormatDefinition)) {
           UiFramework.dialogs.modal.open(
             <SaveFormatModalDialog
               formatDefinition={activeFormatDefinition}
-              onDialogCloseArgs={args}
-              onDialogClose={afterSaveFunction}
-              onDialogOk={() => updateFormatSet(activeFormatSet, activeFormatDefinition)}
-            />,
-            "saveQuantityFormat"
-          );
-          return;
-        }
-      }
-      afterSaveFunction(args);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [activeFormatDefinition, activeFormatSet]
-  );
-
-  const processListboxValueChange = React.useCallback(
-    (newFormatDefinition: FormatDefinition) => {
-
-      setActiveFormatDefinition(newFormatDefinition);
-      setSaveEnabled(false);
-      // setClearEnabled(
-      //   IModelApp.quantityFormatter.hasActiveOverride(newQuantityType, true)
-      // );
-    },
-    []
-  );
-
-  const onListboxValueChange = React.useCallback(
-    (newQuantityType: string) => {
-      // Handle old format definition, and new format definition.
-      if (activeFormatterSpec) {
-        const formatProps = activeFormatterSpec.format.toJSON();
-        const formatPropsInUse = IModelApp.quantityFormatter
-          .findFormatterSpecByQuantityType(activeQuantityType)!
-          .format.toJSON();
-        if (
-          formatPropsInUse &&
-          !formatAreEqual(formatProps, formatPropsInUse)
-        ) {
-          newQuantityTypeRef.current = newQuantityType;
-          UiFramework.dialogs.modal.open(
-            <SaveFormatModalDialog
-              formatProps={formatProps}
-              quantityType={activeQuantityType}
-              onDialogCloseArgs={newQuantityType}
+              onDialogCloseArgs={newFormatDefinition}
               onDialogClose={processListboxValueChange}
-              onDialogOk={}
+              onDialogOk={() => updateFormatSet(activeFormatSet, newFormatDefinition)}
             />,
             "saveQuantityFormat"
           );
           return;
         }
       }
-      processListboxValueChange(newQuantityType);
+      processListboxValueChange(newFormatDefinition);
     },
-    [activeFormatDefinition, activeQuantityType, processListboxValueChange]
+    [activeFormatSet, activeFormatDefinition, updateFormatSet, processListboxValueChange]
   );
 
 
@@ -196,48 +149,43 @@ export function QuantityFormatSettingsPage({
   );
 
   // TODO: Figure out if we can pass in/ specify a persistence unit for current format set. If we can, we can use the preview formatting option.
-  const handleOnFormatChanged = React.useCallback(
-    async (formatProps: FormatProps) => {
-      if (activeFormatDefinition) {
-        const newSpec =
-          await IModelApp.quantityFormatter.generateFormatterSpecByType(
-            activeQuantityType,
-            formatProps
-          );
-        const formatPropsInUse =
-          IModelApp.quantityFormatter.getFormatPropsByQuantityType(
-            activeQuantityType
-          );
-        if (formatPropsInUse)
-          setSaveEnabled(!formatAreEqual(formatProps, formatPropsInUse));
-        setActiveFormatterSpec(newSpec);
-      }
-    },
-    [activeFormatDefinition, activeQuantityType]
-  );
+  const handleOnFormatChanged = React.useCallback(async (formatDefinition: FormatDefinition) => {
+      setActiveFormatDefinition(formatDefinition);
+      setSaveEnabled(true);
+  }, []);
 
+  // If a mutable formatsProvider is available, use the addFormats there instead? Or alongside updating the formatSet...
   const handleOnFormatSave = React.useCallback(async () => {
-    if (activeFormatterSpec) {
-      const format = activeFormatterSpec.format.toJSON();
-      await IModelApp.quantityFormatter.setOverrideFormat(
-        activeQuantityType,
-        format
-      );
-      setClearEnabled(true);
+    if (activeFormatSet && activeFormatDefinition) {
+      updateFormatSet(activeFormatSet, activeFormatDefinition);
+      setSaveEnabled(false);
     }
-  }, [activeFormatterSpec, activeQuantityType]);
+  }, [activeFormatDefinition, activeFormatSet, updateFormatSet]);
 
   const handleOnFormatReset = React.useCallback(async () => {
-    await IModelApp.quantityFormatter.clearOverrideFormats(activeQuantityType);
-    setClearEnabled(false);
-  }, [activeQuantityType]);
+    if (activeFormatDefinition && activeFormatSet) {
+      const formatDefName = activeFormatDefinition.name ?? "temp";
+      const originalFormatDefinition = activeFormatSet.formats[formatDefName];
+      if (originalFormatDefinition) {
+        setActiveFormatDefinition(originalFormatDefinition);
+        setSaveEnabled(false);
+      }
+    }
+  }, [activeFormatDefinition, activeFormatSet]);
 
+  const addNewFormatSet = React.useCallback((newFormatSet: FormatSet) => {
+    setFormatSets((prevSets: FormatSet[]) => {
+      return [...prevSets, newFormatSet];
+    });
+    // TODO: Update existing passed in formatSet prop too?
+  }, []);
   return (
     <div className="quantity-formatting-container">
       <FormatSetSelector
         selectedFormatSet={activeFormatSet}
         availableFormatSets={currentFormatSets}
         onFormatSetChanged={onFormatSetChanged}
+        createNewFormatSet={addNewFormatSet}
       />
       <span className="uifw-quantity-format-section-label">
         {translate("settings.quantity-formatting.formatSectionLabel")}
@@ -253,7 +201,7 @@ export function QuantityFormatSettingsPage({
               <ListItem
                 key={key}
                 className="quantity-type-list-entry"
-                onClick={() => setActiveFormatDefinition(formatDef)}
+                onClick={() => onListItemChange(formatDef)} // Create a copy of the formatDef to avoid mutating the original.
                 active={activeFormatDefinition?.name === key}
               >
 
@@ -267,6 +215,7 @@ export function QuantityFormatSettingsPage({
               ))
             }
           </List>
+          {/* TODO: Add a "Add Format" button and functionality */}
         </div>
         <div className="right-panel">
           {activeFormatDefinition && (
@@ -281,9 +230,10 @@ export function QuantityFormatSettingsPage({
                 </div> */}
               </div>
               <div className="uifw-quantity-types-formats">
-                <QuantityFormatPanel
+                <QuantityFormatPanelV2
                   onFormatChange={handleOnFormatChanged}
-                  quantityType={activeQuantityType}
+                  formatDefinition={activeFormatDefinition}
+                  initialMagnitude={1234.56}
                 />
               </div>
               <div className="components-button-panel">
