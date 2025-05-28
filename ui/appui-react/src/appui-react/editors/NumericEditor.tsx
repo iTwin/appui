@@ -16,6 +16,7 @@ import {
   LockButtonInputDecoration,
   useLockDecoration,
 } from "./LockProvider.js";
+import { useToolSettingsKeyPressCommit } from "../preview/tool-settings-key-press-commit/useToolSettingsKeyPressCommit.js";
 
 /** @internal */
 export class NumericInputPropertyEditor extends BaseNumericInputPropertyEditor {
@@ -26,6 +27,7 @@ export class NumericInputPropertyEditor extends BaseNumericInputPropertyEditor {
 
 const NumericEditor = React.forwardRef<BaseNumericInputEditor>(
   function NumericEditor(props, forwardedRef) {
+    const shouldCommitOnChange = useToolSettingsKeyPressCommit();
     const lockDecoration = useLockDecoration();
     const internalProps = {
       decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
@@ -34,6 +36,7 @@ const NumericEditor = React.forwardRef<BaseNumericInputEditor>(
       <BaseNumericInputEditor
         {...props}
         {...internalProps}
+        shouldCommitOnChange={shouldCommitOnChange}
         ref={forwardedRef}
       />
     );

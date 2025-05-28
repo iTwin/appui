@@ -73,6 +73,10 @@ interface KnownPreviewFeatures {
    * Additionally, the icon button will be rendered as an input decoration in editors that support it.
    */
   toolSettingsLockButton: boolean;
+  /**
+   * If `true`, the input-like editors rendered in the tool settings will commit the entered value on key press.
+   */
+  toolSettingsKeyPressCommit: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -89,6 +93,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   controlWidgetVisibility: undefined,
   toolSettingsNewEditors: undefined,
   toolSettingsLockButton: undefined,
+  toolSettingsKeyPressCommit: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.

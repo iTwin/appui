@@ -10,13 +10,14 @@ import {
   PropertyDescription,
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
-import { EventHandled, PrimitiveTool } from "@itwin/core-frontend";
+import { EventHandled } from "@itwin/core-frontend";
 import { Tag, TagContainer } from "@itwin/itwinui-react";
 import {
   PropertyEditorBase,
   PropertyEditorProps,
   TypeEditor,
 } from "@itwin/components-react";
+import { StoryPrimitiveTool } from "./StoryTool";
 
 const properties = {
   tags: "tagsProperty",
@@ -34,19 +35,11 @@ function createTagsProperty(tags: TagData[]): PropertyDescription {
   };
 }
 
-export class CustomEditorTool extends PrimitiveTool {
+export class CustomEditorTool extends StoryPrimitiveTool {
   public static override toolId = "CustomEditorTool";
 
   // All tags are active initially
   private _activeTagIds: TagData["id"][] = tagsStore.map((tag) => tag.id);
-
-  public override requireWriteableTarget() {
-    return false;
-  }
-
-  public override onRestartTool() {
-    return this.exitTool();
-  }
 
   public override async onDataButtonDown() {
     // Reset active tags
