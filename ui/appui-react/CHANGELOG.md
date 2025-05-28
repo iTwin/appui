@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.8.0
+
+### Minor Changes
+
+- 4f2fc30: Add the `toolSettingsKeyPressCommit` preview feature, which enables input-like editors in the tool settings to commit entered values immediately upon key press.
+
+### Patch Changes
+
+- @itwin/components-react@5.8.0
+- @itwin/core-react@5.8.0
+- @itwin/imodel-components-react@5.8.0
+
 ## 5.7.0
 
 ### Minor Changes
