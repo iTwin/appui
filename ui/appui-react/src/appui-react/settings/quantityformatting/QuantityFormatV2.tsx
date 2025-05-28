@@ -27,7 +27,7 @@ function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
 /** Options to initialize the settings page that allows users to set Quantity formatting overrides.
  * @beta
  */
-export interface QuantityFormatterSettingsOptions {
+export interface QuantityFormatterSettingsOptionsV2 {
   formatSets: FormatSet[];
 }
 
@@ -37,9 +37,9 @@ export interface QuantityFormatterSettingsOptions {
  * @param opts - Options to initialize the settings page that allows users to set Quantity formatting overrides.
  * @beta
  */
-export function getQuantityFormatsSettingsManagerEntry(
+export function getQuantityFormatsSettingsManagerEntryV2(
   itemPriority: number,
-  opts?: Partial<QuantityFormatterSettingsOptions>
+  opts?: Partial<QuantityFormatterSettingsOptionsV2>
 ): SettingsTabEntry {
   const { formatSets } = { ...opts };
   return {
@@ -47,7 +47,7 @@ export function getQuantityFormatsSettingsManagerEntry(
     tabId: "uifw:Quantity",
     label: UiFramework.translate("settings.quantity-formatting.label"),
     subLabel: UiFramework.translate("settings.quantity-formatting.subLabel"),
-    page: <QuantityFormatSettingsPage formatSets={formatSets ?? []} />,
+    page: <QuantityFormatSettingsPageV2 formatSets={formatSets ?? []} />,
     isDisabled: false,
     icon: <SvgMeasure />,
     tooltip: UiFramework.translate("settings.quantity-formatting.tooltip"),
@@ -58,9 +58,9 @@ export function getQuantityFormatsSettingsManagerEntry(
 /** UI Component shown in settings page to set the active Presentation Unit System and to set format overrides.
  * @beta
  */
-export function QuantityFormatSettingsPage({
+export function QuantityFormatSettingsPageV2({
   formatSets,
-}: QuantityFormatterSettingsOptions) {
+}: QuantityFormatterSettingsOptionsV2) {
   const { translate } = useTranslation();
   const [activeFormatDefinition, setActiveFormatDefinition] = React.useState<
     FormatDefinition | undefined
