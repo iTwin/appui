@@ -135,8 +135,9 @@ export function QuantityFormatSettingsPageV2({
             <SaveFormatModalDialog
               formatDefinition={activeFormatDefinition}
               onDialogClose={() => processListboxValueChange(newFormatDefinition, key)}
-              onDialogOk={() =>
-                updateFormatSet(activeFormatSet, key, newFormatDefinition)
+              onDialogOk={() =>{
+                updateFormatSet(activeFormatSet, activeFormatDefinitionKey, activeFormatDefinition)
+              }
               }
             />,
             "saveQuantityFormat"
