@@ -6,7 +6,7 @@ import { QuantityFormatSettingsPageV2, QuantityFormatterSettingsOptionsV2 } from
 
 export function QuantityFormatStory(props: QuantityFormatterSettingsOptionsV2) {
   const { formatSets, ...rest } = props;
-
+  
   return (
     <QuantityFormatSettingsPageV2
       formatSets={formatSets}

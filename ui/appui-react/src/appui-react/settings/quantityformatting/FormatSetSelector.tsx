@@ -51,7 +51,7 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
 
   const formatSetOptions = availableFormatSets.map((formatSet) => ({
     value: formatSet.name,
-    label: formatSet.label,
+    label: formatSet.label ?? formatSet.name,
   }));
 
   const openCreateFormatSetDialog = React.useCallback(() => {
@@ -64,23 +64,24 @@ export function FormatSetSelector(props: FormatSetSelectorProps) {
   }, [createNewFormatSet]);
   return (
     <div className="quantity-format-set-selector-container">
-      <span className={"uicore-label"}>Available Format Sets</span>
-      <Select
-        data-testid="format-set-selector"
-        value={selectedFormatSet?.label ?? null}
-        options={formatSetOptions}
-        onChange={handleFormatSetChanged}
-        size="small"
-      />
-      {createNewFormatSet && (
-        <IconButton
-          data-testid="open-format-set-dialog"
-          onClick={openCreateFormatSetDialog}
-          label="Create new Format Set"
-        >
-          <SvgAdd />
-        </IconButton>
-      )}
+      <span className="uicore-label">Available Format Sets</span>
+      <div className="format-set-selector-row">
+        <Select
+          data-testid="format-set-selector"
+          options={formatSetOptions}
+          onChange={handleFormatSetChanged}
+          className="format-set-selector"
+        />
+        {createNewFormatSet && (
+          <IconButton
+            data-testid="open-format-set-dialog"
+            onClick={openCreateFormatSetDialog}
+            label="Create new Format Set"
+          >
+            <SvgAdd />
+          </IconButton>
+        )}
+      </div>
     </div>
   );
 }

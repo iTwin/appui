@@ -1,0 +1,135 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@use "~@itwin/core-react/lib/core-react/inputs/variables" as *;
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
+
+.quantity-formatting-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: var(--iui-color-background);
+
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+
+  .quantity-format-set-selector-container {
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+
+    > span.uicore-label {
+      font-size: 18px;
+    }
+
+    .format-set-selector-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 8px; // space between select and button
+      margin-top: 8px;
+    }
+
+    .format-set-selector {
+      flex: 1 1 0;
+      min-width: 0;
+      height: 40px; // increase the select height
+      font-size: 1.1em; // optional: slightly larger text
+    }
+  }
+
+  .uifw-quantity-format-section-label {
+    font-size: 18px;
+    margin-left: 20px;
+  }
+
+  .uifw-quantity-formats-container {
+    display: flex;
+    height: 100%;
+    width: auto;
+
+    > .left-panel {
+      flex-direction: column;
+      min-width: 260px;
+      width: auto;
+      padding: 10px 50px 20px 20px;
+      height: auto;
+
+      div.uifw-formats-list {
+        height: 100%;
+
+        div.format-list-entry {
+          line-height: 2em;
+        }
+      }
+    }
+
+    > .right-panel {
+      display: flex;
+      flex-direction: column;
+      width: auto;
+      height: auto;
+      min-width: 410px;
+      padding: 10px 20px 20px 0;
+
+      .uifw-quantity-types-right-top {
+        display: flex;
+        padding-bottom: 10px;
+
+        .uifw-quantity-types-right-top-sample {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          row-gap: 0;
+          column-gap: 6px;
+          align-items: center;
+
+          .components-quantity-persistence-input {
+            width: 6.5em;
+            padding: $uicore-iui-input-padding;
+          }
+
+          span.components-quantity-formatted-sample {
+            margin-left: 10px;
+          }
+
+          > span.components-inline {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+            margin-right: 10px;
+          }
+        }
+      }
+
+      .uifw-quantity-types-formats {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--iui-color-border-subtle);
+        border-radius: var(--iui-border-radius-1);
+        height: auto;
+        overflow-y: auto;
+        box-sizing: border-box;
+        padding: 6px;
+        flex: 1 1 auto;
+      }
+
+      .components-button-panel {
+        padding-top: 6px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 6px;
+      }
+    }
+  }
+}
+
+.uifw-settings-quantityFormatting-saveFormatModalDialog {
+  @include uicore-z-index(dialog);
+}

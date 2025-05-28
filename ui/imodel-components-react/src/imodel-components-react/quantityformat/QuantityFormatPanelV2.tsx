@@ -33,10 +33,6 @@ export function QuantityFormatPanelV2({
   onFormatChange,
   initialMagnitude,
 }: QuantityFormatPanelV2Props) {
-  const [formatProps, setFormatProps] = React.useState<FormatProps>({
-    ...formatDefinition,
-  });
-
   // const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps>();
 
   // TODO: Refactor to try to retrieve persistence unit from the sync spec registry in Quantity Formatter, based on formatDefinition.key.
@@ -52,7 +48,6 @@ export function QuantityFormatPanelV2({
 
   const handleOnFormatChanged = React.useCallback(
     async (newProps: FormatProps) => {
-      setFormatProps(newProps);
       onFormatChange && onFormatChange(newProps);
     },
     [onFormatChange]
@@ -75,15 +70,13 @@ export function QuantityFormatPanelV2({
 
   return (
     <div className="components-quantityFormat-quantityPanel">
-      {formatProps && (
-        <FormatPanel
-          onFormatChange={handleOnFormatChanged}
-          initialFormat={formatProps}
-          initialMagnitude={initialMagnitude}
-          unitsProvider={IModelApp.quantityFormatter.unitsProvider}
-          provideFormatSpec={provideFormatSpec}
-        />
-      )}
+      <FormatPanel
+        onFormatChange={handleOnFormatChanged}
+        initialFormat={formatDefinition}
+        initialMagnitude={initialMagnitude}
+        unitsProvider={IModelApp.quantityFormatter.unitsProvider}
+        provideFormatSpec={provideFormatSpec}
+      />
     </div>
   );
 }
