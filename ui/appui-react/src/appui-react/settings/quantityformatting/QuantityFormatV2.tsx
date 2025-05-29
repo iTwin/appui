@@ -9,15 +9,17 @@
 import "./QuantityFormatV2.scss";
 import * as React from "react";
 import { DeepCompare } from "@itwin/core-geometry";
-import type { FormatDefinition, FormatProps } from "@itwin/core-quantity";
+import type { FormatDefinition, FormatProps, UnitsProvider } from "@itwin/core-quantity";
+import { FormatType } from "@itwin/core-quantity";
 import { QuantityFormatPanelV2 } from "@itwin/imodel-components-react";
 import { UiFramework } from "../../UiFramework.js";
-import { Button, Dialog, List, ListItem } from "@itwin/itwinui-react";
+import { Button, Dialog, LabeledInput, LabeledSelect, LabeledTextarea, List, ListItem } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import type { SettingsTabEntry } from "../SettingsManager.js";
 import type { FormatSet } from "@itwin/ecschema-metadata";
 import { FormatSetSelector } from "./FormatSetSelector.js";
+import { IModelApp } from "@itwin/core-frontend";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -197,6 +199,20 @@ export function QuantityFormatSettingsPageV2({
     });
     // TODO: Update existing passed in formatSet prop too?
   }, []);
+
+  const openCreateFormatDialog = React.useCallback(() => {
+    if (!activeFormatSet) {
+      return;
+    }
+    UiFramework.dialogs.modal.open(
+      <CreateFormatModalDialog
+        onDialogOk={updateFormatSet}
+        formatSet={activeFormatSet}
+        onListItemChange={onListItemChange}
+      />
+    );
+  }, [activeFormatSet, updateFormatSet, onListItemChange]);
+
   return (
     <div className="quantity-formatting-container">
       <FormatSetSelector
@@ -210,32 +226,37 @@ export function QuantityFormatSettingsPageV2({
       </span>
       <div className="uifw-quantity-formats-container">
         <div className="left-panel">
-          <List id="uifw-formats-list" className="uifw-formats-list">
-            {activeFormatSet &&
-              activeFormatSet.formats &&
-              Object.entries(activeFormatSet.formats).map(
-                ([key, formatDef]) => (
-                  <ListItem
-                    actionable
-                    key={key}
-                    className="format-list-entry"
-                    onClick={() => onListItemChange(formatDef, key)} // Create a copy of the formatDef to avoid mutating the original.
-                    active={activeFormatDefinitionKey === key}
-                  >
-                    <ListItem.Content className="format-list-entry-content">
-                      <span className="format-list-entry-name">
-                        {formatDef.label || key}
-                      </span>
-                      {formatDef.description && (
-                        <ListItem.Description>
-                          {formatDef.description}
-                        </ListItem.Description>
-                      )}
-                    </ListItem.Content>
-                  </ListItem>
-                )
-              )}
-          </List>
+          {activeFormatSet && (
+            <>
+              <Button onClick={openCreateFormatDialog}><span>Add a Format</span></Button>
+              <List id="uifw-formats-list" className="uifw-formats-list">
+                {activeFormatSet.formats &&
+                  Object.entries(activeFormatSet.formats).map(
+                    ([key, formatDef]) => (
+                      <ListItem
+                        actionable
+                        key={key}
+                        className="format-list-entry"
+                        onClick={() => onListItemChange(formatDef, key)} // Create a copy of the formatDef to avoid mutating the original.
+                        active={activeFormatDefinitionKey === key}
+                      >
+                        <ListItem.Content className="format-list-entry-content">
+                          <span className="format-list-entry-name">
+                            {formatDef.label || key}
+                          </span>
+                          {formatDef.description && (
+                            <ListItem.Description>
+                              {formatDef.description}
+                            </ListItem.Description>
+                          )}
+                        </ListItem.Content>
+                      </ListItem>
+                    )
+                  )}
+              </List>
+            </>
+          )}
+
           {/* TODO: Add a "Add Format" button and functionality */}
         </div>
         <div className="right-panel">
@@ -335,4 +356,117 @@ function SaveFormatModalDialog({
       </Dialog.Main>
     </Dialog>
   );
+}
+
+function CreateFormatModalDialog({
+  onDialogOk,
+  formatSet,
+  onListItemChange,
+}: {
+  onDialogOk: (formatSet: FormatSet, key: string, formatDefinition: FormatDefinition) => void;
+  formatSet: FormatSet;
+  onListItemChange: (formatDefinition: FormatDefinition, key: string) => void;
+}) {
+  const [isOpen, setIsOpen] = React.useState(true);
+  const [name, setName] = React.useState<string| undefined>();
+  const [label, setLabel] = React.useState<string | undefined>();
+  const [description, setDescription] = React.useState<string | undefined>();
+  const [type, setType] = React.useState<FormatType>(FormatType.Decimal);
+  const [unitsProvider, setUnitsProvider] = React.useState<UnitsProvider>(IModelApp.quantityFormatter.unitsProvider);
+
+  // TODO: Improve dialog to allow user to select a persistence unit from the unitsProvider, maybe by looking up by phenomenon? maintain a state of phenomenons available?
+  React.useEffect(() => {
+    const listener = () => {
+      setUnitsProvider(IModelApp.quantityFormatter.unitsProvider);
+    };
+    IModelApp.quantityFormatter.onUnitsProviderChanged.addListener(listener);
+
+    // Cleanup function to remove the listener on unmount
+    return () => {
+      IModelApp.quantityFormatter.onUnitsProviderChanged.removeListener(listener);
+    };
+  }, []);
+
+  const handleOk = React.useCallback(() => {
+    if (!name || !type) { // Alert user that name is required?
+      return;
+    }
+    const newFormat: FormatDefinition = {
+      name,
+      label,
+      description,
+      type
+    };
+    onDialogOk(formatSet, name, newFormat);
+    handleClose();
+    onListItemChange(newFormat, name);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  , [name, label, description, onDialogOk]);
+
+  const handleClose = React.useCallback(() => {
+    setIsOpen(false);
+    UiFramework.dialogs.modal.close();
+  }, []);
+  return (
+    <Dialog isOpen={isOpen}>
+      <Dialog.Backdrop />
+      <Dialog.Main>
+        <Dialog.TitleBar titleText="New Format" />
+        <Dialog.Content>
+          <LabeledInput
+            displayStyle="inline"
+            data-testid="format-dialog-name"
+            label="Format Name"
+            placeholder="Enter Unique Name"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setName(event.target.value)}
+            status={name ? "positive" : "negative"}
+            value={name}
+          />
+          <LabeledInput
+            displayStyle="inline"
+            data-testid="format-dialog-label"
+            label="Format Label"
+            placeholder="Enter Label"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => setLabel(event.target.value)}
+            value={label}
+          />
+          <LabeledSelect
+            label="Format Type"
+            data-testid="format-type-select"
+            options={Object.values(FormatType).map((type) => ({
+              value: type,
+              label: type,
+            }))}
+            value={type}
+            onChange={setType}
+            placeholder="Select Format Type"
+            required
+          />
+          <LabeledTextarea
+            label="Description"
+            message="Optional"
+            onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(event.target.value)}
+          />
+        </Dialog.Content>
+        <Dialog.ButtonBar>
+          <Button
+            data-testid="format-add"
+            styleType="high-visibility"
+            disabled={!name || !type}
+            onClick={handleOk}
+          >
+            Save
+          </Button>
+          <Button
+            data-testid="format-set-cancel"
+            styleType="default"
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+        </Dialog.ButtonBar>
+      </Dialog.Main>
+    </Dialog>
+  )
 }

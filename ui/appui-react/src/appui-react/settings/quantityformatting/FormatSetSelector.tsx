@@ -147,16 +147,22 @@ export function CreateFormatSetDialog({
             data-testid="format-set-dialog-name"
             label="Format Set Name"
             placeholder="Enter Unique Name"
+            message="Required"
             onChange={onNameChange}
+            status={name ? "positive" : "negative"}
             value={name}
+            required
           />
           <LabeledInput
             displayStyle="inline"
             data-testid="format-set-dialog-label"
             label="Format Set Label"
             placeholder="Enter Label"
+            message="Required"
+            status={label ? "positive" : "negative"}
             onChange={onLabelChange}
             value={label}
+            required
           />
         </Dialog.Content>
         <Dialog.ButtonBar>
