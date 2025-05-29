@@ -533,6 +533,8 @@ export {
   QuantityFormatterSettingsOptions,
   getQuantityFormatsSettingsManagerEntry,
 } from "./appui-react/settings/quantityformatting/QuantityFormat.js";
+
+export { QuantityFormatSettingsPageV2, QuantityFormatterSettingsOptionsV2, getQuantityFormatsSettingsManagerEntryV2} from "./appui-react/settings/quantityformatting/QuantityFormatV2.js";
 export {
   UnitSystemSelector,
   UnitSystemSelectorProps,

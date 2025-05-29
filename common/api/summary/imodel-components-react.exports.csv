@@ -76,6 +76,8 @@ beta;const;QuantityEditorSpec
 alpha;function;QuantityFormatPanel
 alpha;interface;QuantityFormatPanelProps
 deprecated;interface;QuantityFormatPanelProps
+alpha;function;QuantityFormatPanelV2
+alpha;interface;QuantityFormatPanelV2Props
 beta;function;QuantityInput
 beta;const;QuantityNumberInput
 beta;interface;QuantityNumberInputProps

@@ -49,6 +49,7 @@ export {
   QuantityInput,
   QuantityProps,
 } from "./imodel-components-react/inputs/QuantityInput.js";
+
 export {
   QuantityNumberInput,
   QuantityNumberInputProps,
@@ -114,6 +115,11 @@ export {
   QuantityFormatPanel,
   QuantityFormatPanelProps,
 } from "./imodel-components-react/quantityformat/QuantityFormatPanel.js";
+
+export {
+  QuantityFormatPanelV2,
+  QuantityFormatPanelV2Props,
+} from "./imodel-components-react/quantityformat/QuantityFormatPanelV2.js";
 
 export {
   AnimationFractionChangeHandler,
