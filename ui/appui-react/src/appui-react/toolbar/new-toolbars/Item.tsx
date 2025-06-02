@@ -6,9 +6,7 @@
  * @module Toolbar
  */
 
-import "./Item.scss";
 import * as React from "react";
-import classnames from "classnames";
 import { assert } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
@@ -26,7 +24,7 @@ export interface ItemProps
 /** @internal */
 export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
   function Item(props, ref) {
-    const { item, className, ...other } = props;
+    const { item, ...other } = props;
     const label = useConditionalProp(item.label);
     const isDisabled = useConditionalProp(item.isDisabled);
     const isHidden = useConditionalProp(item.isHidden);
@@ -37,7 +35,6 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     if (isHidden) return null;
     return (
       <IconButton
-        className={classnames("uifw-toolbar-newToolbars-item", className)}
         styleType="borderless"
         disabled={isDisabled}
         isActive={item.isActive}
@@ -50,7 +47,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
       >
         {item.iconNode ?? (
           /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-          <Icon className="uifw-icon-spec" iconSpec={iconSpec} />
+          <Icon iconSpec={iconSpec} />
         )}
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Badge badge={item.badge} badgeKind={item.badgeKind} />

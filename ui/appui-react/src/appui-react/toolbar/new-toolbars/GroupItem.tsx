@@ -6,7 +6,6 @@
  * @module Toolbar
  */
 
-import "./GroupItem.scss";
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
@@ -89,11 +88,10 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
     <>{item.iconNode}</>
   ) : (
     // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <Icon className="uifw-icon-spec" iconSpec={iconSpec} />
+    <Icon iconSpec={iconSpec} />
   );
   return (
     <MenuItem
-      className="uifw-toolbar-newToolbars-groupMenuItem"
       startIcon={startIcon}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
