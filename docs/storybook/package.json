@@ -32,7 +32,7 @@
     "@itwin/imodels-access-frontend": "^5.2.3",
     "@itwin/imodels-client-authoring": "^5.9.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
-    "@itwin/itwinui-react": "^3.17.0",
+    "@itwin/itwinui-react": "catalog:",
     "@stratakit/bricks": "catalog:",
     "@stratakit/foundations": "catalog:",
     "react": "^18.3.1",

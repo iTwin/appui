@@ -57,7 +57,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
-    "@itwin/itwinui-react": "^3.17.0",
+    "@itwin/itwinui-react": "catalog:",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/webgl-compatibility": "catalog:",
     "classnames": "2.5.1",

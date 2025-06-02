@@ -28,6 +28,7 @@ catalog:
   "@itwin/hypermodeling-frontend": rc
   "@itwin/webgl-compatibility": rc
   # iTwinUI packages
+  "@itwin/itwinui-react": "^3.18.3"
   "@stratakit/bricks": ^0.2.0
   "@stratakit/foundations": ^0.1.3
   # Icons
