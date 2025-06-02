@@ -53,6 +53,7 @@ export function useCommittableValue({
   onCancel,
   onCommit,
 }: UseCommittableValueProps) {
+  const [valueToFormat, setValueToFormat] = React.useState<Value | undefined>();
   const initialValueRef = React.useRef(initialValue);
   const [currentValue, setCurrentValue] = React.useState<Value | undefined>(
     initialValue
@@ -66,16 +67,20 @@ export function useCommittableValue({
   });
 
   const handleChange = (newValue?: Value) => {
+    console.log("useCommittableValue.handleChange", newValue);
     currentValueRef.current = { state: "changed", value: newValue };
     setCurrentValue(newValue);
+    setValueToFormat(undefined);
   };
 
   const handleCommit = () => {
+    console.log("useCommittableValue.handleCommit");
     if (
       currentValueRef.current.state === "changed" &&
       !areEqual(currentValueRef.current.value, initialValueRef.current)
     ) {
       onCommit(currentValueRef.current.value);
+      setValueToFormat(currentValueRef.current.value);
       return;
     }
     if (currentValueRef.current.state === "cancelled") {
@@ -105,5 +110,6 @@ export function useCommittableValue({
     commit: handleCommit,
     cancel: handleCancel,
     value: currentValue,
+    valueToFormat,
   };
 }

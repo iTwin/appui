@@ -44,23 +44,22 @@ interface CustomNumberEditorProps
 }
 
 /** @internal */
-export function CustomNumberEditor({
-  metadata,
-  value,
-  onChange,
-  size,
-  disabled,
-  decoration,
-}: CustomNumberEditorProps) {
+export function CustomNumberEditor(props: CustomNumberEditorProps) {
+  console.log("CustomNumberEditor", props);
+  const { metadata, value, onChange, size, disabled, decoration } = props;
   const formatParams = useCustomFormattedNumberParams(metadata);
   const sizeParams = useInputEditorSizeParams(metadata);
   const iconParams = useIconEditorParams(metadata);
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [inputValue, setInputValue] = React.useState(() => {
-    return value?.rawValue !== undefined && formatParams
-      ? formatParams.formatFunction(value.rawValue)
-      : "";
-  });
+
+  const { rawValue } = value ?? {};
+
+  const formattedValue = React.useMemo(() => {
+    if (!rawValue) return "";
+    if (!formatParams?.formatFunction) return "";
+    return formatParams.formatFunction(rawValue);
+  }, [rawValue, formatParams]);
+  const [inputValue, setInputValue] = React.useState(formattedValue);
 
   if (!formatParams) {
     return null;
@@ -84,7 +83,6 @@ export function CustomNumberEditor({
       typeof result.value === "number" ? result.value : undefined;
 
     setInputValue(currentValue);
-
     onChange({
       rawValue: parsedValue,
       displayValue: currentValue,

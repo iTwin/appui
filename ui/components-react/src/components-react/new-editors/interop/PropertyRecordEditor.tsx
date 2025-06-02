@@ -95,11 +95,13 @@ function CommittingEditor({
   disabled?: boolean;
   size?: "small" | "large";
 }) {
-  const { value, onChange, onKeydown, commit, cancel } = useCommittableValue({
-    initialValue,
-    onCommit,
-    onCancel,
-  });
+  const { value, onChange, onKeydown, commit, cancel, valueToFormat } =
+    useCommittableValue({
+      initialValue,
+      onCommit,
+      onCancel,
+    });
+  console.log({ value, valueToFormat });
 
   return (
     <div
