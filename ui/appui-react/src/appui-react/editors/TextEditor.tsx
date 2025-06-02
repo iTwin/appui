@@ -16,6 +16,7 @@ import {
   LockButtonInputDecoration,
   useLockDecoration,
 } from "./LockProvider.js";
+import { useToolSettingsKeyPressCommit } from "../preview/tool-settings-key-press-commit/useToolSettingsKeyPressCommit.js";
 
 /** @internal */
 export class TextPropertyEditor extends BaseTextPropertyEditor {
@@ -28,9 +29,17 @@ const TextEditor = React.forwardRef<BaseTextEditor>(function TextEditor(
   props,
   forwardedRef
 ) {
+  const shouldCommitOnChange = useToolSettingsKeyPressCommit();
   const lockDecoration = useLockDecoration();
   const internalProps = {
     decoration: lockDecoration ? <LockButtonInputDecoration /> : undefined,
   } satisfies InternalInputEditorProps;
-  return <BaseTextEditor {...props} {...internalProps} ref={forwardedRef} />;
+  return (
+    <BaseTextEditor
+      {...props}
+      {...internalProps}
+      shouldCommitOnChange={shouldCommitOnChange}
+      ref={forwardedRef}
+    />
+  );
 });

@@ -1,5 +1,20 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.8.0
+
+### Patch Changes
+
+- @itwin/components-react@5.8.0
+- @itwin/core-react@5.8.0
+
+## 5.7.0
+
+### Patch Changes
+
+- Updated dependencies [fd58c9f]
+  - @itwin/components-react@5.7.0
+  - @itwin/core-react@5.7.0
+
 ## 5.6.0
 
 ### Patch Changes

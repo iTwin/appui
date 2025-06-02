@@ -1,6 +1,6 @@
 {
   "name": "@itwin/appui-react",
-  "version": "5.6.0",
+  "version": "5.8.0",
   "description": "A react component library for AppUI framework",
   "type": "module",
   "types": "./lib/appui-react.d.ts",
@@ -124,6 +124,6 @@
     "react-transition-group": "^4.4.2",
     "rxjs": "^7.8.1",
     "ts-key-enum": "~2.0.12",
-    "zustand": "^4.4.1"
+    "zustand": "catalog:"
   }
 }

@@ -11,7 +11,7 @@ import {
   PropertyDescriptionHelper,
   StandardTypeNames,
 } from "@itwin/appui-abstract";
-import { PrimitiveTool } from "@itwin/core-frontend";
+import { StoryPrimitiveTool } from "./StoryTool";
 
 interface CreateLockPropertyToolArgs {
   lockLabel?: string;
@@ -29,19 +29,11 @@ export function createLockPropertyTool(args?: CreateLockPropertyToolArgs) {
     initialValue = false,
     properties,
   } = args ?? {};
-  return class LockPropertyTool extends PrimitiveTool {
+  return class LockPropertyTool extends StoryPrimitiveTool {
     public static override toolId = "LockPropertyTool";
 
     private _myPropertyValue = initialValue;
     private _myLockPropertyValue = true;
-
-    public override requireWriteableTarget() {
-      return false;
-    }
-
-    public override onRestartTool() {
-      return this.exitTool();
-    }
 
     public override supplyToolSettingsProperties(): DialogItem[] | undefined {
       const lockPropertyDescription =

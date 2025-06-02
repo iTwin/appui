@@ -58,11 +58,37 @@ export class CustomNumberEditor
   private _inputElement = React.createRef<HTMLInputElement>();
   private _lastValidValue: PropertyValue | undefined;
 
+  // Used to track the last user typed value.
+  private _lastInputValue: string | undefined;
+  private _lastValue: PropertyValue | undefined;
+
   public override readonly state: Readonly<CustomNumberEditorState> = {
     inputValue: "",
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
+    // This is called by the container to commit the value. Format the value.
+    this._lastInputValue = undefined;
+    this._lastValue = undefined;
+
+    const value = await this.#getPropertyValue();
+
+    if (
+      this.props.shouldCommitOnChange &&
+      this._formatParams &&
+      isPrimitiveValue(value) &&
+      typeof value.value === "number"
+    ) {
+      const newDisplayValue = this._formatParams.formatFunction(value.value);
+      this.setState({
+        inputValue: newDisplayValue,
+      });
+    }
+    return value;
+  }
+
+  async #getPropertyValue(): Promise<PropertyValue | undefined> {
+    // This is called by the editor to get the current input value as a PropertyValue.
     const record = this.props.propertyRecord as PropertyRecord;
     let propertyValue: PropertyValue | undefined;
 
@@ -89,7 +115,11 @@ export class CustomNumberEditor
         };
         this._lastValidValue = { ...propertyValue };
         // make sure the text in the input item matches the latest formatted text... this could get out if the input string say 1.5 === the display string of 1'-6"
-        if (newDisplayValue !== this.state.inputValue) {
+        if (
+          // This should not happen in a getter, for now fix only if shouldCommitOnChange is true.
+          !this.props.shouldCommitOnChange &&
+          newDisplayValue !== this.state.inputValue
+        ) {
           this.setState({ inputValue: newDisplayValue });
         }
       } else {
@@ -156,9 +186,26 @@ export class CustomNumberEditor
     if (readonly || disabled) return;
 
     if (this._isMounted)
-      this.setState({
-        inputValue: userInput,
-      });
+      this.setState(
+        {
+          inputValue: userInput,
+        },
+        async () => {
+          if (!this.props.shouldCommitOnChange) return;
+          if (!this.props.onCommit) return;
+          if (!this.props.propertyRecord) return;
+
+          const newValue = await this.#getPropertyValue();
+          if (!newValue) return;
+
+          this._lastInputValue = this.state.inputValue;
+          this._lastValue = newValue;
+          this.props.onCommit({
+            propertyRecord: this.props.propertyRecord,
+            newValue,
+          });
+        }
+      );
   }
 
   private _updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -167,7 +214,7 @@ export class CustomNumberEditor
 
   public override componentDidMount() {
     this._isMounted = true;
-    void this.setStateFromProps();
+    this.setStateFromProps();
   }
 
   public override componentWillUnmount() {
@@ -176,7 +223,7 @@ export class CustomNumberEditor
 
   public override componentDidUpdate(prevProps: PropertyEditorProps) {
     if (this.props.propertyRecord !== prevProps.propertyRecord) {
-      void this.setStateFromProps();
+      this.setStateFromProps();
     }
   }
 
@@ -203,7 +250,9 @@ export class CustomNumberEditor
     return initialDisplayValue;
   }
 
-  private async setStateFromProps() {
+  private setStateFromProps() {
+    if (!this._isMounted) return;
+
     const record = this.props.propertyRecord;
     if (!record || !record.property) {
       Logger.logError(
@@ -274,13 +323,24 @@ export class CustomNumberEditor
       }
     }
 
-    if (this._isMounted)
-      this.setState({
-        inputValue: initialDisplayValue,
-        size,
-        maxLength,
-        iconSpec,
-      });
+    let inputValue = initialDisplayValue;
+    if (
+      this.props.shouldCommitOnChange &&
+      this._lastInputValue &&
+      isPrimitiveValue(this._lastValue) &&
+      isPrimitiveValue(this.props.propertyRecord?.value) &&
+      this._lastValue.value === this.props.propertyRecord.value.value
+    ) {
+      // If the value matches the user-entered value - keep it unformatted.
+      inputValue = this._lastInputValue;
+    }
+
+    this.setState({
+      inputValue,
+      size,
+      maxLength,
+      iconSpec,
+    });
   }
 
   private _resetToLastValidDisplayValue() {
@@ -426,3 +486,7 @@ const LockNumberEditor = React.forwardRef<
     />
   );
 });
+
+function isPrimitiveValue(value?: PropertyValue): value is PrimitiveValue {
+  return value?.valueFormat === PropertyValueFormat.Primitive;
+}

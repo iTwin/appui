@@ -22,6 +22,7 @@ import { DockedBar } from "./DockedBar.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { LockProvider } from "../editors/LockProvider.js";
 import { ToolSettingsEditorsProvider } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
+import { ToolSettingsContext } from "../preview/tool-settings-key-press-commit/useToolSettingsKeyPressCommit.js";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -89,24 +90,26 @@ export function ToolSettingsDockedContent() {
   // for the overflow to work properly each setting in the DockedToolSettings should be wrapped by a DockedToolSetting component
   return (
     <DockedBar placement="top">
-      <ToolSettingsEditorsProvider>
-        <DockedToolSettings
-          itemId={
-            InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ??
-            "none"
-          }
-          key={forceRefreshKey}
-        >
-          {entries.map((entry, index) => (
-            <DockedToolSetting key={index}>
-              <LockProvider>
-                {entry.labelNode}
-                {entry.editorNode}
-              </LockProvider>
-            </DockedToolSetting>
-          ))}
-        </DockedToolSettings>
-      </ToolSettingsEditorsProvider>
+      <ToolSettingsContext.Provider value={true}>
+        <ToolSettingsEditorsProvider>
+          <DockedToolSettings
+            itemId={
+              InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ??
+              "none"
+            }
+            key={forceRefreshKey}
+          >
+            {entries.map((entry, index) => (
+              <DockedToolSetting key={index}>
+                <LockProvider>
+                  {entry.labelNode}
+                  {entry.editorNode}
+                </LockProvider>
+              </DockedToolSetting>
+            ))}
+          </DockedToolSettings>
+        </ToolSettingsEditorsProvider>
+      </ToolSettingsContext.Provider>
     </DockedBar>
   );
 }
@@ -195,11 +198,13 @@ export function ToolSettingsWidgetContent() {
       key={forceRefreshKey}
     >
       <ScrollableWidgetContent>
-        <ToolSettingsEditorsProvider>
-          {node ?? frontstageDef?.activeToolEmptyNode ?? (
-            <EmptyToolSettingsLabel toolId={activeToolId} />
-          )}
-        </ToolSettingsEditorsProvider>
+        <ToolSettingsContext.Provider value={true}>
+          <ToolSettingsEditorsProvider>
+            {node ?? frontstageDef?.activeToolEmptyNode ?? (
+              <EmptyToolSettingsLabel toolId={activeToolId} />
+            )}
+          </ToolSettingsEditorsProvider>
+        </ToolSettingsContext.Provider>
       </ScrollableWidgetContent>
     </div>
   );
