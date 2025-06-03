@@ -35,7 +35,6 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     if (isHidden) return null;
     return (
       <IconButton
-        className={props.className}
         styleType="borderless"
         disabled={isDisabled}
         isActive={item.isActive}
@@ -46,8 +45,10 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
         data-item-id={item.id}
         {...other}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        {item.iconNode ?? <Icon iconSpec={iconSpec} />}
+        {item.iconNode ?? (
+          /* eslint-disable-next-line @typescript-eslint/no-deprecated */
+          <Icon iconSpec={iconSpec} />
+        )}
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Badge badge={item.badge} badgeKind={item.badgeKind} />
         {props.children}

@@ -31,7 +31,7 @@ import {
   SideNavigation,
   ThemeProvider,
 } from "@itwin/itwinui-react";
-import { Root } from "@itwin/itwinui-react-v5/bricks";
+import { Root } from "@stratakit/foundations";
 import {
   createRootRouteWithContext,
   Outlet,

@@ -15,7 +15,8 @@
     "test": ""
   },
   "dependencies": {
-    "@bentley/icons-generic-webfont": "^1.0.34",
+    "@bentley/icons-generic": "catalog:",
+    "@bentley/icons-generic-webfont": "catalog:",
     "@itwin/appui-abstract": "catalog:",
     "@itwin/appui-react": "workspace:*",
     "@itwin/appui-test-providers": "workspace:*",
@@ -31,8 +32,9 @@
     "@itwin/imodels-access-frontend": "^5.2.3",
     "@itwin/imodels-client-authoring": "^5.9.0",
     "@itwin/itwinui-icons-react": "^2.8.0",
-    "@itwin/itwinui-react": "^3.17.0",
-    "@itwin/itwinui-react-v5": "npm:@itwin/itwinui-react@5.0.0-alpha.5",
+    "@itwin/itwinui-react": "catalog:",
+    "@stratakit/bricks": "catalog:",
+    "@stratakit/foundations": "catalog:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-redux": "^9.1.2"

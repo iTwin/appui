@@ -45,7 +45,7 @@
     "eslint-config-prettier": "~8.8.0"
   },
   "dependencies": {
-    "@bentley/icons-generic": "^1.0.34",
+    "@bentley/icons-generic": "catalog:",
     "@itwin/core-bentley": "catalog:",
     "@itwin/core-geometry": "catalog:",
     "@itwin/core-common": "catalog:",
@@ -57,7 +57,7 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/appui-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
-    "@itwin/itwinui-react": "^3.17.0",
+    "@itwin/itwinui-react": "catalog:",
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/webgl-compatibility": "catalog:",
     "classnames": "2.5.1",
