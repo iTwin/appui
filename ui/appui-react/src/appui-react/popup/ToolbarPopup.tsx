@@ -7,10 +7,8 @@
  */
 
 import * as React from "react";
-import { Key } from "ts-key-enum";
 import type { RelativePosition } from "@itwin/appui-abstract";
 import type { RequireAtLeastOne } from "@itwin/core-bentley";
-import { DivWithOutsideClick } from "@itwin/core-react";
 import { FocusTrap, Point } from "@itwin/core-react/internal";
 import type { Orientation } from "@itwin/components-react";
 import {
@@ -72,16 +70,6 @@ export class ToolbarPopup extends React.PureComponent<
     this.setState({ size: newSize });
   };
 
-  private _handleKeyDown = (
-    event: React.KeyboardEvent<HTMLDivElement>
-  ): void => {
-    switch (event.key) {
-      case Key.Escape.valueOf():
-        this._cancel();
-        break;
-    }
-  };
-
   private _cancel() {
     if (this.props.onCancel) {
       this.props.onCancel();
@@ -110,22 +98,16 @@ export class ToolbarPopup extends React.PureComponent<
         point={point}
         onSizeKnown={this._onSizeKnown}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <DivWithOutsideClick
-          onOutsideClick={this.props.onCancel}
-          onKeyDown={this._handleKeyDown}
-        >
-          <FocusTrap active={true} returnFocusOnDeactivate={true}>
-            <Toolbar
-              expandsTo={Direction.Bottom}
-              panelAlignment={ToolbarPanelAlignment.Start}
-              items={this.props.items}
-              useDragInteraction={true}
-              toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
-              onItemExecuted={this.props.onItemExecuted}
-            />
-          </FocusTrap>
-        </DivWithOutsideClick>
+        <FocusTrap active={true} returnFocusOnDeactivate={true}>
+          <Toolbar
+            expandsTo={Direction.Bottom}
+            panelAlignment={ToolbarPanelAlignment.Start}
+            items={this.props.items}
+            useDragInteraction={true}
+            toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
+            onItemExecuted={this.props.onItemExecuted}
+          />
+        </FocusTrap>
       </PositionPopup>
     );
   }
