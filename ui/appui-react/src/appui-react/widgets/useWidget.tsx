@@ -19,9 +19,10 @@ import { useWidgetDef } from "../widget-panels/Content.js";
 import type { WidgetState } from "./WidgetState.js";
 
 /** Hook that returns information about the Widget in the current context.
+ * @note This hook must be used within a widget.
  * @returns object that contains the WidgetLocation, WidgetState, and
  * the ability to set the state of the widget.
- * @alpha
+ * @public
  */
 export function useWidget() {
   const tabId = React.useContext(TabIdContext);
