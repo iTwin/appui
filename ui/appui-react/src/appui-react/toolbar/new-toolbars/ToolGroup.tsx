@@ -10,9 +10,6 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ActionItem } from "./ActionItem.js";
-import { GroupItem } from "./GroupItem.js";
-import { CustomItem } from "./CustomItem.js";
 import { OverflowButton } from "./OverflowButton.js";
 import { useOverflow } from "./useOverflow.js";
 import { getChildKey } from "../../layout/tool-settings/Docked.js";
@@ -96,10 +93,6 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
     </div>
   );
 }
-
-ToolGroup.ActionItem = ActionItem;
-ToolGroup.GroupItem = GroupItem;
-ToolGroup.CustomItem = CustomItem;
 
 type ToolbarContextProps = React.ContextType<typeof ToolbarContext>;
 

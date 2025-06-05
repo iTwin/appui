@@ -23,8 +23,7 @@ import { Badge } from "./Badge.js";
 import { ToolGroupOverflowContext } from "./OverflowButton.js";
 import { ToolbarContext } from "./Toolbar.js";
 
-/** @internal */
-export interface GroupItemProps {
+interface GroupItemProps {
   item: ToolbarGroupItem;
 }
 

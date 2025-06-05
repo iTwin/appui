@@ -15,9 +15,7 @@ import { useConditionalProp } from "../../hooks/useConditionalProp.js";
 import { Badge } from "./Badge.js";
 import { ToolbarContext } from "./Toolbar.js";
 
-/** @internal */
-export interface ItemProps
-  extends Partial<React.ComponentProps<typeof IconButton>> {
+interface ItemProps extends Partial<React.ComponentProps<typeof IconButton>> {
   item: ToolbarItem;
 }
 

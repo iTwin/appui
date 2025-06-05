@@ -13,7 +13,6 @@ import { useLabelProps } from "./Item.js";
 import { usePopoverPlacement } from "./GroupItem.js";
 import { ToolbarContext } from "./Toolbar.js";
 
-/** @internal */
 interface ToolGroupOverflow {
   onClose?: () => void;
 }

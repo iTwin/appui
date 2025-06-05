@@ -13,8 +13,7 @@ import { Item } from "./Item.js";
 import { GroupMenuItem } from "./GroupItem.js";
 import { ToolbarContext } from "./Toolbar.js";
 
-/** @internal */
-export interface ActionItemProps {
+interface ActionItemProps {
   item: ToolbarActionItem;
 }
 

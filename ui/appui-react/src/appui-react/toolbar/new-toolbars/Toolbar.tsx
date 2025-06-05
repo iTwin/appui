@@ -15,6 +15,9 @@ import {
 } from "../../toolbar/ToolbarItem.js";
 import { ToolGroup } from "./ToolGroup.js";
 import type { ToolbarProps as OldToolbarProps } from "../Toolbar.js";
+import { ActionItem } from "./ActionItem.js";
+import { GroupItem } from "./GroupItem.js";
+import { CustomItem } from "./CustomItem.js";
 
 /** These exist for backwards compatibility only. */
 type ToolbarInternalProps = Pick<OldToolbarProps, "onItemExecuted">;
@@ -52,13 +55,13 @@ export function Toolbar({
       <ToolGroup>
         {items.map((item) => {
           if (isToolbarActionItem(item)) {
-            return <ToolGroup.ActionItem key={item.id} item={item} />;
+            return <ActionItem key={item.id} item={item} />;
           }
           if (isToolbarGroupItem(item)) {
-            return <ToolGroup.GroupItem key={item.id} item={item} />;
+            return <GroupItem key={item.id} item={item} />;
           }
           if (isToolbarCustomItem(item)) {
-            return <ToolGroup.CustomItem key={item.id} item={item} />;
+            return <CustomItem key={item.id} item={item} />;
           }
           return null;
         })}

@@ -15,8 +15,7 @@ import { GroupMenuItem, usePopoverPlacement } from "./GroupItem.js";
 import { ToolGroupOverflowContext } from "./OverflowButton.js";
 import { ToolbarContext } from "./Toolbar.js";
 
-/** @internal */
-export interface CustomItemProps {
+interface CustomItemProps {
   item: ToolbarCustomItem;
 }
 

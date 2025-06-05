@@ -21,9 +21,9 @@ import { ProcessDetector } from "@itwin/core-bentley";
 import { useConditionalValue } from "../../hooks/useConditionalValue.js";
 import { SyncUiEventId } from "../../syncui/SyncUiEventDispatcher.js";
 
-type SurfaceProps = React.ComponentProps<typeof IUI_Surface> & {
+interface SurfaceProps extends React.ComponentProps<typeof IUI_Surface> {
   orientation: "horizontal" | "vertical";
-};
+}
 
 /** @internal */
 export const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(
