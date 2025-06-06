@@ -7,9 +7,22 @@
  */
 
 import "./Separator.scss";
+import classnames from "classnames";
 import * as React from "react";
+import { assert } from "@itwin/core-bentley";
+import { ToolbarContext } from "./Toolbar.js";
 
 /** @internal */
 export function Separator() {
-  return <div className="uifw-toolbar-newToolbars-separator" />;
+  const context = React.useContext(ToolbarContext);
+  assert(!!context);
+  const { orientation } = context;
+  return (
+    <div
+      className={classnames(
+        "uifw-toolbar-newToolbars-separator",
+        `uifw-${orientation}`
+      )}
+    />
+  );
 }

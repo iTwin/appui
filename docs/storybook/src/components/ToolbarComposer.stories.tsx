@@ -36,6 +36,7 @@ import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
+import { enumArgType } from "../Utils";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -45,6 +46,10 @@ const meta = {
   args: {
     orientation: ToolbarOrientation.Horizontal,
     usage: ToolbarUsage.ContentManipulation,
+  },
+  argTypes: {
+    orientation: enumArgType(ToolbarOrientation),
+    usage: enumArgType(ToolbarUsage),
   },
   parameters: {
     layout: "centered",

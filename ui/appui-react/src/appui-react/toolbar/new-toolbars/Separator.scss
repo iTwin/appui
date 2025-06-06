@@ -3,23 +3,38 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 .uifw-toolbar-newToolbars-separator {
-  width: 0;
   display: none;
   pointer-events: none;
+
+  &.uifw-horizontal {
+    width: 0;
+
+    &:after {
+      border-right: var(--iui-surface-border);
+      border-color: var(--_uifw-toolbar-border-color);
+      height: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.uifw-vertical {
+    height: 0;
+
+    &:after {
+      border-bottom: var(--iui-surface-border);
+      border-color: var(--_uifw-toolbar-border-color);
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
 
   &:after {
     content: "";
     display: block;
-    border-right: var(--iui-surface-border);
-    border-color: var(--_uifw-toolbar-border-color);
-    height: 100%;
-    transform: translateX(-50%);
   }
 
-  // Handles the case where separator is the first element in a toolbar or when there are multiple separators.
   button + & {
     &:not(:last-child) {
-      //
       display: block;
     }
   }

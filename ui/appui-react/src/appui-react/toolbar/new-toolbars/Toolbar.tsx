@@ -40,17 +40,26 @@ export function Toolbar({
   onItemExecuted,
 }: ToolbarProps) {
   const [popoverOpen, setPopoverOpen] = React.useState(false);
+  const orientation = getOrientation(expandsTo);
   return (
     <ToolbarContext.Provider
       value={React.useMemo(
         () => ({
           expandsTo,
+          orientation,
           panelAlignment,
           popoverOpen,
           setPopoverOpen,
           onItemExecuted,
         }),
-        [expandsTo, panelAlignment, popoverOpen, setPopoverOpen, onItemExecuted]
+        [
+          expandsTo,
+          orientation,
+          panelAlignment,
+          popoverOpen,
+          setPopoverOpen,
+          onItemExecuted,
+        ]
       )}
     >
       <ToolGroup>
@@ -90,6 +99,7 @@ interface ToolbarContextProps
     Pick<ToolbarProps, "onItemExecuted"> {
   popoverOpen: boolean;
   setPopoverOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  orientation: "horizontal" | "vertical";
 }
 
 /** @internal */
@@ -97,3 +107,14 @@ export const ToolbarContext = React.createContext<
   ToolbarContextProps | undefined
 >(undefined);
 ToolbarContext.displayName = "uifw:ToolbarContext";
+
+function getOrientation(expandsTo: ToolbarContextProps["expandsTo"]) {
+  switch (expandsTo) {
+    case "left":
+    case "right":
+      return "vertical";
+    case "top":
+    case "bottom":
+      return "horizontal";
+  }
+}
