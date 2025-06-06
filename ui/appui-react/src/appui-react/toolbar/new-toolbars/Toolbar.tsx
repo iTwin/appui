@@ -18,7 +18,6 @@ import type { ToolbarProps as OldToolbarProps } from "../Toolbar.js";
 import { ActionItem } from "./ActionItem.js";
 import { GroupItem } from "./GroupItem.js";
 import { CustomItem } from "./CustomItem.js";
-import { Separator } from "./Separator.js";
 
 /** These exist for backwards compatibility only. */
 type ToolbarInternalProps = Pick<OldToolbarProps, "onItemExecuted">;
@@ -64,20 +63,17 @@ export function Toolbar({
     >
       <ToolGroup>
         {items.map((item, index) => {
-          const renderSeparator = shouldRenderSeparator(index, items);
-          let itemElement: React.JSX.Element | undefined;
-          if (isToolbarActionItem(item)) {
-            itemElement = <ActionItem item={item} />;
-          } else if (isToolbarGroupItem(item)) {
-            itemElement = <GroupItem item={item} />;
-          } else if (isToolbarCustomItem(item)) {
-            itemElement = <CustomItem item={item} />;
-          }
+          const nextItem =
+            items.length > index + 1 ? items[index + 1] : undefined;
+          const renderSeparator = nextItem
+            ? item.groupPriority !== nextItem.groupPriority
+            : false;
           return (
-            <React.Fragment key={item.id}>
-              {itemElement}
-              {renderSeparator && <Separator />}
-            </React.Fragment>
+            <ItemRenderer
+              key={item.id}
+              item={item}
+              renderSeparator={renderSeparator}
+            />
           );
         })}
       </ToolGroup>
@@ -85,14 +81,30 @@ export function Toolbar({
   );
 }
 
-function shouldRenderSeparator(index: number, items: ToolbarItem[]) {
-  if (items.length <= index + 1) return false;
-
-  const item = items[index];
-  const nextItem = items[index + 1];
-
-  return item.groupPriority !== nextItem.groupPriority;
+interface ItemRendererProps {
+  item: ToolbarItem;
+  renderSeparator: boolean;
 }
+
+const ItemRenderer = React.forwardRef<HTMLButtonElement, ItemRendererProps>(
+  function ItemRenderer({ item, renderSeparator }, forwardedRef) {
+    let itemElement: React.JSX.Element | undefined;
+    if (isToolbarActionItem(item)) {
+      itemElement = <ActionItem ref={forwardedRef} item={item} />;
+    }
+    if (isToolbarGroupItem(item)) {
+      itemElement = <GroupItem ref={forwardedRef} item={item} />;
+    }
+    if (isToolbarCustomItem(item)) {
+      itemElement = <CustomItem ref={forwardedRef} item={item} />;
+    }
+    return (
+      <ToolbarItemContext.Provider value={{ renderSeparator }}>
+        {itemElement}
+      </ToolbarItemContext.Provider>
+    );
+  }
+);
 
 interface ToolbarContextProps
   extends Pick<Required<ToolbarProps>, "expandsTo" | "panelAlignment">,
@@ -105,6 +117,15 @@ interface ToolbarContextProps
 /** @internal */
 export const ToolbarContext = React.createContext<
   ToolbarContextProps | undefined
+>(undefined);
+ToolbarContext.displayName = "uifw:ToolbarContext";
+
+/** @internal */
+export const ToolbarItemContext = React.createContext<
+  | {
+      renderSeparator: boolean;
+    }
+  | undefined
 >(undefined);
 ToolbarContext.displayName = "uifw:ToolbarContext";
 

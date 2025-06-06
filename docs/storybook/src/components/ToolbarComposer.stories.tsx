@@ -400,10 +400,12 @@ export const Separators: Story = {
       separatorItems.createActionItem({
         groupPriority: 2,
       }),
-      // All items in a group are hidden
+      // Multiple items in a group
       separatorItems.createActionItem({
         groupPriority: 3,
-        isHidden: true,
+      }),
+      separatorItems.createActionItem({
+        groupPriority: 3,
       }),
       // Last item of a group is hidden
       separatorItems.createActionItem({
@@ -413,12 +415,10 @@ export const Separators: Story = {
         groupPriority: 4,
         isHidden: true,
       }),
-      // Multiple items in a group
+      // All items in a group are hidden
       separatorItems.createActionItem({
         groupPriority: 5,
-      }),
-      separatorItems.createActionItem({
-        groupPriority: 5,
+        isHidden: true,
       }),
       // All items of last group are hidden
       separatorItems.createActionItem({

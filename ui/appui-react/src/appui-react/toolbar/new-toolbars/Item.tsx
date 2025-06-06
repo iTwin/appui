@@ -12,8 +12,9 @@ import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import { useConditionalProp } from "../../hooks/useConditionalProp.js";
 import { Badge } from "./Badge.js";
-import { ToolbarContext } from "./Toolbar.js";
+import { ToolbarContext, ToolbarItemContext } from "./Toolbar.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
+import { Separator } from "./Separator.js";
 
 interface ItemProps extends Partial<React.ComponentProps<typeof IconButton>> {
   item: ToolbarItem;
@@ -23,6 +24,7 @@ interface ItemProps extends Partial<React.ComponentProps<typeof IconButton>> {
 export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
   function Item(props, ref) {
     const { item, ...other } = props;
+    const { renderSeparator } = useSafeContext(ToolbarItemContext);
     const label = useConditionalProp(item.label);
     const isDisabled = useConditionalProp(item.isDisabled);
     const isHidden = useConditionalProp(item.isHidden);
@@ -30,27 +32,31 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const iconSpec = useConditionalProp(item.icon);
     const labelProps = useLabelProps();
 
-    if (isHidden) return null;
     return (
-      <IconButton
-        styleType="borderless"
-        disabled={isDisabled}
-        isActive={item.isActive}
-        label={label}
-        labelProps={labelProps}
-        style={props.style}
-        ref={ref}
-        data-item-id={item.id}
-        {...other}
-      >
-        {item.iconNode ?? (
-          /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-          <Icon iconSpec={iconSpec} />
+      <>
+        {isHidden ? undefined : (
+          <IconButton
+            styleType="borderless"
+            disabled={isDisabled}
+            isActive={item.isActive}
+            label={label}
+            labelProps={labelProps}
+            style={props.style}
+            ref={ref}
+            data-item-id={item.id}
+            {...other}
+          >
+            {item.iconNode ?? (
+              /* eslint-disable-next-line @typescript-eslint/no-deprecated */
+              <Icon iconSpec={iconSpec} />
+            )}
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+            <Badge badge={item.badge} badgeKind={item.badgeKind} />
+            {props.children}
+          </IconButton>
         )}
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Badge badge={item.badge} badgeKind={item.badgeKind} />
-        {props.children}
-      </IconButton>
+        {renderSeparator && <Separator />}
+      </>
     );
   }
 );
