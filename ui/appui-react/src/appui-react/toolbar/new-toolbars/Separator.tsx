@@ -9,13 +9,12 @@
 import "./Separator.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import { ToolbarContext } from "./Toolbar.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 /** @internal */
 export function Separator() {
-  const context = React.useContext(ToolbarContext);
-  assert(!!context);
+  const context = useSafeContext(ToolbarContext);
   const { orientation } = context;
   return (
     <div

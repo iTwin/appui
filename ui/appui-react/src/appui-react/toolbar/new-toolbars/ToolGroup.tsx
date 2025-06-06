@@ -10,12 +10,12 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { assert } from "@itwin/core-bentley";
 import { OverflowButton } from "./OverflowButton.js";
 import { useOverflow } from "./useOverflow.js";
 import { getChildKey } from "../../layout/tool-settings/Docked.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { Surface } from "./Surface.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 interface ToolGroupProps extends CommonProps {
@@ -26,9 +26,7 @@ type Child = ReturnType<typeof React.Children.toArray>[0];
 
 /** @internal */
 export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
-  const context = React.useContext(ToolbarContext);
-  assert(!!context);
-  const { panelAlignment, orientation } = context;
+  const { panelAlignment, orientation } = useSafeContext(ToolbarContext);
   const childrenArray = React.Children.toArray(children);
 
   const keyToChildMap = childrenArray.reduce<Map<string, Child>>(

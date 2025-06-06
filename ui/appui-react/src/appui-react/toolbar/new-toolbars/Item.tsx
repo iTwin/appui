@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import { useConditionalProp } from "../../hooks/useConditionalProp.js";
 import { Badge } from "./Badge.js";
 import { ToolbarContext } from "./Toolbar.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 interface ItemProps extends Partial<React.ComponentProps<typeof IconButton>> {
   item: ToolbarItem;
@@ -56,22 +56,12 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
 );
 
 /** @internal */
-export function useExpandsTo() {
-  const context = React.useContext(ToolbarContext);
-  assert(!!context);
-
-  const { expandsTo } = context;
-  return expandsTo;
-}
-
-/** @internal */
 export function useLabelProps() {
-  const context = React.useContext(ToolbarContext);
+  const { popoverOpen, expandsTo } = useSafeContext(ToolbarContext);
   const [internalVisible, setInternalVisible] = React.useState(false);
-  const visible = context?.popoverOpen ? false : internalVisible;
-  const placement = useExpandsTo();
+  const visible = popoverOpen ? false : internalVisible;
   return {
-    placement,
+    placement: expandsTo,
     visible,
     onVisibleChange: setInternalVisible,
   } as const;
