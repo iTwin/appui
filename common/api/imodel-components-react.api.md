@@ -111,7 +111,7 @@ export class BaseSolarDataProvider implements SolarDataProvider {
     protected _viewport: ScreenViewport | undefined;
 }
 
-// @alpha
+// @public
 export class BaseTimelineDataProvider implements TimelineDataProvider {
     constructor(viewport?: ScreenViewport);
     // (undocumented)

@@ -15,7 +15,7 @@ import { TabIdContext } from "../layout/widget/ContentRenderer.js";
 
 /** Returns widget direction.
  * I.e. "horizontal" when widget is in bottom/top stage panel.
- * @alpha
+ * @public
  */
 export function useWidgetDirection(): "horizontal" | "vertical" {
   const tabId = React.useContext(TabIdContext);

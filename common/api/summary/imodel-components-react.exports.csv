@@ -6,7 +6,7 @@ public;interface;AlphaSliderProps
 deprecated;interface;AlphaSliderProps
 public;type;AnimationFractionChangeHandler
 alpha;class;BaseSolarDataProvider
-alpha;class;BaseTimelineDataProvider
+public;class;BaseTimelineDataProvider
 beta;class;ColorEditor
 beta;const;ColorPickerButton
 deprecated;const;ColorPickerButton

@@ -774,8 +774,8 @@ deprecated;const;useUiItemsProviderStatusBarItems
 public;const;useUiItemsProviderToolbarItems
 deprecated;const;useUiItemsProviderToolbarItems
 public;function;useUiStateStorageHandler
-alpha;function;useWidget
-alpha;function;useWidgetDirection
+public;function;useWidget
+public;function;useWidgetDirection
 alpha;class;ValidationTextbox
 beta;class;ViewAttributesStatusField
 public;interface;ViewLayout
