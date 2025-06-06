@@ -10,14 +10,12 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ActionItem } from "./ActionItem.js";
-import { GroupItem } from "./GroupItem.js";
-import { CustomItem } from "./CustomItem.js";
 import { OverflowButton } from "./OverflowButton.js";
 import { useOverflow } from "./useOverflow.js";
 import { getChildKey } from "../../layout/tool-settings/Docked.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { Surface } from "./Surface.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 interface ToolGroupProps extends CommonProps {
@@ -28,10 +26,7 @@ type Child = ReturnType<typeof React.Children.toArray>[0];
 
 /** @internal */
 export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
-  const context = React.useContext(ToolbarContext);
-  const expandsTo = context?.expandsTo ?? "bottom";
-  const panelAlignment = context?.panelAlignment ?? "start";
-  const orientation = getOrientation(expandsTo);
+  const { panelAlignment, orientation } = useSafeContext(ToolbarContext);
   const childrenArray = React.Children.toArray(children);
 
   const keyToChildMap = childrenArray.reduce<Map<string, Child>>(
@@ -95,23 +90,4 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
       </Surface>
     </div>
   );
-}
-
-ToolGroup.ActionItem = ActionItem;
-ToolGroup.GroupItem = GroupItem;
-ToolGroup.CustomItem = CustomItem;
-
-type ToolbarContextProps = React.ContextType<typeof ToolbarContext>;
-
-function getOrientation(
-  expandsTo: NonNullable<ToolbarContextProps>["expandsTo"]
-) {
-  switch (expandsTo) {
-    case "left":
-    case "right":
-      return "vertical";
-    case "top":
-    case "bottom":
-      return "horizontal";
-  }
 }

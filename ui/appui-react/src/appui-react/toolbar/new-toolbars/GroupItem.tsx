@@ -22,9 +22,9 @@ import { Item } from "./Item.js";
 import { Badge } from "./Badge.js";
 import { ToolGroupOverflowContext } from "./OverflowButton.js";
 import { ToolbarContext } from "./Toolbar.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
-/** @internal */
-export interface GroupItemProps {
+interface GroupItemProps {
   item: ToolbarGroupItem;
 }
 
@@ -32,7 +32,7 @@ export interface GroupItemProps {
 export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
   function GroupItem({ item }, ref) {
     const placement = usePopoverPlacement();
-    const context = React.useContext(ToolbarContext);
+    const { setPopoverOpen } = useSafeContext(ToolbarContext);
     const overflowContext = React.useContext(ToolGroupOverflowContext);
 
     if (overflowContext) {
@@ -45,7 +45,7 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
         }}
         placement={placement}
         onVisibleChange={(newVisible) => {
-          context?.setPopoverOpen(newVisible);
+          setPopoverOpen(newVisible);
         }}
       >
         <Item item={item} ref={ref}>
@@ -58,10 +58,8 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
 
 /** @internal */
 export function usePopoverPlacement() {
-  const context = React.useContext(ToolbarContext);
-  if (!context) return undefined;
-
-  return `${context.expandsTo}-${context.panelAlignment}` as const;
+  const { expandsTo, panelAlignment } = useSafeContext(ToolbarContext);
+  return `${expandsTo}-${panelAlignment}` as const;
 }
 
 interface GroupMenuItemProps {
@@ -71,7 +69,7 @@ interface GroupMenuItemProps {
 
 /** @internal */
 export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
-  const { onItemExecuted } = React.useContext(ToolbarContext) ?? {};
+  const { onItemExecuted } = useSafeContext(ToolbarContext);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = useConditionalProp(item.icon);
   const label = useConditionalProp(item.label);

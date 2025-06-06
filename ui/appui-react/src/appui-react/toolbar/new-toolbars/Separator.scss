@@ -1,0 +1,50 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uifw-toolbar-newToolbars-separator {
+  display: none;
+  pointer-events: none;
+
+  &.uifw-horizontal {
+    width: 0;
+
+    &:after {
+      border-right: var(--iui-surface-border);
+      border-color: var(--_uifw-toolbar-border-color);
+      height: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &.uifw-vertical {
+    height: 0;
+
+    &:after {
+      border-bottom: var(--iui-surface-border);
+      border-color: var(--_uifw-toolbar-border-color);
+      width: 100%;
+      transform: translateY(-50%);
+    }
+  }
+
+  &:after {
+    content: "";
+    display: block;
+  }
+
+  &:has(~ button) {
+    button + & {
+      display: block;
+    }
+  }
+
+  @supports not selector(:has(~ *)) {
+    button + & {
+      // This will display the last separator if there are multiple separators at the end of the toolbar.
+      &:not(:last-child) {
+        display: block;
+      }
+    }
+  }
+}

@@ -3,10 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 .uifw-toolbar-group-surface {
+  --_uifw-toolbar-border-color: var(--iui-color-border-foreground);
+
   display: flex;
   width: fit-content;
   height: fit-content;
-  border-color: var(--iui-color-border-foreground);
+  border-color: var(--_uifw-toolbar-border-color);
   transition: border-color var(--iui-duration-1) ease;
   // TODO: needed due to opacity on toolbar container (since pointer events are disabled for center content).
   pointer-events: all;
@@ -26,7 +28,7 @@
 
   &:hover,
   &:focus-within {
-    border-color: var(--iui-color-border-foreground-hover);
+    --_uifw-toolbar-border-color: var(--iui-color-border-foreground-hover);
   }
 
   &:empty {
