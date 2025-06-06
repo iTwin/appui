@@ -18,6 +18,7 @@ import type { ToolbarProps as OldToolbarProps } from "../Toolbar.js";
 import { ActionItem } from "./ActionItem.js";
 import { GroupItem } from "./GroupItem.js";
 import { CustomItem } from "./CustomItem.js";
+import { Separator } from "./Separator.js";
 
 /** These exist for backwards compatibility only. */
 type ToolbarInternalProps = Pick<OldToolbarProps, "onItemExecuted">;
@@ -53,21 +54,35 @@ export function Toolbar({
       )}
     >
       <ToolGroup>
-        {items.map((item) => {
+        {items.map((item, index) => {
+          const renderSeparator = shouldRenderSeparator(index, items);
+          let itemElement: React.JSX.Element | undefined;
           if (isToolbarActionItem(item)) {
-            return <ActionItem key={item.id} item={item} />;
+            itemElement = <ActionItem item={item} />;
+          } else if (isToolbarGroupItem(item)) {
+            itemElement = <GroupItem item={item} />;
+          } else if (isToolbarCustomItem(item)) {
+            itemElement = <CustomItem item={item} />;
           }
-          if (isToolbarGroupItem(item)) {
-            return <GroupItem key={item.id} item={item} />;
-          }
-          if (isToolbarCustomItem(item)) {
-            return <CustomItem key={item.id} item={item} />;
-          }
-          return null;
+          return (
+            <React.Fragment key={item.id}>
+              {itemElement}
+              {renderSeparator && <Separator />}
+            </React.Fragment>
+          );
         })}
       </ToolGroup>
     </ToolbarContext.Provider>
   );
+}
+
+function shouldRenderSeparator(index: number, items: ToolbarItem[]) {
+  if (items.length <= index + 1) return false;
+
+  const item = items[index];
+  const nextItem = items[index + 1];
+
+  return item.groupPriority !== nextItem.groupPriority;
 }
 
 interface ToolbarContextProps
