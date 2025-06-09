@@ -5435,14 +5435,14 @@ export const useUiItemsProviderToolbarItems: (manager: ToolbarItemsManager, tool
 // @public (undocumented)
 export function useUiStateStorageHandler(): UiStateStorage;
 
-// @alpha
+// @public
 export function useWidget(): {
     state: WidgetState;
     widgetLocation: "popout" | "docked" | "floating";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
-// @alpha
+// @public
 export function useWidgetDirection(): "horizontal" | "vertical";
 
 // @alpha
