@@ -10,7 +10,7 @@ import type { ScreenViewport } from "@itwin/core-frontend";
 import type { PlaybackSettings, TimelineDataProvider } from "./interfaces.js";
 
 /** Base Timeline Data Provider
- * @alpha
+ * @public
  */
 export class BaseTimelineDataProvider implements TimelineDataProvider {
   public readonly id = "TestTimelineDataProvider";

@@ -2,6 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module Widget
+ */
 
 import { assert } from "@itwin/core-bentley";
 import * as React from "react";
@@ -19,9 +22,10 @@ import { useWidgetDef } from "../widget-panels/Content.js";
 import type { WidgetState } from "./WidgetState.js";
 
 /** Hook that returns information about the Widget in the current context.
+ * @note This hook must be used within a widget.
  * @returns object that contains the WidgetLocation, WidgetState, and
  * the ability to set the state of the widget.
- * @alpha
+ * @public
  */
 export function useWidget() {
   const tabId = React.useContext(TabIdContext);
