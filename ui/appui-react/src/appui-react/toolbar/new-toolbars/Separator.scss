@@ -4,33 +4,15 @@
  *--------------------------------------------------------------------------------------------*/
 .uifw-toolbar-newToolbars-separator {
   display: none;
-  pointer-events: none;
 
   &.uifw-horizontal {
-    width: 0;
-
-    &:after {
-      border-right: var(--iui-surface-border);
-      border-color: var(--_uifw-toolbar-border-color);
-      height: 100%;
-      transform: translateX(-50%);
-    }
+    border-right: var(--iui-surface-border);
+    border-color: var(--_uifw-toolbar-border-color);
   }
 
   &.uifw-vertical {
-    height: 0;
-
-    &:after {
-      border-bottom: var(--iui-surface-border);
-      border-color: var(--_uifw-toolbar-border-color);
-      width: 100%;
-      transform: translateY(-50%);
-    }
-  }
-
-  &:after {
-    content: "";
-    display: block;
+    border-bottom: var(--iui-surface-border);
+    border-color: var(--_uifw-toolbar-border-color);
   }
 
   &:has(~ button) {

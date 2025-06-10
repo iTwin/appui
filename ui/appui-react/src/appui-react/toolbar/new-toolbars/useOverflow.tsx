@@ -60,13 +60,13 @@ export const useOverflow = <
       return;
     }
 
-    let totalSize = overflowSize;
-    if (totalSize >= containerSize) {
+    if (overflowSize >= containerSize) {
       // Render only overflow.
       setVisible(0);
       return;
     }
 
+    let totalSize = overflowSize;
     let newVisible = 0;
     for (const size of itemSizes) {
       totalSize += size;

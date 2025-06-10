@@ -390,42 +390,54 @@ const separatorItems = createItemFactory();
 
 export const Separators: Story = {
   args: {
-    items: [
-      // All items of first group are hidden
-      separatorItems.createActionItem({
-        groupPriority: 1,
-        isHidden: true,
-      }),
-      // Single item in a group
-      separatorItems.createActionItem({
-        groupPriority: 2,
-      }),
-      // Multiple items in a group
-      separatorItems.createActionItem({
-        groupPriority: 3,
-      }),
-      separatorItems.createActionItem({
-        groupPriority: 3,
-      }),
-      // Last item of a group is hidden
-      separatorItems.createActionItem({
-        groupPriority: 4,
-      }),
-      separatorItems.createActionItem({
-        groupPriority: 4,
-        isHidden: true,
-      }),
-      // All items in a group are hidden
-      separatorItems.createActionItem({
-        groupPriority: 5,
-        isHidden: true,
-      }),
-      // All items of last group are hidden
-      separatorItems.createActionItem({
-        groupPriority: 6,
-        isHidden: true,
-      }),
-    ],
+    items: (() => {
+      let groupPriority = 0;
+      return [
+        // All items of first group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+        // Single item in a group
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        // Single item in a group
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        // Multiple items in a group
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        separatorItems.createActionItem({
+          groupPriority: groupPriority,
+        }),
+        // All items in a group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+        // Last item of a group is hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        separatorItems.createActionItem({
+          groupPriority: groupPriority,
+          isHidden: true,
+        }),
+        // All items in a group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+        // All items of last group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+      ];
+    })(),
   },
 };
 

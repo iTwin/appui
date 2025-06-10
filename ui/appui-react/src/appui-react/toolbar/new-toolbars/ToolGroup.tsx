@@ -44,7 +44,16 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
   const getItemSize = React.useCallback((item: string) => {
     const element = itemRefs.current.get(item);
     if (!element) return { width: 0, height: 0 };
-    return element.getBoundingClientRect();
+
+    const elementSize = element.getBoundingClientRect();
+
+    const separatorSize = getSeparatorSize(element);
+    if (!separatorSize) return elementSize;
+
+    return {
+      width: elementSize.width + separatorSize.width,
+      height: elementSize.height + separatorSize.height,
+    };
   }, []);
   const getOverflowSize = React.useCallback(() => {
     const element = overflowRef.current;
@@ -90,4 +99,49 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
       </Surface>
     </div>
   );
+}
+
+// First item in the group reserves space for the separator to correctly calculate the overflow.
+function getSeparatorSize(toolbarItem: Element) {
+  const firstInGroup = isFirstInGroup(toolbarItem);
+  if (!firstInGroup) return undefined;
+
+  // Last group does not have a separator.
+  if (isLastGroup(toolbarItem)) return undefined;
+
+  const separator = getSeparator(toolbarItem);
+  if (!separator) return undefined;
+
+  return separator.getBoundingClientRect();
+}
+
+// Returns if the toolbar item is the first in its group.
+function isFirstInGroup(toolbarItem: Element) {
+  const prev = toolbarItem.previousElementSibling;
+  if (prev?.tagName === "BUTTON") return false;
+  return true;
+}
+
+// Returns if the toolbar item is in the last group of the toolbar.
+function isLastGroup(toolbarItem: Element) {
+  let el = toolbarItem.nextElementSibling;
+  while (el) {
+    if (el.tagName === "BUTTON" && el.hasAttribute("data-item-id")) {
+      return false;
+    }
+    el = el.nextElementSibling;
+  }
+  return true;
+}
+
+// Returns the first separator element after the toolbar item, if it exists.
+function getSeparator(toolbarItem: Element) {
+  let el = toolbarItem.nextElementSibling;
+  while (el) {
+    if (el.classList.contains("uifw-toolbar-newToolbars-separator")) {
+      return el;
+    }
+    el = el.nextElementSibling;
+  }
+  return undefined;
 }
