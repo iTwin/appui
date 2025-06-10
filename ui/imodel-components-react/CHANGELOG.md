@@ -1,5 +1,16 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.9.0
+
+### Minor Changes
+
+- 1be3f19: Bump the release tag of `BaseTimelineDataProvider` class from `@alpha` to `@public`.
+
+### Patch Changes
+
+- @itwin/components-react@5.9.0
+- @itwin/core-react@5.9.0
+
 ## 5.8.0
 
 ### Patch Changes

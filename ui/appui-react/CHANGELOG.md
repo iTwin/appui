@@ -1,5 +1,19 @@
 # Change Log - @itwin/appui-react
 
+## 5.9.0
+
+### Minor Changes
+
+- 1be3f19: Bump the release tag of `useWidget` and `useWidgetDirection` hooks from `@alpha` to `@public`.
+- 6e9d137: Update `Toolbar` component to render a separator between items of different groups. This is a visual change based on the previous toolbar implementation.
+
+### Patch Changes
+
+- Updated dependencies [1be3f19]
+  - @itwin/imodel-components-react@5.9.0
+  - @itwin/components-react@5.9.0
+  - @itwin/core-react@5.9.0
+
 ## 5.8.0
 
 ### Minor Changes
