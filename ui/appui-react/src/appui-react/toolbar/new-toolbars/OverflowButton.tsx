@@ -12,8 +12,8 @@ import { SvgMore } from "@itwin/itwinui-icons-react";
 import { useLabelProps } from "./Item.js";
 import { usePopoverPlacement } from "./GroupItem.js";
 import { ToolbarContext } from "./Toolbar.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
-/** @internal */
 interface ToolGroupOverflow {
   onClose?: () => void;
 }
@@ -34,7 +34,7 @@ export const OverflowButton = React.forwardRef<
 >(function OverflowButton(props, ref) {
   const placement = usePopoverPlacement();
   const labelProps = useLabelProps();
-  const context = React.useContext(ToolbarContext);
+  const { setPopoverOpen } = useSafeContext(ToolbarContext);
 
   return (
     <DropdownMenu
@@ -47,7 +47,7 @@ export const OverflowButton = React.forwardRef<
       }}
       placement={placement}
       onVisibleChange={(newVisible) => {
-        context?.setPopoverOpen(newVisible);
+        setPopoverOpen(newVisible);
       }}
     >
       <IconButton

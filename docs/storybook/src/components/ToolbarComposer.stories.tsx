@@ -11,6 +11,7 @@ import {
 import {
   CommandItemDef,
   ToolItemDef,
+  ToolbarActionItem,
   ToolbarComposer,
   ToolbarHelper,
   ToolbarItemUtilities,
@@ -35,6 +36,7 @@ import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
+import { enumArgType } from "../Utils";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -44,6 +46,10 @@ const meta = {
   args: {
     orientation: ToolbarOrientation.Horizontal,
     usage: ToolbarUsage.ContentManipulation,
+  },
+  argTypes: {
+    orientation: enumArgType(ToolbarOrientation),
+    usage: enumArgType(ToolbarUsage),
   },
   parameters: {
     layout: "centered",
@@ -380,6 +386,61 @@ export const GroupIcons: Story = {
   },
 };
 
+const separatorItems = createItemFactory();
+
+export const Separators: Story = {
+  args: {
+    items: (() => {
+      let groupPriority = 0;
+      return [
+        // All items of first group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+        // Single item in a group
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        // Single item in a group
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        // Multiple items in a group
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        separatorItems.createActionItem({
+          groupPriority: groupPriority,
+        }),
+        // All items in a group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+        // Last item of a group is hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+        }),
+        separatorItems.createActionItem({
+          groupPriority: groupPriority,
+          isHidden: true,
+        }),
+        // All items in a group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+        // All items of last group are hidden
+        separatorItems.createActionItem({
+          groupPriority: ++groupPriority,
+          isHidden: true,
+        }),
+      ];
+    })(),
+  },
+};
+
 function createAbstractReactIcon() {
   const internalData = new Map();
   const icon = IconHelper.getIconData(<SvgExport />, internalData);
@@ -398,6 +459,27 @@ function createAbstractConditionalIcon() {
   return {
     internalData,
     icon,
+  };
+}
+
+function createItemFactory() {
+  let i = 0;
+  function createActionItem(
+    overrides?: Omit<Partial<ToolbarActionItem>, "icon">
+  ) {
+    const id = `item${++i}`;
+    const label = `Item ${i}`;
+    return ToolbarItemUtilities.createActionItem({
+      id,
+      label,
+      icon: <SvgPlaceholder />,
+      execute: () => action(label)(),
+      ...overrides,
+    });
+  }
+
+  return {
+    createActionItem,
   };
 }
 

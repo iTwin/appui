@@ -14,9 +14,9 @@ import { Item } from "./Item.js";
 import { GroupMenuItem, usePopoverPlacement } from "./GroupItem.js";
 import { ToolGroupOverflowContext } from "./OverflowButton.js";
 import { ToolbarContext } from "./Toolbar.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
-/** @internal */
-export interface CustomItemProps {
+interface CustomItemProps {
   item: ToolbarCustomItem;
 }
 
@@ -24,7 +24,7 @@ export interface CustomItemProps {
 export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
   function CustomItem({ item }, ref) {
     const placement = usePopoverPlacement();
-    const context = React.useContext(ToolbarContext);
+    const { setPopoverOpen } = useSafeContext(ToolbarContext);
     const overflowContext = React.useContext(ToolGroupOverflowContext);
 
     if (overflowContext) {
@@ -39,7 +39,7 @@ export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
         }}
         placement={placement}
         onVisibleChange={(newVisible) => {
-          context?.setPopoverOpen(newVisible);
+          setPopoverOpen(newVisible);
         }}
       >
         <Item ref={ref} item={item}>

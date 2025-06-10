@@ -10,14 +10,12 @@ import "./ToolGroup.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import { ActionItem } from "./ActionItem.js";
-import { GroupItem } from "./GroupItem.js";
-import { CustomItem } from "./CustomItem.js";
 import { OverflowButton } from "./OverflowButton.js";
 import { useOverflow } from "./useOverflow.js";
 import { getChildKey } from "../../layout/tool-settings/Docked.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { Surface } from "./Surface.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 interface ToolGroupProps extends CommonProps {
@@ -28,10 +26,7 @@ type Child = ReturnType<typeof React.Children.toArray>[0];
 
 /** @internal */
 export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
-  const context = React.useContext(ToolbarContext);
-  const expandsTo = context?.expandsTo ?? "bottom";
-  const panelAlignment = context?.panelAlignment ?? "start";
-  const orientation = getOrientation(expandsTo);
+  const { panelAlignment, orientation } = useSafeContext(ToolbarContext);
   const childrenArray = React.Children.toArray(children);
 
   const keyToChildMap = childrenArray.reduce<Map<string, Child>>(
@@ -49,7 +44,16 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
   const getItemSize = React.useCallback((item: string) => {
     const element = itemRefs.current.get(item);
     if (!element) return { width: 0, height: 0 };
-    return element.getBoundingClientRect();
+
+    const elementSize = element.getBoundingClientRect();
+
+    const separatorSize = getSeparatorSize(element);
+    if (!separatorSize) return elementSize;
+
+    return {
+      width: elementSize.width + separatorSize.width,
+      height: elementSize.height + separatorSize.height,
+    };
   }, []);
   const getOverflowSize = React.useCallback(() => {
     const element = overflowRef.current;
@@ -97,21 +101,47 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
   );
 }
 
-ToolGroup.ActionItem = ActionItem;
-ToolGroup.GroupItem = GroupItem;
-ToolGroup.CustomItem = CustomItem;
+// First item in the group reserves space for the separator to correctly calculate the overflow.
+function getSeparatorSize(toolbarItem: Element) {
+  const firstInGroup = isFirstInGroup(toolbarItem);
+  if (!firstInGroup) return undefined;
 
-type ToolbarContextProps = React.ContextType<typeof ToolbarContext>;
+  // Last group does not have a separator.
+  if (isLastGroup(toolbarItem)) return undefined;
 
-function getOrientation(
-  expandsTo: NonNullable<ToolbarContextProps>["expandsTo"]
-) {
-  switch (expandsTo) {
-    case "left":
-    case "right":
-      return "vertical";
-    case "top":
-    case "bottom":
-      return "horizontal";
+  const separator = getSeparator(toolbarItem);
+  if (!separator) return undefined;
+
+  return separator.getBoundingClientRect();
+}
+
+// Returns if the toolbar item is the first in its group.
+function isFirstInGroup(toolbarItem: Element) {
+  const prev = toolbarItem.previousElementSibling;
+  if (prev?.tagName === "BUTTON") return false;
+  return true;
+}
+
+// Returns if the toolbar item is in the last group of the toolbar.
+function isLastGroup(toolbarItem: Element) {
+  let el = toolbarItem.nextElementSibling;
+  while (el) {
+    if (el.tagName === "BUTTON" && el.hasAttribute("data-item-id")) {
+      return false;
+    }
+    el = el.nextElementSibling;
   }
+  return true;
+}
+
+// Returns the first separator element after the toolbar item, if it exists.
+function getSeparator(toolbarItem: Element) {
+  let el = toolbarItem.nextElementSibling;
+  while (el) {
+    if (el.classList.contains("uifw-toolbar-newToolbars-separator")) {
+      return el;
+    }
+    el = el.nextElementSibling;
+  }
+  return undefined;
 }
