@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { action } from "@storybook/addon-actions";
 import { RadialButton, RadialMenu } from "@itwin/core-react";
 import { Svg2D, Svg3D, SvgActivity } from "@itwin/itwinui-icons-react";

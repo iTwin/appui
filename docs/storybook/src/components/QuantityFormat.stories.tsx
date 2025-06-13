@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { QuantityType } from "@itwin/core-frontend";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { enumArgType } from "../Utils";

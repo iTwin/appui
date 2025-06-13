@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { TimelineComponent } from "@itwin/imodel-components-react-internal/src/imodel-components-react/timeline/TimelineComponent";
 import { action } from "@storybook/addon-actions";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 
 const AlignComponent: Decorator = (Story) => {

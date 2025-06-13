@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import { CommandItemDef, UiFramework } from "@itwin/appui-react";
 import { action } from "@storybook/addon-actions";
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { KeyboardShortcutsStory } from "./KeyboardShortcuts";

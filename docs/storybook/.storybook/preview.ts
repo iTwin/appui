@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { withDemoIModel, demoIModelGlobalType } from "./addons/DemoIModel";
 import { resizerGlobalType } from "./addons/Resizer";
 import { themeBridgeGlobalType, withThemeBridge } from "./addons/ThemeBridge";

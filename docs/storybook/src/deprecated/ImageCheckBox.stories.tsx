@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../Decorators";
 import { ImageCheckBox } from "@itwin/core-react-internal/src/core-react/imagecheckbox/ImageCheckBox";
 import { Svg2D, Svg3D } from "@itwin/itwinui-icons-react";
