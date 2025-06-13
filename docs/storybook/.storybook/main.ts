@@ -19,6 +19,6 @@ const config: StorybookConfig = {
     // This prevents component name mangling in stories.
     config.build.minify = false;
     return config;
-  }
+  },
 };
 export default config;
