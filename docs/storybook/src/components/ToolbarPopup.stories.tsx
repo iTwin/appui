@@ -13,7 +13,7 @@ import {
   SvgSaveSettings,
   SvgSaveUpdate,
 } from "@itwin/itwinui-icons-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 const meta = {
   title: "Components/ToolbarPopup",

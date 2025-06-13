@@ -11,7 +11,7 @@ import {
   StatusBarItemUtilities,
   StatusBarSection,
 } from "@itwin/appui-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import {
   Svg2D,
   Svg3D,

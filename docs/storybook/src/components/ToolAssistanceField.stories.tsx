@@ -19,7 +19,7 @@ import { AppUiStory } from "src/AppUiStory";
 import { createFrontstage } from "src/Utils";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { BeEvent } from "@itwin/core-bentley";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 const StoryDecorator: Decorator = (Story, { parameters }) => {
   return (

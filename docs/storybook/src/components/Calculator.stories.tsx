@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Calculator } from "@itwin/appui-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {

@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   ConditionalBooleanValue,

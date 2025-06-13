@@ -15,7 +15,7 @@ import {
   DialogPropertySyncItem,
   PropertyDescriptionHelper,
 } from "@itwin/appui-abstract";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 const meta = {
   title: "PreviewFeatures/ToolSettingsKeyPressCommit",

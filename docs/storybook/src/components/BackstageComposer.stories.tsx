@@ -9,7 +9,7 @@ import {
   UiFramework,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { AppUiStory } from "../AppUiStory";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 

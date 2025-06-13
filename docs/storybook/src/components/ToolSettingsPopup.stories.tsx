@@ -18,7 +18,7 @@ import {
 } from "@itwin/appui-abstract";
 import { UiFramework } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { useRef } from "react";
 
 class TestUiDataProvider extends DialogLayoutDataProvider {
