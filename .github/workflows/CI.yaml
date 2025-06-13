@@ -135,6 +135,9 @@ jobs:
       image: mcr.microsoft.com/playwright:v1.46.1-jammy
     strategy:
       fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
 
     steps:
       - uses: actions/checkout@v4
@@ -148,6 +151,6 @@ jobs:
         env:
           IMJS_TESTS: 1
 
-      - run: pnpm --filter=e2e-tests exec playwright test
+      - run: pnpm --filter=e2e-tests exec playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
         env:
           HOME: /root
