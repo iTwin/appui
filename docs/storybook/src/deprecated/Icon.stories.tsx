@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import placeholderSvg from "../../assets/placeholder.svg";
 import { useConditionalProp } from "@itwin/appui-react-internal/lib/appui-react/hooks/useConditionalProp";
 import { ImageRenderer } from "@itwin/components-react-internal/src/components-react/common/ImageRenderer";

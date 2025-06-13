@@ -3,8 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { CommandItemDef, UiFramework } from "@itwin/appui-react";
-import { action } from "@storybook/addon-actions";
-import type { Meta, StoryObj } from "@storybook/react";
+import { action } from "storybook/actions";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { KeyboardShortcutsStory } from "./KeyboardShortcuts";

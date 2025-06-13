@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { PreviewStory } from "./ToolSettingsKeyPressCommit";
@@ -15,7 +15,7 @@ import {
   DialogPropertySyncItem,
   PropertyDescriptionHelper,
 } from "@itwin/appui-abstract";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 const meta = {
   title: "PreviewFeatures/ToolSettingsKeyPressCommit",

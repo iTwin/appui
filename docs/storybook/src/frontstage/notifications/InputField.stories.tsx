@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiStory } from "../../AppUiStory";
 import { MessageManager } from "@itwin/appui-react";
 import { createFrontstage } from "../../Utils";

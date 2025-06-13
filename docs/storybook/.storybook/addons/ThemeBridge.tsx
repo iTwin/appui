@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import type { Decorator } from "@storybook/react";
+import type { Decorator } from "@storybook/react-vite";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { Root } from "@stratakit/foundations";
 

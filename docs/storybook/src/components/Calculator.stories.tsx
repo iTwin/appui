@@ -2,9 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Calculator } from "@itwin/appui-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { AppUiDecorator } from "../Decorators";
 
 const meta = {

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { StagePanelState, UiItemsProvider, Widget } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage, createWidget } from "../Utils";

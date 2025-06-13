@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CardPopupStory } from "./CardPopup";
 import { ToolbarItemUtilities } from "@itwin/appui-react";
 import {
@@ -14,7 +14,7 @@ import {
   SvgSaveSettings,
   SvgSaveUpdate,
 } from "@itwin/itwinui-icons-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 const meta = {
   title: "Components/CardPopup",

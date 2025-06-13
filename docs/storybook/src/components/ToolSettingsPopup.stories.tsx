@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { InitializerDecorator } from "../Decorators";
 import {
   DialogItem,
@@ -18,7 +18,7 @@ import {
 } from "@itwin/appui-abstract";
 import { UiFramework } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import { useRef } from "react";
 
 class TestUiDataProvider extends DialogLayoutDataProvider {

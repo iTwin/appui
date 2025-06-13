@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { AccuDrawWidget, FrameworkAccuDraw } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage } from "../Utils";

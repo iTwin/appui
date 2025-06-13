@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import {
   MessageManager,
   StatusBarItemUtilities,
@@ -19,7 +19,7 @@ import { AppUiStory } from "src/AppUiStory";
 import { createFrontstage } from "src/Utils";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { BeEvent } from "@itwin/core-bentley";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 
 const StoryDecorator: Decorator = (Story, { parameters }) => {
   return (

@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { action } from "@storybook/addon-actions";
-import type { Meta, StoryObj } from "@storybook/react";
+import { action } from "storybook/actions";
+import type { Meta, StoryObj } from "@storybook/react-vite";
 import { BackstageAppButton } from "@itwin/appui-react";
 import { SvgBentleySystems } from "@itwin/itwinui-icons-react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";

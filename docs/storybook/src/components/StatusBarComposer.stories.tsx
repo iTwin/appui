@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { Decorator, Meta, StoryObj } from "@storybook/react";
+import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../Decorators";
 import {
   MessageCenterField,
@@ -11,7 +11,7 @@ import {
   StatusBarItemUtilities,
   StatusBarSection,
 } from "@itwin/appui-react";
-import { action } from "@storybook/addon-actions";
+import { action } from "storybook/actions";
 import {
   Svg2D,
   Svg3D,
