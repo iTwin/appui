@@ -36,6 +36,8 @@ catalog:
   "@bentley/icons-generic-webfont": ^1.0.34
   # Other packages
   zustand: ^4.4.1
+  # Testing
+  vitest: ^3.0.6
 
 onlyBuiltDependencies:
   - "@bentley/imodeljs-native"
