@@ -15,7 +15,7 @@
     "cover": "",
     "docs": "",
     "lint": "",
-    "test": "jest"
+    "test": "vitest"
   },
   "keywords": [
     "appui",

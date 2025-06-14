@@ -2,11 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { defineTest } from "jscodeshift/src/testUtils";
-import { defaultOptions } from "../../utils/TestUtils";
+import { createDefineInlineTest } from "../../utils/TestUtils";
+import transformer from "../layout-react";
+
+import input from "../__testfixtures__/layout-react.input?raw";
+import output from "../__testfixtures__/layout-react.output?raw";
+
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("layout-react", () => {
-  defineTest(__dirname, "./layout-react", defaultOptions, "layout-react", {
-    parser: "tsx",
-  });
+  defineInlineTest(input, output, "transforms correctly");
 });

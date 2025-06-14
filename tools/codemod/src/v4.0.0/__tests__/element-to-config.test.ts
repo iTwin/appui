@@ -2,34 +2,32 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { defineTest } from "jscodeshift/src/testUtils";
-import { defaultOptions, createDefineInlineTest } from "../../utils/TestUtils";
+import { createDefineInlineTest } from "../../utils/TestUtils";
 import transformer from "../element-to-config";
+
+import frontstageInput from "../__testfixtures__/element-to-config/Frontstage.input?raw";
+import frontstageOutput from "../__testfixtures__/element-to-config/Frontstage.output?raw";
+
+import panelInput from "../__testfixtures__/element-to-config/FrontstageStagePanel.input?raw";
+import panelOutput from "../__testfixtures__/element-to-config/FrontstageStagePanel.output?raw";
+
+import fullInput from "../__testfixtures__/element-to-config/Full.input?raw";
+import fullOutput from "../__testfixtures__/element-to-config/Full.output?raw";
 
 const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("frontstage-to-config", () => {
-  defineTest(
-    __dirname,
-    "./element-to-config",
-    defaultOptions,
-    "element-to-config/Frontstage",
-    { parser: "tsx" }
+  defineInlineTest(
+    frontstageInput,
+    frontstageOutput,
+    "transforms Frontstage fixture correctly"
   );
-  defineTest(
-    __dirname,
-    "./element-to-config",
-    defaultOptions,
-    "element-to-config/FrontstageStagePanel",
-    { parser: "tsx" }
+  defineInlineTest(
+    panelInput,
+    panelOutput,
+    "transforms FrontstageStagePanel correctly"
   );
-  defineTest(
-    __dirname,
-    "./element-to-config",
-    defaultOptions,
-    "element-to-config/Full",
-    { parser: "tsx" }
-  );
+  defineInlineTest(fullInput, fullOutput, "transforms Full correctly");
 
   describe("panel transformations", () => {
     defineInlineTest(
