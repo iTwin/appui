@@ -22,8 +22,6 @@
     "start:backend": "node --max-http-header-size=16000 lib/backend/main.js",
     "pseudolocalize": "npm run copy:locales && betools pseudolocalize --englishDir ./lib/locales/en --out ./lib/locales/en-PSEUDO",
     "docs:extract": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract",
-    "test": "",
-    "cover": "",
     "docs": "npm run docs:extract",
     "copy:locales": "copyfiles -f ./node_modules/@itwin/*/lib/public/locales/en/*.json ./public/locales/en/*.json ./lib/locales/en",
     "copy:webfont": "copyfiles -f ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont"
