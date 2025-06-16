@@ -88,8 +88,9 @@ export function ContentWrapper(props: ContentWrapperProps) {
           (activeFrontstageDef &&
             // eslint-disable-next-line @typescript-eslint/no-deprecated
             !!activeFrontstageDef.floatingContentControls?.length) ||
-            (activeFrontstageDef?.contentGroup?.contentPropsList.length ?? 0) >
-              1
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            (activeFrontstageDef?.contentGroup?.getContentControls().length ??
+              0) > 1
         );
       }
     );
