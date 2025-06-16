@@ -619,6 +619,9 @@ importers:
       postcss-value-parser:
         specifier: ~4.2.0
         version: 4.2.0
+      ts-node:
+        specifier: ^10.8.2
+        version: 10.9.2(@swc/core@1.11.21(@swc/helpers@0.5.17))(@types/node@20.17.8)(typescript@5.6.3)
       typescript:
         specifier: ~5.6.2
         version: 5.6.3
