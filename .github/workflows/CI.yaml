@@ -102,9 +102,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # os: [ubuntu-latest, windows-latest, macos-latest]
-        os: [macos-latest]
-    runs-on: ${{ matrix.os }}
+        shardIndex: [1, 2, 3]
+        shardTotal: [3]
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -120,12 +120,7 @@ jobs:
 
       - run: pnpm install
       - run: pnpm build
-      - run: pnpm cover
-
-      - name: Run codemod tests
-        run: npm run test
-        working-directory: tools/codemod
-        if: matrix.os == 'macos-latest'
+      - run: pnpm test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
 
   e2e:
     name: Run e2e tests

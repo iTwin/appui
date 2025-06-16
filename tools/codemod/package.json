@@ -11,10 +11,6 @@
   },
   "scripts": {
     "build": "tsc",
-    "clean": "",
-    "cover": "",
-    "docs": "",
-    "lint": "",
     "test": "vitest"
   },
   "keywords": [

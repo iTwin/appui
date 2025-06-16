@@ -8,11 +8,7 @@
     "start": "npm run copy:webfont && storybook dev -p 3000",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "copy:webfont": "cpx ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont",
-    "build": "",
-    "clean": "",
-    "cover": "",
-    "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
-    "test": ""
+    "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract"
   },
   "dependencies": {
     "@bentley/icons-generic": "catalog:",

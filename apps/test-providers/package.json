@@ -15,10 +15,8 @@
     "copy:css": "cpx \"./src/**/*.{*css,json,svg}\" ./lib",
     "copy:locale": "cpx \"./public/**/*\" ./lib/public",
     "clean": "rimraf -g lib",
-    "cover": "",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
-    "test": ""
+    "lint": "eslint \"./src/**/*.{ts,tsx}\""
   },
   "keywords": [
     "iModel",
