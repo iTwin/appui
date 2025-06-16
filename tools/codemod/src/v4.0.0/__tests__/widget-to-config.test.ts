@@ -2,17 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { defineTest } from "jscodeshift/src/testUtils";
-import { defaultOptions } from "../../utils/TestUtils";
+import { createDefineInlineTest } from "../../utils/TestUtils";
+import transformer from "../widget-to-config";
+
+import input from "../__testfixtures__/widget-to-config/Widget.input?raw";
+import output from "../__testfixtures__/widget-to-config/Widget.output?raw";
+
+const defineInlineTest = createDefineInlineTest(transformer);
 
 describe("widget-to-config", () => {
-  defineTest(
-    __dirname,
-    "./widget-to-config",
-    defaultOptions,
-    "widget-to-config/Widget",
-    {
-      parser: "tsx",
-    }
-  );
+  defineInlineTest(input, output, "transforms correctly");
 });
