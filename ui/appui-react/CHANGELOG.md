@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.9.1
+
+### Patch Changes
+
+- 8dc0f72: Fix active strip edge case with single vs multiple viewports
+  - @itwin/components-react@5.9.1
+  - @itwin/core-react@5.9.1
+  - @itwin/imodel-components-react@5.9.1
+
 ## 5.9.0
 
 ### Minor Changes
