@@ -1,5 +1,7 @@
 # Change Log - @itwin/core-react
 
+## 5.9.1
+
 ## 5.9.0
 
 ## 5.8.0
