@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { expect, it } from "vitest";
 import type { Collection, JSCodeshift, Transform } from "jscodeshift";
 import { applyTransform, defineInlineTest } from "jscodeshift/src/testUtils";
 import postcss from "postcss";
