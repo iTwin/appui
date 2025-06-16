@@ -63,14 +63,16 @@ describe("useActiveToolIdSynchedItems", () => {
 
     expect(result.current).toEqual(first);
   });
+
   it("Should support nested items", () => {
     const items = [
       {
         id: "Grp1",
         items: [
-          { id: "Btn1" },
+          { id: "Btn1", isActive: undefined },
           {
             id: "Grp2",
+            isActive: undefined,
             items: [{ id: "Btn2", isActive: false }],
           },
         ],
@@ -88,8 +90,26 @@ describe("useActiveToolIdSynchedItems", () => {
     act(() => {
       syncHost.onToolActivatedEvent.emit({ toolId: "Btn2" });
     });
-    expect(result.current[1].isActive).toEqual(false);
-    expect(result.current[0].items?.[1].items?.[0].isActive).toEqual(true);
+
+    const group1 = result.current[0];
+    expect(group1.id).toEqual("Grp1");
+    expect(group1.isActive).toEqual(true);
+
+    const button1 = group1.items![0];
+    expect(button1.id).toEqual("Btn1");
+    expect(button1.isActive).toEqual(false);
+
+    const group2 = group1.items![1];
+    expect(group2.id).toEqual("Grp2");
+    expect(group2.isActive).toEqual(true);
+
+    const button2 = group2.items![0];
+    expect(button2.id).toEqual("Btn2");
+    expect(button2.isActive).toEqual(true);
+
+    const button3 = result.current[1];
+    expect(button3.id).toEqual("Btn3");
+    expect(button3.isActive).toEqual(false);
   });
 
   it("Should properly unregister from onToolActivatedEvent", () => {

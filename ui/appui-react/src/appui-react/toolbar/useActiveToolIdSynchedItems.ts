@@ -4,61 +4,48 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import type { BeEvent } from "@itwin/core-bentley";
+import { produce } from "immer";
 
-type ActiveToolIdSynchedItem<T> =
-  | { id: string; isActive?: boolean }
-  | { id: string; items: T[] };
+interface Item {
+  id: string;
+  isActive?: boolean;
+}
+
+type ActiveToolIdSynchedItem<T> = Item | (Item & { items: T[] });
 
 interface ActiveToolIdSynchedHost {
   activeToolId: string;
   onToolActivatedEvent: BeEvent<(args: { toolId: string }) => void>;
 }
 
-/**
- * Recursively checks if the item with the current id of "toolId" is
- * the only active tool.
- * @param items list of items to validate
- * @param toolId toolId to check
- * @returns true if any item "isActive" must change.
- */
-function mustRefresh<T extends ActiveToolIdSynchedItem<T>>(
-  items: readonly T[],
+function updateActiveItems<T extends ActiveToolIdSynchedItem<T>>(
+  items: T[],
   toolId: string
-): boolean {
-  return items.some((item) => {
-    if ("items" in item) {
-      return mustRefresh(item.items, toolId);
-    }
-    return (
-      (item.isActive && item.id !== toolId) ||
-      (!item.isActive && item.id === toolId)
-    );
-  });
-}
+) {
+  return produce(items, (draft) => {
+    // Iterative DFS with ancestor backtracking.
+    const stack = draft.map((item) => [item, [] as typeof draft] as const);
 
-/**
- * Recursively updates the isActive for the tools and only activate
- * the one with the id equal to toolId.
- * @param items list of items to update
- * @param toolId toolId to check
- * @returns updated list of items
- */
-function refreshItems<T extends ActiveToolIdSynchedItem<T>>(
-  items: readonly T[],
-  toolId: string
-): T[] {
-  return items.map((item) =>
-    "items" in item
-      ? {
-          ...item,
-          isActive: item.id === toolId,
-          items: refreshItems(item.items, toolId),
+    while (stack.length > 0) {
+      const [current, ancestors] = stack.pop()!;
+
+      const isActive = current.id === toolId;
+      current.isActive = isActive;
+
+      if ("items" in current) {
+        for (const child of current.items) {
+          stack.push([child, [...ancestors, current]]);
         }
-      : {
-          ...item,
-          isActive: item.id === toolId,
-        }
-  );
+      }
+
+      if (!isActive) continue;
+
+      // Mark ancestors of active item as active.
+      for (const ancestor of ancestors) {
+        ancestor.isActive = true;
+      }
+    }
+  });
 }
 
 /**
@@ -71,16 +58,14 @@ function refreshItems<T extends ActiveToolIdSynchedItem<T>>(
  */
 export function useActiveToolIdSynchedItems<
   T extends ActiveToolIdSynchedItem<T>
->(itemsToSynch: readonly T[], syncHost: ActiveToolIdSynchedHost): T[] {
+>(itemsToSynch: T[], syncHost: ActiveToolIdSynchedHost): T[] {
   const [items, setItems] = React.useState<T[]>(() =>
-    refreshItems(itemsToSynch, syncHost.activeToolId)
+    updateActiveItems(itemsToSynch, syncHost.activeToolId)
   );
   React.useEffect(() => {
-    setItems(refreshItems(itemsToSynch, syncHost.activeToolId));
+    setItems(updateActiveItems(itemsToSynch, syncHost.activeToolId));
     return syncHost.onToolActivatedEvent.addListener(({ toolId }) => {
-      setItems((current) =>
-        mustRefresh(current, toolId) ? refreshItems(current, toolId) : current
-      );
+      setItems((current) => updateActiveItems(current, toolId));
     });
   }, [itemsToSynch, syncHost.activeToolId, syncHost.onToolActivatedEvent]);
   return items;
