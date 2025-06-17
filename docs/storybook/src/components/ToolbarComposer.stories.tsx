@@ -12,7 +12,7 @@ import {
   CommandItemDef,
   ToolItemDef,
   ToolbarActionItem,
-  ToolbarComposer,
+  ToolbarGroupItem,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -37,10 +37,11 @@ import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
 import { enumArgType } from "../Utils";
+import { ToolbarComposerStory } from "./ToolbarComposer";
 
 const meta = {
   title: "Components/ToolbarComposer",
-  component: ToolbarComposer,
+  component: ToolbarComposerStory,
   tags: ["autodocs"],
   decorators: [withResizer, AppUiDecorator, InitializerDecorator],
   args: {
@@ -54,7 +55,7 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof ToolbarComposer>;
+} satisfies Meta<typeof ToolbarComposerStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -386,56 +387,82 @@ export const GroupIcons: Story = {
   },
 };
 
-const separatorItems = createItemFactory();
-
 export const Separators: Story = {
   args: {
     items: (() => {
+      const factory = createItemFactory();
       let groupPriority = 0;
       return [
         // All items of first group are hidden
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
           isHidden: true,
         }),
         // Single item in a group
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
         }),
         // Single item in a group
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
         }),
         // Multiple items in a group
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
         }),
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: groupPriority,
         }),
         // All items in a group are hidden
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
           isHidden: true,
         }),
         // Last item of a group is hidden
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
         }),
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: groupPriority,
           isHidden: true,
         }),
         // All items in a group are hidden
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
           isHidden: true,
         }),
         // All items of last group are hidden
-        separatorItems.createActionItem({
+        factory.createActionItem({
           groupPriority: ++groupPriority,
           isHidden: true,
         }),
+      ];
+    })(),
+  },
+};
+
+export const ActiveItems: Story = {
+  args: {
+    activeToolId: "item3",
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem(),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem(),
+            factory.createGroupItem({
+              items: [
+                factory.createActionItem(),
+                factory.createGroupItem({
+                  items: [factory.createActionItem()],
+                }),
+              ],
+            }),
+            factory.createActionItem(),
+          ],
+        }),
+        factory.createActionItem(),
       ];
     })(),
   },
@@ -478,8 +505,22 @@ function createItemFactory() {
     });
   }
 
+  function createGroupItem(
+    overrides?: Omit<Partial<ToolbarGroupItem>, "icon">
+  ) {
+    const id = `group${++i}`;
+    const label = `Group ${i}`;
+    return ToolbarItemUtilities.createGroupItem({
+      id,
+      label,
+      icon: <SvgPlaceholder />,
+      ...overrides,
+    });
+  }
+
   return {
     createActionItem,
+    createGroupItem,
   };
 }
 
