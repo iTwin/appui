@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.10.0
+
+### Minor Changes
+
+- bdfb8fe: Updated `ToolbarComposer` component to highlight group items that contain an active toolbar item.
+
+### Patch Changes
+
+- @itwin/components-react@5.10.0
+- @itwin/core-react@5.10.0
+- @itwin/imodel-components-react@5.10.0
+
 ## 5.9.1
 
 ### Patch Changes
