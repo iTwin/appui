@@ -68,6 +68,7 @@ import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.j
 import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings.js";
 import type { UiStateStorageResult } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
+import { useLatestRef } from "../hooks/useLatestRef.js";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -590,7 +591,7 @@ type ConfigurableUiContextArgs = React.ContextType<
 >;
 
 interface InitializeNineZoneStateArgs {
-  toolSettings: ConfigurableUiContextArgs["toolSettings"];
+  toolSettings?: ConfigurableUiContextArgs["toolSettings"];
 }
 
 /** @internal */
@@ -744,14 +745,9 @@ export interface WidgetPanelsFrontstageState {
 export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
   const configurableUi = React.useContext(ConfigurableUiContext);
   const uiStateStorage = useUiStateStorageHandler();
-  const configurableUiRef = React.useRef(configurableUi);
-  const uiStateStorageRef = React.useRef(uiStateStorage);
-  React.useEffect(() => {
-    uiStateStorageRef.current = uiStateStorage;
-  }, [uiStateStorage]);
-  React.useEffect(() => {
-    configurableUiRef.current = configurableUi;
-  }, [configurableUi]);
+
+  const configurableUiRef = useLatestRef(configurableUi);
+  const uiStateStorageRef = useLatestRef(uiStateStorage);
   React.useEffect(() => {
     let didCancel = false;
     async function fetchFrontstageState() {
@@ -781,14 +777,14 @@ export function useSavedFrontstageState(frontstageDef: FrontstageDef) {
         }
       }
       initializeNineZoneState(frontstageDef, {
-        toolSettings: configurableUiRef.current?.toolSettings,
+        toolSettings: configurableUiRef.current.toolSettings,
       });
     }
     void fetchFrontstageState();
     return () => {
       didCancel = true;
     };
-  }, [frontstageDef]);
+  }, [frontstageDef, configurableUiRef, uiStateStorageRef]);
 }
 
 /** @internal */
@@ -806,15 +802,19 @@ export function useFrontstageManager(
   frontstageDef: FrontstageDef,
   useToolAsToolSettingsLabel?: boolean
 ) {
+  const configurableUi = React.useContext(ConfigurableUiContext);
+  const configurableUiRef = useLatestRef(configurableUi);
   const { translate } = useTranslation();
   React.useEffect(() => {
     return InternalFrontstageManager.onFrontstageRestoreLayoutEvent.addListener(
       (args) => {
         if (frontstageDef.id !== args.frontstageDef.id) return;
-        initializeNineZoneState(frontstageDef);
+        initializeNineZoneState(frontstageDef, {
+          toolSettings: configurableUiRef.current.toolSettings,
+        });
       }
     );
-  }, [frontstageDef]);
+  }, [frontstageDef, configurableUiRef]);
 
   const defaultLabel = translate("widget.labels.toolSettings");
 
