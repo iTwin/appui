@@ -45,10 +45,12 @@ export const createTestWidgetFrontstage = () => {
   }
 };
 
-function getFrontstageParams(params: URLSearchParams) {
+export function getFrontstageParams(params: URLSearchParams) {
   const versionParam = params.get("frontstageVersion");
   const version = versionParam ? Number(versionParam) : undefined;
-  return { version } satisfies Partial<Frontstage>;
+  return {
+    ...(version ? { version } : undefined),
+  } satisfies Partial<Frontstage>;
 }
 
 function getDefaultState(params: URLSearchParams): Widget["defaultState"] {

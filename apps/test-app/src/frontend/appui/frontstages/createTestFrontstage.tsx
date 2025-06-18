@@ -41,9 +41,9 @@ export const createTestFrontstage = (
     });
 
     return {
-      version: Math.random(),
       contentGroup,
       ...frontstageArgs,
+      version: frontstageArgs.version ?? Math.random(),
     } satisfies Frontstage;
   }
 };

@@ -76,6 +76,12 @@ export function panelLocator(args: PanelLocatorArgs) {
   return args.page.locator(`.nz-widgetPanels-panel.nz-${args.side}`);
 }
 
+export function panelTargetLocator(args: { page: Page; side: PanelSide }) {
+  return args.page.locator(
+    `.nz-target-targetContainer.nz-${args.side} .nz-target-panelTarget`
+  );
+}
+
 export function titleBarHandleLocator(widget: Locator) {
   return widget.locator(".nz-handle");
 }

@@ -4,8 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 import { expect, test } from "@playwright/test";
 import {
+  dragTab,
   expectSavedFrontstageState,
+  expectTabInPanelSection,
   frontstageLocator,
+  panelLocator,
+  panelTargetLocator,
+  runKeyin,
   setWidgetState,
   tabLocator,
   toolbarItemLocator,
@@ -229,4 +234,19 @@ test.describe("tool settings", () => {
     await expect(widgetToolSettings).not.toBeVisible();
     await expect(finalStateField).toBeVisible();
   });
+});
+
+test("should respect default location when restoring the layout", async ({
+  page,
+}) => {
+  await page.goto("./blank?frontstageId=test-tool-settings&location=right");
+  const tab = tabLocator(page, "Tool Settings");
+  await expectTabInPanelSection(tab, "right", 0);
+
+  const panelTarget = panelTargetLocator({ page, side: "left" });
+  await dragTab(tab, panelTarget);
+  await expectTabInPanelSection(tab, "left", 0);
+
+  await runKeyin(page, "restore frontstage layout");
+  await expectTabInPanelSection(tab, "right", 0);
 });
