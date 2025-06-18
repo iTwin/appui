@@ -9,6 +9,7 @@ import {
   StandardLayout,
 } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
+import { getFrontstageParams } from "./TestWidgetFrontstage";
 
 type StandardLayoutProps = React.ComponentProps<typeof StandardLayout>;
 
@@ -16,11 +17,11 @@ type StandardLayoutProps = React.ComponentProps<typeof StandardLayout>;
 export const createTestToolSettingsFrontstage = () => {
   {
     const urlParams = new URLSearchParams(window.location.search);
+    const frontstageParams = getFrontstageParams(urlParams);
     const defaultLocation = getDefaultLocation(urlParams);
 
     const frontstage = createTestFrontstage({
       id: "test-tool-settings",
-      version: Math.random(),
       layout: (
         <StandardLayout
           toolSettings={{
@@ -31,6 +32,7 @@ export const createTestToolSettingsFrontstage = () => {
       toolSettings: {
         id: "toolSettings",
       },
+      ...frontstageParams,
     });
 
     return frontstage;
@@ -42,13 +44,17 @@ function getDefaultLocation(
 ): Required<StandardLayoutProps>["toolSettings"]["defaultLocation"] {
   const locationParam = params.get("location");
   const location = toStagePanelLocation(locationParam ?? "");
-  const section = params.get("section");
-  if (!location || !section) {
+  if (!location) {
     return undefined;
   }
+
+  const sectionParam = params.get("section");
+  const section = sectionParam
+    ? (Number(sectionParam) as StagePanelSection)
+    : undefined;
   return {
     location,
-    section: Number(section) as StagePanelSection,
+    section: section ?? StagePanelSection.Start,
   };
 }
 
