@@ -11,56 +11,78 @@ import {
 } from "../../appui-react.js";
 import { createBlankConnection } from "../TestUtils.js";
 
-describe("useActiveIModelConnection", () => {
-  it("should render", () => {
-    const { result } = renderHook(() => useActiveIModelConnection());
-    expect(result.current).toBeUndefined();
-    expect(UiFramework.getIModelConnection()).toEqual(undefined);
-    expect(
-      UiFramework.frameworkState?.sessionState.iModelConnection
-    ).toBeUndefined();
+it("useActiveIModelConnection", () => {
+  expect(UiFramework.frameworkState).toBeDefined();
 
-    const initEventStub = vi.spyOn(
-      SyncUiEventDispatcher,
-      "initializeConnectionEvents"
-    );
-    const clearEventStub = vi.spyOn(
-      SyncUiEventDispatcher,
-      "clearConnectionEvents"
-    );
+  const { result } = renderHook(() => useActiveIModelConnection());
+  expect(result.current).toBeUndefined();
+  expect(UiFramework.getIModelConnection()).toBeUndefined();
+  expect(
+    UiFramework.frameworkState?.sessionState.iModelConnection
+  ).toBeUndefined();
 
-    const newConnection = createBlankConnection({ name: "new" });
+  const initEventStub = vi.spyOn(
+    SyncUiEventDispatcher,
+    "initializeConnectionEvents"
+  );
+  const clearEventStub = vi.spyOn(
+    SyncUiEventDispatcher,
+    "clearConnectionEvents"
+  );
 
-    // should trigger dispatch action
-    act(() => {
-      UiFramework.setIModelConnection(newConnection, true);
-    });
-    expect(result.current?.name).toEqual("new");
-    expect(
-      UiFramework.frameworkState?.sessionState.iModelConnection?.name
-    ).toEqual("new");
-    expect(UiFramework.getIModelConnection()?.name).toEqual("new");
-    expect(initEventStub).toHaveBeenCalled();
-    expect(clearEventStub).not.toBeCalled();
-    initEventStub.mockReset();
+  const newConnection = createBlankConnection({ name: "new" });
 
-    // already set, so should not trigger dispatch action
-    act(() => {
-      UiFramework.setIModelConnection(newConnection, true);
-    });
-    expect(initEventStub).not.toBeCalled();
-    expect(clearEventStub).not.toBeCalled();
-
-    // should trigger clearing action
-    act(() => {
-      UiFramework.setIModelConnection(undefined, true);
-    });
-    expect(result.current).toBeUndefined();
-    expect(UiFramework.getIModelConnection()).toEqual(undefined);
-    expect(
-      UiFramework.frameworkState?.sessionState.iModelConnection
-    ).toBeUndefined();
-    expect(clearEventStub).toHaveBeenCalled();
-    expect(initEventStub).not.toBeCalled();
+  // should trigger dispatch action
+  act(() => {
+    UiFramework.setIModelConnection(newConnection, true);
   });
+  expect(result.current?.name).toEqual("new");
+  expect(
+    UiFramework.frameworkState?.sessionState.iModelConnection?.name
+  ).toEqual("new");
+  expect(UiFramework.getIModelConnection()?.name).toEqual("new");
+  expect(initEventStub).toHaveBeenCalled();
+  expect(clearEventStub).not.toBeCalled();
+  initEventStub.mockReset();
+
+  // already set, so should not trigger dispatch action
+  act(() => {
+    UiFramework.setIModelConnection(newConnection, true);
+  });
+  expect(initEventStub).not.toBeCalled();
+  expect(clearEventStub).not.toBeCalled();
+
+  // should trigger clearing action
+  act(() => {
+    UiFramework.setIModelConnection(undefined, true);
+  });
+  expect(result.current).toBeUndefined();
+  expect(UiFramework.getIModelConnection()).toBeUndefined();
+  expect(
+    UiFramework.frameworkState?.sessionState.iModelConnection
+  ).toBeUndefined();
+  expect(clearEventStub).toHaveBeenCalled();
+  expect(initEventStub).not.toBeCalled();
+});
+
+it("useActiveIModelConnection w/o redux", () => {
+  vi.spyOn(UiFramework, "frameworkState", "get").mockReturnValue(undefined);
+
+  const { result } = renderHook(() => useActiveIModelConnection());
+  expect(result.current).toBeUndefined();
+  expect(UiFramework.getIModelConnection()).toBeUndefined();
+
+  const newConnection = createBlankConnection({ name: "new" });
+
+  act(() => {
+    UiFramework.setIModelConnection(newConnection, true);
+  });
+  expect(result.current?.name).toEqual("new");
+  expect(UiFramework.getIModelConnection()?.name).toEqual("new");
+
+  act(() => {
+    UiFramework.setIModelConnection(undefined, true);
+  });
+  expect(result.current).toBeUndefined();
+  expect(UiFramework.getIModelConnection()).toBeUndefined();
 });
