@@ -6,34 +6,22 @@
  * @module Hooks
  */
 
-import { useEffect, useState } from "react";
+import * as React from "react";
 import type { IModelConnection } from "@itwin/core-frontend";
-import { SessionStateActionId } from "../redux/SessionState.js";
-import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { UiFramework } from "../UiFramework.js";
 
 /** React hook that maintains the active IModelConnection. For this hook to work properly the
- * IModelConnection must be set using UiFramework.setIModelConnection method. This also requires
- * that the host app includes the UiFramework reducer into its Redux store.
+ * IModelConnection must be set using {@link UiFramework.setIModelConnection} method.
  * @public
  */
 export function useActiveIModelConnection(): IModelConnection | undefined {
-  const [activeConnection, setActiveConnection] = useState(
+  const [activeConnection, setActiveConnection] = React.useState(() =>
     UiFramework.getIModelConnection()
   );
-  useEffect(() => {
-    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const eventIds = [SessionStateActionId.SetIModelConnection];
-      if (
-        eventIds.some((value: string): boolean =>
-          args.eventIds.has(value.toLowerCase())
-        )
-      ) {
-        setActiveConnection(UiFramework.getIModelConnection());
-      }
+  React.useEffect(() => {
+    UiFramework.onIModelConnectionChanged.addListener((newConnection) => {
+      setActiveConnection(newConnection);
     });
-  }, [activeConnection]);
-
+  }, []);
   return activeConnection;
 }
