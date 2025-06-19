@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.10.1
+
+### Patch Changes
+
+- bc4fd65: Fix tool settings default location when frontstage layout is restored.
+  - @itwin/components-react@5.10.1
+  - @itwin/core-react@5.10.1
+  - @itwin/imodel-components-react@5.10.1
+
 ## 5.10.0
 
 ### Minor Changes
