@@ -254,7 +254,7 @@ test("should respect default location when restoring the layout", async ({
 
 test("should respect floating default state", async ({ page }) => {
   await page.goto(
-    "./blank?frontstageId=test-tool-settings&defaultState=floating"
+    "./blank?frontstageId=test-tool-settings&location=right&defaultState=floating"
   );
   const tab = tabLocator(page, "Tool Settings");
   const floatingWidget = floatingWidgetLocator({ page, tab });
