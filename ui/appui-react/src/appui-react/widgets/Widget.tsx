@@ -55,8 +55,9 @@ export interface Widget {
    * - Defaults to `Floating` if the widget is not allowed to dock to any panels.
    * - Otherwise, defaults to `Closed`.
    *
-   * @note If set to `Hidden`, the widget will be hidden after the layout is restored, independently of the saved layout state. Set `useSavedState` to `true` to disable this behavior.
-   * @note If set to `Unloaded`, the widget will be unloaded after the layout is restored, independently of the saved layout state. Set `useSavedState` to `true` to disable this behavior.
+   * @note If set to {@link WidgetState.Floating}, the widget will be displayed as a floating widget in the initial layout. Use {@link canFloat} to configure the floating widget behavior.
+   * @note If set to {@link WidgetState.Hidden}, the widget will be hidden after the layout is restored, independently of the saved layout state. Set {@link useSavedState} to `true` to disable this behavior.
+   * @note If set to {@link WidgetState.Unloaded}, the widget will be unloaded after the layout is restored, independently of the saved layout state. Set {@link useSavedState} to `true` to disable this behavior.
    */
   readonly defaultState?: WidgetState;
   /** When enabled, the widget will always use the saved layout state. `defaultState` will only be used for the initial layout setup.
