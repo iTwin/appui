@@ -36,6 +36,10 @@ import {
 import { TestContentControl } from "./frontstage/FrontstageTestUtils.js";
 import { userEvent } from "@testing-library/user-event";
 import type { ContentLayoutProps } from "../appui-react/content/ContentLayoutProps.js";
+import type { BlankConnectionProps } from "@itwin/core-frontend";
+import { BlankConnection } from "@itwin/core-frontend";
+import { Cartographic } from "@itwin/core-common";
+import { Range3d } from "@itwin/core-geometry";
 export { userEvent };
 
 interface SampleAppState {
@@ -407,6 +411,22 @@ export function selectAllBeforeType() {
 /** https://floating-ui.com/docs/react#testing */
 export async function waitForPosition() {
   return act(async () => {});
+}
+
+/** Creates an iModel connection for testing purposes. */
+export function createBlankConnection(
+  overrides?: Partial<BlankConnectionProps>
+) {
+  return BlankConnection.create({
+    name: "Exton PA",
+    location: Cartographic.fromDegrees({
+      longitude: -75.686694,
+      latitude: 40.065757,
+      height: 0,
+    }),
+    extents: new Range3d(-1000, -1000, -100, 1000, 1000, 100),
+    ...overrides,
+  });
 }
 
 export default TestUtils;
