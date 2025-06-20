@@ -136,7 +136,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
         setActiveViewClass(args.newName);
       }
     );
-  }, [activeViewClass]);
+  }, []);
 
   const navigationAidControl = React.useMemo(
     () =>
