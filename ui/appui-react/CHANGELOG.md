@@ -1,5 +1,39 @@
 # Change Log - @itwin/appui-react
 
+## 5.11.0
+
+### Minor Changes
+
+- dac5193: Refactored the `useActiveIModelConnection` hook to use the `UiFramework.onIModelConnectionChanged` event instead of relying on the sync UI events. This removes the requirement for the redux store to be configured when using the hook.
+- 4e1f86f: Update tool settings layout initialization. When `toolSettings.defaultLocation` is set on `StandardLayout` component the tool settings will be initialized as a regular widget. For example to initialize the layout with floating tool settings:
+
+  ```tsx
+  const frontstage: Frontstage = {
+    id: "MyFrontstage",
+    toolSettings: {
+      id: "toolSettings",
+      defaultState: WidgetState.Floating,
+    },
+    layout: (
+      <StandardLayout
+        toolSettings={{
+          defaultLocation: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        }}
+      />
+    ),
+  };
+  ```
+
+### Patch Changes
+
+- 74fbc33: Fixed `NavigationAidHost` component to correctly update the navigation aid when view class name is changed while content control is active.
+  - @itwin/components-react@5.11.0
+  - @itwin/core-react@5.11.0
+  - @itwin/imodel-components-react@5.11.0
+
 ## 5.10.1
 
 ### Patch Changes
