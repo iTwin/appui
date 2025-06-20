@@ -104,7 +104,6 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     return UiFramework.content.onActiveContentChangedEvent.addListener(
       (args) => {
-        args.id;
         const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         if (!frontstageDef) return;
 
