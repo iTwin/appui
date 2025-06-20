@@ -16,12 +16,21 @@ import {
 } from "@itwin/appui-react";
 
 export function createFrontstage(
-  overrides?: Partial<StandardFrontstageProps> & {
-    content?: React.ReactNode;
-    contentProps?: Partial<ContentProps>;
-    contentManipulation?: Frontstage["contentManipulation"];
-  }
+  overrides?: Partial<StandardFrontstageProps> &
+    Pick<Frontstage, "layout" | "toolSettings"> & {
+      content?: React.ReactNode;
+      contentProps?: Partial<ContentProps>;
+      contentManipulation?: Frontstage["contentManipulation"];
+    }
 ): Frontstage {
+  const {
+    content,
+    contentProps,
+    contentManipulation,
+    layout,
+    toolSettings,
+    ...rest
+  } = overrides ?? {};
   const config = FrontstageUtilities.createStandardFrontstage({
     id: "main-frontstage",
     usage: StageUsage.Private,
@@ -33,7 +42,7 @@ export function createFrontstage(
         {
           id: "Content",
           classId: "",
-          content: overrides?.content ?? (
+          content: content ?? (
             <h1
               style={{
                 display: "flex",
@@ -45,21 +54,21 @@ export function createFrontstage(
               Content
             </h1>
           ),
-          ...overrides?.contentProps,
+          ...contentProps,
         },
       ],
     },
     hideStatusBar: true,
     hideToolSettings: true,
     hideNavigationAid: true,
-    ...overrides,
+    ...rest,
   });
 
-  const contentManipulation =
-    overrides?.contentManipulation ?? config.contentManipulation;
   return {
     ...config,
-    contentManipulation,
+    layout,
+    contentManipulation: contentManipulation ?? config.contentManipulation,
+    toolSettings: toolSettings ?? config.toolSettings,
   };
 }
 

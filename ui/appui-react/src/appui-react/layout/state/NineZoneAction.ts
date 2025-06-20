@@ -303,6 +303,19 @@ export interface WidgetTabUpdateAction {
 }
 
 /** @internal */
+export interface ToolSettingsAddDockedAction {
+  readonly type: "TOOL_SETTINGS_ADD_DOCKED";
+  readonly id: TabState["id"];
+  readonly overrides?: Partial<TabState>;
+}
+
+/** @internal */
+export interface ToolSettingsAddWidgetAction {
+  readonly type: "TOOL_SETTINGS_ADD_WIDGET";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
 export interface ToolSettingsDragStartAction {
   readonly type: "TOOL_SETTINGS_DRAG_START";
   readonly newFloatingWidgetId: FloatingWidgetState["id"];
@@ -328,14 +341,6 @@ export interface WidgetDefAddAction {
     readonly index: number;
     readonly side: PanelSide;
   };
-}
-
-/** @internal */
-export interface WidgetDefAddToolSettingsAction {
-  readonly type: "WIDGET_DEF_ADD_TOOL_SETTINGS";
-  readonly id: TabState["id"];
-  readonly overrides?: Partial<TabState>;
-  readonly panelSection?: WidgetDefAddAction["panelSection"];
 }
 
 /** @internal */
@@ -380,7 +385,8 @@ export type NineZoneAction =
   | WidgetTabShowAction
   | WidgetTabUnloadAction
   | WidgetTabUpdateAction
+  | ToolSettingsAddDockedAction
+  | ToolSettingsAddWidgetAction
   | ToolSettingsDragStartAction
   | ToolSettingsDockAction
-  | WidgetDefAddAction
-  | WidgetDefAddToolSettingsAction;
+  | WidgetDefAddAction;

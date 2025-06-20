@@ -37,6 +37,8 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import type { WidgetActions } from "../layout/widget/WidgetActions.js";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import type { Widget } from "../widgets/Widget.js";
+import type { WidgetState } from "../widgets/WidgetState.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -126,6 +128,8 @@ interface StandardLayoutProps {
    */
   toolSettings?: {
     /** The default location of the tool settings. Only used when initializing the layout and ignored when restoring a saved layout.
+     * When this is specified, the tool settings will be initialized as a widget, instead of the default docked state.
+     * @note Use {@link Widget} for further configuration. I.e. set {@link Widget.defaultState} to {@link WidgetState.Floating} to initialize the tool settings as a floating widget.
      * @alpha
      */
     defaultLocation?: ToolSettingsLocation;

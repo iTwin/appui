@@ -395,9 +395,6 @@ export function addFrontstageWidgetDefs(
   frontstageDef: FrontstageDef,
   args?: InitializeNineZoneStateArgs
 ) {
-  const { toolSettings } = args ?? {};
-  const { defaultLocation: toolSettingsLocation } = toolSettings ?? {};
-
   [
     StagePanelLocation.Left,
     StagePanelLocation.Right,
@@ -409,29 +406,31 @@ export function addFrontstageWidgetDefs(
     )
   );
 
-  const toolSettingsWidgetDefs = determineNewWidgets(
-    frontstageDef,
-    frontstageDef.toolSettings ? [frontstageDef.toolSettings] : undefined
-  );
-  for (const toolSettingsWidgetDef of toolSettingsWidgetDefs) {
+  const widgetDefs = frontstageDef.toolSettings
+    ? determineNewWidgets(frontstageDef, [frontstageDef.toolSettings])
+    : [];
+  for (const widgetDef of widgetDefs) {
+    const id = widgetDef.id;
+    const defaultLocation = args?.toolSettings?.defaultLocation;
+    if (defaultLocation) {
+      addWidgetDef(
+        frontstageDef,
+        widgetDef,
+        defaultLocation.location,
+        defaultLocation.section
+      );
+      frontstageDef.dispatch({
+        type: "TOOL_SETTINGS_ADD_WIDGET",
+        id,
+      });
+      continue;
+    }
+
+    const overrides = toTabArgs(widgetDef);
     frontstageDef.dispatch({
-      type: "WIDGET_DEF_ADD_TOOL_SETTINGS",
-      id: toolSettingsWidgetDef.id,
-      overrides: toTabArgs(toolSettingsWidgetDef),
-      panelSection: toolSettingsLocation
-        ? (() => {
-            const side = toPanelSide(toolSettingsLocation.location);
-            const id = getWidgetPanelSectionId(
-              side,
-              toolSettingsLocation.section
-            );
-            return {
-              id,
-              side,
-              index: toolSettingsLocation.section,
-            };
-          })()
-        : undefined,
+      type: "TOOL_SETTINGS_ADD_DOCKED",
+      id,
+      overrides,
     });
   }
 }
@@ -885,11 +884,10 @@ export function useItemsManager(frontstageDef: FrontstageDef) {
 
 function determineNewWidgets(
   frontstageDef: FrontstageDef,
-  defs: readonly WidgetDef[] | undefined
+  defs: readonly WidgetDef[]
 ) {
   const state = frontstageDef.nineZoneState;
   assert(!!state);
-  defs = defs || [];
   const uniqueDefs = defs.filter((def, index, array) => {
     return index === array.findIndex((def1) => def.id === def1.id);
   });

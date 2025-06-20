@@ -9,7 +9,7 @@ import {
   StandardLayout,
 } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
-import { getFrontstageParams } from "./TestWidgetFrontstage";
+import { getFrontstageParams, getWidgetParams } from "./TestWidgetFrontstage";
 
 type StandardLayoutProps = React.ComponentProps<typeof StandardLayout>;
 
@@ -19,6 +19,7 @@ export const createTestToolSettingsFrontstage = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const frontstageParams = getFrontstageParams(urlParams);
     const defaultLocation = getDefaultLocation(urlParams);
+    const widgetParams = getWidgetParams(urlParams);
 
     const frontstage = createTestFrontstage({
       id: "test-tool-settings",
@@ -31,6 +32,7 @@ export const createTestToolSettingsFrontstage = () => {
       ),
       toolSettings: {
         id: "toolSettings",
+        ...widgetParams,
       },
       ...frontstageParams,
     });

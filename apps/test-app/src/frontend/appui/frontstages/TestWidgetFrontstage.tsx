@@ -7,6 +7,7 @@ import {
   Frontstage,
   StagePanelState,
   Widget,
+  WidgetConfig,
   WidgetState,
 } from "@itwin/appui-react";
 import { createTestFrontstage } from "./createTestFrontstage";
@@ -16,9 +17,7 @@ export const createTestWidgetFrontstage = () => {
   {
     const urlParams = new URLSearchParams(window.location.search);
     const frontstageParams = getFrontstageParams(urlParams);
-
-    const defaultState = getDefaultState(urlParams);
-    const useSavedState = urlParams.has("useSavedState");
+    const widgetParams = getWidgetParams(urlParams);
 
     const frontstage = createTestFrontstage({
       id: "test-widget",
@@ -35,8 +34,7 @@ export const createTestWidgetFrontstage = () => {
               id: "widget-1",
               label: "Widget 1",
               content: <>Widget 1 content</>,
-              defaultState,
-              useSavedState,
+              ...widgetParams,
             },
           ],
         },
@@ -56,5 +54,15 @@ export function getFrontstageParams(params: URLSearchParams) {
 function getDefaultState(params: URLSearchParams): Widget["defaultState"] {
   const param = params.get("defaultState");
   if (param === "hidden") return WidgetState.Hidden;
+  if (param === "floating") return WidgetState.Floating;
   return undefined;
+}
+
+export function getWidgetParams(params: URLSearchParams) {
+  const defaultState = getDefaultState(params);
+  const useSavedState = params.has("useSavedState");
+  return {
+    ...(defaultState !== undefined ? { defaultState } : undefined),
+    useSavedState,
+  } satisfies Partial<WidgetConfig>;
 }
