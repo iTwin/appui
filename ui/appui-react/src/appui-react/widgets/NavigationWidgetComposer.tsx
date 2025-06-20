@@ -104,7 +104,6 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   React.useEffect(() => {
     return UiFramework.content.onActiveContentChangedEvent.addListener(
       (args) => {
-        args.id;
         const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         if (!frontstageDef) return;
 
@@ -124,20 +123,15 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     );
   }, []);
 
-  const [activeViewClass, setActiveViewClass] = React.useState(() => {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    const content = UiFramework.content.getActiveContentControl();
-    if (content && content.viewport) return content.viewport.view.classFullName;
-    return "";
-  });
-
   React.useEffect(() => {
     return ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
-      (args) => {
-        setActiveViewClass(args.newName);
+      () => {
+        if (!activeContentControl) return;
+        // Use active control, since multiple viewports can be displayed.
+        setNavigationAidId(activeContentControl.navigationAidControl);
       }
     );
-  }, [activeViewClass]);
+  }, [activeContentControl]);
 
   const navigationAidControl = React.useMemo(
     () =>
