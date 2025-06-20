@@ -7,6 +7,7 @@ import {
   dragTab,
   expectSavedFrontstageState,
   expectTabInPanelSection,
+  floatingWidgetLocator,
   frontstageLocator,
   panelLocator,
   panelTargetLocator,
@@ -249,4 +250,13 @@ test("should respect default location when restoring the layout", async ({
 
   await runKeyin(page, "restore frontstage layout");
   await expectTabInPanelSection(tab, "right", 0);
+});
+
+test("should respect floating default state", async ({ page }) => {
+  await page.goto(
+    "./blank?frontstageId=test-tool-settings&location=right&defaultState=floating"
+  );
+  const tab = tabLocator(page, "Tool Settings");
+  const floatingWidget = floatingWidgetLocator({ page, tab });
+  await expect(floatingWidget).toBeVisible();
 });

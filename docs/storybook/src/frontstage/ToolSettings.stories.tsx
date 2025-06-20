@@ -3,15 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  IModelViewportControl,
-  StandardContentLayouts,
-  UiFramework,
-} from "@itwin/appui-react";
+import { UiFramework } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
-import { createFrontstage, removeProperty } from "../Utils";
+import { removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";
 import { CustomTool } from "../tools/CustomTool";
 import { LockPropertyTool } from "../tools/LockPropertyTool";
@@ -33,24 +29,15 @@ const meta = {
     layout: "fullscreen",
   },
   args: {
-    frontstages: [
-      createFrontstage({
-        contentGroupProps: {
-          id: "ViewportContentGroup",
-          layout: StandardContentLayouts.singleView,
-          contents: [
-            {
-              id: "ViewportContent",
-              classId: IModelViewportControl,
-            },
-          ],
-        },
-        hideToolSettings: false,
-      }),
-    ],
+    onInitialize: async () => {
+      IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
+    },
+    onFrontstageActivated: async () => {
+      await IModelApp.tools.run(CustomTool.toolId);
+    },
   },
   argTypes: {
-    frontstages: removeProperty(),
+    mode: removeProperty(),
     onFrontstageActivated: removeProperty(),
     onInitialize: removeProperty(),
   },
@@ -59,16 +46,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    onInitialize: async () => {
-      IModelApp.tools.register(CustomTool, UiFramework.localizationNamespace);
-    },
-    onFrontstageActivated: async () => {
-      await IModelApp.tools.run(CustomTool.toolId);
-    },
-  },
-};
+export const Default: Story = {};
 
 export const LockProperty: Story = {
   args: {
@@ -99,5 +77,17 @@ export const CustomEditor: Story = {
     onFrontstageActivated: async () => {
       await IModelApp.tools.run(CustomEditorTool.toolId);
     },
+  },
+};
+
+export const Widget: Story = {
+  args: {
+    mode: "widget",
+  },
+};
+
+export const Floating: Story = {
+  args: {
+    mode: "floating",
   },
 };

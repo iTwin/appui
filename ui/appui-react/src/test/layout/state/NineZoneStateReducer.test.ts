@@ -2674,7 +2674,7 @@ describe("NineZoneStateReducer", () => {
         };
       });
       const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_DEF_ADD_TOOL_SETTINGS",
+        type: "TOOL_SETTINGS_ADD_DOCKED",
         id: "t1",
       });
       expect(newState.tabs.t1).to.exist;

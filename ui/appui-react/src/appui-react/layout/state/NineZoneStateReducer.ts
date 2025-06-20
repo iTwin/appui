@@ -834,6 +834,13 @@ export function NineZoneStateReducer(
         }
       });
     }
+    case "TOOL_SETTINGS_ADD_DOCKED": {
+      state = addTab(state, action.id, action.overrides);
+      return addDockedToolSettings(state, action.id);
+    }
+    case "TOOL_SETTINGS_ADD_WIDGET": {
+      return addWidgetToolSettings(state, action.id);
+    }
     case "TOOL_SETTINGS_DRAG_START": {
       if (!state.toolSettings) return state;
       if (state.toolSettings.type === "widget") return state;
@@ -905,14 +912,6 @@ export function NineZoneStateReducer(
       }
 
       return addTabToPanelSection(state, action.id, action.panelSection);
-    }
-    case "WIDGET_DEF_ADD_TOOL_SETTINGS": {
-      state = addTab(state, action.id, action.overrides);
-      if (action.panelSection) {
-        state = addTabToPanelSection(state, action.id, action.panelSection);
-        return addWidgetToolSettings(state, action.id);
-      }
-      return addDockedToolSettings(state, action.id);
     }
   }
   return state;
