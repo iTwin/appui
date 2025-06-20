@@ -123,21 +123,15 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
     );
   }, []);
 
-  const [activeViewClass, setActiveViewClass] = React.useState(() => {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    const content = UiFramework.content.getActiveContentControl();
-    const viewport = content?.viewport;
-    if (!viewport) return "";
-    return viewport.view.classFullName;
-  });
-
   React.useEffect(() => {
     return ViewportComponentEvents.onViewClassFullNameChangedEvent.addListener(
-      (args) => {
-        setActiveViewClass(args.newName);
+      () => {
+        if (!activeContentControl) return;
+        // Use active control, since multiple viewports can be displayed.
+        setNavigationAidId(activeContentControl.navigationAidControl);
       }
     );
-  }, []);
+  }, [activeContentControl]);
 
   const navigationAidControl = React.useMemo(
     () =>
