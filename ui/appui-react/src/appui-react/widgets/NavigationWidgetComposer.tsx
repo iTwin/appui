@@ -126,8 +126,9 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
   const [activeViewClass, setActiveViewClass] = React.useState(() => {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const content = UiFramework.content.getActiveContentControl();
-    if (content && content.viewport) return content.viewport.view.classFullName;
-    return "";
+    const viewport = content?.viewport;
+    if (!viewport) return "";
+    return viewport.view.classFullName;
   });
 
   React.useEffect(() => {
