@@ -70,6 +70,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       },
       {
         layouts,
+        badgeKind: "technical-preview",
       }
     );
 
