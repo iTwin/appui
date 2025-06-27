@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.11.1
+
+### Patch Changes
+
+- 1668d80: Fix svg fill color of `technical-preview` and `deprecated` badges in `Toolbar` component.
+  - @itwin/components-react@5.11.1
+  - @itwin/core-react@5.11.1
+  - @itwin/imodel-components-react@5.11.1
+
 ## 5.11.0
 
 ### Minor Changes
