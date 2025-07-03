@@ -7,16 +7,13 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import {
   DecimalPrecision,
   FormatType,
-  formatTypeToString,
   FractionalPrecision,
   parseFormatType,
   ScientificType,
-  scientificTypeToString,
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
@@ -25,8 +22,7 @@ import { useTranslation } from "../useTranslation.js";
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-interface FormatTypeSelectorProps extends CommonProps {
+interface FormatTypeSelectorProps {
   type: FormatType;
   onChange: (value: FormatType) => void;
 }
@@ -35,7 +31,7 @@ interface FormatTypeSelectorProps extends CommonProps {
  * @alpha
  */
 function FormatTypeSelector(props: FormatTypeSelectorProps) {
-  const { type, onChange, ...otherProps } = props;
+  const { type, onChange } = props;
   const { translate } = useTranslation();
   const formatOptions = React.useRef<SelectOption<FormatType>[]>([
     {
@@ -54,6 +50,18 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
       value: FormatType.Fractional,
       label: translate("QuantityFormat.fractional"),
     },
+    {
+      value: FormatType.Bearing,
+      label: translate("QuantityFormat.bearing"),
+    },
+    {
+      value: FormatType.Azimuth,
+      label: translate("QuantityFormat.azimuth"),
+    },
+    {
+      value: FormatType.Ratio,
+      label: translate("QuantityFormat.ratio"),
+    },
   ]);
 
   const handleOnChange = React.useCallback(
@@ -69,7 +77,6 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
       value={type}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
     />
   );
 }
@@ -79,7 +86,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatTypeOption>`
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FormatTypeOptionProps extends CommonProps {
+export interface FormatTypeOptionProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
 }
@@ -87,24 +94,25 @@ export interface FormatTypeOptionProps extends CommonProps {
 /** Component to set the Quantity Format type.
  * @alpha
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function FormatTypeOption(props: FormatTypeOptionProps) {
+export function FormatTypeOption(props: {
+  formatProps: FormatProps;
+  onChange?: (format: FormatProps) => void;
+}) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();
   const handleFormatTypeChange = React.useCallback(
-    (newType: FormatType) => {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const type = formatTypeToString(newType);
+    (type: FormatType) => {
       let precision: number | undefined;
       let stationOffsetSize: number | undefined;
       let scientificType: string | undefined;
+      let azimuthBaseUnit: string | undefined;
+      let revolutionUnit: string | undefined;
       switch (
-        newType // type must be decimal, fractional, scientific, or station
+        type
       ) {
         case FormatType.Scientific:
           precision = DecimalPrecision.Six;
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          scientificType = scientificTypeToString(ScientificType.Normalized);
+          scientificType = ScientificType.Normalized;
           break;
         case FormatType.Decimal:
           precision = DecimalPrecision.Four;
@@ -120,6 +128,13 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
         case FormatType.Fractional:
           precision = FractionalPrecision.Eight;
           break;
+        case FormatType.Bearing:
+          revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
+          break;
+        case FormatType.Azimuth:
+          revolutionUnit = "Units.REVOLUTION";
+          azimuthBaseUnit = "Units.ARC_DEG";
+          break;
       }
       const newFormatProps = {
         ...formatProps,
@@ -127,6 +142,8 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
         precision,
         scientificType,
         stationOffsetSize,
+        revolutionUnit,
+        azimuthBaseUnit,
       };
       onChange && onChange(newFormatProps);
     },

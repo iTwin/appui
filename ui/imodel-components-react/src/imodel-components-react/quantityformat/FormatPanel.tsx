@@ -72,7 +72,7 @@ async function generateFormatSpec(
 /** Component to show/edit Quantity Format.
  * @alpha
  */
-export function FormatPanel(props: React.ComponentProps<'div'> & {
+export function FormatPanel(props: {
   initialFormat: FormatProps;
   unitsProvider: UnitsProvider;
   persistenceUnit?: Promise<UnitProps> | UnitProps;

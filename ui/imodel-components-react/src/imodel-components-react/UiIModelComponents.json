@@ -54,6 +54,9 @@
     "scientific": "Scientific",
     "station": "Station",
     "fractional": "Fractional",
+    "bearing": "Bearing",
+    "azimuth": "Azimuth",
+    "ratio": "Ratio",
     "labels": {
       "compositeSpacer": "Composite Spacer",
       "formatted": "Formatted",
