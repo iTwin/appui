@@ -19,7 +19,7 @@ import {
 import { UiFramework } from "../../UiFramework.js";
 import { ProcessDetector } from "@itwin/core-bentley";
 import { useConditionalValue } from "../../hooks/useConditionalValue.js";
-import { SyncUiEventId } from "../../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventId } from "../../syncui/UiSyncEvent.js";
 import type { ToolbarContext } from "./Toolbar.js";
 
 type ToolbarContextProps = NonNullable<

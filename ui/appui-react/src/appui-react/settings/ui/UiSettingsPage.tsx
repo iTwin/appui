@@ -11,10 +11,7 @@ import "./UiSettingsPage.scss";
 import * as React from "react";
 import type { SettingsTabEntry } from "@itwin/core-react";
 import { UiFramework } from "../../UiFramework.js";
-import {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "../../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher.js";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select, Slider, ToggleSwitch } from "@itwin/itwinui-react";
 import { useTranslation } from "../../hooks/useTranslation.js";
@@ -23,6 +20,7 @@ import {
   SYSTEM_PREFERRED_COLOR_THEME,
 } from "../../theme/ThemeId.js";
 import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState.js";
+import { SyncUiEventId } from "../../syncui/UiSyncEvent.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 

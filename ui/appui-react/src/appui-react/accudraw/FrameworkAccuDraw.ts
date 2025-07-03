@@ -21,13 +21,11 @@ import {
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import type { UserSettingsProvider } from "../UiFramework.js";
 import { UiFramework } from "../UiFramework.js";
-import {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
+import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 
 const compassModeToKeyMap = new Map<CompassMode, string>([
   [CompassMode.Polar, "polar"],

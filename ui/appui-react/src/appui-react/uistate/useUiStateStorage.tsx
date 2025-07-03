@@ -8,12 +8,10 @@
 
 import * as React from "react";
 import { UiFramework } from "../UiFramework.js";
-import {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import type { UiStateStorage } from "./UiStateStorage.js";
 import { LocalStateStorage } from "./LocalStateStorage.js";
+import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 
 /** @public */
 export function useUiStateStorageHandler(): UiStateStorage {

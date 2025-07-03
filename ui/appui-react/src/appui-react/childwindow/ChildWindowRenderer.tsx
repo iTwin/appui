@@ -21,7 +21,7 @@ import { ModelessDialogRenderer } from "../dialog/ModelessDialogManager.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { copyStyles } from "./CopyStyles.js";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
-import { CursorPopupRenderer } from "../../appui-react.js";
+import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager.js";
 
 interface ChildWindowRendererProps {
   windowManager: InternalChildWindowManager;

@@ -7,10 +7,8 @@
  */
 
 import { useCursorInformationStore } from "../cursor/CursorInformation.js";
-import {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import type { UserSettingsProvider } from "../UiFramework.js";
 import { UiFramework } from "../UiFramework.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
