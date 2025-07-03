@@ -10,56 +10,8 @@ import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework.js";
-import type { UiSyncEvent } from "./UiSyncEvent.js";
+import { SyncUiEventId, type UiSyncEvent } from "./UiSyncEvent.js";
 import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher.js";
-
-/** Event Id used to sync UI components. Used to refresh visibility or enable state of control.
- * @public
- */
-export enum SyncUiEventId {
-  /** AccuDraw compass mode has changed. */
-  AccuDrawCompassModeChanged = "accudrawcompassmodechanged",
-  /** AccuDraw rotation has changed. */
-  AccuDrawRotationChanged = "accudrawrotationchanged",
-  /** The active content as maintained by the ContentViewManager has changed. */
-  ActiveContentChanged = "activecontentchanged",
-  /** The active view maintained by the ViewManager has changed. */
-  ActiveViewportChanged = "activeviewportchanged",
-  /** Backstage has been toggled. */
-  BackstageEvent = "backstageevent",
-  /** A Content Layout has been activated.  */
-  ContentLayoutActivated = "contentlayoutactivated",
-  /** A Content Control maintained by UiFramework.frontstages has been activated.
-   * @deprecated in 4.16.0. Use {@link SyncUiEventId.ActiveContentChanged} instead.
-   */
-  ContentControlActivated = "contentcontrolactivated",
-  /** A Frontstage is activating. */
-  FrontstageActivating = "frontstageactivating",
-  /** A Frontstage has been activated and the content has been assigned. */
-  FrontstageReady = "frontstageready",
-  /** A Modal Frontstage has been opened or closed. */
-  ModalFrontstageChanged = "modalfrontstagechanged",
-  /** A Modal Dialog has been opened or closed. */
-  ModalDialogChanged = "modaldialogchanged",
-  /** A NavigationAid has been activated. */
-  NavigationAidActivated = "navigationaidactivated",
-  /** An InteractiveTool has been activated via the ToolAdmin. */
-  ToolActivated = "toolactivated",
-  /** The state of a Widget has changed. */
-  WidgetStateChanged = "widgetstatechanged",
-  /** The SelectionSet for the active IModelConnection has changed. */
-  SelectionSetChanged = "selectionsetchanged",
-  /** The list of settings providers registered with SettingsManager has changed. */
-  SettingsProvidersChanged = "settingsproviderschanged",
-  /** The current view state has changed (used by view undo/redo toolbar buttons). */
-  ViewStateChanged = "viewstatechanged",
-  /** The current object the reads and write UI State has changed. */
-  UiStateStorageChanged = "uistatestoragechanged",
-  ShowHideManagerSettingChange = "show-hide-setting-change",
-  /** The list of feature overrides applied has been changed */
-  FeatureOverridesChanged = "featureoverrideschanged",
-  ViewedModelsChanged = "viewedmodelschanged",
-}
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.

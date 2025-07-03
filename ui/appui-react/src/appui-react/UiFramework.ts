@@ -58,10 +58,7 @@ import type { FrameworkContent } from "./framework/FrameworkContent.js";
 import type { FrameworkDialogs } from "./framework/FrameworkDialogs.js";
 import type { FrameworkKeyboardShortcuts } from "./framework/FrameworkKeyboardShortcuts.js";
 import type { FrameworkVisibility } from "./framework/FrameworkVisibility.js";
-import {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "./syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventDispatcher } from "./syncui/SyncUiEventDispatcher.js";
 import type { XAndY } from "@itwin/core-geometry";
 import { PopupManager } from "./popup/PopupManager.js";
 import { AccuDrawPopupManager } from "./accudraw/AccuDrawPopupManager.js";
@@ -91,6 +88,7 @@ import { useGlobalStore } from "./uistate/useGlobalStore.js";
 import type { UiStateStorage } from "./uistate/UiStateStorage.js";
 import { LocalStateStorage } from "./uistate/LocalStateStorage.js";
 import { SettingsManager } from "./settings/SettingsManager.js";
+import { SyncUiEventId } from "./syncui/UiSyncEvent.js";
 
 interface ShowInputEditorOptions {
   location: XAndY;

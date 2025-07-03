@@ -666,13 +666,11 @@ export {
   ToolAssistanceFieldProps,
 } from "./appui-react/statusfields/toolassistance/ToolAssistanceField.js";
 
-export {
-  SyncUiEventDispatcher,
-  SyncUiEventId,
-} from "./appui-react/syncui/SyncUiEventDispatcher.js";
+export { SyncUiEventDispatcher } from "./appui-react/syncui/SyncUiEventDispatcher.js";
 export {
   UiSyncEvent,
   UiSyncEventArgs,
+  SyncUiEventId,
 } from "./appui-react/syncui/UiSyncEvent.js";
 
 export {

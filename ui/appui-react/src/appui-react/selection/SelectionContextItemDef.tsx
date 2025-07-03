@@ -10,7 +10,7 @@ import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { SessionStateActionId } from "../redux/SessionState.js";
 import { CommandItemDef } from "../shared/CommandItemDef.js";
 import type { BaseItemState } from "../shared/ItemDefBase.js";
-import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { GroupItemDef } from "../toolbar/GroupItem.js";
 import { UiFramework } from "../UiFramework.js";
 import { SvgModelIsolate } from "../icons/SvgModelIsolate.js";

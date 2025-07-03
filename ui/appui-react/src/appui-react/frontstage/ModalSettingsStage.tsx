@@ -20,7 +20,7 @@ import { Centered, SettingsContainer } from "@itwin/core-react";
 import { SvgSettings } from "@itwin/itwinui-icons-react";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import { UiFramework } from "../UiFramework.js";
-import { SyncUiEventId } from "../syncui/SyncUiEventDispatcher.js";
+import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { StageUsage } from "./StageUsage.js";
 import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities.js";
 import { useTranslation } from "../hooks/useTranslation.js";
