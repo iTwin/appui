@@ -30,7 +30,7 @@ import { MiscFormatOptions } from "./MiscFormatOptions.js";
 export interface FormatPanelProps extends CommonProps {
   initialFormat: FormatProps;
   unitsProvider: UnitsProvider;
-  persistenceUnit: Promise<UnitProps> | UnitProps;
+  persistenceUnit?: Promise<UnitProps> | UnitProps;
   showSample?: boolean;
   initialMagnitude?: number;
   // if true a only primary format properties are initially displayed and a "More/Less" link is added.
@@ -72,8 +72,28 @@ async function generateFormatSpec(
 /** Component to show/edit Quantity Format.
  * @alpha
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function FormatPanel(props: FormatPanelProps) {
+export function FormatPanel(props: React.ComponentProps<'div'> & {
+  initialFormat: FormatProps;
+  unitsProvider: UnitsProvider;
+  persistenceUnit?: Promise<UnitProps> | UnitProps;
+  showSample?: boolean;
+  initialMagnitude?: number;
+  enableMinimumProperties?: boolean;
+  onFormatChange?: (format: FormatProps) => void;
+  provideFormatSpec?: (
+    formatProps: FormatProps,
+    persistenceUnit: UnitProps,
+    unitsProvider: UnitsProvider
+  ) => Promise<FormatterSpec>;
+  providePrimaryChildren?: (
+    formatProps: FormatProps,
+    fireFormatChange: (newProps: FormatProps) => void
+  ) => React.ReactNode;
+  provideSecondaryChildren?: (
+    formatProps: FormatProps,
+    fireFormatChange: (newProps: FormatProps) => void
+  ) => React.ReactNode;
+}) {
   const [formatSpec, setFormatSpec] = React.useState<FormatterSpec>();
   const {
     initialFormat,
@@ -114,6 +134,8 @@ export function FormatPanel(props: FormatPanelProps) {
 
   React.useEffect(() => {
     async function fetchFormatSpec() {
+      if (!persistenceUnit) return;
+
       const pu = await persistenceUnit;
       let newFormatSpec: FormatterSpec;
       if (provideFormatSpec) {
