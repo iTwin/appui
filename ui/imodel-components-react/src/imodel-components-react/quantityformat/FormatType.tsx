@@ -13,6 +13,7 @@ import {
   FormatType,
   FractionalPrecision,
   parseFormatType,
+  RatioType,
   ScientificType,
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
@@ -85,7 +86,6 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatTypeOption>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FormatTypeOptionProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
@@ -107,6 +107,7 @@ export function FormatTypeOption(props: {
       let scientificType: string | undefined;
       let azimuthBaseUnit: string | undefined;
       let revolutionUnit: string | undefined;
+      let ratioType: string | undefined;
       switch (
         type
       ) {
@@ -135,6 +136,9 @@ export function FormatTypeOption(props: {
           revolutionUnit = "Units.REVOLUTION";
           azimuthBaseUnit = "Units.ARC_DEG";
           break;
+        case FormatType.Ratio:
+          ratioType = RatioType.NToOne; // Default to N:1 ratio
+          break;
       }
       const newFormatProps = {
         ...formatProps,
@@ -144,6 +148,7 @@ export function FormatTypeOption(props: {
         stationOffsetSize,
         revolutionUnit,
         azimuthBaseUnit,
+        ratioType,
       };
       onChange && onChange(newFormatProps);
     },

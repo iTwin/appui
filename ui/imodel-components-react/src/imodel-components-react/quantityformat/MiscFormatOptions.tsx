@@ -9,7 +9,7 @@
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { Checkbox } from "@itwin/itwinui-react";
+import { Checkbox, IconButton } from "@itwin/itwinui-react";
 import type { FormatProps, ShowSignOption } from "@itwin/core-quantity";
 import {
   Format,
@@ -17,11 +17,11 @@ import {
   FormatType,
   getTraitString,
   parseFormatType,
+  parseRatioType,
   parseScientificType,
   parseShowSignOption,
+  RatioType,
   ScientificType,
-  scientificTypeToString,
-  showSignOptionToString,
 } from "@itwin/core-quantity";
 import { SignOptionSelector } from "./misc/SignOption.js";
 import { ThousandsSeparator } from "./misc/ThousandsSeparator.js";
@@ -30,6 +30,8 @@ import { ScientificTypeSelector } from "./misc/ScientificType.js";
 import { StationSeparatorSelector } from "./misc/StationSeparatorSelector.js";
 import { StationSizeSelector } from "./misc/StationSizeSelector.js";
 import { useTranslation } from "../useTranslation.js";
+import { RatioTypeSelector } from "./misc/RatioType.js";
+import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha
@@ -74,8 +76,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
 
   const handleShowSignChange = React.useCallback(
     (option: ShowSignOption) => {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const newShowSignOption = showSignOptionToString(option);
+      const newShowSignOption = option;
       const newFormatProps = {
         ...formatProps,
         showSignOption: newShowSignOption,
@@ -84,6 +85,23 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     },
     [formatProps, handleSetFormatProps]
   );
+
+  const ratioTypeToolTipLabel = React.useMemo(() => {
+    // This is a workaround to generate the tooltip label for RatioTypeSelector
+    // since the translation is not available at the time of rendering.
+    switch (formatProps.ratioType) {
+      case RatioType.NToOne:
+        return translate("QuantityFormat.ratio-type.n-to-one.description");
+      case RatioType.OneToN:
+        return translate("QuantityFormat.ratio-type.one-to-n.description");
+      case RatioType.UseGreatestCommonDivisor:
+        return translate("QuantityFormat.ratio-type.use-greatest-common-divisor.description");
+      case RatioType.ValueBased:
+        return translate("QuantityFormat.ratio-type.value-based.description");
+      default:
+        return translate("QuantityFormat.ratio-type.default.description");
+    }
+  }, [formatProps, translate]);
 
   const setFormatTrait = React.useCallback(
     (trait: FormatTraits, setActive: boolean) => {
@@ -176,8 +194,18 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     (type: ScientificType) => {
       const newFormatProps = {
         ...formatProps,
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        scientificType: scientificTypeToString(type),
+        scientificType: type,
+      };
+      handleSetFormatProps(newFormatProps);
+    },
+    [formatProps, handleSetFormatProps]
+  );
+
+  const handleRatioTypeChange = React.useCallback(
+    (type: RatioType) => {
+      const newFormatProps = {
+        ...formatProps,
+        ratioType: parseRatioType(type, "format"),
       };
       handleSetFormatProps(newFormatProps);
     },
@@ -388,6 +416,29 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             onChange={handleScientificTypeChange}
           />
 
+          <span
+            className={classnames(
+              "uicore-label",
+              formatType !== FormatType.Ratio && "uicore-disabled"
+            )}
+          >
+            {translate("QuantityFormat.labels.ratioTypeLabel")}
+          <IconButton size="small" styleType="borderless" label={ratioTypeToolTipLabel}>
+            <SvgHelpCircularHollow />
+          </IconButton>
+          </span>
+
+          <RatioTypeSelector
+            data-testid="ratio-type-selector"
+            type={
+              formatProps.ratioType &&
+              formatProps.ratioType.length > 0
+                ? parseRatioType(formatProps.ratioType, "custom")
+                : RatioType.NToOne
+            }
+            disabled={formatType !== FormatType.Ratio}
+            onChange={handleRatioTypeChange}
+          />
           {props.children}
 
           {enableMinimumProperties && showOptions && (

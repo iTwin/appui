@@ -78,7 +78,8 @@
       "scientificTypeLabel": "Scientific Type",
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
-      "value": "Value"
+      "value": "Value",
+      "ratioTypeLabel": "Ratio Type"
     },
     "fraction_precision": {
       "whole": "Whole",
@@ -136,6 +137,27 @@
     },
     "popupButton": {
       "setFormat": "Set Format"
+    },
+    "ratio-type": {
+      "n-to-one": {
+        "label": "N:1",
+        "description": "N to 1 ratio (e.g. N:1)"
+      },
+      "one-to-n": {
+        "label": "1:N",
+        "description": "1 to N ratio (e.g. 1:N)"
+      },
+      "use-greatest-common-divisor": {
+        "label": "Use GCD",
+        "description": "Simplifies ratio using the greatest common divisor (e.g. 0.3 → 3:10)"
+      },
+      "value-based": {
+        "label": "Value Based",
+        "description": "Scales the smaller value to 1 (e.g. 0.5 → 2:1, 2 → 1:2)"
+      },
+      "default": {
+        "description": "How properties are shown as a ratio."
+      }
     }
   },
   "BearingQuantityType": {
