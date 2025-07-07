@@ -82,6 +82,19 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
   );
 }
 
+const handleUnitsWhenFormatTypeChange = (units: Array<{
+    readonly name: string;
+    readonly label?: string;
+  }>,
+  type: FormatType) => {
+    if (type === FormatType.Ratio) { // Only one display unit is allowed for Ratio format.
+      if (units.length > 1) {
+        return [units[0]];
+      }
+    }
+    return units;
+  };
+
 /** Properties of [[FormatTypeOption]] component.
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatTypeOption>`
@@ -100,6 +113,7 @@ export function FormatTypeOption(props: {
 }) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();
+
   const handleFormatTypeChange = React.useCallback(
     (type: FormatType) => {
       let precision: number | undefined;
@@ -140,8 +154,12 @@ export function FormatTypeOption(props: {
           ratioType = RatioType.NToOne; // Default to N:1 ratio
           break;
       }
-      const newFormatProps = {
+      const newFormatProps: FormatProps = {
         ...formatProps,
+        composite: formatProps.composite ? {
+          ...formatProps.composite,
+          units: handleUnitsWhenFormatTypeChange(formatProps.composite.units, type),
+        } : undefined,
         type,
         precision,
         scientificType,
