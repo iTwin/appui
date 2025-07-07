@@ -120,6 +120,7 @@ export function FormatTypeOption(props: {
       let stationOffsetSize: number | undefined;
       let scientificType: string | undefined;
       let azimuthBaseUnit: string | undefined;
+      let azimuthBase: number | undefined;
       let revolutionUnit: string | undefined;
       let ratioType: string | undefined;
       switch (
@@ -144,11 +145,14 @@ export function FormatTypeOption(props: {
           precision = FractionalPrecision.Eight;
           break;
         case FormatType.Bearing:
-          revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
+          // revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
+          revolutionUnit = "Units.RAD";
           break;
         case FormatType.Azimuth:
-          revolutionUnit = "Units.REVOLUTION";
+          // revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
+          revolutionUnit = "Units.RAD";
           azimuthBaseUnit = "Units.ARC_DEG";
+          azimuthBase = 0.0;
           break;
         case FormatType.Ratio:
           ratioType = RatioType.NToOne; // Default to N:1 ratio
@@ -166,6 +170,7 @@ export function FormatTypeOption(props: {
         stationOffsetSize,
         revolutionUnit,
         azimuthBaseUnit,
+        azimuthBase,
         ratioType,
       };
       onChange && onChange(newFormatProps);

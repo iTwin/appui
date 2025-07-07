@@ -12,26 +12,7 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
 
-/** Properties of [[RatioTypeSelector]] component.
- * @internal
- */
-export interface RatioTypeSelectorProps {
-  type: RatioType;
-  onChange: (value: RatioType) => void;
-  disabled?: boolean;
-}
-
 /** Component use to set Ratio type.
- * @internal
- */
-export interface RatioTypeSelectorProps {
-  type: RatioType;
-  onChange: (value: RatioType) => void;
-  disabled?: boolean;
-}
-
-/** Component use to set Scientific type.
- * @internal
  */
 export function RatioTypeSelector(props: {
   type: RatioType;

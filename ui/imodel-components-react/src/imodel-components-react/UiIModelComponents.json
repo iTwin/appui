@@ -79,7 +79,9 @@
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
       "value": "Value",
-      "ratioTypeLabel": "Ratio Type"
+      "ratioTypeLabel": "Ratio Type",
+      "azimuthBase": "Azimuth Base",
+      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise"
     },
     "fraction_precision": {
       "whole": "Whole",
@@ -158,6 +160,10 @@
       "default": {
         "description": "How properties are shown as a ratio."
       }
+    },
+    "azimuthType": {
+      "baseTooltip": "The starting direction (base) from which azimuth angles are measured.",
+      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base."
     }
   },
   "BearingQuantityType": {

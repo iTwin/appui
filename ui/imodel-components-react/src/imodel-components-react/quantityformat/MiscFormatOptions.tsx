@@ -32,6 +32,7 @@ import { StationSizeSelector } from "./misc/StationSizeSelector.js";
 import { useTranslation } from "../useTranslation.js";
 import { RatioTypeSelector } from "./misc/RatioType.js";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
+import { AzimuthOptions } from "./misc/AzimuthOptions.js";
 
 /** Properties of [[MiscFormatOptions]] component.
  * @alpha
@@ -262,6 +263,8 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     [formatProps, handleSetFormatProps]
   );
 
+
+
   return (
     <>
       {enableMinimumProperties && !showOptions && (
@@ -427,7 +430,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             <SvgHelpCircularHollow />
           </IconButton>
           </span>
-
           <RatioTypeSelector
             data-testid="ratio-type-selector"
             type={
@@ -439,6 +441,13 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             disabled={formatType !== FormatType.Ratio}
             onChange={handleRatioTypeChange}
           />
+
+          <AzimuthOptions
+            formatProps={formatProps}
+            onChange={handleFormatChange}
+            disabled={formatType !== FormatType.Azimuth}
+          />
+
           {props.children}
 
           {enableMinimumProperties && showOptions && (
