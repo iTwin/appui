@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type {
   FormatProps,
   UnitProps,
@@ -21,8 +20,7 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnits>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FormatUnitsProps extends CommonProps {
+export interface FormatUnitsProps {
   initialFormat: FormatProps;
   persistenceUnit?: UnitProps;
   unitsProvider: UnitsProvider;

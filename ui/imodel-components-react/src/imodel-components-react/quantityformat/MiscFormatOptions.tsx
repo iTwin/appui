@@ -9,7 +9,6 @@
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import type { CommonProps } from "@itwin/core-react";
 import { Checkbox } from "@itwin/itwinui-react";
 import type { FormatProps, ShowSignOption } from "@itwin/core-quantity";
 import {
@@ -36,8 +35,7 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof MiscFormatOptions>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface MiscFormatOptionsProps extends CommonProps {
+export interface MiscFormatOptionsProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
   enableMinimumProperties?: boolean;

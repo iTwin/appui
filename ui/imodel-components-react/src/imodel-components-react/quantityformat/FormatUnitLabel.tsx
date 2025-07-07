@@ -8,22 +8,20 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-interface UomSeparatorSelectorProps extends CommonProps {
+interface UomSeparatorSelectorProps {
   separator: string;
   disabled?: boolean;
   onChange: (value: string) => void;
 }
 
 function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
-  const { separator, onChange, ...otherProps } = props;
+  const { separator, onChange, disabled } = props;
   const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
@@ -57,7 +55,7 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
       value={separator}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      disabled={disabled}
     />
   );
 }
@@ -66,8 +64,7 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnitLabel>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FormatUnitLabelProps extends CommonProps {
+export interface FormatUnitLabelProps {
   formatProps: FormatProps;
   onUnitLabelChange?: (format: FormatProps) => void;
 }

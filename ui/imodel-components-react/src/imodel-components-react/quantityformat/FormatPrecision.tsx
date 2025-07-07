@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
 import { DecimalPrecisionSelector } from "./misc/DecimalPrecision.js";
@@ -18,8 +17,7 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPrecision>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FormatPrecisionProps extends CommonProps {
+export interface FormatPrecisionProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
 }

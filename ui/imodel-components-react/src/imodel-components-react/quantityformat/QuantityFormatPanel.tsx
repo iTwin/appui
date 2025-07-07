@@ -24,7 +24,6 @@ import type {
   UnitProps,
   UnitsProvider,
 } from "@itwin/core-quantity";
-import type { CommonProps } from "@itwin/core-react";
 import { Checkbox, Input, Select } from "@itwin/itwinui-react";
 import { FormatPanel } from "./FormatPanel.js";
 import { DeepCompare } from "@itwin/core-geometry";
@@ -122,8 +121,7 @@ function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof QuantityFormatPanel>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface QuantityFormatPanelProps extends CommonProps {
+export interface QuantityFormatPanelProps {
   quantityType: QuantityTypeArg;
   onFormatChange?: (format: FormatProps) => void;
   /** props below are to be passed on to FormatPanel */
@@ -137,7 +135,7 @@ export interface QuantityFormatPanelProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
-  const { quantityType, onFormatChange, ...otherProps } = props;
+  const { quantityType, onFormatChange, showSample, initialMagnitude, enableMinimumProperties } = props;
   const [formatProps, setFormatProps] = React.useState<FormatProps>();
   const initialFormatProps = React.useRef<FormatProps>();
 
@@ -291,7 +289,9 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
       {persistenceUnit && formatProps && (
         <FormatPanel
           onFormatChange={handleOnFormatChanged}
-          {...otherProps}
+          showSample={showSample}
+          initialMagnitude={initialMagnitude}
+          enableMinimumProperties={enableMinimumProperties}
           initialFormat={formatProps}
           unitsProvider={IModelApp.quantityFormatter.unitsProvider}
           persistenceUnit={persistenceUnit}

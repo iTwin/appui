@@ -14,7 +14,6 @@ import type {
   UnitsProvider,
 } from "@itwin/core-quantity";
 import { Format, FormatterSpec } from "@itwin/core-quantity";
-import type { CommonProps } from "@itwin/core-react";
 import { FormatPrecision } from "./FormatPrecision.js";
 import { FormatSample } from "./FormatSample.js";
 import { FormatTypeOption } from "./FormatType.js";
@@ -26,8 +25,7 @@ import { MiscFormatOptions } from "./MiscFormatOptions.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPanel>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FormatPanelProps extends CommonProps {
+export interface FormatPanelProps {
   initialFormat: FormatProps;
   unitsProvider: UnitsProvider;
   persistenceUnit?: Promise<UnitProps> | UnitProps;
