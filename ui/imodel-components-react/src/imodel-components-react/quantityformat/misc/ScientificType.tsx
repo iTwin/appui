@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import { ScientificType } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
@@ -16,8 +15,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[ScientificTypeSelector]] component.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface ScientificTypeSelectorProps extends CommonProps {
+export interface ScientificTypeSelectorProps {
   type: ScientificType;
   onChange: (value: ScientificType) => void;
   disabled?: boolean;
@@ -27,7 +25,7 @@ export interface ScientificTypeSelectorProps extends CommonProps {
  * @internal
  */
 export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
-  const { type, onChange, ...otherProps } = props;
+  const { type, onChange, disabled } = props;
   const { translate } = useTranslation();
   const formatOptions: SelectOption<ScientificType>[] = [
     {
@@ -53,7 +51,7 @@ export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
       value={type}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      disabled={disabled}
     />
   );
 }

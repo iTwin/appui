@@ -8,7 +8,6 @@
 
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
@@ -19,7 +18,7 @@ import { useTranslation } from "../../useTranslation.js";
  * @internal
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface ThousandsSeparatorProps extends CommonProps {
+export interface ThousandsSeparatorProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
 }

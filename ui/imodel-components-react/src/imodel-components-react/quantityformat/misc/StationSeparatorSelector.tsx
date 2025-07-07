@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
@@ -16,7 +15,7 @@ import { useTranslation } from "../../useTranslation.js";
  * @internal
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface StationSeparatorSelectorProps extends CommonProps {
+export interface StationSeparatorSelectorProps {
   separator: string;
   disabled: boolean;
   onChange: (value: string) => void;
@@ -26,7 +25,7 @@ export interface StationSeparatorSelectorProps extends CommonProps {
  * @internal
  */
 export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
-  const { separator, disabled, onChange, ...otherProps } = props;
+  const { separator, disabled, onChange } = props;
   const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
@@ -73,7 +72,6 @@ export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
       value={separator}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
     />
   );
 }

@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
@@ -16,7 +15,7 @@ import { useTranslation } from "../../useTranslation.js";
  * @internal
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface ThousandsSelectorProps extends CommonProps {
+export interface ThousandsSelectorProps {
   separator: string;
   disabled: boolean;
   onChange: (value: string) => void;
@@ -26,7 +25,7 @@ export interface ThousandsSelectorProps extends CommonProps {
  * @internal
  */
 export function ThousandsSelector(props: ThousandsSelectorProps) {
-  const { separator, ...otherProps } = props;
+  const { separator, disabled, onChange } = props;
   const { translate } = useTranslation();
 
   const separatorOptions = React.useMemo(() => {
@@ -56,7 +55,8 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
       options={separatorOptions}
       value={separator}
       size="small"
-      {...otherProps}
+      disabled={disabled}
+      onChange={onChange}
     />
   );
 }

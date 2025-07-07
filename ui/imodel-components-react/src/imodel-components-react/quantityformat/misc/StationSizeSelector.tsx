@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
@@ -15,8 +14,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[StationSizeSelector]] component.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface StationSizeSelectorProps extends CommonProps {
+export interface StationSizeSelectorProps {
   value: number;
   disabled: boolean;
   onChange: (value: number) => void;
@@ -26,7 +24,7 @@ export interface StationSizeSelectorProps extends CommonProps {
  * @internal
  */
 export function StationSizeSelector(props: StationSizeSelectorProps) {
-  const { value, disabled, onChange, ...otherProps } = props;
+  const { value, disabled, onChange } = props;
   const { translate } = useTranslation();
   const separatorOptions: SelectOption<number>[] = [
     {
@@ -53,7 +51,6 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
       value={value}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
     />
   );
 }

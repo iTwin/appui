@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
@@ -15,8 +14,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[DecimalPrecisionSelector]] component.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface DecimalPrecisionSelectorProps extends CommonProps {
+export interface DecimalPrecisionSelectorProps {
   precision: number;
   onChange: (value: number) => void;
 }
@@ -26,7 +24,7 @@ export interface DecimalPrecisionSelectorProps extends CommonProps {
  * @internal
  */
 export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
-  const { precision, onChange, ...otherProps } = props;
+  const { precision, onChange } = props;
   const { translate } = useTranslation();
   const options: SelectOption<number>[] = [
     {
@@ -96,7 +94,6 @@ export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
       value={precision}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
     />
   );
 }

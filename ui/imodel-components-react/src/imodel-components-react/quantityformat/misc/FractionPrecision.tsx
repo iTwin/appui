@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
@@ -15,8 +14,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[FractionPrecisionSelector]] component.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FractionPrecisionSelectorProps extends CommonProps {
+export interface FractionPrecisionSelectorProps{
   precision: number;
   onChange: (value: number) => void;
 }
@@ -27,7 +25,7 @@ export interface FractionPrecisionSelectorProps extends CommonProps {
 export function FractionPrecisionSelector(
   props: FractionPrecisionSelectorProps
 ) {
-  const { precision, onChange, ...otherProps } = props;
+  const { precision, onChange } = props;
   const { translate } = useTranslation();
   const options: SelectOption<number>[] = [
     {
@@ -81,7 +79,6 @@ export function FractionPrecisionSelector(
       value={precision}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
     />
   );
 }
