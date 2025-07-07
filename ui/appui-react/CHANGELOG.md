@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.11.2
+
+### Patch Changes
+
+- 98078fd: Reduced amount of circular imports that caused runtime issues in `vite` application.
+  - @itwin/components-react@5.11.2
+  - @itwin/core-react@5.11.2
+  - @itwin/imodel-components-react@5.11.2
+
 ## 5.11.1
 
 ### Patch Changes
