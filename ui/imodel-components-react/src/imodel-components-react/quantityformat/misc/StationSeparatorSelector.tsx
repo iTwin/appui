@@ -14,7 +14,6 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[StationSeparatorSelector]] component.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface StationSeparatorSelectorProps {
   separator: string;
   disabled: boolean;
