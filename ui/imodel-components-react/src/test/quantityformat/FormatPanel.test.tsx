@@ -24,7 +24,7 @@ import { FormatSample } from "../../imodel-components-react/quantityformat/Forma
 import { FormatPrecision } from "../../imodel-components-react/quantityformat/FormatPrecision.js";
 import { AzimuthOptions } from "../../imodel-components-react/quantityformat/misc/AzimuthOptions.js";
 import { RatioTypeSelector } from "../../imodel-components-react/quantityformat/misc/RatioType.js";
-import userEvent from "@testing-library/user-event";
+import { userEvent } from "@testing-library/user-event";
 
 function setFormatTrait(
   formatProps: FormatProps,
