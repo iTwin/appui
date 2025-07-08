@@ -431,7 +431,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
           </IconButton>
           </span>
           <RatioTypeSelector
-            data-testid="ratio-type-selector"
             type={
               formatProps.ratioType &&
               formatProps.ratioType.length > 0

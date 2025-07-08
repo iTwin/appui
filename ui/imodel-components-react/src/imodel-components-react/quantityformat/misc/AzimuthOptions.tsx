@@ -4,7 +4,7 @@ import classnames from "classnames";
 import { useTranslation } from "../../useTranslation.js";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
 import { Checkbox, IconButton } from "@itwin/itwinui-react";
-import { AzimuthBaseSlider } from "./AzimuthBaseSlider.js";
+import { AzimuthBaseInput } from "./AzimuthBaseInput.js";
 
 
 /**
@@ -65,8 +65,7 @@ export function AzimuthOptions(props: {
           <SvgHelpCircularHollow />
         </IconButton>
       </span>
-      <AzimuthBaseSlider
-        data-testid="azimuth-base-slider"
+      <AzimuthBaseInput
         value={
           formatProps.azimuthBase !== undefined
             ? formatProps.azimuthBase

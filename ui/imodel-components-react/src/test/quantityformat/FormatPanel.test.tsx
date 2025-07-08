@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { render, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   FormatProps,
@@ -15,12 +15,16 @@ import {
   FormatterSpec,
   FormatTraits,
   getTraitString,
+  RatioType,
 } from "@itwin/core-quantity";
 import { Checkbox } from "@itwin/itwinui-react";
 import { TestUtils } from "../TestUtils.js";
 import { FormatPanel } from "../../imodel-components-react/quantityformat/FormatPanel.js";
 import { FormatSample } from "../../imodel-components-react/quantityformat/FormatSample.js";
 import { FormatPrecision } from "../../imodel-components-react/quantityformat/FormatPrecision.js";
+import { AzimuthOptions } from "../../imodel-components-react/quantityformat/misc/AzimuthOptions.js";
+import { RatioTypeSelector } from "../../imodel-components-react/quantityformat/misc/RatioType.js";
+import userEvent from "@testing-library/user-event";
 
 function setFormatTrait(
   formatProps: FormatProps,
@@ -260,5 +264,96 @@ describe("FormatPrecision", () => {
     );
     expect(renderedComponent.getByTestId("decimal-precision-selector")).to
       .exist;
+  });
+});
+
+describe("AzimuthOptions", () => {
+  it("should render azimuth options", async () => {
+    const formatProps: FormatProps = {
+      type: "azimuth",
+      azimuthBase: 0,
+      azimuthCounterClockwise: false,
+    };
+    const onChange = vi.fn();
+    const renderedComponent = render(
+      <AzimuthOptions
+        formatProps={formatProps}
+        onChange={onChange}
+        disabled={false}
+      />
+    );
+
+    expect(renderedComponent.getByTestId("azimuth-base-input")).to.exist;
+    expect(
+      renderedComponent.getByTestId("azimuth-counter-clockwise-checkbox")
+    ).to.exist;
+
+    const checkbox = renderedComponent.getByTestId(
+      "azimuth-counter-clockwise-checkbox"
+    ) as HTMLInputElement;
+    expect(checkbox.checked).to.be.false;
+
+    checkbox.click();
+    expect(onChange.mock.calls[0][0]).toEqual({
+      ...formatProps,
+      azimuthCounterClockwise: true,
+    });
+  });
+
+  it("should render azimuth base input, and update on change", async () => {
+    const formatProps: FormatProps = {
+      type: "azimuth",
+      azimuthBase: 0,
+      azimuthCounterClockwise: false,
+    };
+    const onChange = vi.fn();
+    const renderedComponent = render(
+      <AzimuthOptions
+        formatProps={formatProps}
+        onChange={onChange}
+        disabled={false}
+      />
+    );
+
+    const input = renderedComponent.getByTestId("azimuth-base-input") as HTMLInputElement;
+    expect(input.value).to.equal("0");
+
+    // Use fireEvent from @testing-library/react to trigger the change event
+    fireEvent.change(input, { target: { value: "45.00" } });
+
+    expect(onChange.mock.calls[0][0]).toEqual({
+      ...formatProps,
+      azimuthBase: 45.0,
+    });
+
+    fireEvent.keyDown(input, { key: 'A', code: 'KeyA' });
+    expect(onChange).toHaveBeenCalledTimes(1); // No change should occur on key down with a letter
+  });
+
+  it("should render ratioType selector", async () => {
+    const user = userEvent.setup();
+
+    const onChange = vi.fn();
+    const renderedComponent = render(
+      <RatioTypeSelector
+        type={RatioType.NToOne}
+        onChange={onChange}
+        disabled={false}
+      />
+    );
+
+    expect(renderedComponent.getByTestId("ratio-type-selector")).to.exist;
+
+    // Find the first span in the rendered component and expect it to equal 'N:1'
+    const span = renderedComponent.container.querySelector("span");
+    expect(span?.textContent).to.equal("N:1");
+
+
+    const selector = renderedComponent.container.querySelector('[role="combobox"]');
+    await user.click(selector!);
+
+    const options = screen.getAllByRole('option');
+
+    expect(options.length).toEqual(4);
   });
 });

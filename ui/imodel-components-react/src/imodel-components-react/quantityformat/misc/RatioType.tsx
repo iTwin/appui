@@ -49,6 +49,7 @@ export function RatioTypeSelector(props: {
 
   return (
     <Select
+      data-testid="ratio-type-selector"
       options={formatOptions}
       value={type}
       onChange={handleOnChange}
