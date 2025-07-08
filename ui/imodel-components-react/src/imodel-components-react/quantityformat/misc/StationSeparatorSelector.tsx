@@ -66,6 +66,7 @@ export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
 
   return (
     <Select
+      data-testid="station-separator-selector"
       options={separatorOptions}
       disabled={disabled}
       value={separator}

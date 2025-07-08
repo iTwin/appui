@@ -54,6 +54,7 @@ export function SignOptionSelector(props: SignOptionSelectorProps) {
 
   return (
     <Select
+      data-testid="sign-option-selector"
       options={options}
       value={signOption}
       onChange={handleOnChange}

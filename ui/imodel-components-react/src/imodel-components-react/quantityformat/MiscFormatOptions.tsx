@@ -284,7 +284,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             {translate("QuantityFormat.labels.signOptionLabel")}
           </span>
           <SignOptionSelector
-            data-testid="sign-option-selector"
             signOption={showSignOption}
             onChange={handleShowSignChange}
           />
@@ -298,7 +297,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             {translate("QuantityFormat.labels.stationOffsetLabel")}
           </span>
           <StationSizeSelector
-            data-testid="station-size-selector"
             value={formatProps.stationOffsetSize ?? 2}
             disabled={formatType !== FormatType.Station}
             onChange={handleStationOffsetChange}
@@ -313,7 +311,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             {translate("QuantityFormat.labels.stationSeparatorLabel")}
           </span>
           <StationSeparatorSelector
-            data-testid="station-separator-selector"
             separator={
               undefined !== formatProps.stationSeparator
                 ? formatProps.stationSeparator
@@ -337,7 +334,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             {translate("QuantityFormat.labels.decimalSeparatorLabel")}
           </span>
           <DecimalSeparatorSelector
-            data-testid="decimal-separator-selector"
             separator={formatProps.decimalSeparator ?? "."}
             onChange={handleDecimalSeparatorChange}
             disabled={formatType === FormatType.Fractional}
@@ -408,7 +404,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             {translate("QuantityFormat.labels.scientificTypeLabel")}
           </span>
           <ScientificTypeSelector
-            data-testid="scientific-type-selector"
             type={
               formatProps.scientificType &&
               formatProps.scientificType.length > 0

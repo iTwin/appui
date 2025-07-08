@@ -51,6 +51,7 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
 
   return (
     <Select
+      data-testid="thousands-separator-selector"
       options={separatorOptions}
       value={separator}
       size="small"

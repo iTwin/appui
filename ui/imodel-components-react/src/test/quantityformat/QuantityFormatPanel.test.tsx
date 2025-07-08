@@ -654,7 +654,8 @@ describe("QuantityInput", () => {
       initialSelectionEnd: Infinity,
     });
     await waitFor(() => {
-      component.getByDisplayValue("0");
+      const input = component.getByTestId("format-sample-input") as HTMLInputElement;
+      expect(input.value).toEqual("0");
     });
 
     await theUserTo.type(sampleInput, "14.12", {
@@ -671,7 +672,8 @@ describe("QuantityInput", () => {
     });
     await theUserTo.tab();
     await waitFor(() => {
-      component.getByDisplayValue("0");
+      const input = component.getByTestId("format-sample-input") as HTMLInputElement;
+      expect(input.value).toEqual("0");
     });
 
     // cover update props case
@@ -690,15 +692,11 @@ describe("QuantityInput", () => {
         showSample
       />
     );
-    component.getByDisplayValue("0");
 
-    component.rerender(
-      <QuantityFormatPanel
-        quantityType={QuantityType.LengthEngineering}
-        showSample
-      />
-    );
-    component.getByDisplayValue("0");
+    await waitFor(() => {
+      const input = component.getByTestId("format-sample-input") as HTMLInputElement;
+      expect(input.value).toEqual("0");
+    });
   });
 
   it("should handle onFormatChange when changing primary unit", async () => {

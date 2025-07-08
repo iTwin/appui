@@ -51,6 +51,7 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
 
   return (
     <Select
+      data-testid="uom-separator-select"
       options={separatorOptions}
       value={separator}
       onChange={handleOnChange}
@@ -153,7 +154,6 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
         {translate("QuantityFormat.labels.labelSeparator")}
       </span>
       <UomSeparatorSelector
-        data-testid="uom-separator-select"
         separator={formatProps.uomSeparator ?? ""}
         onChange={handleUomSeparatorChange}
         disabled={!isFormatTraitSet(FormatTraits.ShowUnitLabel)}

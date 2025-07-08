@@ -115,7 +115,6 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
       </span>
       <ThousandsSelector
-        data-testid="thousands-separator-selector"
         separator={formatProps.thousandSeparator ?? ","}
         disabled={!isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleThousandSeparatorChange}

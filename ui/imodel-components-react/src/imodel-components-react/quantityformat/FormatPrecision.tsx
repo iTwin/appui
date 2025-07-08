@@ -47,13 +47,11 @@ export function FormatPrecision(props: FormatPrecisionProps) {
       </span>
       {formatType === FormatType.Fractional ? (
         <FractionPrecisionSelector
-          data-testid="fraction-precision-selector"
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />
       ) : (
         <DecimalPrecisionSelector
-          data-testid="decimal-precision-selector"
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />

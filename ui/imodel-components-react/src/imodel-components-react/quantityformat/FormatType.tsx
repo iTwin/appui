@@ -74,6 +74,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
 
   return (
     <Select
+      data-testid="format-type-selector"
       options={formatOptions.current}
       value={type}
       onChange={handleOnChange}
@@ -185,7 +186,6 @@ export function FormatTypeOption(props: {
         {translate("QuantityFormat.labels.type")}
       </span>
       <FormatTypeSelector
-        data-testid="format-type-selector"
         type={formatType}
         onChange={handleFormatTypeChange}
       />

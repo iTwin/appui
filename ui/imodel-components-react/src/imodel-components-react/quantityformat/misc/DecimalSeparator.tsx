@@ -46,6 +46,7 @@ export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
 
   return (
     <Select
+      data-testid="decimal-separator-selector"
       options={options}
       value={separator}
       onChange={handleOnChange}

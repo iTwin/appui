@@ -20,7 +20,6 @@ export interface FractionPrecisionSelectorProps{
 }
 
 /** Component use to set Fraction precision
- * @internal
  */
 export function FractionPrecisionSelector(
   props: FractionPrecisionSelectorProps
@@ -75,6 +74,7 @@ export function FractionPrecisionSelector(
 
   return (
     <Select
+      data-testid="fraction-precision-selector"
       options={options}
       value={precision}
       onChange={handleOnChange}

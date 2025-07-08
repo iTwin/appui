@@ -46,6 +46,7 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
 
   return (
     <Select
+      data-testid="station-size-selector"
       options={separatorOptions}
       disabled={disabled}
       value={value}
