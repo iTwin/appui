@@ -147,12 +147,10 @@ export function FormatTypeOption(props: {
           precision = FractionalPrecision.Eight;
           break;
         case FormatType.Bearing:
-          // revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
-          revolutionUnit = "Units.RAD";
+          revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
           break;
         case FormatType.Azimuth:
-          // revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
-          revolutionUnit = "Units.RAD";
+          revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
           azimuthBaseUnit = "Units.ARC_DEG";
           azimuthBase = 0.0;
           break;
