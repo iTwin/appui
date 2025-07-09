@@ -13,6 +13,7 @@ import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
 
 /** Component use to set Ratio type.
+ * @alpha
  */
 export function RatioTypeSelector(props: {
   type: RatioType;

@@ -13,6 +13,7 @@ import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
 
 /** Properties of [[ScientificTypeSelector]] component.
+ * @internal
  */
 export interface ScientificTypeSelectorProps {
   type: ScientificType;
@@ -21,6 +22,7 @@ export interface ScientificTypeSelectorProps {
 }
 
 /** Component use to set Scientific type.
+ * @internal
  */
 export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
   const { type, onChange, disabled } = props;

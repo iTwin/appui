@@ -20,6 +20,7 @@ export interface FractionPrecisionSelectorProps{
 }
 
 /** Component use to set Fraction precision
+ * @internal
  */
 export function FractionPrecisionSelector(
   props: FractionPrecisionSelectorProps

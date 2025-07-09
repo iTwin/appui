@@ -21,6 +21,7 @@ export interface DecimalPrecisionSelectorProps {
 
 /** Component use to set Decimal Precision
  * the unit label.
+ * @internal
  */
 export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
   const { precision, onChange } = props;

@@ -10,6 +10,7 @@ import { Input } from "@itwin/itwinui-react";
 import React from "react";
 
 /** Component used to enter a numeric Azimuth base value.
+ * @alpha
  */
 export function AzimuthBaseInput(props: {
   value: number;
