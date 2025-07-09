@@ -14,7 +14,7 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[FractionPrecisionSelector]] component.
  * @internal
  */
-export interface FractionPrecisionSelectorProps{
+export interface FractionPrecisionSelectorProps {
   precision: number;
   onChange: (value: number) => void;
 }

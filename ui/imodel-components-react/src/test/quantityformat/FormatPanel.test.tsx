@@ -284,9 +284,8 @@ describe("AzimuthOptions", () => {
     );
 
     expect(renderedComponent.getByTestId("azimuth-base-input")).to.exist;
-    expect(
-      renderedComponent.getByTestId("azimuth-counter-clockwise-checkbox")
-    ).to.exist;
+    expect(renderedComponent.getByTestId("azimuth-counter-clockwise-checkbox"))
+      .to.exist;
 
     const checkbox = renderedComponent.getByTestId(
       "azimuth-counter-clockwise-checkbox"
@@ -315,7 +314,9 @@ describe("AzimuthOptions", () => {
       />
     );
 
-    const input = renderedComponent.getByTestId("azimuth-base-input") as HTMLInputElement;
+    const input = renderedComponent.getByTestId(
+      "azimuth-base-input"
+    ) as HTMLInputElement;
     expect(input.value).to.equal("0");
 
     // Use fireEvent from @testing-library/react to trigger the change event
@@ -326,7 +327,7 @@ describe("AzimuthOptions", () => {
       azimuthBase: 45.0,
     });
 
-    fireEvent.keyDown(input, { key: 'A', code: 'KeyA' });
+    fireEvent.keyDown(input, { key: "A", code: "KeyA" });
     expect(onChange).toHaveBeenCalledTimes(1); // No change should occur on key down with a letter
   });
 
@@ -348,11 +349,11 @@ describe("AzimuthOptions", () => {
     const span = renderedComponent.container.querySelector("span");
     expect(span?.textContent).to.equal("N:1");
 
-
-    const selector = renderedComponent.container.querySelector('[role="combobox"]');
+    const selector =
+      renderedComponent.container.querySelector('[role="combobox"]');
     await user.click(selector!);
 
-    const options = screen.getAllByRole('option');
+    const options = screen.getAllByRole("option");
 
     expect(options.length).toEqual(4);
   });

@@ -36,7 +36,7 @@ export function AzimuthBaseInput(props: {
       }
       onChange && onChange(numValue);
     },
-    [onChange],
+    [onChange]
   );
 
   return (
@@ -47,6 +47,7 @@ export function AzimuthBaseInput(props: {
       onKeyDown={onKeyDown}
       onChange={handleChange}
       size="small"
-      disabled={disabled} />
+      disabled={disabled}
+    />
   );
 }

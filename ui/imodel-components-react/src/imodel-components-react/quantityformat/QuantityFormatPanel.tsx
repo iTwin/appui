@@ -135,7 +135,13 @@ export interface QuantityFormatPanelProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
-  const { quantityType, onFormatChange, showSample, initialMagnitude, enableMinimumProperties } = props;
+  const {
+    quantityType,
+    onFormatChange,
+    showSample,
+    initialMagnitude,
+    enableMinimumProperties,
+  } = props;
   const [formatProps, setFormatProps] = React.useState<FormatProps>();
   const initialFormatProps = React.useRef<FormatProps>();
 

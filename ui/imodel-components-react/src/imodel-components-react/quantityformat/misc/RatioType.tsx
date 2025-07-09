@@ -35,8 +35,12 @@ export function RatioTypeSelector(props: {
     },
     {
       value: RatioType.UseGreatestCommonDivisor,
-      label: translate("QuantityFormat.ratio-type.use-greatest-common-divisor.label"),
-      sublabel: translate("QuantityFormat.ratio-type.use-greatest-common-divisor.description"),
+      label: translate(
+        "QuantityFormat.ratio-type.use-greatest-common-divisor.label"
+      ),
+      sublabel: translate(
+        "QuantityFormat.ratio-type.use-greatest-common-divisor.description"
+      ),
     },
     {
       value: RatioType.ValueBased,

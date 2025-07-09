@@ -654,7 +654,9 @@ describe("QuantityInput", () => {
       initialSelectionEnd: Infinity,
     });
     await waitFor(() => {
-      const input = component.getByTestId("format-sample-input") as HTMLInputElement;
+      const input = component.getByTestId(
+        "format-sample-input"
+      ) as HTMLInputElement;
       expect(input.value).toEqual("0");
     });
 
@@ -672,7 +674,9 @@ describe("QuantityInput", () => {
     });
     await theUserTo.tab();
     await waitFor(() => {
-      const input = component.getByTestId("format-sample-input") as HTMLInputElement;
+      const input = component.getByTestId(
+        "format-sample-input"
+      ) as HTMLInputElement;
       expect(input.value).toEqual("0");
     });
 
@@ -694,7 +698,9 @@ describe("QuantityInput", () => {
     );
 
     await waitFor(() => {
-      const input = component.getByTestId("format-sample-input") as HTMLInputElement;
+      const input = component.getByTestId(
+        "format-sample-input"
+      ) as HTMLInputElement;
       expect(input.value).toEqual("0");
     });
   });

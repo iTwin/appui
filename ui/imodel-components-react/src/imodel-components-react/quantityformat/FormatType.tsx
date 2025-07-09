@@ -83,18 +83,21 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
   );
 }
 
-const handleUnitsWhenFormatTypeChange = (units: Array<{
+const handleUnitsWhenFormatTypeChange = (
+  units: Array<{
     readonly name: string;
     readonly label?: string;
   }>,
-  type: FormatType) => {
-    if (type === FormatType.Ratio) { // Only one display unit is allowed for Ratio format.
-      if (units.length > 1) {
-        return [units[0]];
-      }
+  type: FormatType
+) => {
+  if (type === FormatType.Ratio) {
+    // Only one display unit is allowed for Ratio format.
+    if (units.length > 1) {
+      return [units[0]];
     }
-    return units;
-  };
+  }
+  return units;
+};
 
 /** Properties of [[FormatTypeOption]] component.
  * @alpha
@@ -124,9 +127,7 @@ export function FormatTypeOption(props: {
       let azimuthBase: number | undefined;
       let revolutionUnit: string | undefined;
       let ratioType: string | undefined;
-      switch (
-        type
-      ) {
+      switch (type) {
         case FormatType.Scientific:
           precision = DecimalPrecision.Six;
           scientificType = ScientificType.Normalized;
@@ -161,10 +162,15 @@ export function FormatTypeOption(props: {
       }
       const newFormatProps: FormatProps = {
         ...formatProps,
-        composite: formatProps.composite ? {
-          ...formatProps.composite,
-          units: handleUnitsWhenFormatTypeChange(formatProps.composite.units, type),
-        } : undefined,
+        composite: formatProps.composite
+          ? {
+              ...formatProps.composite,
+              units: handleUnitsWhenFormatTypeChange(
+                formatProps.composite.units,
+                type
+              ),
+            }
+          : undefined,
         type,
         precision,
         scientificType,
@@ -185,10 +191,7 @@ export function FormatTypeOption(props: {
       <span className={"uicore-label.current"}>
         {translate("QuantityFormat.labels.type")}
       </span>
-      <FormatTypeSelector
-        type={formatType}
-        onChange={handleFormatTypeChange}
-      />
+      <FormatTypeSelector type={formatType} onChange={handleFormatTypeChange} />
     </>
   );
 }

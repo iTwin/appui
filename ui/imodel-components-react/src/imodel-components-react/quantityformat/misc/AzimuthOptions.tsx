@@ -6,7 +6,6 @@ import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
 import { Checkbox, IconButton } from "@itwin/itwinui-react";
 import { AzimuthBaseInput } from "./AzimuthBaseInput.js";
 
-
 /**
  * Component used to customize Azimuth options of a Format.
  * @alpha
@@ -29,7 +28,10 @@ export function AzimuthOptions(props: {
 
   const handleAzimuthCCWChange = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const newFormatProps = { ...formatProps, azimuthCounterClockwise: event.target.checked };
+      const newFormatProps = {
+        ...formatProps,
+        azimuthCounterClockwise: event.target.checked,
+      };
       onChange && onChange(newFormatProps);
     },
     [formatProps, onChange]
@@ -37,14 +39,17 @@ export function AzimuthOptions(props: {
 
   return (
     <>
-      <span className={classnames(
-          "uicore-label",
-          disabled && "uicore-disabled"
-        )}>
+      <span
+        className={classnames("uicore-label", disabled && "uicore-disabled")}
+      >
         {translate("QuantityFormat.labels.azimuthCounterClockwise")}
-        <IconButton size="small" styleType="borderless" label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}>
+        <IconButton
+          size="small"
+          styleType="borderless"
+          label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}
+        >
           <SvgHelpCircularHollow />
-      </IconButton>
+        </IconButton>
       </span>
 
       <Checkbox
@@ -55,26 +60,24 @@ export function AzimuthOptions(props: {
       />
 
       <span
-        className={classnames(
-          "uicore-label",
-          disabled && "uicore-disabled"
-        )}
+        className={classnames("uicore-label", disabled && "uicore-disabled")}
       >
         {translate("QuantityFormat.labels.azimuthBase")}
-        <IconButton size="small" styleType="borderless" label={translate("QuantityFormat.azimuthType.baseTooltip")}>
+        <IconButton
+          size="small"
+          styleType="borderless"
+          label={translate("QuantityFormat.azimuthType.baseTooltip")}
+        >
           <SvgHelpCircularHollow />
         </IconButton>
       </span>
       <AzimuthBaseInput
         value={
-          formatProps.azimuthBase !== undefined
-            ? formatProps.azimuthBase
-            : 0.0
+          formatProps.azimuthBase !== undefined ? formatProps.azimuthBase : 0.0
         }
         disabled={disabled}
         onChange={handleAzimuthBaseChange}
       />
     </>
-  )
-
+  );
 }

@@ -246,8 +246,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     [formatProps, handleSetFormatProps]
   );
 
-
-
   return (
     <>
       {enableMinimumProperties && !showOptions && (
@@ -404,14 +402,17 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
           >
             {translate("QuantityFormat.labels.ratioTypeLabel")}
-          <IconButton size="small" styleType="borderless" label={translate("QuantityFormat.ratio-type.default.description")}>
-            <SvgHelpCircularHollow />
-          </IconButton>
+            <IconButton
+              size="small"
+              styleType="borderless"
+              label={translate("QuantityFormat.ratio-type.default.description")}
+            >
+              <SvgHelpCircularHollow />
+            </IconButton>
           </span>
           <RatioTypeSelector
             type={
-              formatProps.ratioType &&
-              formatProps.ratioType.length > 0
+              formatProps.ratioType && formatProps.ratioType.length > 0
                 ? parseRatioType(formatProps.ratioType, "custom")
                 : RatioType.NToOne
             }
