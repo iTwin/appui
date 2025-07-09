@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "5.11.1",
+  "version": "5.11.2",
   "description": "A react component library of iTwin.js UI data-oriented components",
   "type": "module",
   "types": "./lib/components-react.d.ts",
