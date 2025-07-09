@@ -87,23 +87,6 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
     [formatProps, handleSetFormatProps]
   );
 
-  const ratioTypeToolTipLabel = React.useMemo(() => {
-    // This is a workaround to generate the tooltip label for RatioTypeSelector
-    // since the translation is not available at the time of rendering.
-    switch (formatProps.ratioType) {
-      case RatioType.NToOne:
-        return translate("QuantityFormat.ratio-type.n-to-one.description");
-      case RatioType.OneToN:
-        return translate("QuantityFormat.ratio-type.one-to-n.description");
-      case RatioType.UseGreatestCommonDivisor:
-        return translate("QuantityFormat.ratio-type.use-greatest-common-divisor.description");
-      case RatioType.ValueBased:
-        return translate("QuantityFormat.ratio-type.value-based.description");
-      default:
-        return translate("QuantityFormat.ratio-type.default.description");
-    }
-  }, [formatProps, translate]);
-
   const setFormatTrait = React.useCallback(
     (trait: FormatTraits, setActive: boolean) => {
       const traitStr = getTraitString(trait);
@@ -421,7 +404,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
           >
             {translate("QuantityFormat.labels.ratioTypeLabel")}
-          <IconButton size="small" styleType="borderless" label={ratioTypeToolTipLabel}>
+          <IconButton size="small" styleType="borderless" label={translate("QuantityFormat.ratio-type.default.description")}>
             <SvgHelpCircularHollow />
           </IconButton>
           </span>

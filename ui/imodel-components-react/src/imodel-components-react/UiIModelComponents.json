@@ -150,8 +150,8 @@
         "description": "1 to N ratio (e.g. 1:N)"
       },
       "use-greatest-common-divisor": {
-        "label": "Use GCD",
-        "description": "Simplifies ratio using the greatest common divisor (e.g. 0.3 → 3:10)"
+        "label": "GCD",
+        "description": "Simplifies ratio using GCD (e.g. 0.3 → 3:10)"
       },
       "value-based": {
         "label": "Value Based",

@@ -25,18 +25,22 @@ export function RatioTypeSelector(props: {
     {
       value: RatioType.NToOne,
       label: translate("QuantityFormat.ratio-type.n-to-one.label"),
+      sublabel: translate("QuantityFormat.ratio-type.n-to-one.description"),
     },
     {
       value: RatioType.OneToN,
       label: translate("QuantityFormat.ratio-type.one-to-n.label"),
+      sublabel: translate("QuantityFormat.ratio-type.one-to-n.description"),
     },
     {
       value: RatioType.UseGreatestCommonDivisor,
       label: translate("QuantityFormat.ratio-type.use-greatest-common-divisor.label"),
+      sublabel: translate("QuantityFormat.ratio-type.use-greatest-common-divisor.description"),
     },
     {
       value: RatioType.ValueBased,
       label: translate("QuantityFormat.ratio-type.value-based.label"),
+      sublabel: translate("QuantityFormat.ratio-type.value-based.description"),
     },
   ];
 
