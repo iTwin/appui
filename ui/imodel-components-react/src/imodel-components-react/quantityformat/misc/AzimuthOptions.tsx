@@ -1,3 +1,10 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module QuantityFormat
+ */
 import type { FormatProps } from "@itwin/core-quantity";
 import React from "react";
 import classnames from "classnames";
