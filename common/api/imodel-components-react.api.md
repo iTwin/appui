@@ -400,10 +400,21 @@ export enum Face {
 }
 
 // @alpha
-export function FormatPanel(props: FormatPanelProps): React_2.JSX.Element;
+export function FormatPanel(props: {
+    initialFormat: FormatProps;
+    unitsProvider: UnitsProvider;
+    persistenceUnit?: Promise<UnitProps> | UnitProps;
+    showSample?: boolean;
+    initialMagnitude?: number;
+    enableMinimumProperties?: boolean;
+    onFormatChange?: (format: FormatProps) => void;
+    provideFormatSpec?: (formatProps: FormatProps, persistenceUnit: UnitProps, unitsProvider: UnitsProvider) => Promise<FormatterSpec>;
+    providePrimaryChildren?: (formatProps: FormatProps, fireFormatChange: (newProps: FormatProps) => void) => React_2.ReactNode;
+    provideSecondaryChildren?: (formatProps: FormatProps, fireFormatChange: (newProps: FormatProps) => void) => React_2.ReactNode;
+}): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatPanelProps extends CommonProps {
+export interface FormatPanelProps {
     // (undocumented)
     enableMinimumProperties?: boolean;
     // (undocumented)
@@ -413,7 +424,7 @@ export interface FormatPanelProps extends CommonProps {
     // (undocumented)
     onFormatChange?: (format: FormatProps) => void;
     // (undocumented)
-    persistenceUnit: Promise<UnitProps> | UnitProps;
+    persistenceUnit?: Promise<UnitProps> | UnitProps;
     // (undocumented)
     provideFormatSpec?: (formatProps: FormatProps, persistenceUnit: UnitProps, unitsProvider: UnitsProvider) => Promise<FormatterSpec>;
     // (undocumented)
@@ -430,7 +441,7 @@ export interface FormatPanelProps extends CommonProps {
 export function FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatPrecisionProps extends CommonProps {
+export interface FormatPrecisionProps {
     // (undocumented)
     formatProps: FormatProps;
     // (undocumented)
@@ -441,7 +452,7 @@ export interface FormatPrecisionProps extends CommonProps {
 export function FormatSample(props: FormatSampleProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatSampleProps extends CommonProps {
+export interface FormatSampleProps {
     // (undocumented)
     formatSpec?: FormatterSpec;
     // (undocumented)
@@ -451,10 +462,13 @@ export interface FormatSampleProps extends CommonProps {
 }
 
 // @alpha
-export function FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element;
+export function FormatTypeOption(props: {
+    formatProps: FormatProps;
+    onChange?: (format: FormatProps) => void;
+}): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatTypeOptionProps extends CommonProps {
+export interface FormatTypeOptionProps {
     // (undocumented)
     formatProps: FormatProps;
     // (undocumented)
@@ -465,7 +479,7 @@ export interface FormatTypeOptionProps extends CommonProps {
 export function FormatUnitLabel(props: FormatUnitLabelProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatUnitLabelProps extends CommonProps {
+export interface FormatUnitLabelProps {
     // (undocumented)
     formatProps: FormatProps;
     // (undocumented)
@@ -476,7 +490,7 @@ export interface FormatUnitLabelProps extends CommonProps {
 export function FormatUnits(props: FormatUnitsProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatUnitsProps extends CommonProps {
+export interface FormatUnitsProps {
     // (undocumented)
     initialFormat: FormatProps;
     // (undocumented)
@@ -520,7 +534,7 @@ export interface LineWeightSwatchProps extends React_2.ButtonHTMLAttributes<HTML
 export function MiscFormatOptions(props: MiscFormatOptionsProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface MiscFormatOptionsProps extends CommonProps {
+export interface MiscFormatOptionsProps {
     // (undocumented)
     children?: React_2.ReactNode;
     // (undocumented)
@@ -556,7 +570,7 @@ export const QuantityEditorSpec: EditorSpec;
 export function QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface QuantityFormatPanelProps extends CommonProps {
+export interface QuantityFormatPanelProps {
     // (undocumented)
     enableMinimumProperties?: boolean;
     // (undocumented)
