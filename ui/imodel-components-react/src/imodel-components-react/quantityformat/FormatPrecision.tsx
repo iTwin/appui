@@ -45,7 +45,8 @@ export function FormatPrecision(props: FormatPrecisionProps) {
 
   return (
     <>
-      <Label className={"uicore-label"}
+      <Label
+        className={"uicore-label"}
         as="div"
         displayStyle="inline"
         id="precision-selector"
@@ -61,7 +62,6 @@ export function FormatPrecision(props: FormatPrecisionProps) {
       ) : (
         <DecimalPrecisionSelector
           aria-labelledby="precision-selector"
-
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />

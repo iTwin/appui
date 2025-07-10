@@ -400,21 +400,10 @@ export enum Face {
 }
 
 // @alpha
-export function FormatPanel(props: {
-    initialFormat: FormatProps;
-    unitsProvider: UnitsProvider;
-    persistenceUnit?: Promise<UnitProps> | UnitProps;
-    showSample?: boolean;
-    initialMagnitude?: number;
-    enableMinimumProperties?: boolean;
-    onFormatChange?: (format: FormatProps) => void;
-    provideFormatSpec?: (formatProps: FormatProps, persistenceUnit: UnitProps, unitsProvider: UnitsProvider) => Promise<FormatterSpec>;
-    providePrimaryChildren?: (formatProps: FormatProps, fireFormatChange: (newProps: FormatProps) => void) => React_2.ReactNode;
-    provideSecondaryChildren?: (formatProps: FormatProps, fireFormatChange: (newProps: FormatProps) => void) => React_2.ReactNode;
-}): React_2.JSX.Element;
+export function FormatPanel(props: FormatPanelPropsWithoutPersistenceUnit): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatPanelProps {
+export interface FormatPanelProps extends CommonProps {
     // (undocumented)
     enableMinimumProperties?: boolean;
     // (undocumented)
@@ -424,7 +413,7 @@ export interface FormatPanelProps {
     // (undocumented)
     onFormatChange?: (format: FormatProps) => void;
     // (undocumented)
-    persistenceUnit?: Promise<UnitProps> | UnitProps;
+    persistenceUnit: Promise<UnitProps> | UnitProps;
     // (undocumented)
     provideFormatSpec?: (formatProps: FormatProps, persistenceUnit: UnitProps, unitsProvider: UnitsProvider) => Promise<FormatterSpec>;
     // (undocumented)
@@ -441,7 +430,7 @@ export interface FormatPanelProps {
 export function FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatPrecisionProps {
+export interface FormatPrecisionProps extends CommonProps {
     // (undocumented)
     formatProps: FormatProps;
     // (undocumented)
@@ -452,7 +441,7 @@ export interface FormatPrecisionProps {
 export function FormatSample(props: FormatSampleProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatSampleProps {
+export interface FormatSampleProps extends CommonProps {
     // (undocumented)
     formatSpec?: FormatterSpec;
     // (undocumented)
@@ -462,13 +451,10 @@ export interface FormatSampleProps {
 }
 
 // @alpha
-export function FormatTypeOption(props: {
-    formatProps: FormatProps;
-    onChange?: (format: FormatProps) => void;
-}): React_2.JSX.Element;
+export function FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatTypeOptionProps {
+export interface FormatTypeOptionProps extends CommonProps {
     // (undocumented)
     formatProps: FormatProps;
     // (undocumented)
@@ -479,7 +465,7 @@ export interface FormatTypeOptionProps {
 export function FormatUnitLabel(props: FormatUnitLabelProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatUnitLabelProps {
+export interface FormatUnitLabelProps extends CommonProps {
     // (undocumented)
     formatProps: FormatProps;
     // (undocumented)
@@ -490,7 +476,7 @@ export interface FormatUnitLabelProps {
 export function FormatUnits(props: FormatUnitsProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface FormatUnitsProps {
+export interface FormatUnitsProps extends CommonProps {
     // (undocumented)
     initialFormat: FormatProps;
     // (undocumented)
@@ -534,7 +520,7 @@ export interface LineWeightSwatchProps extends React_2.ButtonHTMLAttributes<HTML
 export function MiscFormatOptions(props: MiscFormatOptionsProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface MiscFormatOptionsProps {
+export interface MiscFormatOptionsProps extends CommonProps {
     // (undocumented)
     children?: React_2.ReactNode;
     // (undocumented)
@@ -570,7 +556,7 @@ export const QuantityEditorSpec: EditorSpec;
 export function QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element;
 
 // @alpha @deprecated
-export interface QuantityFormatPanelProps {
+export interface QuantityFormatPanelProps extends CommonProps {
     // (undocumented)
     enableMinimumProperties?: boolean;
     // (undocumented)

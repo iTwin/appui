@@ -73,8 +73,9 @@ type FormatPanelPropsWithoutPersistenceUnit = Omit<
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   FormatPanelProps,
   "persistenceUnit"
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-> & Partial<Pick<FormatPanelProps, "persistenceUnit">>;
+> &
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  Partial<Pick<FormatPanelProps, "persistenceUnit">>;
 /** Component to show/edit Quantity Format.
  * @alpha
  */

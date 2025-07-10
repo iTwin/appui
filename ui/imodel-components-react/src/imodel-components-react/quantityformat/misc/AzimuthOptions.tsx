@@ -43,7 +43,6 @@ export function AzimuthOptions(props: {
     [formatProps, onChange]
   );
 
-
   /** Disable commas and letters */
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     const isLetter = /^[a-zA-Z]$/.test(event.key);
@@ -88,7 +87,8 @@ export function AzimuthOptions(props: {
         disabled={disabled}
       />
 
-      <Label id="azimuth-base-input"
+      <Label
+        id="azimuth-base-input"
         className={classnames("uicore-label", disabled && "uicore-disabled")}
         as="div"
         displayStyle="inline"

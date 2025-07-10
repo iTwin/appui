@@ -36,36 +36,39 @@ interface FormatTypeSelectorProps extends CommonProps {
 function FormatTypeSelector(props: FormatTypeSelectorProps) {
   const { type, onChange, ...rest } = props;
   const { translate } = useTranslation();
-  const formatOptions = React.useMemo<SelectOption<FormatType>[]>(() => [
-    {
-      value: FormatType.Decimal,
-      label: translate("QuantityFormat.decimal"),
-    },
-    {
-      value: FormatType.Scientific,
-      label: translate("QuantityFormat.scientific"),
-    },
-    {
-      value: FormatType.Station,
-      label: translate("QuantityFormat.station"),
-    },
-    {
-      value: FormatType.Fractional,
-      label: translate("QuantityFormat.fractional"),
-    },
-    {
-      value: FormatType.Bearing,
-      label: translate("QuantityFormat.bearing"),
-    },
-    {
-      value: FormatType.Azimuth,
-      label: translate("QuantityFormat.azimuth"),
-    },
-    {
-      value: FormatType.Ratio,
-      label: translate("QuantityFormat.ratio"),
-    },
-  ], [translate]);
+  const formatOptions = React.useMemo<SelectOption<FormatType>[]>(
+    () => [
+      {
+        value: FormatType.Decimal,
+        label: translate("QuantityFormat.decimal"),
+      },
+      {
+        value: FormatType.Scientific,
+        label: translate("QuantityFormat.scientific"),
+      },
+      {
+        value: FormatType.Station,
+        label: translate("QuantityFormat.station"),
+      },
+      {
+        value: FormatType.Fractional,
+        label: translate("QuantityFormat.fractional"),
+      },
+      {
+        value: FormatType.Bearing,
+        label: translate("QuantityFormat.bearing"),
+      },
+      {
+        value: FormatType.Azimuth,
+        label: translate("QuantityFormat.azimuth"),
+      },
+      {
+        value: FormatType.Ratio,
+        label: translate("QuantityFormat.ratio"),
+      },
+    ],
+    [translate]
+  );
 
   const handleOnChange = React.useCallback(
     (newValue: FormatType) => {
@@ -76,7 +79,12 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
 
   return (
     <>
-      <Label className="uicore-label" as="div" displayStyle="inline" id="format-set-selector">
+      <Label
+        className="uicore-label"
+        as="div"
+        displayStyle="inline"
+        id="format-set-selector"
+      >
         {translate("QuantityFormat.labels.type")}
       </Label>
       <Select
@@ -192,7 +200,11 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
   const formatType = parseFormatType(formatProps.type, "format");
   return (
     <>
-      <FormatTypeSelector {...rest} type={formatType} onChange={handleFormatTypeChange} />
+      <FormatTypeSelector
+        {...rest}
+        type={formatType}
+        onChange={handleFormatTypeChange}
+      />
     </>
   );
 }

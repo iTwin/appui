@@ -100,7 +100,8 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
 
   return (
     <>
-      <Label className={"uicore-label"}
+      <Label
+        className={"uicore-label"}
         as="div"
         displayStyle="inline"
         id="use-thousands-separator"

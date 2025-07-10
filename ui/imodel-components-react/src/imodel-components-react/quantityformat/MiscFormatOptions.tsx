@@ -371,10 +371,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             onChange={handleKeepDecimalPointChange}
           />
 
-          <Label className={"uicore-label"}
+          <Label
+            className={"uicore-label"}
             as="div"
             displayStyle="inline"
-            id="keep-single-zero">
+            id="keep-single-zero"
+          >
             {translate("QuantityFormat.labels.keepSingleZeroLabel")}
           </Label>
           <Checkbox
@@ -383,10 +385,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             onChange={handleKeepSingleZeroChange}
           />
 
-          <Label className={"uicore-label"}
+          <Label
+            className={"uicore-label"}
             as="div"
             displayStyle="inline"
-            id="zero-empty">
+            id="zero-empty"
+          >
             {translate("QuantityFormat.labels.zeroEmptyLabel")}
           </Label>
           <Checkbox
