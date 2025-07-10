@@ -8,13 +8,15 @@
 
 import * as React from "react";
 import type { UnitProps, UnitsProvider } from "@itwin/core-quantity";
+import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Input, Select } from "@itwin/itwinui-react";
 
 /** Properties of [[UnitDescr]] component.
  * @internal
  */
-export interface UnitDescrProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface UnitDescrProps extends CommonProps {
   name: string;
   parentUnitName?: string;
   label: string;

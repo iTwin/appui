@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
 import { ShowSignOption } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
@@ -15,7 +16,8 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[SignOptionSelector]] component.
  * @internal
  */
-export interface SignOptionSelectorProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface SignOptionSelectorProps extends CommonProps {
   signOption: ShowSignOption;
   onChange: (value: ShowSignOption) => void;
 }
@@ -24,7 +26,7 @@ export interface SignOptionSelectorProps {
  * @internal
  */
 export function SignOptionSelector(props: SignOptionSelectorProps) {
-  const { signOption, onChange } = props;
+  const { signOption, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<ShowSignOption>[] = [
     {
@@ -54,11 +56,11 @@ export function SignOptionSelector(props: SignOptionSelectorProps) {
 
   return (
     <Select
-      data-testid="sign-option-selector"
       options={options}
       value={signOption}
       onChange={handleOnChange}
       size="small"
+      {...rest}
     />
   );
 }

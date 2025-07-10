@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import {
   DecimalPrecision,
@@ -17,13 +18,14 @@ import {
   ScientificType,
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
-import { Select } from "@itwin/itwinui-react";
+import { Label, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
 /** Properties of [[FormatTypeSelector]] component.
  * @alpha
  */
-interface FormatTypeSelectorProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+interface FormatTypeSelectorProps extends CommonProps {
   type: FormatType;
   onChange: (value: FormatType) => void;
 }
@@ -32,9 +34,9 @@ interface FormatTypeSelectorProps {
  * @alpha
  */
 function FormatTypeSelector(props: FormatTypeSelectorProps) {
-  const { type, onChange } = props;
+  const { type, onChange, ...rest } = props;
   const { translate } = useTranslation();
-  const formatOptions = React.useRef<SelectOption<FormatType>[]>([
+  const formatOptions = React.useMemo<SelectOption<FormatType>[]>(() => [
     {
       value: FormatType.Decimal,
       label: translate("QuantityFormat.decimal"),
@@ -63,7 +65,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
       value: FormatType.Ratio,
       label: translate("QuantityFormat.ratio"),
     },
-  ]);
+  ], [translate]);
 
   const handleOnChange = React.useCallback(
     (newValue: FormatType) => {
@@ -73,13 +75,19 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
   );
 
   return (
-    <Select
-      data-testid="format-type-selector"
-      options={formatOptions.current}
-      value={type}
-      onChange={handleOnChange}
-      size="small"
-    />
+    <>
+      <Label className="uicore-label" as="div" displayStyle="inline" id="format-set-selector">
+        {translate("QuantityFormat.labels.type")}
+      </Label>
+      <Select
+        options={formatOptions}
+        value={type}
+        aria-labelledby="format-set-selector"
+        onChange={handleOnChange}
+        size="small"
+        {...rest}
+      />
+    </>
   );
 }
 
@@ -103,7 +111,8 @@ const handleUnitsWhenFormatTypeChange = (
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatTypeOption>`
  */
-export interface FormatTypeOptionProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface FormatTypeOptionProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
 }
@@ -111,12 +120,9 @@ export interface FormatTypeOptionProps {
 /** Component to set the Quantity Format type.
  * @alpha
  */
-export function FormatTypeOption(props: {
-  formatProps: FormatProps;
-  onChange?: (format: FormatProps) => void;
-}) {
-  const { formatProps, onChange } = props;
-  const { translate } = useTranslation();
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export function FormatTypeOption(props: FormatTypeOptionProps) {
+  const { formatProps, onChange, ...rest } = props;
 
   const handleFormatTypeChange = React.useCallback(
     (type: FormatType) => {
@@ -186,10 +192,7 @@ export function FormatTypeOption(props: {
   const formatType = parseFormatType(formatProps.type, "format");
   return (
     <>
-      <span className={"uicore-label.current"}>
-        {translate("QuantityFormat.labels.type")}
-      </span>
-      <FormatTypeSelector type={formatType} onChange={handleFormatTypeChange} />
+      <FormatTypeSelector {...rest} type={formatType} onChange={handleFormatTypeChange} />
     </>
   );
 }

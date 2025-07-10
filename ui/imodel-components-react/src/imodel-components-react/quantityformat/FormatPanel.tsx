@@ -14,6 +14,7 @@ import type {
   UnitsProvider,
 } from "@itwin/core-quantity";
 import { Format, FormatterSpec } from "@itwin/core-quantity";
+import type { CommonProps } from "@itwin/core-react";
 import { FormatPrecision } from "./FormatPrecision.js";
 import { FormatSample } from "./FormatSample.js";
 import { FormatTypeOption } from "./FormatType.js";
@@ -25,10 +26,11 @@ import { MiscFormatOptions } from "./MiscFormatOptions.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPanel>`
  */
-export interface FormatPanelProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface FormatPanelProps extends CommonProps {
   initialFormat: FormatProps;
   unitsProvider: UnitsProvider;
-  persistenceUnit?: Promise<UnitProps> | UnitProps;
+  persistenceUnit: Promise<UnitProps> | UnitProps;
   showSample?: boolean;
   initialMagnitude?: number;
   // if true a only primary format properties are initially displayed and a "More/Less" link is added.
@@ -67,31 +69,16 @@ async function generateFormatSpec(
   );
 }
 
+type FormatPanelPropsWithoutPersistenceUnit = Omit<
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  FormatPanelProps,
+  "persistenceUnit"
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+> & Partial<Pick<FormatPanelProps, "persistenceUnit">>;
 /** Component to show/edit Quantity Format.
  * @alpha
  */
-export function FormatPanel(props: {
-  initialFormat: FormatProps;
-  unitsProvider: UnitsProvider;
-  persistenceUnit?: Promise<UnitProps> | UnitProps;
-  showSample?: boolean;
-  initialMagnitude?: number;
-  enableMinimumProperties?: boolean;
-  onFormatChange?: (format: FormatProps) => void;
-  provideFormatSpec?: (
-    formatProps: FormatProps,
-    persistenceUnit: UnitProps,
-    unitsProvider: UnitsProvider
-  ) => Promise<FormatterSpec>;
-  providePrimaryChildren?: (
-    formatProps: FormatProps,
-    fireFormatChange: (newProps: FormatProps) => void
-  ) => React.ReactNode;
-  provideSecondaryChildren?: (
-    formatProps: FormatProps,
-    fireFormatChange: (newProps: FormatProps) => void
-  ) => React.ReactNode;
-}) {
+export function FormatPanel(props: FormatPanelPropsWithoutPersistenceUnit) {
   const [formatSpec, setFormatSpec] = React.useState<FormatterSpec>();
   const {
     initialFormat,

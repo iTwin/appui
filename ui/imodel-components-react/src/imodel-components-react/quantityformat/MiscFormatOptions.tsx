@@ -9,7 +9,8 @@
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { Checkbox, IconButton } from "@itwin/itwinui-react";
+import type { CommonProps } from "@itwin/core-react";
+import { Checkbox, IconButton, Label } from "@itwin/itwinui-react";
 import type { FormatProps, ShowSignOption } from "@itwin/core-quantity";
 import {
   Format,
@@ -38,7 +39,8 @@ import { AzimuthOptions } from "./misc/AzimuthOptions.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof MiscFormatOptions>`
  */
-export interface MiscFormatOptionsProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface MiscFormatOptionsProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
   enableMinimumProperties?: boolean;
@@ -261,37 +263,51 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
       )}
       {(!enableMinimumProperties || showOptions) && (
         <>
-          <span className={"uicore-label"}>
+          <Label
+            className={"uicore-label"}
+            id="sign-option-selector"
+            as="div"
+            displayStyle="inline"
+          >
             {translate("QuantityFormat.labels.signOptionLabel")}
-          </span>
+          </Label>
           <SignOptionSelector
+            aria-labelledby="sign-option-selector"
             signOption={showSignOption}
             onChange={handleShowSignChange}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType !== FormatType.Station && "uicore-disabled"
             )}
+            as="div"
+            displayStyle="inline"
+            id="station-size-selector"
           >
             {translate("QuantityFormat.labels.stationOffsetLabel")}
-          </span>
+          </Label>
           <StationSizeSelector
+            aria-labelledby="station-size-selector"
             value={formatProps.stationOffsetSize ?? 2}
             disabled={formatType !== FormatType.Station}
             onChange={handleStationOffsetChange}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType !== FormatType.Station && "uicore-disabled"
             )}
+            as="div"
+            displayStyle="inline"
+            id="station-separator-selector"
           >
             {translate("QuantityFormat.labels.stationSeparatorLabel")}
-          </span>
+          </Label>
           <StationSeparatorSelector
+            aria-labelledby="station-separator-selector"
             separator={
               undefined !== formatProps.stationSeparator
                 ? formatProps.stationSeparator
@@ -306,84 +322,108 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             onChange={handleFormatChange}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType === FormatType.Fractional && "uicore-disabled"
             )}
+            as="div"
+            displayStyle="inline"
+            id="decimal-separator-selector"
           >
             {translate("QuantityFormat.labels.decimalSeparatorLabel")}
-          </span>
+          </Label>
           <DecimalSeparatorSelector
+            aria-labelledby="decimal-separator-selector"
             separator={formatProps.decimalSeparator ?? "."}
             onChange={handleDecimalSeparatorChange}
             disabled={formatType === FormatType.Fractional}
           />
 
-          <span className={"uicore-label"}>
+          <Label
+            className={"uicore-label"}
+            as="div"
+            displayStyle="inline"
+            id="show-trail-zeros"
+          >
             {translate("QuantityFormat.labels.showTrailZerosLabel")}
-          </span>
+          </Label>
           <Checkbox
-            data-testid="show-trail-zeros"
+            aria-labelledby="show-trail-zeros"
             checked={isFormatTraitSet(FormatTraits.TrailZeroes)}
             onChange={handleShowTrailingZeroesChange}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType === FormatType.Fractional && "uicore-disabled"
             )}
+            as="div"
+            displayStyle="inline"
+            id="keep-decimal-point"
           >
             {translate("QuantityFormat.labels.keepDecimalPointLabel")}
-          </span>
+          </Label>
           <Checkbox
-            data-testid="keep-decimal-point"
+            aria-labelledby="keep-decimal-point"
             checked={isFormatTraitSet(FormatTraits.KeepDecimalPoint)}
             onChange={handleKeepDecimalPointChange}
           />
 
-          <span className={"uicore-label"}>
+          <Label className={"uicore-label"}
+            as="div"
+            displayStyle="inline"
+            id="keep-single-zero">
             {translate("QuantityFormat.labels.keepSingleZeroLabel")}
-          </span>
+          </Label>
           <Checkbox
-            data-testid="keep-single-zero"
+            aria-labelledby="keep-single-zero"
             checked={isFormatTraitSet(FormatTraits.KeepSingleZero)}
             onChange={handleKeepSingleZeroChange}
           />
 
-          <span className={"uicore-label"}>
+          <Label className={"uicore-label"}
+            as="div"
+            displayStyle="inline"
+            id="zero-empty">
             {translate("QuantityFormat.labels.zeroEmptyLabel")}
-          </span>
+          </Label>
           <Checkbox
-            data-testid="zero-empty"
+            aria-labelledby="zero-empty"
             checked={isFormatTraitSet(FormatTraits.ZeroEmpty)}
             onChange={handleZeroEmptyChange}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType !== FormatType.Fractional && "uicore-disabled"
             )}
+            as="div"
+            displayStyle="inline"
+            id="fraction-dash"
           >
             {translate("QuantityFormat.labels.fractionDashLabel")}
-          </span>
+          </Label>
           <Checkbox
-            data-testid="fraction-dash"
+            aria-labelledby="fraction-dash"
             checked={isFormatTraitSet(FormatTraits.FractionDash)}
             onChange={handleUseFractionDashChange}
             disabled={formatType !== FormatType.Fractional}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType !== FormatType.Scientific && "uicore-disabled"
             )}
+            as="div"
+            displayStyle="inline"
+            id="scientific-type-selector"
           >
             {translate("QuantityFormat.labels.scientificTypeLabel")}
-          </span>
+          </Label>
           <ScientificTypeSelector
             type={
               formatProps.scientificType &&
@@ -391,15 +431,17 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
                 ? parseScientificType(formatProps.scientificType, "custom")
                 : ScientificType.Normalized
             }
+            aria-labelledby="scientific-type-selector"
             disabled={formatType !== FormatType.Scientific}
             onChange={handleScientificTypeChange}
           />
 
-          <span
+          <Label
             className={classnames(
               "uicore-label",
               formatType !== FormatType.Ratio && "uicore-disabled"
             )}
+            id="ratio-type-selector"
           >
             {translate("QuantityFormat.labels.ratioTypeLabel")}
             <IconButton
@@ -409,7 +451,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             >
               <SvgHelpCircularHollow />
             </IconButton>
-          </span>
+          </Label>
           <RatioTypeSelector
             type={
               formatProps.ratioType && formatProps.ratioType.length > 0
@@ -418,6 +460,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             }
             disabled={formatType !== FormatType.Ratio}
             onChange={handleRatioTypeChange}
+            aria-labelledby="ratio-type-selector"
           />
 
           <AzimuthOptions

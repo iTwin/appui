@@ -10,8 +10,7 @@ import React from "react";
 import classnames from "classnames";
 import { useTranslation } from "../../useTranslation.js";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
-import { Checkbox, IconButton } from "@itwin/itwinui-react";
-import { AzimuthBaseInput } from "./AzimuthBaseInput.js";
+import { Checkbox, IconButton, Input, Label } from "@itwin/itwinui-react";
 
 /**
  * Component used to customize Azimuth options of a Format.
@@ -44,10 +43,34 @@ export function AzimuthOptions(props: {
     [formatProps, onChange]
   );
 
+
+  /** Disable commas and letters */
+  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const isLetter = /^[a-zA-Z]$/.test(event.key);
+    if (event.key === "," || isLetter) {
+      event.preventDefault();
+    }
+  };
+
+  const handleInputChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const numValue = Number(e.target.value);
+      if (isNaN(numValue)) {
+        e.preventDefault();
+        return;
+      }
+      handleAzimuthBaseChange(numValue);
+    },
+    [handleAzimuthBaseChange]
+  );
+
   return (
     <>
-      <span
+      <Label
         className={classnames("uicore-label", disabled && "uicore-disabled")}
+        id="azimuth-counter-clockwise"
+        as="div"
+        displayStyle="inline"
       >
         {translate("QuantityFormat.labels.azimuthCounterClockwise")}
         <IconButton
@@ -57,17 +80,18 @@ export function AzimuthOptions(props: {
         >
           <SvgHelpCircularHollow />
         </IconButton>
-      </span>
-
+      </Label>
       <Checkbox
-        data-testid="azimuth-counter-clockwise-checkbox"
+        aria-labelledby="azimuth-counter-clockwise"
         checked={formatProps.azimuthCounterClockwise ?? false}
         onChange={handleAzimuthCCWChange}
         disabled={disabled}
       />
 
-      <span
+      <Label id="azimuth-base-input"
         className={classnames("uicore-label", disabled && "uicore-disabled")}
+        as="div"
+        displayStyle="inline"
       >
         {translate("QuantityFormat.labels.azimuthBase")}
         <IconButton
@@ -77,13 +101,15 @@ export function AzimuthOptions(props: {
         >
           <SvgHelpCircularHollow />
         </IconButton>
-      </span>
-      <AzimuthBaseInput
-        value={
-          formatProps.azimuthBase !== undefined ? formatProps.azimuthBase : 0.0
-        }
+      </Label>
+      <Input
+        aria-labelledby="azimuth-base-input"
+        type="number"
+        value={formatProps.azimuthBase?.toString() ?? "0"}
+        onKeyDown={onKeyDown}
+        onChange={handleInputChange}
+        size="small"
         disabled={disabled}
-        onChange={handleAzimuthBaseChange}
       />
     </>
   );

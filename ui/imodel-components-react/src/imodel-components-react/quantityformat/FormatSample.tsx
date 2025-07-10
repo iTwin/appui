@@ -9,6 +9,7 @@
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { FormatterSpec } from "@itwin/core-quantity";
+import type { CommonProps } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
@@ -18,7 +19,8 @@ import { useTranslation } from "../useTranslation.js";
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatSample>`
  */
-export interface FormatSampleProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface FormatSampleProps extends CommonProps {
   formatSpec?: FormatterSpec;
   initialMagnitude?: number;
   hideLabels?: boolean;

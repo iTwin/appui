@@ -132,7 +132,7 @@ describe("QuantityInput", () => {
     const spanElement = component.getByTestId("format-sample-formatted");
 
     const comboBox = within(
-      component.getByTestId("uom-separator-select")
+      component.getByLabelText("QuantityFormat.labels.labelSeparator")
     ).getByRole("combobox");
     await theUserTo.click(comboBox);
     await theUserTo.click(
@@ -211,8 +211,9 @@ describe("QuantityInput", () => {
         onFormatChange={spy}
       />
     );
+    // Use a more specific matcher to only match the first "Type" label (case-insensitive, exact match)
     const comboBox = within(
-      component.getByTestId("format-type-selector")
+      component.getByLabelText("QuantityFormat.labels.type")
     ).getByRole("combobox");
     fireEvent.click(comboBox);
 
@@ -237,7 +238,7 @@ describe("QuantityInput", () => {
       />
     );
     const comboBox = within(
-      component.getByTestId("fraction-precision-selector")
+      component.getByLabelText("QuantityFormat.labels.precision")
     ).getByRole("combobox");
     fireEvent.click(comboBox);
 
@@ -262,7 +263,7 @@ describe("QuantityInput", () => {
     );
 
     const comboBox = within(
-      component.getByTestId("format-type-selector")
+      component.getByLabelText("QuantityFormat.labels.type")
     ).getByRole("combobox");
     fireEvent.click(comboBox);
 
@@ -276,7 +277,7 @@ describe("QuantityInput", () => {
     spy.mockReset();
 
     const precisionSelector = within(
-      component.getByTestId("decimal-precision-selector")
+      component.getByLabelText("QuantityFormat.labels.precision")
     ).getByRole("combobox");
     fireEvent.click(precisionSelector);
 
@@ -321,7 +322,7 @@ describe("QuantityInput", () => {
     );
 
     const comboBox = within(
-      component.getByTestId("sign-option-selector")
+      component.getByLabelText("QuantityFormat.labels.signOptionLabel")
     ).getByRole("combobox");
     fireEvent.click(comboBox);
     fireEvent.click(
@@ -345,7 +346,7 @@ describe("QuantityInput", () => {
     );
 
     fireEvent.click(
-      within(component.getByTestId("format-type-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.type")).getByRole(
         "combobox"
       )
     );
@@ -358,7 +359,7 @@ describe("QuantityInput", () => {
     spy.mockReset();
 
     fireEvent.click(
-      within(component.getByTestId("station-size-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.stationOffsetLabel")).getByRole(
         "combobox"
       )
     );
@@ -371,7 +372,7 @@ describe("QuantityInput", () => {
     spy.mockReset();
 
     fireEvent.click(
-      within(component.getByTestId("station-separator-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.stationSeparatorLabel")).getByRole(
         "combobox"
       )
     );
@@ -396,12 +397,12 @@ describe("QuantityInput", () => {
     );
 
     /* turn on */
-    fireEvent.click(component.getByTestId("use-thousands-separator"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.useThousandSeparatorLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
     fireEvent.click(
-      within(component.getByTestId("thousands-separator-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.thousandSeparatorLabel")).getByRole(
         "combobox"
       )
     );
@@ -414,19 +415,19 @@ describe("QuantityInput", () => {
     spy.mockReset();
 
     /* turn off */
-    fireEvent.click(component.getByTestId("use-thousands-separator"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.useThousandSeparatorLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
     /* turn on */
-    fireEvent.click(component.getByTestId("use-thousands-separator"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.useThousandSeparatorLabel"));
     await waitForPosition();
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
     component.getByText(`40.504'-2"`);
 
     fireEvent.click(
-      within(component.getByTestId("thousands-separator-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.thousandSeparatorLabel")).getByRole(
         "combobox"
       )
     );
@@ -452,7 +453,7 @@ describe("QuantityInput", () => {
     );
 
     fireEvent.click(
-      within(component.getByTestId("format-type-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.type")).getByRole(
         "combobox"
       )
     );
@@ -465,12 +466,12 @@ describe("QuantityInput", () => {
     spy.mockReset();
 
     /* turn on 1000 separator */
-    fireEvent.click(component.getByTestId("use-thousands-separator"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.useThousandSeparatorLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
     const separatorSelector = within(
-      component.getByTestId("decimal-separator-selector")
+      component.getByLabelText("QuantityFormat.labels.decimalSeparatorLabel")
     ).getByRole("combobox");
     fireEvent.click(separatorSelector);
     fireEvent.click(
@@ -503,12 +504,12 @@ describe("QuantityInput", () => {
     );
 
     // test fraction specific trait before changing type
-    fireEvent.click(component.getByTestId("fraction-dash"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.fractionDashLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
     const typeSelector = within(
-      component.getByTestId("format-type-selector")
+      component.getByLabelText("QuantityFormat.labels.type")
     ).getByRole("combobox");
     fireEvent.click(typeSelector);
     fireEvent.click(
@@ -519,19 +520,19 @@ describe("QuantityInput", () => {
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
-    fireEvent.click(component.getByTestId("show-trail-zeros"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.showTrailZerosLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
-    fireEvent.click(component.getByTestId("keep-decimal-point"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.keepDecimalPointLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
-    fireEvent.click(component.getByTestId("keep-single-zero"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.keepSingleZeroLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
-    fireEvent.click(component.getByTestId("zero-empty"));
+    fireEvent.click(component.getByLabelText("QuantityFormat.labels.zeroEmptyLabel"));
     expect(spy).toHaveBeenCalledOnce();
     spy.mockReset();
 
@@ -545,7 +546,7 @@ describe("QuantityInput", () => {
     spy.mockReset();
 
     fireEvent.click(
-      within(component.getByTestId("scientific-type-selector")).getByRole(
+      within(component.getByLabelText("QuantityFormat.labels.scientificTypeLabel")).getByRole(
         "combobox"
       )
     );

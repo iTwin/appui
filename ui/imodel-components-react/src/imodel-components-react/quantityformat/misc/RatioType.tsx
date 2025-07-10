@@ -19,8 +19,9 @@ export function RatioTypeSelector(props: {
   type: RatioType;
   onChange: (value: RatioType) => void;
   disabled?: boolean;
+  rest?: React.HTMLAttributes<HTMLDivElement>;
 }) {
-  const { type, onChange, disabled } = props;
+  const { type, onChange, disabled, ...rest } = props;
   const { translate } = useTranslation();
   const formatOptions: SelectOption<RatioType>[] = [
     {
@@ -58,12 +59,12 @@ export function RatioTypeSelector(props: {
 
   return (
     <Select
-      data-testid="ratio-type-selector"
       options={formatOptions}
       value={type}
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
+      {...rest}
     />
   );
 }

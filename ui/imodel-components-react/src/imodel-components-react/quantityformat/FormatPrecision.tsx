@@ -7,17 +7,20 @@
  */
 
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
 import { DecimalPrecisionSelector } from "./misc/DecimalPrecision.js";
 import { FractionPrecisionSelector } from "./misc/FractionPrecision.js";
 import { useTranslation } from "../useTranslation.js";
+import { Label } from "@itwin/itwinui-react";
 
 /** Properties of [[FormatPrecision]] component.
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatPrecision>`
  */
-export interface FormatPrecisionProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface FormatPrecisionProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
 }
@@ -42,16 +45,23 @@ export function FormatPrecision(props: FormatPrecisionProps) {
 
   return (
     <>
-      <span className={"uicore-label"}>
+      <Label className={"uicore-label"}
+        as="div"
+        displayStyle="inline"
+        id="precision-selector"
+      >
         {translate("QuantityFormat.labels.precision")}
-      </span>
+      </Label>
       {formatType === FormatType.Fractional ? (
         <FractionPrecisionSelector
+          aria-labelledby="precision-selector"
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />
       ) : (
         <DecimalPrecisionSelector
+          aria-labelledby="precision-selector"
+
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />

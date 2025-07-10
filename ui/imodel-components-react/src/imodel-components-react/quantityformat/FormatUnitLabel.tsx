@@ -8,20 +8,22 @@
 
 import classnames from "classnames";
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
-import { Checkbox, Select } from "@itwin/itwinui-react";
+import { Checkbox, Label, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
-interface UomSeparatorSelectorProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+interface UomSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled?: boolean;
   onChange: (value: string) => void;
 }
 
 function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
-  const { separator, onChange, disabled } = props;
+  const { separator, onChange, disabled, ...rest } = props;
   const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
@@ -51,12 +53,12 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
 
   return (
     <Select
-      data-testid="uom-separator-select"
       options={separatorOptions}
       value={separator}
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
+      {...rest}
     />
   );
 }
@@ -65,7 +67,8 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnitLabel>`
  */
-export interface FormatUnitLabelProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface FormatUnitLabelProps extends CommonProps {
   formatProps: FormatProps;
   onUnitLabelChange?: (format: FormatProps) => void;
 }
@@ -145,15 +148,19 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
         checked={isFormatTraitSet(FormatTraits.ShowUnitLabel)}
         onChange={handleShowUnitLabelChange}
       />
-      <span
+      <Label
+        as="div"
+        displayStyle="inline"
+        id="uom-separator-select"
         className={classnames(
           "uicore-label",
           !isFormatTraitSet(FormatTraits.ShowUnitLabel) && "uicore-disabled"
         )}
       >
         {translate("QuantityFormat.labels.labelSeparator")}
-      </span>
+      </Label>
       <UomSeparatorSelector
+        aria-labelledby="uom-separator-select"
         separator={formatProps.uomSeparator ?? ""}
         onChange={handleUomSeparatorChange}
         disabled={!isFormatTraitSet(FormatTraits.ShowUnitLabel)}

@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
@@ -14,7 +15,8 @@ import { useTranslation } from "../../useTranslation.js";
 /** Properties of [[DecimalSeparatorSelector]] component.
  * @internal
  */
-export interface DecimalSeparatorSelectorProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface DecimalSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled?: boolean;
   onChange: (value: string) => void;
@@ -24,7 +26,7 @@ export interface DecimalSeparatorSelectorProps {
  * @internal
  */
 export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
-  const { separator, onChange, disabled } = props;
+  const { separator, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<string>[] = [
     {
@@ -46,12 +48,11 @@ export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
 
   return (
     <Select
-      data-testid="decimal-separator-selector"
       options={options}
       value={separator}
       onChange={handleOnChange}
       size="small"
-      disabled={disabled}
+      {...rest}
     />
   );
 }

@@ -8,16 +8,18 @@
 
 import classnames from "classnames";
 import * as React from "react";
+import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
-import { Checkbox } from "@itwin/itwinui-react";
+import { Checkbox, Label } from "@itwin/itwinui-react";
 import { ThousandsSelector } from "./ThousandsSelector.js";
 import { useTranslation } from "../../useTranslation.js";
 
 /** Properties of [[ThousandsSeparator]] component.
  * @internal
  */
-export interface ThousandsSeparatorProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface ThousandsSeparatorProps extends CommonProps {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
 }
@@ -98,26 +100,34 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
 
   return (
     <>
-      <span className={"uicore-label"}>
+      <Label className={"uicore-label"}
+        as="div"
+        displayStyle="inline"
+        id="use-thousands-separator"
+      >
         {translate("QuantityFormat.labels.useThousandSeparatorLabel")}
-      </span>
+      </Label>
       <Checkbox
-        data-testid="use-thousands-separator"
+        aria-labelledby="use-thousands-separator"
         checked={isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleUseThousandsSeparatorChange}
       />
-      <span
+      <Label
         className={classnames(
           "uicore-label",
           !isFormatTraitSet(FormatTraits.Use1000Separator) && "uicore-disabled"
         )}
+        as="div"
+        displayStyle="inline"
+        id="thousands-separator-selector"
       >
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
-      </span>
+      </Label>
       <ThousandsSelector
         separator={formatProps.thousandSeparator ?? ","}
         disabled={!isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleThousandSeparatorChange}
+        aria-labelledby="thousands-separator-selector"
       />
     </>
   );
