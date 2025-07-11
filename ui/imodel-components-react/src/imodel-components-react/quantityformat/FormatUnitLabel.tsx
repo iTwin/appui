@@ -81,6 +81,7 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
   const { formatProps, onUnitLabelChange } = props;
   const { translate } = useTranslation();
 
+  const uomSeparatorSelectorId = React.useId();
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
       onUnitLabelChange && onUnitLabelChange(newProps);
@@ -151,7 +152,7 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
       <Label
         as="div"
         displayStyle="inline"
-        id="uom-separator-select"
+        id={uomSeparatorSelectorId}
         className={classnames(
           "uicore-label",
           !isFormatTraitSet(FormatTraits.ShowUnitLabel) && "uicore-disabled"
@@ -160,7 +161,7 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
         {translate("QuantityFormat.labels.labelSeparator")}
       </Label>
       <UomSeparatorSelector
-        aria-labelledby="uom-separator-select"
+        aria-labelledby={uomSeparatorSelectorId}
         separator={formatProps.uomSeparator ?? ""}
         onChange={handleUomSeparatorChange}
         disabled={!isFormatTraitSet(FormatTraits.ShowUnitLabel)}

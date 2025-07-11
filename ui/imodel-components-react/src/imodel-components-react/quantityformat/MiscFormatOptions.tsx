@@ -63,6 +63,18 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   } = props;
   const { translate } = useTranslation();
 
+  const signOptionSelectorId = React.useId();
+  const stationSizeSelectorId = React.useId();
+  const stationSeparatorSelectorId = React.useId();
+  const decimalSeparatorSelectorId = React.useId();
+  const showTrailZerosId = React.useId();
+  const keepDecimalPointId = React.useId();
+  const keepSingleZeroId = React.useId();
+  const keepZeroEmptyId = React.useId();
+  const fractionDashId = React.useId();
+  const scientficTypeSelectorId = React.useId();
+  const ratioTypeSelectorId = React.useId();
+
   const handleSetFormatProps = React.useCallback(
     (newFormatProps: FormatProps) => {
       onChange && onChange(newFormatProps);
@@ -265,14 +277,14 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
         <>
           <Label
             className={"uicore-label"}
-            id="sign-option-selector"
+            id={signOptionSelectorId}
             as="div"
             displayStyle="inline"
           >
             {translate("QuantityFormat.labels.signOptionLabel")}
           </Label>
           <SignOptionSelector
-            aria-labelledby="sign-option-selector"
+            aria-labelledby={signOptionSelectorId}
             signOption={showSignOption}
             onChange={handleShowSignChange}
           />
@@ -284,12 +296,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id="station-size-selector"
+            id={stationSizeSelectorId}
           >
             {translate("QuantityFormat.labels.stationOffsetLabel")}
           </Label>
           <StationSizeSelector
-            aria-labelledby="station-size-selector"
+            aria-labelledby={stationSizeSelectorId}
             value={formatProps.stationOffsetSize ?? 2}
             disabled={formatType !== FormatType.Station}
             onChange={handleStationOffsetChange}
@@ -302,12 +314,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id="station-separator-selector"
+            id={stationSeparatorSelectorId}
           >
             {translate("QuantityFormat.labels.stationSeparatorLabel")}
           </Label>
           <StationSeparatorSelector
-            aria-labelledby="station-separator-selector"
+            aria-labelledby={stationSeparatorSelectorId}
             separator={
               undefined !== formatProps.stationSeparator
                 ? formatProps.stationSeparator
@@ -329,12 +341,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id="decimal-separator-selector"
+            id={decimalSeparatorSelectorId}
           >
             {translate("QuantityFormat.labels.decimalSeparatorLabel")}
           </Label>
           <DecimalSeparatorSelector
-            aria-labelledby="decimal-separator-selector"
+            aria-labelledby={decimalSeparatorSelectorId}
             separator={formatProps.decimalSeparator ?? "."}
             onChange={handleDecimalSeparatorChange}
             disabled={formatType === FormatType.Fractional}
@@ -344,12 +356,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             className={"uicore-label"}
             as="div"
             displayStyle="inline"
-            id="show-trail-zeros"
+            id={showTrailZerosId}
           >
             {translate("QuantityFormat.labels.showTrailZerosLabel")}
           </Label>
           <Checkbox
-            aria-labelledby="show-trail-zeros"
+            aria-labelledby={showTrailZerosId}
             checked={isFormatTraitSet(FormatTraits.TrailZeroes)}
             onChange={handleShowTrailingZeroesChange}
           />
@@ -361,12 +373,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id="keep-decimal-point"
+            id={keepDecimalPointId}
           >
             {translate("QuantityFormat.labels.keepDecimalPointLabel")}
           </Label>
           <Checkbox
-            aria-labelledby="keep-decimal-point"
+            aria-labelledby={keepDecimalPointId}
             checked={isFormatTraitSet(FormatTraits.KeepDecimalPoint)}
             onChange={handleKeepDecimalPointChange}
           />
@@ -375,12 +387,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             className={"uicore-label"}
             as="div"
             displayStyle="inline"
-            id="keep-single-zero"
+            id={keepSingleZeroId}
           >
             {translate("QuantityFormat.labels.keepSingleZeroLabel")}
           </Label>
           <Checkbox
-            aria-labelledby="keep-single-zero"
+            aria-labelledby={keepSingleZeroId}
             checked={isFormatTraitSet(FormatTraits.KeepSingleZero)}
             onChange={handleKeepSingleZeroChange}
           />
@@ -389,12 +401,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             className={"uicore-label"}
             as="div"
             displayStyle="inline"
-            id="zero-empty"
+            id={keepZeroEmptyId}
           >
             {translate("QuantityFormat.labels.zeroEmptyLabel")}
           </Label>
           <Checkbox
-            aria-labelledby="zero-empty"
+            aria-labelledby={keepZeroEmptyId}
             checked={isFormatTraitSet(FormatTraits.ZeroEmpty)}
             onChange={handleZeroEmptyChange}
           />
@@ -406,12 +418,12 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id="fraction-dash"
+            id={fractionDashId}
           >
             {translate("QuantityFormat.labels.fractionDashLabel")}
           </Label>
           <Checkbox
-            aria-labelledby="fraction-dash"
+            aria-labelledby={fractionDashId}
             checked={isFormatTraitSet(FormatTraits.FractionDash)}
             onChange={handleUseFractionDashChange}
             disabled={formatType !== FormatType.Fractional}
@@ -424,7 +436,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id="scientific-type-selector"
+            id={scientficTypeSelectorId}
           >
             {translate("QuantityFormat.labels.scientificTypeLabel")}
           </Label>
@@ -435,7 +447,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
                 ? parseScientificType(formatProps.scientificType, "custom")
                 : ScientificType.Normalized
             }
-            aria-labelledby="scientific-type-selector"
+            aria-labelledby={scientficTypeSelectorId}
             disabled={formatType !== FormatType.Scientific}
             onChange={handleScientificTypeChange}
           />
@@ -445,7 +457,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               "uicore-label",
               formatType !== FormatType.Ratio && "uicore-disabled"
             )}
-            id="ratio-type-selector"
+            id={ratioTypeSelectorId}
           >
             {translate("QuantityFormat.labels.ratioTypeLabel")}
             <IconButton
@@ -464,7 +476,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             }
             disabled={formatType !== FormatType.Ratio}
             onChange={handleRatioTypeChange}
-            aria-labelledby="ratio-type-selector"
+            aria-labelledby={ratioTypeSelectorId}
           />
 
           <AzimuthOptions

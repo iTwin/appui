@@ -32,7 +32,7 @@ export interface FormatPrecisionProps extends CommonProps {
 export function FormatPrecision(props: FormatPrecisionProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();
-
+  const precisionSelectorId = React.useId();
   const handlePrecisionChange = React.useCallback(
     (precision: number) => {
       const newFormatProps = { ...formatProps, precision };
@@ -49,19 +49,19 @@ export function FormatPrecision(props: FormatPrecisionProps) {
         className={"uicore-label"}
         as="div"
         displayStyle="inline"
-        id="precision-selector"
+        id={precisionSelectorId}
       >
         {translate("QuantityFormat.labels.precision")}
       </Label>
       {formatType === FormatType.Fractional ? (
         <FractionPrecisionSelector
-          aria-labelledby="precision-selector"
+          aria-labelledby={precisionSelectorId}
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />
       ) : (
         <DecimalPrecisionSelector
-          aria-labelledby="precision-selector"
+          aria-labelledby={precisionSelectorId}
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
         />

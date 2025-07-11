@@ -36,6 +36,7 @@ interface FormatTypeSelectorProps extends CommonProps {
 function FormatTypeSelector(props: FormatTypeSelectorProps) {
   const { type, onChange, ...rest } = props;
   const { translate } = useTranslation();
+  const formatTypeSelectorId = React.useId();
   const formatOptions = React.useMemo<SelectOption<FormatType>[]>(
     () => [
       {
@@ -83,14 +84,14 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
         className="uicore-label"
         as="div"
         displayStyle="inline"
-        id="format-set-selector"
+        id={formatTypeSelectorId}
       >
         {translate("QuantityFormat.labels.type")}
       </Label>
       <Select
         options={formatOptions}
         value={type}
-        aria-labelledby="format-set-selector"
+        aria-labelledby={formatTypeSelectorId}
         onChange={handleOnChange}
         size="small"
         {...rest}

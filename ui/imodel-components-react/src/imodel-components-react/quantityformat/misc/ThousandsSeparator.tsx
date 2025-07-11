@@ -31,6 +31,8 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();
 
+  const useThousandsId = React.useId();
+  const thousandsSelectorId = React.useId();
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
       onChange && onChange(newProps);
@@ -104,12 +106,12 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         className={"uicore-label"}
         as="div"
         displayStyle="inline"
-        id="use-thousands-separator"
+        id={useThousandsId}
       >
         {translate("QuantityFormat.labels.useThousandSeparatorLabel")}
       </Label>
       <Checkbox
-        aria-labelledby="use-thousands-separator"
+        aria-labelledby={useThousandsId}
         checked={isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleUseThousandsSeparatorChange}
       />
@@ -120,7 +122,7 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         )}
         as="div"
         displayStyle="inline"
-        id="thousands-separator-selector"
+        id={thousandsSelectorId}
       >
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
       </Label>
@@ -128,7 +130,7 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
         separator={formatProps.thousandSeparator ?? ","}
         disabled={!isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleThousandSeparatorChange}
-        aria-labelledby="thousands-separator-selector"
+        aria-labelledby={thousandsSelectorId}
       />
     </>
   );

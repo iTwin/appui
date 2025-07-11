@@ -24,6 +24,8 @@ export function AzimuthOptions(props: {
   const { formatProps, onChange, disabled } = props;
   const { translate } = useTranslation();
 
+  const baseInputId = React.useId();
+  const ccwCheckboxId = React.useId();
   const handleAzimuthBaseChange = React.useCallback(
     (value: number) => {
       const newFormatProps = { ...formatProps, azimuthBase: value };
@@ -67,7 +69,7 @@ export function AzimuthOptions(props: {
     <>
       <Label
         className={classnames("uicore-label", disabled && "uicore-disabled")}
-        id="azimuth-counter-clockwise"
+        id={ccwCheckboxId}
         as="div"
         displayStyle="inline"
       >
@@ -81,14 +83,14 @@ export function AzimuthOptions(props: {
         </IconButton>
       </Label>
       <Checkbox
-        aria-labelledby="azimuth-counter-clockwise"
+        aria-labelledby={ccwCheckboxId}
         checked={formatProps.azimuthCounterClockwise ?? false}
         onChange={handleAzimuthCCWChange}
         disabled={disabled}
       />
 
       <Label
-        id="azimuth-base-input"
+        id={baseInputId}
         className={classnames("uicore-label", disabled && "uicore-disabled")}
         as="div"
         displayStyle="inline"
@@ -103,7 +105,7 @@ export function AzimuthOptions(props: {
         </IconButton>
       </Label>
       <Input
-        aria-labelledby="azimuth-base-input"
+        aria-labelledby={baseInputId}
         type="number"
         value={formatProps.azimuthBase?.toString() ?? "0"}
         onKeyDown={onKeyDown}
