@@ -11,7 +11,7 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
-import { Checkbox } from "@itwin/itwinui-react";
+import { Checkbox, Label } from "@itwin/itwinui-react";
 import { ThousandsSelector } from "./ThousandsSelector.js";
 import { useTranslation } from "../../useTranslation.js";
 
@@ -31,6 +31,8 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
   const { formatProps, onChange } = props;
   const { translate } = useTranslation();
 
+  const useThousandsId = React.useId();
+  const thousandsSelectorId = React.useId();
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
       onChange && onChange(newProps);
@@ -100,27 +102,35 @@ export function ThousandsSeparator(props: ThousandsSeparatorProps) {
 
   return (
     <>
-      <span className={"uicore-label"}>
+      <Label
+        className={"uicore-label"}
+        as="div"
+        displayStyle="inline"
+        id={useThousandsId}
+      >
         {translate("QuantityFormat.labels.useThousandSeparatorLabel")}
-      </span>
+      </Label>
       <Checkbox
-        data-testid="use-thousands-separator"
+        aria-labelledby={useThousandsId}
         checked={isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleUseThousandsSeparatorChange}
       />
-      <span
+      <Label
         className={classnames(
           "uicore-label",
           !isFormatTraitSet(FormatTraits.Use1000Separator) && "uicore-disabled"
         )}
+        as="div"
+        displayStyle="inline"
+        id={thousandsSelectorId}
       >
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
-      </span>
+      </Label>
       <ThousandsSelector
-        data-testid="thousands-separator-selector"
         separator={formatProps.thousandSeparator ?? ","}
         disabled={!isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleThousandSeparatorChange}
+        aria-labelledby={thousandsSelectorId}
       />
     </>
   );

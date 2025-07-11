@@ -12,7 +12,7 @@ import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
-import { Checkbox, Select } from "@itwin/itwinui-react";
+import { Checkbox, Label, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -23,7 +23,7 @@ interface UomSeparatorSelectorProps extends CommonProps {
 }
 
 function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
-  const { separator, onChange, ...otherProps } = props;
+  const { separator, onChange, disabled, ...rest } = props;
   const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
@@ -57,7 +57,8 @@ function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
       value={separator}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      disabled={disabled}
+      {...rest}
     />
   );
 }
@@ -80,6 +81,7 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
   const { formatProps, onUnitLabelChange } = props;
   const { translate } = useTranslation();
 
+  const uomSeparatorSelectorId = React.useId();
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
       onUnitLabelChange && onUnitLabelChange(newProps);
@@ -147,16 +149,19 @@ export function FormatUnitLabel(props: FormatUnitLabelProps) {
         checked={isFormatTraitSet(FormatTraits.ShowUnitLabel)}
         onChange={handleShowUnitLabelChange}
       />
-      <span
+      <Label
+        as="div"
+        displayStyle="inline"
+        id={uomSeparatorSelectorId}
         className={classnames(
           "uicore-label",
           !isFormatTraitSet(FormatTraits.ShowUnitLabel) && "uicore-disabled"
         )}
       >
         {translate("QuantityFormat.labels.labelSeparator")}
-      </span>
+      </Label>
       <UomSeparatorSelector
-        data-testid="uom-separator-select"
+        aria-labelledby={uomSeparatorSelectorId}
         separator={formatProps.uomSeparator ?? ""}
         onChange={handleUomSeparatorChange}
         disabled={!isFormatTraitSet(FormatTraits.ShowUnitLabel)}

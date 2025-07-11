@@ -26,7 +26,7 @@ export interface DecimalSeparatorSelectorProps extends CommonProps {
  * @internal
  */
 export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
-  const { separator, onChange, ...otherProps } = props;
+  const { separator, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<string>[] = [
     {
@@ -52,7 +52,7 @@ export function DecimalSeparatorSelector(props: DecimalSeparatorSelectorProps) {
       value={separator}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      {...rest}
     />
   );
 }

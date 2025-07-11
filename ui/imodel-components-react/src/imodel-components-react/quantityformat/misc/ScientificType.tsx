@@ -27,7 +27,7 @@ export interface ScientificTypeSelectorProps extends CommonProps {
  * @internal
  */
 export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
-  const { type, onChange, ...otherProps } = props;
+  const { type, onChange, disabled, ...rest } = props;
   const { translate } = useTranslation();
   const formatOptions: SelectOption<ScientificType>[] = [
     {
@@ -53,7 +53,8 @@ export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
       value={type}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      disabled={disabled}
+      {...rest}
     />
   );
 }

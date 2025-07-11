@@ -26,7 +26,7 @@ export interface ThousandsSelectorProps extends CommonProps {
  * @internal
  */
 export function ThousandsSelector(props: ThousandsSelectorProps) {
-  const { separator, ...otherProps } = props;
+  const { separator, disabled, onChange, ...rest } = props;
   const { translate } = useTranslation();
 
   const separatorOptions = React.useMemo(() => {
@@ -56,7 +56,9 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
       options={separatorOptions}
       value={separator}
       size="small"
-      {...otherProps}
+      disabled={disabled}
+      onChange={onChange}
+      {...rest}
     />
   );
 }

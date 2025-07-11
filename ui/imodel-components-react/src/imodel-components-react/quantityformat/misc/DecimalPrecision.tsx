@@ -26,7 +26,7 @@ export interface DecimalPrecisionSelectorProps extends CommonProps {
  * @internal
  */
 export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
-  const { precision, onChange, ...otherProps } = props;
+  const { precision, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<number>[] = [
     {
@@ -96,7 +96,7 @@ export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
       value={precision}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      {...rest}
     />
   );
 }
