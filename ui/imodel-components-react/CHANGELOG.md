@@ -1,5 +1,16 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.12.0
+
+### Minor Changes
+
+- d4db451: Add support for Bearing, Ratio, Azimuth format types for FormatsPanel, including their properties. Drop use of deprecated APIs in quantity formatting related components.
+
+### Patch Changes
+
+- @itwin/components-react@5.12.0
+- @itwin/core-react@5.12.0
+
 ## 5.11.2
 
 ### Patch Changes
