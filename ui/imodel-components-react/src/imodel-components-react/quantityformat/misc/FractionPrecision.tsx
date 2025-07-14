@@ -27,7 +27,7 @@ export interface FractionPrecisionSelectorProps extends CommonProps {
 export function FractionPrecisionSelector(
   props: FractionPrecisionSelectorProps
 ) {
-  const { precision, onChange, ...otherProps } = props;
+  const { precision, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<number>[] = [
     {
@@ -81,7 +81,7 @@ export function FractionPrecisionSelector(
       value={precision}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      {...rest}
     />
   );
 }

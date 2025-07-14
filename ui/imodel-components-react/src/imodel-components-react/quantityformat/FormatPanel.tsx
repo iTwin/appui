@@ -69,11 +69,17 @@ async function generateFormatSpec(
   );
 }
 
+type FormatPanelPropsWithoutPersistenceUnit = Omit<
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  FormatPanelProps,
+  "persistenceUnit"
+> &
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  Partial<Pick<FormatPanelProps, "persistenceUnit">>;
 /** Component to show/edit Quantity Format.
  * @alpha
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function FormatPanel(props: FormatPanelProps) {
+export function FormatPanel(props: FormatPanelPropsWithoutPersistenceUnit) {
   const [formatSpec, setFormatSpec] = React.useState<FormatterSpec>();
   const {
     initialFormat,
@@ -114,6 +120,8 @@ export function FormatPanel(props: FormatPanelProps) {
 
   React.useEffect(() => {
     async function fetchFormatSpec() {
+      if (!persistenceUnit) return;
+
       const pu = await persistenceUnit;
       let newFormatSpec: FormatterSpec;
       if (provideFormatSpec) {

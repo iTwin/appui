@@ -12,14 +12,13 @@ import type { FormatProps } from "@itwin/core-quantity";
 import {
   DecimalPrecision,
   FormatType,
-  formatTypeToString,
   FractionalPrecision,
   parseFormatType,
+  RatioType,
   ScientificType,
-  scientificTypeToString,
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
-import { Select } from "@itwin/itwinui-react";
+import { Label, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
 /** Properties of [[FormatTypeSelector]] component.
@@ -35,26 +34,42 @@ interface FormatTypeSelectorProps extends CommonProps {
  * @alpha
  */
 function FormatTypeSelector(props: FormatTypeSelectorProps) {
-  const { type, onChange, ...otherProps } = props;
+  const { type, onChange, ...rest } = props;
   const { translate } = useTranslation();
-  const formatOptions = React.useRef<SelectOption<FormatType>[]>([
-    {
-      value: FormatType.Decimal,
-      label: translate("QuantityFormat.decimal"),
-    },
-    {
-      value: FormatType.Scientific,
-      label: translate("QuantityFormat.scientific"),
-    },
-    {
-      value: FormatType.Station,
-      label: translate("QuantityFormat.station"),
-    },
-    {
-      value: FormatType.Fractional,
-      label: translate("QuantityFormat.fractional"),
-    },
-  ]);
+  const formatTypeSelectorId = React.useId();
+  const formatOptions = React.useMemo<SelectOption<FormatType>[]>(
+    () => [
+      {
+        value: FormatType.Decimal,
+        label: translate("QuantityFormat.decimal"),
+      },
+      {
+        value: FormatType.Scientific,
+        label: translate("QuantityFormat.scientific"),
+      },
+      {
+        value: FormatType.Station,
+        label: translate("QuantityFormat.station"),
+      },
+      {
+        value: FormatType.Fractional,
+        label: translate("QuantityFormat.fractional"),
+      },
+      {
+        value: FormatType.Bearing,
+        label: translate("QuantityFormat.bearing"),
+      },
+      {
+        value: FormatType.Azimuth,
+        label: translate("QuantityFormat.azimuth"),
+      },
+      {
+        value: FormatType.Ratio,
+        label: translate("QuantityFormat.ratio"),
+      },
+    ],
+    [translate]
+  );
 
   const handleOnChange = React.useCallback(
     (newValue: FormatType) => {
@@ -64,15 +79,42 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
   );
 
   return (
-    <Select
-      options={formatOptions.current}
-      value={type}
-      onChange={handleOnChange}
-      size="small"
-      {...otherProps}
-    />
+    <>
+      <Label
+        className="uicore-label"
+        as="div"
+        displayStyle="inline"
+        id={formatTypeSelectorId}
+      >
+        {translate("QuantityFormat.labels.type")}
+      </Label>
+      <Select
+        options={formatOptions}
+        value={type}
+        aria-labelledby={formatTypeSelectorId}
+        onChange={handleOnChange}
+        size="small"
+        {...rest}
+      />
+    </>
   );
 }
+
+const handleUnitsWhenFormatTypeChange = (
+  units: Array<{
+    readonly name: string;
+    readonly label?: string;
+  }>,
+  type: FormatType
+) => {
+  if (type === FormatType.Ratio) {
+    // Only one display unit is allowed for Ratio format.
+    if (units.length > 1) {
+      return [units[0]];
+    }
+  }
+  return units;
+};
 
 /** Properties of [[FormatTypeOption]] component.
  * @alpha
@@ -89,22 +131,21 @@ export interface FormatTypeOptionProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function FormatTypeOption(props: FormatTypeOptionProps) {
-  const { formatProps, onChange } = props;
-  const { translate } = useTranslation();
+  const { formatProps, onChange, ...rest } = props;
+
   const handleFormatTypeChange = React.useCallback(
-    (newType: FormatType) => {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      const type = formatTypeToString(newType);
+    (type: FormatType) => {
       let precision: number | undefined;
       let stationOffsetSize: number | undefined;
       let scientificType: string | undefined;
-      switch (
-        newType // type must be decimal, fractional, scientific, or station
-      ) {
+      let azimuthBaseUnit: string | undefined;
+      let azimuthBase: number | undefined;
+      let revolutionUnit: string | undefined;
+      let ratioType: string | undefined;
+      switch (type) {
         case FormatType.Scientific:
           precision = DecimalPrecision.Six;
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          scientificType = scientificTypeToString(ScientificType.Normalized);
+          scientificType = ScientificType.Normalized;
           break;
         case FormatType.Decimal:
           precision = DecimalPrecision.Four;
@@ -120,13 +161,37 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
         case FormatType.Fractional:
           precision = FractionalPrecision.Eight;
           break;
+        case FormatType.Bearing:
+          revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
+          break;
+        case FormatType.Azimuth:
+          revolutionUnit = "Units.REVOLUTION"; // Warning: By default, BasicUnitsProvider does not contain this unit.
+          azimuthBaseUnit = "Units.ARC_DEG";
+          azimuthBase = 0.0;
+          break;
+        case FormatType.Ratio:
+          ratioType = RatioType.NToOne; // Default to N:1 ratio
+          break;
       }
-      const newFormatProps = {
+      const newFormatProps: FormatProps = {
         ...formatProps,
+        composite: formatProps.composite
+          ? {
+              ...formatProps.composite,
+              units: handleUnitsWhenFormatTypeChange(
+                formatProps.composite.units,
+                type
+              ),
+            }
+          : undefined,
         type,
         precision,
         scientificType,
         stationOffsetSize,
+        revolutionUnit,
+        azimuthBaseUnit,
+        azimuthBase,
+        ratioType,
       };
       onChange && onChange(newFormatProps);
     },
@@ -136,11 +201,8 @@ export function FormatTypeOption(props: FormatTypeOptionProps) {
   const formatType = parseFormatType(formatProps.type, "format");
   return (
     <>
-      <span className={"uicore-label.current"}>
-        {translate("QuantityFormat.labels.type")}
-      </span>
       <FormatTypeSelector
-        data-testid="format-type-selector"
+        {...rest}
         type={formatType}
         onChange={handleFormatTypeChange}
       />

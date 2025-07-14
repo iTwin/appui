@@ -26,7 +26,7 @@ export interface StationSeparatorSelectorProps extends CommonProps {
  * @internal
  */
 export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
-  const { separator, disabled, onChange, ...otherProps } = props;
+  const { separator, disabled, onChange, ...rest } = props;
   const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
@@ -73,7 +73,7 @@ export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
       value={separator}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      {...rest}
     />
   );
 }

@@ -400,7 +400,7 @@ export enum Face {
 }
 
 // @alpha
-export function FormatPanel(props: FormatPanelProps): React_2.JSX.Element;
+export function FormatPanel(props: FormatPanelPropsWithoutPersistenceUnit): React_2.JSX.Element;
 
 // @alpha @deprecated
 export interface FormatPanelProps extends CommonProps {

@@ -54,6 +54,9 @@
     "scientific": "Scientific",
     "station": "Station",
     "fractional": "Fractional",
+    "bearing": "Bearing",
+    "azimuth": "Azimuth",
+    "ratio": "Ratio",
     "labels": {
       "compositeSpacer": "Composite Spacer",
       "formatted": "Formatted",
@@ -75,7 +78,10 @@
       "scientificTypeLabel": "Scientific Type",
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
-      "value": "Value"
+      "value": "Value",
+      "ratioTypeLabel": "Ratio Type",
+      "azimuthBase": "Azimuth Base",
+      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise"
     },
     "fraction_precision": {
       "whole": "Whole",
@@ -133,6 +139,31 @@
     },
     "popupButton": {
       "setFormat": "Set Format"
+    },
+    "ratio-type": {
+      "n-to-one": {
+        "label": "N:1",
+        "description": "N to 1 ratio (e.g. N:1)"
+      },
+      "one-to-n": {
+        "label": "1:N",
+        "description": "1 to N ratio (e.g. 1:N)"
+      },
+      "use-greatest-common-divisor": {
+        "label": "GCD",
+        "description": "Simplifies ratio using GCD (e.g. 0.3 → 3:10)"
+      },
+      "value-based": {
+        "label": "Value Based",
+        "description": "Scales the smaller value to 1 (e.g. 0.5 → 2:1, 2 → 1:2)"
+      },
+      "default": {
+        "description": "How properties are shown as a ratio."
+      }
+    },
+    "azimuthType": {
+      "baseTooltip": "The starting direction (base) from which azimuth angles are measured.",
+      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base."
     }
   },
   "BearingQuantityType": {

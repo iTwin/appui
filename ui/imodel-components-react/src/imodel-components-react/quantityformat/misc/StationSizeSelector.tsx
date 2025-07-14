@@ -26,7 +26,7 @@ export interface StationSizeSelectorProps extends CommonProps {
  * @internal
  */
 export function StationSizeSelector(props: StationSizeSelectorProps) {
-  const { value, disabled, onChange, ...otherProps } = props;
+  const { value, disabled, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const separatorOptions: SelectOption<number>[] = [
     {
@@ -53,7 +53,7 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
       value={value}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      {...rest}
     />
   );
 }

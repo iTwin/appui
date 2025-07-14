@@ -137,7 +137,14 @@ export interface QuantityFormatPanelProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
-  const { quantityType, onFormatChange, ...otherProps } = props;
+  const {
+    quantityType,
+    onFormatChange,
+    showSample,
+    initialMagnitude,
+    enableMinimumProperties,
+    ...rest
+  } = props;
   const [formatProps, setFormatProps] = React.useState<FormatProps>();
   const initialFormatProps = React.useRef<FormatProps>();
 
@@ -290,8 +297,11 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
     <div className="components-quantityFormat-quantityPanel">
       {persistenceUnit && formatProps && (
         <FormatPanel
+          {...rest}
           onFormatChange={handleOnFormatChanged}
-          {...otherProps}
+          showSample={showSample}
+          initialMagnitude={initialMagnitude}
+          enableMinimumProperties={enableMinimumProperties}
           initialFormat={formatProps}
           unitsProvider={IModelApp.quantityFormatter.unitsProvider}
           persistenceUnit={persistenceUnit}

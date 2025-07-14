@@ -26,7 +26,7 @@ export interface SignOptionSelectorProps extends CommonProps {
  * @internal
  */
 export function SignOptionSelector(props: SignOptionSelectorProps) {
-  const { signOption, onChange, ...otherProps } = props;
+  const { signOption, onChange, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<ShowSignOption>[] = [
     {
@@ -60,7 +60,7 @@ export function SignOptionSelector(props: SignOptionSelectorProps) {
       value={signOption}
       onChange={handleOnChange}
       size="small"
-      {...otherProps}
+      {...rest}
     />
   );
 }
