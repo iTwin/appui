@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.12.0
+
+### Patch Changes
+
+- Updated dependencies [d4db451]
+  - @itwin/imodel-components-react@5.12.0
+  - @itwin/components-react@5.12.0
+  - @itwin/core-react@5.12.0
+
 ## 5.11.2
 
 ### Patch Changes
