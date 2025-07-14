@@ -72,7 +72,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
   const keepSingleZeroId = React.useId();
   const keepZeroEmptyId = React.useId();
   const fractionDashId = React.useId();
-  const scientficTypeSelectorId = React.useId();
+  const scientificTypeSelectorId = React.useId();
   const ratioTypeSelectorId = React.useId();
 
   const handleSetFormatProps = React.useCallback(
@@ -436,7 +436,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
             )}
             as="div"
             displayStyle="inline"
-            id={scientficTypeSelectorId}
+            id={scientificTypeSelectorId}
           >
             {translate("QuantityFormat.labels.scientificTypeLabel")}
           </Label>
@@ -447,7 +447,7 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
                 ? parseScientificType(formatProps.scientificType, "custom")
                 : ScientificType.Normalized
             }
-            aria-labelledby={scientficTypeSelectorId}
+            aria-labelledby={scientificTypeSelectorId}
             disabled={formatType !== FormatType.Scientific}
             onChange={handleScientificTypeChange}
           />
