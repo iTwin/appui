@@ -1,0 +1,45 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+
+.format-panel-v2 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+.format-panel-v2 .primary-children {
+  /* Always visible primary controls */
+  border: 1px solid var(--iui-color-border-subtle);
+  border-radius: 4px;
+  padding: 16px;
+  background: var(--iui-color-background);
+}
+
+.format-panel-v2 .secondary-children {
+  /* Expandable secondary controls */
+  padding: 16px;
+  background: var(--iui-color-background-backdrop);
+  border-radius: 4px;
+}
+
+/* Individual format type panel styles */
+.decimal-primary-children,
+.fractional-primary-children,
+.scientific-primary-children,
+.station-primary-children {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.decimal-secondary-children,
+.fractional-secondary-children,
+.scientific-secondary-children,
+.station-secondary-children {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
