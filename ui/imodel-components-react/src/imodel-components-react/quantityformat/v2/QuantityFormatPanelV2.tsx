@@ -7,36 +7,61 @@
  */
 
 import * as React from "react";
-import type { FormatProps } from "@itwin/core-quantity";
+import type { FormatProps, UnitProps } from "@itwin/core-quantity";
 import type { UnitsProvider } from "@itwin/core-quantity";
 import { FormatPanelV2 } from "./FormatPanelV2.js";
+import { Divider } from "@itwin/itwinui-react";
+import { FormatSampleV2 } from "./FormatSampleV2.js";
 
 /** Props for QuantityFormatPanelV2 */
 export interface QuantityFormatPanelV2Props {
-  formatDefinition: FormatProps;
-  unitsProvider: UnitsProvider;
-  onFormatChange: (formatProps: FormatProps) => void;
-  initialMagnitude?: number;
+	formatDefinition: FormatProps;
+	unitsProvider: UnitsProvider;
+	onFormatChange: (formatProps: FormatProps) => void;
+	initialMagnitude?: number;
 }
 
-/** Quantity Format Panel V2 that uses the new V2FormatPanel structure */
+/** Quantity Format Panel V2 that uses the new FormatPanelV2 structure */
 export function QuantityFormatPanelV2(props: QuantityFormatPanelV2Props) {
-  const { formatDefinition, unitsProvider, onFormatChange } = props;
+	const { formatDefinition, unitsProvider, onFormatChange } = props;
+	const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps | undefined>(undefined);
 
-  const handleOnFormatChanged = React.useCallback(
-    async (newProps: FormatProps) => {
-      onFormatChange && onFormatChange(newProps);
-    },
-    [onFormatChange]
-  );
+	// Generate persistenceUnit from first composite unit
+	React.useEffect(() => {
+		const loadPersistenceUnit = async () => {
+			if (formatDefinition.composite && formatDefinition.composite.units && formatDefinition.composite.units.length > 0) {
+				const firstUnitName = formatDefinition.composite.units[0].name;
+				try {
+					const unit = await unitsProvider.findUnitByName(firstUnitName);
+					setPersistenceUnit(unit);
+				} catch {
+					setPersistenceUnit(undefined);
+				}
+			} else {
+				setPersistenceUnit(undefined);
+			}
+		};
 
-  return (
-    <div className="components-quantityFormat-quantityPanel">
-      <FormatPanelV2
+		void loadPersistenceUnit();
+	}, [formatDefinition.composite, unitsProvider]);
+
+	const handleOnFormatChanged = React.useCallback(
+		async (newProps: FormatProps) => {
+			onFormatChange && onFormatChange(newProps);
+		},
+		[onFormatChange]
+	);
+
+	return (
+		<div className="components-quantityFormat-quantityPanel">
+      <FormatSampleV2
         formatProps={formatDefinition}
         unitsProvider={unitsProvider}
-        onFormatChange={handleOnFormatChanged}
+        persistenceUnit={persistenceUnit}
+        initialMagnitude={props.initialMagnitude}
       />
-    </div>
-  );
+      <Divider />
+			<FormatPanelV2 formatProps={formatDefinition} unitsProvider={unitsProvider} onFormatChange={handleOnFormatChanged} persistenceUnit={persistenceUnit} />
+		</div>
+	);
 }
