@@ -9,6 +9,7 @@
 import * as React from "react";
 import type { PanelProps } from "./Decimal.js";
 import { FormatUnits } from "../../FormatUnits.js";
+import { FormatTypeOption } from "../../FormatType.js";
 
 /** Primary children component for scientific format */
 export function ScientificPrimaryChildren(
@@ -18,6 +19,7 @@ export function ScientificPrimaryChildren(
 
   return (
     <div className="scientific-primary-children">
+      <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
       <FormatUnits
         unitsProvider={unitsProvider}
         persistenceUnit={persistenceUnit}

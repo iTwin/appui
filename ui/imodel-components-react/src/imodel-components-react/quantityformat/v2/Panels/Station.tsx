@@ -9,6 +9,7 @@
 import * as React from "react";
 import type { PanelProps } from "./Decimal.js";
 import { FormatUnits } from "../../FormatUnits.js";
+import { FormatTypeOption } from "../../FormatType.js";
 
 /** Primary children component for station format (always visible) */
 export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
@@ -16,6 +17,7 @@ export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
 
   return (
     <div className="station-primary-children">
+      <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
       <FormatUnits
         unitsProvider={unitsProvider}
         persistenceUnit={persistenceUnit}

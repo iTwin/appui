@@ -118,6 +118,10 @@ export {
   QuantityFormatPanelV2,
   QuantityFormatPanelV2Props,
 } from "./imodel-components-react/quantityformat/v2/QuantityFormatPanelV2.js";
+export {
+  FormatSampleV2,
+  FormatSampleV2Props,
+} from "./imodel-components-react/quantityformat/v2/FormatSampleV2.js";
 export { PanelProps } from "./imodel-components-react/quantityformat/v2/Panels/Decimal.js";
 
 export {

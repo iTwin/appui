@@ -10,6 +10,7 @@ import * as React from "react";
 import type { FormatProps, UnitProps } from "@itwin/core-quantity";
 import type { UnitsProvider } from "@itwin/core-quantity";
 import { FormatUnits } from "../../FormatUnits.js";
+import { FormatTypeOption } from "../../FormatType.js";
 
 /** Common props for all format panel components */
 export interface PanelProps {
@@ -25,6 +26,7 @@ export function DecimalPrimaryChildren(props: PanelProps): React.ReactElement {
 
   return (
     <div className="decimal-primary-children">
+      <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
       <FormatUnits
         unitsProvider={unitsProvider}
         persistenceUnit={persistenceUnit}

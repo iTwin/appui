@@ -39,37 +39,12 @@ export interface FormatPanelV2Props {
   formatProps: FormatProps;
   unitsProvider: UnitsProvider;
   onFormatChange: (formatProps: FormatProps) => void;
+  persistenceUnit?: UnitProps;
 }
 
 /** Format Panel V2 that uses primary and secondary children based on format type */
 export function FormatPanelV2(props: FormatPanelV2Props) {
-  const { formatProps, unitsProvider, onFormatChange } = props;
-  const [persistenceUnit, setPersistenceUnit] = React.useState<
-    UnitProps | undefined
-  >(undefined);
-
-  // Generate persistenceUnit from first composite unit
-  React.useEffect(() => {
-    const loadPersistenceUnit = async () => {
-      if (
-        formatProps.composite &&
-        formatProps.composite.units &&
-        formatProps.composite.units.length > 0
-      ) {
-        const firstUnitName = formatProps.composite.units[0].name;
-        try {
-          const unit = await unitsProvider.findUnitByName(firstUnitName);
-          setPersistenceUnit(unit);
-        } catch {
-          setPersistenceUnit(undefined);
-        }
-      } else {
-        setPersistenceUnit(undefined);
-      }
-    };
-
-    void loadPersistenceUnit();
-  }, [formatProps.composite, unitsProvider]);
+  const { formatProps, unitsProvider, onFormatChange, persistenceUnit } = props;
 
   const [primaryChildren, secondaryChildren] = React.useMemo(() => {
     const panelProps: PanelProps = {

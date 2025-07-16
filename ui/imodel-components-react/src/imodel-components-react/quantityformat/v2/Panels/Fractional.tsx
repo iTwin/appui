@@ -9,6 +9,7 @@
 import * as React from "react";
 import type { PanelProps } from "./Decimal.js";
 import { FormatUnits } from "../../FormatUnits.js";
+import { FormatTypeOption } from "../../FormatType.js";
 
 /** Primary children component for fractional format */
 export function FractionalPrimaryChildren(
@@ -18,6 +19,7 @@ export function FractionalPrimaryChildren(
 
   return (
     <div className="fractional-primary-children">
+      <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
       <FormatUnits
         unitsProvider={unitsProvider}
         persistenceUnit={persistenceUnit}

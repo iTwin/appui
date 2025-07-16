@@ -96,7 +96,9 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
         size="small"
         {...rest}
       />
-      <Text variant="small" isMuted>{translate("QuantityFormat.labels.formatTypeSublabel")}</Text>
+      <Text variant="small" isMuted>
+        {translate("QuantityFormat.labels.formatTypeSublabel")}
+      </Text>
     </>
   );
 }
