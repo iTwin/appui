@@ -70,7 +70,7 @@
       "stationOffsetLabel": "Station Offset",
       "stationSeparatorLabel": "Station Separator",
       "decimalSeparatorLabel": "Decimal Separator",
-      "showTrailZerosLabel": "Show Trail Zeros",
+      "showTrailZerosLabel": "Show Trailing Zeros",
       "keepSingleZeroLabel": "Keep Single Zero",
       "zeroEmptyLabel": "Zero Empty",
       "moreLabel": "More",

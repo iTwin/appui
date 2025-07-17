@@ -9,13 +9,14 @@
 import * as React from "react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
-import { DecimalPrecisionSelector } from "../misc/DecimalPrecision.js";
-import { FractionPrecisionSelector } from "../misc/FractionPrecision.js";
-import { useTranslation } from "../../useTranslation.js";
+import { DecimalPrecisionSelector } from "../../misc/DecimalPrecision.js";
+import { FractionPrecisionSelector } from "../../misc/FractionPrecision.js";
+import { useTranslation } from "../../../useTranslation.js";
 import { Label } from "@itwin/itwinui-react";
 
 /** Properties of [[FormatPrecisionV2]] component.
  * @alpha
+ * @internal
  */
 export interface FormatPrecisionV2Props {
 	formatProps: FormatProps;
@@ -24,6 +25,7 @@ export interface FormatPrecisionV2Props {
 
 /** Component to show/edit Quantity Format Precision.
  * @alpha
+ * @internal
  */
 export function FormatPrecisionV2(props: FormatPrecisionV2Props) {
 	const { formatProps, onChange } = props;

@@ -12,10 +12,11 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Label, Select } from "@itwin/itwinui-react";
-import { useTranslation } from "../../useTranslation.js";
+import { useTranslation } from "../../../useTranslation.js";
 
 /** Properties of [[UomSeparatorSelectorV2]] component.
  * @alpha
+ * @internal
  */
 interface UomSeparatorSelectorV2Props {
 	formatProps: FormatProps;
@@ -25,6 +26,7 @@ interface UomSeparatorSelectorV2Props {
 
 /** Component to set the unit of measure separator.
  * @alpha
+ * @internal
  */
 export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
 	const { formatProps, onFormatChange, disabled, ...rest } = props;
@@ -70,6 +72,7 @@ export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
 
 /** Properties of [[AppendUnitLabelV2]] component.
  * @alpha
+ * @internal
  */
 interface AppendUnitLabelV2Props {
 	formatProps: FormatProps;
@@ -78,6 +81,7 @@ interface AppendUnitLabelV2Props {
 
 /** Component to set the append unit label flag.
  * @alpha
+ * @internal
  */
 export function AppendUnitLabelV2(props: AppendUnitLabelV2Props) {
 	const { formatProps, onFormatChange } = props;

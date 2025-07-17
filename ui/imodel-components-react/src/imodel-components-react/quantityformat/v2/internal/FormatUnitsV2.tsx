@@ -10,11 +10,12 @@ import * as React from "react";
 import type { FormatProps, UnitProps, UnitsProvider } from "@itwin/core-quantity";
 import { IconButton, Input, Label } from "@itwin/itwinui-react";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
-import { UnitDescr } from "../misc/UnitDescr.js";
-import { useTranslation } from "../../useTranslation.js";
+import { UnitDescr } from "../../misc/UnitDescr.js";
+import { useTranslation } from "../../../useTranslation.js";
 
 /** Properties of [[FormatUnitsV2]] component.
  * @alpha
+ * @internal
  */
 export interface FormatUnitsV2Props {
 	initialFormat: FormatProps;
@@ -25,6 +26,7 @@ export interface FormatUnitsV2Props {
 
 /** Component to show/edit Units used for Quantity Formatting.
  * @alpha
+ * @internal
  */
 export function FormatUnitsV2(props: FormatUnitsV2Props) {
 	const { initialFormat, persistenceUnit, unitsProvider, onUnitsChange } = props;

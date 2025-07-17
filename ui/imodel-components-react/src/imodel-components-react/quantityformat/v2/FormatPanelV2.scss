@@ -32,7 +32,8 @@
 .station-primary-children {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
+  padding: 10px;
 }
 
 .decimal-secondary-children,
@@ -41,7 +42,7 @@
 .station-secondary-children {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* FormatSampleV2 styles */
