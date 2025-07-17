@@ -4,25 +4,25 @@
  *--------------------------------------------------------------------------------------------*/
 
 .format-panel-v2 {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 16px;
 }
 
 .format-panel-v2 .primary-children {
-  /* Always visible primary controls */
-  border: 1px solid var(--iui-color-border-subtle);
-  border-radius: 4px;
-  padding: 16px;
-  background: var(--iui-color-background);
+	/* Always visible primary controls */
+	border: 1px solid var(--iui-color-border-subtle);
+	border-radius: 4px;
+	padding: 16px;
+	background: var(--iui-color-background);
 }
 
 .format-panel-v2 .secondary-children {
-  /* Expandable secondary controls */
-  padding: 16px;
-  background: var(--iui-color-background-backdrop);
-  border-radius: 4px;
+	/* Expandable secondary controls */
+	padding: 16px;
+	background: var(--iui-color-background-backdrop);
+	border-radius: 4px;
 }
 
 /* Individual format type panel styles */
@@ -30,16 +30,86 @@
 .fractional-primary-children,
 .scientific-primary-children,
 .station-primary-children {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
 }
 
 .decimal-secondary-children,
 .fractional-secondary-children,
 .scientific-secondary-children,
 .station-secondary-children {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* FormatSampleV2 styles */
+.format-sample-v2-container {
+	padding: 8px;
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.format-sample-v2-box {
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	padding: 12px;
+	margin: 10px;
+}
+
+.format-sample-v2-preview-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.format-sample-v2-input {
+	min-width: 120px;
+}
+
+/* Format type row styling */
+.format-type-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+/* Inline styling for unit label components */
+.append-unit-label-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 32px;
+}
+
+.uom-separator-selector-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	min-height: 32px;
+}
+
+.append-unit-label-row .uicore-label {
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+.uom-separator-selector-row .uicore-label {
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+.format-precision-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	min-height: 32px;
+}
+
+.format-precision-row .uicore-label {
+	margin-bottom: 0;
+	white-space: nowrap;
 }

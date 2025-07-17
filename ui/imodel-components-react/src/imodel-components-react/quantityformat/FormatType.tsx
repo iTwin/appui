@@ -18,7 +18,7 @@ import {
   ScientificType,
 } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
-import { Label, Select, Text } from "@itwin/itwinui-react";
+import { Label, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
 /** Properties of [[FormatTypeSelector]] component.
@@ -96,9 +96,7 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
         size="small"
         {...rest}
       />
-      <Text variant="small" isMuted>
-        {translate("QuantityFormat.labels.formatTypeSublabel")}
-      </Text>
+
     </>
   );
 }

@@ -61,7 +61,7 @@
       "compositeSpacer": "Composite Spacer",
       "formatted": "Formatted",
       "precision": "Precision",
-      "type": "Type",
+      "type": "Format Type",
       "formatTypeSublabel": "Select the format in which you would like to display measurements",
       "appendUnitLabel": "Show Unit Label",
       "labelSeparator": "Label Separator",
@@ -82,7 +82,9 @@
       "value": "Value",
       "ratioTypeLabel": "Ratio Type",
       "azimuthBase": "Azimuth Base",
-      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise"
+      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise",
+      "samplePreview": "Preview",
+      "units": "Units"
     },
     "fraction_precision": {
       "whole": "Whole",
