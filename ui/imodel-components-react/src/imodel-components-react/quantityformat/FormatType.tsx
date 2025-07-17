@@ -96,7 +96,6 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
         size="small"
         {...rest}
       />
-
     </>
   );
 }

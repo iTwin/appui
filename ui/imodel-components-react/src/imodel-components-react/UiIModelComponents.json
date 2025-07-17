@@ -59,6 +59,7 @@
     "ratio": "Ratio",
     "labels": {
       "compositeSpacer": "Composite Spacer",
+      "compositeSpacerDescription": "Character that appears between units when displaying measurements with multiple units",
       "formatted": "Formatted",
       "precision": "Precision",
       "type": "Format Type",
