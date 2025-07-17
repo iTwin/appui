@@ -13,8 +13,7 @@ import type {
   UnitProps,
   UnitsProvider,
 } from "@itwin/core-quantity";
-import { IconButton, Input, Label } from "@itwin/itwinui-react";
-import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
+import { Input } from "@itwin/itwinui-react";
 import { UnitDescr } from "./misc/UnitDescr.js";
 import { useTranslation } from "../useTranslation.js";
 
@@ -170,19 +169,10 @@ export function FormatUnits(props: FormatUnitsProps) {
 
       {formatProps.composite?.units &&
         formatProps.composite.units.length > 1 && (
-          <div className="format-inline-row">
-            <Label className={"uicore-label"} as="div" displayStyle="inline">
+          <>
+            <span key={"composite-spacer-label"} className={"uicore-label"}>
               {translate("QuantityFormat.labels.compositeSpacer")}
-              <IconButton
-                size="small"
-                styleType="borderless"
-                label={translate(
-                  "QuantityFormat.labels.compositeSpacerDescription"
-                )}
-              >
-                <SvgHelpCircularHollow />
-              </IconButton>
-            </Label>
+            </span>
             <Input
               key={"composite-spacer"}
               data-testid="composite-spacer"
@@ -190,7 +180,7 @@ export function FormatUnits(props: FormatUnitsProps) {
               onChange={handleOnSpacerChange}
               size="small"
             />
-          </div>
+          </>
         )}
     </>
   );

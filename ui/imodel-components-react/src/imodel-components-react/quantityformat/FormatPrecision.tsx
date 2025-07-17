@@ -44,7 +44,7 @@ export function FormatPrecision(props: FormatPrecisionProps) {
   const formatType = parseFormatType(formatProps.type, "format");
 
   return (
-    <div className="format-inline-row">
+    <>
       <Label
         className={"uicore-label"}
         as="div"
@@ -66,6 +66,6 @@ export function FormatPrecision(props: FormatPrecisionProps) {
           onChange={handlePrecisionChange}
         />
       )}
-    </div>
+    </>
   );
 }

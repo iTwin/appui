@@ -15,36 +15,25 @@ import type { SelectOption } from "@itwin/itwinui-react";
 import { Checkbox, Label, Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
 
-/** Properties of [[UomSeparatorSelector]] component.
- * @alpha
- * @internal
- */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface UomSeparatorSelectorProps extends CommonProps {
-  formatProps: FormatProps;
+interface UomSeparatorSelectorProps extends CommonProps {
+  separator: string;
   disabled?: boolean;
-  onFormatChange: (format: FormatProps) => void;
+  onChange: (value: string) => void;
 }
 
-/** Component to select the unit of measure separator.
- * @alpha
- * @internal
- */
-export function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
-  const { formatProps, onFormatChange, disabled, ...rest } = props;
+function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
+  const { separator, onChange, disabled, ...rest } = props;
   const { translate } = useTranslation();
 
-  const uomSeparatorSelectorId = React.useId();
   const handleOnChange = React.useCallback(
-    (newSeparator: string) => {
-      const newFormatProps = { ...formatProps, uomSeparator: newSeparator };
-      onFormatChange && onFormatChange(newFormatProps);
+    (newValue: string) => {
+      onChange && onChange(newValue);
     },
-    [formatProps, onFormatChange]
+    [onChange]
   );
 
   const separatorOptions = React.useMemo(() => {
-    const separator = formatProps.uomSeparator ?? "";
     const uomDefaultEntries: SelectOption<string>[] = [
       { value: "", label: translate("QuantityFormat.none") },
       { value: " ", label: translate("QuantityFormat.space") },
@@ -60,54 +49,44 @@ export function UomSeparatorSelector(props: UomSeparatorSelectorProps) {
     }
     completeListOfEntries.push(...uomDefaultEntries);
     return completeListOfEntries;
-  }, [formatProps.uomSeparator, translate]);
+  }, [separator, translate]);
 
   return (
-    <div className="format-inline-row">
-      <Label
-        as="div"
-        displayStyle="inline"
-        id={uomSeparatorSelectorId}
-        className={classnames("uicore-label", disabled && "uicore-disabled")}
-      >
-        {translate("QuantityFormat.labels.labelSeparator")}
-      </Label>
-      <Select
-        options={separatorOptions}
-        value={formatProps.uomSeparator ?? ""}
-        onChange={handleOnChange}
-        size="small"
-        disabled={disabled}
-        aria-labelledby={uomSeparatorSelectorId}
-        {...rest}
-      />
-    </div>
+    <Select
+      options={separatorOptions}
+      value={separator}
+      onChange={handleOnChange}
+      size="small"
+      disabled={disabled}
+      {...rest}
+    />
   );
 }
 
-/** Properties of [[AppendUnitLabel]] component.
+/** Properties of [[FormatUnitLabel]] component.
  * @alpha
- * @internal
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnitLabel>`
  */
-export interface AppendUnitLabelProps {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface FormatUnitLabelProps extends CommonProps {
   formatProps: FormatProps;
-  onFormatChange: (format: FormatProps) => void;
+  onUnitLabelChange?: (format: FormatProps) => void;
 }
 
-/** Component to set whether the unit label should be appended to the formatted value.
+/** Component to set the label separator definition in a Quantity Format and if it the label is to be displayed.
  * @alpha
- * @internal
  */
-export function AppendUnitLabel(props: AppendUnitLabelProps) {
-  const { formatProps, onFormatChange } = props;
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export function FormatUnitLabel(props: FormatUnitLabelProps) {
+  const { formatProps, onUnitLabelChange } = props;
   const { translate } = useTranslation();
 
-  const appendUnitLabelId = React.useId();
+  const uomSeparatorSelectorId = React.useId();
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
-      onFormatChange && onFormatChange(newProps);
+      onUnitLabelChange && onUnitLabelChange(newProps);
     },
-    [onFormatChange]
+    [onUnitLabelChange]
   );
 
   const isFormatTraitSet = React.useCallback(
@@ -145,6 +124,14 @@ export function AppendUnitLabel(props: AppendUnitLabelProps) {
     [formatProps, handleSetFormatProps]
   );
 
+  const handleUomSeparatorChange = React.useCallback(
+    (newSeparator: string) => {
+      const newFormatProps = { ...formatProps, uomSeparator: newSeparator };
+      handleSetFormatProps(newFormatProps);
+    },
+    [formatProps, handleSetFormatProps]
+  );
+
   const handleShowUnitLabelChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormatTrait(FormatTraits.ShowUnitLabel, e.target.checked);
@@ -153,59 +140,30 @@ export function AppendUnitLabel(props: AppendUnitLabelProps) {
   );
 
   return (
-    <div className="format-inline-row append-unit-label">
-      <span className={"uicore-label"} id={appendUnitLabelId}>
+    <>
+      <span className={"uicore-label"}>
         {translate("QuantityFormat.labels.appendUnitLabel")}
       </span>
       <Checkbox
-        aria-labelledby={appendUnitLabelId}
+        data-testid="show-unit-label-checkbox"
         checked={isFormatTraitSet(FormatTraits.ShowUnitLabel)}
         onChange={handleShowUnitLabelChange}
       />
-    </div>
-  );
-}
-
-/** Properties of [[FormatUnitLabel]] component.
- * @alpha
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof FormatUnitLabel>`
- */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface FormatUnitLabelProps extends CommonProps {
-  formatProps: FormatProps;
-  onUnitLabelChange?: (format: FormatProps) => void;
-}
-
-/** Component to set the label separator definition in a Quantity Format and if it the label is to be displayed.
- * @alpha
- */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function FormatUnitLabel(props: FormatUnitLabelProps) {
-  const { formatProps, onUnitLabelChange } = props;
-
-  const handleSetFormatProps = React.useCallback(
-    (newProps: FormatProps) => {
-      onUnitLabelChange && onUnitLabelChange(newProps);
-    },
-    [onUnitLabelChange]
-  );
-
-  const isFormatTraitSet = React.useCallback(
-    (trait: FormatTraits) => {
-      return Format.isFormatTraitSetInProps(formatProps, trait);
-    },
-    [formatProps]
-  );
-
-  return (
-    <>
-      <AppendUnitLabel
-        formatProps={formatProps}
-        onFormatChange={handleSetFormatProps}
-      />
+      <Label
+        as="div"
+        displayStyle="inline"
+        id={uomSeparatorSelectorId}
+        className={classnames(
+          "uicore-label",
+          !isFormatTraitSet(FormatTraits.ShowUnitLabel) && "uicore-disabled"
+        )}
+      >
+        {translate("QuantityFormat.labels.labelSeparator")}
+      </Label>
       <UomSeparatorSelector
-        formatProps={formatProps}
-        onFormatChange={handleSetFormatProps}
+        aria-labelledby={uomSeparatorSelectorId}
+        separator={formatProps.uomSeparator ?? ""}
+        onChange={handleUomSeparatorChange}
         disabled={!isFormatTraitSet(FormatTraits.ShowUnitLabel)}
       />
     </>
