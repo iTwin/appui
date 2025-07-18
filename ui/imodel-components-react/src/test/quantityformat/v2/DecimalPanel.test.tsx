@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, within } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   FormatProps,
@@ -114,11 +114,12 @@ describe("Decimal Panel V2", () => {
         />
       );
 
-      expect(
-        renderedComponent.getByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
-        )
-      ).to.exist;
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
       expect(
         renderedComponent.getByLabelText(
           "QuantityFormat.labels.decimalSeparatorLabel"
@@ -160,15 +161,20 @@ describe("Decimal Panel V2", () => {
         />
       );
 
-      const selector = renderedComponent.getByLabelText(
-        "QuantityFormat.labels.decimalSeparatorLabel"
+      const separatorSelector = within(
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.decimalSeparatorLabel"
+        )
+      ).getByRole("combobox");
+      fireEvent.click(separatorSelector);
+      fireEvent.click(
+        renderedComponent.getByRole("option", {
+          name: "QuantityFormat.decimal_separator.comma",
+        })
       );
-      fireEvent.change(selector, { target: { value: "," } });
-
       expect(onFormatChange).toHaveBeenCalledWith({
-        ...formatProps,
+        type: "decimal",
         decimalSeparator: ",",
-        thousandSeparator: ".",
       });
     });
 

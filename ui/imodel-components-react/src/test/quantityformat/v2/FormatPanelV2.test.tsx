@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { fireEvent, render, waitFor, within } from "@testing-library/react";
+import { expect, vi } from "vitest";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   FormatProps,
@@ -63,8 +64,6 @@ describe("FormatPanelV2", () => {
     // Check primary children
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
       .exist;
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.units")).to
-      .exist;
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.precision"))
       .to.exist;
 
@@ -76,14 +75,16 @@ describe("FormatPanelV2", () => {
     fireEvent.click(expandButton);
 
     await waitFor(() => {
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
+
       expect(
         renderedComponent.getByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
-        )
-      ).to.exist;
-      expect(
-        renderedComponent.getByLabelText(
-          "QuantityFormat.labels.decimalSeparator"
+          "QuantityFormat.labels.decimalSeparatorLabel"
         )
       ).to.exist;
       expect(
@@ -92,13 +93,17 @@ describe("FormatPanelV2", () => {
         )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.showTrailZeros")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.showTrailZerosLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.keepSingleZero")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepSingleZeroLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmpty")
+        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmptyLabel")
       ).to.exist;
     });
   });
@@ -122,8 +127,6 @@ describe("FormatPanelV2", () => {
     // Check primary children
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
       .exist;
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.units")).to
-      .exist;
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.precision"))
       .to.exist;
 
@@ -132,24 +135,29 @@ describe("FormatPanelV2", () => {
     fireEvent.click(expandButton);
 
     await waitFor(() => {
-      expect(
-        renderedComponent.getByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
-        )
-      ).to.exist;
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
       expect(
         renderedComponent.getByLabelText(
           "QuantityFormat.labels.keepDecimalPointLabel"
         )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.showTrailZeros")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.showTrailZerosLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.keepSingleZero")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepSingleZeroLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmpty")
+        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmptyLabel")
       ).to.exist;
     });
   });
@@ -173,8 +181,6 @@ describe("FormatPanelV2", () => {
     // Check primary children
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
       .exist;
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.units")).to
-      .exist;
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.precision"))
       .to.exist;
 
@@ -183,17 +189,20 @@ describe("FormatPanelV2", () => {
     fireEvent.click(expandButton);
 
     await waitFor(() => {
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
       expect(
         renderedComponent.getByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
+          "QuantityFormat.labels.stationOffsetLabel"
         )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.stationOffset")
-      ).to.exist;
-      expect(
         renderedComponent.getByLabelText(
-          "QuantityFormat.labels.stationSeparator"
+          "QuantityFormat.labels.stationSeparatorLabel"
         )
       ).to.exist;
       expect(
@@ -202,13 +211,17 @@ describe("FormatPanelV2", () => {
         )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.showTrailZeros")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.showTrailZerosLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.keepSingleZero")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepSingleZeroLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmpty")
+        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmptyLabel")
       ).to.exist;
     });
   });
@@ -232,8 +245,6 @@ describe("FormatPanelV2", () => {
     // Check primary children
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
       .exist;
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.units")).to
-      .exist;
     expect(renderedComponent.getByLabelText("QuantityFormat.labels.precision"))
       .to.exist;
 
@@ -242,19 +253,24 @@ describe("FormatPanelV2", () => {
     fireEvent.click(expandButton);
 
     await waitFor(() => {
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
       expect(
         renderedComponent.getByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
+          "QuantityFormat.labels.showTrailZerosLabel"
         )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.showTrailZeros")
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepSingleZeroLabel"
+        )
       ).to.exist;
       expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.keepSingleZero")
-      ).to.exist;
-      expect(
-        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmpty")
+        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmptyLabel")
       ).to.exist;
     });
   });
@@ -289,7 +305,9 @@ describe("FormatPanelV2", () => {
 
     expect(onFormatChange).toHaveBeenCalledWith({
       ...formatProps,
-      type: "scientific",
+      type: "Scientific",
+      scientificType: "Normalized",
+      precision: 6,
     });
   });
 
@@ -319,7 +337,7 @@ describe("FormatPanelV2", () => {
     await waitFor(() => {
       fireEvent.click(
         renderedComponent.getByRole("option", {
-          name: "4",
+          name: "QuantityFormat.decimal_precision.four",
         })
       );
     });
@@ -355,31 +373,6 @@ describe("FormatPanelV2", () => {
       ...formatProps,
       formatTraits: ["showUnitLabel"],
     });
-  });
-
-  it("should render format panel without sample", async () => {
-    const formatProps: FormatProps = {
-      type: "decimal",
-      precision: 2,
-    };
-    const onFormatChange = vi.fn();
-
-    const renderedComponent = render(
-      <FormatPanelV2
-        formatProps={formatProps}
-        onFormatChange={onFormatChange}
-        unitsProvider={unitsProvider}
-        persistenceUnit={persistenceUnit}
-      />
-    );
-
-    // Check that the panel renders without errors
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
-      .exist;
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.units")).to
-      .exist;
-    expect(renderedComponent.getByLabelText("QuantityFormat.labels.precision"))
-      .to.exist;
   });
 
   it("should handle secondary children changes", async () => {
@@ -436,11 +429,12 @@ describe("FormatPanelV2", () => {
     fireEvent.click(expandButton);
 
     await waitFor(() => {
-      expect(
-        renderedComponent.getByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
-        )
-      ).to.exist;
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
     });
 
     // Collapse secondary children

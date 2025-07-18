@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor, within } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
   FormatProps,
@@ -64,9 +64,11 @@ describe("Scientific Panel V2", () => {
         />
       );
 
-      expect(renderedComponent.getByLabelText("Format Type")).to.exist;
-      expect(renderedComponent.getByText("Units")).to.exist;
-      expect(renderedComponent.getByLabelText("Precision")).to.exist;
+      expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
+        .exist;
+      expect(
+        renderedComponent.getByLabelText("QuantityFormat.labels.precision")
+      ).to.exist;
     });
 
     it("should render unit label controls when showUnitLabel is enabled", async () => {
@@ -86,7 +88,11 @@ describe("Scientific Panel V2", () => {
       );
 
       await waitFor(() => {
-        expect(renderedComponent.getByLabelText("Unit Separator")).to.exist;
+        expect(
+          renderedComponent.getByLabelText(
+            "QuantityFormat.labels.appendUnitLabel"
+          )
+        ).to.exist;
       });
     });
   });
@@ -108,11 +114,30 @@ describe("Scientific Panel V2", () => {
         />
       );
 
-      expect(renderedComponent.getByLabelText("Sign Option")).to.exist;
-      expect(renderedComponent.getByLabelText("Keep Decimal Point")).to.exist;
-      expect(renderedComponent.getByLabelText("Show Trailing Zeros")).to.exist;
-      expect(renderedComponent.getByLabelText("Keep Single Zero")).to.exist;
-      expect(renderedComponent.getByLabelText("Zero Empty")).to.exist;
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".format-inline-row")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
+      expect(
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepDecimalPointLabel"
+        )
+      ).to.exist;
+      expect(
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.showTrailZerosLabel"
+        )
+      ).to.exist;
+      expect(
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepSingleZeroLabel"
+        )
+      ).to.exist;
+      expect(
+        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmptyLabel")
+      ).to.exist;
     });
 
     it("should handle keep decimal point changes", async () => {
@@ -130,7 +155,9 @@ describe("Scientific Panel V2", () => {
         />
       );
 
-      const checkbox = renderedComponent.getByLabelText("Keep Decimal Point");
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.keepDecimalPointLabel"
+      );
       fireEvent.click(checkbox);
 
       expect(onFormatChange).toHaveBeenCalledWith({
@@ -154,7 +181,9 @@ describe("Scientific Panel V2", () => {
         />
       );
 
-      const checkbox = renderedComponent.getByLabelText("Show Trailing Zeros");
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.showTrailZerosLabel"
+      );
       fireEvent.click(checkbox);
 
       expect(onFormatChange).toHaveBeenCalledWith({
@@ -178,7 +207,9 @@ describe("Scientific Panel V2", () => {
         />
       );
 
-      const checkbox = renderedComponent.getByLabelText("Keep Single Zero");
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.keepSingleZeroLabel"
+      );
       fireEvent.click(checkbox);
 
       expect(onFormatChange).toHaveBeenCalledWith({
@@ -202,7 +233,9 @@ describe("Scientific Panel V2", () => {
         />
       );
 
-      const checkbox = renderedComponent.getByLabelText("Zero Empty");
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.zeroEmptyLabel"
+      );
       fireEvent.click(checkbox);
 
       expect(onFormatChange).toHaveBeenCalledWith({
