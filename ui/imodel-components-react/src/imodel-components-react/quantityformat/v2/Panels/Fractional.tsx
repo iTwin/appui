@@ -22,6 +22,10 @@ import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
 import { SignOptionV2 } from "../internal/SignOptionV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
+import {
+  ThousandsSeparatorSelector,
+  UseThousandsSeparator,
+} from "../internal/ThousandsSeparatorV2.js";
 import "../FormatPanelV2.scss";
 
 /** Primary children component for fractional format */
@@ -83,6 +87,14 @@ export function FractionalSecondaryChildren(
   return (
     <div className="fractional-secondary-children">
       <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
+      <UseThousandsSeparator
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
+      <ThousandsSeparatorSelector
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
       <ShowTrailingZerosV2
         formatProps={formatProps}
         onChange={onFormatChange}

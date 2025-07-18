@@ -81,6 +81,7 @@
       "scientificTypeLabel": "Scientific Type",
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
+      "thousandSelectorTooltip": "When this and the decimal separator are set to the same character, one will be flipped to avoid conflicts",
       "value": "Value",
       "ratioTypeLabel": "Ratio Type",
       "azimuthBase": "Azimuth Base",

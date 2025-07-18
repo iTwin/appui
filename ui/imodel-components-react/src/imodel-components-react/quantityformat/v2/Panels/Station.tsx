@@ -23,6 +23,10 @@ import { SignOptionV2 } from "../internal/SignOptionV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
+import {
+  ThousandsSeparatorSelector,
+  UseThousandsSeparator,
+} from "../internal/ThousandsSeparatorV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
@@ -83,6 +87,14 @@ export function StationSecondaryChildren(
   return (
     <div className="station-secondary-children">
       <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
+      <UseThousandsSeparator
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
+      <ThousandsSeparatorSelector
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
       <StationOffsetV2 formatProps={formatProps} onChange={onFormatChange} />
       <StationSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
       <KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />

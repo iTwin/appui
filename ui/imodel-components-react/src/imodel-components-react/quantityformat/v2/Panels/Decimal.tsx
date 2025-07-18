@@ -25,6 +25,10 @@ import { SignOptionV2 } from "../internal/SignOptionV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
+import {
+  ThousandsSeparatorSelector,
+  UseThousandsSeparator,
+} from "../internal/ThousandsSeparatorV2.js";
 import "../FormatPanelV2.scss";
 
 /** Common props for all format panel components */
@@ -138,6 +142,14 @@ export function DecimalSecondaryChildren(
           onChange={handleDecimalSeparatorChange}
         />
       </div>
+      <UseThousandsSeparator
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
+      <ThousandsSeparatorSelector
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
       <KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
       <ShowTrailingZerosV2
         formatProps={formatProps}
