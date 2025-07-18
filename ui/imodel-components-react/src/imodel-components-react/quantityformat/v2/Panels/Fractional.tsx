@@ -11,54 +11,91 @@ import type { PanelProps } from "./Decimal.js";
 import { Format, FormatTraits } from "@itwin/core-quantity";
 import { FormatUnitsV2 } from "../internal/FormatUnitsV2.js";
 import { FormatTypeOption } from "../../FormatType.js";
-import { AppendUnitLabelV2, UomSeparatorSelectorV2 } from "../internal/FormatUnitLabelV2.js";
+import {
+  AppendUnitLabelV2,
+  UomSeparatorSelectorV2,
+} from "../internal/FormatUnitLabelV2.js";
 import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
+import { SignOptionV2 } from "../internal/SignOptionV2.js";
+import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
+import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
 import "../FormatPanelV2.scss";
 
 /** Primary children component for fractional format */
-export function FractionalPrimaryChildren(props: PanelProps): React.ReactElement {
-	const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
-	const { translate } = useTranslation();
+export function FractionalPrimaryChildren(
+  props: PanelProps
+): React.ReactElement {
+  const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
+  const { translate } = useTranslation();
 
-	return (
-		<div className="fractional-primary-children">
-			<div className="format-type-row">
-				<FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
-			</div>
-			<Text variant="small" isMuted={true}>
-				{translate("QuantityFormat.labels.formatTypeSublabel")}
-			</Text>
-			<Divider />
-			<Label>{translate("QuantityFormat.labels.units")}</Label>
-			<FormatUnitsV2 unitsProvider={unitsProvider} persistenceUnit={persistenceUnit} initialFormat={formatProps} onUnitsChange={onFormatChange} />
-			<Divider />
-			<AppendUnitLabelV2 formatProps={formatProps} onFormatChange={onFormatChange} />
-			{Format.isFormatTraitSetInProps(formatProps, FormatTraits.ShowUnitLabel) && <UomSeparatorSelectorV2 formatProps={formatProps} onFormatChange={onFormatChange} disabled={false} />}
-			<FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
-		</div>
-	);
+  return (
+    <div className="fractional-primary-children">
+      <div className="format-type-row">
+        <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
+      </div>
+      <Text variant="small" isMuted={true}>
+        {translate("QuantityFormat.labels.formatTypeSublabel")}
+      </Text>
+      <Divider />
+      <Label>{translate("QuantityFormat.labels.units")}</Label>
+      <FormatUnitsV2
+        unitsProvider={unitsProvider}
+        persistenceUnit={persistenceUnit}
+        initialFormat={formatProps}
+        onUnitsChange={onFormatChange}
+      />
+      <Divider />
+      <AppendUnitLabelV2
+        formatProps={formatProps}
+        onFormatChange={onFormatChange}
+      />
+      {Format.isFormatTraitSetInProps(
+        formatProps,
+        FormatTraits.ShowUnitLabel
+      ) && (
+        <UomSeparatorSelectorV2
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          disabled={false}
+        />
+      )}
+      <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
+    </div>
+  );
 }
 
 /** Returns the primary children for fractional format*/
-export function getFractionalPrimaryChildren(props: PanelProps): React.ReactNode {
-	return <FractionalPrimaryChildren {...props} />;
+export function getFractionalPrimaryChildren(
+  props: PanelProps
+): React.ReactNode {
+  return <FractionalPrimaryChildren {...props} />;
 }
 
 /** Secondary children component for fractional format */
-export function FractionalSecondaryChildren(props: PanelProps): React.ReactElement {
-	const { formatProps, onFormatChange } = props;
+export function FractionalSecondaryChildren(
+  props: PanelProps
+): React.ReactElement {
+  const { formatProps, onFormatChange } = props;
 
-	return (
-		<div className="fractional-secondary-children">
-			<ShowTrailingZerosV2 formatProps={formatProps} onChange={onFormatChange} />
-		</div>
-	);
+  return (
+    <div className="fractional-secondary-children">
+      <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
+      <ShowTrailingZerosV2
+        formatProps={formatProps}
+        onChange={onFormatChange}
+      />
+      <KeepSingleZeroV2 formatProps={formatProps} onChange={onFormatChange} />
+      <ZeroEmptyV2 formatProps={formatProps} onChange={onFormatChange} />
+    </div>
+  );
 }
 
 /** Returns the secondary children for fractional format */
-export function getFractionalSecondaryChildren(props: PanelProps): React.ReactNode {
-	return <FractionalSecondaryChildren {...props} />;
+export function getFractionalSecondaryChildren(
+  props: PanelProps
+): React.ReactNode {
+  return <FractionalSecondaryChildren {...props} />;
 }

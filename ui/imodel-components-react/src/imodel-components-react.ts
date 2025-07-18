@@ -122,7 +122,7 @@ export {
   FormatSampleV2,
   FormatSampleV2Props,
 } from "./imodel-components-react/quantityformat/v2/FormatSampleV2.js";
-export { PanelProps } from "./imodel-components-react/quantityformat/v2/Panels/Decimal.js";
+export { PanelProps } from "./imodel-components-react/quantityformat/v2/panels/Decimal.js";
 
 export {
   AnimationFractionChangeHandler,

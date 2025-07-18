@@ -9,27 +9,28 @@
 import * as React from "react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
-import { useTranslation } from "../../../useTranslation.js";
 import { Checkbox, Label } from "@itwin/itwinui-react";
+import { useTranslation } from "../../../useTranslation.js";
+import "../FormatPanelV2.scss";
 
-/** Properties of [[ShowTrailingZerosV2]] component.
+/** Properties of [[KeepDecimalPointV2]] component.
  * @alpha
  * @internal
  */
-export interface ShowTrailingZerosV2Props {
+export interface KeepDecimalPointV2Props {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
   disabled?: boolean;
 }
 
-/** Component to show/edit Show Trailing Zeros format trait.
+/** Component to show/edit Keep Decimal Point setting.
  * @alpha
  * @internal
  */
-export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
-  const { formatProps, onChange, disabled = false } = props;
+export function KeepDecimalPointV2(props: KeepDecimalPointV2Props) {
+  const { formatProps, onChange, disabled } = props;
   const { translate } = useTranslation();
-  const showTrailZerosId = React.useId();
+  const keepDecimalPointId = React.useId();
 
   const setFormatTrait = React.useCallback(
     (trait: FormatTraits, setActive: boolean) => {
@@ -59,9 +60,9 @@ export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
     [formatProps, onChange]
   );
 
-  const handleShowTrailingZeroesChange = React.useCallback(
+  const handleKeepDecimalPointChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormatTrait(FormatTraits.TrailZeroes, e.target.checked);
+      setFormatTrait(FormatTraits.KeepDecimalPoint, e.target.checked);
     },
     [setFormatTrait]
   );
@@ -72,17 +73,17 @@ export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
         className={"uicore-label"}
         as="div"
         displayStyle="inline"
-        id={showTrailZerosId}
+        id={keepDecimalPointId}
       >
-        {translate("QuantityFormat.labels.showTrailZerosLabel")}
+        {translate("QuantityFormat.labels.keepDecimalPointLabel")}
       </Label>
       <Checkbox
-        aria-labelledby={showTrailZerosId}
+        aria-labelledby={keepDecimalPointId}
         checked={Format.isFormatTraitSetInProps(
           formatProps,
-          FormatTraits.TrailZeroes
+          FormatTraits.KeepDecimalPoint
         )}
-        onChange={handleShowTrailingZeroesChange}
+        onChange={handleKeepDecimalPointChange}
         disabled={disabled}
       />
     </div>

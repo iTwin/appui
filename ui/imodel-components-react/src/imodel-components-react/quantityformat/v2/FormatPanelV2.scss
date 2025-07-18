@@ -90,3 +90,10 @@
   margin-bottom: 0;
   white-space: nowrap;
 }
+
+/* Tooltip positioning for help icons */
+.format-help-tooltip {
+  position: relative;
+  top: 1px;
+  margin-left: 4px;
+}

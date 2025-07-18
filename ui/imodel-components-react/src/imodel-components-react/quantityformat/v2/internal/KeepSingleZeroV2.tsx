@@ -9,27 +9,28 @@
 import * as React from "react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
-import { useTranslation } from "../../../useTranslation.js";
 import { Checkbox, Label } from "@itwin/itwinui-react";
+import { useTranslation } from "../../../useTranslation.js";
+import "../FormatPanelV2.scss";
 
-/** Properties of [[ShowTrailingZerosV2]] component.
+/** Properties of [[KeepSingleZeroV2]] component.
  * @alpha
  * @internal
  */
-export interface ShowTrailingZerosV2Props {
+export interface KeepSingleZeroV2Props {
   formatProps: FormatProps;
   onChange?: (format: FormatProps) => void;
   disabled?: boolean;
 }
 
-/** Component to show/edit Show Trailing Zeros format trait.
+/** Component to show/edit Keep Single Zero setting.
  * @alpha
  * @internal
  */
-export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
-  const { formatProps, onChange, disabled = false } = props;
+export function KeepSingleZeroV2(props: KeepSingleZeroV2Props) {
+  const { formatProps, onChange, disabled } = props;
   const { translate } = useTranslation();
-  const showTrailZerosId = React.useId();
+  const keepSingleZeroId = React.useId();
 
   const setFormatTrait = React.useCallback(
     (trait: FormatTraits, setActive: boolean) => {
@@ -59,9 +60,9 @@ export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
     [formatProps, onChange]
   );
 
-  const handleShowTrailingZeroesChange = React.useCallback(
+  const handleKeepSingleZeroChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormatTrait(FormatTraits.TrailZeroes, e.target.checked);
+      setFormatTrait(FormatTraits.KeepSingleZero, e.target.checked);
     },
     [setFormatTrait]
   );
@@ -72,17 +73,17 @@ export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
         className={"uicore-label"}
         as="div"
         displayStyle="inline"
-        id={showTrailZerosId}
+        id={keepSingleZeroId}
       >
-        {translate("QuantityFormat.labels.showTrailZerosLabel")}
+        {translate("QuantityFormat.labels.keepSingleZeroLabel")}
       </Label>
       <Checkbox
-        aria-labelledby={showTrailZerosId}
+        aria-labelledby={keepSingleZeroId}
         checked={Format.isFormatTraitSetInProps(
           formatProps,
-          FormatTraits.TrailZeroes
+          FormatTraits.KeepSingleZero
         )}
-        onChange={handleShowTrailingZeroesChange}
+        onChange={handleKeepSingleZeroChange}
         disabled={disabled}
       />
     </div>

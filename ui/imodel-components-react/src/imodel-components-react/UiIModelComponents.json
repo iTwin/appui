@@ -67,6 +67,7 @@
       "appendUnitLabel": "Show Unit Label",
       "labelSeparator": "Label Separator",
       "signOptionLabel": "Sign Option",
+      "signOptionTooltip": "Controls when plus/minus signs appear",
       "stationOffsetLabel": "Station Offset",
       "stationSeparatorLabel": "Station Separator",
       "decimalSeparatorLabel": "Decimal Separator",
