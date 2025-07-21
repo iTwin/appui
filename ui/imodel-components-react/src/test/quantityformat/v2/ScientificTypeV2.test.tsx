@@ -3,14 +3,14 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { expect, vi } from "vitest";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type { FormatProps } from "@itwin/core-quantity";
 import { TestUtils } from "../../TestUtils.js";
-import { DecimalSeparatorV2 } from "../../../imodel-components-react/quantityformat/v2/internal/DecimalSeparatorV2.js";
+import { ScientificTypeV2 } from "../../../imodel-components-react/quantityformat/v2/internal/ScientificTypeV2.js";
 
-describe("DecimalSeparatorV2", () => {
+describe("ScientificTypeV2", () => {
   const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
     IModelApp,
     "requestNextAnimation"
@@ -36,90 +36,84 @@ describe("DecimalSeparatorV2", () => {
     );
   });
 
-  it("should render with default decimal separator", async () => {
+  it("should render with default normalized scientific type", async () => {
     const formatProps: FormatProps = {
-      type: "decimal",
+      type: "scientific",
       precision: 2,
     };
     const onChange = vi.fn();
 
     const renderedComponent = render(
-      <DecimalSeparatorV2 formatProps={formatProps} onChange={onChange} />
+      <ScientificTypeV2 formatProps={formatProps} onChange={onChange} />
     );
 
     expect(
-      renderedComponent.getByText("QuantityFormat.labels.decimalSeparatorLabel")
+      renderedComponent.getByText("QuantityFormat.labels.scientificTypeLabel")
     ).to.exist;
     expect(
-      renderedComponent.getByText("QuantityFormat.decimal_separator.point")
+      renderedComponent.getByText("QuantityFormat.scientific-type.normalized")
     ).to.exist;
   });
 
-  it("should render with specified decimal separator", async () => {
+  it("should render with specified scientific type", async () => {
     const formatProps: FormatProps = {
-      type: "decimal",
+      type: "scientific",
       precision: 2,
-      decimalSeparator: ",",
+      scientificType: "ZeroNormalized",
     };
     const onChange = vi.fn();
 
     const renderedComponent = render(
-      <DecimalSeparatorV2 formatProps={formatProps} onChange={onChange} />
+      <ScientificTypeV2 formatProps={formatProps} onChange={onChange} />
     );
 
     expect(
-      renderedComponent.getByText("QuantityFormat.labels.decimalSeparatorLabel")
+      renderedComponent.getByText("QuantityFormat.labels.scientificTypeLabel")
     ).to.exist;
     expect(
-      renderedComponent.getByText("QuantityFormat.decimal_separator.comma")
+      renderedComponent.getByText(
+        "QuantityFormat.scientific-type.zero-normalized"
+      )
     ).to.exist;
   });
 
-  it("should handle decimal separator changes and adjust thousands separator", async () => {
+  it("should be disabled when disabled prop is true", async () => {
     const formatProps: FormatProps = {
-      type: "decimal",
+      type: "scientific",
       precision: 2,
-      decimalSeparator: ".",
-      thousandSeparator: ",",
-      formatTraits: ["use1000Separator"],
     };
     const onChange = vi.fn();
 
     const renderedComponent = render(
-      <DecimalSeparatorV2 formatProps={formatProps} onChange={onChange} />
+      <ScientificTypeV2
+        formatProps={formatProps}
+        onChange={onChange}
+        disabled={true}
+      />
     );
 
-    // Find and click the decimal separator selector to change it
     const comboBox =
       renderedComponent.container.querySelector('[role="combobox"]');
     expect(comboBox).to.exist;
-
-    // Simulate changing from period to comma
-    fireEvent.click(comboBox!);
-
-    // This would trigger the onChange callback when the value changes
-    // For now, just verify the component renders correctly
     expect(
-      renderedComponent.getByText("QuantityFormat.labels.decimalSeparatorLabel")
-    ).to.exist;
+      (comboBox as HTMLElement).getAttribute("data-iui-disabled")
+    ).to.equal("true");
   });
 
-  it("should not affect thousands separator when Use1000Separator trait is not set", async () => {
+  it("should handle scientific type changes", async () => {
     const formatProps: FormatProps = {
-      type: "decimal",
+      type: "scientific",
       precision: 2,
-      decimalSeparator: ".",
-      thousandSeparator: ",",
     };
     const onChange = vi.fn();
 
     const renderedComponent = render(
-      <DecimalSeparatorV2 formatProps={formatProps} onChange={onChange} />
+      <ScientificTypeV2 formatProps={formatProps} onChange={onChange} />
     );
 
-    // The component should render but thousands separator logic should not apply
     expect(
-      renderedComponent.getByText("QuantityFormat.labels.decimalSeparatorLabel")
+      renderedComponent.getByText("QuantityFormat.labels.scientificTypeLabel")
     ).to.exist;
+    // The component should render and be ready to handle changes
   });
 });

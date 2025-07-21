@@ -17,56 +17,73 @@ import "../FormatPanelV2.scss";
  * @internal
  */
 export interface KeepSingleZeroV2Props {
-	formatProps: FormatProps;
-	onChange?: (format: FormatProps) => void;
-	disabled?: boolean;
+  formatProps: FormatProps;
+  onChange?: (format: FormatProps) => void;
+  disabled?: boolean;
 }
 
 /** Component to show/edit Keep Single Zero setting.
  * @internal
  */
 export function KeepSingleZeroV2(props: KeepSingleZeroV2Props) {
-	const { formatProps, onChange, disabled } = props;
-	const { translate } = useTranslation();
-	const keepSingleZeroId = React.useId();
+  const { formatProps, onChange, disabled } = props;
+  const { translate } = useTranslation();
+  const keepSingleZeroId = React.useId();
 
-	const setFormatTrait = React.useCallback(
-		(trait: FormatTraits, setActive: boolean) => {
-			const traitStr = getTraitString(trait);
-			let formatTraits: string[] = [traitStr];
-			if (setActive) {
-				// setting trait
-				if (formatProps.formatTraits) {
-					const traits = Array.isArray(formatProps.formatTraits) ? formatProps.formatTraits : formatProps.formatTraits.split(/,|;|\|/);
-					if (!traits.find((traitEntry) => traitStr === traitEntry)) {
-						formatTraits = [...traits, traitStr];
-					}
-				}
-			} else {
-				// clearing trait
-				if (!formatProps.formatTraits) return;
-				const traits = Array.isArray(formatProps.formatTraits) ? formatProps.formatTraits : formatProps.formatTraits.split(/,|;|\|/);
-				formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
-			}
-			const newFormatProps = { ...formatProps, formatTraits };
-			onChange && onChange(newFormatProps);
-		},
-		[formatProps, onChange]
-	);
+  const setFormatTrait = React.useCallback(
+    (trait: FormatTraits, setActive: boolean) => {
+      const traitStr = getTraitString(trait);
+      let formatTraits: string[] = [traitStr];
+      if (setActive) {
+        // setting trait
+        if (formatProps.formatTraits) {
+          const traits = Array.isArray(formatProps.formatTraits)
+            ? formatProps.formatTraits
+            : formatProps.formatTraits.split(/,|;|\|/);
+          if (!traits.find((traitEntry) => traitStr === traitEntry)) {
+            formatTraits = [...traits, traitStr];
+          }
+        }
+      } else {
+        // clearing trait
+        if (!formatProps.formatTraits) return;
+        const traits = Array.isArray(formatProps.formatTraits)
+          ? formatProps.formatTraits
+          : formatProps.formatTraits.split(/,|;|\|/);
+        formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
+      }
+      const newFormatProps = { ...formatProps, formatTraits };
+      onChange && onChange(newFormatProps);
+    },
+    [formatProps, onChange]
+  );
 
-	const handleKeepSingleZeroChange = React.useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			setFormatTrait(FormatTraits.KeepSingleZero, e.target.checked);
-		},
-		[setFormatTrait]
-	);
+  const handleKeepSingleZeroChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormatTrait(FormatTraits.KeepSingleZero, e.target.checked);
+    },
+    [setFormatTrait]
+  );
 
-	return (
-		<div className="format-inline-row">
-			<Label className={"uicore-label"} as="div" displayStyle="inline" id={keepSingleZeroId}>
-				{translate("QuantityFormat.labels.keepSingleZeroLabel")}
-			</Label>
-			<Checkbox aria-labelledby={keepSingleZeroId} checked={Format.isFormatTraitSetInProps(formatProps, FormatTraits.KeepSingleZero)} onChange={handleKeepSingleZeroChange} disabled={disabled} />
-		</div>
-	);
+  return (
+    <div className="format-inline-row">
+      <Label
+        className={"uicore-label"}
+        as="div"
+        displayStyle="inline"
+        id={keepSingleZeroId}
+      >
+        {translate("QuantityFormat.labels.keepSingleZeroLabel")}
+      </Label>
+      <Checkbox
+        aria-labelledby={keepSingleZeroId}
+        checked={Format.isFormatTraitSetInProps(
+          formatProps,
+          FormatTraits.KeepSingleZero
+        )}
+        onChange={handleKeepSingleZeroChange}
+        disabled={disabled}
+      />
+    </div>
+  );
 }

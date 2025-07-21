@@ -18,70 +18,84 @@ import { useTranslation } from "../../../useTranslation.js";
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface FractionDashV2Props extends CommonProps {
-	formatProps: FormatProps;
-	onChange?: (format: FormatProps) => void;
-	disabled?: boolean;
+  formatProps: FormatProps;
+  onChange?: (format: FormatProps) => void;
+  disabled?: boolean;
 }
 
 /** Component to show/edit Fraction Dash format trait.
  * @internal
  */
 export function FractionDashV2(props: FractionDashV2Props) {
-	const { formatProps, onChange, disabled = false } = props;
-	const { translate } = useTranslation();
+  const { formatProps, onChange, disabled = false } = props;
+  const { translate } = useTranslation();
 
-	const fractionDashId = React.useId();
+  const fractionDashId = React.useId();
 
-	const handleSetFormatProps = React.useCallback(
-		(newProps: FormatProps) => {
-			onChange && onChange(newProps);
-		},
-		[onChange]
-	);
+  const handleSetFormatProps = React.useCallback(
+    (newProps: FormatProps) => {
+      onChange && onChange(newProps);
+    },
+    [onChange]
+  );
 
-	const setFormatTrait = React.useCallback(
-		(trait: FormatTraits, setActive: boolean) => {
-			const traitStr = getTraitString(trait);
-			let formatTraits: string[] = [traitStr];
-			if (setActive) {
-				// setting trait
-				if (formatProps.formatTraits) {
-					const traits = Array.isArray(formatProps.formatTraits) ? formatProps.formatTraits : formatProps.formatTraits.split(/,|;|\|/);
-					formatTraits = [...traits, traitStr];
-				}
-			} else {
-				// clearing trait
-				if (formatProps.formatTraits) {
-					const traits = Array.isArray(formatProps.formatTraits) ? formatProps.formatTraits : formatProps.formatTraits.split(/,|;|\|/);
-					formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
-				}
-			}
-			const newFormatProps = { ...formatProps, formatTraits };
-			handleSetFormatProps(newFormatProps);
-		},
-		[formatProps, handleSetFormatProps]
-	);
+  const setFormatTrait = React.useCallback(
+    (trait: FormatTraits, setActive: boolean) => {
+      const traitStr = getTraitString(trait);
+      let formatTraits: string[] = [traitStr];
+      if (setActive) {
+        // setting trait
+        if (formatProps.formatTraits) {
+          const traits = Array.isArray(formatProps.formatTraits)
+            ? formatProps.formatTraits
+            : formatProps.formatTraits.split(/,|;|\|/);
+          formatTraits = [...traits, traitStr];
+        }
+      } else {
+        // clearing trait
+        if (formatProps.formatTraits) {
+          const traits = Array.isArray(formatProps.formatTraits)
+            ? formatProps.formatTraits
+            : formatProps.formatTraits.split(/,|;|\|/);
+          formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
+        }
+      }
+      const newFormatProps = { ...formatProps, formatTraits };
+      handleSetFormatProps(newFormatProps);
+    },
+    [formatProps, handleSetFormatProps]
+  );
 
-	const handleUseFractionDashChange = React.useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => {
-			setFormatTrait(FormatTraits.FractionDash, e.target.checked);
-		},
-		[setFormatTrait]
-	);
+  const handleUseFractionDashChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormatTrait(FormatTraits.FractionDash, e.target.checked);
+    },
+    [setFormatTrait]
+  );
 
-	const isFormatTraitSet = React.useCallback(
-		(trait: FormatTraits) => {
-			return Format.isFormatTraitSetInProps(formatProps, trait);
-		},
-		[formatProps]
-	);
+  const isFormatTraitSet = React.useCallback(
+    (trait: FormatTraits) => {
+      return Format.isFormatTraitSetInProps(formatProps, trait);
+    },
+    [formatProps]
+  );
 
-	return (
-		<div className="format-inline-row">
-			<Label className="uicore-label" as="div" displayStyle="inline" id={fractionDashId}>
-				{translate("QuantityFormat.labels.fractionDashLabel")}
-			</Label>
-			<Checkbox aria-labelledby={fractionDashId} checked={isFormatTraitSet(FormatTraits.FractionDash)} onChange={handleUseFractionDashChange} disabled={disabled} />
-		</div>
-	);
+  return (
+    <div className="format-inline-row">
+      <Label
+        className="uicore-label"
+        as="div"
+        displayStyle="inline"
+        id={fractionDashId}
+      >
+        {translate("QuantityFormat.labels.fractionDashLabel")}
+      </Label>
+      <Checkbox
+        aria-labelledby={fractionDashId}
+        checked={isFormatTraitSet(FormatTraits.FractionDash)}
+        onChange={handleUseFractionDashChange}
+        disabled={disabled}
+      />
+    </div>
+  );
 }

@@ -79,6 +79,7 @@
       "keepDecimalPointLabel": "Keep Decimal Point",
       "fractionDashLabel": "Fraction Dash",
       "scientificTypeLabel": "Scientific Type",
+      "scientificTypeTooltip": "Select which scientific notation to use",
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
       "thousandSelectorTooltip": "When this and the decimal separator are set to the same character, one will be flipped to avoid conflicts",

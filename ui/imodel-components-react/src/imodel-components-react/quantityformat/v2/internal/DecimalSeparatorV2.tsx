@@ -19,56 +19,70 @@ import { useTranslation } from "../../../useTranslation.js";
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface DecimalSeparatorV2Props extends CommonProps {
-	formatProps: FormatProps;
-	onChange?: (format: FormatProps) => void;
+  formatProps: FormatProps;
+  onChange?: (format: FormatProps) => void;
 }
 
 /** Component to show/edit decimal separator.
  * @internal
  */
 export function DecimalSeparatorV2(props: DecimalSeparatorV2Props) {
-	const { formatProps, onChange } = props;
-	const { translate } = useTranslation();
+  const { formatProps, onChange } = props;
+  const { translate } = useTranslation();
 
-	const decimalSeparatorSelectorId = React.useId();
+  const decimalSeparatorSelectorId = React.useId();
 
-	const handleSetFormatProps = React.useCallback(
-		(newProps: FormatProps) => {
-			onChange && onChange(newProps);
-		},
-		[onChange]
-	);
+  const handleSetFormatProps = React.useCallback(
+    (newProps: FormatProps) => {
+      onChange && onChange(newProps);
+    },
+    [onChange]
+  );
 
-	const handleDecimalSeparatorChange = React.useCallback(
-		(decimalSeparator: string) => {
-			let thousandSeparator = formatProps.thousandSeparator;
-			// make sure 1000 and decimal separator do not match
-			if (Format.isFormatTraitSetInProps(formatProps, FormatTraits.Use1000Separator)) {
-				switch (decimalSeparator) {
-					case ".":
-						thousandSeparator = ",";
-						break;
-					case ",":
-						thousandSeparator = ".";
-						break;
-				}
-			}
-			const newFormatProps = {
-				...formatProps,
-				thousandSeparator,
-				decimalSeparator,
-			};
-			handleSetFormatProps(newFormatProps);
-		},
-		[formatProps, handleSetFormatProps]
-	);
+  const handleDecimalSeparatorChange = React.useCallback(
+    (decimalSeparator: string) => {
+      let thousandSeparator = formatProps.thousandSeparator;
+      // make sure 1000 and decimal separator do not match
+      if (
+        Format.isFormatTraitSetInProps(
+          formatProps,
+          FormatTraits.Use1000Separator
+        )
+      ) {
+        switch (decimalSeparator) {
+          case ".":
+            thousandSeparator = ",";
+            break;
+          case ",":
+            thousandSeparator = ".";
+            break;
+        }
+      }
+      const newFormatProps = {
+        ...formatProps,
+        thousandSeparator,
+        decimalSeparator,
+      };
+      handleSetFormatProps(newFormatProps);
+    },
+    [formatProps, handleSetFormatProps]
+  );
 
-	return (
-		<div className="format-inline-row">
-			<Label className="uicore-label" as="div" displayStyle="inline" id={decimalSeparatorSelectorId}>
-				{translate("QuantityFormat.labels.decimalSeparatorLabel")}
-			</Label>
-			<DecimalSeparatorSelector aria-labelledby={decimalSeparatorSelectorId} separator={formatProps.decimalSeparator ?? "."} onChange={handleDecimalSeparatorChange} />
-		</div>
-	);
+  return (
+    <div className="format-inline-row">
+      <Label
+        className="uicore-label"
+        as="div"
+        displayStyle="inline"
+        id={decimalSeparatorSelectorId}
+      >
+        {translate("QuantityFormat.labels.decimalSeparatorLabel")}
+      </Label>
+      <DecimalSeparatorSelector
+        aria-labelledby={decimalSeparatorSelectorId}
+        separator={formatProps.decimalSeparator ?? "."}
+        onChange={handleDecimalSeparatorChange}
+      />
+    </div>
+  );
 }
