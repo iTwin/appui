@@ -14,78 +14,59 @@ import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
 
 /** Properties of [[ZeroEmptyV2]] component.
- * @alpha
  * @internal
  */
 export interface ZeroEmptyV2Props {
-  formatProps: FormatProps;
-  onChange?: (format: FormatProps) => void;
-  disabled?: boolean;
+	formatProps: FormatProps;
+	onChange?: (format: FormatProps) => void;
+	disabled?: boolean;
 }
 
 /** Component to show/edit Zero Empty setting.
- * @alpha
  * @internal
  */
 export function ZeroEmptyV2(props: ZeroEmptyV2Props) {
-  const { formatProps, onChange, disabled } = props;
-  const { translate } = useTranslation();
-  const zeroEmptyId = React.useId();
+	const { formatProps, onChange, disabled } = props;
+	const { translate } = useTranslation();
+	const zeroEmptyId = React.useId();
 
-  const setFormatTrait = React.useCallback(
-    (trait: FormatTraits, setActive: boolean) => {
-      const traitStr = getTraitString(trait);
-      let formatTraits: string[] = [traitStr];
-      if (setActive) {
-        // setting trait
-        if (formatProps.formatTraits) {
-          const traits = Array.isArray(formatProps.formatTraits)
-            ? formatProps.formatTraits
-            : formatProps.formatTraits.split(/,|;|\|/);
-          if (!traits.find((traitEntry) => traitStr === traitEntry)) {
-            formatTraits = [...traits, traitStr];
-          }
-        }
-      } else {
-        // clearing trait
-        if (!formatProps.formatTraits) return;
-        const traits = Array.isArray(formatProps.formatTraits)
-          ? formatProps.formatTraits
-          : formatProps.formatTraits.split(/,|;|\|/);
-        formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
-      }
-      const newFormatProps = { ...formatProps, formatTraits };
-      onChange && onChange(newFormatProps);
-    },
-    [formatProps, onChange]
-  );
+	const setFormatTrait = React.useCallback(
+		(trait: FormatTraits, setActive: boolean) => {
+			const traitStr = getTraitString(trait);
+			let formatTraits: string[] = [traitStr];
+			if (setActive) {
+				// setting trait
+				if (formatProps.formatTraits) {
+					const traits = Array.isArray(formatProps.formatTraits) ? formatProps.formatTraits : formatProps.formatTraits.split(/,|;|\|/);
+					if (!traits.find((traitEntry) => traitStr === traitEntry)) {
+						formatTraits = [...traits, traitStr];
+					}
+				}
+			} else {
+				// clearing trait
+				if (!formatProps.formatTraits) return;
+				const traits = Array.isArray(formatProps.formatTraits) ? formatProps.formatTraits : formatProps.formatTraits.split(/,|;|\|/);
+				formatTraits = traits.filter((traitEntry) => traitEntry !== traitStr);
+			}
+			const newFormatProps = { ...formatProps, formatTraits };
+			onChange && onChange(newFormatProps);
+		},
+		[formatProps, onChange]
+	);
 
-  const handleZeroEmptyChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormatTrait(FormatTraits.ZeroEmpty, e.target.checked);
-    },
-    [setFormatTrait]
-  );
+	const handleZeroEmptyChange = React.useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => {
+			setFormatTrait(FormatTraits.ZeroEmpty, e.target.checked);
+		},
+		[setFormatTrait]
+	);
 
-  return (
-    <div className="format-inline-row">
-      <Label
-        className={"uicore-label"}
-        as="div"
-        displayStyle="inline"
-        id={zeroEmptyId}
-      >
-        {translate("QuantityFormat.labels.zeroEmptyLabel")}
-      </Label>
-      <Checkbox
-        aria-labelledby={zeroEmptyId}
-        checked={Format.isFormatTraitSetInProps(
-          formatProps,
-          FormatTraits.ZeroEmpty
-        )}
-        onChange={handleZeroEmptyChange}
-        disabled={disabled}
-      />
-    </div>
-  );
+	return (
+		<div className="format-inline-row">
+			<Label className={"uicore-label"} as="div" displayStyle="inline" id={zeroEmptyId}>
+				{translate("QuantityFormat.labels.zeroEmptyLabel")}
+			</Label>
+			<Checkbox aria-labelledby={zeroEmptyId} checked={Format.isFormatTraitSetInProps(formatProps, FormatTraits.ZeroEmpty)} onChange={handleZeroEmptyChange} disabled={disabled} />
+		</div>
+	);
 }

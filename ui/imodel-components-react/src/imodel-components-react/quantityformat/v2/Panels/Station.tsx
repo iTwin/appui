@@ -11,10 +11,7 @@ import type { PanelProps } from "./Decimal.js";
 import { Format, FormatTraits } from "@itwin/core-quantity";
 import { FormatUnitsV2 } from "../internal/FormatUnitsV2.js";
 import { FormatTypeOption } from "../../FormatType.js";
-import {
-  AppendUnitLabelV2,
-  UomSeparatorSelectorV2,
-} from "../internal/FormatUnitLabelV2.js";
+import { AppendUnitLabelV2, UomSeparatorSelectorV2 } from "../internal/FormatUnitLabelV2.js";
 import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
 import { StationSeparatorV2 } from "../internal/StationSeparatorV2.js";
 import { StationOffsetV2 } from "../internal/StationOffsetV2.js";
@@ -23,94 +20,69 @@ import { SignOptionV2 } from "../internal/SignOptionV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
-import {
-  ThousandsSeparatorSelector,
-  UseThousandsSeparator,
-} from "../internal/ThousandsSeparatorV2.js";
+import { ThousandsSeparatorSelector, UseThousandsSeparator } from "../internal/ThousandsSeparatorV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
 
-/** Primary children component for station format (always visible) */
+/** Primary children component for station format (always visible)
+ * @internal
+ */
 export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
-  const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
-  const { translate } = useTranslation();
+	const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
+	const { translate } = useTranslation();
 
-  return (
-    <div className="station-primary-children">
-      <div className="format-type-row">
-        <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
-      </div>
-      <Text variant="small" isMuted={true}>
-        {translate("QuantityFormat.labels.formatTypeSublabel")}
-      </Text>
-      <Divider />
-      <Label>{translate("QuantityFormat.labels.units")}</Label>
-      <FormatUnitsV2
-        unitsProvider={unitsProvider}
-        persistenceUnit={persistenceUnit}
-        initialFormat={formatProps}
-        onUnitsChange={onFormatChange}
-      />
-      <Divider />
-      <AppendUnitLabelV2
-        formatProps={formatProps}
-        onFormatChange={onFormatChange}
-      />
-      {Format.isFormatTraitSetInProps(
-        formatProps,
-        FormatTraits.ShowUnitLabel
-      ) && (
-        <UomSeparatorSelectorV2
-          formatProps={formatProps}
-          onFormatChange={onFormatChange}
-          disabled={false}
-        />
-      )}
-      <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
-      {/* Add station offset, precision, etc. controls here */}
-    </div>
-  );
+	return (
+		<div className="station-primary-children">
+			<div className="format-type-row">
+				<FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
+			</div>
+			<Text variant="small" isMuted={true}>
+				{translate("QuantityFormat.labels.formatTypeSublabel")}
+			</Text>
+			<Divider />
+			<Label>{translate("QuantityFormat.labels.units")}</Label>
+			<FormatUnitsV2 unitsProvider={unitsProvider} persistenceUnit={persistenceUnit} initialFormat={formatProps} onUnitsChange={onFormatChange} />
+			<Divider />
+			<AppendUnitLabelV2 formatProps={formatProps} onFormatChange={onFormatChange} />
+			{Format.isFormatTraitSetInProps(formatProps, FormatTraits.ShowUnitLabel) && <UomSeparatorSelectorV2 formatProps={formatProps} onFormatChange={onFormatChange} disabled={false} />}
+			<FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
+			{/* Add station offset, precision, etc. controls here */}
+		</div>
+	);
 }
 
-/** Returns the primary children for station format (always visible) */
+/** Returns the primary children for station format (always visible)
+ * @internal
+ */
 export function getStationPrimaryChildren(props: PanelProps): React.ReactNode {
-  return <StationPrimaryChildren {...props} />;
+	return <StationPrimaryChildren {...props} />;
 }
 
-/** Secondary children component for station format */
-export function StationSecondaryChildren(
-  props: PanelProps
-): React.ReactElement {
-  const { formatProps, onFormatChange } = props;
+/** Secondary children component for station format
+ * @internal
+ */
+export function StationSecondaryChildren(props: PanelProps): React.ReactElement {
+	const { formatProps, onFormatChange } = props;
 
-  return (
-    <div className="station-secondary-children">
-      <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
-      <UseThousandsSeparator
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <ThousandsSeparatorSelector
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <StationOffsetV2 formatProps={formatProps} onChange={onFormatChange} />
-      <StationSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
-      <KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
-      <ShowTrailingZerosV2
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <KeepSingleZeroV2 formatProps={formatProps} onChange={onFormatChange} />
-      <ZeroEmptyV2 formatProps={formatProps} onChange={onFormatChange} />
-    </div>
-  );
+	return (
+		<div className="station-secondary-children">
+			<SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
+			<UseThousandsSeparator formatProps={formatProps} onChange={onFormatChange} />
+			<ThousandsSeparatorSelector formatProps={formatProps} onChange={onFormatChange} />
+			<StationOffsetV2 formatProps={formatProps} onChange={onFormatChange} />
+			<StationSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
+			<KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
+			<ShowTrailingZerosV2 formatProps={formatProps} onChange={onFormatChange} />
+			<KeepSingleZeroV2 formatProps={formatProps} onChange={onFormatChange} />
+			<ZeroEmptyV2 formatProps={formatProps} onChange={onFormatChange} />
+		</div>
+	);
 }
 
-/** Returns the secondary children for station format (expandable/collapsible) */
-export function getStationSecondaryChildren(
-  props: PanelProps
-): React.ReactNode {
-  return <StationSecondaryChildren {...props} />;
+/** Returns the secondary children for station format (expandable/collapsible)
+ * @internal
+ */
+export function getStationSecondaryChildren(props: PanelProps): React.ReactNode {
+	return <StationSecondaryChildren {...props} />;
 }

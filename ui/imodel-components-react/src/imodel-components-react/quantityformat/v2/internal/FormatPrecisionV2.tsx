@@ -15,55 +15,40 @@ import { useTranslation } from "../../../useTranslation.js";
 import { Label } from "@itwin/itwinui-react";
 
 /** Properties of [[FormatPrecisionV2]] component.
- * @alpha
  * @internal
  */
 export interface FormatPrecisionV2Props {
-  formatProps: FormatProps;
-  onChange?: (format: FormatProps) => void;
+	formatProps: FormatProps;
+	onChange?: (format: FormatProps) => void;
 }
 
 /** Component to show/edit Quantity Format Precision.
- * @alpha
  * @internal
  */
 export function FormatPrecisionV2(props: FormatPrecisionV2Props) {
-  const { formatProps, onChange } = props;
-  const { translate } = useTranslation();
-  const precisionSelectorId = React.useId();
-  const handlePrecisionChange = React.useCallback(
-    (precision: number) => {
-      const newFormatProps = { ...formatProps, precision };
-      onChange && onChange(newFormatProps);
-    },
-    [formatProps, onChange]
-  );
+	const { formatProps, onChange } = props;
+	const { translate } = useTranslation();
+	const precisionSelectorId = React.useId();
+	const handlePrecisionChange = React.useCallback(
+		(precision: number) => {
+			const newFormatProps = { ...formatProps, precision };
+			onChange && onChange(newFormatProps);
+		},
+		[formatProps, onChange]
+	);
 
-  const formatType = parseFormatType(formatProps.type, "format");
+	const formatType = parseFormatType(formatProps.type, "format");
 
-  return (
-    <div className="format-inline-row">
-      <Label
-        className={"uicore-label"}
-        as="div"
-        displayStyle="inline"
-        id={precisionSelectorId}
-      >
-        {translate("QuantityFormat.labels.precision")}
-      </Label>
-      {formatType === FormatType.Fractional ? (
-        <FractionPrecisionSelector
-          aria-labelledby={precisionSelectorId}
-          precision={formatProps.precision ?? 0}
-          onChange={handlePrecisionChange}
-        />
-      ) : (
-        <DecimalPrecisionSelector
-          aria-labelledby={precisionSelectorId}
-          precision={formatProps.precision ?? 0}
-          onChange={handlePrecisionChange}
-        />
-      )}
-    </div>
-  );
+	return (
+		<div className="format-inline-row">
+			<Label className={"uicore-label"} as="div" displayStyle="inline" id={precisionSelectorId}>
+				{translate("QuantityFormat.labels.precision")}
+			</Label>
+			{formatType === FormatType.Fractional ? (
+				<FractionPrecisionSelector aria-labelledby={precisionSelectorId} precision={formatProps.precision ?? 0} onChange={handlePrecisionChange} />
+			) : (
+				<DecimalPrecisionSelector aria-labelledby={precisionSelectorId} precision={formatProps.precision ?? 0} onChange={handlePrecisionChange} />
+			)}
+		</div>
+	);
 }
