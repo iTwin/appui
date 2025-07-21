@@ -46,12 +46,14 @@ public;enum;Face
 alpha;function;FormatPanel
 alpha;interface;FormatPanelProps
 deprecated;interface;FormatPanelProps
+beta;function;FormatPanelV2
 alpha;function;FormatPrecision
 alpha;interface;FormatPrecisionProps
 deprecated;interface;FormatPrecisionProps
 alpha;function;FormatSample
 alpha;interface;FormatSampleProps
 deprecated;interface;FormatSampleProps
+beta;function;FormatSampleV2
 alpha;function;FormatTypeOption
 alpha;interface;FormatTypeOptionProps
 deprecated;interface;FormatTypeOptionProps
@@ -76,6 +78,7 @@ beta;const;QuantityEditorSpec
 alpha;function;QuantityFormatPanel
 alpha;interface;QuantityFormatPanelProps
 deprecated;interface;QuantityFormatPanelProps
+beta;function;QuantityFormatPanelV2
 beta;function;QuantityInput
 beta;const;QuantityNumberInput
 beta;interface;QuantityNumberInputProps

@@ -21,7 +21,9 @@ import { Divider, Input, Label, Tag } from "@itwin/itwinui-react";
 import "./FormatPanelV2.scss";
 import { useTranslation } from "../../useTranslation.js";
 
-/** Properties of FormatSampleV2 component. */
+/** Properties of FormatSampleV2 component.
+ * @internal
+ */
 export interface FormatSampleV2Props {
   formatProps: FormatProps;
   unitsProvider: UnitsProvider;
@@ -32,6 +34,7 @@ export interface FormatSampleV2Props {
 
 /** Component to show the persistence value and formatted value for FormatProps.
  * Creates its own FormatterSpec internally based on formatProps and persistenceUnit.
+ * @beta
  */
 export function FormatSampleV2(props: FormatSampleV2Props) {
   const { formatProps, unitsProvider, persistenceUnit, initialMagnitude } =
@@ -133,7 +136,9 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
           <Divider orientation="vertical" />
           <Tag variant="default">{formattedValue}</Tag>
           <Divider orientation="vertical" />
-          <Tag variant="default" className="second-tag-sample">{formattedValue}</Tag>
+          <Tag variant="default" className="second-tag-sample">
+            {formattedValue}
+          </Tag>
         </div>
       </div>
 

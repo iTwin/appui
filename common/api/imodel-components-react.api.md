@@ -426,6 +426,9 @@ export interface FormatPanelProps extends CommonProps {
     unitsProvider: UnitsProvider;
 }
 
+// @beta
+export function FormatPanelV2(props: FormatPanelV2Props): React_2.JSX.Element;
+
 // @alpha
 export function FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element;
 
@@ -449,6 +452,9 @@ export interface FormatSampleProps extends CommonProps {
     // (undocumented)
     initialMagnitude?: number;
 }
+
+// @beta
+export function FormatSampleV2(props: FormatSampleV2Props): React_2.JSX.Element;
 
 // @alpha
 export function FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element;
@@ -567,6 +573,9 @@ export interface QuantityFormatPanelProps extends CommonProps {
     quantityType: QuantityTypeArg;
     showSample?: boolean;
 }
+
+// @beta
+export function QuantityFormatPanelV2(props: QuantityFormatPanelV2Props): React_2.JSX.Element;
 
 // @beta
 export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element;

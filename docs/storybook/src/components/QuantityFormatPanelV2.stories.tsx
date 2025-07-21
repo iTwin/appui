@@ -71,6 +71,7 @@ export const Decimal: Story = {
 			precision: 2,
 			thousandSeparator: ",",
 			decimalSeparator: ".",
+      formatTraits: ["showUnitLabel"],
 			composite: {
 				includeZero: true,
 				spacer: "",
@@ -87,6 +88,7 @@ export const Scientific: Story = {
 			type: FormatType.Scientific,
 			precision: 3,
 			scientificType: "normalized",
+      formatTraits: ["showUnitLabel"],
 			composite: {
 				includeZero: true,
 				spacer: "",
@@ -103,6 +105,7 @@ export const ScientificZeroNormalized: Story = {
 			type: FormatType.Scientific,
 			precision: 2,
 			scientificType: "zeroNormalized",
+      formatTraits: ["showUnitLabel"],
 			composite: {
 				includeZero: true,
 				spacer: "",
@@ -118,6 +121,7 @@ export const Fractional: Story = {
 		formatProps: {
 			type: FormatType.Fractional,
 			precision: 8, // For fractional, this represents denominator power
+      formatTraits: ["showUnitLabel"],
 			composite: {
 				includeZero: true,
 				spacer: "",
@@ -135,6 +139,7 @@ export const Station: Story = {
 			precision: 2,
 			stationOffsetSize: 2,
 			stationSeparator: "+",
+      formatTraits: ["showUnitLabel"],
 			composite: {
 				includeZero: true,
 				spacer: "",
@@ -142,6 +147,47 @@ export const Station: Story = {
 			},
 		},
 		initialMagnitude: 12345.67,
+	},
+};
+
+export const Azimuth: Story = {
+	args: {
+		formatProps: {
+			type: FormatType.Azimuth,
+			precision: 1,
+      formatTraits: ["showUnitLabel"],
+			composite: {
+				includeZero: true,
+				spacer: "",
+				units: [{ label: "°", name: "Units.ARC_DEG" }],
+			},
+			revolutionUnit: "Units.RAD",
+			azimuthBaseUnit: "Units.ARC_DEG",
+			azimuthBase: 0.0,
+		},
+		initialMagnitude: 123.5, // Should show as azimuth angle
+	},
+};
+
+export const Bearing: Story = {
+	args: {
+		formatProps: {
+			type: FormatType.Bearing,
+			precision: 0,
+      uomSeparator: "",
+      formatTraits: ["showUnitLabel"],
+			composite: {
+        includeZero: true,
+        spacer: "",
+        units: [
+          { name: "Units.ARC_DEG", label: "°" },
+          { name: "Units.ARC_MINUTE", label: "'" },
+          { name: "Units.ARC_SECOND", label: "\"" },
+        ],
+			},
+			revolutionUnit: "Units.RAD", // Bearing uses revolution unit
+		},
+		initialMagnitude: 180
 	},
 };
 

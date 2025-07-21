@@ -89,7 +89,10 @@
       "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise",
       "samplePreview": "Preview",
       "units": "Units",
-			"advancedOptions": "Advanced Options"
+      "advancedOptions": "Advanced Options",
+      "addSubUnit": "Add Sub Unit",
+      "removeUnit": "Remove Unit",
+      "azimuthBaseUnit": "Azimuth Base Unit"
     },
     "fraction_precision": {
       "whole": "Whole",
@@ -170,8 +173,9 @@
       }
     },
     "azimuthType": {
-      "baseTooltip": "The starting direction (base) from which azimuth angles are measured.",
-      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base."
+      "baseTooltip": "The starting direction (base) from which azimuth angles are measured",
+      "baseUnitTooltip": "Unit used as the base for measuring azimuth angles",
+      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base"
     }
   },
   "BearingQuantityType": {

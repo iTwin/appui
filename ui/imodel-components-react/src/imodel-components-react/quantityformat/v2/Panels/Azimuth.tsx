@@ -16,25 +16,23 @@ import {
   UomSeparatorSelectorV2,
 } from "../internal/FormatUnitLabelV2.js";
 import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
-import { StationSeparatorV2 } from "../internal/StationSeparatorV2.js";
-import { StationOffsetV2 } from "../internal/StationOffsetV2.js";
-import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
-import { SignOptionV2 } from "../internal/SignOptionV2.js";
-import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
-import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
-import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
-import {
-  ThousandsSeparatorSelector,
-  UseThousandsSeparator,
-} from "../internal/ThousandsSeparatorV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
+import { AzimuthOptions } from "../../misc/AzimuthOptions.js";
+import { AzimuthOptionsV2 } from "../internal/AzimuthOptionsV2.js";
+import { DecimalSeparatorV2 } from "../internal/DecimalSeparatorV2.js";
+import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
+import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
+import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
+import { SignOptionV2 } from "../internal/SignOptionV2.js";
+import { UseThousandsSeparator, ThousandsSeparatorSelector } from "../internal/ThousandsSeparatorV2.js";
+import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
 
-/** Primary children component for station format (always visible)
+/** Primary children component for azimuth format (always visible)
  * @internal
  */
-export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
+export function AzimuthPrimaryChildren(props: PanelProps): React.ReactElement {
   const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
   const { translate } = useTranslation();
 
@@ -70,22 +68,28 @@ export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
         />
       )}
       <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
-      {/* Add station offset, precision, etc. controls here */}
+      <AzimuthOptionsV2
+        formatProps={formatProps}
+        onChange={onFormatChange}
+        disabled={false}
+        unitsProvider={unitsProvider}
+      />
+      {/* Add precision, etc. controls here */}
     </div>
   );
 }
 
-/** Returns the primary children for station format (always visible)
+/** Returns the primary children for azimuth format (always visible)
  * @internal
  */
-export function getStationPrimaryChildren(props: PanelProps): React.ReactNode {
-  return <StationPrimaryChildren {...props} />;
+export function getAzimuthPrimaryChildren(props: PanelProps): React.ReactNode {
+  return <AzimuthPrimaryChildren {...props} />;
 }
 
-/** Secondary children component for station format
+/** Secondary children component for azimuth format
  * @internal
  */
-export function StationSecondaryChildren(
+export function AzimuthSecondaryChildren(
   props: PanelProps
 ): React.ReactElement {
   const { formatProps, onFormatChange } = props;
@@ -93,8 +97,7 @@ export function StationSecondaryChildren(
   return (
     <div className="format-panel-secondary-children">
       <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
-      <StationOffsetV2 formatProps={formatProps} onChange={onFormatChange} />
-      <StationSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
+      <DecimalSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
       <UseThousandsSeparator
         formatProps={formatProps}
         onChange={onFormatChange}
@@ -114,11 +117,11 @@ export function StationSecondaryChildren(
   );
 }
 
-/** Returns the secondary children for station format (expandable/collapsible)
+/** Returns the secondary children for azimuth format (expandable/collapsible)
  * @internal
  */
-export function getStationSecondaryChildren(
+export function getAzimuthSecondaryChildren(
   props: PanelProps
 ): React.ReactNode {
-  return <StationSecondaryChildren {...props} />;
+  return <AzimuthSecondaryChildren {...props} />;
 }

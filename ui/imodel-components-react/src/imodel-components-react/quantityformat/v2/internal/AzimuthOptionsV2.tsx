@@ -1,0 +1,226 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/** @packageDocumentation
+ * @module QuantityFormat
+ */
+import type { FormatProps, UnitsProvider } from "@itwin/core-quantity";
+import React from "react";
+import { useTranslation } from "../../../useTranslation.js";
+import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
+import {
+  Checkbox,
+  IconButton,
+  Input,
+  Label,
+  Select,
+} from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
+import { getUnitName } from "../../misc/UnitDescr.js";
+
+/**
+ * Non-exported component for selecting azimuth base unit.
+ */
+function AzimuthBaseUnitSelector(props: {
+  currentUnit: string;
+  unitsProvider: UnitsProvider;
+  onChange: (unitName: string) => void;
+  disabled: boolean;
+}) {
+  const { currentUnit, unitsProvider, onChange, disabled } = props;
+  const { translate } = useTranslation();
+  const [unitOptions, setUnitOptions] = React.useState<SelectOption<string>[]>([
+    { value: currentUnit, label: currentUnit },
+  ]);
+  const unitSelectorId = React.useId();
+
+  React.useEffect(() => {
+    async function loadUnitOptions() {
+      try {
+        // Find the current unit to get its phenomenon (family)
+        const baseUnit = await unitsProvider.findUnitByName(currentUnit);
+        if (baseUnit) {
+          // Get all units in the same family
+          const familyUnits = await unitsProvider.getUnitsByFamily(
+            baseUnit.phenomenon
+          );
+          const options = familyUnits
+            .map((unit) => ({
+              value: unit.name,
+              label: getUnitName(unit.name),
+            }))
+            .sort((a, b) => a.label.localeCompare(b.label));
+
+          setUnitOptions(options);
+        }
+      } catch (error) {
+        // Fallback to current unit if there's an error
+        // eslint-disable-next-line no-console
+        console.warn("Failed to load unit family:", error);
+        setUnitOptions([{ value: currentUnit, label: currentUnit }]);
+      }
+    }
+
+    void loadUnitOptions();
+  }, [currentUnit, unitsProvider]);
+
+  const handleUnitChange = React.useCallback(
+    (value: string) => {
+      onChange(value);
+    },
+    [onChange]
+  );
+
+  return (
+    <div className="format-inline-row">
+      <Label
+        className={"uicore-label"}
+        id={unitSelectorId}
+        as="div"
+        displayStyle="inline"
+      >
+        {translate("QuantityFormat.labels.azimuthBaseUnit")}
+        <IconButton
+          size="small"
+          styleType="borderless"
+          label={translate("QuantityFormat.azimuthType.baseUnitTooltip")}
+        >
+          <SvgHelpCircularHollow />
+        </IconButton>
+      </Label>
+      <Select<string>
+        aria-labelledby={unitSelectorId}
+        value={currentUnit}
+        options={unitOptions}
+        onChange={handleUnitChange}
+        size="small"
+        disabled={disabled}
+      />
+    </div>
+  );
+}
+
+/**
+ * Component used to customize Azimuth options of a Format (V2).
+ * @alpha
+ */
+export function AzimuthOptionsV2(props: {
+  formatProps: FormatProps;
+  onChange?: (format: FormatProps) => void;
+  disabled: boolean;
+  unitsProvider: UnitsProvider;
+}) {
+  const { formatProps, onChange, disabled, unitsProvider } = props;
+  const { translate } = useTranslation();
+
+  const baseInputId = React.useId();
+  const ccwCheckboxId = React.useId();
+
+  const handleAzimuthBaseUnitChange = React.useCallback(
+    (unitName: string) => {
+      const newFormatProps = { ...formatProps, azimuthBaseUnit: unitName };
+      onChange && onChange(newFormatProps);
+    },
+    [formatProps, onChange]
+  );
+  const handleAzimuthBaseChange = React.useCallback(
+    (value: number) => {
+      const newFormatProps = { ...formatProps, azimuthBase: value };
+      onChange && onChange(newFormatProps);
+    },
+    [formatProps, onChange]
+  );
+
+  const handleAzimuthCCWChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newFormatProps = {
+        ...formatProps,
+        azimuthCounterClockwise: event.target.checked,
+      };
+      onChange && onChange(newFormatProps);
+    },
+    [formatProps, onChange]
+  );
+
+  /** Disable commas and letters */
+  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const isLetter = /^[a-zA-Z]$/.test(event.key);
+    if (event.key === "," || isLetter) {
+      event.preventDefault();
+    }
+  };
+
+  const handleInputChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const numValue = Number(e.target.value);
+      if (isNaN(numValue)) {
+        e.preventDefault();
+        return;
+      }
+      handleAzimuthBaseChange(numValue);
+    },
+    [handleAzimuthBaseChange]
+  );
+
+  return (
+    <>
+      <div className="format-inline-row">
+        <Label
+          className={"uicore-label"}
+          id={ccwCheckboxId}
+          as="div"
+          displayStyle="inline"
+        >
+          {translate("QuantityFormat.labels.azimuthCounterClockwise")}
+          <IconButton
+            size="small"
+            styleType="borderless"
+            label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}
+          >
+            <SvgHelpCircularHollow />
+          </IconButton>
+        </Label>
+        <Checkbox
+          aria-labelledby={ccwCheckboxId}
+          checked={formatProps.azimuthCounterClockwise ?? false}
+          onChange={handleAzimuthCCWChange}
+          disabled={disabled}
+        />
+      </div>
+
+      <AzimuthBaseUnitSelector
+        currentUnit={formatProps.azimuthBaseUnit ?? "Units.ARC_DEG"}
+        unitsProvider={unitsProvider}
+        onChange={handleAzimuthBaseUnitChange}
+        disabled={disabled}
+      />
+      <div className="format-inline-row">
+        <Label
+          id={baseInputId}
+          className={"uicore-label"}
+          as="div"
+          displayStyle="inline"
+        >
+          {translate("QuantityFormat.labels.azimuthBase")}
+          <IconButton
+            size="small"
+            styleType="borderless"
+            label={translate("QuantityFormat.azimuthType.baseTooltip")}
+          >
+            <SvgHelpCircularHollow />
+          </IconButton>
+        </Label>
+        <Input
+          aria-labelledby={baseInputId}
+          type="number"
+          value={formatProps.azimuthBase?.toString() ?? "0"}
+          onKeyDown={onKeyDown}
+          onChange={handleInputChange}
+          size="small"
+          disabled={disabled}
+        />
+      </div>
+    </>
+  );
+}
