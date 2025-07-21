@@ -13,8 +13,8 @@ import { FormatUnitsV2 } from "../internal/FormatUnitsV2.js";
 import { FormatTypeOption } from "../../FormatType.js";
 import { AppendUnitLabelV2, UomSeparatorSelectorV2 } from "../internal/FormatUnitLabelV2.js";
 import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
-import { StationSeparatorV2 } from "../internal/StationSeparatorV2.js";
-import { StationOffsetV2 } from "../internal/StationOffsetV2.js";
+import { RatioTypeV2 } from "../internal/RatioTypeV2.js";
+import { DecimalSeparatorV2 } from "../internal/DecimalSeparatorV2.js";
 import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
 import { SignOptionV2 } from "../internal/SignOptionV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
@@ -25,10 +25,10 @@ import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
 
-/** Primary children component for station format (always visible)
+/** Primary children component for ratio format (always visible)
  * @internal
  */
-export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
+export function RatioPrimaryChildren(props: PanelProps): React.ReactElement {
 	const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
 	const { translate } = useTranslation();
 
@@ -47,29 +47,29 @@ export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
 			<AppendUnitLabelV2 formatProps={formatProps} onFormatChange={onFormatChange} />
 			{Format.isFormatTraitSetInProps(formatProps, FormatTraits.ShowUnitLabel) && <UomSeparatorSelectorV2 formatProps={formatProps} onFormatChange={onFormatChange} disabled={false} />}
 			<FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
-			{/* Add station offset, precision, etc. controls here */}
+			<RatioTypeV2 formatProps={formatProps} onChange={onFormatChange} />
+			{/* Add precision, ratio type, etc. controls here */}
 		</div>
 	);
 }
 
-/** Returns the primary children for station format (always visible)
+/** Returns the primary children for ratio format (always visible)
  * @internal
  */
-export function getStationPrimaryChildren(props: PanelProps): React.ReactNode {
-	return <StationPrimaryChildren {...props} />;
+export function getRatioPrimaryChildren(props: PanelProps): React.ReactNode {
+	return <RatioPrimaryChildren {...props} />;
 }
 
-/** Secondary children component for station format
+/** Secondary children component for ratio format
  * @internal
  */
-export function StationSecondaryChildren(props: PanelProps): React.ReactElement {
+export function RatioSecondaryChildren(props: PanelProps): React.ReactElement {
 	const { formatProps, onFormatChange } = props;
 
 	return (
 		<div className="format-panel-secondary-children">
 			<SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
-			<StationOffsetV2 formatProps={formatProps} onChange={onFormatChange} />
-			<StationSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
+			<DecimalSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
 			<UseThousandsSeparator formatProps={formatProps} onChange={onFormatChange} />
 			<ThousandsSeparatorSelector formatProps={formatProps} onChange={onFormatChange} />
 			<KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
@@ -80,9 +80,9 @@ export function StationSecondaryChildren(props: PanelProps): React.ReactElement 
 	);
 }
 
-/** Returns the secondary children for station format (expandable/collapsible)
+/** Returns the secondary children for ratio format (expandable/collapsible)
  * @internal
  */
-export function getStationSecondaryChildren(props: PanelProps): React.ReactNode {
-	return <StationSecondaryChildren {...props} />;
+export function getRatioSecondaryChildren(props: PanelProps): React.ReactNode {
+	return <RatioSecondaryChildren {...props} />;
 }

@@ -133,7 +133,7 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
           <Divider orientation="vertical" />
           <Tag variant="default">{formattedValue}</Tag>
           <Divider orientation="vertical" />
-          <Tag variant="basic">{formattedValue}</Tag>
+          <Tag variant="default" className="second-tag-sample">{formattedValue}</Tag>
         </div>
       </div>
 

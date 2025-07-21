@@ -14,7 +14,7 @@ import {
   type UnitProps,
 } from "@itwin/core-quantity";
 import type { UnitsProvider } from "@itwin/core-quantity";
-import { ExpandableBlock } from "@itwin/itwinui-react";
+import { ExpandableBlock, Text } from "@itwin/itwinui-react";
 import {
   getDecimalPrimaryChildren,
   getDecimalSecondaryChildren,
@@ -33,6 +33,8 @@ import {
   getStationSecondaryChildren,
 } from "./panels/Station.js";
 import "./FormatPanelV2.scss";
+import { getRatioPrimaryChildren, getRatioSecondaryChildren } from "./panels/Ratio.js";
+import { useTranslation } from "../../useTranslation.js";
 
 /** Props for FormatPanelV2 */
 export interface FormatPanelV2Props {
@@ -46,6 +48,7 @@ export interface FormatPanelV2Props {
 export function FormatPanelV2(props: FormatPanelV2Props) {
   const { formatProps, unitsProvider, onFormatChange, persistenceUnit } = props;
   const [isExpanded, setIsExpanded] = React.useState(false);
+	const { translate } = useTranslation();
 
   const [primaryChildren, secondaryChildren] = React.useMemo(() => {
     const panelProps: PanelProps = {
@@ -77,6 +80,11 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
           getStationPrimaryChildren(panelProps),
           getStationSecondaryChildren(panelProps),
         ];
+			case FormatType.Ratio:
+				return [
+					getRatioPrimaryChildren(panelProps),
+					getRatioSecondaryChildren(panelProps),
+				];
       default:
         return [
           getDecimalPrimaryChildren(panelProps),
@@ -89,7 +97,7 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
     <div className="format-panel-v2">
       <div className="primary-children">{primaryChildren}</div>
       <ExpandableBlock
-        caption="Advanced Options"
+        caption={<Text variant="leading">{translate("QuantityFormat.labels.advancedOptions")}</Text>}
         isExpanded={isExpanded}
         onToggle={() => setIsExpanded(!isExpanded)}
       >

@@ -11,6 +11,7 @@ import { RatioType } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Select } from "@itwin/itwinui-react";
 import { useTranslation } from "../../useTranslation.js";
+import "../v2/FormatPanelV2.scss";
 
 /** Component use to set Ratio type.
  * @alpha
@@ -64,6 +65,7 @@ export function RatioTypeSelector(props: {
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
+      menuClassName="ratio-type-selector"
       {...rest}
     />
   );

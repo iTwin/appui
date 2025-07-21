@@ -12,10 +12,7 @@ import type { UnitsProvider } from "@itwin/core-quantity";
 import { Format, FormatTraits } from "@itwin/core-quantity";
 import { FormatUnitsV2 } from "../internal/FormatUnitsV2.js";
 import { FormatTypeOption } from "../../FormatType.js";
-import {
-  AppendUnitLabelV2,
-  UomSeparatorSelectorV2,
-} from "../internal/FormatUnitLabelV2.js";
+import { AppendUnitLabelV2, UomSeparatorSelectorV2 } from "../internal/FormatUnitLabelV2.js";
 import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
 import { DecimalSeparatorV2 } from "../internal/DecimalSeparatorV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
@@ -25,107 +22,74 @@ import { SignOptionV2 } from "../internal/SignOptionV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
-import {
-  ThousandsSeparatorSelector,
-  UseThousandsSeparator,
-} from "../internal/ThousandsSeparatorV2.js";
+import { ThousandsSeparatorSelector, UseThousandsSeparator } from "../internal/ThousandsSeparatorV2.js";
 import "../FormatPanelV2.scss";
 
 /** Common props for all format panel components */
 export interface PanelProps {
-  formatProps: FormatProps;
-  unitsProvider: UnitsProvider;
-  onFormatChange: (formatProps: FormatProps) => void;
-  persistenceUnit?: UnitProps;
+	formatProps: FormatProps;
+	unitsProvider: UnitsProvider;
+	onFormatChange: (formatProps: FormatProps) => void;
+	persistenceUnit?: UnitProps;
 }
 
 /** Primary children component for decimal format
  * @internal
  */
 export function DecimalPrimaryChildren(props: PanelProps): React.ReactElement {
-  const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
-  const { translate } = useTranslation();
+	const { formatProps, onFormatChange, unitsProvider, persistenceUnit } = props;
+	const { translate } = useTranslation();
 
-  return (
-    <div className="decimal-primary-children">
-      <div className="format-type-row">
-        <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
-      </div>
-      <Text variant="small" isMuted={true}>
-        {translate("QuantityFormat.labels.formatTypeSublabel")}
-      </Text>
-      <Divider />
-      <Label>{translate("QuantityFormat.labels.units")}</Label>
-      <FormatUnitsV2
-        unitsProvider={unitsProvider}
-        persistenceUnit={persistenceUnit}
-        initialFormat={formatProps}
-        onUnitsChange={onFormatChange}
-      />
-      <Divider />
-      <AppendUnitLabelV2
-        formatProps={formatProps}
-        onFormatChange={onFormatChange}
-      />
-      {Format.isFormatTraitSetInProps(
-        formatProps,
-        FormatTraits.ShowUnitLabel
-      ) && (
-        <UomSeparatorSelectorV2
-          formatProps={formatProps}
-          onFormatChange={onFormatChange}
-          disabled={false}
-        />
-      )}
-      <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
-      {/* Add precision, rounding, etc. controls here */}
-    </div>
-  );
+	return (
+		<div className="format-panel-primary-children">
+			<div className="format-type-row">
+				<FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
+			</div>
+			<Text variant="small" isMuted={true}>
+				{translate("QuantityFormat.labels.formatTypeSublabel")}
+			</Text>
+			<Divider />
+			<Label>{translate("QuantityFormat.labels.units")}</Label>
+			<FormatUnitsV2 unitsProvider={unitsProvider} persistenceUnit={persistenceUnit} initialFormat={formatProps} onUnitsChange={onFormatChange} />
+			<Divider />
+			<AppendUnitLabelV2 formatProps={formatProps} onFormatChange={onFormatChange} />
+			{Format.isFormatTraitSetInProps(formatProps, FormatTraits.ShowUnitLabel) && <UomSeparatorSelectorV2 formatProps={formatProps} onFormatChange={onFormatChange} disabled={false} />}
+			<FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
+			{/* Add precision, rounding, etc. controls here */}
+		</div>
+	);
 }
 
 /** Returns the primary children for decimal format
  * @internal
  */
 export function getDecimalPrimaryChildren(props: PanelProps): React.ReactNode {
-  return <DecimalPrimaryChildren {...props} />;
+	return <DecimalPrimaryChildren {...props} />;
 }
 
 /** Secondary children component for decimal format
  * @internal
  */
-export function DecimalSecondaryChildren(
-  props: PanelProps
-): React.ReactElement {
-  const { formatProps, onFormatChange } = props;
+export function DecimalSecondaryChildren(props: PanelProps): React.ReactElement {
+	const { formatProps, onFormatChange } = props;
 
-  return (
-    <div className="decimal-secondary-children">
-      <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
-      <DecimalSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
-      <UseThousandsSeparator
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <ThousandsSeparatorSelector
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
-      <ShowTrailingZerosV2
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <KeepSingleZeroV2 formatProps={formatProps} onChange={onFormatChange} />
-      <ZeroEmptyV2 formatProps={formatProps} onChange={onFormatChange} />
-    </div>
-  );
+	return (
+		<div className="format-panel-secondary-children">
+			<SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
+			<DecimalSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
+			<UseThousandsSeparator formatProps={formatProps} onChange={onFormatChange} />
+			<ThousandsSeparatorSelector formatProps={formatProps} onChange={onFormatChange} />
+			<KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
+			<ShowTrailingZerosV2 formatProps={formatProps} onChange={onFormatChange} />
+			<KeepSingleZeroV2 formatProps={formatProps} onChange={onFormatChange} />
+			<ZeroEmptyV2 formatProps={formatProps} onChange={onFormatChange} />
+		</div>
+	);
 }
 
 /** Returns the secondary children for decimal format
  * @internal
  */
-export function getDecimalSecondaryChildren(
-  props: PanelProps
-): React.ReactNode {
-  return <DecimalSecondaryChildren {...props} />;
+export function getDecimalSecondaryChildren(props: PanelProps): React.ReactNode {
+	return <DecimalSecondaryChildren {...props} />;
 }
