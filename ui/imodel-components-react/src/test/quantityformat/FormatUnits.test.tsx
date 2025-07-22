@@ -113,7 +113,11 @@ describe("FormatUnits", () => {
     await waitForPosition();
 
     const menu = component.getByRole("listbox");
-    fireEvent.click(within(menu).getByRole("option", { name: "Remove" }));
+    fireEvent.click(
+      within(menu).getByRole("option", {
+        name: "QuantityFormat.labels.removeUnit",
+      })
+    );
 
     expect(spy).toHaveBeenCalledOnce();
     const format = spy.mock.calls[0][0];

@@ -5,10 +5,11 @@
 import * as React from "react";
 import { fireEvent, render, waitFor, within } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import type {
-  FormatProps,
-  UnitProps,
-  UnitsProvider,
+import {
+  type FormatProps,
+  RatioType,
+  type UnitProps,
+  type UnitsProvider,
 } from "@itwin/core-quantity";
 import { TestUtils } from "../../TestUtils.js";
 import {
@@ -129,7 +130,7 @@ describe("Ratio Panel V2", () => {
 
       expect(onFormatChange).toHaveBeenCalledWith({
         type: "ratio",
-        ratioType: "1:N",
+        ratioType: RatioType.OneToN,
       });
     });
   });

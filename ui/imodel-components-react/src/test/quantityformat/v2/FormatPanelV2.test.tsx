@@ -68,10 +68,13 @@ describe("FormatPanelV2", () => {
       .to.exist;
 
     // Check that secondary children are collapsed by default
-    expect(renderedComponent.getByText("Advanced Options")).to.exist;
+    expect(renderedComponent.getByText("QuantityFormat.labels.advancedOptions"))
+      .to.exist;
 
     // Expand secondary children
-    const expandButton = renderedComponent.getByText("Advanced Options");
+    const expandButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(expandButton);
 
     await waitFor(() => {
@@ -131,7 +134,9 @@ describe("FormatPanelV2", () => {
       .to.exist;
 
     // Expand secondary children
-    const expandButton = renderedComponent.getByText("Advanced Options");
+    const expandButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(expandButton);
 
     await waitFor(() => {
@@ -185,7 +190,9 @@ describe("FormatPanelV2", () => {
       .to.exist;
 
     // Expand secondary children
-    const expandButton = renderedComponent.getByText("Advanced Options");
+    const expandButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(expandButton);
 
     await waitFor(() => {
@@ -249,7 +256,9 @@ describe("FormatPanelV2", () => {
       .to.exist;
 
     // Expand secondary children
-    const expandButton = renderedComponent.getByText("Advanced Options");
+    const expandButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(expandButton);
 
     await waitFor(() => {
@@ -392,7 +401,9 @@ describe("FormatPanelV2", () => {
     );
 
     // Expand secondary children
-    const expandButton = renderedComponent.getByText("Advanced Options");
+    const expandButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(expandButton);
 
     await waitFor(() => {
@@ -425,7 +436,9 @@ describe("FormatPanelV2", () => {
     );
 
     // Expand secondary children
-    const expandButton = renderedComponent.getByText("Advanced Options");
+    const expandButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(expandButton);
 
     await waitFor(() => {
@@ -438,7 +451,9 @@ describe("FormatPanelV2", () => {
     });
 
     // Collapse secondary children
-    const collapseButton = renderedComponent.getByText("Advanced Options");
+    const collapseButton = renderedComponent.getByText(
+      "QuantityFormat.labels.advancedOptions"
+    );
     fireEvent.click(collapseButton);
 
     await waitFor(() => {

@@ -5,7 +5,7 @@
 import * as React from "react";
 import { fireEvent, render } from "@testing-library/react";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import type { FormatProps } from "@itwin/core-quantity";
+import { type FormatProps, RatioType } from "@itwin/core-quantity";
 import { TestUtils } from "../../TestUtils.js";
 import { RatioTypeV2 } from "../../../imodel-components-react/quantityformat/v2/internal/RatioTypeV2.js";
 
@@ -88,7 +88,7 @@ describe("RatioTypeV2", () => {
 
     expect(onChange).toHaveBeenCalledWith({
       ...formatProps,
-      ratioType: "GCD",
+      ratioType: RatioType.UseGreatestCommonDivisor,
     });
   });
 

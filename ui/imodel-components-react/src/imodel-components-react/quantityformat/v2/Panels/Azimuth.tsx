@@ -19,14 +19,16 @@ import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
-import { AzimuthOptions } from "../../misc/AzimuthOptions.js";
 import { AzimuthOptionsV2 } from "../internal/AzimuthOptionsV2.js";
 import { DecimalSeparatorV2 } from "../internal/DecimalSeparatorV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
 import { SignOptionV2 } from "../internal/SignOptionV2.js";
-import { UseThousandsSeparator, ThousandsSeparatorSelector } from "../internal/ThousandsSeparatorV2.js";
+import {
+  ThousandsSeparatorSelector,
+  UseThousandsSeparator,
+} from "../internal/ThousandsSeparatorV2.js";
 import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
 
 /** Primary children component for azimuth format (always visible)
