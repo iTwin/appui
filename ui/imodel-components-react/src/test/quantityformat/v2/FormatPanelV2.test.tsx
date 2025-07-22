@@ -81,7 +81,7 @@ describe("FormatPanelV2", () => {
       const comboBox = within(
         renderedComponent
           .getByText("QuantityFormat.labels.signOptionLabel")
-          .closest(".format-inline-row")!
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
       ).getByRole("combobox");
       expect(comboBox).to.exist;
 
@@ -143,7 +143,7 @@ describe("FormatPanelV2", () => {
       const comboBox = within(
         renderedComponent
           .getByText("QuantityFormat.labels.signOptionLabel")
-          .closest(".format-inline-row")!
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
       ).getByRole("combobox");
       expect(comboBox).to.exist;
       expect(
@@ -199,7 +199,7 @@ describe("FormatPanelV2", () => {
       const comboBox = within(
         renderedComponent
           .getByText("QuantityFormat.labels.signOptionLabel")
-          .closest(".format-inline-row")!
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
       ).getByRole("combobox");
       expect(comboBox).to.exist;
       expect(
@@ -265,7 +265,7 @@ describe("FormatPanelV2", () => {
       const comboBox = within(
         renderedComponent
           .getByText("QuantityFormat.labels.signOptionLabel")
-          .closest(".format-inline-row")!
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
       ).getByRole("combobox");
       expect(comboBox).to.exist;
       expect(
@@ -303,7 +303,7 @@ describe("FormatPanelV2", () => {
     const formatTypeSelector = within(
       renderedComponent
         .getByText("QuantityFormat.labels.type")
-        .closest(".format-type-row")!
+        .closest(".icr-quantityFormat-v2-formatTypeRow")!
     ).getByRole("combobox");
     fireEvent.click(formatTypeSelector);
     fireEvent.click(
@@ -339,7 +339,7 @@ describe("FormatPanelV2", () => {
     const precisionSelector = within(
       renderedComponent
         .getByText("QuantityFormat.labels.precision")
-        .closest(".format-inline-row")!
+        .closest(".icr-quantityFormat-v2-formatInlineRow")!
     ).getByRole("combobox");
     fireEvent.click(precisionSelector);
 
@@ -445,7 +445,7 @@ describe("FormatPanelV2", () => {
       const comboBox = within(
         renderedComponent
           .getByText("QuantityFormat.labels.signOptionLabel")
-          .closest(".format-inline-row")!
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
       ).getByRole("combobox");
       expect(comboBox).to.exist;
     });

@@ -38,7 +38,7 @@ export function StationSeparatorV2(props: StationSeparatorV2Props) {
   );
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
         as="div"

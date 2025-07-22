@@ -49,7 +49,7 @@ describe("SignOptionV2", () => {
     const comboBox = within(
       renderedComponent
         .getByText("QuantityFormat.labels.signOptionLabel")
-        .closest(".format-inline-row")!
+        .closest(".icr-quantityFormat-v2-formatInlineRow")!
     ).getByRole("combobox");
     expect(comboBox).to.exist;
     expect(
@@ -71,7 +71,7 @@ describe("SignOptionV2", () => {
     const comboBox = within(
       renderedComponent
         .getByText("QuantityFormat.labels.signOptionLabel")
-        .closest(".format-inline-row")!
+        .closest(".icr-quantityFormat-v2-formatInlineRow")!
     ).getByRole("combobox");
     expect(comboBox).to.exist;
     expect(renderedComponent.getByText("QuantityFormat.sign_option.signAlways"))
@@ -92,7 +92,7 @@ describe("SignOptionV2", () => {
     const comboBox = within(
       renderedComponent
         .getByText("QuantityFormat.labels.signOptionLabel")
-        .closest(".format-inline-row")!
+        .closest(".icr-quantityFormat-v2-formatInlineRow")!
     ).getByRole("combobox");
     fireEvent.click(comboBox);
     fireEvent.click(
@@ -140,7 +140,7 @@ describe("SignOptionV2", () => {
     const comboBox = within(
       renderedComponent
         .getByText("QuantityFormat.labels.signOptionLabel")
-        .closest(".format-inline-row")!
+        .closest(".icr-quantityFormat-v2-formatInlineRow")!
     ).getByRole("combobox");
     expect(
       comboBox.hasAttribute("aria-disabled") ||

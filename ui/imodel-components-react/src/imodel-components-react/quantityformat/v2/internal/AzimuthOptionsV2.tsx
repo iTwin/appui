@@ -73,7 +73,7 @@ function AzimuthBaseUnitSelector(props: {
   );
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
         id={unitSelectorId}
@@ -165,7 +165,7 @@ export function AzimuthOptionsV2(props: {
 
   return (
     <>
-      <div className="format-inline-row">
+      <div className="icr-quantityFormat-v2-formatInlineRow">
         <Label
           className={"uicore-label"}
           id={ccwCheckboxId}
@@ -195,7 +195,7 @@ export function AzimuthOptionsV2(props: {
         onChange={handleAzimuthBaseUnitChange}
         disabled={disabled}
       />
-      <div className="format-inline-row">
+      <div className="icr-quantityFormat-v2-formatInlineRow">
         <Label
           id={baseInputId}
           className={"uicore-label"}

@@ -47,10 +47,7 @@ import {
 } from "./panels/Ratio.js";
 import { useTranslation } from "../../useTranslation.js";
 
-/** Props for FormatPanelV2
- * @internal
- */
-export interface FormatPanelV2Props {
+interface FormatPanelV2Props {
   formatProps: FormatProps;
   unitsProvider: UnitsProvider;
   onFormatChange: (formatProps: FormatProps) => void;
@@ -119,10 +116,12 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
   }, [formatProps, unitsProvider, onFormatChange, persistenceUnit]);
 
   return (
-    <div className="format-panel-v2">
-      <div className="primary-children">{primaryChildren}</div>
+    <div className="icr-quantityFormat-v2-formatPanel">
+      <div className="icr-quantityFormat-v2-formatPanel-primaryChildren">
+        {primaryChildren}
+      </div>
       <ExpandableBlock
-        caption={
+        title={
           <Text variant="leading">
             {translate("QuantityFormat.labels.advancedOptions")}
           </Text>
@@ -130,7 +129,9 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
         isExpanded={isExpanded}
         onToggle={() => setIsExpanded(!isExpanded)}
       >
-        <div className="secondary-children">{secondaryChildren}</div>
+        <div className="icr-quantityFormat-v2-formatPanel-secondaryChildren">
+          {secondaryChildren}
+        </div>
       </ExpandableBlock>
     </div>
   );

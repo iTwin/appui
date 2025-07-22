@@ -62,7 +62,7 @@ export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
   }, [formatProps.uomSeparator, translate]);
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         as="div"
         displayStyle="inline"
@@ -144,7 +144,7 @@ export function AppendUnitLabelV2(props: AppendUnitLabelV2Props) {
   );
 
   return (
-    <div className="format-inline-row append-unit-label">
+    <div className="icr-quantityFormat-v2-formatInlineRow append-unit-label">
       <span className={"uicore-label"} id={appendUnitLabelId}>
         {translate("QuantityFormat.labels.appendUnitLabel")}
       </span>

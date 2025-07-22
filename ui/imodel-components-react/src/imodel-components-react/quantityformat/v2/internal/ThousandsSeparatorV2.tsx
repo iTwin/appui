@@ -82,7 +82,7 @@ export function UseThousandsSeparator(props: UseThousandsSeparatorProps) {
   );
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
         as="div"
@@ -159,7 +159,7 @@ export function ThousandsSeparatorSelector(
   }
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
         as="div"
@@ -168,7 +168,7 @@ export function ThousandsSeparatorSelector(
       >
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
         <IconButton
-          className="format-help-tooltip"
+          className="icr-quantityFormat-v2-formatHelpTooltip"
           styleType="borderless"
           size="small"
           label={translate("QuantityFormat.labels.thousandSelectorTooltip")}

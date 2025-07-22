@@ -116,7 +116,7 @@ describe("Bearing Panel V2", () => {
 
       expect(
         renderedComponent.container.querySelector(
-          ".format-panel-secondary-children"
+          ".icr-quantityFormat-v2-formatPanel-secondaryChildren"
         )
       ).to.exist;
     });

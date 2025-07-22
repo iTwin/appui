@@ -21,10 +21,7 @@ import { Divider, Input, Label, Tag } from "@itwin/itwinui-react";
 import "./FormatPanelV2.scss";
 import { useTranslation } from "../../useTranslation.js";
 
-/** Properties of FormatSampleV2 component.
- * @internal
- */
-export interface FormatSampleV2Props {
+interface FormatSampleV2Props {
   formatProps: FormatProps;
   unitsProvider: UnitsProvider;
   persistenceUnit?: UnitProps;
@@ -46,7 +43,7 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
     undefined
   );
   const { translate } = useTranslation();
-
+  const inputId = React.useId();
   // Create FormatterSpec when formatProps or persistenceUnit changes
   React.useEffect(() => {
     const createFormatterSpec = async () => {
@@ -117,15 +114,18 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
     : "";
 
   return (
-    <div className="format-sample-v2-container">
-      <div className="format-sample-v2-box">
-        <Label style={{ marginBottom: "8px", fontWeight: "600" }}>
+    <div className="icr-quantityFormat-v2-formatSample-container">
+      <div className="icr-quantityFormat-v2-formatSample-box">
+        <Label
+          style={{ marginBottom: "8px", fontWeight: "600" }}
+          htmlFor={inputId}
+        >
           {translate("QuantityFormat.labels.samplePreview")}
         </Label>
-        <div className="format-sample-v2-preview-row">
+        <div className="icr-quantityFormat-v2-formatSample-previewRow">
           <Input
-            data-testid="format-sample-v2-input"
-            className="components-quantity-persistence-input format-sample-v2-input"
+            id={inputId}
+            className="components-quantity-persistence-input icr-quantityFormat-v2-formatSample-input"
             value={sampleValue}
             onChange={handleOnValueChange}
             onKeyDown={handleKeyDown}
@@ -136,15 +136,14 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
           <Divider orientation="vertical" />
           <Tag variant="default">{formattedValue}</Tag>
           <Divider orientation="vertical" />
-          <Tag variant="default" className="second-tag-sample">
+          <Tag
+            variant="default"
+            className="icr-quantityFormat-v2-secondTagSample"
+          >
             {formattedValue}
           </Tag>
         </div>
       </div>
-
-      {/* <span data-testid="format-sample-v2-formatted" className={"uicore-label components-quantity-formatted-sample"}>
-					{formattedValue}
-				</span> */}
     </div>
   );
 }

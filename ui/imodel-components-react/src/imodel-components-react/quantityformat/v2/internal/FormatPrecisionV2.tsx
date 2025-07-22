@@ -40,7 +40,7 @@ export function FormatPrecisionV2(props: FormatPrecisionV2Props) {
   const formatType = parseFormatType(formatProps.type, "format");
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
         as="div"

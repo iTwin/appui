@@ -81,7 +81,7 @@ export function FractionDashV2(props: FractionDashV2Props) {
   );
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
         as="div"

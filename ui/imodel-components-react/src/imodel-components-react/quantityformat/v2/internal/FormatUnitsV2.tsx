@@ -167,7 +167,7 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
 
       {formatProps.composite?.units &&
         formatProps.composite.units.length > 1 && (
-          <div className="format-inline-row">
+          <div className="icr-quantityFormat-v2-formatInlineRow">
             <Label className={"uicore-label"} as="div" displayStyle="inline">
               {translate("QuantityFormat.labels.compositeSpacer")}
               <IconButton

@@ -60,7 +60,7 @@ export function ScientificTypeV2(props: ScientificTypeV2Props) {
   }, [formatProps.scientificType]);
 
   return (
-    <div className="format-inline-row">
+    <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
         as="div"
@@ -69,7 +69,7 @@ export function ScientificTypeV2(props: ScientificTypeV2Props) {
       >
         {translate("QuantityFormat.labels.scientificTypeLabel")}
         <IconButton
-          className="format-help-tooltip"
+          className="icr-quantityFormat-v2-formatHelpTooltip"
           styleType="borderless"
           size="small"
           label={translate("QuantityFormat.labels.scientificTypeTooltip")}

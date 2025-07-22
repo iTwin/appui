@@ -3,14 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.format-panel-v2 {
+.icr-quantityFormat-v2-formatPanel {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 16px;
 }
 
-.format-panel-v2 .primary-children {
+.icr-quantityFormat-v2-formatPanel
+  .icr-quantityFormat-v2-formatPanel-primaryChildren {
   /* Always visible primary controls */
   border: 1px solid var(--iui-color-border-subtle);
   border-radius: 4px;
@@ -18,7 +19,8 @@
   background: var(--iui-color-background);
 }
 
-.format-panel-v2 .secondary-children {
+.icr-quantityFormat-v2-formatPanel
+  .icr-quantityFormat-v2-formatPanel-secondaryChildren {
   /* Expandable secondary controls */
   padding: 16px;
   background: var(--iui-color-background-backdrop);
@@ -26,21 +28,21 @@
 }
 
 /* Individual format type panel styles */
-.format-panel-primary-children {
+.icr-quantityFormat-v2-formatPanel-primaryChildren {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px;
 }
 
-.format-panel-secondary-children {
+.icr-quantityFormat-v2-formatPanel-secondaryChildren {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
 /* FormatSampleV2 styles */
-.format-sample-v2-container {
+.icr-quantityFormat-v2-formatSample-container {
   padding: 8px;
   margin-top: 16px;
   display: flex;
@@ -48,55 +50,61 @@
   align-items: center;
 }
 
-.format-sample-v2-box {
+.icr-quantityFormat-v2-formatSample-box {
   border: 1px solid #ddd;
   border-radius: 4px;
   padding: 12px;
   margin: 10px;
 }
 
-.format-sample-v2-preview-row {
+.icr-quantityFormat-v2-formatSample-previewRow {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.format-sample-v2-input {
+.icr-quantityFormat-v2-formatSample-input {
   min-width: 120px;
 }
 
 /* Format type row styling */
-.format-type-row {
+.icr-quantityFormat-v2-formatTypeRow {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
 /* Inline styling for unit label components */
-.format-inline-row {
+.icr-quantityFormat-v2-formatInlineRow {
   display: flex;
   align-items: center;
   gap: 10px;
   min-height: 32px;
 }
 
-.format-inline-row .uicore-label {
+.icr-quantityFormat-v2-formatInlineRow .uicore-label {
   margin-bottom: 0;
   white-space: nowrap;
   margin: 0 var(--iui-size-xs) 0.75px;
 }
 
 /* Tooltip positioning for help icons */
-.format-help-tooltip {
+.icr-quantityFormat-v2-formatHelpTooltip {
   position: relative;
   top: 1px;
   margin-left: 4px;
 }
 
-.ratio-type-selector {
+.icr-quantityFormat-v2-formatHelpTooltip {
+  position: relative;
+  top: 1px;
+  margin-left: 4px;
+}
+
+.icr-quantityFormat-v2-ratioTypeSelector {
   max-inline-size: 60vw !important;
 }
 
-.second-tag-sample {
+.icr-quantityFormat-v2-secondTagSample {
   border-radius: var(--iui-border-radius-1);
 }

@@ -65,7 +65,7 @@ export function RatioTypeSelector(props: {
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
-      menuClassName="ratio-type-selector"
+      menuClassName="icr-quantityFormat-v2-ratioTypeSelector"
       {...rest}
     />
   );

@@ -117,7 +117,7 @@ describe("Decimal Panel V2", () => {
       const comboBox = within(
         renderedComponent
           .getByText("QuantityFormat.labels.signOptionLabel")
-          .closest(".format-inline-row")!
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
       ).getByRole("combobox");
       expect(comboBox).to.exist;
       expect(

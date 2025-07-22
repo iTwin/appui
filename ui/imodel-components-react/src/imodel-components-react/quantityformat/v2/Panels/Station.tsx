@@ -39,8 +39,8 @@ export function StationPrimaryChildren(props: PanelProps): React.ReactElement {
   const { translate } = useTranslation();
 
   return (
-    <div className="format-panel-primary-children">
-      <div className="format-type-row">
+    <div className="icr-quantityFormat-v2-formatPanel-primaryChildren">
+      <div className="icr-quantityFormat-v2-formatTypeRow">
         <FormatTypeOption formatProps={formatProps} onChange={onFormatChange} />
       </div>
       <Text variant="small" isMuted={true}>
@@ -91,7 +91,7 @@ export function StationSecondaryChildren(
   const { formatProps, onFormatChange } = props;
 
   return (
-    <div className="format-panel-secondary-children">
+    <div className="icr-quantityFormat-v2-formatPanel-secondaryChildren">
       <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
       <StationOffsetV2 formatProps={formatProps} onChange={onFormatChange} />
       <StationSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
