@@ -20,19 +20,26 @@ import type { FormatProps } from "@itwin/core-quantity";
 import { IModelApp } from "@itwin/core-frontend";
 
 function MyFormatPanel() {
- const [formatDefinition, setFormatDefinition] = useState<FormatProps>({
-  precision: 4,
-  type: "Decimal",
-  composite: {
-   units: [{ name: "Units.M", label: "m" }],
-  },
- });
+  const [formatDefinition, setFormatDefinition] = useState<FormatProps>({
+    precision: 4,
+    type: "Decimal",
+    composite: {
+      units: [{ name: "Units.M", label: "m" }],
+    },
+  });
 
- const handleFormatChange = (newFormat: FormatProps) => {
-  setFormatDefinition(newFormat);
- };
+  const handleFormatChange = (newFormat: FormatProps) => {
+    setFormatDefinition(newFormat);
+  };
 
- return <QuantityFormatPanelV2 formatDefinition={formatDefinition} unitsProvider={IModelApp.quantityFormatter.unitsProvider} onFormatChange={handleFormatChange} initialMagnitude={100} />;
+  return (
+    <QuantityFormatPanelV2
+      formatDefinition={formatDefinition}
+      unitsProvider={IModelApp.quantityFormatter.unitsProvider}
+      onFormatChange={handleFormatChange}
+      initialMagnitude={100}
+    />
+  );
 }
 ```
 
@@ -44,18 +51,25 @@ import type { FormatProps, UnitProps } from "@itwin/core-quantity";
 import { IModelApp } from "@itwin/core-frontend";
 
 function CustomFormatPanel() {
- const [formatProps, setFormatProps] = useState<FormatProps>({
-  type: "Scientific",
-  precision: 6,
-  scientificType: "normalized",
- });
+  const [formatProps, setFormatProps] = useState<FormatProps>({
+    type: "Scientific",
+    precision: 6,
+    scientificType: "normalized",
+  });
 
- const persistenceUnit: UnitProps = {
-  name: "Units.M",
-  label: "meter",
-  phenomenon: "Units.LENGTH",
- };
+  const persistenceUnit: UnitProps = {
+    name: "Units.M",
+    label: "meter",
+    phenomenon: "Units.LENGTH",
+  };
 
- return <FormatPanelV2 formatProps={formatProps} unitsProvider={IModelApp.quantityFormatter.unitsProvider} onFormatChange={setFormatProps} persistenceUnit={persistenceUnit} />;
+  return (
+    <FormatPanelV2
+      formatProps={formatProps}
+      unitsProvider={IModelApp.quantityFormatter.unitsProvider}
+      onFormatChange={setFormatProps}
+      persistenceUnit={persistenceUnit}
+    />
+  );
 }
 ```
