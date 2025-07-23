@@ -41,14 +41,13 @@ export function StationSeparatorV2(props: StationSeparatorV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        as="div"
         displayStyle="inline"
-        id={stationSeparatorSelectorId}
+        htmlFor={stationSeparatorSelectorId}
       >
         {translate("QuantityFormat.labels.stationSeparatorLabel")}
       </Label>
       <StationSeparatorSelector
-        aria-labelledby={stationSeparatorSelectorId}
+        id={stationSeparatorSelectorId}
         separator={formatProps.stationSeparator ?? "+"}
         disabled={disabled}
         onChange={handleStationSeparatorChange}

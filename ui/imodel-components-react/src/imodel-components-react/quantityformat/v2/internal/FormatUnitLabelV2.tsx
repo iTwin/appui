@@ -64,9 +64,8 @@ export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
-        as="div"
         displayStyle="inline"
-        id={uomSeparatorSelectorId}
+        htmlFor={uomSeparatorSelectorId}
         className={classnames("uicore-label", disabled && "uicore-disabled")}
       >
         {translate("QuantityFormat.labels.labelSeparator")}
@@ -77,7 +76,6 @@ export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
         onChange={handleOnChange}
         size="small"
         disabled={disabled}
-        aria-labelledby={uomSeparatorSelectorId}
         {...rest}
       />
     </div>
@@ -145,11 +143,11 @@ export function AppendUnitLabelV2(props: AppendUnitLabelV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow append-unit-label">
-      <span className={"uicore-label"} id={appendUnitLabelId}>
+      <Label className={"uicore-label"} htmlFor={appendUnitLabelId}>
         {translate("QuantityFormat.labels.appendUnitLabel")}
-      </span>
+      </Label>
       <Checkbox
-        aria-labelledby={appendUnitLabelId}
+        id={appendUnitLabelId}
         checked={isFormatTraitSet(FormatTraits.ShowUnitLabel)}
         onChange={handleShowUnitLabelChange}
       />

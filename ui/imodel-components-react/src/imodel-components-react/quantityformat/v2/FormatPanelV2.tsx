@@ -14,7 +14,7 @@ import {
   type UnitProps,
 } from "@itwin/core-quantity";
 import type { UnitsProvider } from "@itwin/core-quantity";
-import { ExpandableBlock, Text } from "@itwin/itwinui-react";
+import { ExpandableBlock, Flex, Surface, Text } from "@itwin/itwinui-react";
 import {
   getDecimalPrimaryChildren,
   getDecimalSecondaryChildren,
@@ -116,10 +116,10 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
   }, [formatProps, unitsProvider, onFormatChange, persistenceUnit]);
 
   return (
-    <div className="icr-quantityFormat-v2-formatPanel">
-      <div className="icr-quantityFormat-v2-formatPanel-primaryChildren">
+    <Flex flexDirection="column" alignItems="flex-start" className="icr-quantityFormat-v2-formatPanel">
+      <Surface className="icr-quantityFormat-v2-formatPanel-primaryChildren">
         {primaryChildren}
-      </div>
+      </Surface>
       <ExpandableBlock
         title={
           <Text variant="leading">
@@ -133,6 +133,6 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
           {secondaryChildren}
         </div>
       </ExpandableBlock>
-    </div>
+    </Flex>
   );
 }

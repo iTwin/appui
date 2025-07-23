@@ -21,13 +21,14 @@ export interface ScientificTypeSelectorProps extends CommonProps {
   type: ScientificType;
   onChange: (value: ScientificType) => void;
   disabled?: boolean;
+  id?: string;
 }
 
 /** Component use to set Scientific type.
  * @internal
  */
 export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
-  const { type, onChange, disabled, ...rest } = props;
+  const { type, onChange, disabled, id, ...rest } = props;
   const { translate } = useTranslation();
   const formatOptions: SelectOption<ScientificType>[] = [
     {
@@ -54,6 +55,7 @@ export function ScientificTypeSelector(props: ScientificTypeSelectorProps) {
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
+      id={id}
       {...rest}
     />
   );

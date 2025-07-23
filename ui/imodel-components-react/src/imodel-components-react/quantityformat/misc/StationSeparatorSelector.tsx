@@ -20,13 +20,14 @@ export interface StationSeparatorSelectorProps extends CommonProps {
   separator: string;
   disabled: boolean;
   onChange: (value: string) => void;
+  id?: string;
 }
 
 /** Component use to setStation separator.
  * @internal
  */
 export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
-  const { separator, disabled, onChange, ...rest } = props;
+  const { separator, disabled, onChange, id, ...rest } = props;
   const { translate } = useTranslation();
 
   const handleOnChange = React.useCallback(
@@ -68,6 +69,7 @@ export function StationSeparatorSelector(props: StationSeparatorSelectorProps) {
 
   return (
     <Select
+      id={id}
       options={separatorOptions}
       disabled={disabled}
       value={separator}

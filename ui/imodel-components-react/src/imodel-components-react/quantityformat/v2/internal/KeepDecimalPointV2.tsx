@@ -69,14 +69,13 @@ export function KeepDecimalPointV2(props: KeepDecimalPointV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        as="div"
         displayStyle="inline"
-        id={keepDecimalPointId}
+        htmlFor={keepDecimalPointId}
       >
         {translate("QuantityFormat.labels.keepDecimalPointLabel")}
       </Label>
       <Checkbox
-        aria-labelledby={keepDecimalPointId}
+        id={keepDecimalPointId}
         checked={Format.isFormatTraitSetInProps(
           formatProps,
           FormatTraits.KeepDecimalPoint

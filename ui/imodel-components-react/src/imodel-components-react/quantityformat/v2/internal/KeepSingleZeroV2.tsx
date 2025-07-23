@@ -69,14 +69,13 @@ export function KeepSingleZeroV2(props: KeepSingleZeroV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        as="div"
         displayStyle="inline"
-        id={keepSingleZeroId}
+        htmlFor={keepSingleZeroId}
       >
         {translate("QuantityFormat.labels.keepSingleZeroLabel")}
       </Label>
       <Checkbox
-        aria-labelledby={keepSingleZeroId}
+        id={keepSingleZeroId}
         checked={Format.isFormatTraitSetInProps(
           formatProps,
           FormatTraits.KeepSingleZero

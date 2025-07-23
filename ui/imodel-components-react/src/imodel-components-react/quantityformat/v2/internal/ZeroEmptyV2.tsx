@@ -69,14 +69,13 @@ export function ZeroEmptyV2(props: ZeroEmptyV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        as="div"
         displayStyle="inline"
-        id={zeroEmptyId}
+        htmlFor={zeroEmptyId}
       >
         {translate("QuantityFormat.labels.zeroEmptyLabel")}
       </Label>
       <Checkbox
-        aria-labelledby={zeroEmptyId}
+        id={zeroEmptyId}
         checked={Format.isFormatTraitSetInProps(
           formatProps,
           FormatTraits.ZeroEmpty

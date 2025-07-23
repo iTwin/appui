@@ -72,16 +72,15 @@ export function DecimalSeparatorV2(props: DecimalSeparatorV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
-        as="div"
         displayStyle="inline"
-        id={decimalSeparatorSelectorId}
+        htmlFor={decimalSeparatorSelectorId}
       >
         {translate("QuantityFormat.labels.decimalSeparatorLabel")}
       </Label>
       <DecimalSeparatorSelector
-        aria-labelledby={decimalSeparatorSelectorId}
         separator={formatProps.decimalSeparator ?? "."}
         onChange={handleDecimalSeparatorChange}
+        id={decimalSeparatorSelectorId}
       />
     </div>
   );

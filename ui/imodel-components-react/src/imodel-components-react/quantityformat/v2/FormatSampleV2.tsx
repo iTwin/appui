@@ -15,9 +15,7 @@ import {
   type UnitProps,
 } from "@itwin/core-quantity";
 import type { UnitsProvider } from "@itwin/core-quantity";
-// import { Icon } from "@itwin/core-react";
 import { Divider, Input, Label, Tag } from "@itwin/itwinui-react";
-// import { SvgProgressForward } from "@itwin/itwinui-icons-react";
 import "./FormatPanelV2.scss";
 import { useTranslation } from "../../useTranslation.js";
 

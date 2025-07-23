@@ -63,9 +63,8 @@ export function RatioTypeV2(props: RatioTypeV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
-        as="div"
         displayStyle="inline"
-        id={ratioTypeSelectorId}
+        htmlFor={ratioTypeSelectorId}
       >
         {translate("QuantityFormat.labels.ratioTypeLabel")}
         <IconButton
@@ -79,9 +78,9 @@ export function RatioTypeV2(props: RatioTypeV2Props) {
       </Label>
       <RatioTypeSelector
         type={currentType}
-        aria-labelledby={ratioTypeSelectorId}
         disabled={disabled}
         onChange={handleRatioTypeChange}
+        rest={{ id: ratioTypeSelectorId }}
       />
     </div>
   );

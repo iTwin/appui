@@ -43,23 +43,22 @@ export function FormatPrecisionV2(props: FormatPrecisionV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        as="div"
         displayStyle="inline"
-        id={precisionSelectorId}
+        htmlFor={precisionSelectorId}
       >
         {translate("QuantityFormat.labels.precision")}
       </Label>
       {formatType === FormatType.Fractional ? (
         <FractionPrecisionSelector
-          aria-labelledby={precisionSelectorId}
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
+          id={precisionSelectorId}
         />
       ) : (
         <DecimalPrecisionSelector
-          aria-labelledby={precisionSelectorId}
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
+          id={precisionSelectorId}
         />
       )}
     </div>

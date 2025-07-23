@@ -37,6 +37,7 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
   const { translate } = useTranslation();
   const initialFormatRef = React.useRef<FormatProps>(initialFormat);
   const [formatProps, setFormatProps] = React.useState(initialFormat);
+  const compositeSpacerSelectorId = React.useId();
 
   React.useEffect(() => {
     if (initialFormatRef.current !== initialFormat) {
@@ -168,7 +169,11 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
       {formatProps.composite?.units &&
         formatProps.composite.units.length > 1 && (
           <div className="icr-quantityFormat-v2-formatInlineRow">
-            <Label className={"uicore-label"} as="div" displayStyle="inline">
+            <Label
+              className={"uicore-label"}
+              displayStyle="inline"
+              htmlFor={compositeSpacerSelectorId}
+            >
               {translate("QuantityFormat.labels.compositeSpacer")}
               <IconButton
                 className="format-help-tooltip"
@@ -182,8 +187,7 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
               </IconButton>
             </Label>
             <Input
-              key={"composite-spacer"}
-              data-testid="composite-spacer"
+              id={compositeSpacerSelectorId}
               value={formatProps.composite.spacer ?? ""}
               onChange={handleOnSpacerChange}
               size="small"

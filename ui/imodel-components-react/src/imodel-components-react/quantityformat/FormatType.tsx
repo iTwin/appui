@@ -82,16 +82,15 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
     <>
       <Label
         className="uicore-label"
-        as="div"
         displayStyle="inline"
-        id={formatTypeSelectorId}
+        htmlFor={formatTypeSelectorId}
       >
         {translate("QuantityFormat.labels.type")}
       </Label>
       <Select
         options={formatOptions}
         value={type}
-        aria-labelledby={formatTypeSelectorId}
+        id={formatTypeSelectorId}
         onChange={handleOnChange}
         size="small"
         {...rest}

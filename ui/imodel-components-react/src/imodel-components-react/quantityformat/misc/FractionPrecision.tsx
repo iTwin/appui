@@ -19,6 +19,7 @@ import { useTranslation } from "../../useTranslation.js";
 export interface FractionPrecisionSelectorProps extends CommonProps {
   precision: number;
   onChange: (value: number) => void;
+  id?: string;
 }
 
 /** Component use to set Fraction precision
@@ -27,7 +28,7 @@ export interface FractionPrecisionSelectorProps extends CommonProps {
 export function FractionPrecisionSelector(
   props: FractionPrecisionSelectorProps
 ) {
-  const { precision, onChange, ...rest } = props;
+  const { precision, onChange, id, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<number>[] = [
     {
@@ -81,6 +82,7 @@ export function FractionPrecisionSelector(
       value={precision}
       onChange={handleOnChange}
       size="small"
+      id={id}
       {...rest}
     />
   );

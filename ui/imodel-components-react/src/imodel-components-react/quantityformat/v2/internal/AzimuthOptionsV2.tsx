@@ -76,21 +76,20 @@ function AzimuthBaseUnitSelector(props: {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        id={unitSelectorId}
-        as="div"
+        htmlFor={unitSelectorId}
         displayStyle="inline"
       >
         {translate("QuantityFormat.labels.azimuthBaseUnit")}
-        <IconButton
-          size="small"
-          styleType="borderless"
-          label={translate("QuantityFormat.azimuthType.baseUnitTooltip")}
-        >
-          <SvgHelpCircularHollow />
-        </IconButton>
       </Label>
-      <Select<string>
-        aria-labelledby={unitSelectorId}
+      <IconButton
+        size="small"
+        styleType="borderless"
+        label={translate("QuantityFormat.azimuthType.baseUnitTooltip")}
+      >
+        <SvgHelpCircularHollow />
+      </IconButton>
+      <Select
+        id={unitSelectorId}
         value={currentUnit}
         options={unitOptions}
         onChange={handleUnitChange}
@@ -168,21 +167,20 @@ export function AzimuthOptionsV2(props: {
       <div className="icr-quantityFormat-v2-formatInlineRow">
         <Label
           className={"uicore-label"}
-          id={ccwCheckboxId}
-          as="div"
+          htmlFor={ccwCheckboxId}
           displayStyle="inline"
         >
           {translate("QuantityFormat.labels.azimuthCounterClockwise")}
-          <IconButton
-            size="small"
-            styleType="borderless"
-            label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}
-          >
-            <SvgHelpCircularHollow />
-          </IconButton>
         </Label>
+        <IconButton
+          size="small"
+          styleType="borderless"
+          label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}
+        >
+          <SvgHelpCircularHollow />
+        </IconButton>
         <Checkbox
-          aria-labelledby={ccwCheckboxId}
+          id={ccwCheckboxId}
           checked={formatProps.azimuthCounterClockwise ?? false}
           onChange={handleAzimuthCCWChange}
           disabled={disabled}
@@ -197,22 +195,21 @@ export function AzimuthOptionsV2(props: {
       />
       <div className="icr-quantityFormat-v2-formatInlineRow">
         <Label
-          id={baseInputId}
+          htmlFor={baseInputId}
           className={"uicore-label"}
-          as="div"
           displayStyle="inline"
         >
           {translate("QuantityFormat.labels.azimuthBase")}
-          <IconButton
-            size="small"
-            styleType="borderless"
-            label={translate("QuantityFormat.azimuthType.baseTooltip")}
-          >
-            <SvgHelpCircularHollow />
-          </IconButton>
         </Label>
+        <IconButton
+          size="small"
+          styleType="borderless"
+          label={translate("QuantityFormat.azimuthType.baseTooltip")}
+        >
+          <SvgHelpCircularHollow />
+        </IconButton>
         <Input
-          aria-labelledby={baseInputId}
+          id={baseInputId}
           type="number"
           value={formatProps.azimuthBase?.toString() ?? "0"}
           onKeyDown={onKeyDown}

@@ -85,14 +85,13 @@ export function UseThousandsSeparator(props: UseThousandsSeparatorProps) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className={"uicore-label"}
-        as="div"
         displayStyle="inline"
-        id={useThousandsId}
+        htmlFor={useThousandsId}
       >
         {translate("QuantityFormat.labels.useThousandSeparatorLabel")}
       </Label>
       <Checkbox
-        aria-labelledby={useThousandsId}
+        id={useThousandsId}
         checked={isFormatTraitSet(FormatTraits.Use1000Separator)}
         onChange={handleUseThousandsSeparatorChange}
       />
@@ -162,25 +161,24 @@ export function ThousandsSeparatorSelector(
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
-        as="div"
         displayStyle="inline"
-        id={thousandsSelectorId}
+        htmlFor={thousandsSelectorId}
       >
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
-        <IconButton
-          className="icr-quantityFormat-v2-formatHelpTooltip"
-          styleType="borderless"
-          size="small"
-          label={translate("QuantityFormat.labels.thousandSelectorTooltip")}
-        >
-          <SvgHelpCircularHollow />
-        </IconButton>
       </Label>
+      <IconButton
+        className="icr-quantityFormat-v2-formatHelpTooltip"
+        styleType="borderless"
+        size="small"
+        label={translate("QuantityFormat.labels.thousandSelectorTooltip")}
+      >
+        <SvgHelpCircularHollow />
+      </IconButton>
       <ThousandsSelector
         separator={formatProps.thousandSeparator ?? ","}
         disabled={false}
         onChange={handleThousandSeparatorChange}
-        aria-labelledby={thousandsSelectorId}
+        id={thousandsSelectorId}
       />
     </div>
   );

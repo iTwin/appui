@@ -21,13 +21,14 @@ export interface SignOptionSelectorProps extends CommonProps {
   signOption: ShowSignOption;
   onChange: (value: ShowSignOption) => void;
   disabled?: boolean;
+  id?: string;
 }
 
 /** Component use to set Sign option.
  * @internal
  */
 export function SignOptionSelector(props: SignOptionSelectorProps) {
-  const { signOption, onChange, disabled, ...rest } = props;
+  const { signOption, onChange, disabled, id, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<ShowSignOption>[] = [
     {
@@ -62,6 +63,7 @@ export function SignOptionSelector(props: SignOptionSelectorProps) {
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
+      id={id}
       {...rest}
     />
   );

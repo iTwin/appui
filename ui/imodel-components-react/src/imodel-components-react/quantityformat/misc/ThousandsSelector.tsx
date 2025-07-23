@@ -20,13 +20,14 @@ export interface ThousandsSelectorProps extends CommonProps {
   separator: string;
   disabled: boolean;
   onChange: (value: string) => void;
+  id?: string;
 }
 
 /** Component use to set Quantity Format thousand group separator.
  * @internal
  */
 export function ThousandsSelector(props: ThousandsSelectorProps) {
-  const { separator, disabled, onChange, ...rest } = props;
+  const { separator, disabled, onChange, id, ...rest } = props;
   const { translate } = useTranslation();
 
   const separatorOptions = React.useMemo(() => {
@@ -58,6 +59,7 @@ export function ThousandsSelector(props: ThousandsSelectorProps) {
       size="small"
       disabled={disabled}
       onChange={onChange}
+      id={id}
       {...rest}
     />
   );

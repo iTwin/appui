@@ -63,9 +63,8 @@ export function ScientificTypeV2(props: ScientificTypeV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label
         className="uicore-label"
-        as="div"
         displayStyle="inline"
-        id={scientificTypeSelectorId}
+        htmlFor={scientificTypeSelectorId}
       >
         {translate("QuantityFormat.labels.scientificTypeLabel")}
         <IconButton
@@ -79,9 +78,9 @@ export function ScientificTypeV2(props: ScientificTypeV2Props) {
       </Label>
       <ScientificTypeSelector
         type={currentType}
-        aria-labelledby={scientificTypeSelectorId}
         disabled={disabled}
         onChange={handleScientificTypeChange}
+        id={scientificTypeSelectorId}
       />
     </div>
   );
