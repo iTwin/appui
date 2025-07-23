@@ -12,9 +12,9 @@
 
 .icr-quantityFormat-v2-formatPanel .icr-quantityFormat-v2-formatPanel-primaryChildren {
 	/* Always visible primary controls */
-	border: 1px solid var(--iui-color-border-subtle);
+	// border: 1px solid var(--iui-color-border-subtle);
 	border-radius: 4px;
-	padding: 16px;
+	padding: 14px;
 	background: var(--iui-color-background);
 	flex: 1;
 	width: 100%;
@@ -22,7 +22,7 @@
 
 .icr-quantityFormat-v2-formatPanel .icr-quantityFormat-v2-formatPanel-secondaryChildren {
 	/* Expandable secondary controls */
-	padding: 16px;
+	padding: 6px;
 	background: var(--iui-color-background-backdrop);
 	border-radius: 4px;
 }
