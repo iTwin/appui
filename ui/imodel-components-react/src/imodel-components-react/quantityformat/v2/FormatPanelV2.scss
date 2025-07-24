@@ -4,107 +4,109 @@
  *--------------------------------------------------------------------------------------------*/
 
 .icr-quantityFormat-v2-formatPanel {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
-	padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
 }
 
-.icr-quantityFormat-v2-formatPanel .icr-quantityFormat-v2-formatPanel-primaryChildren {
-	/* Always visible primary controls */
-	// border: 1px solid var(--iui-color-border-subtle);
-	border-radius: 4px;
-	padding: 14px;
-	background: var(--iui-color-background);
-	flex: 1;
-	width: 100%;
+.icr-quantityFormat-v2-formatPanel
+  .icr-quantityFormat-v2-formatPanel-primaryChildren {
+  /* Always visible primary controls */
+  // border: 1px solid var(--iui-color-border-subtle);
+  border-radius: 4px;
+  padding: 14px;
+  background: var(--iui-color-background);
+  flex: 1;
+  width: 100%;
 }
 
-.icr-quantityFormat-v2-formatPanel .icr-quantityFormat-v2-formatPanel-secondaryChildren {
-	/* Expandable secondary controls */
-	padding: 6px;
-	background: var(--iui-color-background-backdrop);
-	border-radius: 4px;
+.icr-quantityFormat-v2-formatPanel
+  .icr-quantityFormat-v2-formatPanel-secondaryChildren {
+  /* Expandable secondary controls */
+  padding: 6px;
+  background: var(--iui-color-background-backdrop);
+  border-radius: 4px;
 }
 
 /* Individual format type panel styles */
 .icr-quantityFormat-v2-formatPanel-primaryChildren {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-	padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
 }
 
 .icr-quantityFormat-v2-formatPanel-secondaryChildren {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /* FormatSampleV2 styles */
 .icr-quantityFormat-v2-formatSample-container {
-	padding: 8px;
-	margin-top: 16px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
+  padding: 8px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .icr-quantityFormat-v2-formatSample-box {
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	padding: 12px;
-	margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  margin: 10px;
 }
 
 .icr-quantityFormat-v2-formatSample-previewRow {
-	display: flex;
-	align-items: center;
-	gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .icr-quantityFormat-v2-formatSample-input {
-	min-width: 120px;
+  min-width: 120px;
 }
 
 /* Format type row styling */
 .icr-quantityFormat-v2-formatTypeRow {
-	display: flex;
-	align-items: center;
-	gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 /* Inline styling for unit label components */
 .icr-quantityFormat-v2-formatInlineRow {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	min-height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
 }
 
 .icr-quantityFormat-v2-formatInlineRow .uicore-label {
-	margin-bottom: 0;
-	white-space: nowrap;
-	margin: 0 var(--iui-size-xs) 0.75px;
+  margin-bottom: 0;
+  white-space: nowrap;
+  margin: 0 var(--iui-size-xs) 0.75px;
 }
 
 /* Tooltip positioning for help icons */
 .icr-quantityFormat-v2-formatHelpTooltip {
-	position: relative;
-	top: 1px;
-	margin-left: 4px;
+  position: relative;
+  top: 1px;
+  margin-left: 4px;
 }
 
 .icr-quantityFormat-v2-formatHelpTooltip {
-	position: relative;
-	top: 1px;
-	margin-left: 4px;
+  position: relative;
+  top: 1px;
+  margin-left: 4px;
 }
 
 .icr-quantityFormat-v2-ratioTypeSelector {
-	max-inline-size: 60vw !important;
+  max-inline-size: 60vw !important;
 }
 
 .icr-quantityFormat-v2-secondTagSample {
-	border-radius: var(--iui-border-radius-1);
+  border-radius: var(--iui-border-radius-1);
 }

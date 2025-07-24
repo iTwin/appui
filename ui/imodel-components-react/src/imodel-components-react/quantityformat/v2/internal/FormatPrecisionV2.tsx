@@ -44,7 +44,7 @@ export function FormatPrecisionV2(props: FormatPrecisionV2Props) {
       <Label
         className={"uicore-label"}
         displayStyle="inline"
-        htmlFor={precisionSelectorId}
+        id={precisionSelectorId}
       >
         {translate("QuantityFormat.labels.precision")}
       </Label>
@@ -52,13 +52,13 @@ export function FormatPrecisionV2(props: FormatPrecisionV2Props) {
         <FractionPrecisionSelector
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
-          id={precisionSelectorId}
+          aria-labelledby={precisionSelectorId}
         />
       ) : (
         <DecimalPrecisionSelector
           precision={formatProps.precision ?? 0}
           onChange={handlePrecisionChange}
-          id={precisionSelectorId}
+          aria-labelledby={precisionSelectorId}
         />
       )}
     </div>

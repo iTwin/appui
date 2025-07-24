@@ -42,12 +42,12 @@ export function StationOffsetV2(props: StationOffsetV2Props) {
       <Label
         className={"uicore-label"}
         displayStyle="inline"
-        htmlFor={stationOffsetSelectorId}
+        id={stationOffsetSelectorId}
       >
         {translate("QuantityFormat.labels.stationOffsetLabel")}
       </Label>
       <StationSizeSelector
-        id={stationOffsetSelectorId}
+        aria-labelledby={stationOffsetSelectorId}
         value={formatProps.stationOffsetSize ?? 2}
         disabled={disabled}
         onChange={handleStationOffsetChange}

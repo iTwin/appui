@@ -42,12 +42,12 @@ export function StationSeparatorV2(props: StationSeparatorV2Props) {
       <Label
         className={"uicore-label"}
         displayStyle="inline"
-        htmlFor={stationSeparatorSelectorId}
+        id={stationSeparatorSelectorId}
       >
         {translate("QuantityFormat.labels.stationSeparatorLabel")}
       </Label>
       <StationSeparatorSelector
-        id={stationSeparatorSelectorId}
+        aria-labelledby={stationSeparatorSelectorId}
         separator={formatProps.stationSeparator ?? "+"}
         disabled={disabled}
         onChange={handleStationSeparatorChange}

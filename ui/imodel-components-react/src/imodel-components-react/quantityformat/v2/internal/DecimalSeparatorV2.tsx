@@ -73,14 +73,14 @@ export function DecimalSeparatorV2(props: DecimalSeparatorV2Props) {
       <Label
         className="uicore-label"
         displayStyle="inline"
-        htmlFor={decimalSeparatorSelectorId}
+        id={decimalSeparatorSelectorId}
       >
         {translate("QuantityFormat.labels.decimalSeparatorLabel")}
       </Label>
       <DecimalSeparatorSelector
         separator={formatProps.decimalSeparator ?? "."}
         onChange={handleDecimalSeparatorChange}
-        id={decimalSeparatorSelectorId}
+        aria-labelledby={decimalSeparatorSelectorId}
       />
     </div>
   );

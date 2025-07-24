@@ -54,7 +54,7 @@ export function SignOptionV2(props: SignOptionV2Props) {
       <Label
         className={"uicore-label"}
         displayStyle="inline"
-        htmlFor={showSignOptionId}
+        id={showSignOptionId}
       >
         {translate("QuantityFormat.labels.signOptionLabel")}
       </Label>
@@ -67,7 +67,6 @@ export function SignOptionV2(props: SignOptionV2Props) {
         <SvgHelpCircularHollow />
       </IconButton>
       <SignOptionSelector
-        id={showSignOptionId}
         aria-labelledby={showSignOptionId}
         signOption={showSignOption}
         disabled={disabled}

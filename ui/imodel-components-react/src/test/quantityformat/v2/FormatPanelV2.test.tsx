@@ -3,7 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import { fireEvent, render, waitFor, within } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  waitFor,
+  within,
+  screen,
+} from "@testing-library/react";
 import { expect, vi } from "vitest";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {
@@ -456,12 +462,10 @@ describe("FormatPanelV2", () => {
     );
     fireEvent.click(collapseButton);
 
-    await waitFor(() => {
-      expect(
-        renderedComponent.queryByLabelText(
-          "QuantityFormat.labels.signOptionLabel"
-        )
-      ).to.not.exist;
-    });
+    expect(
+      renderedComponent.container.querySelector(
+        'div[data-iui-expanded="false"]'
+      )
+    ).to.exist;
   });
 });

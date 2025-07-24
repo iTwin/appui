@@ -116,8 +116,15 @@ export function FormatPanelV2(props: FormatPanelV2Props) {
   }, [formatProps, unitsProvider, onFormatChange, persistenceUnit]);
 
   return (
-    <Flex flexDirection="column" alignItems="flex-start" className="icr-quantityFormat-v2-formatPanel">
-      <Surface elevation={0} className="icr-quantityFormat-v2-formatPanel-primaryChildren">
+    <Flex
+      flexDirection="column"
+      alignItems="flex-start"
+      className="icr-quantityFormat-v2-formatPanel"
+    >
+      <Surface
+        elevation={0}
+        className="icr-quantityFormat-v2-formatPanel-primaryChildren"
+      >
         {primaryChildren}
       </Surface>
       <ExpandableBlock
