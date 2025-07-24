@@ -603,7 +603,7 @@ describe("QuantityInput", () => {
 
     fireEvent.click(
       component.getByRole("option", {
-        name: "Remove",
+        name: "QuantityFormat.labels.removeUnit",
       })
     );
     await waitForPosition();
@@ -651,7 +651,7 @@ describe("QuantityInput", () => {
 
     fireEvent.click(
       component.getByRole("option", {
-        name: "Add sub-unit",
+        name: "QuantityFormat.labels.addSubUnit",
       })
     );
     await waitForPosition();

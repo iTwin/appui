@@ -19,6 +19,7 @@ import { useTranslation } from "../../useTranslation.js";
 export interface DecimalPrecisionSelectorProps extends CommonProps {
   precision: number;
   onChange: (value: number) => void;
+  id?: string;
 }
 
 /** Component use to set Decimal Precision
@@ -26,7 +27,7 @@ export interface DecimalPrecisionSelectorProps extends CommonProps {
  * @internal
  */
 export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
-  const { precision, onChange, ...rest } = props;
+  const { precision, onChange, id, ...rest } = props;
   const { translate } = useTranslation();
   const options: SelectOption<number>[] = [
     {
@@ -96,6 +97,7 @@ export function DecimalPrecisionSelector(props: DecimalPrecisionSelectorProps) {
       value={precision}
       onChange={handleOnChange}
       size="small"
+      id={id}
       {...rest}
     />
   );

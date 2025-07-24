@@ -59,16 +59,19 @@
     "ratio": "Ratio",
     "labels": {
       "compositeSpacer": "Composite Spacer",
+      "compositeSpacerDescription": "Character that appears between units when displaying measurements with multiple units",
       "formatted": "Formatted",
       "precision": "Precision",
-      "type": "Type",
-      "appendUnitLabel": "Append Unit Label",
+      "type": "Format Type",
+      "formatTypeSublabel": "Select the format for which you would like to display measurements",
+      "appendUnitLabel": "Show Unit Label",
       "labelSeparator": "Label Separator",
       "signOptionLabel": "Sign Option",
+      "signOptionTooltip": "Controls when plus/minus signs appear",
       "stationOffsetLabel": "Station Offset",
       "stationSeparatorLabel": "Station Separator",
       "decimalSeparatorLabel": "Decimal Separator",
-      "showTrailZerosLabel": "Show Trail Zeros",
+      "showTrailZerosLabel": "Show Trailing Zeros",
       "keepSingleZeroLabel": "Keep Single Zero",
       "zeroEmptyLabel": "Zero Empty",
       "moreLabel": "More",
@@ -76,12 +79,20 @@
       "keepDecimalPointLabel": "Keep Decimal Point",
       "fractionDashLabel": "Fraction Dash",
       "scientificTypeLabel": "Scientific Type",
+      "scientificTypeTooltip": "Select which scientific notation to use",
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
+      "thousandSelectorTooltip": "When this and the decimal separator are set to the same character, one will be flipped to avoid conflicts",
       "value": "Value",
       "ratioTypeLabel": "Ratio Type",
       "azimuthBase": "Azimuth Base",
-      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise"
+      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise",
+      "samplePreview": "Preview",
+      "units": "Units",
+      "advancedOptions": "Advanced Options",
+      "addSubUnit": "Add Sub Unit",
+      "removeUnit": "Remove Unit",
+      "azimuthBaseUnit": "Azimuth Base Unit"
     },
     "fraction_precision": {
       "whole": "Whole",
@@ -162,8 +173,9 @@
       }
     },
     "azimuthType": {
-      "baseTooltip": "The starting direction (base) from which azimuth angles are measured.",
-      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base."
+      "baseTooltip": "The starting direction (base) from which azimuth angles are measured",
+      "baseUnitTooltip": "Unit used as the base for measuring azimuth angles",
+      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base"
     }
   },
   "BearingQuantityType": {
