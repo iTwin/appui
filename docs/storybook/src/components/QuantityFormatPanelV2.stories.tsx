@@ -138,13 +138,13 @@ export const Station: Story = {
     formatProps: {
       type: FormatType.Station,
       precision: 2,
-      stationOffsetSize: 2,
+      stationOffsetSize: 3,
       stationSeparator: "+",
       formatTraits: ["showUnitLabel"],
       composite: {
         includeZero: true,
         spacer: "",
-        units: [{ label: "m", name: "Units.M" }],
+        units: [{ label: "ft", name: "Units.FT" }],
       },
     },
     initialMagnitude: 12345.67,

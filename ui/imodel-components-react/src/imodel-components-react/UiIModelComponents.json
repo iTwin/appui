@@ -72,8 +72,8 @@
       "stationSeparatorLabel": "Station Separator",
       "decimalSeparatorLabel": "Decimal Separator",
       "showTrailZerosLabel": "Show Trailing Zeros",
-      "keepSingleZeroLabel": "Keep Single Zero",
-      "zeroEmptyLabel": "Zero Empty",
+      "keepSingleZeroLabel": "Add Single Zero After Decimal Point",
+      "zeroEmptyLabel": "Hide If Zero",
       "moreLabel": "More",
       "lessLabel": "Less",
       "keepDecimalPointLabel": "Keep Decimal Point",
@@ -106,8 +106,10 @@
       "over256": "1/256"
     },
     "station_size": {
+      "one": "0+0",
       "two": "0+00",
-      "three": "0+000"
+      "three": "0+000",
+      "four": "0+0000"
     },
     "station_separator": {
       "plus": "+",

@@ -3,12 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import {
-  fireEvent,
-  render,
-  waitFor,
-  within,
-} from "@testing-library/react";
+import { fireEvent, render, waitFor, within } from "@testing-library/react";
 import { expect, vi } from "vitest";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import type {

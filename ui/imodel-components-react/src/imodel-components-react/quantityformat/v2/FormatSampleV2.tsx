@@ -136,10 +136,8 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
             </Label>
           </div>
           <Divider orientation="vertical" />
-          <Tag variant="default">{formattedValue}</Tag>
-          <Divider orientation="vertical" />
           <Tag
-            variant="default"
+            variant="basic"
             className="icr-quantityFormat-v2-secondTagSample"
           >
             {formattedValue}
