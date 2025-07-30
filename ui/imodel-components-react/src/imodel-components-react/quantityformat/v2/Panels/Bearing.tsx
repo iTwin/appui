@@ -8,13 +8,9 @@
 
 import * as React from "react";
 import type { PanelProps } from "./Decimal.js";
-import { Format, FormatTraits } from "@itwin/core-quantity";
 import { FormatUnitsV2 } from "../internal/FormatUnitsV2.js";
 import { FormatTypeOption } from "../../FormatType.js";
-import {
-  AppendUnitLabelV2,
-  UomSeparatorSelectorV2,
-} from "../internal/FormatUnitLabelV2.js";
+import { AppendUnitLabelV2 } from "../internal/FormatUnitLabelV2.js";
 import { FormatPrecisionV2 } from "../internal/FormatPrecisionV2.js";
 import { Divider, Label, Text } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
@@ -23,12 +19,6 @@ import { DecimalSeparatorV2 } from "../internal/DecimalSeparatorV2.js";
 import { KeepDecimalPointV2 } from "../internal/KeepDecimalPointV2.js";
 import { KeepSingleZeroV2 } from "../internal/KeepSingleZeroV2.js";
 import { ShowTrailingZerosV2 } from "../internal/ShowTrailingZerosV2.js";
-import { SignOptionV2 } from "../internal/SignOptionV2.js";
-import {
-  ThousandsSeparatorSelector,
-  UseThousandsSeparator,
-} from "../internal/ThousandsSeparatorV2.js";
-import { ZeroEmptyV2 } from "../internal/ZeroEmptyV2.js";
 
 /** Primary children component for bearing format (always visible)
  * @internal
@@ -58,16 +48,6 @@ export function BearingPrimaryChildren(props: PanelProps): React.ReactElement {
         formatProps={formatProps}
         onFormatChange={onFormatChange}
       />
-      {Format.isFormatTraitSetInProps(
-        formatProps,
-        FormatTraits.ShowUnitLabel
-      ) && (
-        <UomSeparatorSelectorV2
-          formatProps={formatProps}
-          onFormatChange={onFormatChange}
-          disabled={false}
-        />
-      )}
       <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />
       {/* Add precision, etc. controls here */}
     </div>
@@ -84,23 +64,13 @@ export function BearingSecondaryChildren(
 
   return (
     <div className="icr-quantityFormat-v2-formatPanel-secondaryChildren">
-      <SignOptionV2 formatProps={formatProps} onChange={onFormatChange} />
       <DecimalSeparatorV2 formatProps={formatProps} onChange={onFormatChange} />
-      <UseThousandsSeparator
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
-      <ThousandsSeparatorSelector
-        formatProps={formatProps}
-        onChange={onFormatChange}
-      />
       <KeepDecimalPointV2 formatProps={formatProps} onChange={onFormatChange} />
       <ShowTrailingZerosV2
         formatProps={formatProps}
         onChange={onFormatChange}
       />
       <KeepSingleZeroV2 formatProps={formatProps} onChange={onFormatChange} />
-      <ZeroEmptyV2 formatProps={formatProps} onChange={onFormatChange} />
     </div>
   );
 }

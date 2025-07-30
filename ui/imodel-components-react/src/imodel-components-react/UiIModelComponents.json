@@ -68,7 +68,7 @@
       "labelSeparator": "Label Separator",
       "signOptionLabel": "Sign Option",
       "signOptionTooltip": "Controls when plus/minus signs appear",
-      "stationOffsetLabel": "Station Offset",
+      "stationOffsetLabel": "Station Format",
       "stationSeparatorLabel": "Station Separator",
       "decimalSeparatorLabel": "Decimal Separator",
       "showTrailZerosLabel": "Show Trailing Zeros",
@@ -116,7 +116,7 @@
       "caret": "^"
     },
     "decimal_precision": {
-      "zero": "1",
+      "zero": "0",
       "one": "0.1",
       "two": "0.01",
       "three": "0.001",

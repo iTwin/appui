@@ -12,11 +12,50 @@ import type {
   UnitProps,
   UnitsProvider,
 } from "@itwin/core-quantity";
-import { IconButton, Input, Label } from "@itwin/itwinui-react";
+import { IconButton, Input, Label, Select } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
-import { UnitDescr } from "../../misc/UnitDescr.js";
 import { useTranslation } from "../../../useTranslation.js";
+import { getUnitName } from "../../misc/UnitDescr.js";
 import "../FormatPanelV2.scss";
+
+async function getUnitConversionData(
+  possibleUnits: UnitProps[],
+  toUnit: UnitProps,
+  unitsProvider: UnitsProvider
+) {
+  const unitConversionEntries = possibleUnits.map(async (unit) => {
+    const conversion = await unitsProvider.getConversion(unit, toUnit);
+    return { conversion, unitProps: unit };
+  });
+  return unitConversionEntries;
+}
+
+async function getPossibleUnits(
+  parentUnit: UnitProps,
+  unitsProvider: UnitsProvider,
+  ensureCompatibleComposite: boolean
+) {
+  const phenomenon = parentUnit.phenomenon;
+  const possibleUnits = await unitsProvider.getUnitsByFamily(phenomenon);
+  if (!ensureCompatibleComposite) return possibleUnits;
+
+  const conversionPromises = await getUnitConversionData(
+    possibleUnits,
+    parentUnit,
+    unitsProvider
+  );
+  const conversionEntries = await Promise.all(conversionPromises);
+  // sort the entries so the best potential sub unit will be the first one in the array
+  return conversionEntries
+    .filter(
+      (entry) =>
+        entry.unitProps.system === parentUnit.system &&
+        entry.conversion.factor < 1
+    )
+    .sort((a, b) => b.conversion.factor - a.conversion.factor)
+    .map((value) => value.unitProps);
+}
 
 /** Properties of [[FormatUnitsV2]] component.
  * @internal
@@ -26,6 +65,162 @@ export interface FormatUnitsV2Props {
   persistenceUnit?: UnitProps;
   unitsProvider: UnitsProvider;
   onUnitsChange?: (format: FormatProps) => void;
+}
+function UnitDescrV2(props: {
+  name: string;
+  parentUnitName?: string;
+  label: string;
+  index: number;
+  unitsProvider: UnitsProvider;
+  readonly?: boolean;
+  onUnitChange: (value: string, index: number) => void;
+  onLabelChange: (value: string, index: number) => void;
+}) {
+  const {
+    name,
+    label,
+    parentUnitName,
+    index,
+    onUnitChange,
+    onLabelChange,
+    readonly,
+    unitsProvider,
+  } = props;
+  const { translate } = useTranslation();
+
+  const [unitOptions, setUnitOptions] = React.useState<SelectOption<string>[]>([
+    { value: `${name}:${label}`, label: getUnitName(name) },
+  ]);
+  const [currentUnit, setCurrentUnit] = React.useState({ name, label });
+
+  const unitSelectorId = React.useId();
+  const labelInputId = React.useId();
+
+  const isMounted = React.useRef(false);
+
+  React.useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  React.useEffect(() => {
+    async function fetchAllowableUnitSelections() {
+      try {
+        const currentUnitProps = await unitsProvider.findUnitByName(name);
+        const parentUnit = await unitsProvider.findUnitByName(
+          parentUnitName ? parentUnitName : name
+        );
+
+        if (parentUnit && currentUnitProps) {
+          let potentialSubUnit: UnitProps | undefined;
+          const potentialUnits = await getPossibleUnits(
+            parentUnit,
+            unitsProvider,
+            index !== 0
+          );
+
+          if (index < 3) {
+            const potentialSubUnits = await getPossibleUnits(
+              currentUnitProps,
+              unitsProvider,
+              true
+            );
+            if (potentialSubUnits.length)
+              potentialSubUnit = potentialSubUnits[0];
+          }
+
+          const options =
+            potentialUnits.length > 0
+              ? potentialUnits
+                  .map((unitValue) => {
+                    return {
+                      value: `${unitValue.name}:${unitValue.label}`,
+                      label: getUnitName(unitValue.name),
+                    };
+                  })
+                  .sort((a, b) => a.label.localeCompare(b.label))
+              : [
+                  {
+                    value: `${currentUnitProps.name}:${currentUnitProps.label}`,
+                    label: getUnitName(name),
+                  },
+                ];
+
+          if (potentialSubUnit) {
+            // construct an entry that will provide the name and label of the unit to add
+            options.push({
+              value: `ADDSUBUNIT:${potentialSubUnit.name}:${potentialSubUnit.label}`,
+              label: translate("QuantityFormat.labels.addSubUnit"),
+            });
+          }
+
+          if (index !== 0) {
+            options.push({
+              value: "REMOVEUNIT",
+              label: translate("QuantityFormat.labels.removeUnit"),
+            });
+          }
+
+          if (isMounted.current) {
+            setUnitOptions(options);
+            setCurrentUnit(currentUnitProps);
+          }
+        }
+      } catch (error) {
+        // Fallback to current unit if there's an error
+        // eslint-disable-next-line no-console
+        console.warn("Failed to load unit options:", error);
+        if (isMounted.current) {
+          setUnitOptions([
+            { value: `${name}:${label}`, label: getUnitName(name) },
+          ]);
+        }
+      }
+    }
+
+    void fetchAllowableUnitSelections();
+  }, [index, label, name, parentUnitName, translate, unitsProvider]);
+
+  const handleOnUnitChange = React.useCallback(
+    (newValue: string) => {
+      onUnitChange && onUnitChange(newValue, index);
+    },
+    [index, onUnitChange]
+  );
+
+  const handleOnLabelChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      onLabelChange && onLabelChange(e.target.value, index);
+    },
+    [index, onLabelChange]
+  );
+
+  return (
+    <div className="icr-quantityFormat-v2-formatInlineRow">
+      <Select
+        id={unitSelectorId}
+        options={unitOptions}
+        data-testid={`unit-${currentUnit.name}`}
+        value={`${currentUnit.name}:${currentUnit.label}`}
+        onChange={handleOnUnitChange}
+        disabled={readonly}
+        size="small"
+        className="icr-quantityFormat-v2-unitSelect"
+      />
+      <Input
+        id={labelInputId}
+        data-testid={`unit-label-${currentUnit.name}`}
+        value={label}
+        onChange={handleOnLabelChange}
+        size="small"
+        disabled={readonly}
+        className="icr-quantityFormat-v2-unitInput"
+      />
+    </div>
+  );
 }
 
 /** Component to show/edit Units used for Quantity Formatting.
@@ -138,7 +333,7 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
     <>
       {formatProps.composite?.units
         ? formatProps.composite.units.map((value, index) => (
-            <UnitDescr
+            <UnitDescrV2
               key={value.name}
               name={value.name}
               label={value.label ?? ""}
@@ -155,7 +350,7 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
             />
           ))
         : persistenceUnit && (
-            <UnitDescr
+            <UnitDescrV2
               key={persistenceUnit.name}
               name={persistenceUnit.name}
               label={persistenceUnit.label}

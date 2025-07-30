@@ -110,3 +110,39 @@
 .icr-quantityFormat-v2-secondTagSample {
   border-radius: var(--iui-border-radius-1);
 }
+
+/* UnitDescrV2 component styling */
+.icr-quantityFormat-v2-formatInlineRow .icr-quantityFormat-v2-unitSelect {
+  min-width: 20%;
+  width: fit-content;
+}
+
+.icr-quantityFormat-v2-formatInlineRow .icr-quantityFormat-v2-unitInput {
+  min-width: 25%;
+  width: fit-content;
+}
+
+/* FormatSampleV2 persistence unit label styling */
+.icr-quantityFormat-v2-persistenceUnitLabel {
+  width: 100%;
+  flex: 1;
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--iui-color-border);
+  border-radius: 0 var(--iui-border-radius-1) var(--iui-border-radius-1) 0;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+/* Input group styling for input and label together */
+.icr-quantityFormat-v2-formatSample-inputGroup {
+  display: flex;
+  align-items: stretch;
+  min-width: 200px;
+}
+
+.icr-quantityFormat-v2-formatSample-inputGroup
+  .icr-quantityFormat-v2-formatSample-input {
+  border-radius: var(--iui-border-radius-1) 0 0 var(--iui-border-radius-1);
+}

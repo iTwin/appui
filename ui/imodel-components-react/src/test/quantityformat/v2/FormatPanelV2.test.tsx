@@ -8,7 +8,6 @@ import {
   render,
   waitFor,
   within,
-  screen,
 } from "@testing-library/react";
 import { expect, vi } from "vitest";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";

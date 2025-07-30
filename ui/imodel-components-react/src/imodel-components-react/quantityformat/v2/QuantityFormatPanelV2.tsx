@@ -18,13 +18,19 @@ interface QuantityFormatPanelV2Props {
   unitsProvider: UnitsProvider;
   onFormatChange: (formatProps: FormatProps) => void;
   initialMagnitude?: number;
+  showSample?: boolean;
 }
 
 /** Quantity Format Panel V2 that uses the new FormatPanelV2 structure
  * @beta
  */
 export function QuantityFormatPanelV2(props: QuantityFormatPanelV2Props) {
-  const { formatDefinition, unitsProvider, onFormatChange } = props;
+  const {
+    formatDefinition,
+    unitsProvider,
+    onFormatChange,
+    showSample = true,
+  } = props;
   const [persistenceUnit, setPersistenceUnit] = React.useState<
     UnitProps | undefined
   >(undefined);
@@ -61,13 +67,17 @@ export function QuantityFormatPanelV2(props: QuantityFormatPanelV2Props) {
 
   return (
     <div className="components-quantityFormat-quantityPanel">
-      <FormatSampleV2
-        formatProps={formatDefinition}
-        unitsProvider={unitsProvider}
-        persistenceUnit={persistenceUnit}
-        initialMagnitude={props.initialMagnitude}
-      />
-      <Divider />
+      {showSample && (
+        <>
+          <FormatSampleV2
+            formatProps={formatDefinition}
+            unitsProvider={unitsProvider}
+            persistenceUnit={persistenceUnit}
+            initialMagnitude={props.initialMagnitude}
+          />
+          <Divider />
+        </>
+      )}
       <FormatPanelV2
         formatProps={formatDefinition}
         unitsProvider={unitsProvider}

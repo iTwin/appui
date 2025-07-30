@@ -121,16 +121,20 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
           {translate("QuantityFormat.labels.samplePreview")}
         </Label>
         <div className="icr-quantityFormat-v2-formatSample-previewRow">
-          <Input
-            id={inputId}
-            className="components-quantity-persistence-input icr-quantityFormat-v2-formatSample-input"
-            value={sampleValue}
-            onChange={handleOnValueChange}
-            onKeyDown={handleKeyDown}
-            onBlur={handleOnValueBlur}
-            size="small"
-          />
-          <span>{activePersistenceUnitLabel}</span>
+          <div className="icr-quantityFormat-v2-formatSample-inputGroup">
+            <Input
+              id={inputId}
+              className="components-quantity-persistence-input icr-quantityFormat-v2-formatSample-input"
+              value={sampleValue}
+              onChange={handleOnValueChange}
+              onKeyDown={handleKeyDown}
+              onBlur={handleOnValueBlur}
+              size="small"
+            />
+            <Label className="icr-quantityFormat-v2-persistenceUnitLabel">
+              {activePersistenceUnitLabel}
+            </Label>
+          </div>
           <Divider orientation="vertical" />
           <Tag variant="default">{formattedValue}</Tag>
           <Divider orientation="vertical" />
