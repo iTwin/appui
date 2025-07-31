@@ -20,15 +20,20 @@ export interface StationSizeSelectorProps extends CommonProps {
   value: number;
   disabled: boolean;
   onChange: (value: number) => void;
+  id?: string;
 }
 
 /** Component use to set Station size (number of digits from right until '+').
  * @internal
  */
 export function StationSizeSelector(props: StationSizeSelectorProps) {
-  const { value, disabled, onChange, ...rest } = props;
+  const { value, disabled, onChange, id, ...rest } = props;
   const { translate } = useTranslation();
   const separatorOptions: SelectOption<number>[] = [
+    {
+      value: 1,
+      label: translate("QuantityFormat.station_size.one"),
+    },
     {
       value: 2,
       label: translate("QuantityFormat.station_size.two"),
@@ -36,6 +41,10 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
     {
       value: 3,
       label: translate("QuantityFormat.station_size.three"),
+    },
+    {
+      value: 4,
+      label: translate("QuantityFormat.station_size.four"),
     },
   ];
 
@@ -53,6 +62,7 @@ export function StationSizeSelector(props: StationSizeSelectorProps) {
       value={value}
       onChange={handleOnChange}
       size="small"
+      id={id}
       {...rest}
     />
   );

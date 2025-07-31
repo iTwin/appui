@@ -9,7 +9,7 @@ import { ColorDef } from '@itwin/core-common';
 import type { CommonProps } from '@itwin/core-react';
 import type { DateFormatOptions } from '@itwin/components-react';
 import { EditorSpec } from '@itwin/components-react';
-import type { FormatProps } from '@itwin/core-quantity';
+import { FormatProps } from '@itwin/core-quantity';
 import { FormatterSpec } from '@itwin/core-quantity';
 import { HSVColor } from '@itwin/core-common';
 import type { Id64String } from '@itwin/core-bentley';
@@ -31,7 +31,7 @@ import type { TentativePoint } from '@itwin/core-frontend';
 import type { ToolType } from '@itwin/core-frontend';
 import type { TypeEditor } from '@itwin/components-react';
 import { UiEvent } from '@itwin/appui-abstract';
-import type { UnitProps } from '@itwin/core-quantity';
+import { UnitProps } from '@itwin/core-quantity';
 import type { UnitsProvider } from '@itwin/core-quantity';
 import { Vector3d } from '@itwin/core-geometry';
 import type { ViewManager } from '@itwin/core-frontend';
@@ -426,6 +426,9 @@ export interface FormatPanelProps extends CommonProps {
     unitsProvider: UnitsProvider;
 }
 
+// @beta
+export function FormatPanelV2(props: FormatPanelV2Props): React_2.JSX.Element;
+
 // @alpha
 export function FormatPrecision(props: FormatPrecisionProps): React_2.JSX.Element;
 
@@ -449,6 +452,9 @@ export interface FormatSampleProps extends CommonProps {
     // (undocumented)
     initialMagnitude?: number;
 }
+
+// @beta
+export function FormatSampleV2(props: FormatSampleV2Props): React_2.JSX.Element;
 
 // @alpha
 export function FormatTypeOption(props: FormatTypeOptionProps): React_2.JSX.Element;
@@ -567,6 +573,9 @@ export interface QuantityFormatPanelProps extends CommonProps {
     quantityType: QuantityTypeArg;
     showSample?: boolean;
 }
+
+// @beta
+export function QuantityFormatPanelV2(props: QuantityFormatPanelV2Props): React_2.JSX.Element;
 
 // @beta
 export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element;
