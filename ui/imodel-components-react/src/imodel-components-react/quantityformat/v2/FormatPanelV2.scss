@@ -6,16 +6,15 @@
 .icr-quantityFormat-v2-formatPanel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 16px;
+  gap: var(--iui-size-l);
+  padding: var(--iui-size-l);
 }
 
 .icr-quantityFormat-v2-formatPanel
   .icr-quantityFormat-v2-formatPanel-primaryChildren {
   /* Always visible primary controls */
-  // border: 1px solid var(--iui-color-border-subtle);
-  border-radius: 4px;
-  padding: 14px;
+  border-radius: var(--iui-border-radius-1);
+  padding: var(--iui-size-m);
   background: var(--iui-color-background);
   flex: 1;
   width: 100%;
@@ -24,45 +23,45 @@
 .icr-quantityFormat-v2-formatPanel
   .icr-quantityFormat-v2-formatPanel-secondaryChildren {
   /* Expandable secondary controls */
-  padding: 6px;
+  padding: var(--iui-size-2xs);
   background: var(--iui-color-background-backdrop);
-  border-radius: 4px;
+  border-radius: var(--iui-border-radius-1);
 }
 
 /* Individual format type panel styles */
 .icr-quantityFormat-v2-formatPanel-primaryChildren {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
+  gap: var(--iui-size-s);
+  padding: var(--iui-size-s);
 }
 
 .icr-quantityFormat-v2-formatPanel-secondaryChildren {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--iui-size-s);
 }
 
 /* FormatSampleV2 styles */
 .icr-quantityFormat-v2-formatSample-container {
-  padding: 8px;
-  margin-top: 16px;
+  padding: var(--iui-size-s);
+  margin-top: var(--iui-size-l);
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .icr-quantityFormat-v2-formatSample-box {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 12px;
-  margin: 10px;
+  border: 1px solid var(--iui-color-border-subtle);
+  border-radius: var(--iui-border-radius-1);
+  padding: var(--iui-size-m);
+  margin: var(--iui-size-s);
 }
 
 .icr-quantityFormat-v2-formatSample-previewRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--iui-size-s);
 }
 
 .icr-quantityFormat-v2-formatSample-input {
@@ -73,15 +72,15 @@
 .icr-quantityFormat-v2-formatTypeRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--iui-size-m);
 }
 
 /* Inline styling for unit label components */
 .icr-quantityFormat-v2-formatInlineRow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 32px;
+  gap: var(--iui-size-s);
+  min-height: var(--iui-size-xl);
 }
 
 .icr-quantityFormat-v2-formatInlineRow .uicore-label {
@@ -94,21 +93,17 @@
 .icr-quantityFormat-v2-formatHelpTooltip {
   position: relative;
   top: 1px;
-  margin-left: 4px;
+  margin-left: var(--iui-size-xs);
 }
 
 .icr-quantityFormat-v2-formatHelpTooltip {
   position: relative;
   top: 1px;
-  margin-left: 4px;
+  margin-left: var(--iui-size-xs);
 }
 
 .icr-quantityFormat-v2-ratioTypeSelector {
   max-inline-size: 60vw !important;
-}
-
-.icr-quantityFormat-v2-secondTagSample {
-  border-radius: var(--iui-border-radius-1);
 }
 
 /* UnitDescrV2 component styling */
@@ -127,7 +122,7 @@
   width: 100%;
   flex: 1;
   margin: 0;
-  padding: 8px 12px;
+  padding: var(--iui-size-s) var(--iui-size-m);
   border: 1px solid var(--iui-color-border);
   border-radius: 0 var(--iui-border-radius-1) var(--iui-border-radius-1) 0;
   display: flex;
@@ -146,4 +141,16 @@
   .icr-quantityFormat-v2-formatSample-input {
   border-radius: var(--iui-border-radius-1) 0 0 var(--iui-border-radius-1);
   border-right: none;
+}
+
+/* Formatted value label styling */
+.icr-quantityFormat-v2-formattedValueLabel {
+  padding: var(--iui-size-xs);
+  background-color: var(--iui-color-background-base);
+}
+
+/* Sample preview title label styling */
+.icr-quantityFormat-v2-samplePreviewTitle {
+  margin-bottom: var(--iui-size-s);
+  font-weight: 600;
 }

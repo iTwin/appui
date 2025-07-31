@@ -15,7 +15,7 @@ import {
   type UnitProps,
 } from "@itwin/core-quantity";
 import type { UnitsProvider } from "@itwin/core-quantity";
-import { Divider, Input, Label, Tag } from "@itwin/itwinui-react";
+import { Divider, Input, Label } from "@itwin/itwinui-react";
 import "./FormatPanelV2.scss";
 import { useTranslation } from "../../useTranslation.js";
 
@@ -115,7 +115,7 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
     <div className="icr-quantityFormat-v2-formatSample-container">
       <div className="icr-quantityFormat-v2-formatSample-box">
         <Label
-          style={{ marginBottom: "8px", fontWeight: "600" }}
+          className="icr-quantityFormat-v2-samplePreviewTitle"
           htmlFor={inputId}
         >
           {translate("QuantityFormat.labels.samplePreview")}
@@ -124,7 +124,7 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
           <div className="icr-quantityFormat-v2-formatSample-inputGroup">
             <Input
               id={inputId}
-              className="components-quantity-persistence-input icr-quantityFormat-v2-formatSample-input"
+              className="icr-quantityFormat-v2-formatSample-input"
               value={sampleValue}
               onChange={handleOnValueChange}
               onKeyDown={handleKeyDown}
@@ -136,12 +136,9 @@ export function FormatSampleV2(props: FormatSampleV2Props) {
             </Label>
           </div>
           <Divider orientation="vertical" />
-          <Tag
-            variant="basic"
-            className="icr-quantityFormat-v2-secondTagSample"
-          >
+          <Label className="icr-quantityFormat-v2-formattedValueLabel">
             {formattedValue}
-          </Tag>
+          </Label>
         </div>
       </div>
     </div>
