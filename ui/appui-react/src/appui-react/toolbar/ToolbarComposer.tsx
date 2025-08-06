@@ -217,7 +217,7 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
 
   const activeToolId = useActiveToolId();
   const activeItemIds = React.useMemo(
-    () => activeItemIdsProp ?? [activeToolId],
+    () => activeItemIdsProp ?? (activeToolId ? [activeToolId] : []),
     [activeItemIdsProp, activeToolId]
   );
   const items = React.useMemo(() => {
