@@ -212,21 +212,12 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
 
   const items = useActiveToolIdSynchedItems(allItems, UiFramework.frontstages);
 
-  const expandsTo =
-    orientation === ToolbarOrientation.Horizontal
-      ? Direction.Bottom
-      : usage === ToolbarUsage.ViewNavigation
-      ? Direction.Left
-      : Direction.Right;
-  const panelAlignment =
-    orientation === ToolbarOrientation.Horizontal &&
-    usage === ToolbarUsage.ViewNavigation
-      ? ToolbarPanelAlignment.End
-      : ToolbarPanelAlignment.Start;
   const isDragEnabled = React.useContext(ToolbarDragInteractionContext);
   const useProximityOpacity = useProximityOpacitySetting();
   const snapWidgetOpacity = useSnapWidgetOpacitySetting();
 
+  const expandsTo = toExpandsTo(orientation, usage);
+  const panelAlignment = toPanelAlignment(orientation, usage);
   return (
     <Toolbar
       enableOverflow={true}
@@ -242,4 +233,26 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
       }
     />
   );
+}
+
+function toExpandsTo(orientation: ToolbarOrientation, usage: ToolbarUsage) {
+  if (orientation === ToolbarOrientation.Vertical) {
+    if (usage === ToolbarUsage.ViewNavigation) return Direction.Left;
+    return Direction.Right;
+  }
+
+  return Direction.Bottom;
+}
+
+function toPanelAlignment(
+  orientation: ToolbarOrientation,
+  usage: ToolbarUsage
+) {
+  if (
+    orientation === ToolbarOrientation.Horizontal &&
+    usage === ToolbarUsage.ViewNavigation
+  )
+    return ToolbarPanelAlignment.End;
+
+  return ToolbarPanelAlignment.Start;
 }
