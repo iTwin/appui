@@ -6,7 +6,6 @@
  * @module QuantityFormat
  */
 
-import classnames from "classnames";
 import * as React from "react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
@@ -63,11 +62,7 @@ export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        displayStyle="inline"
-        htmlFor={uomSeparatorSelectorId}
-        className={classnames("uicore-label", disabled && "uicore-disabled")}
-      >
+      <Label displayStyle="inline" htmlFor={uomSeparatorSelectorId}>
         {translate("QuantityFormat.labels.labelSeparator")}
       </Label>
       <Select
@@ -143,7 +138,7 @@ export function AppendUnitLabelV2(props: AppendUnitLabelV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow append-unit-label">
-      <Label className={"uicore-label"} htmlFor={appendUnitLabelId}>
+      <Label htmlFor={appendUnitLabelId}>
         {translate("QuantityFormat.labels.appendUnitLabel")}
       </Label>
       <Checkbox

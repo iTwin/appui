@@ -51,11 +51,7 @@ export function SignOptionV2(props: SignOptionV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className={"uicore-label"}
-        displayStyle="inline"
-        id={showSignOptionId}
-      >
+      <Label displayStyle="inline" id={showSignOptionId}>
         {translate("QuantityFormat.labels.signOptionLabel")}
       </Label>
       <IconButton

@@ -39,11 +39,7 @@ export function StationOffsetV2(props: StationOffsetV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className={"uicore-label"}
-        displayStyle="inline"
-        id={stationOffsetSelectorId}
-      >
+      <Label displayStyle="inline" id={stationOffsetSelectorId}>
         {translate("QuantityFormat.labels.stationOffsetLabel")}
       </Label>
       <StationSizeSelector

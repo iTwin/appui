@@ -67,11 +67,7 @@ export function ZeroEmptyV2(props: ZeroEmptyV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className={"uicore-label"}
-        displayStyle="inline"
-        htmlFor={zeroEmptyId}
-      >
+      <Label displayStyle="inline" htmlFor={zeroEmptyId}>
         {translate("QuantityFormat.labels.zeroEmptyLabel")}
       </Label>
       <Checkbox

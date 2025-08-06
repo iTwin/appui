@@ -82,11 +82,7 @@ export function FractionDashV2(props: FractionDashV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className="uicore-label"
-        displayStyle="inline"
-        htmlFor={fractionDashId}
-      >
+      <Label displayStyle="inline" htmlFor={fractionDashId}>
         {translate("QuantityFormat.labels.fractionDashLabel")}
       </Label>
       <Checkbox

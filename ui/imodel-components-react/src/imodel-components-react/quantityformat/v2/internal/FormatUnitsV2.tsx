@@ -364,11 +364,7 @@ export function FormatUnitsV2(props: FormatUnitsV2Props) {
       {formatProps.composite?.units &&
         formatProps.composite.units.length > 1 && (
           <div className="icr-quantityFormat-v2-formatInlineRow">
-            <Label
-              className={"uicore-label"}
-              displayStyle="inline"
-              htmlFor={compositeSpacerSelectorId}
-            >
+            <Label displayStyle="inline" htmlFor={compositeSpacerSelectorId}>
               {translate("QuantityFormat.labels.compositeSpacer")}
               <IconButton
                 className="format-help-tooltip"

@@ -70,11 +70,7 @@ export function DecimalSeparatorV2(props: DecimalSeparatorV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className="uicore-label"
-        displayStyle="inline"
-        id={decimalSeparatorSelectorId}
-      >
+      <Label displayStyle="inline" id={decimalSeparatorSelectorId}>
         {translate("QuantityFormat.labels.decimalSeparatorLabel")}
       </Label>
       <DecimalSeparatorSelector

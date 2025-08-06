@@ -61,11 +61,7 @@ export function RatioTypeV2(props: RatioTypeV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className="uicore-label"
-        displayStyle="inline"
-        htmlFor={ratioTypeSelectorId}
-      >
+      <Label displayStyle="inline" htmlFor={ratioTypeSelectorId}>
         {translate("QuantityFormat.labels.ratioTypeLabel")}
         <IconButton
           className="icr-quantityFormat-v2-formatHelpTooltip"

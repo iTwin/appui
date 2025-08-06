@@ -83,11 +83,7 @@ export function UseThousandsSeparator(props: UseThousandsSeparatorProps) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className={"uicore-label"}
-        displayStyle="inline"
-        htmlFor={useThousandsId}
-      >
+      <Label displayStyle="inline" htmlFor={useThousandsId}>
         {translate("QuantityFormat.labels.useThousandSeparatorLabel")}
       </Label>
       <Checkbox
@@ -159,11 +155,7 @@ export function ThousandsSeparatorSelector(
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className="uicore-label"
-        displayStyle="inline"
-        htmlFor={thousandsSelectorId}
-      >
+      <Label displayStyle="inline" htmlFor={thousandsSelectorId}>
         {translate("QuantityFormat.labels.thousandSeparatorLabel")}
       </Label>
       <IconButton

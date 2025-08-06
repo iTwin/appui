@@ -74,11 +74,7 @@ function AzimuthBaseUnitSelector(props: {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className={"uicore-label"}
-        htmlFor={unitSelectorId}
-        displayStyle="inline"
-      >
+      <Label htmlFor={unitSelectorId} displayStyle="inline">
         {translate("QuantityFormat.labels.azimuthBaseUnit")}
       </Label>
       <IconButton
@@ -165,11 +161,7 @@ export function AzimuthOptionsV2(props: {
   return (
     <>
       <div className="icr-quantityFormat-v2-formatInlineRow">
-        <Label
-          className={"uicore-label"}
-          htmlFor={ccwCheckboxId}
-          displayStyle="inline"
-        >
+        <Label htmlFor={ccwCheckboxId} displayStyle="inline">
           {translate("QuantityFormat.labels.azimuthCounterClockwise")}
         </Label>
         <IconButton
@@ -194,11 +186,7 @@ export function AzimuthOptionsV2(props: {
         disabled={disabled}
       />
       <div className="icr-quantityFormat-v2-formatInlineRow">
-        <Label
-          htmlFor={baseInputId}
-          className={"uicore-label"}
-          displayStyle="inline"
-        >
+        <Label htmlFor={baseInputId} displayStyle="inline">
           {translate("QuantityFormat.labels.azimuthBase")}
         </Label>
         <IconButton

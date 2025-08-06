@@ -66,11 +66,7 @@ export function ShowTrailingZerosV2(props: ShowTrailingZerosV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className={"uicore-label"}
-        displayStyle="inline"
-        htmlFor={showTrailZerosId}
-      >
+      <Label displayStyle="inline" htmlFor={showTrailZerosId}>
         {translate("QuantityFormat.labels.showTrailZerosLabel")}
       </Label>
       <Checkbox

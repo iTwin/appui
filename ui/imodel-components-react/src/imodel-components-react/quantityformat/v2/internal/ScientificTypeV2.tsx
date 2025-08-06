@@ -61,11 +61,7 @@ export function ScientificTypeV2(props: ScientificTypeV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label
-        className="uicore-label"
-        displayStyle="inline"
-        htmlFor={scientificTypeSelectorId}
-      >
+      <Label displayStyle="inline" htmlFor={scientificTypeSelectorId}>
         {translate("QuantityFormat.labels.scientificTypeLabel")}
         <IconButton
           className="icr-quantityFormat-v2-formatHelpTooltip"
