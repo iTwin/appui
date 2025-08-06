@@ -269,7 +269,11 @@ function toPanelAlignment(
   return ToolbarPanelAlignment.Start;
 }
 
-function updateActiveItems(items: ToolbarItem[], activeItemIds: string[]) {
+/** @internal */
+export function updateActiveItems(
+  items: ToolbarItem[],
+  activeItemIds: string[]
+) {
   return produce(items, (draft) => {
     // Iterative DFS with ancestor backtracking.
     const stack = draft.map((item) => [item, [] as typeof draft] as const);
