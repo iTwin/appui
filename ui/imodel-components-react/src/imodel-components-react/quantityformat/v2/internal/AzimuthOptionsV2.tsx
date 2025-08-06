@@ -14,7 +14,7 @@ import {
   IconButton,
   Input,
   Label,
-  Select,
+  LabeledSelect,
 } from "@itwin/itwinui-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { getUnitName } from "../../misc/UnitDescr.js";
@@ -33,7 +33,6 @@ function AzimuthBaseUnitSelector(props: {
   const [unitOptions, setUnitOptions] = React.useState<SelectOption<string>[]>([
     { value: currentUnit, label: currentUnit },
   ]);
-  const unitSelectorId = React.useId();
 
   React.useEffect(() => {
     async function loadUnitOptions() {
@@ -74,23 +73,25 @@ function AzimuthBaseUnitSelector(props: {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label htmlFor={unitSelectorId} displayStyle="inline">
-        {translate("QuantityFormat.labels.azimuthBaseUnit")}
-      </Label>
-      <IconButton
-        size="small"
-        styleType="borderless"
-        label={translate("QuantityFormat.azimuthType.baseUnitTooltip")}
-      >
-        <SvgHelpCircularHollow />
-      </IconButton>
-      <Select
-        id={unitSelectorId}
+      <LabeledSelect
+        label={
+          <>
+            {translate("QuantityFormat.labels.azimuthBaseUnit")}
+            <IconButton
+              size="small"
+              styleType="borderless"
+              label={translate("QuantityFormat.azimuthType.baseUnitTooltip")}
+            >
+              <SvgHelpCircularHollow />
+            </IconButton>
+          </>
+        }
         value={currentUnit}
         options={unitOptions}
         onChange={handleUnitChange}
         size="small"
         disabled={disabled}
+        displayStyle="inline"
       />
     </div>
   );

@@ -76,7 +76,6 @@ export function DecimalPrimaryChildren(props: PanelProps): React.ReactElement {
         <UomSeparatorSelectorV2
           formatProps={formatProps}
           onFormatChange={onFormatChange}
-          disabled={false}
         />
       )}
       <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />

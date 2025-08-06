@@ -10,7 +10,7 @@ import * as React from "react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { Format, FormatTraits, getTraitString } from "@itwin/core-quantity";
 import type { SelectOption } from "@itwin/itwinui-react";
-import { Checkbox, Label, Select } from "@itwin/itwinui-react";
+import { Checkbox, Label, LabeledSelect } from "@itwin/itwinui-react";
 import { useTranslation } from "../../../useTranslation.js";
 
 /** Properties of [[UomSeparatorSelectorV2]] component.
@@ -19,16 +19,14 @@ import { useTranslation } from "../../../useTranslation.js";
 interface UomSeparatorSelectorV2Props {
   formatProps: FormatProps;
   onFormatChange: (formatProps: FormatProps) => void;
-  disabled?: boolean;
 }
 
 /** Component to set the unit of measure separator.
  * @internal
  */
 export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
-  const { formatProps, onFormatChange, disabled, ...rest } = props;
+  const { formatProps, onFormatChange, ...rest } = props;
   const { translate } = useTranslation();
-  const uomSeparatorSelectorId = React.useId();
 
   const handleOnChange = React.useCallback(
     (value: string) => {
@@ -62,15 +60,13 @@ export function UomSeparatorSelectorV2(props: UomSeparatorSelectorV2Props) {
 
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label displayStyle="inline" htmlFor={uomSeparatorSelectorId}>
-        {translate("QuantityFormat.labels.labelSeparator")}
-      </Label>
-      <Select
+      <LabeledSelect
+        label={translate("QuantityFormat.labels.labelSeparator")}
         options={separatorOptions}
         value={formatProps.uomSeparator ?? ""}
         onChange={handleOnChange}
         size="small"
-        disabled={disabled}
+        displayStyle="inline"
         {...rest}
       />
     </div>
@@ -137,7 +133,7 @@ export function AppendUnitLabelV2(props: AppendUnitLabelV2Props) {
   );
 
   return (
-    <div className="icr-quantityFormat-v2-formatInlineRow append-unit-label">
+    <div className="icr-quantityFormat-v2-formatInlineRow icr-quantityFormat-v2-appendUnitLabel">
       <Label htmlFor={appendUnitLabelId}>
         {translate("QuantityFormat.labels.appendUnitLabel")}
       </Label>

@@ -66,7 +66,6 @@ export function FractionalPrimaryChildren(
         <UomSeparatorSelectorV2
           formatProps={formatProps}
           onFormatChange={onFormatChange}
-          disabled={false}
         />
       )}
       <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />

@@ -10,9 +10,9 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { parseScientificType, ScientificType } from "@itwin/core-quantity";
-import { IconButton, Label } from "@itwin/itwinui-react";
+import { IconButton, LabeledSelect } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
-import { ScientificTypeSelector } from "../../misc/ScientificType.js";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
 
@@ -32,8 +32,6 @@ export interface ScientificTypeV2Props extends CommonProps {
 export function ScientificTypeV2(props: ScientificTypeV2Props) {
   const { formatProps, onChange, disabled = false } = props;
   const { translate } = useTranslation();
-
-  const scientificTypeSelectorId = React.useId();
 
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
@@ -59,24 +57,41 @@ export function ScientificTypeV2(props: ScientificTypeV2Props) {
       : ScientificType.Normalized;
   }, [formatProps.scientificType]);
 
+  const formatOptions: SelectOption<ScientificType>[] = React.useMemo(
+    () => [
+      {
+        value: ScientificType.Normalized,
+        label: translate("QuantityFormat.scientific-type.normalized"),
+      },
+      {
+        value: ScientificType.ZeroNormalized,
+        label: translate("QuantityFormat.scientific-type.zero-normalized"),
+      },
+    ],
+    [translate]
+  );
+
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label displayStyle="inline" htmlFor={scientificTypeSelectorId}>
-        {translate("QuantityFormat.labels.scientificTypeLabel")}
-        <IconButton
-          className="icr-quantityFormat-v2-formatHelpTooltip"
-          styleType="borderless"
-          size="small"
-          label={translate("QuantityFormat.labels.scientificTypeTooltip")}
-        >
-          <SvgHelpCircularHollow />
-        </IconButton>
-      </Label>
-      <ScientificTypeSelector
-        type={currentType}
-        disabled={disabled}
+      <LabeledSelect
+        label={
+          <>
+            {translate("QuantityFormat.labels.scientificTypeLabel")}
+            <IconButton
+              className="icr-quantityFormat-v2-formatHelpTooltip"
+              styleType="borderless"
+              size="small"
+              label={translate("QuantityFormat.labels.scientificTypeTooltip")}
+            >
+              <SvgHelpCircularHollow />
+            </IconButton>
+          </>
+        }
+        options={formatOptions}
+        value={currentType}
         onChange={handleScientificTypeChange}
-        id={scientificTypeSelectorId}
+        size="small"
+        disabled={disabled}
       />
     </div>
   );

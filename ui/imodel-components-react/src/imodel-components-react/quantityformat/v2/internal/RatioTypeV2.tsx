@@ -10,9 +10,9 @@ import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import type { FormatProps } from "@itwin/core-quantity";
 import { parseRatioType, RatioType } from "@itwin/core-quantity";
-import { IconButton, Label } from "@itwin/itwinui-react";
+import { IconButton, LabeledSelect } from "@itwin/itwinui-react";
+import type { SelectOption } from "@itwin/itwinui-react";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
-import { RatioTypeSelector } from "../../misc/RatioType.js";
 import { useTranslation } from "../../../useTranslation.js";
 import "../FormatPanelV2.scss";
 
@@ -32,8 +32,6 @@ export interface RatioTypeV2Props extends CommonProps {
 export function RatioTypeV2(props: RatioTypeV2Props) {
   const { formatProps, onChange, disabled = false } = props;
   const { translate } = useTranslation();
-
-  const ratioTypeSelectorId = React.useId();
 
   const handleSetFormatProps = React.useCallback(
     (newProps: FormatProps) => {
@@ -59,24 +57,61 @@ export function RatioTypeV2(props: RatioTypeV2Props) {
       : RatioType.NToOne;
   }, [formatProps.ratioType]);
 
+  const formatOptions: SelectOption<RatioType>[] = React.useMemo(
+    () => [
+      {
+        value: RatioType.NToOne,
+        label: translate("QuantityFormat.ratio-type.n-to-one.label"),
+        sublabel: translate("QuantityFormat.ratio-type.n-to-one.description"),
+      },
+      {
+        value: RatioType.OneToN,
+        label: translate("QuantityFormat.ratio-type.one-to-n.label"),
+        sublabel: translate("QuantityFormat.ratio-type.one-to-n.description"),
+      },
+      {
+        value: RatioType.UseGreatestCommonDivisor,
+        label: translate(
+          "QuantityFormat.ratio-type.use-greatest-common-divisor.label"
+        ),
+        sublabel: translate(
+          "QuantityFormat.ratio-type.use-greatest-common-divisor.description"
+        ),
+      },
+      {
+        value: RatioType.ValueBased,
+        label: translate("QuantityFormat.ratio-type.value-based.label"),
+        sublabel: translate(
+          "QuantityFormat.ratio-type.value-based.description"
+        ),
+      },
+    ],
+    [translate]
+  );
+
   return (
     <div className="icr-quantityFormat-v2-formatInlineRow">
-      <Label displayStyle="inline" htmlFor={ratioTypeSelectorId}>
-        {translate("QuantityFormat.labels.ratioTypeLabel")}
-        <IconButton
-          className="icr-quantityFormat-v2-formatHelpTooltip"
-          styleType="borderless"
-          size="small"
-          label={translate("QuantityFormat.ratio-type.default.description")}
-        >
-          <SvgHelpCircularHollow />
-        </IconButton>
-      </Label>
-      <RatioTypeSelector
-        type={currentType}
-        disabled={disabled}
+      <LabeledSelect
+        label={
+          <>
+            {translate("QuantityFormat.labels.ratioTypeLabel")}
+            <IconButton
+              className="icr-quantityFormat-v2-formatHelpTooltip"
+              styleType="borderless"
+              size="small"
+              label={translate("QuantityFormat.ratio-type.default.description")}
+            >
+              <SvgHelpCircularHollow />
+            </IconButton>
+          </>
+        }
+        options={formatOptions}
+        value={currentType}
         onChange={handleRatioTypeChange}
-        rest={{ id: ratioTypeSelectorId }}
+        size="small"
+        disabled={disabled}
+        displayStyle="inline"
+        menuStyle={{ maxInlineSize: "60vw" }}
       />
     </div>
   );

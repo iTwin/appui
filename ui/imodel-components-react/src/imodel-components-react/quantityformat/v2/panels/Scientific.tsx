@@ -68,7 +68,6 @@ export function ScientificPrimaryChildren(
         <UomSeparatorSelectorV2
           formatProps={formatProps}
           onFormatChange={onFormatChange}
-          disabled={false}
         />
       )}
       <FormatPrecisionV2 formatProps={formatProps} onChange={onFormatChange} />

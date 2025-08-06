@@ -53,15 +53,15 @@ export function SignOptionV2(props: SignOptionV2Props) {
     <div className="icr-quantityFormat-v2-formatInlineRow">
       <Label displayStyle="inline" id={showSignOptionId}>
         {translate("QuantityFormat.labels.signOptionLabel")}
+        <IconButton
+          className="icr-quantityFormat-v2-formatHelpTooltip"
+          styleType="borderless"
+          size="small"
+          label={translate("QuantityFormat.labels.signOptionTooltip")}
+        >
+          <SvgHelpCircularHollow />
+        </IconButton>
       </Label>
-      <IconButton
-        className="format-help-tooltip"
-        styleType="borderless"
-        size="small"
-        label={translate("QuantityFormat.labels.signOptionTooltip")}
-      >
-        <SvgHelpCircularHollow />
-      </IconButton>
       <SignOptionSelector
         aria-labelledby={showSignOptionId}
         signOption={showSignOption}

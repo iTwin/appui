@@ -118,7 +118,7 @@ describe("SignOptionV2", () => {
     );
 
     const tooltipButton = renderedComponent.container.querySelector(
-      ".format-help-tooltip"
+      ".icr-quantityFormat-v2-formatHelpTooltip"
     );
     expect(tooltipButton).to.exist;
   });

@@ -23,23 +23,11 @@
 .icr-quantityFormat-v2-formatPanel
   .icr-quantityFormat-v2-formatPanel-secondaryChildren {
   /* Expandable secondary controls */
-  padding: var(--iui-size-2xs);
+  padding: var(--iui-size-s);
   background: var(--iui-color-background-backdrop);
   border-radius: var(--iui-border-radius-1);
-}
-
-/* Individual format type panel styles */
-.icr-quantityFormat-v2-formatPanel-primaryChildren {
   display: flex;
   flex-direction: column;
-  gap: var(--iui-size-s);
-  padding: var(--iui-size-s);
-}
-
-.icr-quantityFormat-v2-formatPanel-secondaryChildren {
-  display: flex;
-  flex-direction: column;
-  gap: var(--iui-size-s);
 }
 
 /* FormatSampleV2 styles */
@@ -72,22 +60,18 @@
 .icr-quantityFormat-v2-formatTypeRow {
   display: flex;
   align-items: center;
-  gap: var(--iui-size-m);
+  gap: var(--iui-size-xs);
 }
 
 /* Inline styling for unit label components */
 .icr-quantityFormat-v2-formatInlineRow {
   display: flex;
   align-items: center;
-  gap: var(--iui-size-s);
   min-height: var(--iui-size-xl);
 }
 
-/* Tooltip positioning for help icons */
-.icr-quantityFormat-v2-formatHelpTooltip {
-  position: relative;
-  top: 1px;
-  margin-left: var(--iui-size-xs);
+.icr-quantityFormat-v2-appendUnitLabel {
+  gap: var(--iui-size-m);
 }
 
 .icr-quantityFormat-v2-formatHelpTooltip {
