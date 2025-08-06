@@ -102,11 +102,6 @@
   margin-left: var(--iui-size-xs);
 }
 
-.icr-quantityFormat-v2-ratioTypeSelector {
-  // Overrides the width of the dropdown box, to have the sub labels of each option show clearly
-  max-inline-size: 60vw !important;
-}
-
 /* UnitDescrV2 component styling */
 .icr-quantityFormat-v2-formatInlineRow .icr-quantityFormat-v2-unitSelect {
   min-width: 20%;
