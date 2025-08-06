@@ -9,7 +9,6 @@
 import * as React from "react";
 import {
   Direction,
-  Orientation,
   ToolbarOpacitySetting,
   ToolbarPanelAlignment,
 } from "@itwin/components-react";
@@ -213,18 +212,14 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
 
   const items = useActiveToolIdSynchedItems(allItems, UiFramework.frontstages);
 
-  const toolbarOrientation =
-    orientation === ToolbarOrientation.Horizontal
-      ? Orientation.Horizontal
-      : Orientation.Vertical;
   const expandsTo =
-    toolbarOrientation === Orientation.Horizontal
+    orientation === ToolbarOrientation.Horizontal
       ? Direction.Bottom
       : usage === ToolbarUsage.ViewNavigation
       ? Direction.Left
       : Direction.Right;
   const panelAlignment =
-    toolbarOrientation === Orientation.Horizontal &&
+    orientation === ToolbarOrientation.Horizontal &&
     usage === ToolbarUsage.ViewNavigation
       ? ToolbarPanelAlignment.End
       : ToolbarPanelAlignment.Start;
