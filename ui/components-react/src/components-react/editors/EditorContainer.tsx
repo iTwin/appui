@@ -233,6 +233,8 @@ export function EditorContainer(props: EditorContainerProps) {
     const newValue = args.newValue;
 
     if (!shouldCommit(oldValue, newValue)) {
+      // If the value has not changed just cancel editing.
+      onCancel();
       return;
     }
 
