@@ -65,7 +65,6 @@ export function RatioTypeSelector(props: {
       onChange={handleOnChange}
       size="small"
       disabled={disabled}
-      // menuClassName="icr-quantityFormat-v2-ratioTypeSelector"
       menuStyle={{ maxInlineSize: "60vw" }}
       {...rest}
     />
