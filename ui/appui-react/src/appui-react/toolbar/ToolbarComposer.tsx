@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { produce } from "immer";
 import {
   Direction,
   ToolbarOpacitySetting,
@@ -27,8 +28,8 @@ import {
   ToolbarUsage,
 } from "./ToolbarItem.js";
 import { Toolbar } from "./Toolbar.js";
-import { useActiveToolIdSynchedItems } from "./useActiveToolIdSynchedItems.js";
 import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems.js";
+import { useActiveToolId } from "../hooks/useActiveToolId.js";
 
 function addItemToSpecifiedParentGroup<T extends ToolbarItem>(
   items: readonly T[],
@@ -186,22 +187,26 @@ const useSnapWidgetOpacitySetting = () => {
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ToolbarComposer>`
  */
 export interface ExtensibleToolbarProps {
-  /** Toolbar items. */
+  /** Toolbar items to be displayed in addition to the provided toolbar items. */
   items: ToolbarItem[];
   /** Toolbar usage based on which additional toolbar items are added from UI item providers. */
   usage: ToolbarUsage;
   /** Toolbar orientation. */
   orientation: ToolbarOrientation;
+  /** Describes the ids of active toolbar items.
+   * By default only the toolbar item with id that matches the active `Tool` id is active.
+   */
+  activeItemIds?: string[];
 }
 
 /**
  * Toolbar that is populated and maintained by UI item providers.
- * @note Overrides `isActive` property based on the active tool id.
+ * @note Overrides `isActive` property based on the active tool id, unless `activeItemIds` is specified.
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ToolbarComposer(props: ExtensibleToolbarProps) {
-  const { usage, orientation } = props;
+  const { usage, orientation, activeItemIds: activeItemIdsProp } = props;
 
   // process items from addon UI providers
   const addonItems = useActiveStageProvidedToolbarItems(usage, orientation);
@@ -210,7 +215,14 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
     return combineItems(props.items, addonItems);
   }, [props.items, addonItems]);
 
-  const items = useActiveToolIdSynchedItems(allItems, UiFramework.frontstages);
+  const activeToolId = useActiveToolId();
+  const activeItemIds = React.useMemo(
+    () => activeItemIdsProp ?? [activeToolId],
+    [activeItemIdsProp, activeToolId]
+  );
+  const items = React.useMemo(() => {
+    return updateActiveItems(allItems, activeItemIds);
+  }, [allItems, activeItemIds]);
 
   const isDragEnabled = React.useContext(ToolbarDragInteractionContext);
   const useProximityOpacity = useProximityOpacitySetting();
@@ -255,4 +267,31 @@ function toPanelAlignment(
     return ToolbarPanelAlignment.End;
 
   return ToolbarPanelAlignment.Start;
+}
+
+function updateActiveItems(items: ToolbarItem[], activeItemIds: string[]) {
+  return produce(items, (draft) => {
+    // Iterative DFS with ancestor backtracking.
+    const stack = draft.map((item) => [item, [] as typeof draft] as const);
+
+    while (stack.length > 0) {
+      const [current, ancestors] = stack.pop()!;
+
+      const isActive = activeItemIds.includes(current.id);
+      current.isActive = isActive;
+
+      if ("items" in current) {
+        for (const child of current.items) {
+          stack.push([child, [...ancestors, current]]);
+        }
+      }
+
+      if (!isActive) continue;
+
+      // Mark ancestors of active item as active.
+      for (const ancestor of ancestors) {
+        ancestor.isActive = true;
+      }
+    }
+  });
 }
