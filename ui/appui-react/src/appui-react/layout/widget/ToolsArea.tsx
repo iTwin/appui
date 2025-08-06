@@ -30,6 +30,7 @@ export interface ToolsAreaProps extends CommonProps, NoChildrenProps {
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   /** Handler for mouse leave */
   onMouseLeave?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  hidden?: boolean;
 }
 
 /** A component that renders toolbars in the top left corner of standard layout.
@@ -40,7 +41,11 @@ export class ToolsArea extends React.PureComponent<ToolsAreaProps> {
     const button = React.isValidElement<ToolbarButtonProps>(this.props.button)
       ? React.cloneElement(this.props.button, { small: true })
       : null; // ensure button is small
-    const className = classnames("nz-tools-widget", this.props.className);
+    const className = classnames(
+      "nz-tools-widget",
+      this.props.hidden && "nz-hidden",
+      this.props.className
+    );
 
     return (
       <div className={className} style={this.props.style}>

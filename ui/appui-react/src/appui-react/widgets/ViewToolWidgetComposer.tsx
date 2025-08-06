@@ -6,10 +6,8 @@
  * @module Widget
  */
 
-import classnames from "classnames";
 import * as React from "react";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer.js";
-import { useUiVisibility } from "../hooks/useUiVisibility.js";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer.js";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
 
@@ -40,12 +38,8 @@ export interface ViewToolWidgetComposerProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
-  const uiIsVisible = useUiVisibility();
-  const className = classnames(!uiIsVisible && "nz-hidden");
-
   return (
     <NavigationWidgetComposer
-      className={className}
       hideNavigationAid={props.hideNavigationAid}
       navigationAidHost={props.navigationAid}
       horizontalToolbar={
