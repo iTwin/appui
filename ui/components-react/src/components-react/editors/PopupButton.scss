@@ -68,6 +68,26 @@
       }
     }
   }
+
+  &.readonly {
+    cursor: default;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    background-color: var(--iui-color-background-disabled);
+    border-color: var(--iui-color-border-foreground-disabled);
+    color: var(--iui-color-text-disabled);
+
+    > .components-popup-button-arrow {
+      background-color: var(--iui-color-background-disabled);
+      border-color: var(--iui-color-border-foreground-disabled);
+
+      > .components-popup-button-arrow-icon {
+        color: var(--iui-color-text-disabled);
+      }
+    }
+  }
 }
 
 .components-smallEditor-host {

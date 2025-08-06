@@ -31,8 +31,6 @@ import { InputWithDecorations } from "@itwin/itwinui-react";
 /** @internal */
 interface NumericInputEditorState {
   value: number;
-  readonly: boolean;
-  isDisabled?: boolean;
   size?: number;
   maxLength?: number;
 
@@ -55,7 +53,6 @@ export class NumericInputEditor
 
   public override readonly state: Readonly<NumericInputEditorState> = {
     value: 0,
-    readonly: false,
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -130,16 +127,12 @@ export class NumericInputEditor
       initialValue = record.value.value as number;
     }
 
-    const readonly =
-      record && undefined !== record.isReadonly ? record.isReadonly : false;
     let size: number | undefined;
     let maxLength: number | undefined;
     let min: number | undefined;
     let max: number | undefined;
     let step: number | undefined;
     let precision: number | undefined;
-
-    const isDisabled = record ? record.isDisabled : undefined;
 
     if (
       record &&
@@ -171,10 +164,8 @@ export class NumericInputEditor
     if (this._isMounted)
       this.setState({
         value: initialValue,
-        readonly,
         size,
         maxLength,
-        isDisabled,
         min,
         max,
         step,
@@ -205,11 +196,15 @@ export class NumericInputEditor
         max={this.state.max}
         step={this.state.step}
         precision={this.state.precision}
-        readOnly={this.state.readonly}
+        readOnly={this.props.propertyRecord?.isReadonly}
+        disabled={this.props.propertyRecord?.isDisabled}
         maxLength={this.state.maxLength}
         onBlur={this.props.onBlur}
         onChange={this._updateValue}
-        autoFocus={this.props.setFocus && !this.state.isDisabled} // eslint-disable-line jsx-a11y/no-autofocus
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus={
+          this.props.setFocus && !this.props.propertyRecord?.isDisabled
+        }
         isControlled={this.props.shouldCommitOnChange}
         decoration={decoration}
       />

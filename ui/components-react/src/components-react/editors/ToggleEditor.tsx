@@ -18,7 +18,6 @@ import { ToggleSwitch } from "@itwin/itwinui-react";
 /** @internal */
 interface ToggleEditorState {
   toggleValue: boolean;
-  isDisabled?: boolean;
 }
 
 /** ToggleEditor React component that is a property editor with checkbox input
@@ -33,7 +32,6 @@ export class ToggleEditor
 
   public override readonly state: Readonly<ToggleEditorState> = {
     toggleValue: false,
-    isDisabled: false,
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -104,7 +102,6 @@ export class ToggleEditor
   private async setStateFromProps() {
     const { propertyRecord } = this.props;
     let toggleValue = false;
-    let isDisabled = false;
 
     if (
       propertyRecord &&
@@ -114,10 +111,10 @@ export class ToggleEditor
       toggleValue = primitiveValue as boolean;
     }
 
-    if (propertyRecord && propertyRecord.isDisabled)
-      isDisabled = propertyRecord.isDisabled;
-
-    if (this._isMounted) this.setState({ toggleValue, isDisabled });
+    if (this._isMounted)
+      this.setState({
+        toggleValue,
+      });
   }
 
   public override render() {
@@ -127,7 +124,6 @@ export class ToggleEditor
       this.props.className
     );
     const isChecked = this.state.toggleValue;
-    const isDisabled = !!this.state.isDisabled;
 
     return (
       <ToggleSwitch
@@ -136,7 +132,8 @@ export class ToggleEditor
         className={className}
         style={this.props.style}
         checked={isChecked}
-        disabled={isDisabled}
+        readOnly={this.props.propertyRecord?.isReadonly}
+        disabled={this.props.propertyRecord?.isDisabled}
         onChange={this._updateToggleValue}
         data-testid="components-toggle-editor"
         autoFocus={this.props.setFocus} // eslint-disable-line jsx-a11y/no-autofocus
