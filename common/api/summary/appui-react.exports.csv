@@ -749,6 +749,7 @@ public;function;useActiveFrontstageDef
 public;const;useActiveFrontstageId
 public;function;useActiveIModelConnection
 public;function;useActiveStageId
+public;function;useActiveToolId
 public;function;useActiveViewport
 public;function;useAnalysisAnimationDataProvider
 public;const;useBackstageManager
