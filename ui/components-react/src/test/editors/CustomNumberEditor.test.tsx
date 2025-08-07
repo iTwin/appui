@@ -19,6 +19,7 @@ import TestUtils, {
   childStructure,
   MineDataController,
   styleMatch,
+  userEvent,
 } from "../TestUtils.js";
 import { PropertyEditorManager } from "../../components-react/editors/PropertyEditorManager.js";
 
@@ -86,11 +87,12 @@ describe("<CustomNumberEditor />", () => {
       "editor-container"
     ) as HTMLSpanElement;
 
-    fireEvent.change(inputField, { target: { value: "zzzz" } });
+    await userEvent.clear(inputField);
+    await userEvent.type(inputField, "zzzz");
     expect(inputField.value).toEqual("zzzz");
     fireEvent.keyDown(container, { key: "Enter" });
     await TestUtils.flushAsyncOperations();
-    spyOnCommit.mockReset(); // TODO: shouldn't have called spyOnCommit?
+    spyOnCancel.mockReset(); // onCancel is called because entered value is not a number and so last valid value is used which is the original value.
 
     // resetToOriginalValue
     fireEvent.keyDown(inputField, { key: Key.Escape });
@@ -312,6 +314,7 @@ describe("<CustomNumberEditor />", () => {
     const inputNode = wrapper.queryByTestId(testId) as HTMLInputElement;
     expect(inputNode).toBeTruthy();
 
+    await userEvent.type(inputNode, "123");
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit).not.toBeCalled();
