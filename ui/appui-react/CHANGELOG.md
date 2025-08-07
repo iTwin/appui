@@ -1,5 +1,105 @@
 # Change Log - @itwin/appui-react
 
+## 5.12.0
+
+### Minor Changes
+
+- 46df665: Added `activeItemIds` prop to `ToolbarComposer` component. When specified, it overrides the default behavior where the active toolbar item is determined by the active `Tool`.
+
+  This change enables the toolbars to display the items without the `Tool` system and to display multiple items as active:
+
+  ```tsx
+  <ToolbarComposer
+    items={[
+      ToolbarItemUtilities.createActionItem({ id: "item1" }),
+      ToolbarItemUtilities.createActionItem({ id: "item2" }),
+      ToolbarItemUtilities.createActionItem({ id: "item3" }),
+    ]}
+    activeItemIds={["item1", "item3"]}
+  />
+  ```
+
+  To continue using the default behavior where the `Tool` determines the active toolbar item, but still display additional toolbar items as active, you can combine the `activeItemIds` prop with the `useActiveToolId` hook.
+
+  ```tsx
+  const activeToolId = useActiveToolId();
+
+  // Filter our undefined values and ensure type safety.
+  const activeItemIds = [activeToolId, "item1"].filter(
+    (id): id is string => id !== undefined
+  );
+
+  <ToolbarComposer
+    items={[
+      ToolbarItemUtilities.createActionItem({ id: "item1" }),
+      ToolbarItemUtilities.createForTool(SelectionTool),
+    ]}
+    activeItemIds={activeItemIds}
+  />;
+  ```
+
+  `ToolbarComposer` component might be used indirectly, since it is rendered by `BasicNavigationWidget`, `BasicToolWidget`, `ContentToolWidgetComposer` and `ViewToolWidgetComposer` components. In that case use the underlying `ToolWidgetComposer` or `NavigationWidgetComposer` component to compose and configure the toolbars.
+
+  ```tsx
+  // Before
+  <ContentToolWidgetComposer cornerButton={props.cornerButton} />;
+
+  // After
+  const activeItemIds = ["item1", "item2"];
+  <ToolWidgetComposer
+    cornerItem={props.cornerButton}
+    horizontalToolbar={
+      <ToolbarComposer
+        items={[]}
+        usage={ToolbarUsage.ContentManipulation}
+        orientation={ToolbarOrientation.Horizontal}
+        activeItemIds={activeItemIds}
+      />
+    }
+    verticalToolbar={
+      <ToolbarComposer
+        items={[]}
+        usage={ToolbarUsage.ContentManipulation}
+        orientation={ToolbarOrientation.Vertical}
+        activeItemIds={activeItemIds}
+      />
+    }
+  />;
+  ```
+
+  Similarly, the `contentManipulation` and `viewNavigation` widgets might need to be configured when the `FrontstageUtilities` is used to create a standard `Frontstage`.
+
+  ```tsx
+  function ContentManipulationWidget() {
+    return (
+      <ToolWidgetComposer
+        // ...
+        activeItemIds={["item1", "item3"]}
+      />
+    );
+  }
+
+  const frontstage: Frontstage = {
+    ...FrontstageUtilities.createStandardFrontstage({
+      // ...
+    }),
+    contentManipulation: {
+      id: "content-manipulation",
+      content: <ContentManipulationWidget />,
+    },
+  };
+  ```
+
+- 46df665: Added `useActiveToolId` hook to track the active `Tool` id of the `IModelApp.toolAdmin`.
+- 46df665: Updated `NavigationWidgetComposer` and `ToolWidgetComposer` to support hidden UI visibility setting controlled via the `UiFramework.visibility` object.
+
+### Patch Changes
+
+- Updated dependencies [d4db451]
+  - @itwin/imodel-components-react@5.12.0
+  - @itwin/components-react@5.12.0
+  - @itwin/core-react@5.12.0
+
 ## 5.11.2
 
 ### Patch Changes

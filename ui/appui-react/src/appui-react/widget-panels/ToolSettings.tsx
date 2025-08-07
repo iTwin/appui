@@ -34,9 +34,9 @@ export interface ToolSettingsEntry {
   editorNode: React.ReactNode;
 }
 
-function EmptyToolSettingsLabel({ toolId }: { toolId: string }) {
+function EmptyToolSettingsLabel({ toolId }: { toolId?: string }) {
   const { translate } = useTranslation();
-  const tool = IModelApp.tools.find(toolId);
+  const tool = toolId ? IModelApp.tools.find(toolId) : undefined;
   const toolName = tool?.flyover;
   return (
     <Text as="i" isMuted={true} className="uifw-toolSettings-label-empty">

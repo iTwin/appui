@@ -6,11 +6,9 @@
  * @module Widget
  */
 
-import classnames from "classnames";
 import * as React from "react";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer.js";
 import { ToolWidgetComposer } from "./ToolWidgetComposer.js";
-import { useUiVisibility } from "../hooks/useUiVisibility.js";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
 
 /**
@@ -51,13 +49,9 @@ export function ContentToolWidgetComposer(
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   props: ContentToolWidgetComposerProps
 ) {
-  const { cornerButton } = props;
-  const uiIsVisible = useUiVisibility();
-  const className = classnames(!uiIsVisible && "nz-hidden");
   return (
     <ToolWidgetComposer
-      className={className}
-      cornerItem={cornerButton}
+      cornerItem={props.cornerButton}
       horizontalToolbar={
         <ToolbarComposer
           items={[]}

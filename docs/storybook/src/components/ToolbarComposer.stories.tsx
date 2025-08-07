@@ -441,7 +441,7 @@ export const Separators: Story = {
   },
 };
 
-export const ActiveItems: Story = {
+export const ActiveToolId: Story = {
   args: {
     activeToolId: "item3",
     items: (() => {
@@ -462,6 +462,34 @@ export const ActiveItems: Story = {
             factory.createActionItem(),
           ],
         }),
+        factory.createActionItem(),
+      ];
+    })(),
+  },
+};
+
+export const ActiveItemIds: Story = {
+  args: {
+    activeItemIds: ["item3", "item10"],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem(),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem(),
+            factory.createGroupItem({
+              items: [
+                factory.createActionItem(),
+                factory.createGroupItem({
+                  items: [factory.createActionItem()],
+                }),
+              ],
+            }),
+            factory.createActionItem(),
+          ],
+        }),
+        factory.createActionItem(),
         factory.createActionItem(),
       ];
     })(),

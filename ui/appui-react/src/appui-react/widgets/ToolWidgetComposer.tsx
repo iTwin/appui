@@ -15,6 +15,7 @@ import {
 import * as React from "react";
 import { ToolsArea } from "../layout/widget/ToolsArea.js";
 import { UiFramework } from "../UiFramework.js";
+import { useUiVisibility } from "../hooks/useUiVisibility.js";
 
 /** Properties for the [[ToolWidgetComposer]] React components
  * @public
@@ -45,6 +46,7 @@ export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
     elementSet,
     UiFramework.visibility.snapWidgetOpacity
   );
+  const uiIsVisible = useUiVisibility();
 
   const addRef = React.useCallback<
     React.ContextType<typeof WidgetOpacityContext>["addRef"]
@@ -76,6 +78,7 @@ export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
         verticalToolbar={verticalToolbar}
         {...otherProps}
         onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
+        hidden={!uiIsVisible}
       />
     </WidgetOpacityContext.Provider>
   );
