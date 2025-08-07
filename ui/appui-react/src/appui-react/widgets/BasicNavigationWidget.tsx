@@ -6,10 +6,8 @@
  * @module Widget
  */
 
-import classnames from "classnames";
 import * as React from "react";
 import { ToolbarComposer } from "../toolbar/ToolbarComposer.js";
-import { useUiVisibility } from "../hooks/useUiVisibility.js";
 import { NavigationWidgetComposer } from "./NavigationWidgetComposer.js";
 import type { ToolbarItem } from "../toolbar/ToolbarItem.js";
 import { ToolbarOrientation, ToolbarUsage } from "../toolbar/ToolbarItem.js";
@@ -94,12 +92,8 @@ export function BasicNavigationWidget(props: BasicNavigationWidgetProps) {
     getVerticalToolbarItems,
   ]);
 
-  const uiIsVisible = useUiVisibility();
-  const className = classnames(!uiIsVisible && "nz-hidden");
-
   return (
     <NavigationWidgetComposer
-      className={className}
       horizontalToolbar={
         <ToolbarComposer
           items={horizontalItems}

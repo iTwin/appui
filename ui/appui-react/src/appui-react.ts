@@ -306,6 +306,7 @@ export {
 
 export { useActiveIModelConnection } from "./appui-react/hooks/useActiveIModelConnection.js";
 export { useActiveStageId } from "./appui-react/hooks/useActiveStageId.js";
+export { useActiveToolId } from "./appui-react/hooks/useActiveToolId.js";
 export { useActiveViewport } from "./appui-react/hooks/useActiveViewport.js";
 export { useAnalysisAnimationDataProvider } from "./appui-react/hooks/useAnalysisAnimationDataProvider.js";
 export { useConditionalValue } from "./appui-react/hooks/useConditionalValue.js";

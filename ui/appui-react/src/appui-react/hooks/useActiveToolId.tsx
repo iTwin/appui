@@ -6,18 +6,12 @@
  * @module Hooks
  */
 
-import * as React from "react";
-import { UiFramework } from "../UiFramework.js";
+import { useActiveTool } from "./useActiveTool.js";
 
-/** @internal */
+/** React hook that maintains the active `Tool` id.
+ * @public
+ */
 export function useActiveToolId() {
-  const [toolId, setToolId] = React.useState(
-    UiFramework.frontstages.activeToolId
-  );
-  React.useEffect(() => {
-    return UiFramework.frontstages.onToolActivatedEvent.addListener((args) => {
-      setToolId(args.toolId);
-    });
-  }, []);
-  return toolId;
+  const activeTool = useActiveTool();
+  return activeTool?.toolId;
 }
