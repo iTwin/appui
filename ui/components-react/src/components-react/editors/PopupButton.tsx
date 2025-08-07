@@ -128,8 +128,8 @@ export class PopupButton extends React.PureComponent<
     const classNames = classnames(
       "components-popup-button",
       this.state.showPopup && "components-popup-expanded",
-      this.props.readonly && "readonly",
-      this.props.disabled && "disabled"
+      this.props.readonly && "components-readonly",
+      this.props.disabled && "components-disabled"
     );
 
     const valueClassNames = classnames(

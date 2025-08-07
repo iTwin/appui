@@ -69,11 +69,11 @@
     }
   }
 
-  &.readonly {
+  &.components-readonly {
     cursor: default;
   }
 
-  &.disabled {
+  &.components-disabled {
     cursor: not-allowed;
     background-color: var(--iui-color-background-disabled);
     border-color: var(--iui-color-border-foreground-disabled);
