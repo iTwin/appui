@@ -36,7 +36,6 @@ interface DateTimeEditorState {
   value: Date;
   displayValue?: string;
   timeDisplay?: TimeDisplay;
-  isDisabled?: boolean;
   typeConverter?: TypeConverter;
   editInUtc: boolean;
 }
@@ -225,7 +224,6 @@ export class DateTimeEditor
       throw new Error("Unable to determine TypeConverter");
     }
 
-    const isDisabled = record && !!record.isDisabled;
     const displayValue = await typeConverter.convertPropertyToString(
       record!.property,
       initialValue
@@ -234,7 +232,6 @@ export class DateTimeEditor
     if (this._isMounted)
       this.setState({
         value: initialValue,
-        isDisabled,
         timeDisplay,
         typeConverter,
         displayValue,
@@ -300,6 +297,8 @@ export class DateTimeEditor
           onClose={this._handleClose}
           onEnter={this._handleEnter}
           setFocus={this.props.setFocus}
+          disabled={this.props.propertyRecord?.isDisabled}
+          readonly={this.props.propertyRecord?.isReadonly}
         >
           <PopupContent>
             <>

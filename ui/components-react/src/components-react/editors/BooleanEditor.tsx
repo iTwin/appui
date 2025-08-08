@@ -18,7 +18,6 @@ import { PropertyEditorBase } from "./PropertyEditorManager.js";
 /** @internal */
 interface BooleanEditorState {
   checkboxValue: boolean;
-  isDisabled?: boolean;
 }
 
 /** BooleanEditor React component that is a property editor with checkbox input
@@ -33,7 +32,6 @@ export class BooleanEditor
 
   public override readonly state: Readonly<BooleanEditorState> = {
     checkboxValue: false,
-    isDisabled: false,
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -105,7 +103,6 @@ export class BooleanEditor
   private setStateFromProps() {
     const { propertyRecord } = this.props;
     let checkboxValue = false;
-    let isDisabled = false;
 
     if (
       propertyRecord &&
@@ -115,10 +112,10 @@ export class BooleanEditor
       checkboxValue = primitiveValue as boolean;
     }
 
-    if (propertyRecord && propertyRecord.isDisabled)
-      isDisabled = propertyRecord.isDisabled;
-
-    if (this._isMounted) this.setState({ checkboxValue, isDisabled });
+    if (this._isMounted)
+      this.setState({
+        checkboxValue,
+      });
   }
 
   public override render() {
@@ -128,7 +125,6 @@ export class BooleanEditor
       this.props.className
     );
     const checked = this.state.checkboxValue;
-    const isDisabled = !!this.state.isDisabled;
 
     return (
       <Checkbox
@@ -139,7 +135,10 @@ export class BooleanEditor
         checked={checked}
         onChange={this._updateCheckboxValue}
         autoFocus={this.props.setFocus} // eslint-disable-line jsx-a11y/no-autofocus
-        disabled={isDisabled}
+        disabled={
+          this.props.propertyRecord?.isDisabled ||
+          this.props.propertyRecord?.isReadonly
+        }
         data-testid="components-checkbox-editor"
       ></Checkbox>
     );

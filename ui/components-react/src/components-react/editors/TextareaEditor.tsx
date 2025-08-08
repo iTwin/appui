@@ -36,8 +36,6 @@ type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 /** @internal */
 interface TextareaEditorState {
   inputValue: string;
-  readonly: boolean;
-  isDisabled?: boolean;
   size?: number;
   maxLength?: number;
   rows: number;
@@ -58,7 +56,6 @@ export class TextareaEditor
 
   public override readonly state: Readonly<TextareaEditorState> = {
     inputValue: "",
-    readonly: false,
     rows: DEFAULT_ROWS,
   };
 
@@ -123,13 +120,9 @@ export class TextareaEditor
       ).convertPropertyToString(record.property, value);
     }
 
-    const readonly =
-      record && undefined !== record.isReadonly ? record.isReadonly : false;
     let size: number | undefined;
     let maxLength: number | undefined;
     let rows: number = DEFAULT_ROWS;
-
-    const isDisabled = record ? record.isDisabled : undefined;
 
     if (
       record &&
@@ -158,10 +151,8 @@ export class TextareaEditor
     if (this._isMounted)
       this.setState({
         inputValue: initialValue,
-        readonly,
         size,
         maxLength,
-        isDisabled,
         rows,
       });
   }
@@ -199,12 +190,12 @@ export class TextareaEditor
       className: "components-textarea-editor-textarea",
       style,
       rows: this.state.rows,
-      readOnly: this.state.readonly,
-      disabled: this.state.isDisabled,
+      readOnly: this.props.propertyRecord?.isReadonly,
+      disabled: this.props.propertyRecord?.isDisabled,
       maxLength: this.state.maxLength,
       value: this.state.inputValue,
       onChange: this._updateTextareaValue,
-      autoFocus: this.props.setFocus && !this.state.isDisabled,
+      autoFocus: this.props.setFocus && !this.props.propertyRecord?.isDisabled,
     };
 
     textareaProps["aria-label"] = UiComponents.translate("editor.textarea");
