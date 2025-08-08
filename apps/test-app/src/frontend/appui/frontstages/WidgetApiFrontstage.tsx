@@ -5,6 +5,7 @@
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import {
+  BackstageAppButton,
   BackstageItemUtilities,
   ConditionalBooleanValue,
   Frontstage,
@@ -70,6 +71,12 @@ export function createWidgetApiFrontstage(): Frontstage {
         },
       ],
     },
+    cornerButton: (
+      <BackstageAppButton
+        key="appui-test-providers-WidgetApi-backstage"
+        icon="icon-bentley-systems"
+      />
+    ),
     defaultTool: MeasureDistanceTool.toolId,
     usage: StageUsage.General,
     topPanelProps: {
