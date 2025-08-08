@@ -1816,6 +1816,7 @@ export interface ExpandableSectionProps extends CommonProps {
 
 // @public @deprecated
 export interface ExtensibleToolbarProps {
+    activeItemIds?: string[];
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
     usage: ToolbarUsage;
@@ -5369,6 +5370,9 @@ export function useActiveIModelConnection(): IModelConnection | undefined;
 
 // @public
 export function useActiveStageId(): string;
+
+// @public
+export function useActiveToolId(): string | undefined;
 
 // @public
 export function useActiveViewport(): ScreenViewport | undefined;

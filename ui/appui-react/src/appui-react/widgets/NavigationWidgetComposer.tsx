@@ -33,6 +33,7 @@ import { UiFramework } from "../UiFramework.js";
 import { useActiveViewport } from "../hooks/useActiveViewport.js";
 import { ViewUtilities } from "../utils/ViewUtilities.js";
 import { SheetNavigationAid } from "../navigationaids/SheetNavigationAid.js";
+import { useUiVisibility } from "../hooks/useUiVisibility.js";
 
 function createNavigationAidControl(
   // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -233,6 +234,7 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
     elementSet,
     UiFramework.visibility.snapWidgetOpacity
   );
+  const uiIsVisible = useUiVisibility();
 
   const navigationAid = hideNavigationAid
     ? undefined
@@ -268,6 +270,7 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
         verticalToolbar={verticalToolbar}
         {...otherProps}
         onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
+        hidden={!uiIsVisible}
       />
     </WidgetOpacityContext.Provider>
   );
