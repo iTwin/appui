@@ -1,5 +1,34 @@
 # Change Log - @itwin/appui-react
 
+## 5.13.0
+
+### Minor Changes
+
+- 0eb12bd: Added `isActiveCondition` property to `CommonToolbarItem` interface, which allows to dynamically update the active state of a toolbar item using a conditional value.
+
+  ```tsx
+  let isActive = false;
+  const eventId = "my-action-active-changed";
+  function toggleActive() {
+    isActive = !isActive;
+    SyncUiEventDispatcher.dispatchSyncUiEvent(eventId);
+  }
+
+  ToolbarItemUtilities.createActionItem({
+    id: "my-action",
+    execute: toggleActive,
+    isActiveCondition: new ConditionalBooleanValue(() => isActive, [eventId]),
+  });
+  ```
+
+- 0eb12bd: Deprecated `isActive` property of `CommonToolbarItem` interface. Use `isActiveCondition` property instead.
+
+### Patch Changes
+
+- @itwin/components-react@5.13.0
+- @itwin/core-react@5.13.0
+- @itwin/imodel-components-react@5.13.0
+
 ## 5.12.1
 
 ### Patch Changes
