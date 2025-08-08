@@ -28,8 +28,6 @@ interface IconEditorState {
   icon: string;
   icons: string[];
   numColumns: number;
-  readonly?: boolean;
-  isDisabled?: boolean;
 }
 
 /** IconEditor React component that is a property editor with button and popup
@@ -49,7 +47,6 @@ export class IconEditor
     let icon = "";
     let numColumns = 4;
     const icons: string[] = [];
-    const readonly = false;
 
     // TODO: add support for following if we need to specify set of weights to display
     const record = props.propertyRecord;
@@ -71,7 +68,7 @@ export class IconEditor
       }
     }
 
-    this.state = { icon, icons, numColumns, readonly };
+    this.state = { icon, icons, numColumns };
   }
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -101,7 +98,7 @@ export class IconEditor
   }
 
   private setFocus(): void {
-    if (this._control && !this.state.isDisabled) {
+    if (this._control && !this.props.propertyRecord?.isDisabled) {
       this._control.setFocus();
     }
   }
@@ -147,12 +144,8 @@ export class IconEditor
       initialValue = record.value.value as string;
     }
 
-    const readonly =
-      record && undefined !== record.isReadonly ? record.isReadonly : false;
-    const isDisabled = record ? record.isDisabled : undefined;
-
     if (this._isMounted)
-      this.setState({ icon: initialValue, readonly, isDisabled }, () => {
+      this.setState({ icon: initialValue }, () => {
         if (this.props.setFocus) {
           this.setFocus();
         }
@@ -172,8 +165,8 @@ export class IconEditor
           icon={icon}
           icons={icons}
           numColumns={numColumns}
-          disabled={this.state.isDisabled}
-          readonly={this.state.readonly}
+          disabled={this.props.propertyRecord?.isDisabled}
+          readonly={this.props.propertyRecord?.isReadonly}
           onIconChange={this._onIconChange}
           data-testid="components-icon-editor"
         />

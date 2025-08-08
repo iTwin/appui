@@ -191,6 +191,10 @@ export class EnumEditor
           }}
           aria-label={UiComponents.translate("editor.enum")}
           size="small"
+          disabled={
+            this.props.propertyRecord?.isDisabled ||
+            this.props.propertyRecord?.isReadonly
+          }
         />
       </div>
     );

@@ -29,7 +29,6 @@ interface ImageCheckBoxEditorState {
   /** Image for the "unchecked" (default) state */
   imageOff: string;
   checkboxValue: boolean;
-  isDisabled?: boolean;
 }
 /** [[ImageCheckBoxEditor]]
  * Boolean editor that renders with an image instead of checkbox
@@ -46,7 +45,6 @@ export class ImageCheckBoxEditor
     imageOff: "",
     imageOn: "",
     checkboxValue: false,
-    isDisabled: false,
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -93,7 +91,6 @@ export class ImageCheckBoxEditor
     let checkboxValue = false;
     let imageOn = "";
     let imageOff = "";
-    let isDisabled = false;
 
     if (
       propertyRecord &&
@@ -102,9 +99,6 @@ export class ImageCheckBoxEditor
       const primitiveValue = propertyRecord.value.value;
       checkboxValue = primitiveValue as boolean;
     }
-
-    if (propertyRecord && propertyRecord.isDisabled)
-      isDisabled = propertyRecord.isDisabled;
 
     if (
       propertyRecord &&
@@ -121,7 +115,7 @@ export class ImageCheckBoxEditor
         imageOff = imageCheckBoxParams.imageOff;
       }
     }
-    this.setState({ imageOn, imageOff, checkboxValue, isDisabled });
+    this.setState({ imageOn, imageOff, checkboxValue });
   }
 
   private _handleClick = (checked: boolean) => {
@@ -150,7 +144,9 @@ export class ImageCheckBoxEditor
       this.props.className
     );
     const checked = this.state.checkboxValue;
-    const isDisabled = !!this.state.isDisabled;
+    const isDisabled =
+      this.props.propertyRecord?.isDisabled ||
+      this.props.propertyRecord?.isReadonly;
 
     return (
       // eslint-disable-next-line @typescript-eslint/no-deprecated

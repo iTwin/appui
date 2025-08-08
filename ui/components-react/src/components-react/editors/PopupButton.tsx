@@ -48,6 +48,10 @@ export interface PopupButtonProps extends CommonProps {
   setFocus?: boolean;
   /** Indicates whether to close the popup when Enter is pressed (defaults to true) */
   closeOnEnter?: boolean;
+  /** Disabled or not */
+  disabled?: boolean;
+  /** Readonly or not */
+  readonly?: boolean;
 
   /** Listens for click events on button area */
   onClick?: (event: React.MouseEvent) => void;
@@ -81,6 +85,8 @@ export class PopupButton extends React.PureComponent<
   }
 
   private _togglePopup = (event: React.MouseEvent) => {
+    if (this.props.readonly || this.props.disabled) return;
+
     this.setState(
       (prevState) => ({ showPopup: !prevState.showPopup }),
       () => this.props.onClick && this.props.onClick(event)
@@ -121,7 +127,9 @@ export class PopupButton extends React.PureComponent<
 
     const classNames = classnames(
       "components-popup-button",
-      this.state.showPopup && "components-popup-expanded"
+      this.state.showPopup && "components-popup-expanded",
+      this.props.readonly && "components-readonly",
+      this.props.disabled && "components-disabled"
     );
 
     const valueClassNames = classnames(
@@ -139,6 +147,7 @@ export class PopupButton extends React.PureComponent<
           tabIndex={0}
           ref={this._buttonRef}
           title={this.props.title}
+          aria-disabled={this.props.disabled}
           role="button"
         >
           <div className={valueClassNames}>

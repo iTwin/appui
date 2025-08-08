@@ -35,8 +35,6 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 /** @internal */
 interface TextEditorState {
   inputValue: string;
-  readonly: boolean;
-  isDisabled?: boolean;
   size?: number;
   maxLength?: number;
   iconSpec?: string;
@@ -54,7 +52,6 @@ export class TextEditor
 
   public override readonly state: Readonly<TextEditorState> = {
     inputValue: "",
-    readonly: false,
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -131,13 +128,9 @@ export class TextEditor
       ).convertPropertyToString(record.property, value);
     }
 
-    const readonly =
-      record && undefined !== record.isReadonly ? record.isReadonly : false;
     let size: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
-
-    const isDisabled = record ? record.isDisabled : undefined;
 
     if (
       record &&
@@ -166,10 +159,8 @@ export class TextEditor
     if (this._isMounted)
       this.setState({
         inputValue: initialValue,
-        readonly,
         size,
         maxLength,
-        isDisabled,
         iconSpec,
       });
   }
@@ -189,13 +180,13 @@ export class TextEditor
       type: "text",
       className,
       style: this.props.style ? this.props.style : minWidthStyle,
-      readOnly: this.state.readonly,
-      disabled: this.state.isDisabled,
+      readOnly: this.props.propertyRecord?.isReadonly,
+      disabled: this.props.propertyRecord?.isDisabled,
       maxLength: this.state.maxLength,
       value: this.state.inputValue,
       onBlur: this.props.onBlur,
       onChange: this._updateInputValue,
-      autoFocus: this.props.setFocus && !this.state.isDisabled,
+      autoFocus: this.props.setFocus && !this.props.propertyRecord?.isDisabled,
       "aria-label": UiComponents.translate("editor.text"),
     };
 

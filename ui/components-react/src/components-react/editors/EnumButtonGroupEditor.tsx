@@ -166,14 +166,18 @@ export class EnumButtonGroupEditor
     }
   };
 
-  private getButton(choice: EnumerationChoice, index: number) {
+  private getButton(
+    choice: EnumerationChoice,
+    index: number,
+    disabled?: boolean
+  ) {
     const choiceValue = this.state.choices
       ? this.state.choices[index].value
       : 0;
     const isActive = choiceValue === this.state.selectValue ? true : false;
-    let isDisabled = false;
+    let isDisabled = disabled;
     const isEnabledFunction = this.state.enumIcons[index].isEnabledFunction;
-    if (isEnabledFunction) {
+    if (isEnabledFunction && !isDisabled) {
       isDisabled = !isEnabledFunction();
     }
 
@@ -221,7 +225,12 @@ export class EnumButtonGroupEditor
         {this.state.choices &&
           this.state.enumIcons.length &&
           this.state.choices.map((choice: EnumerationChoice, index: number) =>
-            this.getButton(choice, index)
+            this.getButton(
+              choice,
+              index,
+              this.props.propertyRecord?.isDisabled ||
+                this.props.propertyRecord?.isReadonly
+            )
           )}
       </div>
     );

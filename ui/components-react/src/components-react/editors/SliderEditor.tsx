@@ -34,7 +34,6 @@ type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
 /** @internal */
 interface SliderEditorState {
   value: number;
-  isDisabled?: boolean;
   min: number;
   max: number;
   size?: number;
@@ -152,8 +151,6 @@ export class SliderEditor
       | undefined;
     let thumbMode: "allow-crossing" | "inhibit-crossing" | undefined;
 
-    const isDisabled = record ? record.isDisabled : undefined;
-
     if (
       record &&
       record.property &&
@@ -223,7 +220,6 @@ export class SliderEditor
     if (this._isMounted)
       this.setState({
         value: initialValue,
-        isDisabled,
         size,
         min,
         max,
@@ -310,7 +306,7 @@ export class SliderEditor
         step={this.state.step}
         thumbMode={this.state.thumbMode}
         trackDisplayMode={this.state.trackDisplayMode}
-        disabled={this.state.isDisabled}
+        disabled={this.props.propertyRecord?.isDisabled}
         minLabel={this.state.minLabel}
         maxLabel={this.state.maxLabel}
         tooltipProps={this.tooltipProps}
@@ -327,6 +323,8 @@ export class SliderEditor
           onClose={this._handleClose}
           onEnter={this._handleEnter}
           setFocus={this.props.setFocus}
+          disabled={this.props.propertyRecord?.isDisabled}
+          readonly={this.props.propertyRecord?.isReadonly}
         >
           <PopupContent>
             {popupContent}
