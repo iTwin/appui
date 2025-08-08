@@ -880,7 +880,9 @@ export interface CommonToolbarItem {
     readonly groupPriority?: number;
     readonly iconNode?: React.ReactNode;
     readonly id: string;
+    // @deprecated
     readonly isActive?: boolean;
+    readonly isActiveCondition?: boolean | ConditionalBooleanValue_2;
     readonly isDisabled?: boolean | ConditionalBooleanValue_2;
     readonly isHidden?: boolean | ConditionalBooleanValue_2;
     readonly itemPriority: number;

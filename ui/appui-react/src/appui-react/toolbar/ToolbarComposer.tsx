@@ -17,6 +17,7 @@ import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import { UiFramework } from "../UiFramework.js";
 import { ToolbarDragInteractionContext } from "./DragInteraction.js";
 import type {
+  CommonToolbarItem,
   ToolbarActionItem,
   ToolbarGroupItem,
   ToolbarItem,
@@ -195,13 +196,14 @@ export interface ExtensibleToolbarProps {
   orientation: ToolbarOrientation;
   /** Describes the ids of active toolbar items.
    * By default only the toolbar item with id that matches the active `Tool` id is active.
+   * @note Property {@link CommonToolbarItem.isActiveCondition} takes precedence when determining the active state of a toolbar item.
    */
   activeItemIds?: string[];
 }
 
 /**
  * Toolbar that is populated and maintained by UI item providers.
- * @note Overrides `isActive` property based on the active tool id, unless `activeItemIds` is specified.
+ * @note Overrides {@link CommonToolbarItem.isActive} property based on the active tool id, unless {@link ExtensibleToolbarProps.activeItemIds} is specified.
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -282,6 +284,7 @@ export function updateActiveItems(
       const [current, ancestors] = stack.pop()!;
 
       const isActive = activeItemIds.includes(current.id);
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       current.isActive = isActive;
 
       if ("items" in current) {
@@ -294,6 +297,7 @@ export function updateActiveItems(
 
       // Mark ancestors of active item as active.
       for (const ancestor of ancestors) {
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         ancestor.isActive = true;
       }
     }

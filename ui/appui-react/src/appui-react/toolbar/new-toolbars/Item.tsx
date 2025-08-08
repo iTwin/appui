@@ -26,6 +26,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const { item, ...other } = props;
     const { renderSeparator } = useSafeContext(ToolbarItemContext);
     const label = useConditionalProp(item.label);
+    const isActiveCondition = useConditionalProp(item.isActiveCondition);
     const isDisabled = useConditionalProp(item.isDisabled);
     const isHidden = useConditionalProp(item.isHidden);
     // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -38,7 +39,8 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
           <IconButton
             styleType="borderless"
             disabled={isDisabled}
-            isActive={item.isActive}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            isActive={isActiveCondition ?? item.isActive}
             label={label}
             labelProps={labelProps}
             style={props.style}

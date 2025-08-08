@@ -219,6 +219,10 @@ export const Conditional: Story = {
           bump();
           items.action1.execute();
         },
+        isActiveCondition: new ConditionalBooleanValue(
+          () => getVal() % 2 === 1,
+          [eventId]
+        ),
       },
       {
         ...items.action2,

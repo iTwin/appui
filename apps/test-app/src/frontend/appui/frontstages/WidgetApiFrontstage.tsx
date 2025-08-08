@@ -7,6 +7,7 @@ import { ConditionalStringValue } from "@itwin/appui-abstract";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
+  ConditionalBooleanValue,
   Frontstage,
   FrontstageUtilities,
   StagePanelLocation,
@@ -15,14 +16,11 @@ import {
   StageUsage,
   StandardContentLayouts,
   StandardLayout,
-  ToolbarComposer,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
-  ToolWidgetComposer,
   UiFramework,
   UiItemsProvider,
-  useActiveToolId,
   useConditionalValue,
   Widget,
   WidgetAction,
@@ -73,6 +71,12 @@ export function createWidgetApiFrontstage(): Frontstage {
         },
       ],
     },
+    cornerButton: (
+      <BackstageAppButton
+        key="appui-test-providers-WidgetApi-backstage"
+        icon="icon-bentley-systems"
+      />
+    ),
     defaultTool: MeasureDistanceTool.toolId,
     usage: StageUsage.General,
     topPanelProps: {
@@ -98,10 +102,6 @@ export function createWidgetApiFrontstage(): Frontstage {
 
   return {
     ...config,
-    contentManipulation: {
-      id: `${createWidgetApiFrontstage.stageId}-contentManipulationTools`,
-      content: <ContentManipulationWidget />,
-    },
     toolSettings,
     layout: (
       <StandardLayout
@@ -121,52 +121,6 @@ export function createWidgetApiFrontstage(): Frontstage {
   };
 }
 createWidgetApiFrontstage.stageId = "widget-api";
-
-function useActiveItemIds() {
-  const activeToolId = useActiveToolId();
-  const [showCustomViewOverlay, setShowCustomViewOverlay] = React.useState(
-    () => store.state.showCustomViewOverlay
-  );
-  React.useEffect(() => {
-    return store.onChanged.addListener(() => {
-      setShowCustomViewOverlay(store.state.showCustomViewOverlay);
-    });
-  }, []);
-  return React.useMemo(
-    () => [
-      ...(activeToolId ? [activeToolId] : []),
-      ...(showCustomViewOverlay
-        ? [createToggleCustomOverlayToolbarItem.id]
-        : []),
-    ],
-    [activeToolId, showCustomViewOverlay]
-  );
-}
-
-function ContentManipulationWidget() {
-  const activeItemIds = useActiveItemIds();
-  return (
-    <ToolWidgetComposer
-      cornerItem={<BackstageAppButton icon="icon-bentley-systems" />}
-      horizontalToolbar={
-        <ToolbarComposer
-          items={[]}
-          usage={ToolbarUsage.ContentManipulation}
-          orientation={ToolbarOrientation.Horizontal}
-          activeItemIds={activeItemIds}
-        />
-      }
-      verticalToolbar={
-        <ToolbarComposer
-          items={[]}
-          usage={ToolbarUsage.ContentManipulation}
-          orientation={ToolbarOrientation.Vertical}
-          activeItemIds={activeItemIds}
-        />
-      }
-    />
-  );
-}
 
 function RestoreLayoutWidgetAction() {
   return (
@@ -502,22 +456,24 @@ function CustomOverlayIcon() {
 }
 
 function createToggleCustomOverlayToolbarItem() {
-  const label = new ConditionalStringValue(
-    () => (store.state.showCustomViewOverlay ? "Hide overlay" : "Show overlay"),
-    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
-  );
-  const execute = () => {
-    const showCustomViewOverlay = store.state.showCustomViewOverlay;
-    store.setShowCustomViewOverlay(!showCustomViewOverlay);
-    IModelApp.toolAdmin.dispatchUiSyncEvent(
-      AppUiTestProviders.syncEventIdHideCustomViewOverlay
-    );
-  };
   return ToolbarItemUtilities.createActionItem({
     id: createToggleCustomOverlayToolbarItem.id,
     icon: <CustomOverlayIcon />,
-    label,
-    execute,
+    label: new ConditionalStringValue(
+      () =>
+        store.state.showCustomViewOverlay ? "Hide overlay" : "Show overlay",
+      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+    ),
+    execute: () => {
+      const showCustomViewOverlay = store.state.showCustomViewOverlay;
+      store.setShowCustomViewOverlay(!showCustomViewOverlay);
+      IModelApp.toolAdmin.dispatchUiSyncEvent(
+        AppUiTestProviders.syncEventIdHideCustomViewOverlay
+      );
+    },
+    isActiveCondition: new ConditionalBooleanValue(() => {
+      return store.state.showCustomViewOverlay;
+    }, [AppUiTestProviders.syncEventIdHideCustomViewOverlay]),
   });
 }
 createToggleCustomOverlayToolbarItem.id = "testHideShowItems";

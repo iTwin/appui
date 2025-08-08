@@ -51,8 +51,12 @@ export interface CommonToolbarItem {
   readonly badgeKind?: BadgeKind;
   /** Optional description */
   readonly description?: string | ConditionalStringValue;
-  /** Defines if the item is active (shown with an active stripe/bar). */
+  /** Defines if the item is active (shown with an active stripe/bar).
+   * @deprecated in 5.13.0. Ignored by `ToolbarComposer` component. Use {@link CommonToolbarItem.isActiveCondition} instead.
+   */
   readonly isActive?: boolean;
+  /** Describes if the item is active. Use conditional value to dynamically update the active state. */
+  readonly isActiveCondition?: boolean | ConditionalBooleanValue;
   /** Describes if the item is visible or hidden. The default is for the item to be visible. */
   readonly isHidden?: boolean | ConditionalBooleanValue;
   /** Describes if the item is enabled or disabled. The default is for the item to be enabled. */
