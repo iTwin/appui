@@ -59,29 +59,40 @@
     "ratio": "Ratio",
     "labels": {
       "compositeSpacer": "Composite Spacer",
+      "compositeSpacerDescription": "Character that appears between units when displaying measurements with multiple units",
       "formatted": "Formatted",
       "precision": "Precision",
-      "type": "Type",
-      "appendUnitLabel": "Append Unit Label",
+      "type": "Format Type",
+      "formatTypeSublabel": "Select the format for which you would like to display measurements",
+      "appendUnitLabel": "Show Unit Label",
       "labelSeparator": "Label Separator",
       "signOptionLabel": "Sign Option",
-      "stationOffsetLabel": "Station Offset",
+      "signOptionTooltip": "Controls when + or - signs appear",
+      "stationOffsetLabel": "Station Format",
       "stationSeparatorLabel": "Station Separator",
       "decimalSeparatorLabel": "Decimal Separator",
-      "showTrailZerosLabel": "Show Trail Zeros",
-      "keepSingleZeroLabel": "Keep Single Zero",
-      "zeroEmptyLabel": "Zero Empty",
+      "showTrailZerosLabel": "Show Trailing Zeros",
+      "keepSingleZeroLabel": "Add Single Zero After Decimal Point",
+      "zeroEmptyLabel": "Hide If Zero",
       "moreLabel": "More",
       "lessLabel": "Less",
       "keepDecimalPointLabel": "Keep Decimal Point",
       "fractionDashLabel": "Fraction Dash",
       "scientificTypeLabel": "Scientific Type",
+      "scientificTypeTooltip": "Select which scientific notation to use",
       "useThousandSeparatorLabel": "Use Thousand Separator",
       "thousandSeparatorLabel": "Thousand Separator",
+      "thousandSelectorTooltip": "When this and the decimal separator are set to the same character, one will be flipped to avoid conflicts",
       "value": "Value",
       "ratioTypeLabel": "Ratio Type",
       "azimuthBase": "Azimuth Base",
-      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise"
+      "azimuthCounterClockwise": "Enable Azimuth Counter-Clockwise",
+      "samplePreview": "Preview",
+      "units": "Units",
+      "advancedOptions": "Advanced Options",
+      "addSubUnit": "Add Sub Unit",
+      "removeUnit": "Remove Unit",
+      "azimuthBaseUnit": "Azimuth Base Unit"
     },
     "fraction_precision": {
       "whole": "Whole",
@@ -95,8 +106,10 @@
       "over256": "1/256"
     },
     "station_size": {
+      "one": "0+0",
       "two": "0+00",
-      "three": "0+000"
+      "three": "0+000",
+      "four": "0+0000"
     },
     "station_separator": {
       "plus": "+",
@@ -105,7 +118,7 @@
       "caret": "^"
     },
     "decimal_precision": {
-      "zero": "1",
+      "zero": "0",
       "one": "0.1",
       "two": "0.01",
       "three": "0.001",
@@ -162,8 +175,9 @@
       }
     },
     "azimuthType": {
-      "baseTooltip": "The starting direction (base) from which azimuth angles are measured.",
-      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base."
+      "baseTooltip": "The starting direction (base) from which azimuth angles are measured",
+      "baseUnitTooltip": "Unit used as the base for measuring azimuth angles",
+      "ccwFlagTooltip": "If checked, azimuth angles are measured in a counter-clockwise direction from the base"
     }
   },
   "BearingQuantityType": {

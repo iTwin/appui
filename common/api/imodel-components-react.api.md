@@ -552,8 +552,8 @@ export type PlaybackSettingsChangeHandler = (settingsChange: PlaybackSettings) =
 // @beta
 export const QuantityEditorSpec: EditorSpec;
 
-// @alpha
-export function QuantityFormatPanel(props: QuantityFormatPanelProps): React_2.JSX.Element;
+// @beta
+export function QuantityFormatPanel(props: Props): React_2.JSX.Element;
 
 // @alpha @deprecated
 export interface QuantityFormatPanelProps extends CommonProps {

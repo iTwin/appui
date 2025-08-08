@@ -82,7 +82,6 @@ function FormatTypeSelector(props: FormatTypeSelectorProps) {
     <>
       <Label
         className="uicore-label"
-        as="div"
         displayStyle="inline"
         id={formatTypeSelectorId}
       >
