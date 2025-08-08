@@ -1,5 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.12.1
+
+### Patch Changes
+
+- Updated dependencies [105bf92]
+- Updated dependencies [61d2af4]
+  - @itwin/components-react@5.12.1
+  - @itwin/core-react@5.12.1
+
 ## 5.12.0
 
 ### Minor Changes
