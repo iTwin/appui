@@ -29,13 +29,18 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   /** Handler for mouse leave */
   onMouseLeave?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  hidden?: boolean;
 }
 
 /** A component that renders toolbars in the top right corner of standard layout.
  * @internal
  */
 export function NavigationArea(props: NavigationAreaProps) {
-  const className = classnames("nz-widget-navigationArea", props.className);
+  const className = classnames(
+    "nz-widget-navigationArea",
+    props.hidden && "nz-hidden",
+    props.className
+  );
   return (
     <div className={className} style={props.style}>
       <div
