@@ -75,7 +75,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   const label = useConditionalProp(item.label);
   const isDisabled = useConditionalProp(item.isDisabled);
   const isHidden = useConditionalProp(item.isHidden);
-  const isActive = useConditionalProp(item.isActive);
+  const isActiveCondition = useConditionalProp(item.isActiveCondition);
 
   if (isHidden) {
     return null;
@@ -100,7 +100,8 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
           onClose?.();
         }
       }}
-      isSelected={isActive}
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      isSelected={isActiveCondition ?? item.isActive}
       data-item-id={item.id}
     >
       {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}

@@ -266,6 +266,7 @@ export class ToolbarItemsManager {
         if (this.isActiveToolIdRefreshRequiredForChildren(item.items, toolId))
           return true;
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const isActive = !!item.isActive;
         if (
           (isActive && item.id !== toolId) ||
@@ -289,6 +290,7 @@ export class ToolbarItemsManager {
         )
           return true;
       } else {
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         const isActive = !!item.isActive;
         if (
           (isActive && item.id !== toolId) ||
@@ -320,6 +322,7 @@ export class ToolbarItemsManager {
         };
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       updatedItem.isActive = updatedItem.id === toolId;
       newChildren.push(updatedItem);
     }
@@ -345,6 +348,7 @@ export class ToolbarItemsManager {
         };
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       updatedItem.isActive = updatedItem.id === toolId;
       newItems.push(updatedItem);
     }
