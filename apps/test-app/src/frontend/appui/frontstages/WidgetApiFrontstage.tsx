@@ -5,7 +5,6 @@
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import {
-  BackstageAppButton,
   BackstageItemUtilities,
   ConditionalBooleanValue,
   Frontstage,
@@ -16,14 +15,11 @@ import {
   StageUsage,
   StandardContentLayouts,
   StandardLayout,
-  ToolbarComposer,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
-  ToolWidgetComposer,
   UiFramework,
   UiItemsProvider,
-  useActiveToolId,
   useConditionalValue,
   Widget,
   WidgetAction,
