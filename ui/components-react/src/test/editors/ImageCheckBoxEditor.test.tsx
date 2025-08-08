@@ -124,7 +124,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     const inputNode = screen.getByRole("checkbox");
 
-    fireEvent.keyDown(inputNode, { key: Key.Enter });
+    fireEvent.click(inputNode);
     await TestUtils.flushAsyncOperations();
     expect(spyOnCommit).not.toBeCalled();
 
