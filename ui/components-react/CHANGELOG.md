@@ -1,5 +1,13 @@
 # Change Log - @itwin/components-react
 
+## 5.12.1
+
+### Patch Changes
+
+- 105bf92: Add support for closing `EditorContainer` when `ENTER` is pressed or input is blurred but value is not changed.
+- 61d2af4: Fixed editors in property grid to correctly handle properties that are `isReadonly` or `isDisabled`.
+  - @itwin/core-react@5.12.1
+
 ## 5.12.0
 
 ### Patch Changes
