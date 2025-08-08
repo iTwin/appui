@@ -6,7 +6,7 @@ import * as React from "react";
 import { Provider } from "react-redux";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { render } from "@testing-library/react";
-import type { FrontstageConfig } from "../../appui-react.js";
+import type { FrontstageConfig, ToolbarGroupItem } from "../../appui-react.js";
 import {
   CommandItemDef,
   CustomItemDef,
@@ -14,6 +14,7 @@ import {
   GroupItemDef,
   ToolbarComposer,
   ToolbarHelper,
+  ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   ToolItemDef,
@@ -21,6 +22,7 @@ import {
   UiItemsManager,
 } from "../../appui-react.js";
 import TestUtils from "../TestUtils.js";
+import { updateActiveItems } from "../../appui-react/toolbar/ToolbarComposer.js";
 
 describe("<ToolbarComposer  />", async () => {
   const testItemEventId = "test-event";
@@ -187,5 +189,70 @@ describe("<ToolbarComposer  />", async () => {
     getByRole("button", { name: "Tool_1E" });
 
     UiItemsManager.unregister("p1");
+  });
+});
+
+describe("updateActiveItems", () => {
+  it("should update items", () => {
+    const items = [
+      ToolbarItemUtilities.createActionItem({
+        id: "Btn1",
+      }),
+      ToolbarItemUtilities.createActionItem({
+        id: "Btn2",
+      }),
+    ];
+
+    const sut = updateActiveItems(items, ["Btn2"]);
+
+    expect(sut[0].isActive).toEqual(false);
+    expect(sut[1].isActive).toEqual(true);
+  });
+
+  it("should activate ancestors of active items", () => {
+    const items = [
+      ToolbarItemUtilities.createGroupItem({
+        id: "Grp1",
+        items: [
+          ToolbarItemUtilities.createActionItem({
+            id: "Btn1",
+            isActive: false,
+          }),
+          ToolbarItemUtilities.createGroupItem({
+            id: "Grp2",
+            items: [
+              ToolbarItemUtilities.createActionItem({
+                id: "Btn2",
+              }),
+            ],
+          }),
+        ],
+      }),
+      ToolbarItemUtilities.createActionItem({
+        id: "Btn3",
+        isActive: true,
+      }),
+    ];
+    const sut = updateActiveItems(items, ["Btn2"]);
+
+    const group1 = sut[0] as ToolbarGroupItem;
+    expect(group1.id).toEqual("Grp1");
+    expect(group1.isActive).toEqual(true);
+
+    const button1 = group1.items[0];
+    expect(button1.id).toEqual("Btn1");
+    expect(button1.isActive).toEqual(false);
+
+    const group2 = group1.items[1] as ToolbarGroupItem;
+    expect(group2.id).toEqual("Grp2");
+    expect(group2.isActive).toEqual(true);
+
+    const button2 = group2.items[0];
+    expect(button2.id).toEqual("Btn2");
+    expect(button2.isActive).toEqual(true);
+
+    const button3 = sut[1];
+    expect(button3.id).toEqual("Btn3");
+    expect(button3.isActive).toEqual(false);
   });
 });
