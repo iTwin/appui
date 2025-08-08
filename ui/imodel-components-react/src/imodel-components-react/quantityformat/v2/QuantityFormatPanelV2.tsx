@@ -13,7 +13,10 @@ import { FormatPanelV2 } from "./FormatPanelV2.js";
 import { Divider } from "@itwin/itwinui-react";
 import { FormatSampleV2 } from "./FormatSampleV2.js";
 
-interface QuantityFormatPanelV2Props {
+/** Properties of [[QuantityFormatPanelV2]] component.
+ * @internal
+ */
+export interface QuantityFormatPanelV2Props {
   formatDefinition: FormatProps;
   unitsProvider: UnitsProvider;
   onFormatChange: (formatProps: FormatProps) => void;
@@ -22,7 +25,7 @@ interface QuantityFormatPanelV2Props {
 }
 
 /** Quantity Format Panel V2 that uses the new FormatPanelV2 structure
- * @beta
+ * @internal
  */
 export function QuantityFormatPanelV2(props: QuantityFormatPanelV2Props) {
   const {

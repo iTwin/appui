@@ -29,7 +29,7 @@ interface FormatSampleV2Props {
 
 /** Component to show the persistence value and formatted value for FormatProps.
  * Creates its own FormatterSpec internally based on formatProps and persistenceUnit.
- * @beta
+ * @internal
  */
 export function FormatSampleV2(props: FormatSampleV2Props) {
   const { formatProps, unitsProvider, persistenceUnit, initialMagnitude } =

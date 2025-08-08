@@ -114,9 +114,6 @@ export {
   QuantityFormatPanel,
   QuantityFormatPanelProps,
 } from "./imodel-components-react/quantityformat/QuantityFormatPanel.js";
-export { QuantityFormatPanelV2 } from "./imodel-components-react/quantityformat/v2/QuantityFormatPanelV2.js";
-export { FormatSampleV2 } from "./imodel-components-react/quantityformat/v2/FormatSampleV2.js";
-export { FormatPanelV2 } from "./imodel-components-react/quantityformat/v2/FormatPanelV2.js";
 
 export {
   AnimationFractionChangeHandler,

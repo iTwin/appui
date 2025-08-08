@@ -55,7 +55,7 @@ interface FormatPanelV2Props {
 }
 
 /** Format Panel V2 that uses primary and secondary children based on format type
- * @beta
+ * @internal
  */
 export function FormatPanelV2(props: FormatPanelV2Props) {
   const { formatProps, unitsProvider, onFormatChange, persistenceUnit } = props;

@@ -28,6 +28,10 @@ import type { CommonProps } from "@itwin/core-react";
 import { Checkbox, Input, Select } from "@itwin/itwinui-react";
 import { FormatPanel } from "./FormatPanel.js";
 import { DeepCompare } from "@itwin/core-geometry";
+import {
+  QuantityFormatPanelV2,
+  type QuantityFormatPanelV2Props,
+} from "./v2/QuantityFormatPanelV2.js";
 
 function createTextInputFormatPropEditor(
   key: string,
@@ -118,7 +122,7 @@ function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   return compare.compare(obj1, obj2);
 }
 
-/** Properties of [[QuantityFormatPanel]] component.
+/** Properties of [[QuantityFormatPanelV1]] component.
  * @alpha
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof QuantityFormatPanel>`
  */
@@ -136,7 +140,7 @@ export interface QuantityFormatPanelProps extends CommonProps {
  * @alpha
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
+function QuantityFormatPanelV1(props: QuantityFormatPanelProps) {
   const {
     quantityType,
     onFormatChange,
@@ -312,4 +316,25 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
       )}
     </div>
   );
+}
+
+/** Union type for both V1 and V2 QuantityFormatPanel props
+ */
+type Props =
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  QuantityFormatPanelProps | QuantityFormatPanelV2Props;
+
+
+function isV2(props: Props): props is QuantityFormatPanelV2Props {
+  return "formatDefinition" in props && "unitsProvider" in props;
+}
+
+/** Factory function that returns the appropriate QuantityFormatPanel component based on props
+ * @beta
+ */
+export function QuantityFormatPanel(props: Props) {
+  if (isV2(props)) {
+    return <QuantityFormatPanelV2 {...props} />;
+  }
+  return <QuantityFormatPanelV1 {...props} />;
 }
