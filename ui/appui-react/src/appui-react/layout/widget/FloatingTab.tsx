@@ -63,13 +63,19 @@ export function FloatingTab({ icon }: FloatingTabProps) {
     [dispatch, id]
   );
   const onDragEnd = React.useCallback<NonNullable<UseDragTabArgs["onDragEnd"]>>(
-    (target) => {
-      id &&
-        dispatch({
-          type: "WIDGET_TAB_DRAG_END",
-          id,
-          target,
-        });
+    (target, info) => {
+      if (!id) return;
+      dispatch({
+        type: "WIDGET_TAB_DRAG_END",
+        id,
+        target,
+      });
+
+      if (!info.outside) return;
+      dispatch({
+        type: "WIDGET_TAB_POPOUT",
+        id,
+      });
     },
     [dispatch, id]
   );

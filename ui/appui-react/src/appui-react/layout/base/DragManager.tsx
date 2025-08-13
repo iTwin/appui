@@ -43,7 +43,7 @@ export interface TabDragStartArgs extends DragStartArgs {
 export interface UseDragTabArgs {
   tabId: TabState["id"];
   onDrag?: (dragBy: XAndY) => void;
-  onDragEnd?: (target: TabDragDropTargetState) => void;
+  onDragEnd?: (target: TabDragDropTargetState, info: DragEndInfo) => void;
 }
 
 /** @internal */
@@ -62,7 +62,7 @@ export function useDragTab(args: UseDragTabArgs) {
     },
     [onDrag]
   );
-  const handleDragEnd = React.useCallback<DragEventHandler>(
+  const handleDragEnd = React.useCallback<DragEndEventHandler>(
     (_item, info, target) => {
       if (!onDragEnd) return;
 
@@ -79,7 +79,7 @@ export function useDragTab(args: UseDragTabArgs) {
           size,
         };
       }
-      onDragEnd(tabTarget);
+      onDragEnd(tabTarget, info);
     },
     [onDragEnd]
   );
@@ -417,7 +417,7 @@ export interface UseDragItemArgs<T extends DragItem> {
   isDragItem?: (item: T | undefined, dragged: DragItem) => boolean;
   onDragStart?: DragEventHandler;
   onDrag?: DragEventHandler;
-  onDragEnd?: DragEventHandler;
+  onDragEnd?: DragEndEventHandler;
 }
 
 function defaultIsDragItem(item: DragItem, dragged: DragItem) {
@@ -534,8 +534,9 @@ export function DragProvider(props: DragProviderProps) {
     };
   }, []);
   React.useEffect(() => {
-    const mouseUp = () => {
-      dragManager.current.handleDragEnd();
+    const mouseUp = (e: MouseEvent) => {
+      const outside = isOutsideWindowEvent(e);
+      dragManager.current.handleDragEnd(outside);
     };
     document.addEventListener("mouseup", mouseUp);
     return () => {
@@ -553,6 +554,15 @@ export function DragProvider(props: DragProviderProps) {
       </DraggedWidgetIdProvider>
     </DragManagerContext.Provider>
   );
+}
+
+function isOutsideWindowEvent(e: MouseEvent) {
+  const isOutside =
+    e.clientX < 0 ||
+    e.clientX > window.innerWidth ||
+    e.clientY < 0 ||
+    e.clientY > window.innerHeight;
+  return isOutside;
 }
 
 function DraggedWidgetIdProvider(props: { children?: React.ReactNode }) {
@@ -625,6 +635,9 @@ interface TabDragInfo extends BaseDragInfo {
 }
 
 type DragInfo = BaseDragInfo | TabDragInfo;
+type DragEndInfo = DragInfo & {
+  outside: boolean;
+};
 
 interface HandleDragStartArgs {
   item: DragItem;
@@ -642,6 +655,11 @@ type DragEventHandler = (
   info: DragInfo,
   target: DropTargetState | undefined
 ) => void;
+type DragEndEventHandler = (
+  item: DragItem,
+  info: DragEndInfo,
+  target: DropTargetState | undefined
+) => void;
 type DropTargetChangedEventHandler = (
   target: DropTargetState | undefined
 ) => void;
@@ -652,7 +670,7 @@ export class DragManager {
   private _onDragStartEmitter = new BeEvent<DragEventHandler>();
   private _onDragUpdateEmitter = new BeEvent<DragEventHandler>();
   private _onDragEmitter = new BeEvent<DragEventHandler>();
-  private _onDragEndEmitter = new BeEvent<DragEventHandler>();
+  private _onDragEndEmitter = new BeEvent<DragEndEventHandler>();
   private _onTargetChangedEmitter =
     new BeEvent<DropTargetChangedEventHandler>();
 
@@ -725,14 +743,22 @@ export class DragManager {
     );
   }
 
-  public handleDragEnd() {
+  public handleDragEnd(outside = false) {
     if (!this._dragged) return;
 
     const item = this._dragged.item;
     const info = this._dragged.info;
     const target = this._dragged.target;
     this._dragged = undefined;
-    this._onDragEndEmitter.raiseEvent(item, info, target);
+
+    this._onDragEndEmitter.raiseEvent(
+      item,
+      {
+        ...info,
+        outside,
+      },
+      target
+    );
     target && this._onTargetChangedEmitter.raiseEvent(undefined);
   }
 
