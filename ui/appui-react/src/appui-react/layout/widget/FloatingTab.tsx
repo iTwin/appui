@@ -18,6 +18,7 @@ import {
 } from "../base/NineZone.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { TabIdContext } from "./ContentRenderer.js";
+import { usePopoutDraggedWidgets } from "../../preview/popout-dragged-widgets/usePopoutDraggedWidgets.js";
 
 interface FloatingTabProps {
   icon?: React.ReactNode;
@@ -38,6 +39,7 @@ export function FloatingTabProvider() {
  * @internal
  */
 export function FloatingTab({ icon }: FloatingTabProps) {
+  const popoutDraggedWidgets = usePopoutDraggedWidgets();
   const { id, position } = useLayout((state) => {
     const draggedTab = state.draggedTab;
     return {
@@ -71,13 +73,14 @@ export function FloatingTab({ icon }: FloatingTabProps) {
         target,
       });
 
+      if (!popoutDraggedWidgets) return;
       if (!info.outside) return;
       dispatch({
         type: "WIDGET_TAB_POPOUT",
         id,
       });
     },
-    [dispatch, id]
+    [dispatch, id, popoutDraggedWidgets]
   );
   useDragTab({
     tabId: id || "",

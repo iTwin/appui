@@ -58,6 +58,9 @@ const availableFeatures: AvailableFeatures = {
   toolSettingsKeyPressCommit: {
     label: "Enable tool settings commit on key press",
   },
+  popoutDraggedWidgets: {
+    label: "Popout dragged widgets",
+  },
 };
 
 function PreviewFeatureList() {

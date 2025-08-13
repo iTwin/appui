@@ -77,6 +77,10 @@ interface KnownPreviewFeatures {
    * If `true`, the input-like editors rendered in the tool settings will commit the entered value on key press.
    */
   toolSettingsKeyPressCommit: boolean;
+  /**
+   * If `true`, the widgets are popped out when dragged outside the window.
+   */
+  popoutDraggedWidgets: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -94,6 +98,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   toolSettingsNewEditors: undefined,
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,
+  popoutDraggedWidgets: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
