@@ -10,7 +10,12 @@ import { produce } from "immer";
 import { Point, Rectangle } from "@itwin/core-react/internal";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState.js";
-import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation.js";
+import {
+  getWidgetLocation,
+  isFloatingWidgetLocation,
+  isPanelWidgetLocation,
+  isPopoutWidgetLocation,
+} from "./WidgetLocation.js";
 import type { NineZoneAction, WidgetDefAddAction } from "./NineZoneAction.js";
 import {
   isPanelDropTargetState,
@@ -318,6 +323,44 @@ export function NineZoneStateReducer(
         });
       }
       return state;
+    }
+    case "WIDGET_POPOUT": {
+      const { id: widgetId } = action;
+      const location = getWidgetLocation(state, widgetId);
+      if (location && isPopoutWidgetLocation(location)) return state;
+
+      const contentHeight = 800;
+      const contentWidth = 600;
+
+      const preferredBounds = Rectangle.createFromSize({
+        height: contentHeight,
+        width: contentWidth,
+      });
+
+      let home: PopoutWidgetState["home"] | undefined;
+      if (location && isPanelWidgetLocation(location)) {
+        home = {
+          side: location.side,
+          widgetId,
+          widgetIndex: location.index,
+        };
+      } else if (location && isFloatingWidgetLocation(location)) {
+        const floatingWidget =
+          state.floatingWidgets.byId[location.floatingWidgetId];
+        home = {
+          widgetId: floatingWidget.id,
+          floatingWidget,
+        };
+      }
+
+      const widget = getWidgetState(state, action.id);
+      const popoutWidgetId = getUniqueId();
+      state = removeWidget(state, widgetId);
+
+      return addPopoutWidget(state, popoutWidgetId, widget.tabs, {
+        bounds: preferredBounds.toProps(),
+        home,
+      });
     }
     case "FLOATING_WIDGET_RESIZE": {
       const { resizeBy } = action;

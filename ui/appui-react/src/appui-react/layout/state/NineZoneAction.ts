@@ -177,6 +177,12 @@ export interface WidgetDragEndAction {
 }
 
 /** @internal */
+export interface WidgetPopoutAction {
+  readonly type: "WIDGET_POPOUT";
+  readonly id: TabState["id"];
+}
+
+/** @internal */
 export interface WidgetTabAddToWidgetAction {
   readonly type: "WIDGET_TAB_ADD_TO_WIDGET";
   readonly id: TabState["id"];
@@ -367,6 +373,7 @@ export type NineZoneAction =
   | PanelWidgetDragStartAction
   | WidgetDragAction
   | WidgetDragEndAction
+  | WidgetPopoutAction
   | WidgetTabAddToWidgetAction
   | WidgetTabClickAction
   | WidgetTabCloseAction

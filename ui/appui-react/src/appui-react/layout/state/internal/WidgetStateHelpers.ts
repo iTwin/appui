@@ -404,15 +404,6 @@ export function addPopoutWidget(
   popoutWidgetArgs?: Partial<PopoutWidgetState>,
   widgetArgs?: Partial<WidgetState>
 ): NineZoneState {
-  if (tabs.length !== 1)
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    throw new UiError(
-      category,
-      "Popout widget should contain one tab only",
-      undefined,
-      () => ({ tabs })
-    );
-
   const popoutWidget = createPopoutWidgetState(id, popoutWidgetArgs);
   state = addWidgetState(state, id, tabs, widgetArgs);
   return produce(state, (stateDraft) => {

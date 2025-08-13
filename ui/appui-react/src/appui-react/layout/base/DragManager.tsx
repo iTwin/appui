@@ -117,7 +117,7 @@ export interface UseDragWidgetArgs {
     pointerPosition: Point
   ) => void;
   onDrag?: (dragBy: Point) => void;
-  onDragEnd?: (target: WidgetDragDropTargetState) => void;
+  onDragEnd?: (target: WidgetDragDropTargetState, info: DragEndInfo) => void;
 }
 
 /** @internal */
@@ -153,8 +153,8 @@ export function useDragWidget(args: UseDragWidgetArgs) {
     },
     [onDrag]
   );
-  const handleDragEnd = React.useCallback<DragEventHandler>(
-    (_item, _info, target) => {
+  const handleDragEnd = React.useCallback<DragEndEventHandler>(
+    (_item, info, target) => {
       if (!onDragEnd) return;
 
       let widgetTarget: WidgetDragDropTargetState;
@@ -165,7 +165,7 @@ export function useDragWidget(args: UseDragWidgetArgs) {
           type: "window",
         };
       }
-      onDragEnd(widgetTarget);
+      onDragEnd(widgetTarget, info);
     },
     [onDragEnd]
   );

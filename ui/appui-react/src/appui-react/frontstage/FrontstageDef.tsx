@@ -729,8 +729,6 @@ export class FrontstageDef {
     if (!isPopoutWidgetLocation(location)) return false;
 
     const widget = state.widgets[widgetContainerId];
-    // Popout widget should only contain a single tab.
-    if (widget.tabs.length !== 1) return false;
 
     const tabId = widget.tabs[0];
     const widgetDef = this.findWidgetDef(tabId);

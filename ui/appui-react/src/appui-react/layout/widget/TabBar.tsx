@@ -27,6 +27,7 @@ import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { useMaximizedWidgetTabBarHandle } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { WidgetActions } from "./WidgetActions.js";
 import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
+import { usePopoutDraggedWidgets } from "../../preview/popout-dragged-widgets/usePopoutDraggedWidgets.js";
 
 /** @internal */
 export interface WidgetTabBarProps {
@@ -35,6 +36,7 @@ export interface WidgetTabBarProps {
 
 /** @internal */
 export function WidgetTabBar(props: WidgetTabBarProps) {
+  const popoutDraggedWidgets = usePopoutDraggedWidgets();
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = React.useContext(WidgetIdContext);
   const { widgetActions } = React.useContext(ConfigurableUiContext);
@@ -64,16 +66,24 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
   const onDragEnd = React.useCallback<
     NonNullable<UseDragWidgetArgs["onDragEnd"]>
   >(
-    (target) => {
-      floatingWidgetId !== undefined && handleActionAreaClick();
-      floatingWidgetId !== undefined &&
-        dispatch({
-          type: "WIDGET_DRAG_END",
-          floatingWidgetId,
-          target,
-        });
+    (target, info) => {
+      if (!floatingWidgetId) return;
+
+      handleActionAreaClick();
+      dispatch({
+        type: "WIDGET_DRAG_END",
+        floatingWidgetId,
+        target,
+      });
+
+      if (!popoutDraggedWidgets) return;
+      if (!info.outside) return;
+      dispatch({
+        type: "WIDGET_POPOUT",
+        id: floatingWidgetId,
+      });
     },
-    [dispatch, floatingWidgetId, handleActionAreaClick]
+    [dispatch, floatingWidgetId, handleActionAreaClick, popoutDraggedWidgets]
   );
   const handleWidgetDragStart = useDragWidget({
     widgetId,
