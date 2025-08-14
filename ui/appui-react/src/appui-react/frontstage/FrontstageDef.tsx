@@ -737,6 +737,7 @@ export class FrontstageDef {
     const popoutContent = (
       <ChildWindowWidget
         widgetContainerId={widgetContainerId}
+        frontstageDef={this}
         widgetDef={widgetDef}
       />
     );
