@@ -1,5 +1,12 @@
 # Change Log - @itwin/components-react
 
+## 5.13.1
+
+### Patch Changes
+
+- c3baa56: Fixed `EditorInterop` not propagating `quantityType` from `PropertyRecord` to `ValueMetadata`.
+  - @itwin/core-react@5.13.1
+
 ## 5.13.0
 
 ### Patch Changes
