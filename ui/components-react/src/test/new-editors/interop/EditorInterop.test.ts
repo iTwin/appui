@@ -345,6 +345,48 @@ describe("EditorInterop", () => {
     });
   });
 
+  it("converts PropertyRecord to ValueMetadata with additional properties", () => {
+    const record = new PropertyRecord(
+      {
+        valueFormat: PropertyValueFormat.Primitive,
+        value: 123,
+        displayValue: "123",
+      },
+      {
+        name: "TestProp",
+        typename: "int",
+        displayLabel: "Test Property",
+
+        editor: {
+          name: "TestEditor",
+        },
+        enum: {
+          choices: [
+            { value: 1, label: "One" },
+            { value: 2, label: "Two" },
+          ],
+        },
+        quantityType: "TestQuantity",
+      }
+    );
+    record.extendedData = { customData: "test" };
+
+    const { metadata } = EditorInterop.getMetadataAndValue(record);
+    expect(metadata).toMatchObject({
+      type: "number",
+      typename: "int",
+      preferredEditor: "TestEditor",
+      quantityType: "TestQuantity",
+      enum: {
+        choices: [
+          { value: 1, label: "One" },
+          { value: 2, label: "Two" },
+        ],
+      },
+      extendedData: { customData: "test" },
+    } satisfies OldEditorMetadata);
+  });
+
   describe("convertToPrimitiveValue converts Value to PrimitiveValue for type", () => {
     it("string", () => {
       const value = { value: "test" } satisfies TextValue;
