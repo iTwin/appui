@@ -43,6 +43,7 @@ export namespace EditorInterop {
       extendedData: propertyRecord.extendedData,
       enum: propertyRecord.property.enum,
       typename: propertyRecord.property.typename,
+      quantityType: propertyRecord.property.quantityType,
     };
 
     const primitiveValue = propertyRecord.value as PrimitiveValue;
