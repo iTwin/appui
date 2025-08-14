@@ -315,6 +315,7 @@ export function useTabInteractions<T extends HTMLElement>({
         });
 
       initialPointerPosition.current = new Point(args.clientX, args.clientY);
+      console.log("handlePointerDown");
     },
     [dispatch, floatingWidgetId]
   );
@@ -326,11 +327,13 @@ export function useTabInteractions<T extends HTMLElement>({
       const distance =
         initialPointerPosition.current.getDistanceTo(pointerPosition);
       if (distance < 10) return;
+      console.log("handleDragStart");
       handleDragStart(pointerPosition);
     },
     [handleDragStart]
   );
   const handlePointerUp = React.useCallback(() => {
+    console.log("handlePointerUp");
     clickCount.current++;
     initialPointerPosition.current = undefined;
     doubleClickTimer.current.start();

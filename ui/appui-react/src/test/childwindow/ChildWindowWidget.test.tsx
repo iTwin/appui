@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { render } from "@testing-library/react";
-import { WidgetDef, WidgetState } from "../../appui-react.js";
+import { FrontstageDef, WidgetDef, WidgetState } from "../../appui-react.js";
 import { ChildWindowWidget } from "../../appui-react/childwindow/ChildWindowWidget.js";
 
 describe("ChildWindowWidget", () => {
@@ -21,6 +21,7 @@ describe("ChildWindowWidget", () => {
       <ChildWindowWidget
         widgetContainerId="testContainer"
         widgetDef={widgetDef}
+        frontstageDef={new FrontstageDef()}
       />
     );
     expect(renderedComponent.queryByText("Hello")).toBeTruthy();

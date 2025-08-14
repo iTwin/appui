@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import { useRefEffect } from "@itwin/core-react/internal";
+import { useRefEffect, useRefs } from "@itwin/core-react/internal";
 import { DragManagerContext } from "./DragManager.js";
 
 /** @internal */
@@ -28,24 +28,31 @@ export const usePointerCaptor = <T extends HTMLElement>(
   onPointerUp?: (e: PointerCaptorEvent) => void
 ) => {
   const dragManager = React.useContext(DragManagerContext);
-  const isDown = React.useRef(false);
+  const isDownRef = React.useRef(false);
+  const ref = React.useRef<T>(null);
   React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
     const mouseMove = (e: MouseEvent) => {
-      isDown.current && onPointerMove && onPointerMove(e, e);
+      isDownRef.current && onPointerMove && onPointerMove(e, e);
     };
-    document.addEventListener("mousemove", mouseMove);
+    el.ownerDocument.addEventListener("mousemove", mouseMove);
     return () => {
-      document.removeEventListener("mousemove", mouseMove);
+      el.ownerDocument.removeEventListener("mousemove", mouseMove);
     };
   }, [onPointerMove]);
   React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
     const mouseUp = (e: MouseEvent) => {
-      isDown.current && onPointerUp && onPointerUp(e);
-      isDown.current = false;
+      isDownRef.current && onPointerUp && onPointerUp(e);
+      isDownRef.current = false;
     };
-    document.addEventListener("mouseup", mouseUp);
+    el.ownerDocument.addEventListener("mouseup", mouseUp);
     return () => {
-      document.removeEventListener("mouseup", mouseUp);
+      el.ownerDocument.removeEventListener("mouseup", mouseUp);
     };
   }, [onPointerUp]);
   const setRef = useRefEffect(
@@ -56,12 +63,12 @@ export const usePointerCaptor = <T extends HTMLElement>(
         if (isSecondaryButton) return;
 
         onPointerDown && onPointerDown(e, e);
-        isDown.current = true;
+        isDownRef.current = true;
       };
       const touchMove = (e: TouchEvent) => {
         if (e.touches.length !== 1) return;
-        isDown.current && onPointerMove && onPointerMove(e.touches[0], e);
-        isDown.current &&
+        isDownRef.current && onPointerMove && onPointerMove(e.touches[0], e);
+        isDownRef.current &&
           dragManager.handleDrag(e.touches[0].clientX, e.touches[0].clientY);
       };
       const targetTouchMove = (e: TouchEvent) => {
@@ -74,16 +81,16 @@ export const usePointerCaptor = <T extends HTMLElement>(
         touchMove(e);
       };
       const touchEnd = (e: TouchEvent) => {
-        isDown.current && onPointerUp && onPointerUp(e);
-        isDown.current && dragManager.handleDragEnd();
-        isDown.current = false;
+        isDownRef.current && onPointerUp && onPointerUp(e);
+        isDownRef.current && dragManager.handleDragEnd();
+        isDownRef.current = false;
         touchTarget = null;
         if (e.target instanceof HTMLElement) {
           e.target.removeEventListener("touchmove", targetTouchMove);
           e.target.removeEventListener("touchend", touchEnd);
         }
-        document.removeEventListener("touchmove", documentTouchMove);
-        document.removeEventListener("touchend", documentTouchEnd);
+        e.view?.removeEventListener("touchmove", documentTouchMove);
+        e.view?.removeEventListener("touchend", documentTouchEnd);
       };
       const documentTouchEnd = (e: TouchEvent) => {
         // Do not handle document touch move if it was handled by target handler.
@@ -100,10 +107,10 @@ export const usePointerCaptor = <T extends HTMLElement>(
           e.target.addEventListener("touchend", touchEnd);
         }
         // Add to document in case the target looses capture (i.e. is removed)
-        document.addEventListener("touchmove", documentTouchMove);
-        document.addEventListener("touchend", documentTouchEnd);
+        e.view?.addEventListener("touchmove", documentTouchMove);
+        e.view?.addEventListener("touchend", documentTouchEnd);
         onPointerDown && onPointerDown(e.touches[0], e);
-        isDown.current = true;
+        isDownRef.current = true;
       };
 
       instance && instance.addEventListener("mousedown", mouseDown);
@@ -115,5 +122,5 @@ export const usePointerCaptor = <T extends HTMLElement>(
     },
     [onPointerDown, onPointerMove, onPointerUp, dragManager]
   );
-  return setRef;
+  return useRefs(ref, setRef);
 };
