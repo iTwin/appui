@@ -11,6 +11,7 @@ import type { UnitProps, UnitsProvider } from "@itwin/core-quantity";
 import type { CommonProps } from "@itwin/core-react";
 import type { SelectOption } from "@itwin/itwinui-react";
 import { Input, Select } from "@itwin/itwinui-react";
+import { useTranslation } from "../../useTranslation.js";
 
 /** Properties of [[UnitDescr]] component.
  * @internal
@@ -65,7 +66,8 @@ async function getPossibleUnits(
     .map((value) => value.unitProps);
 }
 
-function getUnitName(fullUnitName: string) {
+/** @internal */
+export function getUnitName(fullUnitName: string) {
   const nameParts = fullUnitName.split(/[.:]/);
   if (nameParts.length > 0) return nameParts[nameParts.length - 1];
   throw Error("Bad unit name encountered");
@@ -89,6 +91,8 @@ export function UnitDescr(props: UnitDescrProps) {
     { value: name, label: getUnitName(name) },
   ]);
   const [currentUnit, setCurrentUnit] = React.useState({ name, label });
+  const { translate } = useTranslation();
+
   const isMounted = React.useRef(false);
 
   React.useEffect(() => {
@@ -141,11 +145,15 @@ export function UnitDescr(props: UnitDescrProps) {
           // construct an entry that will provide the name and label of the unit to add
           options.push({
             value: `ADDSUBUNIT:${potentialSubUnit.name}:${potentialSubUnit.label}`,
-            label: "Add sub-unit",
-          }); // NEEDSWORK - i18n
+            label: translate("QuantityFormat.labels.addSubUnit"),
+          });
         }
 
-        if (index !== 0) options.push({ value: "REMOVEUNIT", label: "Remove" }); // NEEDSWORK - i18n
+        if (index !== 0)
+          options.push({
+            value: "REMOVEUNIT",
+            label: translate("QuantityFormat.labels.removeUnit"),
+          });
 
         if (isMounted.current) {
           setUnitOptions(options);
@@ -154,7 +162,7 @@ export function UnitDescr(props: UnitDescrProps) {
       }
     }
     void fetchAllowableUnitSelections();
-  }, [index, label, name, parentUnitName, unitsProvider]);
+  }, [index, label, name, parentUnitName, translate, unitsProvider]);
 
   const handleOnUnitChange = React.useCallback(
     (newValue: string) => {

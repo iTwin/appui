@@ -73,7 +73,7 @@ deprecated;interface;MiscFormatOptionsProps
 public;interface;PlaybackSettings
 public;type;PlaybackSettingsChangeHandler
 beta;const;QuantityEditorSpec
-alpha;function;QuantityFormatPanel
+beta;function;QuantityFormatPanel
 alpha;interface;QuantityFormatPanelProps
 deprecated;interface;QuantityFormatPanelProps
 beta;function;QuantityInput

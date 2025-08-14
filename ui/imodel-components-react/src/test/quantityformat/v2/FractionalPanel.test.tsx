@@ -1,0 +1,237 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
+import { fireEvent, render, waitFor, within } from "@testing-library/react";
+import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
+import type {
+  FormatProps,
+  UnitProps,
+  UnitsProvider,
+} from "@itwin/core-quantity";
+import { TestUtils } from "../../TestUtils.js";
+import {
+  FractionalPrimaryChildren,
+  FractionalSecondaryChildren,
+} from "../../../imodel-components-react/quantityformat/v2/panels/Fractional.js";
+
+describe("Fractional Panel V2", () => {
+  const rnaDescriptorToRestore = Object.getOwnPropertyDescriptor(
+    IModelApp,
+    "requestNextAnimation"
+  )!;
+  function requestNextAnimation() {}
+
+  let unitsProvider: UnitsProvider;
+  let persistenceUnit: UnitProps;
+
+  beforeEach(async () => {
+    // Avoid requestAnimationFrame exception during test by temporarily replacing function that calls it.
+    Object.defineProperty(IModelApp, "requestNextAnimation", {
+      get: () => requestNextAnimation,
+    });
+    await TestUtils.initializeUiIModelComponents();
+    await NoRenderApp.startup();
+    unitsProvider = IModelApp.quantityFormatter.unitsProvider;
+    persistenceUnit = await unitsProvider.findUnitByName("Units.M");
+  });
+
+  afterEach(async () => {
+    await IModelApp.shutdown();
+    TestUtils.terminateUiIModelComponents();
+    Object.defineProperty(
+      IModelApp,
+      "requestNextAnimation",
+      rnaDescriptorToRestore
+    );
+  });
+
+  describe("FractionalPrimaryChildren", () => {
+    it("should render primary children with format type", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+        precision: 4,
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalPrimaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      expect(renderedComponent.getByLabelText("QuantityFormat.labels.type")).to
+        .exist;
+      expect(
+        renderedComponent.getByLabelText("QuantityFormat.labels.precision")
+      ).to.exist;
+    });
+
+    it("should render unit label controls when showUnitLabel is enabled", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+        formatTraits: ["showUnitLabel"],
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalPrimaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      await waitFor(() => {
+        expect(
+          renderedComponent.getByLabelText(
+            "QuantityFormat.labels.appendUnitLabel"
+          )
+        ).to.exist;
+      });
+    });
+  });
+
+  describe("FractionalSecondaryChildren", () => {
+    it("should render secondary children with all format options", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+        precision: 4,
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalSecondaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      const comboBox = within(
+        renderedComponent
+          .getByText("QuantityFormat.labels.signOptionLabel")
+          .closest(".icr-quantityFormat-v2-formatInlineRow")!
+      ).getByRole("combobox");
+      expect(comboBox).to.exist;
+      expect(
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.showTrailZerosLabel"
+        )
+      ).to.exist;
+      expect(
+        renderedComponent.getByLabelText(
+          "QuantityFormat.labels.keepSingleZeroLabel"
+        )
+      ).to.exist;
+      expect(
+        renderedComponent.getByLabelText("QuantityFormat.labels.zeroEmptyLabel")
+      ).to.exist;
+    });
+
+    it("should handle show trailing zeros changes", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalSecondaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.showTrailZerosLabel"
+      );
+      fireEvent.click(checkbox);
+
+      expect(onFormatChange).toHaveBeenCalledWith({
+        ...formatProps,
+        formatTraits: ["trailZeroes"],
+      });
+    });
+
+    it("should handle keep single zero changes", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalSecondaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.keepSingleZeroLabel"
+      );
+      fireEvent.click(checkbox);
+
+      expect(onFormatChange).toHaveBeenCalledWith({
+        ...formatProps,
+        formatTraits: ["keepSingleZero"],
+      });
+    });
+
+    it("should handle zero empty changes", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalSecondaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      const checkbox = renderedComponent.getByLabelText(
+        "QuantityFormat.labels.zeroEmptyLabel"
+      );
+      fireEvent.click(checkbox);
+
+      expect(onFormatChange).toHaveBeenCalledWith({
+        ...formatProps,
+        formatTraits: ["zeroEmpty"],
+      });
+    });
+
+    it("should not render keep decimal point for fractional format", async () => {
+      const formatProps: FormatProps = {
+        type: "fractional",
+        precision: 4,
+      };
+      const onFormatChange = vi.fn();
+
+      const renderedComponent = render(
+        <FractionalSecondaryChildren
+          formatProps={formatProps}
+          onFormatChange={onFormatChange}
+          unitsProvider={unitsProvider}
+          persistenceUnit={persistenceUnit}
+        />
+      );
+
+      // Fractional format should not have keep decimal point option
+      expect(renderedComponent.queryByLabelText("Keep Decimal Point")).to.not
+        .exist;
+    });
+  });
+});
