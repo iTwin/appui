@@ -91,19 +91,20 @@ async function getFormatterParserSpec({
   imodel?: IModelConnection;
   type: QuantityTypeArg;
 }) {
-  const quantityFormatterSpec =
-    IModelApp.quantityFormatter.findFormatterSpecByQuantityType(type);
-  const quantityParserSpec =
-    IModelApp.quantityFormatter.findParserSpecByQuantityType(type);
-  if (quantityFormatterSpec && quantityParserSpec) {
+  // fallback to IModelApp.quantityFormatter:
+  // - if `itwinjs-core` v4 is used
+  // - don't have an iModelConnection to look up KOQ
+  // - old quantity type enum is used instead of KOQ name
+  if (!IModelApp.formatsProvider || !imodel || typeof type !== "string") {
+    const quantityFormatterSpec =
+      IModelApp.quantityFormatter.findFormatterSpecByQuantityType(type);
+    const quantityParserSpec =
+      IModelApp.quantityFormatter.findParserSpecByQuantityType(type);
+
     return {
       formatterSpec: quantityFormatterSpec,
       parserSpec: quantityParserSpec,
     };
-  }
-
-  if (!IModelApp.formatsProvider || !imodel || typeof type !== "string") {
-    return { formatter: undefined, parser: undefined };
   }
 
   const koq = await imodel.schemaContext.getSchemaItem(type);
@@ -111,19 +112,22 @@ async function getFormatterParserSpec({
     return { formatter: undefined, parser: undefined };
   }
 
+  // TODO: `KindOfQuantity` here is used only as a type because we don't have peerDep on `ecschema-metadata`
+  // It should be added when dropping `itwinjs-core` v4 support
   const persistenceUnit = await (koq as KindOfQuantity).persistenceUnit;
-  const format = await IModelApp.formatsProvider.getFormat(type);
-  if (!persistenceUnit || !format) {
+  const formatProps = await IModelApp.formatsProvider.getFormat(type);
+  if (!persistenceUnit || !formatProps) {
     return { formatter: undefined, parser: undefined };
   }
 
+  const persistenceUnitName = persistenceUnit.name;
   const formatterSpec = await IModelApp.quantityFormatter.createFormatterSpec({
-    formatProps: format,
-    persistenceUnitName: persistenceUnit.name,
+    formatProps,
+    persistenceUnitName,
   });
   const parserSpec = await IModelApp.quantityFormatter.createParserSpec({
-    formatProps: format,
-    persistenceUnitName: persistenceUnit.name,
+    formatProps,
+    persistenceUnitName,
   });
   return {
     formatterSpec,
