@@ -10,6 +10,10 @@ import "./ConfigurableUiContent.scss";
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { Point } from "@itwin/core-react/internal";
+import {
+  IModelConnectionProvider,
+  QuantityEditorSpec,
+} from "@itwin/imodel-components-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { CursorInformation } from "../cursor/CursorInformation.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
@@ -39,6 +43,8 @@ import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
 import type { Widget } from "../widgets/Widget.js";
 import type { WidgetState } from "../widgets/WidgetState.js";
+import { useActiveIModelConnection } from "../hooks/useActiveIModelConnection.js";
+import { EditorsRegistryProvider } from "@itwin/components-react";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -198,34 +204,40 @@ export function StandardLayout(props: StandardLayoutProps) {
             style={{ height: "100%" }}
             portalContainer={portalContainer}
           >
-            {appBackstage}
-            <WidgetPanelsFrontstage />
+            <IModelProvider>
+              <EditorsRegistryProvider editors={defaultEditors}>
+                {appBackstage}
+                <WidgetPanelsFrontstage />
 
-            <PointerMessage />
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <KeyboardShortcutMenu />
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <InputFieldMessage />
-            <CursorPopupMenu />
-            <CursorPopupRenderer />
-            <PopupRenderer />
-            <ElementTooltip />
-            <MessageRenderer />
-            <ChildWindowRenderer windowManager={appUi.windowManager} />
-            <div
-              className="uifw-configurableui-portalContainer"
-              ref={(instance) => setPortalContainer(instance ?? undefined)}
-            >
-              <ContentDialogRenderer />
-              <ModelessDialogRenderer />
-              <ModalDialogRenderer />
-            </div>
+                <PointerMessage />
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+                <KeyboardShortcutMenu />
+                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+                <InputFieldMessage />
+                <CursorPopupMenu />
+                <CursorPopupRenderer />
+                <PopupRenderer />
+                <ElementTooltip />
+                <MessageRenderer />
+                <ChildWindowRenderer windowManager={appUi.windowManager} />
+                <div
+                  className="uifw-configurableui-portalContainer"
+                  ref={(instance) => setPortalContainer(instance ?? undefined)}
+                >
+                  <ContentDialogRenderer />
+                  <ModelessDialogRenderer />
+                  <ModalDialogRenderer />
+                </div>
+              </EditorsRegistryProvider>
+            </IModelProvider>
           </ThemeProvider>
         </WrapperContext.Provider>
       </main>
     </ConfigurableUiContext.Provider>
   );
 }
+
+const defaultEditors = [QuantityEditorSpec];
 
 function useWidgetOpacity(
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
@@ -287,4 +299,16 @@ function useVisibleToolSettings(enabled: boolean) {
       toolSettings.show();
     });
   }, [enabled]);
+}
+
+function IModelProvider({ children }: React.PropsWithChildren<object>) {
+  const imodel = useActiveIModelConnection();
+  if (!imodel) {
+    return children;
+  }
+  return (
+    <IModelConnectionProvider imodel={imodel}>
+      {children}
+    </IModelConnectionProvider>
+  );
 }

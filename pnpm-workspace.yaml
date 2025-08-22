@@ -7,26 +7,26 @@ packages:
 
 catalog:
   # iTwin.js core packages
-  "@itwin/appui-abstract": rc
-  "@itwin/core-backend": rc
-  "@itwin/core-bentley": rc
-  "@itwin/core-common": rc
-  "@itwin/core-electron": rc
-  "@itwin/core-frontend": rc
-  "@itwin/core-geometry": rc
-  "@itwin/core-i18n": rc
-  "@itwin/core-orbitgt": rc
-  "@itwin/core-quantity": rc
-  "@itwin/ecschema-metadata": rc
-  "@itwin/ecschema-rpcinterface-common": rc
-  "@itwin/ecschema-rpcinterface-impl": rc
-  "@itwin/editor-backend": rc
-  "@itwin/editor-common": rc
-  "@itwin/editor-frontend": rc
-  "@itwin/express-server": rc
-  "@itwin/frontend-devtools": rc
-  "@itwin/hypermodeling-frontend": rc
-  "@itwin/webgl-compatibility": rc
+  "@itwin/appui-abstract": ^5.1.0
+  "@itwin/core-backend": ^5.1.0
+  "@itwin/core-bentley": ^5.1.0
+  "@itwin/core-common": ^5.1.0
+  "@itwin/core-electron": ^5.1.0
+  "@itwin/core-frontend": ^5.1.0
+  "@itwin/core-geometry": ^5.1.0
+  "@itwin/core-i18n": ^5.1.0
+  "@itwin/core-orbitgt": ^5.1.0
+  "@itwin/core-quantity": ^5.1.0
+  "@itwin/ecschema-metadata": ^5.1.0
+  "@itwin/ecschema-rpcinterface-common": ^5.1.0
+  "@itwin/ecschema-rpcinterface-impl": ^5.1.0
+  "@itwin/editor-backend": ^5.1.0
+  "@itwin/editor-common": ^5.1.0
+  "@itwin/editor-frontend": ^5.1.0
+  "@itwin/express-server": ^5.1.0
+  "@itwin/frontend-devtools": ^5.1.0
+  "@itwin/hypermodeling-frontend": ^5.1.0
+  "@itwin/webgl-compatibility": ^5.1.0
   # iTwinUI packages
   "@itwin/itwinui-react": "^3.18.3"
   "@stratakit/bricks": ^0.2.0

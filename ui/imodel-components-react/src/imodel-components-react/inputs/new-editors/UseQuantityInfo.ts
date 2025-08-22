@@ -3,10 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type { QuantityTypeArg } from "@itwin/core-frontend";
+import type { IModelConnection, QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import * as React from "react";
+import { useIModelConnection } from "../../IModelConnectionContext.js";
+import type { KindOfQuantity } from "@itwin/ecschema-metadata";
 
 /* v8 ignore start */
 
@@ -27,6 +29,8 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
     parser: undefined,
   }));
 
+  const { imodel } = useIModelConnection();
+
   React.useEffect(() => {
     if (type === undefined) {
       setState({
@@ -36,16 +40,19 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
       return;
     }
 
-    const loadFormatterParser = () => {
-      const formatterSpec =
-        IModelApp.quantityFormatter.findFormatterSpecByQuantityType(type);
-      const parserSpec =
-        IModelApp.quantityFormatter.findParserSpecByQuantityType(type);
-
-      setState({ formatter: formatterSpec, parser: parserSpec });
+    let disposed = false;
+    const loadFormatterParser = async () => {
+      const { formatterSpec, parserSpec } = await getFormatterParserSpec({
+        imodel,
+        type,
+      });
+      if (!disposed) {
+        setState({ formatter: formatterSpec, parser: parserSpec });
+      }
     };
 
-    loadFormatterParser();
+    void loadFormatterParser();
+
     const removeListeners = [
       IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
         loadFormatterParser
@@ -53,20 +60,75 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
       IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
         ({ quantityType }) => {
           if (quantityType === type) {
-            loadFormatterParser();
+            void loadFormatterParser();
           }
         }
       ),
     ];
+    if (IModelApp.formatsProvider) {
+      removeListeners.push(
+        IModelApp.formatsProvider.onFormatsChanged.addListener(async () =>
+          loadFormatterParser()
+        )
+      );
+    }
 
     return () => {
+      disposed = true;
       removeListeners.forEach((remove) => {
         remove();
       });
     };
-  }, [type]);
+  }, [imodel, type]);
 
   return { formatter, parser };
+}
+
+async function getFormatterParserSpec({
+  imodel,
+  type,
+}: {
+  imodel?: IModelConnection;
+  type: QuantityTypeArg;
+}) {
+  const quantityFormatterSpec =
+    IModelApp.quantityFormatter.findFormatterSpecByQuantityType(type);
+  const quantityParserSpec =
+    IModelApp.quantityFormatter.findParserSpecByQuantityType(type);
+  if (quantityFormatterSpec && quantityParserSpec) {
+    return {
+      formatterSpec: quantityFormatterSpec,
+      parserSpec: quantityParserSpec,
+    };
+  }
+
+  if (!IModelApp.formatsProvider || !imodel || typeof type !== "string") {
+    return { formatter: undefined, parser: undefined };
+  }
+
+  const koq = await imodel.schemaContext.getSchemaItem(type);
+  if (!koq) {
+    return { formatter: undefined, parser: undefined };
+  }
+
+  const persistenceUnit = await (koq as KindOfQuantity).persistenceUnit;
+  const format = await IModelApp.formatsProvider.getFormat(type);
+  if (!persistenceUnit || !format) {
+    return { formatter: undefined, parser: undefined };
+  }
+
+  const formatterSpec = await IModelApp.quantityFormatter.createFormatterSpec({
+    formatProps: format,
+    persistenceUnitName: persistenceUnit.name,
+  });
+  const parserSpec = await IModelApp.quantityFormatter.createParserSpec({
+    formatProps: format,
+    persistenceUnitName: persistenceUnit.name,
+  });
+  return {
+    formatterSpec,
+    parserSpec,
+  };
 }
 
 /* v8 ignore stop */
