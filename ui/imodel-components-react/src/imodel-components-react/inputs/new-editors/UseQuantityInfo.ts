@@ -120,7 +120,7 @@ async function getFormatterParserSpec({
     return { formatter: undefined, parser: undefined };
   }
 
-  const persistenceUnitName = persistenceUnit.name;
+  const persistenceUnitName = persistenceUnit.fullName;
   const formatterSpec = await IModelApp.quantityFormatter.createFormatterSpec({
     formatProps,
     persistenceUnitName,
