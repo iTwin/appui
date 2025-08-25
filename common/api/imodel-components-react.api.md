@@ -498,8 +498,8 @@ export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, 
 }
 
 // @public
-export function IModelConnectionProvider({ imodel, children, }: React_2.PropsWithChildren<{
-    imodel: IModelConnection;
+export function IModelConnectionProvider({ iModelConnection, children, }: React_2.PropsWithChildren<{
+    iModelConnection?: IModelConnection;
 }>): React_2.JSX.Element;
 
 // @public
