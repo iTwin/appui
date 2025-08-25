@@ -76,6 +76,7 @@
     "@itwin/core-orbitgt": "catalog:",
     "@itwin/core-quantity": "catalog:",
     "@itwin/core-react": "workspace:*",
+    "@itwin/ecschema-metadata": "catalog:",
     "@itwin/eslint-plugin": "5.1.0",
     "@itwin/itwinui-react": "catalog:",
     "@itwin/webgl-compatibility": "catalog:",
