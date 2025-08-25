@@ -65,6 +65,7 @@ beta;function;HueSlider
 deprecated;function;HueSlider
 beta;interface;HueSliderProps
 deprecated;interface;HueSliderProps
+public;function;IModelConnectionProvider
 public;class;LineWeightSwatch
 public;interface;LineWeightSwatchProps
 alpha;function;MiscFormatOptions

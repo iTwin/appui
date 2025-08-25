@@ -498,6 +498,11 @@ export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, 
 }
 
 // @public
+export function IModelConnectionProvider({ imodel, children, }: React_2.PropsWithChildren<{
+    imodel: IModelConnection;
+}>): React_2.JSX.Element;
+
+// @public
 export class LineWeightSwatch extends React_2.PureComponent<LineWeightSwatchProps> {
     constructor(props: LineWeightSwatchProps);
     // (undocumented)
