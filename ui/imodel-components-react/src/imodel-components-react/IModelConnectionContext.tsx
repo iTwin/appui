@@ -9,34 +9,28 @@
 import type { IModelConnection } from "@itwin/core-frontend";
 import * as React from "react";
 
-interface IModelConnectionContext {
-  imodel: IModelConnection | undefined;
-}
-
-const imodelConnectionContext = React.createContext<IModelConnectionContext>({
-  imodel: undefined,
-});
+const IModelConnectionContext = React.createContext<
+  IModelConnection | undefined
+>(undefined);
 
 /**
- * Provides `IModelConnection` to the components delivered by this package.
+ * Provides `IModelConnection` to the components wrapped by the provider.
  * @public
  */
 export function IModelConnectionProvider({
-  imodel,
+  iModelConnection,
   children,
-}: React.PropsWithChildren<{ imodel: IModelConnection }>) {
+}: React.PropsWithChildren<{ iModelConnection?: IModelConnection }>) {
   return (
-    <imodelConnectionContext.Provider
-      value={React.useMemo(() => ({ imodel }), [imodel])}
-    >
+    <IModelConnectionContext.Provider value={iModelConnection}>
       {children}
-    </imodelConnectionContext.Provider>
+    </IModelConnectionContext.Provider>
   );
 }
 
 /**
  * @internal
  */
-export function useIModelConnection(): IModelConnectionContext {
-  return React.useContext(imodelConnectionContext);
+export function useIModelConnection() {
+  return React.useContext(IModelConnectionContext);
 }

@@ -29,7 +29,7 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
     parser: undefined,
   }));
 
-  const { imodel } = useIModelConnection();
+  const imodel = useIModelConnection();
 
   React.useEffect(() => {
     if (type === undefined) {

@@ -303,11 +303,9 @@ function useVisibleToolSettings(enabled: boolean) {
 
 function IModelProvider({ children }: React.PropsWithChildren<object>) {
   const imodel = useActiveIModelConnection();
-  if (!imodel) {
-    return children;
-  }
+
   return (
-    <IModelConnectionProvider imodel={imodel}>
+    <IModelConnectionProvider iModelConnection={imodel}>
       {children}
     </IModelConnectionProvider>
   );
