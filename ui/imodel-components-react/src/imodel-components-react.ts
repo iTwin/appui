@@ -161,6 +161,8 @@ export {
 
 export { ToolUtilities } from "./imodel-components-react/ToolUtilities.js";
 
+export { IModelConnectionProvider } from "./imodel-components-react/IModelConnectionContext.js";
+
 // #region "SideEffects"
 
 import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";

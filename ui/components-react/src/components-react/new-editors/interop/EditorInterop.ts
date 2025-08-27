@@ -43,6 +43,7 @@ export namespace EditorInterop {
       extendedData: propertyRecord.extendedData,
       enum: propertyRecord.property.enum,
       typename: propertyRecord.property.typename,
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       quantityType: propertyRecord.property.quantityType,
     };
 
