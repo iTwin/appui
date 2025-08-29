@@ -1,5 +1,19 @@
 # Change Log - @itwin/appui-react
 
+## 5.14.0
+
+### Minor Changes
+
+- bdd16f3: Register `QuantityEditor` from `@itwin/imodel-components-react` to be available in all AppUI applications working with editing quantity properties.
+
+### Patch Changes
+
+- Updated dependencies [bdd16f3]
+- Updated dependencies [bdd16f3]
+  - @itwin/imodel-components-react@5.14.0
+  - @itwin/components-react@5.14.0
+  - @itwin/core-react@5.14.0
+
 ## 5.13.1
 
 ### Patch Changes
