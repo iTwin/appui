@@ -5800,15 +5800,10 @@ export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps"
 
 // @public
 export enum WidgetState {
-    // (undocumented)
     Closed = 1,
-    // (undocumented)
     Floating = 3,
-    // (undocumented)
     Hidden = 2,
-    // (undocumented)
     Open = 0,
-    // (undocumented)
     Unloaded = 4
 }
 
