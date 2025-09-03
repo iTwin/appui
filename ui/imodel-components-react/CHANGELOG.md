@@ -1,5 +1,18 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.14.0
+
+### Minor Changes
+
+- bdd16f3: Updated `QuantityEditor` to support `IModelApp.formatsProvider` and react to format settings changes.
+  `IModelApp.formatsProvider` is available with `@itwin/core-frontend` v5. If v4 is used it fallbacks to using `IModelApp.quantityFormatter`.
+- bdd16f3: Introduced `IModelConnectionProvider` component that allows supplying `IModelConnection` through context to the components that required it.
+
+### Patch Changes
+
+- @itwin/components-react@5.14.0
+- @itwin/core-react@5.14.0
+
 ## 5.13.1
 
 ### Patch Changes
