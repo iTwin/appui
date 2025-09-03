@@ -85,7 +85,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
     .nz-collapsed & {
       display: flex;
       background-color: var(--iui-color-background);
-      border: 1px solid var(--iui-color-border);
+      border: 1px solid var(--iui-color-border-foreground);
       border-radius: 999px;
       box-sizing: border-box;
       opacity: 1;
@@ -119,7 +119,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
       .nz-line-grip-detail {
         height: 70%;
-        border-left: 1px solid var(--iui-color-border);
+        border-left: 1px solid var(--iui-color-border-foreground);
       }
     }
 
@@ -130,7 +130,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
       .nz-line-grip-detail {
         width: 70%;
-        border-top: 1px solid var(--iui-color-border);
+        border-top: 1px solid var(--iui-color-border-foreground);
       }
     }
   }
