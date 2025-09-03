@@ -64,7 +64,7 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
     &:hover,
     &.nz-resizing {
-      background-color: var(--iui-color-icon-accent);
+      background-color: var(--iui-color-background-accent);
     }
   }
 
@@ -84,8 +84,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
     .nz-collapsed & {
       display: flex;
-      background-color: var(--iui-color-background-disabled);
-      border: 1px solid var(--iui-color-border-subtle);
+      background-color: var(--iui-color-background);
+      border: 1px solid var(--iui-color-border-foreground);
       border-radius: 999px;
       box-sizing: border-box;
       opacity: 1;
@@ -118,8 +118,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
       width: $line-grip-width;
 
       .nz-line-grip-detail {
-        width: 1px;
         height: 70%;
+        border-left: 1px solid var(--iui-color-border-foreground);
       }
     }
 
@@ -130,12 +130,8 @@ $line-grip-width: calc(#{$nz-grip-width} - 2px);
 
       .nz-line-grip-detail {
         width: 70%;
-        height: 1px;
+        border-top: 1px solid var(--iui-color-border-foreground);
       }
-    }
-
-    .nz-line-grip-detail {
-      background-color: var(--iui-color-border-subtle);
     }
   }
 }
