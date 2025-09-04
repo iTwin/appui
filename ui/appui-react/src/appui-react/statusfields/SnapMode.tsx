@@ -164,7 +164,7 @@ export function SnapModeField(props: SnapModeFieldProps) {
       <Button
         styleType="borderless"
         title={title}
-        endIcon={
+        startIcon={
           enabledSnaps.length === 1 ? enabledSnaps[0].icon : <SvgSnaps />
         }
       >
