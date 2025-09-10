@@ -78,7 +78,7 @@ interface KnownPreviewFeatures {
    */
   toolSettingsKeyPressCommit: boolean;
   /**
-   * If `true`, the content layout will not re-mount for the same configuration.
+   * If `true`, the content layout will not re-mount given the same configuration.
    */
   stableContentLayout: boolean;
 }
