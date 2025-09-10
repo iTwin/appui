@@ -50,13 +50,16 @@ const availableFeatures: AvailableFeatures = {
     label: "Enable colorless AccuDraw input fields",
   },
   toolSettingsNewEditors: {
-    label: "Enable new tool settings editors",
+    label: "New tool settings editors",
   },
   toolSettingsLockButton: {
-    label: "Enable tool settings lock button",
+    label: "Tool settings lock button",
   },
   toolSettingsKeyPressCommit: {
-    label: "Enable tool settings commit on key press",
+    label: "Tool settings commit on key press",
+  },
+  stableContentLayout: {
+    label: "Stable content layout",
   },
 };
 
