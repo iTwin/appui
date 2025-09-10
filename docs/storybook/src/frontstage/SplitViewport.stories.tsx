@@ -8,7 +8,6 @@ import {
   StandardContentLayouts,
 } from "@itwin/appui-abstract";
 import {
-  IModelViewportControl,
   SyncUiEventId,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -20,6 +19,7 @@ import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { createFrontstage, removeProperty } from "../Utils";
 import { SplitViewportStory } from "./SplitViewport";
+import { ViewportContent } from "@itwin/appui-test-providers";
 
 const meta = {
   title: "Frontstage/SplitViewport",
@@ -50,12 +50,14 @@ export const Default: Story = {
           layout: StandardContentLayouts.twoVerticalSplit,
           contents: [
             {
-              id: "imodel-view-0",
-              classId: IModelViewportControl.id,
+              id: "view-0",
+              classId: "",
+              content: <ViewportContent />,
             },
             {
-              id: "imodel-view-1",
-              classId: IModelViewportControl.id,
+              id: "view-1",
+              classId: "",
+              content: <ViewportContent />,
             },
           ],
         },
@@ -78,9 +80,7 @@ export const Default: Story = {
               icon: <SvgWindow />,
               isHidden: new ConditionalBooleanValue(
                 () =>
-                  UiFramework.content.getActiveId() === "imodel-view-0"
-                    ? false
-                    : true,
+                  UiFramework.content.getActiveId() === "view-0" ? false : true,
                 [SyncUiEventId.ActiveContentChanged]
               ),
               layouts,
@@ -91,9 +91,7 @@ export const Default: Story = {
               icon: <SvgWindowSplitVertical />,
               isHidden: new ConditionalBooleanValue(
                 () =>
-                  UiFramework.content.getActiveId() === "imodel-view-1"
-                    ? false
-                    : true,
+                  UiFramework.content.getActiveId() === "view-1" ? false : true,
                 [SyncUiEventId.ActiveContentChanged]
               ),
               layouts,
