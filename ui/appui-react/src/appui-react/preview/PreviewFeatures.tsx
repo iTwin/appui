@@ -77,6 +77,10 @@ interface KnownPreviewFeatures {
    * If `true`, the input-like editors rendered in the tool settings will commit the entered value on key press.
    */
   toolSettingsKeyPressCommit: boolean;
+  /**
+   * If `true`, the content layout will not re-mount for the same configuration.
+   */
+  stableContentLayout: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -94,6 +98,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   toolSettingsNewEditors: undefined,
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,
+  stableContentLayout: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
