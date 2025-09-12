@@ -1,5 +1,18 @@
 # Change Log - @itwin/appui-react
 
+## 5.15.0
+
+### Minor Changes
+
+- 57d6d55: Added `stableContentLayout` preview feature, which when enabled keeps the frontstage content stable based on React lifecycle rules. This is useful to avoid unnecessary re-mounts of content when switching frontstages.
+
+### Patch Changes
+
+- Updated dependencies [16da69d]
+  - @itwin/imodel-components-react@5.15.0
+  - @itwin/components-react@5.15.0
+  - @itwin/core-react@5.15.0
+
 ## 5.14.0
 
 ### Minor Changes

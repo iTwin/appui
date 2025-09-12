@@ -1,5 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.15.0
+
+### Patch Changes
+
+- 16da69d: Use higher precision when formatting kind of quantity values in editor.
+  - @itwin/components-react@5.15.0
+  - @itwin/core-react@5.15.0
+
 ## 5.14.0
 
 ### Minor Changes
