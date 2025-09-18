@@ -8,7 +8,6 @@
   overflow: auto;
   padding-left: 10px;
   scrollbar-gutter: stable;
-
   > .uifw-message-prompt {
     height: 100%;
     display: flex;
@@ -21,4 +20,14 @@
 
 .uifw-statusFields-messageCenter-messageCenterField_popover {
   width: 305px;
+  button[aria-selected="true"]  {
+    color: var(--stratakit-color-border-accent-strong);
+  }
+  div[role="tablist"]::after {
+    background-color: var(--stratakit-color-border-accent-strong);
+  }
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_button {
+  margin-left:5px;
 }

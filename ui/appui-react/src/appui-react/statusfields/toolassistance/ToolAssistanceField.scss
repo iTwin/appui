@@ -159,7 +159,12 @@ $key-size-modifier: 24px;
   font-size: var(--iui-font-size-2);
   font-weight: var(--iui-font-weight-normal);
   line-height: var(--iui-size-l);
-
+  button[aria-selected="true"]  {
+    color: var(--stratakit-color-border-accent-strong);
+  }
+  &::after {
+    background-color: var(--stratakit-color-border-accent-strong);
+  }
   > .uifw-tab {
     width: 50%;
     text-align: center;

@@ -19,7 +19,8 @@ import {
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { FillCentered, Icon } from "@itwin/core-react";
-import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { Button } from '@stratakit/bricks';
 import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../../UiFramework.js";
@@ -158,7 +159,9 @@ export function ToolAssistanceField(props: Props) {
 
   const { showPromptAtCursor, toolIconSpec, mouseTouchTabIndex, instructions } =
     state;
+
   const mainInstruction = state.instructions?.mainInstruction.text;
+
   const { open } = useCursorPrompt({
     show: showPromptAtCursor,
     timeout: cursorPromptTimeout,
@@ -208,6 +211,7 @@ export function ToolAssistanceField(props: Props) {
       }));
     })();
   }, [uiStateStorage]);
+
   React.useEffect(() => {
     void (async () => {
       const result = await uiStateStorage.getSetting(
@@ -222,6 +226,7 @@ export function ToolAssistanceField(props: Props) {
       }));
     })();
   }, [uiStateStorage]);
+
   React.useEffect(() => {
     return MessageManager.onToolAssistanceChangedEvent.addListener((args) => {
       setState((prev) => ({
@@ -231,6 +236,7 @@ export function ToolAssistanceField(props: Props) {
       open();
     });
   }, [open]);
+
   React.useEffect(() => {
     return UiFramework.frontstages.onToolIconChangedEvent.addListener(
       (args) => {
@@ -248,6 +254,7 @@ export function ToolAssistanceField(props: Props) {
       isMouseInstruction(instruction)
     );
   });
+
   const hasTouchInstructions = !!instructions?.sections?.some((section) => {
     return section.instructions.some((instruction) =>
       isTouchInstruction(instruction)
@@ -274,6 +281,9 @@ export function ToolAssistanceField(props: Props) {
     });
 
   const prompt = instructions?.mainInstruction.text;
+
+  // TODO
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const tooltip = React.useMemo(() => {
     const lineBreak = "\u000d\u000a";
     const moreInfo = translate("toolAssistance.moreInfo");
@@ -288,20 +298,24 @@ export function ToolAssistanceField(props: Props) {
   }, [prompt, activeTool, translate]);
 
   const dialogTitle = activeTool?.flyover ?? translate("toolAssistance.title");
+
   const tabs = [
     translate("toolAssistance.mouse"),
     translate("toolAssistance.touch"),
   ];
+
   const [visible, setVisible] = useControlledState(
     false,
     visibleProp,
     onVisibleChange as React.Dispatch<React.SetStateAction<boolean>>
   );
+
   const [pinned, setPinned] = useControlledState(
     false,
     pinnedProp,
     onPinnedChange as React.Dispatch<React.SetStateAction<boolean>>
   );
+
   return (
     <StatusBarPopover
       visible={visible}
@@ -418,24 +432,11 @@ export function ToolAssistanceField(props: Props) {
         </ToolAssistanceDialog>
       }
     >
-      <Button
-        styleType="borderless"
-        startIcon={
-          instructions ? (
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
-            <Icon iconSpec={state.toolIconSpec} />
-          ) : (
-            <></>
-          )
-        }
-        className={classnames(
-          "uifw-statusFields-toolAssistance-toolAssistanceField",
-          props.className
-        )}
-        title={tooltip}
-        style={props.style}
-        labelProps={{ className: "prompt" }}
-      >
+      <Button variant="ghost">
+        {instructions ? (
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <Icon iconSpec={state.toolIconSpec} />
+        ) : null}
         {prompt}
         <StatusBarPopover.ExpandIndicator />
       </Button>

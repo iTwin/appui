@@ -15,7 +15,6 @@ import { SnapModeField } from "../statusfields/SnapMode.js";
 import { SelectionInfoField } from "../statusfields/SelectionInfo.js";
 import { TileLoadingIndicator } from "../statusfields/tileloading/TileLoadingIndicator.js";
 import { SelectionScopeField } from "../statusfields/SelectionScope.js";
-import { StatusBarSeparator } from "../statusbar/Separator.js";
 import type { UiItemsProvider } from "./UiItemsProvider.js";
 import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
 import { StatusBarSection } from "../statusbar/StatusBarItem.js";
@@ -69,17 +68,8 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
         })
       );
     }
-    if (!this._defaultItems || this._defaultItems.toolAssistance) {
-      if (!this._defaultItems || this._defaultItems.preToolAssistanceSeparator)
-        statusBarItems.push(
-          StatusBarItemUtilities.createCustomItem({
-            id: "uifw.PreToolAssistance",
-            section: StatusBarSection.Left,
-            itemPriority: 15,
-            content: <StatusBarSeparator />,
-          })
-        );
 
+    if (!this._defaultItems || this._defaultItems.toolAssistance) {
       statusBarItems.push(
         StatusBarItemUtilities.createCustomItem({
           id: "uifw.ToolAssistance",
@@ -88,16 +78,6 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
           content: <ToolAssistanceField />,
         })
       );
-
-      if (!this._defaultItems || this._defaultItems.postToolAssistanceSeparator)
-        statusBarItems.push(
-          StatusBarItemUtilities.createCustomItem({
-            id: "uifw.PostToolAssistance",
-            section: StatusBarSection.Left,
-            itemPriority: 25,
-            content: <StatusBarSeparator />,
-          })
-        );
     }
     if (this._defaultItems?.activityCenter) {
       statusBarItems.push(
