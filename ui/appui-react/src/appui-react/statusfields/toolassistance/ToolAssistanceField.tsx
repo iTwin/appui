@@ -282,8 +282,6 @@ export function ToolAssistanceField(props: Props) {
 
   const prompt = instructions?.mainInstruction.text;
 
-  // TODO
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const tooltip = React.useMemo(() => {
     const lineBreak = "\u000d\u000a";
     const moreInfo = translate("toolAssistance.moreInfo");
@@ -432,7 +430,7 @@ export function ToolAssistanceField(props: Props) {
         </ToolAssistanceDialog>
       }
     >
-      <Button variant="ghost">
+      <Button variant="ghost" title={tooltip}>
         {instructions ? (
           // eslint-disable-next-line @typescript-eslint/no-deprecated
           <Icon iconSpec={state.toolIconSpec} />
