@@ -76,7 +76,7 @@ catalogs:
       specifier: ^5.1.0
       version: 5.1.3
     '@stratakit/bricks':
-      specifier: 0.4.2
+      specifier: ^0.4.2
       version: 0.4.2
     '@stratakit/foundations':
       specifier: ^0.3.2
@@ -656,6 +656,12 @@ importers:
       '@stratakit/bricks':
         specifier: 'catalog:'
         version: 0.4.2(@stratakit/foundations@0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/foundations':
+        specifier: ^0.3.2
+        version: 0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/icons':
+        specifier: ^0.1.5
+        version: 0.1.5
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -3087,6 +3093,9 @@ packages:
         optional: true
       react-dom:
         optional: true
+
+  '@stratakit/icons@0.1.5':
+    resolution: {integrity: sha512-u8zHps0YNF3EXxlROEg7YkKkMC1QsjHxmwvrQU6NsUOAZ+i/vKnJAkP/v1GEJKoh7nowDRNtWOczurKXLKIP6w==}
 
   '@swc/core-darwin-arm64@1.11.21':
     resolution: {integrity: sha512-v6gjw9YFWvKulCw3ZA1dY+LGMafYzJksm1mD4UZFZ9b36CyHFowYVYug1ajYRIRqEvvfIhHUNV660zTLoVFR8g==}
@@ -9801,6 +9810,8 @@ snapshots:
     optionalDependencies:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
+
+  '@stratakit/icons@0.1.5': {}
 
   '@swc/core-darwin-arm64@1.11.21':
     optional: true

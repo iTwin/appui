@@ -62,6 +62,7 @@ import { SvgMouseClickWheelDrag } from "../../icons/SvgMouseClickWheelDrag.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
 import { useControlledState } from "../../hooks/useControlledState.js";
+import CursorIcon from "../../icons/CursorIcon.js";
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -433,7 +434,7 @@ export function ToolAssistanceField(props: Props) {
       <Button variant="ghost" title={tooltip}>
         {instructions ? (
           // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <Icon iconSpec={state.toolIconSpec} />
+          <CursorIcon />
         ) : null}
         {prompt}
         <StatusBarPopover.ExpandIndicator />

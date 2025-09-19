@@ -10,7 +10,6 @@ import { NotificationMarker} from '@itwin/itwinui-react';
 import { Icon, Tabs } from '@itwin/itwinui-react';
 import { Button } from '@stratakit/bricks';
 import {
-  SvgChat,
   SvgInfo,
   SvgStatusError,
   SvgStatusSuccess,
@@ -23,6 +22,7 @@ import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+import SvgChat from "../../icons/ChatIcon.js";
 
 import "./MessageCenterField.scss";
 
@@ -44,6 +44,8 @@ export function MessageCenterField() {
   const [status, setStatus] =
     React.useState<NotificationMarkerStatus>('primary');
   const { translate } = useTranslation();
+
+
 
   const indicatorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -153,7 +155,7 @@ export function MessageCenterField() {
         className="uifw-statusFields-messageCenter-messageCenterField_button"
       >
         <NotificationMarker status={status} enabled={notify}>
-          <SvgChat />
+         <SvgChat />
         </NotificationMarker>
         {translate('messageCenter.messages')}
         <StatusBarPopover.ExpandIndicator />
