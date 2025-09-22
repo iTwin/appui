@@ -28,6 +28,16 @@ describe("PropertyFilterBuilder", () => {
   };
 
   beforeEach(() => {
+    vi.spyOn(
+      window.HTMLElement.prototype,
+      "offsetHeight",
+      "get"
+    ).mockReturnValue(800);
+    vi.spyOn(
+      window.HTMLElement.prototype,
+      "offsetWidth",
+      "get"
+    ).mockReturnValue(800);
     vi.spyOn(window.Element.prototype, "getBoundingClientRect").mockReturnValue(
       {
         height: 20,

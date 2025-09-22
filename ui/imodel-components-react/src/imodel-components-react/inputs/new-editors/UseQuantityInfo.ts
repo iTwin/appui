@@ -122,7 +122,7 @@ async function getFormatterParserSpec({
 
   const persistenceUnitName = persistenceUnit.fullName;
   const formatterSpec = await IModelApp.quantityFormatter.createFormatterSpec({
-    formatProps,
+    formatProps: { ...formatProps, precision: 12 },
     persistenceUnitName,
   });
   const parserSpec = await IModelApp.quantityFormatter.createParserSpec({

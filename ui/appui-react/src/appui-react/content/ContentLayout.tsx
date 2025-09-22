@@ -25,6 +25,7 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { UiFramework } from "../UiFramework.js";
 import { ContentOverlay, useContentOverlayStore } from "./ContentOverlay.js";
 import { useConditionalValue } from "../hooks/useConditionalValue.js";
+import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
 
 /** Properties for [[ContentWrapper]] */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -627,6 +628,7 @@ export interface ContentLayoutComponentProps extends CommonProps {
  * @public
  */
 export function ContentLayout(props: ContentLayoutComponentProps) {
+  const { stableContentLayout } = usePreviewFeatures();
   const [contentLayoutDef, setContentLayoutDef] =
     React.useState<ContentLayoutDef>(props.contentLayout);
   const [contentGroupId, setContentGroupId] = React.useState<
@@ -666,7 +668,11 @@ export function ContentLayout(props: ContentLayoutComponentProps) {
       id="uifw-contentlayout-div"
       className={props.className}
       style={props.style}
-      key={`${contentGroupId}-${contentLayoutDef.id}`}
+      key={
+        stableContentLayout
+          ? undefined
+          : `${contentGroupId}-${contentLayoutDef.id}`
+      }
       onMouseDown={() => {
         UiFramework.content.setMouseDown(true);
       }}

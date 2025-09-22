@@ -1,5 +1,17 @@
 # Change Log - @itwin/components-react
 
+## 5.15.0
+
+### Patch Changes
+
+- @itwin/core-react@5.15.0
+
+## 5.14.0
+
+### Patch Changes
+
+- @itwin/core-react@5.14.0
+
 ## 5.13.1
 
 ### Patch Changes
