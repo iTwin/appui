@@ -29,7 +29,7 @@ import {
   StandardViewId,
   ViewRect,
 } from "@itwin/core-frontend";
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor  } from "@testing-library/react";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents.js";
 import { TestUtils } from "../TestUtils.js";
 import { ViewportComponent } from "../../imodel-components-react/viewport/ViewportComponent.js";
@@ -105,6 +105,15 @@ describe("ViewportComponent", () => {
     ViewportComponentEvents.terminate();
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
+
+    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
+      configurable: true,
+      value: 100,
+    });
+    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
+      configurable: true,
+      value: 100,
+    });
   });
 
   afterEach(async () => {
@@ -113,6 +122,12 @@ describe("ViewportComponent", () => {
       "clone",
       vsCloneDescriptorToRestore
     );
+    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
+      value: undefined,
+    });
+    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
+      value: undefined,
+    });
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
   });
@@ -329,6 +344,7 @@ describe("ViewportComponent", () => {
 
   it("should return viewport to viewportRef callback", async () => {
     const viewportRef = vi.fn();
+
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -341,6 +357,50 @@ describe("ViewportComponent", () => {
     await TestUtils.flushAsyncOperations();
     expect(viewportRef).toHaveBeenCalledWith(viewportMock.object);
   });
+
+  it("should return viewport to viewportRef callback only once the viewportDiv has non zero dimensions", async () => {
+    const viewportRef = vi.fn();
+    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
+      configurable: true,
+      value: 0,
+    });
+    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
+      configurable: true,
+      value: 0,
+    });
+    render(
+      <ViewportComponent
+        imodel={imodelMock.object}
+        viewportRef={viewportRef}
+        viewState={viewState}
+        viewManagerOverride={viewManager.object}
+        screenViewportOverride={ScreenViewportMock}
+      />
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(viewportRef).toHaveBeenCalledTimes(0);
+
+    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
+      configurable: true,
+      value: 100,
+    });
+    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
+      configurable: true,
+      value: 100,
+    });
+    render(
+      <ViewportComponent
+        imodel={imodelMock.object}
+        viewportRef={viewportRef}
+        viewState={viewState}
+        viewManagerOverride={viewManager.object}
+        screenViewportOverride={ScreenViewportMock}
+      />
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(viewportRef).toHaveBeenCalledWith(viewportMock.object);
+  });
+
 
   it("should return view to getViewOverlay callback", async () => {
     const getViewOverlay = vi.fn();
