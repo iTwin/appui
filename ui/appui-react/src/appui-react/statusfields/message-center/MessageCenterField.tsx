@@ -26,6 +26,7 @@ import SvgChat from "../../icons/ChatIcon.js";
 import SvgSuccess from "../../icons/SuccessIcon.js";
 
 import "./MessageCenterField.scss";
+import { usePosition } from "../usePosition.js";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -42,13 +43,11 @@ export function MessageCenterField() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [status, setStatus] =
-    React.useState<NotificationMarkerStatus>('primary');
+  const [status, setStatus] = React.useState<NotificationMarkerStatus>('primary');
   const { translate } = useTranslation();
 
-
-
   const indicatorRef = React.useRef<HTMLButtonElement>(null);
+  const { position } = usePosition(indicatorRef);
 
   const handleOpenChange = (isOpenState: boolean) => {
     setNotify(false);
@@ -149,6 +148,7 @@ export function MessageCenterField() {
 
   return (
       <StatusBarPopover
+        style={{ left: position.current.left }}
         visible={isOpen}
         onVisibleChange={(visible) => handleOpenChange(visible)}
         className='uifw-statusFields-messageCenter-messageCenterField_popover'
@@ -166,7 +166,6 @@ export function MessageCenterField() {
           <StatusBarPopover.ExpandIndicator />
         </Button>
       </StatusBarPopover>
-
   );
 }
 

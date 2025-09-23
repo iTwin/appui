@@ -64,6 +64,7 @@ import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
 import { useControlledState } from "../../hooks/useControlledState.js";
 import CursorIcon from "../../icons/CursorIcon.js";
+import { usePosition } from "../usePosition.js";
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -151,6 +152,8 @@ export function ToolAssistanceField(props: Props) {
   const activeTool = useActiveTool();
 
   const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const { position } = usePosition(buttonRef);
+
   const [state, setState] = React.useState<ToolAssistanceFieldState>(() => {
     return {
       instructions: undefined,
@@ -319,6 +322,7 @@ export function ToolAssistanceField(props: Props) {
 
   return (
     <StatusBarPopover
+      style={{ left: position.current.left }}
       positionReference={buttonRef.current!}
       visible={visible}
       onVisibleChange={setVisible}
