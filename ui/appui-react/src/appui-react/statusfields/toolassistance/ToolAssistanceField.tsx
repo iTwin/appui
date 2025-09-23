@@ -445,7 +445,11 @@ export function ToolAssistanceField(props: Props) {
         ref={buttonRef}
         variant="ghost"
         title={tooltip}
-        className={`uifw-toolAssistance-button ${ visible ? 'pressed' : '' }`}
+        className={classnames(
+          "uifw-statusFields-toolAssistance-toolAssistanceField",
+          props.className,
+          { pressed: visible }
+        )}
       >
         {instructions ? (<CursorIcon />) : <></>}
         {prompt}

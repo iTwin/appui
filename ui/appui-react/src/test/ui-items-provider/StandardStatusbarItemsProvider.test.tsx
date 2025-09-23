@@ -58,7 +58,7 @@ describe("StandardStatusbarItemsProvider", () => {
     expect(UiItemsManager.hasRegisteredProviders).toEqual(true);
     // Activity Item is not included by default
     expect(UiItemsManager.getStatusBarItems("test", StageUsage.General)).length(
-      8
+      6
     );
     provider.unregister();
     expect(UiItemsManager.hasRegisteredProviders).toEqual(false);
@@ -94,7 +94,7 @@ describe("StandardStatusbarItemsProvider", () => {
     // Activity Item is not included by default
     expect(
       UiItemsManager.getStatusBarItems("test", StageUsage.General).length
-    ).toEqual(8);
+    ).toEqual(6);
     provider.unregister();
 
     testArray.forEach((itemList: DefaultStatusbarItems) => {

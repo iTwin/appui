@@ -67,7 +67,7 @@ describe(`ToolAssistanceField`, () => {
     await waitFor(() => {
       expect(screen.getByText("Hello World!")).to.satisfy(
         selectorMatches(
-          ".uifw-statusFields-toolAssistance-toolAssistanceField .prompt"
+          ".uifw-statusFields-toolAssistance-toolAssistanceField"
         )
       );
     });
