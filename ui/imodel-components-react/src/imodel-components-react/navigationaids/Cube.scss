@@ -10,10 +10,13 @@ $cube-side-width: 12px;
   height: $cube-width;
   perspective: 300px;
   transform-style: preserve-3d;
+  pointer-events: none;
+
   .face {
     width: 100%;
     height: 100%;
     position: absolute;
     backface-visibility: inherit;
+    pointer-events: all;
   }
 }

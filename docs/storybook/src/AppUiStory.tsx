@@ -101,9 +101,6 @@ export function AppUiStory(props: AppUiStoryProps) {
       for (const frontstage of frontstages) {
         UiFramework.frontstages.addFrontstage(frontstage);
       }
-      for (const provider of props.itemProviders ?? []) {
-        UiItemsManager.register(provider);
-      }
 
       if (ignore) return;
       setInitialized(true);
