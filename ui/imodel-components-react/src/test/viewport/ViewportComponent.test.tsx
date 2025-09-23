@@ -34,6 +34,7 @@ import { ViewportComponentEvents } from "../../imodel-components-react/viewport/
 import { TestUtils } from "../TestUtils.js";
 import { ViewportComponent } from "../../imodel-components-react/viewport/ViewportComponent.js";
 import { Face } from "../../imodel-components-react/navigationaids/Cube.js";
+import { vi } from "vitest";
 
 describe("ViewportComponent", () => {
   // set up descriptors to restore SpatialViewState behavior after testing is complete
@@ -98,6 +99,10 @@ describe("ViewportComponent", () => {
   const clone = (): ViewState => {
     return getViewState(globalViewId);
   };
+
+  let clientWidthMock;
+  let clientHeightMock;
+
   beforeEach(async () => {
     Object.defineProperty(EntityState.prototype, "clone", {
       get: () => clone,
@@ -106,14 +111,12 @@ describe("ViewportComponent", () => {
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
 
-    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
-      configurable: true,
-      value: 100,
-    });
-    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
-      configurable: true,
-      value: 100,
-    });
+    // Spy on the clientWidth / clientHeight method on HTMLElement.prototype
+    // This is necessary to simulate the viewport size in tests
+    clientWidthMock = vi.spyOn(HTMLElement.prototype, "clientWidth", "get");
+    clientWidthMock.mockReturnValue(100);
+    clientHeightMock = vi.spyOn(HTMLElement.prototype, "clientHeight", "get");
+    clientHeightMock.mockReturnValue(100);
   });
 
   afterEach(async () => {
@@ -122,12 +125,8 @@ describe("ViewportComponent", () => {
       "clone",
       vsCloneDescriptorToRestore
     );
-    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
-      value: undefined,
-    });
-    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
-      value: undefined,
-    });
+    clientWidthMock?.mockRestore();
+    clientHeightMock?.mockRestore();
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
   });
@@ -360,14 +359,8 @@ describe("ViewportComponent", () => {
 
   it("should return viewport to viewportRef callback only once the viewportDiv has non zero dimensions", async () => {
     const viewportRef = vi.fn();
-    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
-      configurable: true,
-      value: 0,
-    });
-    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
-      configurable: true,
-      value: 0,
-    });
+    clientHeightMock.mockReturnValue(0);
+    clientWidthMock.mockReturnValue(0);
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -380,14 +373,8 @@ describe("ViewportComponent", () => {
     await TestUtils.flushAsyncOperations();
     expect(viewportRef).toHaveBeenCalledTimes(0);
 
-    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
-      configurable: true,
-      value: 100,
-    });
-    Object.defineProperty(HTMLElement.prototype, "clientHeight", {
-      configurable: true,
-      value: 100,
-    });
+    clientHeightMock.mockReturnValue(100);
+    clientWidthMock.mockReturnValue(100);
     render(
       <ViewportComponent
         imodel={imodelMock.object}
