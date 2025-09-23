@@ -159,14 +159,32 @@ $key-size-modifier: 24px;
   font-size: var(--iui-font-size-2);
   font-weight: var(--iui-font-weight-normal);
   line-height: var(--iui-size-l);
-  button[aria-selected="true"]  {
+
+}
+
+.uifw-tab {
+  width: 50%;
+  font-size: inherit;
+  display: flex;
+  justify-content: center;
+  margin: 8px 16px;
+  &[aria-selected="true"]  {
     color: var(--stratakit-color-border-accent-strong);
   }
-  &::after {
+}
+
+.nz-footer-toolAssistance-dialog {
+  div[role="tablist"]::after {
     background-color: var(--stratakit-color-border-accent-strong);
   }
-  > .uifw-tab {
-    width: 50%;
-    text-align: center;
+}
+
+.uifw-toolAssistance-button {
+  &.pressed {
+    background-color: var(--stratakit-color-bg-glow-on-surface-neutral-pressed);
   }
+}
+
+.uifw-toolAssistance-popover {
+  max-block-size: fit-content;
 }

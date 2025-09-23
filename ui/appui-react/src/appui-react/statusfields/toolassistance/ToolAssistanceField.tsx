@@ -19,7 +19,8 @@ import {
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { FillCentered, Icon } from "@itwin/core-react";
-import { Tabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { ToggleSwitch } from "@itwin/itwinui-react";
+import { Tabs } from '@stratakit/structures';
 import { Button } from '@stratakit/bricks';
 import classnames from "classnames";
 import * as React from "react";
@@ -149,6 +150,7 @@ export function ToolAssistanceField(props: Props) {
   const { translate } = useTranslation();
   const activeTool = useActiveTool();
 
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [state, setState] = React.useState<ToolAssistanceFieldState>(() => {
     return {
       instructions: undefined,
@@ -317,9 +319,11 @@ export function ToolAssistanceField(props: Props) {
 
   return (
     <StatusBarPopover
+      positionReference={buttonRef.current!}
       visible={visible}
       onVisibleChange={setVisible}
       closeOnOutsideClick={!pinned}
+      className="uifw-toolAssistance-popover"
       content={
         <ToolAssistanceDialog
           buttons={
@@ -340,14 +344,14 @@ export function ToolAssistanceField(props: Props) {
         >
           <div>
             {showMouseTouchTabs && (
-              <Tabs.Wrapper type="pill" value={String(mouseTouchTabIndex)}>
-                <Tabs.TabList className="uifw-toolAssistance-tabs">
-                  {tabs.map((tab, index) => (
+              <Tabs.Provider>
+                <Tabs.TabList>
+                   {tabs.map((tab, index) => (
                     <Tabs.Tab
+                      id={`tool-assistance-tab-${index}`}
                       key={index}
                       className="uifw-tab"
                       value={String(index)}
-                      label={tab}
                       onClick={async () => {
                         setState((prev) => ({
                           ...prev,
@@ -359,10 +363,12 @@ export function ToolAssistanceField(props: Props) {
                           index
                         );
                       }}
-                    />
+                    >
+                      {tab}
+                    </Tabs.Tab>
                   ))}
                 </Tabs.TabList>
-              </Tabs.Wrapper>
+              </Tabs.Provider>
             )}
             {instructions ? (
               <div className="uifw-toolAssistance-content">
@@ -431,11 +437,13 @@ export function ToolAssistanceField(props: Props) {
         </ToolAssistanceDialog>
       }
     >
-      <Button variant="ghost" title={tooltip}>
-        {instructions ? (
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <CursorIcon />
-        ) : null}
+      <Button
+        ref={buttonRef}
+        variant="ghost"
+        title={tooltip}
+        className={`uifw-toolAssistance-button ${ visible ? 'pressed' : '' }`}
+      >
+        {instructions ? (<CursorIcon />) : <></>}
         {prompt}
         <StatusBarPopover.ExpandIndicator />
       </Button>

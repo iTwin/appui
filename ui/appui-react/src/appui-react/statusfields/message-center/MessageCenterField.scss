@@ -20,6 +20,13 @@
 
 .uifw-statusFields-messageCenter-messageCenterField_popover {
   width: 305px;
+  button {
+    width: 50%;
+    font-size: inherit;
+    display: flex;
+    justify-content: center;
+    margin: 8px 16px;
+  }
   button[aria-selected="true"]  {
     color: var(--stratakit-color-border-accent-strong);
   }
@@ -27,7 +34,9 @@
     background-color: var(--stratakit-color-border-accent-strong);
   }
 }
-
 .uifw-statusFields-messageCenter-messageCenterField_button {
   margin-left:5px;
+  &.pressed {
+    background-color: var(--stratakit-color-bg-glow-on-surface-neutral-pressed);
+  }
 }

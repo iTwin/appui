@@ -7,12 +7,12 @@
  */
 import * as React from "react";
 import { NotificationMarker} from '@itwin/itwinui-react';
-import { Icon, Tabs } from '@itwin/itwinui-react';
+import { Icon } from '@itwin/itwinui-react';
 import { Button } from '@stratakit/bricks';
+import { Tabs } from '@stratakit/structures';
 import {
   SvgInfo,
   SvgStatusError,
-  SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
@@ -23,6 +23,7 @@ import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessage
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 import SvgChat from "../../icons/ChatIcon.js";
+import SvgSuccess from "../../icons/SuccessIcon.js";
 
 import "./MessageCenterField.scss";
 
@@ -95,74 +96,77 @@ export function MessageCenterField() {
     });
   }, []);
 
+  function renderPopoverContent() {
+    return (
+      <>
+        <TitleBar title={translate('messageCenter.messages')} />
+        <Tabs.Provider>
+          <Tabs.TabList>
+            {tabs.map((tab) => (
+              <Tabs.Tab
+                id={`message-center-tab-${tab}`}
+                key={tab}
+              >
+                {translate(`messageCenter.${tab}`)}
+              </Tabs.Tab>
+            ))}
+          </Tabs.TabList>
+          {tabs.map((tab) => {
+            let tabMessages = [...messages].reverse();
+            tabMessages =
+              tab === 'errors'
+                ? tabMessages.filter(isErrorMessage)
+                : tabMessages;
+            return (
+              <Tabs.TabPanel
+                tabId={`message-center-tab-${tab}`}
+                key={tab}
+                className='uifw-statusFields-messageCenter-messageCenterField_panel'
+              >
+                {tabMessages.length === 0 ? (
+                  <span className='uifw-message-prompt'>
+                    {translate('messageCenter.prompt')}
+                  </span>
+                ) : (
+                  tabMessages.map((message, index) => {
+                    return (
+                      <MessageCenterMessage
+                        key={index}
+                        message={message.briefMessage}
+                        details={message.detailedMessage}
+                        icon={<MessageIcon priority={message.priority} />}
+                      />
+                    );
+                  })
+                )}
+              </Tabs.TabPanel>
+            );
+          })}
+        </Tabs.Provider>
+      </>
+    );
+  }
+
   return (
-    <>
       <StatusBarPopover
         visible={isOpen}
         onVisibleChange={(visible) => handleOpenChange(visible)}
         className='uifw-statusFields-messageCenter-messageCenterField_popover'
-        content={
-          <>
-            <TitleBar title={translate('messageCenter.messages')}></TitleBar>
-            <Tabs.Wrapper type='pill'>
-              <Tabs.TabList>
-                {tabs.map((tab) => (
-                  <Tabs.Tab
-                    label={translate(`messageCenter.${tab}`)}
-                    key={tab}
-                    value={tab}
-                  />
-                ))}
-              </Tabs.TabList>
-              {tabs.map((tab) => {
-                let tabMessages = [...messages].reverse();
-                tabMessages =
-                  tab === 'errors'
-                    ? tabMessages.filter(isErrorMessage)
-                    : tabMessages;
-                return (
-                  <Tabs.Panel
-                    value={tab}
-                    key={tab}
-                    className='uifw-statusFields-messageCenter-messageCenterField_panel'
-                  >
-                    {tabMessages.length === 0 ? (
-                      <span className='uifw-message-prompt'>
-                        {translate('messageCenter.prompt')}
-                      </span>
-                    ) : (
-                      tabMessages.map((message, index) => {
-                        return (
-                          <MessageCenterMessage
-                            key={index}
-                            message={message.briefMessage}
-                            details={message.detailedMessage}
-                            icon={<MessageIcon priority={message.priority} />}
-                          />
-                        );
-                      })
-                    )}
-                  </Tabs.Panel>
-                );
-              })}
-            </Tabs.Wrapper>
-          </>
-        }
+        content={renderPopoverContent()}
       >
-      <Button
-        ref={indicatorRef}
-        variant="ghost"
-        className="uifw-statusFields-messageCenter-messageCenterField_button"
-      >
-        <NotificationMarker status={status} enabled={notify}>
-         <SvgChat />
-        </NotificationMarker>
-        {translate('messageCenter.messages')}
-        <StatusBarPopover.ExpandIndicator />
-      </Button>
-
+        <Button
+          ref={indicatorRef}
+          variant="ghost"
+          className={`uifw-statusFields-messageCenter-messageCenterField_button ${isOpen ? 'pressed' : ''}`}
+        >
+          <NotificationMarker status={status} enabled={notify}>
+            <SvgChat />
+          </NotificationMarker>
+          {translate('messageCenter.messages')}
+          <StatusBarPopover.ExpandIndicator />
+        </Button>
       </StatusBarPopover>
-    </>
+
   );
 }
 
@@ -194,7 +198,7 @@ function MessageIcon({ priority }: MessageIconProps) {
   }
   return (
     <Icon fill="positive">
-      <SvgStatusSuccess />
+      <SvgSuccess />
     </Icon>
   );
 }

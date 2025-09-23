@@ -662,6 +662,9 @@ importers:
       '@stratakit/icons':
         specifier: ^0.1.5
         version: 0.1.5
+      '@stratakit/structures':
+        specifier: ^0.4.4
+        version: 0.4.4(@stratakit/foundations@0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.20)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -3083,6 +3086,13 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
+  '@stratakit/bricks@0.4.4':
+    resolution: {integrity: sha512-QdqedMxolpOHtdcLnYaF/AZch4HJT6fQEe6mzfY6JRo3yezYmpKrVjkvOGDzPPdmwjoWOyX6JmNq0MWc1OtFwg==}
+    peerDependencies:
+      '@stratakit/foundations': ^0.3.4
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
   '@stratakit/foundations@0.3.2':
     resolution: {integrity: sha512-1J2V4qv4ySKEZ8vFKdjOQ714j0n+XWx6w7sz8OscW5UPDx4F2QIj9oXAvMLM0C0dJcg+UXaWzuSR4CCv9Iq6lw==}
     peerDependencies:
@@ -3096,6 +3106,13 @@ packages:
 
   '@stratakit/icons@0.1.5':
     resolution: {integrity: sha512-u8zHps0YNF3EXxlROEg7YkKkMC1QsjHxmwvrQU6NsUOAZ+i/vKnJAkP/v1GEJKoh7nowDRNtWOczurKXLKIP6w==}
+
+  '@stratakit/structures@0.4.4':
+    resolution: {integrity: sha512-XThbaS8F2iUsOQPzuYsK34OKGcp1BQdrEQaiN+KYjoTrXomeCQXSHGBsVg5C8TbOgUKLY9aSo0tdV51UPgwO0w==}
+    peerDependencies:
+      '@stratakit/foundations': ^0.3.4
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@swc/core-darwin-arm64@1.11.21':
     resolution: {integrity: sha512-v6gjw9YFWvKulCw3ZA1dY+LGMafYzJksm1mD4UZFZ9b36CyHFowYVYug1ajYRIRqEvvfIhHUNV660zTLoVFR8g==}
@@ -7435,6 +7452,24 @@ packages:
       react:
         optional: true
 
+  zustand@5.0.8:
+    resolution: {integrity: sha512-gyPKpIaxY9XcO2vSMrLbiER7QMAMGOQZVRdJ6Zi782jkbzZygq5GI9nG8g+sMgitRtndwaBSl7uiqC49o1SSiw==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -9803,6 +9838,14 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@stratakit/bricks@0.4.4(@stratakit/foundations@0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@ariakit/react': 0.4.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/foundations': 0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      classnames: 2.5.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@stratakit/foundations@0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@ariakit/react': 0.4.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -9812,6 +9855,20 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@stratakit/icons@0.1.5': {}
+
+  '@stratakit/structures@0.4.4(@stratakit/foundations@0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.20)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))':
+    dependencies:
+      '@ariakit/react': 0.4.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/bricks': 0.4.4(@stratakit/foundations@0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@stratakit/foundations': 0.3.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      classnames: 2.5.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      zustand: 5.0.8(@types/react@18.3.20)(immer@10.1.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - use-sync-external-store
 
   '@swc/core-darwin-arm64@1.11.21':
     optional: true
@@ -14890,5 +14947,12 @@ snapshots:
       '@types/react': 18.3.20
       immer: 10.1.1
       react: 18.3.1
+
+  zustand@5.0.8(@types/react@18.3.20)(immer@10.1.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1)):
+    optionalDependencies:
+      '@types/react': 18.3.20
+      immer: 10.1.1
+      react: 18.3.1
+      use-sync-external-store: 1.5.0(react@18.3.1)
 
   zwitch@2.0.4: {}
