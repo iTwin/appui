@@ -100,9 +100,6 @@ describe("ViewportComponent", () => {
     return getViewState(globalViewId);
   };
 
-  let clientWidthMock;
-  let clientHeightMock;
-
   beforeEach(async () => {
     Object.defineProperty(EntityState.prototype, "clone", {
       get: () => clone,
@@ -111,12 +108,9 @@ describe("ViewportComponent", () => {
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
 
-    // Spy on the clientWidth / clientHeight method on HTMLElement.prototype
-    // This is necessary to simulate the viewport size in tests
-    clientWidthMock = vi.spyOn(HTMLElement.prototype, "clientWidth", "get");
-    clientWidthMock.mockReturnValue(100);
-    clientHeightMock = vi.spyOn(HTMLElement.prototype, "clientHeight", "get");
-    clientHeightMock.mockReturnValue(100);
+    // Mock the viewport container size, since ViewportComponent expects non-zero dimensions.
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(100);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(100);
   });
 
   afterEach(async () => {
@@ -125,8 +119,7 @@ describe("ViewportComponent", () => {
       "clone",
       vsCloneDescriptorToRestore
     );
-    clientWidthMock?.mockRestore();
-    clientHeightMock?.mockRestore();
+
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
   });
@@ -359,8 +352,8 @@ describe("ViewportComponent", () => {
 
   it("should return viewport to viewportRef callback only once the viewportDiv has non zero dimensions", async () => {
     const viewportRef = vi.fn();
-    clientHeightMock.mockReturnValue(0);
-    clientWidthMock.mockReturnValue(0);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(0);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(0);
     render(
       <ViewportComponent
         imodel={imodelMock.object}
@@ -373,8 +366,8 @@ describe("ViewportComponent", () => {
     await TestUtils.flushAsyncOperations();
     expect(viewportRef).toHaveBeenCalledTimes(0);
 
-    clientHeightMock.mockReturnValue(100);
-    clientWidthMock.mockReturnValue(100);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(100);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(100);
     render(
       <ViewportComponent
         imodel={imodelMock.object}
