@@ -29,7 +29,7 @@ import {
   StandardViewId,
   ViewRect,
 } from "@itwin/core-frontend";
-import { fireEvent, render, waitFor  } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { ViewportComponentEvents } from "../../imodel-components-react/viewport/ViewportComponentEvents.js";
 import { TestUtils } from "../TestUtils.js";
 import { ViewportComponent } from "../../imodel-components-react/viewport/ViewportComponent.js";
@@ -387,7 +387,6 @@ describe("ViewportComponent", () => {
     await TestUtils.flushAsyncOperations();
     expect(viewportRef).toHaveBeenCalledWith(viewportMock.object);
   });
-
 
   it("should return view to getViewOverlay callback", async () => {
     const getViewOverlay = vi.fn();
