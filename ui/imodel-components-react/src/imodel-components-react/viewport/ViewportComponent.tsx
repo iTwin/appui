@@ -322,31 +322,64 @@ export function ViewportComponent(props: ViewportProps) {
 
   // This useEffect connects to ViewManger as soon as initialViewState is available once component is mounted.
   React.useEffect(() => {
-    const parentDiv = viewportDiv.current;
-    const viewManager = viewManagerRef.current;
-    if (
-      parentDiv &&
-      initialViewState &&
-      (initialViewState?.iModel.isOpen || initialViewState?.iModel.isBlank)
-    ) {
-      if (!screenViewportCreated.current) {
-        const screenViewport = getScreenViewport(parentDiv, initialViewState);
-        screenViewportRef.current = screenViewport;
+    const applyView = () => {
+      const parentDiv = viewportDiv.current;
+      const viewManager = viewManagerRef.current;
+      if (
+        parentDiv &&
+        parentDiv.clientWidth > 0 &&
+        parentDiv.clientHeight > 0 &&
+        initialViewState &&
+        (initialViewState?.iModel.isOpen || initialViewState?.iModel.isBlank)
+      ) {
+        if (!screenViewportCreated.current) {
+          const screenViewport = getScreenViewport(parentDiv, initialViewState);
+          screenViewportRef.current = screenViewport;
 
-        if (viewportRef) viewportRef(screenViewport);
+          if (viewportRef) viewportRef(screenViewport);
 
-        Logger.logInfo(
-          "ViewportComponent",
-          `processing viewManager.addViewport for controlId=${controlId}`
-        );
-        viewManager.addViewport(screenViewport);
+          Logger.logInfo(
+            "ViewportComponent",
+            `processing viewManager.addViewport for controlId=${controlId}`
+          );
+          viewManager.addViewport(screenViewport);
 
-        // overlay component is set up once a ScreenViewport is available. The overlay component must handle any view changes itself.
-        setViewOverlay(getViewOverlay ? getViewOverlay(screenViewport) : null);
-      } else {
-        screenViewportRef.current?.changeView(initialViewState);
+          // overlay component is set up once a ScreenViewport is available. The overlay component must handle any view changes itself.
+          setViewOverlay(
+            getViewOverlay ? getViewOverlay(screenViewport) : null
+          );
+        } else {
+          screenViewportRef.current?.changeView(initialViewState);
+        }
+        return true;
       }
+      return false;
+    };
+
+    let resizeObserver: ResizeObserver | undefined;
+    let didApplyView = applyView();
+
+    // instead of allowing an unhandled error to be thrown if we create a viewport when the parent div has width or height of 0.
+    // we use a ResizeObserver to wait until the div has been resized to non-zero dimensions.
+    if (!didApplyView && viewportDiv.current) {
+      resizeObserver = new ResizeObserver(() => {
+        if (
+          viewportDiv.current &&
+          viewportDiv.current.clientWidth > 0 &&
+          viewportDiv.current.clientHeight > 0
+        ) {
+          didApplyView = applyView();
+          if (didApplyView) {
+            resizeObserver?.disconnect();
+          }
+        }
+      });
+      resizeObserver.observe?.(viewportDiv.current);
     }
+
+    return () => {
+      resizeObserver?.disconnect();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [controlId, initialViewState, viewportRef]);
 

@@ -34,6 +34,7 @@ import { ViewportComponentEvents } from "../../imodel-components-react/viewport/
 import { TestUtils } from "../TestUtils.js";
 import { ViewportComponent } from "../../imodel-components-react/viewport/ViewportComponent.js";
 import { Face } from "../../imodel-components-react/navigationaids/Cube.js";
+import { vi } from "vitest";
 
 describe("ViewportComponent", () => {
   // set up descriptors to restore SpatialViewState behavior after testing is complete
@@ -98,6 +99,7 @@ describe("ViewportComponent", () => {
   const clone = (): ViewState => {
     return getViewState(globalViewId);
   };
+
   beforeEach(async () => {
     Object.defineProperty(EntityState.prototype, "clone", {
       get: () => clone,
@@ -105,6 +107,10 @@ describe("ViewportComponent", () => {
     ViewportComponentEvents.terminate();
     await TestUtils.initializeUiIModelComponents();
     await NoRenderApp.startup();
+
+    // Mock the viewport container size, since ViewportComponent expects non-zero dimensions.
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(100);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(100);
   });
 
   afterEach(async () => {
@@ -113,6 +119,7 @@ describe("ViewportComponent", () => {
       "clone",
       vsCloneDescriptorToRestore
     );
+
     await IModelApp.shutdown();
     TestUtils.terminateUiIModelComponents();
   });
@@ -329,6 +336,38 @@ describe("ViewportComponent", () => {
 
   it("should return viewport to viewportRef callback", async () => {
     const viewportRef = vi.fn();
+
+    render(
+      <ViewportComponent
+        imodel={imodelMock.object}
+        viewportRef={viewportRef}
+        viewState={viewState}
+        viewManagerOverride={viewManager.object}
+        screenViewportOverride={ScreenViewportMock}
+      />
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(viewportRef).toHaveBeenCalledWith(viewportMock.object);
+  });
+
+  it("should return viewport to viewportRef callback only once the viewportDiv has non zero dimensions", async () => {
+    const viewportRef = vi.fn();
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(0);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(0);
+    render(
+      <ViewportComponent
+        imodel={imodelMock.object}
+        viewportRef={viewportRef}
+        viewState={viewState}
+        viewManagerOverride={viewManager.object}
+        screenViewportOverride={ScreenViewportMock}
+      />
+    );
+    await TestUtils.flushAsyncOperations();
+    expect(viewportRef).toHaveBeenCalledTimes(0);
+
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(100);
+    vi.spyOn(HTMLElement.prototype, "clientHeight", "get").mockReturnValue(100);
     render(
       <ViewportComponent
         imodel={imodelMock.object}
