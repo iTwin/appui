@@ -7,10 +7,10 @@
  */
 
 import * as React from "react";
-import { DropdownMenu, IconButton } from "@itwin/itwinui-react";
+import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { useLabelProps } from "./Item.js";
-import { usePopoverPlacement } from "./GroupItem.js";
+import { ToolbarMenu, usePopoverPlacement } from "./GroupItem.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
 
@@ -37,7 +37,7 @@ export const OverflowButton = React.forwardRef<
   const { setPopoverOpen } = useSafeContext(ToolbarContext);
 
   return (
-    <DropdownMenu
+    <ToolbarMenu
       menuItems={(close) => {
         return [
           <OverflowMenu key={0} onClose={close}>
@@ -58,7 +58,7 @@ export const OverflowButton = React.forwardRef<
       >
         <SvgMore />
       </IconButton>
-    </DropdownMenu>
+    </ToolbarMenu>
   );
 });
 

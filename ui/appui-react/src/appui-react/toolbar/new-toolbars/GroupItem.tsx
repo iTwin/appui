@@ -6,6 +6,8 @@
  * @module Toolbar
  */
 
+import "./GroupItem.scss";
+import classnames from "classnames";
 import * as React from "react";
 import { Icon } from "@itwin/core-react";
 import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
@@ -39,7 +41,7 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
       return <GroupMenuItem item={item} onClose={overflowContext.onClose} />;
     }
     return (
-      <DropdownMenu
+      <ToolbarMenu
         menuItems={(close) => {
           return toMenuItems(item, close);
         }}
@@ -51,7 +53,7 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
         <Item item={item} ref={ref}>
           <ExpandIndicator />
         </Item>
-      </DropdownMenu>
+      </ToolbarMenu>
     );
   }
 );
@@ -90,6 +92,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   );
   return (
     <MenuItem
+      className="uifw-toolbar-newToolbars-groupItem_menuItem"
       startIcon={startIcon}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
@@ -126,3 +129,24 @@ function toMenuItems(item: ToolbarItem, onClose?: () => void) {
   }
   return [];
 }
+
+type ToolbarMenuProps = React.ComponentProps<typeof DropdownMenu>;
+
+/** @internal */
+export const ToolbarMenu: React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<ToolbarMenuProps> & React.RefAttributes<HTMLDivElement>
+> = React.forwardRef<HTMLDivElement, ToolbarMenuProps>(function DropdownMenu1(
+  props,
+  ref
+) {
+  return (
+    <DropdownMenu
+      {...props}
+      className={classnames(
+        "uifw-toolbar-newToolbars-groupItem_menu",
+        props.className
+      )}
+      ref={ref}
+    />
+  );
+});
