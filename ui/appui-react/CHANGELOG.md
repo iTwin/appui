@@ -1,5 +1,16 @@
 # Change Log - @itwin/appui-react
 
+## 5.15.1
+
+### Patch Changes
+
+- 655ca63: Removed height limit that caused vertical overflow in menu of `Toolbar` component.
+- Updated dependencies [b930ab8]
+- Updated dependencies [3781110]
+  - @itwin/imodel-components-react@5.15.1
+  - @itwin/components-react@5.15.1
+  - @itwin/core-react@5.15.1
+
 ## 5.15.0
 
 ### Minor Changes
