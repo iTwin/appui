@@ -309,6 +309,7 @@ function ListPickerPopupItem(props: ListPickerProps) {
         ) : (
           // eslint-disable-next-line @typescript-eslint/no-deprecated
           <PopupItem
+            className="ListPicker-button"
             hideIndicator={isEnabled}
             icon={icon}
             title={props.title}
