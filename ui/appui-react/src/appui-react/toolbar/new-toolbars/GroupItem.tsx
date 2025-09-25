@@ -90,19 +90,22 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     <Icon iconSpec={iconSpec} />
   );
+
   return (
     <MenuItem
       className="uifw-toolbar-newToolbars-groupItem_menuItem"
       startIcon={startIcon}
       disabled={isDisabled}
       subMenuItems={subMenuItems}
-      onClick={() => {
-        if (isToolbarActionItem(item)) {
-          item.execute();
-          onItemExecuted?.(item);
-          onClose?.();
-        }
-      }}
+      onClick={
+        isToolbarActionItem(item)
+          ? () => {
+              item.execute();
+              onItemExecuted?.(item);
+              onClose?.();
+            }
+          : undefined
+      }
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       isSelected={isActiveCondition ?? item.isActive}
       data-item-id={item.id}
