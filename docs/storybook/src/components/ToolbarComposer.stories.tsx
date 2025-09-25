@@ -500,6 +500,35 @@ export const ActiveItemIds: Story = {
   },
 };
 
+export const Overflow: Story = {
+  args: {
+    items: (() => {
+      const factory = createItemFactory();
+      const createItems = () =>
+        Array.from({ length: 8 }).map(() => factory.createActionItem());
+      return [
+        ...createItems(),
+        factory.createGroupItem({
+          items: [
+            ...createItems(),
+            factory.createGroupItem({
+              items: [
+                ...createItems(),
+                factory.createGroupItem({
+                  items: [...createItems(), ...createItems()],
+                }),
+                ...createItems(),
+              ],
+            }),
+            ...createItems(),
+          ],
+        }),
+        ...createItems(),
+      ];
+    })(),
+  },
+};
+
 function createAbstractReactIcon() {
   const internalData = new Map();
   const icon = IconHelper.getIconData(<SvgExport />, internalData);

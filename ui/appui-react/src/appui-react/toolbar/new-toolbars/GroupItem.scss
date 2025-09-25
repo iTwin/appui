@@ -1,0 +1,9 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uifw-toolbar-newToolbars-groupItem_menu,
+// Can not customize iTwinUI submenu directly, so we use :has() to workaround it.
+[role="menu"]:has(.uifw-toolbar-newToolbars-groupItem_menuItem) {
+  --iui-menu-max-height: 100%;
+}
