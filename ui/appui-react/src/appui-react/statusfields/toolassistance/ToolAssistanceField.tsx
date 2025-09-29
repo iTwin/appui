@@ -19,9 +19,7 @@ import {
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { FillCentered, Icon } from "@itwin/core-react";
-import { ToggleSwitch } from "@itwin/itwinui-react";
-import { Tabs } from '@stratakit/structures';
-import { Button } from '@stratakit/bricks';
+import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../../UiFramework.js";
@@ -62,9 +60,8 @@ import { SvgMouseClickRightDrag } from "../../icons/SvgMouseClickRightDrag.js";
 import { SvgMouseClickWheelDrag } from "../../icons/SvgMouseClickWheelDrag.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
-import { useControlledState } from "../../hooks/useControlledState.js";
-import CursorIcon from "../../icons/CursorIcon.js";
 import { usePosition } from "../usePosition.js";
+import { useControlledState } from "../../hooks/useControlledState.js";
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -165,9 +162,7 @@ export function ToolAssistanceField(props: Props) {
 
   const { showPromptAtCursor, toolIconSpec, mouseTouchTabIndex, instructions } =
     state;
-
   const mainInstruction = state.instructions?.mainInstruction.text;
-
   const { open } = useCursorPrompt({
     show: showPromptAtCursor,
     timeout: cursorPromptTimeout,
@@ -217,7 +212,6 @@ export function ToolAssistanceField(props: Props) {
       }));
     })();
   }, [uiStateStorage]);
-
   React.useEffect(() => {
     void (async () => {
       const result = await uiStateStorage.getSetting(
@@ -232,7 +226,6 @@ export function ToolAssistanceField(props: Props) {
       }));
     })();
   }, [uiStateStorage]);
-
   React.useEffect(() => {
     return MessageManager.onToolAssistanceChangedEvent.addListener((args) => {
       setState((prev) => ({
@@ -242,7 +235,6 @@ export function ToolAssistanceField(props: Props) {
       open();
     });
   }, [open]);
-
   React.useEffect(() => {
     return UiFramework.frontstages.onToolIconChangedEvent.addListener(
       (args) => {
@@ -260,7 +252,6 @@ export function ToolAssistanceField(props: Props) {
       isMouseInstruction(instruction)
     );
   });
-
   const hasTouchInstructions = !!instructions?.sections?.some((section) => {
     return section.instructions.some((instruction) =>
       isTouchInstruction(instruction)
@@ -287,7 +278,6 @@ export function ToolAssistanceField(props: Props) {
     });
 
   const prompt = instructions?.mainInstruction.text;
-
   const tooltip = React.useMemo(() => {
     const lineBreak = "\u000d\u000a";
     const moreInfo = translate("toolAssistance.moreInfo");
@@ -302,32 +292,26 @@ export function ToolAssistanceField(props: Props) {
   }, [prompt, activeTool, translate]);
 
   const dialogTitle = activeTool?.flyover ?? translate("toolAssistance.title");
-
   const tabs = [
     translate("toolAssistance.mouse"),
     translate("toolAssistance.touch"),
   ];
-
   const [visible, setVisible] = useControlledState(
     false,
     visibleProp,
     onVisibleChange as React.Dispatch<React.SetStateAction<boolean>>
   );
-
   const [pinned, setPinned] = useControlledState(
     false,
     pinnedProp,
     onPinnedChange as React.Dispatch<React.SetStateAction<boolean>>
   );
-
   return (
     <StatusBarPopover
       style={{ left: position.current.left }}
-      positionReference={buttonRef.current!}
       visible={visible}
       onVisibleChange={setVisible}
       closeOnOutsideClick={!pinned}
-      className="uifw-toolAssistance-popover"
       content={
         <ToolAssistanceDialog
           buttons={
@@ -348,14 +332,14 @@ export function ToolAssistanceField(props: Props) {
         >
           <div>
             {showMouseTouchTabs && (
-              <Tabs.Provider>
-                <Tabs.TabList>
-                   {tabs.map((tab, index) => (
+              <Tabs.Wrapper type="pill" value={String(mouseTouchTabIndex)}>
+                <Tabs.TabList className="uifw-toolAssistance-tabs">
+                  {tabs.map((tab, index) => (
                     <Tabs.Tab
-                      id={`tool-assistance-tab-${index}`}
                       key={index}
                       className="uifw-tab"
                       value={String(index)}
+                      label={tab}
                       onClick={async () => {
                         setState((prev) => ({
                           ...prev,
@@ -367,12 +351,10 @@ export function ToolAssistanceField(props: Props) {
                           index
                         );
                       }}
-                    >
-                      {tab}
-                    </Tabs.Tab>
+                    />
                   ))}
                 </Tabs.TabList>
-              </Tabs.Provider>
+              </Tabs.Wrapper>
             )}
             {instructions ? (
               <div className="uifw-toolAssistance-content">
@@ -442,16 +424,25 @@ export function ToolAssistanceField(props: Props) {
       }
     >
       <Button
+        styleType="borderless"
         ref={buttonRef}
-        variant="ghost"
-        title={tooltip}
+        startIcon={
+          instructions ? (
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            <Icon iconSpec={state.toolIconSpec} />
+          ) : (
+            <></>
+          )
+        }
         className={classnames(
-          "uifw-statusFields-toolAssistance-toolAssistanceField",
+          "uifw-statusFields-toolAssistance-toolAssistanceField_button",
           props.className,
-          { pressed: visible }
+          { pressed: visible || pinned },
         )}
+        title={tooltip}
+        style={props.style}
+        labelProps={{ className: "prompt" }}
       >
-        {instructions ? (<CursorIcon />) : <></>}
         {prompt}
         <StatusBarPopover.ExpandIndicator />
       </Button>

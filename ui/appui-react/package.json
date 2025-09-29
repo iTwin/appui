@@ -117,10 +117,8 @@
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-illustrations-react": "^2.0.1",
-    "@stratakit/bricks": "catalog:",
     "@stratakit/foundations": "^0.3.2",
     "@stratakit/icons": "^0.1.5",
-    "@stratakit/structures": "^0.4.4",
     "classnames": "2.5.1",
     "immer": "^10.1.1",
     "lodash": "^4.17.10",

@@ -21,7 +21,6 @@ import {
 } from "../../../appui-react.js";
 import { selectorMatches, storageMock, userEvent } from "../../TestUtils.js";
 import { DragManagerProvider } from "../../layout/Providers.js";
-import { Root } from "@stratakit/foundations";
 
 interface SetupConfig {
   uiSettingsStorage: LocalStateStorage;
@@ -30,10 +29,10 @@ interface SetupConfig {
 }
 function setupWithRoot({ uiSettingsStorage, extraElement, toolAssistanceProps } : SetupConfig) {
   return render(
-    <Root colorScheme="light" density="dense">
+    <>
       {extraElement}
       <ToolAssistanceField uiStateStorage={uiSettingsStorage} {...toolAssistanceProps} />
-    </Root>,
+    </>,
     {
       wrapper: DragManagerProvider,
     });
@@ -67,7 +66,7 @@ describe(`ToolAssistanceField`, () => {
     await waitFor(() => {
       expect(screen.getByText("Hello World!")).to.satisfy(
         selectorMatches(
-          ".uifw-statusFields-toolAssistance-toolAssistanceField"
+          ".uifw-statusFields-toolAssistance-toolAssistanceField_button .prompt"
         )
       );
     });

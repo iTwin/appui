@@ -6,7 +6,6 @@ import * as React from "react";
 import { render, screen } from "@testing-library/react";
 import { MessageCenterField, MessageManager } from "../../appui-react.js";
 import { userEvent, waitForPosition } from "../TestUtils.js";
-import { Root } from "@stratakit/foundations";
 
 describe(`MessageCenter`, () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -17,11 +16,11 @@ describe(`MessageCenter`, () => {
 
   it("Message Center should close on outside click", async () => {
     render(
-      <Root colorScheme="light" density="dense">
+      // <Root colorScheme="light" density="dense">
         <div title="outside">
           <MessageCenterField />
         </div>
-      </Root>
+      // </Root>
     );
 
     await theUserTo.click(screen.getByRole("button"));
@@ -35,7 +34,7 @@ describe(`MessageCenter`, () => {
   });
 
   it("Message Center should open on OpenMessageCenterEvent", async () => {
-    render(<Root colorScheme="light" density="dense"><MessageCenterField /></Root>);
+    render(<MessageCenterField />);
     expect(screen.queryByRole("dialog")).toEqual(null);
     MessageManager.onOpenMessageCenterEvent.emit({});
     expect(await screen.findByRole("dialog")).to.exist;

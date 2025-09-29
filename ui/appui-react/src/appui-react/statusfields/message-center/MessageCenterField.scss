@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@use "../../variables" as *;
 
 .uifw-statusFields-messageCenter-messageCenterField_panel {
   height: 250px;
@@ -20,24 +21,37 @@
 
 .uifw-statusFields-messageCenter-messageCenterField_popover {
   width: 305px;
+  overflow-x: unset;
   button {
     width: 50%;
     font-size: inherit;
     display: flex;
     justify-content: center;
-    margin: 8px 16px;
+    margin: 4px 16px;
+    border-radius: 4px;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  div[role="tablist"] {
+    overflow-x: unset;
   }
   button[aria-selected="true"]  {
-    color: var(--stratakit-color-border-accent-strong);
+    color: var(--iui-color-border-accent);
   }
   div[role="tablist"]::after {
-    background-color: var(--stratakit-color-border-accent-strong);
+    background-color: var(--iui-color-border-accent);
   }
 }
 .uifw-statusFields-messageCenter-messageCenterField_button {
-  margin-left:5px;
+  border: none;
+  margin-left: 5px;
+  &:hover,
+  &:active {
+    background-color: $uifw-popup-button-state-background-hover;
+  }
   &.pressed {
-    background-color: var(--stratakit-color-bg-glow-on-surface-neutral-pressed);
+    background-color: $uifw-popup-button-state-background-active;
   }
 }
 

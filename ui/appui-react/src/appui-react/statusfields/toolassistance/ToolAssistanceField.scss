@@ -2,6 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@use "../../variables" as *;
+
 $image-size: 22px;
 $image-size-wide: 30px;
 $image-size-medium: 16px;
@@ -144,29 +146,34 @@ $key-size-modifier: 24px;
   font-size: var(--iui-font-size-2);
   font-weight: var(--iui-font-weight-normal);
   line-height: var(--iui-size-l);
-
+  overflow-x: unset;
 }
 
 .uifw-tab {
   width: 50%;
-  font-size: inherit;
   display: flex;
   justify-content: center;
-  margin: 8px 16px;
+  margin: 4px 16px;
+  border-radius: 4px;
   &[aria-selected="true"]  {
-    color: var(--stratakit-color-border-accent-strong);
+    color: $uifw-popup-accent;
+  }
+  &:hover {
+    background-color: transparent;
   }
 }
 
 .nz-footer-toolAssistance-dialog {
   div[role="tablist"]::after {
-    background-color: var(--stratakit-color-border-accent-strong);
+    background-color: $uifw-popup-accent;
   }
 }
 
-.uifw-statusFields-toolAssistance-toolAssistanceField {
+.uifw-statusFields-toolAssistance-toolAssistanceField_button {
+  &:hover,
+  &:active,
   &.pressed {
-    background-color: var(--stratakit-color-bg-glow-on-surface-neutral-pressed);
+    background-color: $uifw-popup-button-state-background-active;
   }
   .prompt {
     white-space: nowrap;
@@ -175,6 +182,3 @@ $key-size-modifier: 24px;
   }
 }
 
-.uifw-toolAssistance-popover {
-  max-block-size: fit-content;
-}

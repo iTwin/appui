@@ -6,27 +6,28 @@
  * @module Notification
  */
 import * as React from "react";
-import { NotificationMarker} from '@itwin/itwinui-react';
-import { Icon } from '@itwin/itwinui-react';
-import { Button } from '@stratakit/bricks';
-import { Tabs } from '@stratakit/structures';
+import type { CommonProps } from "@itwin/core-react";
+import { Button, Icon, NotificationMarker, Tabs } from "@itwin/itwinui-react";
 import {
+  SvgChat,
   SvgInfo,
   SvgStatusError,
+  SvgStatusSuccess,
   SvgStatusWarning,
 } from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
+
 import { MessageCenterMessage } from "./MessageCenterMessage.js";
 import { MessageManager } from "../../messages/MessageManager.js";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
+
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
+import "./MessageCenterField.scss";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
-import SvgChat from "../../icons/ChatIcon.js";
-import SvgSuccess from "../../icons/SuccessIcon.js";
-
-import "./MessageCenterField.scss";
 import { usePosition } from "../usePosition.js";
+import classNames from "classnames";
+
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -39,11 +40,12 @@ const tabs = ["all", "errors"] as const;
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export function MessageCenterField() {
+export function MessageCenterField(props: CommonProps) {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [status, setStatus] = React.useState<NotificationMarkerStatus>('primary');
+  const [status, setStatus] =
+    React.useState<NotificationMarkerStatus>("primary");
   const { translate } = useTranslation();
 
   const indicatorRef = React.useRef<HTMLButtonElement>(null);
@@ -95,77 +97,80 @@ export function MessageCenterField() {
     });
   }, []);
 
-  function renderPopoverContent() {
-    return (
-      <>
-        <TitleBar title={translate('messageCenter.messages')} />
-        <Tabs.Provider>
-          <Tabs.TabList>
-            {tabs.map((tab) => (
-              <Tabs.Tab
-                id={`message-center-tab-${tab}`}
-                key={tab}
-              >
-                {translate(`messageCenter.${tab}`)}
-              </Tabs.Tab>
-            ))}
-          </Tabs.TabList>
-          {tabs.map((tab) => {
-            let tabMessages = [...messages].reverse();
-            tabMessages =
-              tab === 'errors'
-                ? tabMessages.filter(isErrorMessage)
-                : tabMessages;
-            return (
-              <Tabs.TabPanel
-                tabId={`message-center-tab-${tab}`}
-                key={tab}
-                className='uifw-statusFields-messageCenter-messageCenterField_panel'
-              >
-                {tabMessages.length === 0 ? (
-                  <span className='uifw-message-prompt'>
-                    {translate('messageCenter.prompt')}
-                  </span>
-                ) : (
-                  tabMessages.map((message, index) => {
-                    return (
-                      <MessageCenterMessage
-                        key={index}
-                        message={message.briefMessage}
-                        details={message.detailedMessage}
-                        icon={<MessageIcon priority={message.priority} />}
-                      />
-                    );
-                  })
-                )}
-              </Tabs.TabPanel>
-            );
-          })}
-        </Tabs.Provider>
-      </>
-    );
-  }
-
   return (
-      <StatusBarPopover
-        style={{ left: position.current.left }}
-        visible={isOpen}
-        onVisibleChange={(visible) => handleOpenChange(visible)}
-        className='uifw-statusFields-messageCenter-messageCenterField_popover'
-        content={renderPopoverContent()}
-      >
-        <Button
-          ref={indicatorRef}
-          variant="ghost"
-          className={`uifw-statusFields-messageCenter-messageCenterField_button ${isOpen ? 'pressed' : ''}`}
-        >
+    <StatusBarPopover
+      style={{ left: position.current.left }}
+      visible={isOpen}
+      onVisibleChange={(visible) => handleOpenChange(visible)}
+      className="uifw-statusFields-messageCenter-messageCenterField_popover"
+      content={
+        <>
+          <TitleBar title={translate("messageCenter.messages")}></TitleBar>
+
+          <Tabs.Wrapper type="pill">
+            <Tabs.TabList>
+              {tabs.map((tab) => (
+                <Tabs.Tab
+                  label={translate(`messageCenter.${tab}`)}
+                  key={tab}
+                  value={tab}
+                />
+              ))}
+            </Tabs.TabList>
+            {tabs.map((tab) => {
+              let tabMessages = [...messages].reverse();
+              tabMessages =
+                tab === "errors"
+                  ? tabMessages.filter(isErrorMessage)
+                  : tabMessages;
+              return (
+                <Tabs.Panel
+                  value={tab}
+                  key={tab}
+                  className="uifw-statusFields-messageCenter-messageCenterField_panel"
+                >
+                  {tabMessages.length === 0 ? (
+                    <span className="uifw-message-prompt">
+                      {translate("messageCenter.prompt")}
+                    </span>
+                  ) : (
+                    tabMessages.map((message, index) => {
+                      return (
+                        <MessageCenterMessage
+                          key={index}
+                          message={message.briefMessage}
+                          details={message.detailedMessage}
+                          icon={<MessageIcon priority={message.priority} />}
+                        />
+                      );
+                    })
+                  )}
+                </Tabs.Panel>
+              );
+            })}
+          </Tabs.Wrapper>
+        </>
+      }
+    >
+      <Button
+        ref={indicatorRef}
+        styleType="borderless"
+        startIcon={
           <NotificationMarker status={status} enabled={notify}>
             <SvgChat />
           </NotificationMarker>
-          {translate('messageCenter.messages')}
-          <StatusBarPopover.ExpandIndicator />
-        </Button>
-      </StatusBarPopover>
+        }
+        className={classNames(
+          `uifw-statusFields-messageCenter-messageCenterField_button`,
+          props.className,
+          { pressed: isOpen }
+        )}
+        style={props.style}
+      >
+        {translate("messageCenter.messages")}
+        <StatusBarPopover.ExpandIndicator />
+      </Button>
+    </StatusBarPopover>
   );
 }
 
@@ -197,7 +202,7 @@ function MessageIcon({ priority }: MessageIconProps) {
   }
   return (
     <Icon fill="positive">
-      <SvgSuccess />
+      <SvgStatusSuccess />
     </Icon>
   );
 }
