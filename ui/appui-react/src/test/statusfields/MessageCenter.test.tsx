@@ -16,11 +16,9 @@ describe(`MessageCenter`, () => {
 
   it("Message Center should close on outside click", async () => {
     render(
-      // <Root colorScheme="light" density="dense">
-        <div title="outside">
-          <MessageCenterField />
-        </div>
-      // </Root>
+      <div title="outside">
+        <MessageCenterField />
+      </div>
     );
 
     await theUserTo.click(screen.getByRole("button"));
