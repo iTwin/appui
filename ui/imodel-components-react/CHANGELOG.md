@@ -1,5 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.15.1
+
+### Patch Changes
+
+- b930ab8: Fixed zero dimension error in `ViewportComponent` by using a resize observer.
+- 3781110: Fixed `Cube` component to correctly hover the center face cell when cube is rotated.
+  - @itwin/components-react@5.15.1
+  - @itwin/core-react@5.15.1
+
 ## 5.15.0
 
 ### Patch Changes
