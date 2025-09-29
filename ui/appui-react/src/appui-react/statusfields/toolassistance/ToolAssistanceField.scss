@@ -150,11 +150,7 @@ $key-size-modifier: 24px;
 }
 
 .uifw-tab {
-  width: 50%;
-  display: flex;
-  justify-content: center;
   margin: 4px 16px;
-  border-radius: 4px;
   &[aria-selected="true"]  {
     color: $uifw-popup-accent;
   }
