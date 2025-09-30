@@ -28,7 +28,6 @@ import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 import { usePosition } from "../usePosition.js";
 import classNames from "classnames";
 
-
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
   React.ComponentProps<typeof NotificationMarker>

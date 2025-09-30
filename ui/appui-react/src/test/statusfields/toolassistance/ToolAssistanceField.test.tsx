@@ -11,8 +11,7 @@ import {
 } from "@itwin/core-frontend";
 import { LocalStateStorage } from "@itwin/core-react";
 import { render, screen, waitFor } from "@testing-library/react";
-import type {
-  ToolAssistanceFieldProps} from "../../../appui-react.js";
+import type { ToolAssistanceFieldProps } from "../../../appui-react.js";
 import {
   AppNotificationManager,
   CursorPopupManager,
@@ -27,15 +26,23 @@ interface SetupConfig {
   extraElement?: React.ReactNode | null;
   toolAssistanceProps?: Partial<ToolAssistanceFieldProps>;
 }
-function setupWithRoot({ uiSettingsStorage, extraElement, toolAssistanceProps } : SetupConfig) {
+function setupWithRoot({
+  uiSettingsStorage,
+  extraElement,
+  toolAssistanceProps,
+}: SetupConfig) {
   return render(
     <>
       {extraElement}
-      <ToolAssistanceField uiStateStorage={uiSettingsStorage} {...toolAssistanceProps} />
+      <ToolAssistanceField
+        uiStateStorage={uiSettingsStorage}
+        {...toolAssistanceProps}
+      />
     </>,
     {
       wrapper: DragManagerProvider,
-    });
+    }
+  );
 }
 
 describe(`ToolAssistanceField`, () => {
@@ -576,7 +583,10 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should close on outside click", async () => {
-    setupWithRoot({ uiSettingsStorage, extraElement: <div data-testid={"outside"} /> });
+    setupWithRoot({
+      uiSettingsStorage,
+      extraElement: <div data-testid={"outside"} />,
+    });
 
     await theUserTo.click(screen.getByRole("button"));
 
@@ -588,7 +598,10 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("should not close on outside click if pinned", async () => {
-    setupWithRoot({ uiSettingsStorage, extraElement: <div data-testid={"outside"} /> });
+    setupWithRoot({
+      uiSettingsStorage,
+      extraElement: <div data-testid={"outside"} />,
+    });
 
     await theUserTo.click(screen.getByRole("button"));
     await theUserTo.click(
@@ -636,7 +649,10 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool assistance set", async () => {
-    setupWithRoot({ uiSettingsStorage, toolAssistanceProps: { defaultPromptAtCursor: true } });
+    setupWithRoot({
+      uiSettingsStorage,
+      toolAssistanceProps: { defaultPromptAtCursor: true },
+    });
 
     const spy = vi.fn();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);
@@ -658,7 +674,10 @@ describe(`ToolAssistanceField`, () => {
   });
 
   it("cursorPrompt should open when tool icon changes", async () => {
-    setupWithRoot({ uiSettingsStorage, toolAssistanceProps: { defaultPromptAtCursor: true } });
+    setupWithRoot({
+      uiSettingsStorage,
+      toolAssistanceProps: { defaultPromptAtCursor: true },
+    });
 
     const spy = vi.fn();
     CursorPopupManager.onCursorPopupUpdatePositionEvent.addListener(spy);

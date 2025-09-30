@@ -437,7 +437,7 @@ export function ToolAssistanceField(props: Props) {
         className={classnames(
           "uifw-statusFields-toolAssistance-toolAssistanceField_button",
           props.className,
-          { pressed: visible || pinned },
+          { pressed: visible || pinned }
         )}
         title={tooltip}
         style={props.style}

@@ -151,7 +151,7 @@ $key-size-modifier: 24px;
 
 .uifw-tab {
   margin: 4px 16px;
-  &[aria-selected="true"]  {
+  &[aria-selected="true"] {
     color: $uifw-popup-accent;
   }
   &:hover {
@@ -177,4 +177,3 @@ $key-size-modifier: 24px;
     text-overflow: ellipsis;
   }
 }
-
