@@ -47,11 +47,9 @@
   border: none;
   margin-left: 5px;
   &:hover,
-  &:active {
-    background-color: $uifw-popup-button-state-background-hover;
-  }
+  &:active,
   &.pressed {
-    background-color: $uifw-popup-button-state-background-active;
+    background-color: $uifw-popup-button-state-background-hover;
   }
 }
 

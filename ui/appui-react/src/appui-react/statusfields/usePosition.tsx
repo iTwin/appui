@@ -19,7 +19,13 @@ export function usePosition(refElement: React.RefObject<HTMLElement>) {
         position.current = { left: currentPositionOfButton.left, bottom: currentPositionOfButton.bottom };
       }
     }
+
+    window.addEventListener("resize", updatePosition);
     updatePosition();
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+    };
   }, [refElement]);
 
   return { ref, position };
