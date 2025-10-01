@@ -1500,7 +1500,9 @@ export class ComponentExamplesProvider {
         createComponentExample(
           "Basic Navigation Widget",
           undefined,
-          <BasicNavigationWidget />
+          <div style={{ minHeight: 320, display: "grid" }}>
+            <BasicNavigationWidget />
+          </div>
         ),
       ],
     };
