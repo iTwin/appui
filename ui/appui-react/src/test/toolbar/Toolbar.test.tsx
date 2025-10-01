@@ -10,6 +10,17 @@ import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { BadgeType } from "@itwin/core-react";
 
 describe("<Toolbar />", () => {
+  beforeEach(() => {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
+        if (this.classList.contains("uifw-toolbar-group-toolGroup_container")) {
+          return DOMRect.fromRect({ width: 1000 });
+        }
+        return new DOMRect();
+      }
+    );
+  });
+
   it("should render badge (using old badgeType)", () => {
     const toolbarItems = [
       ToolbarItemUtilities.createActionItem(
