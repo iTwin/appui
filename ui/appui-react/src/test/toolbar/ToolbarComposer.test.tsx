@@ -116,6 +116,15 @@ describe("<ToolbarComposer  />", async () => {
   }
 
   beforeEach(async () => {
+    vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
+        if (this.classList.contains("uifw-toolbar-group-toolGroup_container")) {
+          return DOMRect.fromRect({ width: 1000 });
+        }
+        return new DOMRect();
+      }
+    );
+
     UiFramework.frontstages.addFrontstageProvider(new Frontstage1());
     const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
       "Test1"

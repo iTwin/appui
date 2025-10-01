@@ -419,6 +419,17 @@ describe("PopupManager", () => {
     });
 
     it("PopupRenderer should render Toolbar", async () => {
+      vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
+        function (this: HTMLElement) {
+          if (
+            this.classList.contains("uifw-toolbar-group-toolGroup_container")
+          ) {
+            return DOMRect.fromRect({ width: 1000 });
+          }
+          return new DOMRect();
+        }
+      );
+
       const wrapper = render(<PopupRenderer />);
 
       const toolbarProps: AbstractToolbarProps = {

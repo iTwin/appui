@@ -34,8 +34,8 @@ export const useOverflow = <
   }
 
   React.useLayoutEffect(() => {
-    setCalculate(false);
     if (!calculate) return;
+    setCalculate(false);
 
     const containerSize = containerSizeRef.current
       ? getLength(containerSizeRef.current, orientation)
