@@ -1,5 +1,5 @@
 ---
-"@itwin/appui-react": patch
+"@itwin/appui-react": minor
 ---
 
-Fix tool assistance width
+Removed fixed width of `ToolAssistanceField` component.

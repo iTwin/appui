@@ -1,5 +1,5 @@
 ---
-"@itwin/appui-react": patch
+"@itwin/appui-react": minor
 ---
 
-SnapMode Icon is now at the start
+Moved icon of `SnapModeField` component to the start of the button.

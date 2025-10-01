@@ -1,5 +1,5 @@
 ---
-"@itwin/appui-react": patch
+"@itwin/appui-react": minor
 ---
 
-Add padding for view selector
+Increased padding of `ListPicker` button used in a `ViewSelector` component.
