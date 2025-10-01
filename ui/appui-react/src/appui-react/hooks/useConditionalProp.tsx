@@ -6,7 +6,7 @@
  * @module Utilities
  */
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useRef, useSyncExternalStore } from "react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 
 /** Defines a common interface for existing conditional value classes: `ConditionalBooleanValue`, `ConditionalStringValue`, `ConditionalIconItem`. */
@@ -34,6 +34,7 @@ function isConditionalValue<T>(
 
 /** @internal */
 export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>) {
+  const refreshedRef = useRef(false);
   const subscribe = useCallback(
     (onStoreChange: () => void) => {
       if (isConditionalValue(conditionalProp)) {
@@ -57,7 +58,14 @@ export function useConditionalProp<T>(conditionalProp: ConditionalProp<T>) {
     [conditionalProp]
   );
   const getSnapshot = useCallback(() => {
-    if (isConditionalValue(conditionalProp)) return conditionalProp.value;
+    if (isConditionalValue(conditionalProp)) {
+      if (!refreshedRef.current) {
+        conditionalProp.refresh();
+        refreshedRef.current = true;
+      }
+
+      return conditionalProp.value;
+    }
     return conditionalProp;
   }, [conditionalProp]);
   return useSyncExternalStore(subscribe, getSnapshot);
