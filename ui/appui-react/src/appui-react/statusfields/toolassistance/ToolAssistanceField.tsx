@@ -19,7 +19,7 @@ import {
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { FillCentered, Icon } from "@itwin/core-react";
-import { Button, Popover, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
+import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
 import { UiFramework } from "../../UiFramework.js";
@@ -303,9 +303,7 @@ export function ToolAssistanceField(props: Props) {
     onPinnedChange as React.Dispatch<React.SetStateAction<boolean>>
   );
   return (
-    <Popover
-      placement="top-start"
-      applyBackground
+    <StatusBarPopover
       visible={visible}
       onVisibleChange={setVisible}
       closeOnOutsideClick={!pinned}
@@ -441,7 +439,7 @@ export function ToolAssistanceField(props: Props) {
         {prompt}
         <StatusBarPopover.ExpandIndicator />
       </Button>
-    </Popover>
+    </StatusBarPopover>
   );
 }
 

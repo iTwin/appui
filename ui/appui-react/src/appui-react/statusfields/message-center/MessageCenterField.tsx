@@ -7,13 +7,7 @@
  */
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
-import {
-  Button,
-  Icon,
-  NotificationMarker,
-  Popover,
-  Tabs,
-} from "@itwin/itwinui-react";
+import { Button, Icon, NotificationMarker, Tabs } from "@itwin/itwinui-react";
 import {
   SvgChat,
   SvgInfo,
@@ -100,11 +94,9 @@ export function MessageCenterField(props: CommonProps) {
   }, []);
 
   return (
-    <Popover
-      placement="top-start"
+    <StatusBarPopover
       visible={isOpen}
       onVisibleChange={(visible) => handleOpenChange(visible)}
-      applyBackground
       className="uifw-statusFields-messageCenter-messageCenterField_popover"
       content={
         <>
@@ -169,7 +161,7 @@ export function MessageCenterField(props: CommonProps) {
         {translate("messageCenter.messages")}
         <StatusBarPopover.ExpandIndicator />
       </Button>
-    </Popover>
+    </StatusBarPopover>
   );
 }
 
