@@ -1,5 +1,16 @@
 # Change Log - @itwin/appui-react
 
+## 5.15.2
+
+### Patch Changes
+
+- 668df91: Fixed unnecessary overflow in `Toolbar` component.
+- 5ac8e40: Fixed `ToolbarComposer` component to highlight group items that contain toolbar items active via conditional value.
+- 5ac8e40: Fixed `Toolbar` component to correctly refresh conditional values when mounting nested items.
+  - @itwin/components-react@5.15.2
+  - @itwin/core-react@5.15.2
+  - @itwin/imodel-components-react@5.15.2
+
 ## 5.15.1
 
 ### Patch Changes

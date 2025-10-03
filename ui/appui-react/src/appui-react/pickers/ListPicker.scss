@@ -14,6 +14,9 @@ $space-before-label: 16px;
 $label-color: var(--iui-color-text);
 $border-color: var(--iui-color-background-disabled);
 $item-height: 32px;
+$button-inline-padding: 8px;
+$button-block-padding: 8px;
+$button-border-width: 1px;
 
 .ListPicker-separator {
   height: 1px;
@@ -27,6 +30,13 @@ $item-height: 32px;
   width: 30vh;
 
   @include uicore-scrollbar();
+}
+
+.ListPicker-button {
+  padding-block: $button-block-padding;
+  padding-inline: $button-inline-padding;
+
+  border-width: $button-border-width;
 }
 
 .ListPickerInnerContainer {
