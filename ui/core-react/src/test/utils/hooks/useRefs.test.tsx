@@ -8,8 +8,8 @@ import { mergeRefs, useRefs } from "../../../core-react/utils/hooks/useRefs.js";
 
 describe("useRefs", () => {
   it("should set ref objects and invoke ref callbacks", () => {
-    let ref: React.MutableRefObject<string | null> = { current: null };
-    let mutableRef: React.MutableRefObject<string | null> = { current: null };
+    let ref: React.RefObject<string | null> = { current: null };
+    let mutableRef: React.RefObject<string | null> = { current: null };
     const callbackRef = vi.fn((_: string | null) => {});
     const { result } = renderHook(() => {
       ref = React.useRef<string>(null);
@@ -28,8 +28,8 @@ describe("useRefs", () => {
 
 describe("mergeRefs", () => {
   it("should set ref objects and invoke ref callbacks", () => {
-    let ref: React.MutableRefObject<string | null> = { current: null };
-    let mutableRef: React.MutableRefObject<string | null> = { current: null };
+    let ref: React.RefObject<string | null> = { current: null };
+    let mutableRef: React.RefObject<string | null> = { current: null };
     const callbackRef = vi.fn((_: string | null) => {});
     const { result } = renderHook(() => {
       ref = React.useRef<string>(null);

@@ -11,7 +11,7 @@ import { Timer } from "@itwin/core-react";
 import { Point } from "@itwin/core-react/internal";
 
 interface UseDragArgs {
-  readonly initialPosition: React.MutableRefObject<Point | undefined>;
+  readonly initialPosition: React.RefObject<Point | undefined>;
   readonly onDrag: () => void;
 }
 

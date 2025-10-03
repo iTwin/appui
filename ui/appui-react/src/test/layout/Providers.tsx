@@ -93,7 +93,7 @@ export function setRefValue<T>(ref: React.Ref<T>, value: T) {
   if (typeof ref === "function") {
     ref(value);
   } else if (ref) {
-    (ref as React.MutableRefObject<T | null>).current = value;
+    ref.current = value;
   }
 }
 
