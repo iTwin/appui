@@ -105,7 +105,7 @@ interface WithOnRenderProps {
 export const withOnRender = <P extends object, C>(
   Component: React.JSXElementConstructor<P> & C
 ) => {
-  type Props = JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
+  type Props = React.JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
   return function WithOnRender(props: Props) {
     const { onRender, ...otherProps } = props;
     onRender && onRender();
