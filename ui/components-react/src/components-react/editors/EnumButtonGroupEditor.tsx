@@ -189,9 +189,9 @@ export class EnumButtonGroupEditor
 
     return (
       <button
-        ref={(ref: HTMLButtonElement | null) =>
-          ref && this._btnRefs.set(choiceValue, ref)
-        }
+        ref={(btn) => {
+          btn && this._btnRefs.set(choiceValue, btn);
+        }}
         data-testid={choice.label}
         className={className}
         title={choice.label}

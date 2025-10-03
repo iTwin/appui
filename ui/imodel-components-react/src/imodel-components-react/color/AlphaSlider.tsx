@@ -193,7 +193,9 @@ export class AlphaSlider extends React.PureComponent<AlphaSliderProps> {
           aria-valuemax={1}
           aria-valuenow={this.props.alpha}
           className="components-alpha-slider"
-          ref={(container) => (this._container = container)}
+          ref={(container) => {
+            this._container = container;
+          }}
           onMouseDown={this._onMouseDown}
           onTouchMove={this._onChange}
           onTouchStart={this._onChange}
