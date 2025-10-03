@@ -211,7 +211,7 @@ describe("TreeRenderer", () => {
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
     visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
 
-    const NodeRenderer: React.FC<TreeNodeRendererProps> = (props) => {
+    const NodeRenderer = (props: TreeNodeRendererProps) => {
       return <>{(props.node.label.value as PrimitiveValue).value as string}</>;
     };
 
