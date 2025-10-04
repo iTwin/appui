@@ -85,11 +85,11 @@ function makeId(...args: Array<string | number | null | undefined>) {
 
 function getOptionValueArray(childNodes: React.ReactNode): ListboxItemProps[] {
   return React.Children.toArray(childNodes)
-    .filter((node) => React.isValidElement(node) && node.props.value)
-    .map(
-      (optionNode) =>
-        (optionNode as React.ReactElement).props as ListboxItemProps
-    );
+    .filter(
+      (node): node is React.ReactElement<ListboxItemProps> =>
+        React.isValidElement(node) && !!node.props.value
+    )
+    .map((optionNode) => optionNode.props);
 }
 
 function processKeyboardNavigation(

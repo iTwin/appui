@@ -49,7 +49,7 @@ export class TildeFinder {
         if (ret.character) {
           return { character: ret.character, node };
         }
-      } else if ("props" in node) {
+      } else if (React.isValidElement<React.PropsWithChildren>(node)) {
         // React Node
         const ret: { character: string | undefined; node: React.ReactNode } = {
           character: undefined,
