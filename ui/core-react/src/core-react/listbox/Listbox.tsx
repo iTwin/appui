@@ -87,7 +87,7 @@ function getOptionValueArray(childNodes: React.ReactNode): ListboxItemProps[] {
   return React.Children.toArray(childNodes)
     .filter(
       (node): node is React.ReactElement<ListboxItemProps> =>
-        React.isValidElement(node) && !!node.props.value
+        React.isValidElement<ListboxItemProps>(node) && !!node.props.value
     )
     .map((optionNode) => optionNode.props);
 }

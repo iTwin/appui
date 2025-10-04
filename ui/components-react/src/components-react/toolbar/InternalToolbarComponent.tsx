@@ -370,7 +370,7 @@ function OverflowItemsContainer(p: { children: React.ReactNode }) {
 }
 
 function getItemWrapperClass(child: React.ReactNode) {
-  if (React.isValidElement(child)) {
+  if (React.isValidElement<ToolbarButtonItemProps>(child)) {
     if (child.props && child.props.addGroupSeparator)
       return "components-toolbar-button-add-gap-before";
   }
