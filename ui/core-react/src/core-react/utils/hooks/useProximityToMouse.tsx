@@ -11,7 +11,7 @@ import { Point } from "../Point.js";
 import { Rectangle } from "../Rectangle.js";
 
 /** @internal */
-export class WidgetElementSet extends Set<React.RefObject<Element>> {}
+export class WidgetElementSet extends Set<React.RefObject<Element | null>> {}
 
 /** Returns the proximity scale associated with the shortest distance from the element(s) to the mouse.
  * @internal

@@ -32,7 +32,8 @@ export interface TreeProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export class Tree extends React.PureComponent<TreeProps> {
-  private _treeElement: React.RefObject<HTMLDivElement> = React.createRef();
+  private _treeElement: React.RefObject<HTMLDivElement | null> =
+    React.createRef();
 
   private get _scrollableContainer(): Element | undefined {
     if (!this._treeElement.current) return undefined;

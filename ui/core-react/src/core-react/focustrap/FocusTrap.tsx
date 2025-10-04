@@ -92,7 +92,7 @@ function findLastFocusableDescendant(
 
 function getInitialFocusElement(
   focusContainer: HTMLDivElement | null,
-  initialFocusSpec: React.RefObject<HTMLElement> | string | undefined
+  initialFocusSpec: React.RefObject<HTMLElement | null> | string | undefined
 ): HTMLElement | null {
   if (!focusContainer) return null;
 
@@ -133,7 +133,7 @@ function attemptFocus(element: HTMLElement, preventScroll: boolean): boolean {
  */
 export function focusIntoContainer(
   focusContainer: HTMLDivElement,
-  initialFocusElement?: React.RefObject<HTMLElement> | string
+  initialFocusElement?: React.RefObject<HTMLElement | null> | string
 ): boolean {
   let result = false;
   const focusElement = getInitialFocusElement(
@@ -164,7 +164,7 @@ export interface FocusTrapProps extends React.AllHTMLAttributes<any> {
    * string can be supplied to locate an element in the FocusTrap container. If no specification is defined
    * the first focusable element is used.
    */
-  initialFocusElement?: React.RefObject<HTMLElement> | string;
+  initialFocusElement?: React.RefObject<HTMLElement | null> | string;
 }
 
 /** Trap Focus in container while trap is active.

@@ -40,7 +40,7 @@ export class ColorEditor
   extends React.PureComponent<PropertyEditorProps, ColorEditorState>
   implements TypeEditor
 {
-  private _buttonElement: React.RefObject<HTMLButtonElement> =
+  private _buttonElement: React.RefObject<HTMLButtonElement | null> =
     React.createRef();
 
   public override readonly state: Readonly<ColorEditorState> = {

@@ -11,7 +11,7 @@ import * as React from "react";
 /** Returns a stateful value that indicates if the component is targeted/hovered.
  * @internal
  */
-export const useTargeted = (ref: React.RefObject<Element>) => {
+export const useTargeted = (ref: React.RefObject<Element | null>) => {
   const [targeted, setTargeted] = React.useState(false);
   React.useEffect(() => {
     const handleDocumentPointerMove = (e: PointerEvent) => {

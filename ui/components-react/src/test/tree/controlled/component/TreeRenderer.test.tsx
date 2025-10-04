@@ -387,10 +387,10 @@ describe("TreeRenderer", () => {
 
     it("scrolls to the specified node", () => {
       const spy = vi.spyOn(VariableSizeList.prototype, "scrollToItem");
-      const treeRendererRef: React.RefObject<TreeRenderer> = { current: null };
+      const treeRendererRef = React.createRef<TreeRenderer | null>();
       render(<TreeRenderer ref={treeRendererRef} {...defaultProps} />);
 
-      treeRendererRef.current!.scrollToNode("test_id", "smart");
+      treeRendererRef.current?.scrollToNode("test_id", "smart");
       expect(spy).toHaveBeenCalledWith(15, "smart");
     });
 

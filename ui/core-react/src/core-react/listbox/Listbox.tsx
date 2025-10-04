@@ -68,7 +68,7 @@ export interface ListboxContextProps {
     newValue: ListboxValue,
     isControlOrCommandPressed?: boolean
   ) => void;
-  listboxRef?: React.RefObject<HTMLUListElement>;
+  listboxRef?: React.RefObject<HTMLUListElement | null>;
 }
 
 /** Context set up by listbox for use by `ListboxItems` .

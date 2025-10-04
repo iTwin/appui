@@ -397,7 +397,7 @@ function useNodeLoading(
 
 function useTreeRendererAttributes(
   ref: React.Ref<TreeRendererAttributes>,
-  variableSizeListRef: React.RefObject<VariableSizeList>,
+  variableSizeListRef: React.RefObject<VariableSizeList | null>,
   visibleNodes: VisibleTreeNodes
 ) {
   const visibleNodesRef = React.useRef(visibleNodes);
@@ -436,7 +436,7 @@ function getHighlightedNodeId(highlightableTreeProps?: HighlightableTreeProps) {
 
 function useScrollToActiveMatch(
   // eslint-disable-next-line @typescript-eslint/no-deprecated
-  treeRef: React.RefObject<CoreTree>,
+  treeRef: React.RefObject<CoreTree | null>,
   highlightableTreeProps?: HighlightableTreeProps
 ) {
   const scrollToActive = React.useRef(false);
@@ -475,7 +475,7 @@ function useScrollToActiveMatch(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-function setFocusToSelected(treeRef: React.RefObject<CoreTree>) {
+function setFocusToSelected(treeRef: React.RefObject<CoreTree | null>) {
   if (treeRef.current)
     treeRef.current.setFocusByClassName(".core-tree-node.is-selected");
 }
