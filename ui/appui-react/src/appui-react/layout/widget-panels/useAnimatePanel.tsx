@@ -29,10 +29,12 @@ export function useAnimatePanel() {
   const [panelSize, setPanelSize] = React.useState<number | undefined>();
   const [initializing, setInitializing] = React.useState(false);
   const horizontal = isHorizontalPanelSide(side);
-  const animateFrom = React.useRef<number | undefined>();
+  const animateFrom = React.useRef<number | undefined>(undefined);
   const animateTo = React.useRef(0);
-  const maxPanelSize = React.useRef<number | undefined>();
-  const collapsing = React.useRef<"collapsing" | "expanding" | undefined>();
+  const maxPanelSize = React.useRef<number | undefined>(undefined);
+  const collapsing = React.useRef<"collapsing" | "expanding" | undefined>(
+    undefined
+  );
   const ref = React.useRef<HTMLDivElement>(null);
 
   const panel = useLayout((state) => {

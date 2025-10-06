@@ -88,7 +88,7 @@ export const useResizeGrip = <T extends HTMLElement>(): [
   assert(!!widgetPanel);
   const [resizing, setResizing] = React.useState(false);
   const [active, setActive] = React.useState(false);
-  const initialPointerPosition = React.useRef<Point>();
+  const initialPointerPosition = React.useRef<Point | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const dragStartTimer = React.useRef(new Timer(300));
   const ref = React.useRef<T | null>(null);

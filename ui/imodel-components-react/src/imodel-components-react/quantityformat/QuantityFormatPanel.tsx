@@ -146,7 +146,7 @@ export function QuantityFormatPanel(props: QuantityFormatPanelProps) {
     ...rest
   } = props;
   const [formatProps, setFormatProps] = React.useState<FormatProps>();
-  const initialFormatProps = React.useRef<FormatProps>();
+  const initialFormatProps = React.useRef<FormatProps | undefined>(undefined);
 
   const [persistenceUnit, setPersistenceUnit] = React.useState<UnitProps>();
 

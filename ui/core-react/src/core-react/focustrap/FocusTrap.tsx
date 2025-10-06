@@ -175,7 +175,7 @@ export function FocusTrap(props: FocusTrapProps) {
   const initialFocusElement = React.useRef<Element | null>(null);
   const focusContainer = React.useRef<HTMLDivElement | null>(null);
   const isInitialMount = React.useRef(true);
-  const timeoutRef = React.useRef<number | undefined>();
+  const timeoutRef = React.useRef<number | undefined>(undefined);
 
   // Run on initial mount and when dependencies change. which could happen often.
   React.useEffect(() => {

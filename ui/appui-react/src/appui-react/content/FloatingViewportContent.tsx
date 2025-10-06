@@ -86,7 +86,7 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
   const contentControl = React.useRef<
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     FloatingViewportContentControl | undefined
-  >();
+  >(undefined);
 
   const viewState = React.useMemo(
     () =>

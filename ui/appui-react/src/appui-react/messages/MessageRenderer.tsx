@@ -31,7 +31,9 @@ function useActivityMessage({
 }: UseActivityMessageProps) {
   const toaster = useToaster();
   const { translate } = useTranslation();
-  const recentToast = React.useRef<{ close: () => void } | undefined>();
+  const recentToast = React.useRef<{ close: () => void } | undefined>(
+    undefined
+  );
   React.useEffect(() => {
     toaster.setSettings({ placement: "bottom" });
   }, [toaster]);
