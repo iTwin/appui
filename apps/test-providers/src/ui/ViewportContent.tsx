@@ -73,7 +73,7 @@ interface ViewOverlayRendererProps
 function ViewOverlayRenderer({
   viewport,
   renderViewOverlay,
-}: ViewOverlayRendererProps) {
+}: ViewOverlayRendererProps): React.ReactNode {
   if (!viewport) return null;
 
   if (renderViewOverlay) {

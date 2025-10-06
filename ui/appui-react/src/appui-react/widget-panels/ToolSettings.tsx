@@ -146,7 +146,7 @@ export function useHorizontalToolSettingEntries() {
 }
 
 /** @internal */
-export function useToolSettingsNode() {
+export function useToolSettingsNode(): React.ReactNode {
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.frontstages.activeToolInformation?.toolUiProvider?.reloadPropertiesFromTool();

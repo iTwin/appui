@@ -286,7 +286,7 @@ export class ComponentGenerator {
         className="uifw-default-inline-editor-group uifw-default-center-across-width"
       >
         <div className="uifw-default-inline-editor-group">
-          {row.items.map((item) => this.getEditor(item))}
+          {row.items.map((item): React.ReactNode => this.getEditor(item))}
         </div>
       </div>
     );
@@ -318,7 +318,7 @@ export class ComponentGenerator {
           className="uifw-default-inline-editor-group uifw-default-center-across-width"
         >
           <div className="uifw-default-inline-editor-group">
-            {row.items.map((item) => this.getEditor(item))}
+            {row.items.map((item): React.ReactNode => this.getEditor(item))}
           </div>
         </div>
       ),
@@ -381,8 +381,9 @@ export class ComponentGenerator {
   private getRowWithMultipleEditors(row: DialogRow): React.ReactNode {
     return (
       <div className="uifw-default-inline-editor-group">
-        {row.items.map((item: DialogItem, index: number) =>
-          this.getInlineLabelAndEditor(item, index === 0)
+        {row.items.map(
+          (item: DialogItem, index: number): React.ReactNode =>
+            this.getInlineLabelAndEditor(item, index === 0)
         )}
       </div>
     );

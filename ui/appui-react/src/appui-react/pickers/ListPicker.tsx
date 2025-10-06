@@ -303,7 +303,7 @@ function ListPickerPopupItem(props: ListPickerProps) {
 
   return (
     <ToolbarDragInteractionContext.Consumer>
-      {(isEnabled) => {
+      {(isEnabled): React.ReactNode => {
         return props.panelOnly === true ? (
           getListPanel(props)
         ) : (

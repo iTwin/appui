@@ -399,7 +399,7 @@ describe("useToolSettingsNode", () => {
       UiFramework.frontstages.onToolActivatedEvent,
       "removeListener"
     );
-    const sut = renderHook(() => useToolSettingsNode());
+    const sut = renderHook((): React.ReactNode => useToolSettingsNode());
     sut.unmount();
     expect(addListenerSpy).toHaveBeenCalledOnce();
     expect(removeListenerSpy).toHaveBeenCalledOnce();
@@ -414,7 +414,7 @@ describe("useToolSettingsNode", () => {
       UiFramework.frontstages.onToolSettingsReloadEvent,
       "removeListener"
     );
-    const sut = renderHook(() => useToolSettingsNode());
+    const sut = renderHook((): React.ReactNode => useToolSettingsNode());
     UiFramework.frontstages.onToolSettingsReloadEvent.emit();
     sut.unmount();
     expect(addListenerSpy).toHaveBeenCalledOnce();
@@ -431,7 +431,7 @@ describe("useToolSettingsNode", () => {
       "activeToolSettingsProvider",
       "get"
     ).mockImplementation(() => activeToolSettingsProvider);
-    const sut = renderHook(() => useToolSettingsNode());
+    const sut = renderHook((): React.ReactNode => useToolSettingsNode());
 
     const node = <div>Hello World</div>;
     act(() => {
@@ -455,13 +455,13 @@ describe("useToolSettingsNode", () => {
       "activeToolSettingsProvider",
       "get"
     ).mockImplementation(() => undefined);
-    const { result } = renderHook(() => useToolSettingsNode());
+    const { result } = renderHook((): React.ReactNode => useToolSettingsNode());
 
     expect(result.current).toEqual(undefined);
   });
 
   it("should return undefined if activeToolSettingsProvider is unset", () => {
-    const { result } = renderHook(() => useToolSettingsNode());
+    const { result } = renderHook((): React.ReactNode => useToolSettingsNode());
     act(() => {
       UiFramework.frontstages.setActiveToolId("t1");
     });

@@ -142,7 +142,7 @@ export class ColumnResizingPropertyListPropsSupplier extends React.Component<
     return clamp(this.state.columnRatio, this._minRatio, this._maxRatio);
   }
 
-  public override render() {
+  public override render(): React.ReactNode {
     const listProps: ColumnResizeRelatedPropertyListProps = {
       orientation: this.props.orientation,
       width: this.props.width,

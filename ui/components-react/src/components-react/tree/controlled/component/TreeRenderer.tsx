@@ -336,7 +336,7 @@ const Node = React.memo<React.FC<ListChildComponentProps>>(function Node(
 
   return (
     <div className={className} style={style}>
-      {React.useMemo(() => {
+      {React.useMemo((): React.ReactNode => {
         if (isTreeModelNode(node)) {
           const nodeHighlightProps = highlightingEngine
             ? highlightingEngine.createRenderProps(node)

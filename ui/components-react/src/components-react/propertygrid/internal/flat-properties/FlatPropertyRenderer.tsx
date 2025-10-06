@@ -157,7 +157,7 @@ interface DisplayValueProps {
   };
 }
 
-const DisplayValue: React.FC<DisplayValueProps> = (props) => {
+const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
   useResetHeightOnEdit(
     props.orientation,
     props.isEditing,

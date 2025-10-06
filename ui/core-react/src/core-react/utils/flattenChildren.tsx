@@ -12,7 +12,7 @@ import * as React from "react";
  * @internal
  */
 export const flattenChildren = (children: React.ReactNode): React.ReactNode => {
-  const items = React.Children.map(children, (child) => {
+  const items = React.Children.map(children, (child): React.ReactNode => {
     if (!React.isValidElement<{ children?: React.ReactNode }>(child))
       return child;
 

@@ -50,7 +50,7 @@ export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(
     // eslint-disable-next-line @typescript-eslint/promise-function-async
-    () => getLabel(node, highlightProps),
+    () => getLabel(node, highlightProps) as React.ReactNode,
     [node, highlightProps]
   );
   React.useEffect(() => {
@@ -109,7 +109,8 @@ function getLabel(
 ): React.ReactNode | Promise<React.ReactNode> {
   // handle filtered matches' highlighting
   const highlightCallback = highlightProps
-    ? (text: string) => HighlightingEngine.renderNodeLabel(text, highlightProps)
+    ? (text: string): React.ReactNode =>
+        HighlightingEngine.renderNodeLabel(text, highlightProps)
     : undefined;
 
   // handle custom cell rendering

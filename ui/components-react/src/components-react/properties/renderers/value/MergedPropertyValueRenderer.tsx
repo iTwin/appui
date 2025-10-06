@@ -32,7 +32,7 @@ export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
   public render(
     _record: PropertyRecord,
     context?: PropertyValueRendererContext
-  ) {
+  ): React.ReactNode {
     return withContextStyle(<VariesRenderer />, context);
   }
 }

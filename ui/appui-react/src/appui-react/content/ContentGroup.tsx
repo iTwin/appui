@@ -280,7 +280,7 @@ export class ContentGroup {
   public getControlFromElement(
     node: React.ReactNode
   ): ContentControl | undefined {
-    if (this._contentSetMap.size === 0) this.getContentNodes();
+    if (this._contentSetMap.size === 0) void this.getContentNodes();
 
     if (node && (node as React.ReactElement<any>).key) {
       const key = (node as React.ReactElement<any>).key as string;

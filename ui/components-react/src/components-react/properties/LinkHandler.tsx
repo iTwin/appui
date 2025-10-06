@@ -95,7 +95,7 @@ function renderText(
 function renderHighlighted(
   text: string,
   highlight: (text: string) => React.ReactNode
-) {
+): React.ReactNode {
   return highlight(text);
 }
 

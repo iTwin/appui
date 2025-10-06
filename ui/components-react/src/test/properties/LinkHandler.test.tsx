@@ -26,7 +26,7 @@ describe("LinkHandler", () => {
       const testString = "Example text";
       const highlightSpy = vi.fn();
 
-      renderLinks(testString, links, highlightSpy);
+      void renderLinks(testString, links, highlightSpy);
       expect(highlightSpy).toHaveBeenCalledOnce();
     });
 
@@ -39,7 +39,7 @@ describe("LinkHandler", () => {
         return text;
       };
 
-      renderLinks(testString, links, highlighter);
+      void renderLinks(testString, links, highlighter);
 
       expect(matchedPartHighlighted).toEqual(true);
     });
@@ -99,18 +99,18 @@ describe("LinkHandler", () => {
         { start: 0, end: 6 },
       ];
 
-      expect(() => renderLinks("Example text", links)).to.throw(
-        "matcher returned overlapping matches"
-      );
+      expect(
+        (): React.ReactNode => renderLinks("Example text", links)
+      ).to.throw("matcher returned overlapping matches");
 
       links.matcher = () => [
         { start: 3, end: 7 },
         { start: 3, end: 7 },
       ];
 
-      expect(() => renderLinks("Example text", links)).to.throw(
-        "matcher returned overlapping matches"
-      );
+      expect(
+        (): React.ReactNode => renderLinks("Example text", links)
+      ).to.throw("matcher returned overlapping matches");
     });
   });
 
@@ -131,7 +131,7 @@ describe("LinkHandler", () => {
       const testString = "Example text";
       const highlightSpy = vi.fn();
 
-      withLinks(testString, undefined, highlightSpy);
+      void withLinks(testString, undefined, highlightSpy);
       expect(highlightSpy).toHaveBeenCalledOnce();
     });
   });

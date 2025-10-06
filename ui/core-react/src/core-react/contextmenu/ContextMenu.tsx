@@ -292,44 +292,56 @@ export class ContextMenu extends React.PureComponent<
   ) => {
     let index = 0;
     // add inheritance data to submenu children
-    const ch = React.Children.map(children, (child: React.ReactNode) => {
-      // Capture only ContextSubMenus and ContextMenuItems.
-      if (
-        child &&
-        typeof child === "object" &&
-        "props" in child &&
-        (child.type === ContextSubMenu || child.type === ContextMenuItem) &&
-        !ConditionalBooleanValue.getValue(child.props.disabled) &&
-        !ConditionalBooleanValue.getValue(child.props.hidden)
-      ) {
-        const id = index; // get separate id variable so value stays the same when onHover is called later.
-        const onHover = () => {
-          this.setState({ selectedIndex: id });
-          this.focus();
-        };
-        const ref = (el: ContextSubMenu | ContextMenuItem | null) => {
-          if (selectedIndex === id)
-            // only save to this._selectedElement if previously captured bool is true
-            this._selectedElement = el;
-        };
-        const boundHandleHotKeyParse = this._handleHotKeyParsed.bind(this, id); // bind local callback for specific index
-        const childProps: Partial<
-          ContextSubMenuProps & ContextMenuItemProps & { ref: typeof ref }
-        > = {
-          parentMenu: this,
-          ref,
-          onHover,
-          isSelected: selectedIndex === id,
-          onHotKeyParsed: boundHandleHotKeyParse,
-        };
-        if (child.type === ContextSubMenu) {
-          // add direction only to sub-menus
-          childProps.direction = child.props.direction || direction;
-        }
-        index++;
-        return React.cloneElement(child, childProps);
-      } else return child; // Else, pass through unmodified
-    });
+    const ch = React.Children.map(
+      children,
+      (child: React.ReactNode): React.ReactNode => {
+        // Capture only ContextSubMenus and ContextMenuItems.
+        if (
+          child &&
+          typeof child === "object" &&
+          "props" in child &&
+          (child.type === ContextSubMenu || child.type === ContextMenuItem) &&
+          React.isValidElement<ContextSubMenuProps | ContextMenuItemProps>(
+            child
+          ) &&
+          !ConditionalBooleanValue.getValue(child.props.disabled) &&
+          !ConditionalBooleanValue.getValue(child.props.hidden)
+        ) {
+          const id = index; // get separate id variable so value stays the same when onHover is called later.
+          const onHover = () => {
+            this.setState({ selectedIndex: id });
+            this.focus();
+          };
+          const ref = (el: ContextSubMenu | ContextMenuItem | null) => {
+            if (selectedIndex === id)
+              // only save to this._selectedElement if previously captured bool is true
+              this._selectedElement = el;
+          };
+          const boundHandleHotKeyParse = this._handleHotKeyParsed.bind(
+            this,
+            id
+          ); // bind local callback for specific index
+          const childProps: Partial<
+            ContextSubMenuProps & ContextMenuItemProps & { ref: typeof ref }
+          > = {
+            parentMenu: this,
+            ref,
+            onHover,
+            isSelected: selectedIndex === id,
+            onHotKeyParsed: boundHandleHotKeyParse,
+          };
+          if (
+            child.type === ContextSubMenu &&
+            React.isValidElement<ContextSubMenuProps>(child)
+          ) {
+            // add direction only to sub-menus
+            childProps.direction = child.props.direction || direction;
+          }
+          index++;
+          return React.cloneElement(child, childProps);
+        } else return child; // Else, pass through unmodified
+      }
+    );
     this._length = index;
     return ch;
   };
