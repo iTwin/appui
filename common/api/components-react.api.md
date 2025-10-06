@@ -98,7 +98,7 @@ function areEqual(lhs: Value | undefined, rhs: Value | undefined): boolean;
 // @public
 export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
@@ -1358,7 +1358,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+    render(_record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
@@ -2617,7 +2617,7 @@ export class StringTypeConverter extends TypeConverter implements StringOperator
 // @public
 export class StructPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(record: PropertyRecord, context?: PropertyValueRendererContext): string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
@@ -3532,7 +3532,7 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 }
 
 // @public
-export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => string | number | boolean | Iterable<React_3.ReactNode> | React_3.JSX.Element | null | undefined;
+export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => React_3.ReactNode;
 
 // @public
 export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
