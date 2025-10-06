@@ -87,7 +87,7 @@ describe("StructPropertyValueRenderer", () => {
         "Label",
         "Test property"
       );
-      expect(() => void renderer.render(stringProperty)).to.throw;
+      expect((): React.ReactNode => renderer.render(stringProperty)).to.throw;
     });
 
     it("renders as empty string when container type is property pane", () => {
