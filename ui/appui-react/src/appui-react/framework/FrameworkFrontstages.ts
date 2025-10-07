@@ -180,8 +180,11 @@ export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
 export interface ModalFrontstageInfo {
   /** Id used for frontstage identification. */
   id?: string;
+  /** Title displayed at the top of the modal frontstage. */
   title: string;
+  /** Content of the modal frontstage. */
   content: React.ReactNode;
+  /** Content displayed in the upper right of the modal frontstage. */
   appBarRight?: React.ReactNode;
   /** Set notifyCloseRequest to true on stages that register to listen for `onCloseModalFrontstageRequestedEvent` so
    * that the stage can save unsaved data before closing. Used by the ModalSettingsStage.
