@@ -26,7 +26,7 @@ export function StatusBarPopup(props: Partial<PopupProps>) {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     <Popup
       className={classnames("nz-status-bar-popup", className)}
-      position={RelativePosition.Top}
+      position={RelativePosition.TopLeft}
       showShadow={true}
       {...other}
       showArrow={false}
