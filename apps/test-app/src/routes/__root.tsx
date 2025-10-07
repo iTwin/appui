@@ -43,6 +43,7 @@ import {
 import { TanStackRouterDevtoolsPanel } from "@tanstack/router-devtools";
 import { Users } from "../frontend/Users";
 import { Auth, useAuth } from "../frontend/Auth";
+import { config } from "../frontend/config";
 
 interface RouterContext {
   auth: Auth;
@@ -169,6 +170,7 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
   const search = Route.useSearch();
   const themeBridge = search.themeBridge === 1;
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const applyBackground = config.transparentWindow ? false : undefined;
 
   if (themeBridge) {
     return (
@@ -177,7 +179,7 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
         density="dense"
         synchronizeColorScheme
         render={(props: any) => (
-          <ThemeProvider future={{ themeBridge }} {...props} />
+          <ThemeProvider future={{ themeBridge, applyBackground }} {...props} />
         )}
       >
         {children}
@@ -187,7 +189,7 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
 
   return (
     <ThemeProvider
-      themeOptions={{ applyBackground: false }}
+      themeOptions={{ applyBackground }}
       style={{ height: "100%" }}
     >
       {children}

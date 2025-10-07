@@ -10,6 +10,7 @@ import {
   useFeatureOverrideParams,
   useSyncFrontstageParam,
 } from "../frontend/SearchParams";
+import { config } from "../frontend/config";
 
 export const Route = createLazyFileRoute("/blank")({
   component: Blank,
@@ -24,5 +25,13 @@ function Blank() {
   const app = <App featureOverrides={featureOverrides} />;
   if (!menu) return app;
 
-  return <PageLayout.Content>{app}</PageLayout.Content>;
+  return (
+    <PageLayout.Content
+      style={
+        config.transparentWindow ? { backgroundColor: "initial" } : undefined
+      }
+    >
+      {app}
+    </PageLayout.Content>
+  );
 }
