@@ -18,9 +18,11 @@ export const Route = createLazyFileRoute("/blank")({
 function Blank() {
   useSyncFrontstageParam();
   const featureOverrides = useFeatureOverrideParams();
-  return (
-    <PageLayout.Content>
-      <App featureOverrides={featureOverrides} />
-    </PageLayout.Content>
-  );
+  const search = Route.useSearch();
+  const menu = search.menu !== 0;
+
+  const app = <App featureOverrides={featureOverrides} />;
+  if (!menu) return app;
+
+  return <PageLayout.Content>{app}</PageLayout.Content>;
 }

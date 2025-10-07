@@ -79,8 +79,8 @@ function AppRoot() {
 
   return (
     <ThemeBridge>
-      <PageLayout>
-        {menu && (
+      {menu ? (
+        <PageLayout>
           <PageLayout.Header>
             <Header
               appLogo={
@@ -100,8 +100,6 @@ function AppRoot() {
               actions={[<UserMenu key="user-menu" />]}
             />
           </PageLayout.Header>
-        )}
-        {menu && (
           <PageLayout.SideNavigation>
             <SideNavigation
               items={[
@@ -158,9 +156,11 @@ function AppRoot() {
               expanderPlacement="bottom"
             />
           </PageLayout.SideNavigation>
-        )}
+          <Outlet />
+        </PageLayout>
+      ) : (
         <Outlet />
-      </PageLayout>
+      )}
     </ThemeBridge>
   );
 }
@@ -185,7 +185,14 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
     );
   }
 
-  return <ThemeProvider>{children}</ThemeProvider>;
+  return (
+    <ThemeProvider
+      themeOptions={{ applyBackground: false }}
+      style={{ height: "100%" }}
+    >
+      {children}
+    </ThemeProvider>
+  );
 }
 
 function RouterDevToolsButton() {
