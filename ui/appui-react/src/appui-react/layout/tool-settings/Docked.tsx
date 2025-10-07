@@ -39,7 +39,7 @@ function OverflowLabelAndEditor({ wrapper }: { wrapper: React.ReactNode }) {
         {wrapperChildren &&
           React.Children.map(
             wrapperChildren,
-            (child: React.ReactNode) => child
+            (child: React.ReactNode): React.ReactNode => child
           )}
       </DockedToolSettingsEntryContext.Provider>
     </>

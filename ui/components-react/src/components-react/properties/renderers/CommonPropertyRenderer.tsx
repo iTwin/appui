@@ -74,7 +74,7 @@ export class CommonPropertyRenderer {
       applyOnLabel: boolean;
       applyOnValue: boolean;
     }
-  ) {
+  ): React.ReactNode {
     const highlightCallback = highlight?.applyOnValue
       ? CommonPropertyRenderer.createHighlightCallback(
           highlight,

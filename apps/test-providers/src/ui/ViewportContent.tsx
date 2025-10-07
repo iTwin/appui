@@ -26,7 +26,7 @@ export function ViewportContent({
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>(
     undefined
   );
-  const viewportRef = React.useRef<ScreenViewport>();
+  const viewportRef = React.useRef<ScreenViewport | undefined>(undefined);
 
   React.useEffect(() => {
     // Maintain the selected view if the content is active.
@@ -73,7 +73,7 @@ interface ViewOverlayRendererProps
 function ViewOverlayRenderer({
   viewport,
   renderViewOverlay,
-}: ViewOverlayRendererProps) {
+}: ViewOverlayRendererProps): React.ReactNode {
   if (!viewport) return null;
 
   if (renderViewOverlay) {

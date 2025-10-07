@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { SearchBox } from "../../core-react.js";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 
 describe("SearchBox", () => {
@@ -58,7 +58,9 @@ describe("SearchBox", () => {
 
       await theUserTo.type(screen.getByRole("searchbox"), "Test"); // 16ms / letter => 64ms
       expect(spy).not.toBeCalled();
-      await vi.advanceTimersByTimeAsync(100);
+      act(() => {
+        vi.advanceTimersByTime(100);
+      });
       expect(spy).toHaveBeenCalledOnce();
     });
 

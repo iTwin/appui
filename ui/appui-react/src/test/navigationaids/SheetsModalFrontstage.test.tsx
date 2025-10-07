@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import * as moq from "typemoq";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import type { CardInfo, SheetData } from "../../appui-react.js";
 import {
@@ -69,7 +69,7 @@ describe("SheetsModalFrontstage", () => {
   });
 
   describe("CardContainer React Testing", () => {
-    it("search box calls onValueChanged after 250ms delay", async () => {
+    it("search box calls onValueChanged after 250ms delay", () => {
       vi.useFakeTimers();
       modal = new SheetsModalFrontstage(
         new Array<SheetData>({
@@ -90,7 +90,9 @@ describe("SheetsModalFrontstage", () => {
       const input = wrapper.container.querySelector("input");
       expect(input).toBeTruthy();
       fireEvent.change(input!, { target: { value: "search value" } });
-      await vi.advanceTimersByTimeAsync(500);
+      act(() => {
+        vi.advanceTimersByTime(500);
+      });
       expect(onChange).toHaveBeenCalled();
       removeListener();
     });

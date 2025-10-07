@@ -533,7 +533,7 @@ function toAbstractWidget(widget: Widget): AbstractWidget {
   abstractWidget = {
     ...widget,
     id: widget.id ?? "",
-    getWidgetContent: () => widget.content,
+    getWidgetContent: (): React.ReactNode => widget.content,
     allowedPanelTargets,
     badgeType: getBadgeType(widget.badgeKind) || widget.badge,
     defaultFloatingPosition:

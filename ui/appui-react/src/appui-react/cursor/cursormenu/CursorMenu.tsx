@@ -21,7 +21,7 @@ import { Logger } from "@itwin/core-bentley";
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function CursorPopupMenu(props: CommonProps) {
-  const windowIdRef = React.useRef<string | undefined>();
+  const windowIdRef = React.useRef<string | undefined>(undefined);
   const [opened, setOpened] = React.useState(false);
   const [x, setX] = React.useState(0);
   const [y, setY] = React.useState(0);

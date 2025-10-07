@@ -68,7 +68,7 @@ export interface ListboxContextProps {
     newValue: ListboxValue,
     isControlOrCommandPressed?: boolean
   ) => void;
-  listboxRef?: React.RefObject<HTMLUListElement>;
+  listboxRef?: React.RefObject<HTMLUListElement | null>;
 }
 
 /** Context set up by listbox for use by `ListboxItems` .
@@ -85,11 +85,11 @@ function makeId(...args: Array<string | number | null | undefined>) {
 
 function getOptionValueArray(childNodes: React.ReactNode): ListboxItemProps[] {
   return React.Children.toArray(childNodes)
-    .filter((node) => React.isValidElement(node) && node.props.value)
-    .map(
-      (optionNode) =>
-        (optionNode as React.ReactElement).props as ListboxItemProps
-    );
+    .filter(
+      (node): node is React.ReactElement<ListboxItemProps> =>
+        React.isValidElement<ListboxItemProps>(node) && !!node.props.value
+    )
+    .map((optionNode) => optionNode.props);
 }
 
 function processKeyboardNavigation(

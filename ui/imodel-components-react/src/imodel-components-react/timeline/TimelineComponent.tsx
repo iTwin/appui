@@ -453,7 +453,7 @@ function useAnimation(
   const onAnimateRef = React.useRef(onAnimate);
   onAnimateRef.current = onAnimate;
 
-  const lastTimeRef = React.useRef<number | undefined>();
+  const lastTimeRef = React.useRef<number | undefined>(undefined);
 
   React.useEffect(() => {
     if (!playing) return;

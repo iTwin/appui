@@ -148,7 +148,9 @@ export class WeightEditor
         ref={this._divElement}
       >
         <WeightPickerButton
-          ref={(control) => (this._control = control)}
+          ref={(control) => {
+            this._control = control;
+          }}
           activeWeight={this.state.weightValue}
           weights={
             this._availableWeights.length > 0

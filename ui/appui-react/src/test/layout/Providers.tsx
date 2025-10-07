@@ -93,7 +93,7 @@ export function setRefValue<T>(ref: React.Ref<T>, value: T) {
   if (typeof ref === "function") {
     ref(value);
   } else if (ref) {
-    (ref as React.MutableRefObject<T | null>).current = value;
+    ref.current = value;
   }
 }
 
@@ -105,7 +105,7 @@ interface WithOnRenderProps {
 export const withOnRender = <P extends object, C>(
   Component: React.JSXElementConstructor<P> & C
 ) => {
-  type Props = JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
+  type Props = React.JSX.LibraryManagedAttributes<C, P & WithOnRenderProps>;
   return function WithOnRender(props: Props) {
     const { onRender, ...otherProps } = props;
     onRender && onRender();

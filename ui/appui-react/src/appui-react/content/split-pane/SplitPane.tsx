@@ -105,7 +105,7 @@ function getDefaultSize(
 }
 
 function removeNullChildren(children: React.ReactNode[]) {
-  return React.Children.toArray(children).filter((c) => c);
+  return React.Children.toArray(children).filter((c) => !!c);
 }
 
 /**

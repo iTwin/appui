@@ -49,8 +49,7 @@ export interface TreeNodeContentProps extends CommonProps {
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(
-    // eslint-disable-next-line @typescript-eslint/promise-function-async
-    () => getLabel(node, highlightProps),
+    (): React.ReactNode => getLabel(node, highlightProps),
     [node, highlightProps]
   );
   React.useEffect(() => {
@@ -106,10 +105,11 @@ export function TreeNodeContent(props: TreeNodeContentProps) {
 function getLabel(
   node: TreeModelNode,
   highlightProps?: HighlightableTreeNodeProps
-): React.ReactNode | Promise<React.ReactNode> {
+): React.ReactNode {
   // handle filtered matches' highlighting
   const highlightCallback = highlightProps
-    ? (text: string) => HighlightingEngine.renderNodeLabel(text, highlightProps)
+    ? (text: string): React.ReactNode =>
+        HighlightingEngine.renderNodeLabel(text, highlightProps)
     : undefined;
 
   // handle custom cell rendering

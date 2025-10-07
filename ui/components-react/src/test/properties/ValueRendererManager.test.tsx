@@ -75,7 +75,7 @@ describe("PropertyValueRendererManager", () => {
       rendererManager.registerRenderer("stub1", fakeRenderer);
       rendererManager.registerRenderer("stub2", fakeRenderer2);
 
-      rendererManager.render(record);
+      void rendererManager.render(record);
 
       expect(fakeRenderer.render).toHaveBeenCalledOnce();
       expect(fakeRenderer.render).toHaveBeenCalledWith(record, undefined);
@@ -92,7 +92,7 @@ describe("PropertyValueRendererManager", () => {
       const rendererManager = new PropertyValueRendererManager();
       rendererManager.registerRenderer("stub", fakeRenderer);
 
-      rendererManager.render(record);
+      void rendererManager.render(record);
 
       expect(fakeRenderer.render).toHaveBeenCalledOnce();
       expect(fakeRenderer.render).toHaveBeenCalledWith(record, undefined);

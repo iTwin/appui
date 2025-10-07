@@ -25,6 +25,7 @@ import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 import { Icon, IconHelper } from "@itwin/core-react";
 import type { BadgeKind } from "@itwin/core-react/internal";
 import { Badge } from "@itwin/core-react/internal";
+import type { ToolbarButtonItemProps } from "./Item.js";
 import { ToolbarButtonItem } from "./Item.js";
 import { ToolbarItems } from "./Items.js";
 import {
@@ -188,7 +189,7 @@ function CustomItem({
 }) {
   const { useDragInteraction } = useToolbarWithOverflowDirectionContext();
   const icon = React.useMemo(
-    () =>
+    (): React.ReactNode =>
       (item.icon &&
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
@@ -369,7 +370,7 @@ function OverflowItemsContainer(p: { children: React.ReactNode }) {
 }
 
 function getItemWrapperClass(child: React.ReactNode) {
-  if (React.isValidElement(child)) {
+  if (React.isValidElement<ToolbarButtonItemProps>(child)) {
     if (child.props && child.props.addGroupSeparator)
       return "components-toolbar-button-add-gap-before";
   }

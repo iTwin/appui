@@ -42,7 +42,7 @@ export function useCursorPrompt(args: UseCursorPromptArgs) {
   }, [args]);
 
   // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const timerRef = React.useRef<Timer | undefined>();
+  const timerRef = React.useRef<Timer | undefined>(undefined);
   const [isOpen, setIsOpen] = React.useState(false);
 
   const dragged = !!useDraggedItem();

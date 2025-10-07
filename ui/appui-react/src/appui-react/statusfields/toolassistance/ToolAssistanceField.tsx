@@ -470,7 +470,7 @@ function InstructionImage({
   instruction,
 }: {
   instruction: ToolAssistanceInstruction;
-}) {
+}): React.ReactNode {
   let image: React.ReactNode;
 
   if (
@@ -549,7 +549,7 @@ function InstructionSvgImage({
 }: {
   instruction: ToolAssistanceInstruction;
   mediumSize: boolean;
-}) {
+}): React.ReactNode {
   let image: React.ReactNode;
   let className = mediumSize
     ? "uifw-toolassistance-svg-medium"
@@ -640,7 +640,7 @@ function InstructionKeyboardImage({
   keyboardInfo,
 }: {
   keyboardInfo: ToolAssistanceKeyboardInfo;
-}) {
+}): React.ReactNode {
   let image: React.ReactNode;
 
   if (keyboardInfo.bottomKeys !== undefined) {

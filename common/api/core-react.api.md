@@ -416,9 +416,6 @@ export const DivWithOutsideClick: {
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps_2>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         shouldComponentUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
         getSnapshotBeforeUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, prevState: Readonly<{}>): any;
@@ -448,9 +445,6 @@ export const DivWithOutsideClick: {
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps_2>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         shouldComponentUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
         getSnapshotBeforeUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, prevState: Readonly<{}>): any;
@@ -463,13 +457,14 @@ export const DivWithOutsideClick: {
         UNSAFE_componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): void;
     };
     contextType?: React_2.Context<any> | undefined;
+    propTypes?: any;
 };
 
 // @public @deprecated
 export function ElementResizeObserver({ watchedElement, render, }: {
     watchedElement: HTMLElement | null;
     render: (props: RenderPropsArgs) => React_2.ReactElement;
-}): React_2.ReactElement<any, string | React_2.JSXElementConstructor<any>>;
+}): React_2.ReactElement<unknown, string | React_2.JSXElementConstructor<any>>;
 
 // @public @deprecated
 export const ElementSeparator: (props: ElementSeparatorProps) => React_2.JSX.Element;
@@ -709,7 +704,7 @@ export interface ListboxContextProps {
     // (undocumented)
     listboxId?: string;
     // (undocumented)
-    listboxRef?: React_2.RefObject<HTMLUListElement>;
+    listboxRef?: React_2.RefObject<HTMLUListElement | null>;
     // (undocumented)
     listboxValue?: ListboxValue;
     // (undocumented)
@@ -1017,7 +1012,7 @@ export interface PopupProps extends CommonProps {
     closeOnEnter?: boolean;
     closeOnNestedPopupOutsideClick?: boolean;
     closeOnWheel?: boolean;
-    focusTarget?: React_2.RefObject<HTMLElement> | string;
+    focusTarget?: React_2.RefObject<HTMLElement | null> | string;
     isOpen: boolean;
     isPinned?: boolean;
     keepContentsMounted?: boolean;
@@ -1557,7 +1552,7 @@ export function useInterval(callback: (...args: any[]) => void, delay: number | 
 
 // @public @deprecated
 export function useOnOutsideClick<T extends Element>(onOutsideClick?: () => void,
-outsideEventPredicate?: (e: OutsideClickEvent) => boolean): React_2.RefObject<T>;
+outsideEventPredicate?: (e: OutsideClickEvent) => boolean): React_2.RefObject<T | null>;
 
 // @public @deprecated
 export function useOptionalDisposable<TDisposable extends IDisposable>(createDisposable: () => TDisposable | undefined): TDisposable | undefined;
@@ -1606,9 +1601,6 @@ export const withIsPressed: <ComponentProps extends object>(Component: React_2.C
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<ComponentProps & WithIsPressedProps>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         componentDidMount?(): void;
         shouldComponentUpdate?(nextProps: Readonly<ComponentProps & WithIsPressedProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentWillUnmount?(): void;
@@ -1633,9 +1625,6 @@ export const withIsPressed: <ComponentProps extends object>(Component: React_2.C
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<ComponentProps & WithIsPressedProps>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         componentDidMount?(): void;
         shouldComponentUpdate?(nextProps: Readonly<ComponentProps & WithIsPressedProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentWillUnmount?(): void;
@@ -1650,6 +1639,7 @@ export const withIsPressed: <ComponentProps extends object>(Component: React_2.C
         UNSAFE_componentWillUpdate?(nextProps: Readonly<ComponentProps & WithIsPressedProps>, nextState: Readonly<{}>, nextContext: any): void;
     };
     contextType?: React_2.Context<any> | undefined;
+    propTypes?: any;
 };
 
 // @public @deprecated
@@ -1678,9 +1668,6 @@ export const withOnOutsideClick: <ComponentProps extends object>(Component: Reac
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<ComponentProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         shouldComponentUpdate?(nextProps: Readonly<ComponentProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
         getSnapshotBeforeUpdate?(prevProps: Readonly<ComponentProps & WithOnOutsideClickProps>, prevState: Readonly<{}>): any;
@@ -1710,9 +1697,6 @@ export const withOnOutsideClick: <ComponentProps extends object>(Component: Reac
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<ComponentProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         shouldComponentUpdate?(nextProps: Readonly<ComponentProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
         getSnapshotBeforeUpdate?(prevProps: Readonly<ComponentProps & WithOnOutsideClickProps>, prevState: Readonly<{}>): any;
@@ -1725,6 +1709,7 @@ export const withOnOutsideClick: <ComponentProps extends object>(Component: Reac
         UNSAFE_componentWillUpdate?(nextProps: Readonly<ComponentProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): void;
     };
     contextType?: React_2.Context<any> | undefined;
+    propTypes?: any;
 };
 
 // @public @deprecated
@@ -1747,9 +1732,6 @@ export const withTimeout: <ComponentProps extends object>(Component: React_2.Com
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<ComponentProps & WithTimeoutProps>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         shouldComponentUpdate?(nextProps: Readonly<ComponentProps & WithTimeoutProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
         getSnapshotBeforeUpdate?(prevProps: Readonly<ComponentProps & WithTimeoutProps>, prevState: Readonly<{}>): any;
@@ -1772,9 +1754,6 @@ export const withTimeout: <ComponentProps extends object>(Component: React_2.Com
         forceUpdate(callback?: (() => void) | undefined): void;
         readonly props: Readonly<ComponentProps & WithTimeoutProps>;
         state: Readonly<{}>;
-        refs: {
-            [key: string]: React_2.ReactInstance;
-        };
         shouldComponentUpdate?(nextProps: Readonly<ComponentProps & WithTimeoutProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
         getSnapshotBeforeUpdate?(prevProps: Readonly<ComponentProps & WithTimeoutProps>, prevState: Readonly<{}>): any;
@@ -1786,6 +1765,7 @@ export const withTimeout: <ComponentProps extends object>(Component: React_2.Com
         UNSAFE_componentWillUpdate?(nextProps: Readonly<ComponentProps & WithTimeoutProps>, nextState: Readonly<{}>, nextContext: any): void;
     };
     contextType?: React_2.Context<any> | undefined;
+    propTypes?: any;
 };
 
 // @public @deprecated

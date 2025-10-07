@@ -31,7 +31,7 @@ export class StructPropertyValueRenderer implements IPropertyValueRenderer {
   public render(
     record: PropertyRecord,
     context?: PropertyValueRendererContext
-  ) {
+  ): React.ReactNode {
     if (context && context.containerType === PropertyContainerType.Table) {
       return withContextStyle(
         <TableStructValueRenderer

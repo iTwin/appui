@@ -31,7 +31,7 @@ export class ArrayPropertyValueRenderer implements IPropertyValueRenderer {
   public render(
     record: PropertyRecord,
     context?: PropertyValueRendererContext
-  ) {
+  ): React.ReactNode {
     const recordItems = (record.value as ArrayValue).items;
 
     if (context && context.containerType === PropertyContainerType.Table) {

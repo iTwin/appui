@@ -90,7 +90,7 @@ export function PropertyFilterBuilderRuleRenderer(
   };
 
   const operatorRenderer = React.useCallback(
-    (prop: PropertyDescription) => {
+    (prop: PropertyDescription): React.ReactNode => {
       if (ruleOperatorRenderer)
         return ruleOperatorRenderer({
           property: prop,
@@ -109,7 +109,10 @@ export function PropertyFilterBuilderRuleRenderer(
   );
 
   const valueRenderer = React.useCallback(
-    (prop: PropertyDescription, op: PropertyFilterBuilderRuleOperator) => {
+    (
+      prop: PropertyDescription,
+      op: PropertyFilterBuilderRuleOperator
+    ): React.ReactNode => {
       if (ruleValueRenderer)
         return ruleValueRenderer({
           property: prop,

@@ -50,7 +50,7 @@ import { EditorsRegistryProvider } from "@itwin/components-react";
 export const ConfigurableUiContext = React.createContext<
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   ConfigurableUiContentProps & {
-    contentElementRef?: React.RefObject<HTMLElement>;
+    contentElementRef?: React.RefObject<HTMLElement | null>;
     widgetActions?: StandardLayoutProps["widgetActions"];
     toolSettings?: StandardLayoutProps["toolSettings"];
   }

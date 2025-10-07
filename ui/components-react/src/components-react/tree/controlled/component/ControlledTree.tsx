@@ -91,7 +91,7 @@ export function ControlledTree(props: ControlledTreeProps) {
     [props.descriptionsEnabled, props.iconsEnabled, imageLoader]
   );
 
-  const visibleNodesRef = React.useRef<VisibleTreeNodes>();
+  const visibleNodesRef = React.useRef<VisibleTreeNodes | undefined>(undefined);
   visibleNodesRef.current = React.useMemo(
     () => computeVisibleNodes(props.model),
     [props.model]

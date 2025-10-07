@@ -69,7 +69,7 @@ export interface PopupProps extends CommonProps {
   /** set focus to popup - default to not set focus */
   moveFocus?: boolean;
   /** Element to receive focus, specified by React.RefObject or CSS selector string. If undefined and moveFocus is true then focus is moved to first focusable element. */
-  focusTarget?: React.RefObject<HTMLElement> | string;
+  focusTarget?: React.RefObject<HTMLElement | null> | string;
   /** Indicates whether the popup is pinned. */
   isPinned?: boolean;
   /** Indicates whether to use animation for open/close (defaults to true) */

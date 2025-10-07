@@ -24,7 +24,7 @@ export function useRefs<T>(...refs: ReadonlyArray<React.Ref<T> | undefined>) {
           if (isRefCallback(ref)) {
             ref(instance);
           } else {
-            (ref as React.MutableRefObject<T | null>).current = instance;
+            ref.current = instance;
           }
         }
       }
@@ -44,7 +44,7 @@ export function mergeRefs<T>(...refs: ReadonlyArray<React.Ref<T>>) {
         if (isRefCallback(ref)) {
           ref(instance);
         } else {
-          (ref as React.MutableRefObject<T | null>).current = instance;
+          ref.current = instance;
         }
       }
     }

@@ -6,6 +6,7 @@ import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { PropsHelper } from "../../appui-react.js";
 import { SvgCut } from "@itwin/itwinui-icons-react";
+import type { IconProps } from "@itwin/core-react";
 
 describe("PropsHelper", () => {
   it("Shallow Equals", () => {
@@ -35,7 +36,9 @@ describe("PropsHelper", () => {
   it("Get Icon JSX", () => {
     const iconTest = PropsHelper.getIcon("placeholder");
     expect(iconTest).toBeTruthy();
-    expect(iconTest!.props.iconSpec).toEqual("placeholder");
+    expect((iconTest as React.ReactElement<IconProps>).props.iconSpec).toEqual(
+      "placeholder"
+    );
   });
 
   it("Get undefined Icon", () => {
@@ -113,7 +116,9 @@ describe("PropsHelper", () => {
       new ConditionalStringValue(() => "conditional-icon", ["dummy"])
     );
     expect(iconTest).toBeTruthy();
-    expect(iconTest!.props.iconSpec).toEqual("conditional-icon");
+    expect((iconTest as React.ReactElement<IconProps>).props.iconSpec).toEqual(
+      "conditional-icon"
+    );
   });
 
   it("get abstract props for react icon", () => {

@@ -15,7 +15,7 @@ import type { PropertyValueRendererContext } from "../../ValueRendererManager.js
 export const withContextStyle = (
   node: React.ReactNode,
   context?: PropertyValueRendererContext
-) => {
+): React.ReactNode => {
   if (!context || !context.style) return node;
   return <span style={context.style}>{node}</span>;
 };

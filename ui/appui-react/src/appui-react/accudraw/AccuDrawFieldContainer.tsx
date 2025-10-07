@@ -447,7 +447,7 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   );
 }
 
-function getCurrent<T>(ref: React.RefObject<T>) {
+function getCurrent<T>(ref: React.RefObject<T | null>) {
   if (ref.current === null) return undefined;
   return ref.current;
 }
