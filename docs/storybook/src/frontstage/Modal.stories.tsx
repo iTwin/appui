@@ -19,6 +19,9 @@ const meta = {
     },
     layout: "fullscreen",
   },
+  args: {
+    notifyCloseRequest: false,
+  },
 } satisfies Meta<typeof ModalFrontstageStory>;
 
 export default meta;
@@ -37,5 +40,11 @@ export const BackButton: Story = {
         }}
       />
     ),
+  },
+};
+
+export const NotifyCloseRequest: Story = {
+  args: {
+    notifyCloseRequest: true,
   },
 };
