@@ -36,6 +36,7 @@ export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
               label: "Open modal frontstage",
               execute: () => {
                 UiFramework.frontstages.openModalFrontstage({
+                  id: "my-modal-frontstage",
                   content: <>Modal frontstage content</>,
                   title: "My Modal Frontstage",
                   ...props,

@@ -178,6 +178,8 @@ export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {}
  * @public
  */
 export interface ModalFrontstageInfo {
+  /** Id used for frontstage identification. */
+  id?: string;
   title: string;
   content: React.ReactNode;
   appBarRight?: React.ReactNode;
