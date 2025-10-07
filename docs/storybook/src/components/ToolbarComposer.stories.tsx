@@ -212,42 +212,65 @@ const { getVal, bump, eventId } = createBumpEvent();
 
 export const Conditional: Story = {
   args: {
-    items: [
-      {
-        ...items.action1,
-        execute: () => {
-          bump();
-          items.action1.execute();
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem({
+          isActiveCondition: new ConditionalBooleanValue(
+            () => getVal() % 2 === 1,
+            [eventId]
+          ),
+          execute: () => {
+            bump();
+          },
+        }),
+        {
+          ...factory.createActionItem({
+            label: new ConditionalStringValue(
+              () => `Item 2 (${getVal()})`,
+              [eventId]
+            ),
+            isDisabled: new ConditionalBooleanValue(
+              () => getVal() % 2 === 1,
+              [eventId]
+            ),
+            description: new ConditionalStringValue(
+              () =>
+                `Conditional item. Click 'Item 1' to toggle. (${getVal()}).`,
+              [eventId]
+            ),
+          }),
+          iconNode: undefined,
+          icon: new ConditionalIconItem(
+            () => (getVal() % 2 === 0 ? <Svg3D /> : <Svg2D />),
+            [eventId]
+          ),
         },
-        isActiveCondition: new ConditionalBooleanValue(
-          () => getVal() % 2 === 1,
-          [eventId]
-        ),
-      },
-      {
-        ...items.action2,
-        icon: new ConditionalIconItem(
-          () => (getVal() % 2 === 0 ? <Svg3D /> : <Svg2D />),
-          [eventId]
-        ),
-        label: new ConditionalStringValue(
-          () => `Item 2 (${getVal()})`,
-          [eventId]
-        ),
-        isDisabled: new ConditionalBooleanValue(
-          () => getVal() % 2 === 1,
-          [eventId]
-        ),
-        description: new ConditionalStringValue(
-          () => `Conditional item. Click 'Item 1' to toggle. (${getVal()}).`,
-          [eventId]
-        ),
-      },
-      {
-        ...items.action3,
-        icon: <ConditionalReactIcon />,
-      },
-    ],
+        factory.createActionItem({
+          iconNode: <ConditionalReactIcon />,
+        }),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem({
+              label: new ConditionalStringValue(
+                () => `Item 4 (${getVal()})`,
+                [eventId]
+              ),
+            }),
+            factory.createGroupItem({
+              items: [
+                factory.createActionItem({
+                  isActiveCondition: new ConditionalBooleanValue(
+                    () => getVal() % 2 === 0,
+                    [eventId]
+                  ),
+                }),
+              ],
+            }),
+          ],
+        }),
+      ];
+    })(),
   },
 };
 

@@ -14,7 +14,7 @@ $key-size-large: 36px;
 $key-size-modifier: 24px;
 
 .uifw-statusFields-toolAssistance-toolAssistanceField {
-  width: 30ch;
+  max-width: 30ch;
   justify-content: flex-start;
 
   .prompt {

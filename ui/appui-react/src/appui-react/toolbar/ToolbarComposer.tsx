@@ -31,6 +31,8 @@ import {
 import { Toolbar } from "./Toolbar.js";
 import { useActiveStageProvidedToolbarItems } from "./useActiveStageProvidedToolbarItems.js";
 import { useActiveToolId } from "../hooks/useActiveToolId.js";
+import { ConditionalBooleanValue } from "../shared/ConditionalValue.js";
+import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 
 function addItemToSpecifiedParentGroup<T extends ToolbarItem>(
   items: readonly T[],
@@ -222,9 +224,13 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
     () => activeItemIdsProp ?? (activeToolId ? [activeToolId] : []),
     [activeItemIdsProp, activeToolId]
   );
+  const activeConditionalItemIds = useActiveConditionalItemIds(allItems);
   const items = React.useMemo(() => {
-    return updateActiveItems(allItems, activeItemIds);
-  }, [allItems, activeItemIds]);
+    return updateActiveItems(allItems, [
+      ...activeItemIds,
+      ...activeConditionalItemIds,
+    ]);
+  }, [allItems, activeItemIds, activeConditionalItemIds]);
 
   const isDragEnabled = React.useContext(ToolbarDragInteractionContext);
   const useProximityOpacity = useProximityOpacitySetting();
@@ -271,6 +277,51 @@ function toPanelAlignment(
   return ToolbarPanelAlignment.Start;
 }
 
+function useActiveConditionalItemIds(items: ToolbarItem[]) {
+  const [activeItemIds, setActiveItemIds] = React.useState<string[]>([]);
+  const conditionalItems = React.useMemo(() => {
+    const conditionals: ToolbarItem[] = [];
+    const stack = [...items];
+    while (stack.length > 0) {
+      const current = stack.pop()!;
+      if (current.isActiveCondition) conditionals.push(current);
+
+      if (isToolbarGroupItem(current)) {
+        for (const child of current.items) {
+          stack.push(child);
+        }
+      }
+    }
+    return conditionals;
+  }, [items]);
+  React.useEffect(() => {
+    return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
+      const newActiveIds: string[] = [];
+      for (const item of conditionalItems) {
+        ConditionalBooleanValue.refreshValue(
+          item.isActiveCondition,
+          args.eventIds
+        );
+
+        const isActive = ConditionalBooleanValue.getValue(
+          item.isActiveCondition
+        );
+        if (isActive) newActiveIds.push(item.id);
+      }
+      setActiveItemIds(newActiveIds);
+    });
+  }, [conditionalItems]);
+  React.useEffect(() => {
+    const newActiveIds: string[] = [];
+    for (const item of conditionalItems) {
+      const isActive = ConditionalBooleanValue.getValue(item.isActiveCondition);
+      if (isActive) newActiveIds.push(item.id);
+    }
+    setActiveItemIds(newActiveIds);
+  }, [conditionalItems]);
+  return activeItemIds;
+}
+
 /** @internal */
 export function updateActiveItems(
   items: ToolbarItem[],
@@ -287,7 +338,7 @@ export function updateActiveItems(
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       current.isActive = isActive;
 
-      if ("items" in current) {
+      if (isToolbarGroupItem(current)) {
         for (const child of current.items) {
           stack.push([child, [...ancestors, current]]);
         }
