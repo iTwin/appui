@@ -336,7 +336,7 @@ const Node = React.memo<React.FC<ListChildComponentProps>>(function Node(
 
   return (
     <div className={className} style={style}>
-      {React.useMemo(() => {
+      {React.useMemo((): React.ReactNode => {
         if (isTreeModelNode(node)) {
           const nodeHighlightProps = highlightingEngine
             ? highlightingEngine.createRenderProps(node)
@@ -397,7 +397,7 @@ function useNodeLoading(
 
 function useTreeRendererAttributes(
   ref: React.Ref<TreeRendererAttributes>,
-  variableSizeListRef: React.RefObject<VariableSizeList>,
+  variableSizeListRef: React.RefObject<VariableSizeList | null>,
   visibleNodes: VisibleTreeNodes
 ) {
   const visibleNodesRef = React.useRef(visibleNodes);
@@ -419,7 +419,7 @@ function useTreeRendererAttributes(
 }
 
 function usePrevious<T>(value: T): T | undefined {
-  const ref = React.useRef<T>();
+  const ref = React.useRef<T | undefined>(undefined);
 
   React.useEffect(() => {
     ref.current = value;
@@ -436,7 +436,7 @@ function getHighlightedNodeId(highlightableTreeProps?: HighlightableTreeProps) {
 
 function useScrollToActiveMatch(
   // eslint-disable-next-line @typescript-eslint/no-deprecated
-  treeRef: React.RefObject<CoreTree>,
+  treeRef: React.RefObject<CoreTree | null>,
   highlightableTreeProps?: HighlightableTreeProps
 ) {
   const scrollToActive = React.useRef(false);
@@ -475,7 +475,7 @@ function useScrollToActiveMatch(
 }
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-function setFocusToSelected(treeRef: React.RefObject<CoreTree>) {
+function setFocusToSelected(treeRef: React.RefObject<CoreTree | null>) {
   if (treeRef.current)
     treeRef.current.setFocusByClassName(".core-tree-node.is-selected");
 }

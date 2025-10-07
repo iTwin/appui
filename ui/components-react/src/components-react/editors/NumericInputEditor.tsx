@@ -48,7 +48,8 @@ export class NumericInputEditor
   implements TypeEditor
 {
   private _isMounted = false;
-  private _inputElement: React.RefObject<HTMLInputElement> = React.createRef();
+  private _inputElement: React.RefObject<HTMLInputElement | null> =
+    React.createRef();
   public hasFocus = false; // hot used since containerHandlesEnter is false
 
   public override readonly state: Readonly<NumericInputEditorState> = {

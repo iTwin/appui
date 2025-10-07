@@ -107,7 +107,9 @@ export function QuantityFormatSettingsPage({
   const [clearEnabled, setClearEnabled] = React.useState(
     IModelApp.quantityFormatter.hasActiveOverride(initialQuantityType, true)
   );
-  const newQuantityTypeRef = React.useRef<QuantityTypeKey>();
+  const newQuantityTypeRef = React.useRef<QuantityTypeKey | undefined>(
+    undefined
+  );
 
   React.useEffect(() => {
     return IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(

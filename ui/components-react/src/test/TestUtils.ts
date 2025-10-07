@@ -577,7 +577,7 @@ export class TestErrorBoundary extends React.Component<
   public override componentDidCatch(error: Error, info: any) {
     this.props.onError(error, info.componentStack);
   }
-  public override render() {
+  public override render(): React.ReactNode {
     if (this.state.hasError) return null;
     return this.props.children;
   }

@@ -24,8 +24,8 @@ export const useOverflow = <
 ) => {
   const [visible, setVisible] = React.useState(allItems.length);
   const [calculate, setCalculate] = React.useState(false);
-  const containerSizeRef = React.useRef<SizeProps>();
-  const componentSizeRef = React.useRef<SizeProps>();
+  const containerSizeRef = React.useRef<SizeProps | undefined>(undefined);
+  const componentSizeRef = React.useRef<SizeProps | undefined>(undefined);
 
   const [prevOrientation, setPrevOrientation] = React.useState(orientation);
   if (prevOrientation !== orientation) {

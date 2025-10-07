@@ -161,7 +161,9 @@ export class IconEditor
         ref={this._divElement}
       >
         <IconPickerButton
-          ref={(control) => (this._control = control)}
+          ref={(control) => {
+            this._control = control;
+          }}
           icon={icon}
           icons={icons}
           numColumns={numColumns}

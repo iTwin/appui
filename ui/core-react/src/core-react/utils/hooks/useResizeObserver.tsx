@@ -21,10 +21,10 @@ export function useResizeObserver<T extends Element>(
   const resizeObserver = React.useRef<ResizeObserver | null>(null);
   const rafRef = React.useRef(0); // set to non-zero when requestAnimationFrame processing is active
   const isMountedRef = React.useRef(false);
-  const owningWindowRef = React.useRef<any>(null);
+  const owningWindowRef = React.useRef<Window | null>(null);
 
   const resizeObserverCleanup = () => {
-    if (rafRef.current)
+    if (rafRef.current && owningWindowRef.current)
       owningWindowRef.current.cancelAnimationFrame(rafRef.current);
 
     resizeObserver.current?.disconnect();
@@ -35,7 +35,7 @@ export function useResizeObserver<T extends Element>(
     isMountedRef.current = true;
     return () => {
       isMountedRef.current = false;
-      if (rafRef.current)
+      if (rafRef.current && owningWindowRef.current)
         owningWindowRef.current.cancelAnimationFrame(rafRef.current);
       owningWindowRef.current?.removeEventListener(
         "beforeunload",

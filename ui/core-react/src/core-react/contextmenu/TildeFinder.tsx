@@ -49,7 +49,7 @@ export class TildeFinder {
         if (ret.character) {
           return { character: ret.character, node };
         }
-      } else if ("props" in node) {
+      } else if (React.isValidElement<React.PropsWithChildren>(node)) {
         // React Node
         const ret: { character: string | undefined; node: React.ReactNode } = {
           character: undefined,
@@ -57,8 +57,8 @@ export class TildeFinder {
         };
         ret.node = React.cloneElement(node, {
           children: React.Children.map(
-            node.props.children as React.ReactNode,
-            (child: React.ReactNode) => {
+            node.props.children,
+            (child: React.ReactNode): React.ReactNode => {
               const r = TildeFinder.findAfterTilde(child);
               if (r.character) {
                 // if character is found, modify node instead of returning unmodified child.

@@ -120,8 +120,10 @@ export function EditorContainer(props: EditorContainerProps) {
     ...rest
   } = props;
 
-  const editorRef = React.useRef<TypeEditor | undefined>();
-  const propertyEditorRef = React.useRef<PropertyEditorBase | undefined>();
+  const editorRef = React.useRef<TypeEditor | undefined>(undefined);
+  const propertyEditorRef = React.useRef<PropertyEditorBase | undefined>(
+    undefined
+  );
   const committedByTab = React.useRef(false);
 
   const handleClick = (e: React.MouseEvent) => {

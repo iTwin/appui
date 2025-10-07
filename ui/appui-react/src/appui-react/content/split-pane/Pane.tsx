@@ -18,7 +18,7 @@ export interface PaneProps {
   size?: string | number;
   split?: "vertical" | "horizontal";
   style?: React.CSSProperties;
-  eleRef: React.RefObject<HTMLDivElement>;
+  eleRef: React.RefObject<HTMLDivElement | null>;
   children?: React.ReactNode;
 }
 

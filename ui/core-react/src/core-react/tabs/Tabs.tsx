@@ -75,7 +75,7 @@ export interface MainTabsProps extends TabsProps {
  * @deprecated in 4.12.0. Use {@link https://itwinui.bentley.com/docs/tabs iTwinUI Tabs} instead.
  */
 export class Tabs extends React.PureComponent<MainTabsProps, TabsState> {
-  private _anchorRefs: Array<React.RefObject<HTMLAnchorElement>> = [];
+  private _anchorRefs: Array<React.RefObject<HTMLAnchorElement | null>> = [];
   private _itemKeyboardNavigator: ItemKeyboardNavigator;
 
   constructor(props: MainTabsProps) {

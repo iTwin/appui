@@ -75,8 +75,8 @@ export function UiDataProvidedDialog({
 UiDataProvidedDialogProps) {
   const dialogId = React.useRef(id ? id : getUniqueId());
   const dialogIsModal = React.useRef(isModal);
-  const onOK = React.useRef<() => void>();
-  const onCancel = React.useRef<() => void>();
+  const onOK = React.useRef<(() => void) | undefined>(undefined);
+  const onCancel = React.useRef<(() => void) | undefined>(undefined);
   const closeDialog = () => {
     if (dialogIsModal.current) UiFramework.dialogs.modal.close();
     else UiFramework.dialogs.modeless.close(dialogId.current);

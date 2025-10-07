@@ -27,7 +27,7 @@ export function useCrossOriginPopup(
 
   // ONLY re-render the popup when visibility changes, any other changes get deferred until next visibility change
   // hence the massive use of 'useRef'
-  const popupWindow = React.useRef<Window>();
+  const popupWindow = React.useRef<Window | undefined>(undefined);
   const savedUrl = React.useRef(url);
   const savedTitle = React.useRef(title);
   const savedWidth = React.useRef(width);

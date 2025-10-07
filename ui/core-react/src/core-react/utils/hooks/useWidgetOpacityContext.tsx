@@ -13,8 +13,8 @@ import * as React from "react";
  */
 export interface WidgetOpacityContextProps {
   readonly proximityScale: number;
-  readonly addRef: (ref: React.RefObject<Element>) => void;
-  readonly removeRef: (ref: React.RefObject<Element>) => void;
+  readonly addRef: (ref: React.RefObject<Element | null>) => void;
+  readonly removeRef: (ref: React.RefObject<Element | null>) => void;
 }
 
 /**

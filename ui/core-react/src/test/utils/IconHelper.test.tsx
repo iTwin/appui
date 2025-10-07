@@ -5,6 +5,7 @@
 import * as React from "react";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { IconHelper } from "../../core-react/utils/IconHelper.js";
+import type { IconProps } from "../../core-react.js";
 import { ConditionalIconItem } from "../../core-react.js";
 
 describe("IconHelper", () => {
@@ -14,7 +15,9 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).toBeTruthy();
-    expect((iconNode as React.ReactElement).props.iconSpec).toEqual("cat");
+    expect((iconNode as React.ReactElement<IconProps>).props.iconSpec).toEqual(
+      "cat"
+    );
   });
 
   it("should get null icon data", () => {
@@ -55,7 +58,9 @@ describe("IconHelper", () => {
 
     const iconNode = IconHelper.getIconReactNode(iconSpec);
     expect(iconNode).toBeTruthy();
-    expect((iconNode as React.ReactElement).props.iconSpec).toEqual("dog");
+    expect((iconNode as React.ReactElement<IconProps>).props.iconSpec).toEqual(
+      "dog"
+    );
   });
 
   it("should get react icon data", () => {
@@ -66,7 +71,10 @@ describe("IconHelper", () => {
     const iconNode = IconHelper.getIconReactNode(iconSpec, internalData);
     expect(iconNode).toBeTruthy();
     expect(
-      (iconNode as React.ReactElement).props.iconSpec.props.children
+      (
+        (iconNode as React.ReactElement<IconProps>).props
+          .iconSpec as React.ReactElement<React.ComponentProps<"span">>
+      ).props.children
     ).toEqual("Test");
   });
 
@@ -83,7 +91,10 @@ describe("IconHelper", () => {
     expect(iconNode).toBeTruthy();
     expect(iconNode).toBeTruthy();
     expect(
-      (iconNode as React.ReactElement).props.iconSpec.props.children
+      (
+        (iconNode as React.ReactElement<IconProps>).props
+          .iconSpec as React.ReactElement<React.ComponentProps<"span">>
+      ).props.children
     ).toEqual("Test");
 
     const iconNodeDirect = IconHelper.getIconReactNode(
@@ -94,7 +105,10 @@ describe("IconHelper", () => {
     expect(iconNodeDirect).toBeTruthy();
     expect(iconNodeDirect).toBeTruthy();
     expect(
-      (iconNodeDirect as React.ReactElement).props.iconSpec.props.children
+      (
+        (iconNodeDirect as React.ReactElement<IconProps>).props
+          .iconSpec as React.ReactElement<React.ComponentProps<"span">>
+      ).props.children
     ).toEqual("Plum");
   });
 

@@ -200,7 +200,7 @@ export function useTabInteractions<T extends HTMLElement>({
   const clickCount = React.useRef(0);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
-  const initialPointerPosition = React.useRef<Point>();
+  const initialPointerPosition = React.useRef<Point | undefined>(undefined);
 
   const overflown = !widgetTabsEntryContext;
 
@@ -341,7 +341,7 @@ export function useTabInteractions<T extends HTMLElement>({
     handlePointerMove,
     handlePointerUp
   );
-  const ref = React.useRef<T>();
+  const ref = React.useRef<T | undefined>(undefined);
   const refs = useRefs(pointerCaptorRef, ref);
 
   React.useEffect(() => {

@@ -78,7 +78,7 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
       ref={containerRef}
     >
       <Surface orientation={orientation} ref={componentRef} {...props}>
-        {visibleChildren.map(([item, child]) => {
+        {visibleChildren.map(([item, child]): React.ReactNode => {
           if (!React.isValidElement<{ ref: React.Ref<Element> }>(child))
             return child;
           return React.cloneElement(child, {
@@ -93,7 +93,7 @@ export function ToolGroup({ children, className, ...props }: ToolGroupProps) {
         })}
         {renderOverflow && (
           <OverflowButton ref={overflowRef}>
-            {overflown.map(([_, child]) => child)}
+            {overflown.map(([_, child]): Child => child)}
           </OverflowButton>
         )}
       </Surface>

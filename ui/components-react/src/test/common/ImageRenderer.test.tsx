@@ -213,8 +213,9 @@ describe("ImageRenderer", () => {
     }
 
     it("throws when provided image source is not supported", () => {
-      expect(() =>
-        imageRenderer.render({ sourceType: "random-type" } as any)
+      expect(
+        (): React.ReactNode =>
+          imageRenderer.render({ sourceType: "random-type" } as any)
       ).to.throw(UiError);
     });
   });

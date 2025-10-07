@@ -211,7 +211,7 @@ describe("TreeRenderer", () => {
     visibleNodesMock.setup((x) => x.getAtIndex(0)).returns(() => node1);
     visibleNodesMock.setup((x) => x.getAtIndex(1)).returns(() => node2);
 
-    const NodeRenderer: React.FC<TreeNodeRendererProps> = (props) => {
+    const NodeRenderer = (props: TreeNodeRendererProps) => {
       return <>{(props.node.label.value as PrimitiveValue).value as string}</>;
     };
 
@@ -387,10 +387,10 @@ describe("TreeRenderer", () => {
 
     it("scrolls to the specified node", () => {
       const spy = vi.spyOn(VariableSizeList.prototype, "scrollToItem");
-      const treeRendererRef: React.RefObject<TreeRenderer> = { current: null };
+      const treeRendererRef = React.createRef<TreeRenderer | null>();
       render(<TreeRenderer ref={treeRendererRef} {...defaultProps} />);
 
-      treeRendererRef.current!.scrollToNode("test_id", "smart");
+      treeRendererRef.current?.scrollToNode("test_id", "smart");
       expect(spy).toHaveBeenCalledWith(15, "smart");
     });
 
