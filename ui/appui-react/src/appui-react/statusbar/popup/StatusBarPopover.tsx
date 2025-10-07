@@ -32,7 +32,7 @@ export function StatusBarPopover({
           {content}
         </PopupContext.Provider>
       }
-      placement="top"
+      placement="top-start"
       applyBackground
       middleware={{
         ...middleware,
