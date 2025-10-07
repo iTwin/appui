@@ -17,7 +17,7 @@ import { action } from "storybook/internal/actions";
 
 type ModalFrontstageStoryProps = Pick<
   ModalFrontstageInfo,
-  "backButton" | "notifyCloseRequest"
+  "backButton" | "notifyCloseRequest" | "appBarRight"
 >;
 
 /** [openModalFrontstage](https://www.itwinjs.org/reference/appui-react/frontstage/frameworkfrontstages/#openmodalfrontstage) can be used to open a modal frontstage. */

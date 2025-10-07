@@ -43,6 +43,12 @@ export const BackButton: Story = {
   },
 };
 
+export const AppBarRight: Story = {
+  args: {
+    appBarRight: <>appBarRight</>,
+  },
+};
+
 export const NotifyCloseRequest: Story = {
   args: {
     notifyCloseRequest: true,
