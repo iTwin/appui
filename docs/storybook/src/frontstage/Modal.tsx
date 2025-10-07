@@ -66,7 +66,7 @@ function ModalFrontstageEvents() {
   }, []);
   React.useEffect(() => {
     return UiFramework.frontstages.onCloseModalFrontstageRequestedEvent.addListener(
-      async (args) => {
+      (args) => {
         action("onCloseModalFrontstageRequestedEvent (close after 2s)")(args);
         setTimeout(args.stageCloseFunc, 2000);
       }
