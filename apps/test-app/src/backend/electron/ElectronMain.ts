@@ -60,6 +60,7 @@ export async function initializeElectron(opts?: IModelHostOptions) {
     show: !maximizeWindow,
     title: "AppUI Test App",
     storeWindowName: mainWindowName,
+    transparent: Boolean(process.env.IMJS_TRANSPARENT_WINDOW),
   });
   assert(ElectronHost.mainWindow !== undefined);
 

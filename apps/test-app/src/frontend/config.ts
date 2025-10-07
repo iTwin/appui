@@ -14,6 +14,9 @@ function createConfig() {
     cesiumIonKey: import.meta.env.IMJS_CESIUM_ION_KEY as string,
     mapBoxKey: import.meta.env.IMJS_MAPBOX_KEY as string,
     tests: Boolean(import.meta.env.IMJS_TESTS as string),
+    transparentWindow: Boolean(
+      import.meta.env.IMJS_TRANSPARENT_WINDOW as string
+    ),
     serverEnvironmentPrefix,
     urlPrefix,
   } as const;
