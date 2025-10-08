@@ -3309,14 +3309,12 @@ export interface ModalFrontstageClosedEventArgs {
 
 // @public
 export interface ModalFrontstageInfo {
-    // (undocumented)
     appBarRight?: React.ReactNode;
     backButton?: React.ReactNode;
-    // (undocumented)
     content: React.ReactNode;
+    id?: string;
     // @alpha
     notifyCloseRequest?: boolean;
-    // (undocumented)
     title: string;
 }
 
