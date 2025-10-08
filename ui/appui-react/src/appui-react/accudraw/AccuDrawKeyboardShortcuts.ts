@@ -54,28 +54,16 @@ export class AccuDrawKeyboardShortcuts {
           ),
           KeyboardShortcutUtilities.createForTool("r", AccuDrawSetOriginTool),
           KeyboardShortcutUtilities.createForTool("t", AccuDrawChangeModeTool),
-          KeyboardShortcutUtilities.createForTool("x", AccuDrawSetLockXTool, {
-            isHidden: FrameworkAccuDraw.isPolarModeConditional,
-          }),
-          KeyboardShortcutUtilities.createForTool("y", AccuDrawSetLockYTool, {
-            isHidden: FrameworkAccuDraw.isPolarModeConditional,
-          }),
-          KeyboardShortcutUtilities.createForTool("z", AccuDrawSetLockZTool, {
-            isHidden: FrameworkAccuDraw.isPolarModeConditional,
-          }),
+          KeyboardShortcutUtilities.createForTool("x", AccuDrawSetLockXTool),
+          KeyboardShortcutUtilities.createForTool("y", AccuDrawSetLockYTool),
+          KeyboardShortcutUtilities.createForTool("z", AccuDrawSetLockZTool),
           KeyboardShortcutUtilities.createForTool(
             "a",
-            AccuDrawSetLockAngleTool,
-            {
-              isHidden: FrameworkAccuDraw.isRectangularModeConditional,
-            }
+            AccuDrawSetLockAngleTool
           ),
           KeyboardShortcutUtilities.createForTool(
             "d",
-            AccuDrawSetLockDistanceTool,
-            {
-              isHidden: FrameworkAccuDraw.isRectangularModeConditional,
-            }
+            AccuDrawSetLockDistanceTool
           ),
           KeyboardShortcutUtilities.createForTool("b", BumpToolSetting),
         ],
