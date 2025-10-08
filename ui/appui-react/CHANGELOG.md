@@ -1,5 +1,24 @@
 # Change Log - @itwin/appui-react
 
+## 5.16.0
+
+### Minor Changes
+
+- a34024b: Increased padding of `ListPicker` button used in a `ViewSelector` component.
+- 51fb78f: Added support for [React v19](https://react.dev/blog/2024/12/05/react-19).
+- a34024b: Moved icon of `SnapModeField` component to the start of the button.
+- d25c51d: Added optional `id` property to `ModalFrontstageInfo` interface to uniquely identify modal frontstages.
+- b35aeee: Removed explicit `background-color` set on internal standard layout element. By default the background color is set by the root `ThemeProvider` of `iTwinUI` and can be further controlled via `themeOptions` prop.
+- a34024b: Removed fixed width of `ToolAssistanceField` component.
+- 7064448: Changed alignment of `StatusBarPopover` and `StatusBarPopup` components to top-start.
+
+### Patch Changes
+
+- Updated dependencies [51fb78f]
+  - @itwin/imodel-components-react@5.16.0
+  - @itwin/components-react@5.16.0
+  - @itwin/core-react@5.16.0
+
 ## 5.15.2
 
 ### Patch Changes
