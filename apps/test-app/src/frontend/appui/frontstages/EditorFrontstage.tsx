@@ -39,7 +39,7 @@ export function createEditorFrontstage() {
     cornerButton: <BackstageAppButton />,
   });
 }
-createEditorFrontstage.stageId = "appui-test-app:editor-frontstage";
+createEditorFrontstage.stageId = "editor";
 
 export function createEditorFrontstageProvider(): UiItemsProvider {
   const id = "appui-test-app:editor-items";
