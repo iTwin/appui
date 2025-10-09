@@ -407,7 +407,7 @@ describe("AccuDrawFieldContainer", () => {
       expect(wrapper.queryAllByLabelText(labelTest)).toHaveLength(0);
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       await TestUtils.flushAsyncOperations();
-      await settingsTest(2);
+      await settingsTest(3);
 
       remove();
     });
@@ -446,7 +446,7 @@ describe("AccuDrawFieldContainer", () => {
 
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
       await TestUtils.flushAsyncOperations();
-      await settingsTest(2);
+      await settingsTest(3);
 
       remove();
     });
