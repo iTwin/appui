@@ -33,8 +33,6 @@ export interface AccuDrawFieldContainerProps extends CommonProps {
   orientation: Orientation;
   /** Optional parameter for persistent UI settings. Defaults to LocalStateStorage. */
   uiSettingsStorage?: UiStateStorage;
-  /** @internal */
-  showZOverride?: boolean;
   /** Indicates whether the field is displaying a bearing angles. */
   isBearingAngle?: boolean;
 }
@@ -55,7 +53,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     style,
     orientation,
     uiSettingsStorage,
-    showZOverride,
     isBearingAngle = false,
     ...otherProps
   } = props;
@@ -85,7 +82,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   );
 
   const is3d = useAccuDrawStore((state) => state.is3d);
-  const showZ = showZOverride ?? is3d;
 
   const [uiSettings, setUiSettings] = React.useState<
     AccuDrawUiSettings | undefined
@@ -356,12 +352,12 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             }
             onEscPressed={handleEscPressed}
             onTabPressed={() =>
-              showZ
+              is3d
                 ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item)
                 : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
             }
           />
-          {showZ && (
+          {is3d && (
             <AccuDrawInputField
               ref={zInputRef}
               isLocked={zLock}
