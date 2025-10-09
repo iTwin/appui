@@ -97,7 +97,15 @@ export class AccuDrawKeyboardShortcuts {
           KeyboardShortcutUtilities.createForTool("v", AccuDrawRotateViewTool, {
             isDisabled: FrameworkAccuDraw.isViewRotationConditional,
           }),
-          KeyboardShortcutUtilities.createForTool("c", AccuDrawRotateCycleTool),
+          KeyboardShortcutUtilities.createForTool(
+            "c",
+            AccuDrawRotateCycleTool,
+            {
+              isHidden: new ConditionalBooleanValue(() => {
+                return !useAccuDrawStore.getState().is3d;
+              }, [SyncUiInternalEventId.AccuDrawViewIs3dChanged]),
+            }
+          ),
           KeyboardShortcutUtilities.createForTool("a", AccuDrawRotateAxesTool),
           KeyboardShortcutUtilities.createForTool(
             "e",

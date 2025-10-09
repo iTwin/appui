@@ -2,4 +2,4 @@
 "@itwin/appui-react": minor
 ---
 
-Updated AccuDraw to hide the `Rotate Side` and `Rotate Front` shortcuts when active view is 2d.
+Updated AccuDraw to hide the `Rotate Side`, `Rotate Front` and `Rotate Cycle` shortcuts when active view is 2d.
