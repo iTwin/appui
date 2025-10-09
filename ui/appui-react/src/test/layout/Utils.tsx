@@ -11,17 +11,8 @@ import type {
   TabState,
 } from "../../appui-react/layout/state/TabState.js";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
-import { useContainersStore } from "../../appui-react/layout/widget/ContentManager.js";
-import { useActiveSendBackWidgetIdStore } from "../../appui-react/layout/widget/SendBack.js";
 
 export { userEvent };
-
-const initialSendBackState = useActiveSendBackWidgetIdStore.getState();
-const initialContainersState = useContainersStore.getState();
-beforeEach(() => {
-  useActiveSendBackWidgetIdStore.setState(initialSendBackState, true);
-  useContainersStore.setState(initialContainersState, true);
-});
 
 /** @internal */
 export const createRect = (
