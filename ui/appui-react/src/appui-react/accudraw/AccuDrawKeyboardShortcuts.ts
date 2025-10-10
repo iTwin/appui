@@ -27,6 +27,9 @@ import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
 import { BumpToolSetting } from "../tools/ToolSettingsTools.js";
 import type { KeyboardShortcutProps } from "../keyboardshortcut/KeyboardShortcutProps.js";
 import { KeyboardShortcutUtilities } from "../keyboardshortcut/KeyboardShortcutUtilities.js";
+import { SyncUiInternalEventId } from "../syncui/UiSyncEvent.js";
+import { useAccuDrawStore } from "./AccuDrawStore.js";
+import { ConditionalBooleanValue } from "../shared/ConditionalValue.js";
 
 /** Default AccuDraw Keyboard Shortcuts
  *
@@ -77,18 +80,32 @@ export class AccuDrawKeyboardShortcuts {
           }),
           KeyboardShortcutUtilities.createForTool("s", AccuDrawRotateSideTool, {
             isDisabled: FrameworkAccuDraw.isSideRotationConditional,
+            isHidden: new ConditionalBooleanValue(() => {
+              return !useAccuDrawStore.getState().is3d;
+            }, [SyncUiInternalEventId.AccuDrawViewIs3dChanged]),
           }),
           KeyboardShortcutUtilities.createForTool(
             "f",
             AccuDrawRotateFrontTool,
             {
               isDisabled: FrameworkAccuDraw.isFrontRotationConditional,
+              isHidden: new ConditionalBooleanValue(() => {
+                return !useAccuDrawStore.getState().is3d;
+              }, [SyncUiInternalEventId.AccuDrawViewIs3dChanged]),
             }
           ),
           KeyboardShortcutUtilities.createForTool("v", AccuDrawRotateViewTool, {
             isDisabled: FrameworkAccuDraw.isViewRotationConditional,
           }),
-          KeyboardShortcutUtilities.createForTool("c", AccuDrawRotateCycleTool),
+          KeyboardShortcutUtilities.createForTool(
+            "c",
+            AccuDrawRotateCycleTool,
+            {
+              isHidden: new ConditionalBooleanValue(() => {
+                return !useAccuDrawStore.getState().is3d;
+              }, [SyncUiInternalEventId.AccuDrawViewIs3dChanged]),
+            }
+          ),
           KeyboardShortcutUtilities.createForTool("a", AccuDrawRotateAxesTool),
           KeyboardShortcutUtilities.createForTool(
             "e",

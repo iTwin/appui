@@ -37,7 +37,7 @@ export enum SyncUiEventId {
   ActiveViewportChanged = "activeviewportchanged",
   /** Backstage has been toggled. */
   BackstageEvent = "backstageevent",
-  /** A Content Layout has been activated.  */
+  /** A Content Layout has been activated. */
   ContentLayoutActivated = "contentlayoutactivated",
   /** A Content Control maintained by UiFramework.frontstages has been activated.
    * @deprecated in 4.16.0. Use {@link SyncUiEventId.ActiveContentChanged} instead.
@@ -70,3 +70,8 @@ export enum SyncUiEventId {
   FeatureOverridesChanged = "featureoverrideschanged",
   ViewedModelsChanged = "viewedmodelschanged",
 }
+
+/** @internal */
+export const SyncUiInternalEventId = {
+  AccuDrawViewIs3dChanged: "accudraw-view-is3d-changed",
+} as const;
