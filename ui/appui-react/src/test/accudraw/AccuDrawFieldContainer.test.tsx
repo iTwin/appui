@@ -19,6 +19,7 @@ import { FrameworkAccuDraw } from "../../appui-react/accudraw/FrameworkAccuDraw.
 import { AccuDrawFieldContainer } from "../../appui-react/accudraw/AccuDrawFieldContainer.js";
 import type { AccuDrawUiSettings } from "../../appui-react/accudraw/AccuDrawUiSettings.js";
 import { UiFramework } from "../../appui-react.js";
+import { useAccuDrawStore } from "../../appui-react/accudraw/AccuDrawStore.js";
 
 describe("AccuDrawFieldContainer", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
@@ -146,15 +147,11 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it("should emit onAccuDrawSetFieldFocusEvent and show Z field", async () => {
+    useAccuDrawStore.setState({ is3d: true });
     const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldFocusEvent.addListener(spy);
-    render(
-      <AccuDrawFieldContainer
-        orientation={Orientation.Vertical}
-        showZOverride={true}
-      />
-    );
+    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
     expect(IModelApp.accuDraw.hasInputFocus).toEqual(true);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
@@ -283,15 +280,11 @@ describe("AccuDrawFieldContainer", () => {
   });
 
   it.skip("FLAKY:should call onValueChanged & setFieldValueFromUi & show the Z field", async () => {
+    useAccuDrawStore.setState({ is3d: true });
     const spy = vi.fn();
     const remove =
       FrameworkAccuDraw.onAccuDrawSetFieldValueFromUiEvent.addListener(spy);
-    render(
-      <AccuDrawFieldContainer
-        orientation={Orientation.Vertical}
-        showZOverride={true}
-      />
-    );
+    render(<AccuDrawFieldContainer orientation={Orientation.Vertical} />);
 
     IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 
@@ -359,6 +352,7 @@ describe("AccuDrawFieldContainer", () => {
     };
 
     it("should support FrameworkAccuDraw.uiStateStorage- set after render", async () => {
+      useAccuDrawStore.setState({ is3d: true });
       const emptySettings: AccuDrawUiSettings = {};
 
       const spy = vi.fn();
@@ -366,10 +360,7 @@ describe("AccuDrawFieldContainer", () => {
       const remove =
         FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
       const wrapper = render(
-        <AccuDrawFieldContainer
-          orientation={Orientation.Vertical}
-          showZOverride={true}
-        />
+        <AccuDrawFieldContainer orientation={Orientation.Vertical} />
       );
 
       const settingsTest = async (count: number) => {
@@ -422,15 +413,13 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     it("should support FrameworkAccuDraw.uiStateStorage - set before render", async () => {
+      useAccuDrawStore.setState({ is3d: true });
       const spy = vi.fn();
       FrameworkAccuDraw.uiStateStorage = fullSettings;
       const remove =
         FrameworkAccuDraw.onAccuDrawUiSettingsChangedEvent.addListener(spy);
       const wrapper = render(
-        <AccuDrawFieldContainer
-          orientation={Orientation.Vertical}
-          showZOverride={true}
-        />
+        <AccuDrawFieldContainer orientation={Orientation.Vertical} />
       );
 
       const settingsTest = async (count: number) => {
@@ -463,6 +452,7 @@ describe("AccuDrawFieldContainer", () => {
     });
 
     it("should support FrameworkAccuDraw.uiStateStorage with various color combinations", async () => {
+      useAccuDrawStore.setState({ is3d: true });
       const backgroundSettings: AccuDrawUiSettings = {
         xBackgroundColor: ColorDef.create(bgColorTest),
       };
@@ -480,10 +470,7 @@ describe("AccuDrawFieldContainer", () => {
       };
 
       const wrapper = render(
-        <AccuDrawFieldContainer
-          orientation={Orientation.Vertical}
-          showZOverride={true}
-        />
+        <AccuDrawFieldContainer orientation={Orientation.Vertical} />
       );
       IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
 

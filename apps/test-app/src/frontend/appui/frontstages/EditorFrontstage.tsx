@@ -18,7 +18,10 @@ import {
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
-import { ViewportContent } from "@itwin/appui-test-providers";
+import {
+  getCustomViewSelectorPopupItem,
+  ViewportContent,
+} from "@itwin/appui-test-providers";
 import { CreateCircleTool } from "../../tools/CreateCircleTool";
 
 export function createEditorFrontstage() {
@@ -63,6 +66,7 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
           },
         },
       }),
+      getCustomViewSelectorPopupItem(),
     ],
     getWidgets: () => {
       const layouts = {

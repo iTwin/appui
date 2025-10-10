@@ -26,6 +26,7 @@ import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
+import { useAccuDrawStore } from "./AccuDrawStore.js";
 
 const compassModeToKeyMap = new Map<CompassMode, string>([
   [CompassMode.Polar, "polar"],
@@ -321,9 +322,12 @@ export class FrameworkAccuDraw
    * Should also choose active x or y input field in rectangular mode based on cursor position when
    * axis isn't locked to support "smart lock".
    */
-  public override onMotion(_ev: BeButtonEvent): void {
+  public override onMotion(ev: BeButtonEvent): void {
     if (!this.isEnabled || this.isDeactivated || UiFramework.isContextMenuOpen)
       return;
+
+    const is3d = ev.viewport?.view.is3d() ?? false;
+    useAccuDrawStore.setState({ is3d });
 
     this.fieldValuesChanged();
 
