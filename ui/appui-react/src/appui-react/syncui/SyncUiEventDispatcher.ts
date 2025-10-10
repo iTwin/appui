@@ -10,8 +10,13 @@ import { Logger } from "@itwin/core-bentley";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiFramework } from "../UiFramework.js";
-import { SyncUiEventId, type UiSyncEvent } from "./UiSyncEvent.js";
+import {
+  SyncUiEventId,
+  SyncUiInternalEventId,
+  type UiSyncEvent,
+} from "./UiSyncEvent.js";
 import { InternalSyncUiEventDispatcher } from "./InternalSyncUiEventDispatcher.js";
+import { useAccuDrawStore } from "../accudraw/AccuDrawStore.js";
 
 /** This class is used to send eventIds to interested UI components so the component can determine if it needs
  * to refresh its display by calling setState on itself.
@@ -186,6 +191,12 @@ export class SyncUiEventDispatcher {
             SyncUiEventDispatcher._dispatchViewedModelsChanged
           );
         }
+      }),
+      useAccuDrawStore.subscribe((state, prev) => {
+        if (state.is3d === prev.is3d) return;
+        SyncUiEventDispatcher.dispatchSyncUiEvent(
+          SyncUiInternalEventId.AccuDrawViewIs3dChanged
+        );
       })
     );
   }
