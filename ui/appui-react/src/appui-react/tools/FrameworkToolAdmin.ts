@@ -29,8 +29,8 @@ export class FrameworkToolAdmin extends ToolAdmin {
   ): Promise<boolean> {
     if (!wentDown) return false;
     if (UiFramework.isContextMenuOpen) return false;
-    if (!UiFramework.keyboardShortcuts.isFocusOnHome) return false;
     if (e.key === Key.Escape.valueOf()) return false;
+    if (isElement(e.target) && isEditable(e.target)) return false;
 
     UiFramework.keyboardShortcuts.processKey(
       e.key,
@@ -40,4 +40,14 @@ export class FrameworkToolAdmin extends ToolAdmin {
     );
     return true;
   }
+}
+
+function isElement(target: EventTarget | null): target is Element {
+  return target instanceof Element;
+}
+
+const editableTags = ["input", "textarea", "select"];
+function isEditable(element: Element) {
+  const tagName = element.tagName.toLowerCase();
+  return editableTags.includes(tagName);
 }
