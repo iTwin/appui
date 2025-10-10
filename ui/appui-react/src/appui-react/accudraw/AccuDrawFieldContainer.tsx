@@ -352,9 +352,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             }
             onEscPressed={handleEscPressed}
             onTabPressed={() =>
-              is3d
-                ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item)
-                : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
+              IModelApp.accuDraw.setFocusItem(
+                is3d ? ItemField.Z_Item : ItemField.X_Item
+              )
             }
           />
           {is3d && (
@@ -419,9 +419,33 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             }
             onEscPressed={handleEscPressed}
             onTabPressed={() =>
-              IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
+              IModelApp.accuDraw.setFocusItem(
+                is3d ? ItemField.Z_Item : ItemField.DIST_Item
+              )
             }
           />
+          {is3d && (
+            <AccuDrawInputField
+              ref={zInputRef}
+              isLocked={zLock}
+              style={zStyle}
+              field={ItemField.Z_Item}
+              id={`uifw-accudraw-z-${containerIndex}`}
+              data-testid="uifw-accudraw-z"
+              label={zLabel}
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              iconSpec={uiSettings?.zIcon}
+              icon={uiSettings?.zIconNode}
+              labelCentered={labelCentered}
+              onValueChanged={(stringValue) =>
+                handleValueChanged(ItemField.Z_Item, stringValue)
+              }
+              onEscPressed={handleEscPressed}
+              onTabPressed={() =>
+                IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
+              }
+            />
+          )}
         </>
       )}
     </div>
