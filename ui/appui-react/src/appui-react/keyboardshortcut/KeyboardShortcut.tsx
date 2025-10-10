@@ -262,11 +262,10 @@ export class KeyboardShortcutContainer {
 
   /** Displays a menu for the Keyboard Shortcuts in this container */
   public showShortcutsMenu() {
-    const offset = 8;
     KeyboardShortcutMenu.onKeyboardShortcutMenuEvent.emit({
       menuVisible: true,
-      menuX: UiFramework.keyboardShortcuts.cursorX - offset,
-      menuY: UiFramework.keyboardShortcuts.cursorY - offset,
+      menuX: UiFramework.keyboardShortcuts.cursorX,
+      menuY: UiFramework.keyboardShortcuts.cursorY,
       shortcuts: this.getAvailableKeyboardShortcuts(),
     });
   }

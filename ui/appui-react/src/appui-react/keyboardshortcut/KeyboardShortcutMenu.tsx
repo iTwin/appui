@@ -92,6 +92,7 @@ export class KeyboardShortcutMenu extends React.PureComponent<
           edgeLimit={false}
           autoflip={true}
           ignoreNextKeyUp={true} // Executing the shortcut on the keydown, so ignore the keyup in the menu
+          offset={12}
         >
           {items}
         </GlobalContextMenu>
