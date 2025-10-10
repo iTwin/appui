@@ -1,5 +1,11 @@
 # Change Log - @itwin/core-react
 
+## 5.17.0
+
+### Minor Changes
+
+- 2e99cd6: Added `offset` property to `ContextMenu` component.
+
 ## 5.16.0
 
 ### Minor Changes
