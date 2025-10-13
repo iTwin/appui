@@ -59,34 +59,52 @@ $uicore-menu-top-bottom-padding: calc(#{$uicore-menu-padding} * 0.6667);
     }
 
     &.core-context-menu-right {
-      transform: translate(0%, -50%);
+      transform: translate(var(--_core-context-menu-offset), -50%);
     }
 
     &.core-context-menu-left {
-      transform: translate(-100%, -50%);
+      transform: translate(
+        calc(-100% - var(--_core-context-menu-offset)),
+        -50%
+      );
     }
 
     &.core-context-menu-top {
-      transform: translate(-50%, -100%);
+      transform: translate(
+        -50%,
+        calc(-100% - var(--_core-context-menu-offset))
+      );
 
       &.core-context-menu-right {
-        transform: translate(0%, -100%);
+        transform: translate(
+          var(--_core-context-menu-offset),
+          calc(-100% - var(--_core-context-menu-offset))
+        );
       }
 
       &.core-context-menu-left {
-        transform: translate(-100%, -100%);
+        transform: translate(
+          calc(-100% - var(--_core-context-menu-offset)),
+          calc(-100% - var(--_core-context-menu-offset))
+        );
       }
     }
 
     &.core-context-menu-bottom {
-      transform: translate(-50%, 0%);
+      transform: translate(-50%, var(--_core-context-menu-offset));
 
       &.core-context-menu-right {
-        transform: translate(0%, 0%);
+        transform: translate(
+          var(--_core-context-menu-offset),
+          var(--_core-context-menu-offset)
+        );
       }
 
       &.core-context-menu-left {
-        transform: translate(-100%, 0%);
+        transform: translate(
+          calc(-100% - var(--_core-context-menu-offset)),
+          var(--_core-context-menu-offset)
+        );
       }
     }
 

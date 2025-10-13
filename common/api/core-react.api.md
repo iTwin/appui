@@ -271,6 +271,7 @@ export interface ContextMenuProps extends CommonProps {
     hotkeySelect?: boolean;
     // @internal (undocumented)
     ignoreNextKeyUp?: boolean;
+    offset?: number;
     onEsc?: (data: any) => any;
     onOutsideClick?: (event: MouseEvent) => any;
     onSelect?: (event: any) => any;
