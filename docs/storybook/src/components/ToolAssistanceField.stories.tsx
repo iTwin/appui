@@ -14,12 +14,14 @@ import {
   Tool,
   ToolAssistance,
   ToolAssistanceImage,
+  ToolAssistanceInstructions,
 } from "@itwin/core-frontend";
 import { AppUiStory } from "src/AppUiStory";
 import { createFrontstage } from "src/Utils";
 import { ToggleSwitch } from "@itwin/itwinui-react";
 import { BeEvent } from "@itwin/core-bentley";
 import { action } from "storybook/actions";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 const StoryDecorator: Decorator = (Story, { parameters }) => {
   return (
@@ -36,12 +38,7 @@ const StoryDecorator: Decorator = (Story, { parameters }) => {
           getStatusBarItems: () => [
             StatusBarItemUtilities.createCustomItem({
               id: "tool-assistance",
-              content: (
-                <>
-                  <Story />
-                  <Setup />
-                </>
-              ),
+              content: <Story />,
             }),
           ],
         },
@@ -50,7 +47,7 @@ const StoryDecorator: Decorator = (Story, { parameters }) => {
   );
 };
 
-function Setup() {
+function Instructions(props: { instructions?: ToolAssistanceInstructions }) {
   React.useEffect(() => {
     const mainInstruction = ToolAssistance.createInstruction(
       ToolAssistanceImage.CursorClick,
@@ -86,7 +83,7 @@ function Setup() {
       touchSection,
     ]);
     // Tool assistance information
-    MessageManager.setToolAssistance(instructions);
+    MessageManager.setToolAssistance(props.instructions ?? instructions);
 
     // Icon for the tool assistance
     UiFramework.frontstages.setActiveTool(
@@ -96,7 +93,7 @@ function Setup() {
         }
       })()
     );
-  }, []);
+  }, [props.instructions]);
   return null;
 }
 
@@ -110,6 +107,14 @@ const meta = {
     cursorPromptTimeout: 5000,
     fadeOutCursorPrompt: true,
     defaultPromptAtCursor: true,
+  },
+  render: (props) => {
+    return (
+      <>
+        <ToolAssistanceField {...props} />
+        <Instructions />
+      </>
+    );
   },
 } satisfies Meta<typeof ToolAssistanceField>;
 
@@ -207,6 +212,51 @@ export const Controlled: Story = {
     content: <ControlledContent />,
   },
   render: (props) => {
-    return <ControlledField {...props} />;
+    return (
+      <>
+        <ControlledField {...props} />
+        <Instructions />
+      </>
+    );
+  },
+};
+
+export const Icons: Story = {
+  args: {
+    cursorPromptTimeout: Number.POSITIVE_INFINITY,
+    defaultPromptAtCursor: false,
+  },
+  render: (props) => {
+    const mainInstruction = ToolAssistance.createInstruction(
+      ToolAssistanceImage.CursorClick,
+      "Main instruction of a tool"
+    );
+
+    const customIcon = ToolAssistance.createInstruction(
+      "",
+      "React iconElement"
+    );
+    customIcon.iconElement = <SvgPlaceholder />;
+    const iconsSection = ToolAssistance.createSection(
+      [
+        ToolAssistance.createInstruction(
+          ToolAssistanceImage.LeftClick,
+          "ToolAssistanceImage enum"
+        ),
+        ToolAssistance.createInstruction("icon-placeholder", "CSS icon"),
+        customIcon,
+      ],
+      "Icons"
+    );
+
+    const instructions = ToolAssistance.createInstructions(mainInstruction, [
+      iconsSection,
+    ]);
+    return (
+      <>
+        <ToolAssistanceField {...props} />
+        <Instructions instructions={instructions} />
+      </>
+    );
   },
 };
