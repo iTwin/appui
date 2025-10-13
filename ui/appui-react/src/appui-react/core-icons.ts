@@ -7,6 +7,7 @@ import type {} from "@itwin/core-frontend";
 
 declare module "@itwin/core-frontend" {
   interface ToolAssistanceInstruction {
+    /** The icon to display for the tool assistance instruction. Takes precedence over `image`. */
     iconElement?: ReactElement;
   }
 }
