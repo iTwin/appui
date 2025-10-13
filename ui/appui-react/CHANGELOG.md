@@ -1,5 +1,33 @@
 # Change Log - @itwin/appui-react
 
+## 5.17.0
+
+### Minor Changes
+
+- 5550d01: Updated AccuDraw to hide the `Rotate Side`, `Rotate Front` and `Rotate Cycle` shortcuts when active view is 2d.
+- eab8bb7: Changed keyboard shortcut processing of `FrameworkToolAdmin` to ignore events triggered by editable elements like input, textarea and select. Previously it was ignoring all events, unless `document.body` was the active element.
+- 33fb824: Added `iconElement` property to `ToolAssistanceInstruction` interface of `@itwin/core-frontend` package (using TypeScript declaration merging) to allow using custom SVG icons in tool assistance instructions.
+
+  ```tsx
+  const instruction = ToolAssistance.createInstruction(
+    ToolAssistanceImage.LeftClick, // empty string or a fallback icon (preferred)
+    "Custom instruction"
+  );
+  instruction.iconElement = <SvgPlaceholder />;
+  ```
+
+- a20d686: Updated `AccuDrawFieldContainer` component to display `Z` input field when current view is 3d and compass mode is polar.
+- bb39cca: Removed `isHidden` conditional values from AccuDraw shortcuts to ensure that all lock shortcuts are always available regardless of the current compass mode.
+- 2e99cd6: Apply offset to `KeyboardShortcutMenu` to avoid overlapping with mouse pointer.
+
+### Patch Changes
+
+- c88a0ae: Fixed `AccuDrawFieldContainer` to correctly toggle the display of `Z` input field when the active view changes from 2d to 3d.
+- Updated dependencies [2e99cd6]
+  - @itwin/core-react@5.17.0
+  - @itwin/components-react@5.17.0
+  - @itwin/imodel-components-react@5.17.0
+
 ## 5.16.0
 
 ### Minor Changes
