@@ -848,6 +848,8 @@ export { useWidget } from "./appui-react/widgets/useWidget.js";
 export { ToolInformation } from "./appui-react/toolsettings/ToolInformation.js";
 export { ToolUiProvider } from "./appui-react/toolsettings/ToolUiProvider.js";
 
+export type {} from "./appui-react/core-icons.js";
+
 // #region "SideEffects"
 
 import { UiFramework } from "./appui-react/UiFramework.js";
