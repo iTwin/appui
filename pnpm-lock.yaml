@@ -81,6 +81,12 @@ catalogs:
     '@stratakit/foundations':
       specifier: ^0.3.2
       version: 0.3.2
+    '@stratakit/icons':
+      specifier: ^0.1.5
+      version: 0.1.5
+    '@stratakit/structures':
+      specifier: ^0.4.4
+      version: 0.4.5
     vitest:
       specifier: ^3.0.6
       version: 3.1.2
@@ -653,6 +659,18 @@ importers:
       '@itwin/itwinui-illustrations-react':
         specifier: ^2.0.1
         version: 2.1.0(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stratakit/bricks':
+        specifier: 'catalog:'
+        version: 0.4.2(@stratakit/foundations@0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stratakit/foundations':
+        specifier: 'catalog:'
+        version: 0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stratakit/icons':
+        specifier: 'catalog:'
+        version: 0.1.5
+      '@stratakit/structures':
+        specifier: 'catalog:'
+        version: 0.4.5(@stratakit/foundations@0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@types/react@19.2.0)(immer@10.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -2315,14 +2333,8 @@ packages:
     resolution: {integrity: sha512-d9zaMRSTIKDLhctzH12MtXvJKSSUhaHcjV+2Z+GK+EEY7XKpP5yR4x+N3TAcHTcu963nIr+TMcCb4DBCYX1z6Q==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
-  '@floating-ui/core@1.6.9':
-    resolution: {integrity: sha512-uMXCuQ3BItDUbAMhIXw7UPXRfAlOAvZzdK9BWpE60MCn+Svt3aLn9jsPTi/WNGlRUu2uI0v5S7JiIUsbsvh3fw==}
-
   '@floating-ui/core@1.7.3':
     resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
-
-  '@floating-ui/dom@1.6.13':
-    resolution: {integrity: sha512-umqzocjDgNRGTuO7Q8CU32dkHkECqI8ZdMZ5Swb6QAM0t5rnlrN3lGo1hdpscRd3WS8T6DKYK4ephgIH9iRh3w==}
 
   '@floating-ui/dom@1.7.4':
     resolution: {integrity: sha512-OOchDgh4F2CchOX94cRVqhvy7b3AFb+/rQXyswmzmGakRfkMgoWVjfnLWkRirfLEfuD4ysVW16eXzwt3jHIzKA==}
@@ -2341,9 +2353,6 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
-
-  '@floating-ui/utils@0.2.9':
-    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
 
   '@humanwhocodes/config-array@0.13.0':
     resolution: {integrity: sha512-DZLEEqFWQFiyK6h5YIeynKx7JlvCYWL0cImfSRXZ9l4Sg2efkFGTuFf6vzXjK1cq6IYkU+Eg/JizXw+TD2vRNw==}
@@ -3080,6 +3089,13 @@ packages:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
+  '@stratakit/bricks@0.4.5':
+    resolution: {integrity: sha512-Ytr4b7Vnc1kEbgZnt1eQBa4RkPSMK8ch8Jizx6u29oaIW7zY3H5QCNOaxxZ3iLCMv7fc76dLzKzSdZyU6UX1qA==}
+    peerDependencies:
+      '@stratakit/foundations': ^0.3.5
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
   '@stratakit/foundations@0.3.2':
     resolution: {integrity: sha512-1J2V4qv4ySKEZ8vFKdjOQ714j0n+XWx6w7sz8OscW5UPDx4F2QIj9oXAvMLM0C0dJcg+UXaWzuSR4CCv9Iq6lw==}
     peerDependencies:
@@ -3090,6 +3106,16 @@ packages:
         optional: true
       react-dom:
         optional: true
+
+  '@stratakit/icons@0.1.5':
+    resolution: {integrity: sha512-u8zHps0YNF3EXxlROEg7YkKkMC1QsjHxmwvrQU6NsUOAZ+i/vKnJAkP/v1GEJKoh7nowDRNtWOczurKXLKIP6w==}
+
+  '@stratakit/structures@0.4.5':
+    resolution: {integrity: sha512-klqnrsyQVijPb4Cg3maAKLwF8+8y9yOb66oFk3gHxaPxWGfZCud/qLC67OQ1LRlz3d9mIP/EFeRv+OJf+hlj8g==}
+    peerDependencies:
+      '@stratakit/foundations': ^0.3.5
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@swc/core-darwin-arm64@1.11.21':
     resolution: {integrity: sha512-v6gjw9YFWvKulCw3ZA1dY+LGMafYzJksm1mD4UZFZ9b36CyHFowYVYug1ajYRIRqEvvfIhHUNV660zTLoVFR8g==}
@@ -7420,6 +7446,24 @@ packages:
       react:
         optional: true
 
+  zustand@5.0.8:
+    resolution: {integrity: sha512-gyPKpIaxY9XcO2vSMrLbiER7QMAMGOQZVRdJ6Zi782jkbzZygq5GI9nG8g+sMgitRtndwaBSl7uiqC49o1SSiw==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
@@ -7437,7 +7481,7 @@ snapshots:
   '@ariakit/react-core@0.4.18(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@ariakit/core': 0.4.15
-      '@floating-ui/dom': 1.6.13
+      '@floating-ui/dom': 1.7.4
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       use-sync-external-store: 1.5.0(react@19.2.0)
@@ -8765,18 +8809,9 @@ snapshots:
 
   '@eslint/js@8.57.1': {}
 
-  '@floating-ui/core@1.6.9':
-    dependencies:
-      '@floating-ui/utils': 0.2.9
-
   '@floating-ui/core@1.7.3':
     dependencies:
       '@floating-ui/utils': 0.2.10
-
-  '@floating-ui/dom@1.6.13':
-    dependencies:
-      '@floating-ui/core': 1.6.9
-      '@floating-ui/utils': 0.2.9
 
   '@floating-ui/dom@1.7.4':
     dependencies:
@@ -8798,8 +8833,6 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.10': {}
-
-  '@floating-ui/utils@0.2.9': {}
 
   '@humanwhocodes/config-array@0.13.0':
     dependencies:
@@ -9799,6 +9832,14 @@ snapshots:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
+  '@stratakit/bricks@0.4.5(@stratakit/foundations@0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
+    dependencies:
+      '@ariakit/react': 0.4.18(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stratakit/foundations': 0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      classnames: 2.5.1
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+
   '@stratakit/foundations@0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
       '@ariakit/react': 0.4.18(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -9806,6 +9847,22 @@ snapshots:
     optionalDependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
+
+  '@stratakit/icons@0.1.5': {}
+
+  '@stratakit/structures@0.4.5(@stratakit/foundations@0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@types/react@19.2.0)(immer@10.1.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))':
+    dependencies:
+      '@ariakit/react': 0.4.18(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stratakit/bricks': 0.4.5(@stratakit/foundations@0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@stratakit/foundations': 0.3.2(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      classnames: 2.5.1
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      zustand: 5.0.8(@types/react@19.2.0)(immer@10.1.1)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0))
+    transitivePeerDependencies:
+      - '@types/react'
+      - immer
+      - use-sync-external-store
 
   '@swc/core-darwin-arm64@1.11.21':
     optional: true
@@ -14876,5 +14933,12 @@ snapshots:
       '@types/react': 19.2.0
       immer: 10.1.1
       react: 19.2.0
+
+  zustand@5.0.8(@types/react@19.2.0)(immer@10.1.1)(react@19.2.0)(use-sync-external-store@1.5.0(react@19.2.0)):
+    optionalDependencies:
+      '@types/react': 19.2.0
+      immer: 10.1.1
+      react: 19.2.0
+      use-sync-external-store: 1.5.0(react@19.2.0)
 
   zwitch@2.0.4: {}

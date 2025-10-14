@@ -9,7 +9,7 @@
 import * as React from "react";
 import { StatusBarItemUtilities } from "../statusbar/StatusBarItemUtilities.js";
 import { ToolAssistanceField } from "../statusfields/toolassistance/ToolAssistanceField.js";
-import { MessageCenterField } from "../statusfields/message-center/MessageCenterField.js";
+// import { MessageCenterField } from "../statusfields/message-center/MessageCenterField.js";
 import { ActivityCenterField } from "../statusfields/ActivityCenter.js";
 import { SnapModeField } from "../statusfields/SnapMode.js";
 import { SelectionInfoField } from "../statusfields/SelectionInfo.js";
@@ -19,6 +19,7 @@ import { StatusBarSeparator } from "../statusbar/Separator.js";
 import type { UiItemsProvider } from "./UiItemsProvider.js";
 import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
 import { StatusBarSection } from "../statusbar/StatusBarItem.js";
+import { MessageCenterFieldV2 } from "../statusfields/message-center/MessageCenterFieldV2.js";
 
 /** Defines what items to include from the provider.
  * @note When this object is used, only explicitly enabled items will be added to the status bar. I.e. `{ messageCenter: true }` will only add message center field to the statusbar.
@@ -60,26 +61,25 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
   public getStatusBarItems(): readonly StatusBarItem[] {
     const statusBarItems: StatusBarItem[] = [];
     if (!this._defaultItems || this._defaultItems.messageCenter) {
+      // statusBarItems.push(
+      //   StatusBarItemUtilities.createCustomItem({
+      //     id: "uifw.MessageCenter",
+      //     section: StatusBarSection.Left,
+      //     itemPriority: 10,
+      //     content: <MessageCenterField />,
+      //   })
+      // );
+
       statusBarItems.push(
         StatusBarItemUtilities.createCustomItem({
           id: "uifw.MessageCenter",
           section: StatusBarSection.Left,
           itemPriority: 10,
-          content: <MessageCenterField />,
+          content: <MessageCenterFieldV2 />,
         })
       );
     }
     if (!this._defaultItems || this._defaultItems.toolAssistance) {
-      if (!this._defaultItems || this._defaultItems.preToolAssistanceSeparator)
-        statusBarItems.push(
-          StatusBarItemUtilities.createCustomItem({
-            id: "uifw.PreToolAssistance",
-            section: StatusBarSection.Left,
-            itemPriority: 15,
-            content: <StatusBarSeparator />,
-          })
-        );
-
       statusBarItems.push(
         StatusBarItemUtilities.createCustomItem({
           id: "uifw.ToolAssistance",
