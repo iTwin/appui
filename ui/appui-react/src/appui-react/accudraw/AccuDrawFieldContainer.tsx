@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import { Orientation } from "@itwin/components-react";
 import type { ColorDef } from "@itwin/core-common";
-import type { ScreenViewport } from "@itwin/core-frontend";
 import { CompassMode, IModelApp, ItemField } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
 import { getCSSColorFromDef } from "@itwin/imodel-components-react/internal";
@@ -22,6 +21,7 @@ import { UiFramework } from "../UiFramework.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 import { SvgDistance } from "../icons/SvgDistance.js";
 import { SvgAngle } from "../icons/SvgAngle.js";
+import { useAccuDrawStore } from "./AccuDrawStore.js";
 
 /** Properties for [[AccuDrawFieldContainer]] component
  * @public
@@ -33,18 +33,11 @@ export interface AccuDrawFieldContainerProps extends CommonProps {
   orientation: Orientation;
   /** Optional parameter for persistent UI settings. Defaults to LocalStateStorage. */
   uiSettingsStorage?: UiStateStorage;
-  /** @internal */
-  showZOverride?: boolean;
   /** Indicates whether the field is displaying a bearing angles. */
   isBearingAngle?: boolean;
 }
 
 let AccuDrawContainerIndex = 0;
-
-function determineShowZ(vp?: ScreenViewport): boolean {
-  const showZ = vp !== undefined ? vp.view.is3d() : false;
-  return showZ;
-}
 
 const defaultXLabel = "X";
 const defaultYLabel = "Y";
@@ -60,7 +53,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     style,
     orientation,
     uiSettingsStorage,
-    showZOverride,
     isBearingAngle = false,
     ...otherProps
   } = props;
@@ -88,7 +80,8 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
   const [distanceLock, setDistanceLock] = React.useState(() =>
     IModelApp.accuDraw.getFieldLock(ItemField.DIST_Item)
   );
-  const [showZ, setShowZ] = React.useState(true);
+
+  const is3d = useAccuDrawStore((state) => state.is3d);
 
   const [uiSettings, setUiSettings] = React.useState<
     AccuDrawUiSettings | undefined
@@ -231,18 +224,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
 
-  React.useEffect(() => {
-    setShowZ(
-      showZOverride || determineShowZ(IModelApp.viewManager.selectedView)
-    );
-
-    return IModelApp.viewManager.onSelectedViewportChanged.addListener(
-      (args) => {
-        setShowZ(determineShowZ(args.current));
-      }
-    );
-  }, [showZOverride]);
-
   const createFieldStyle = (
     inStyle: React.CSSProperties | undefined,
     backgroundColor: ColorDef | string | undefined,
@@ -371,12 +352,12 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             }
             onEscPressed={handleEscPressed}
             onTabPressed={() =>
-              showZ
-                ? IModelApp.accuDraw.setFocusItem(ItemField.Z_Item)
-                : IModelApp.accuDraw.setFocusItem(ItemField.X_Item)
+              IModelApp.accuDraw.setFocusItem(
+                is3d ? ItemField.Z_Item : ItemField.X_Item
+              )
             }
           />
-          {showZ && (
+          {is3d && (
             <AccuDrawInputField
               ref={zInputRef}
               isLocked={zLock}
@@ -438,9 +419,33 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             }
             onEscPressed={handleEscPressed}
             onTabPressed={() =>
-              IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
+              IModelApp.accuDraw.setFocusItem(
+                is3d ? ItemField.Z_Item : ItemField.DIST_Item
+              )
             }
           />
+          {is3d && (
+            <AccuDrawInputField
+              ref={zInputRef}
+              isLocked={zLock}
+              style={zStyle}
+              field={ItemField.Z_Item}
+              id={`uifw-accudraw-z-${containerIndex}`}
+              data-testid="uifw-accudraw-z"
+              label={zLabel}
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              iconSpec={uiSettings?.zIcon}
+              icon={uiSettings?.zIconNode}
+              labelCentered={labelCentered}
+              onValueChanged={(stringValue) =>
+                handleValueChanged(ItemField.Z_Item, stringValue)
+              }
+              onEscPressed={handleEscPressed}
+              onTabPressed={() =>
+                IModelApp.accuDraw.setFocusItem(ItemField.DIST_Item)
+              }
+            />
+          )}
         </>
       )}
     </div>

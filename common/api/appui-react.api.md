@@ -193,8 +193,6 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps): Reac
 export interface AccuDrawFieldContainerProps extends CommonProps {
     isBearingAngle?: boolean;
     orientation: Orientation;
-    // @internal (undocumented)
-    showZOverride?: boolean;
     uiSettingsStorage?: UiStateStorage;
 }
 
@@ -1898,7 +1896,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     onFieldLockChange(index: ItemField): void;
     // (undocumented)
     onFieldValueChange(index: ItemField): void;
-    onMotion(_ev: BeButtonEvent): void;
+    onMotion(ev: BeButtonEvent): void;
     // (undocumented)
     onRotationModeChange(): void;
     // (undocumented)
@@ -3309,14 +3307,12 @@ export interface ModalFrontstageClosedEventArgs {
 
 // @public
 export interface ModalFrontstageInfo {
-    // (undocumented)
     appBarRight?: React.ReactNode;
     backButton?: React.ReactNode;
-    // (undocumented)
     content: React.ReactNode;
+    id?: string;
     // @alpha
     notifyCloseRequest?: boolean;
-    // (undocumented)
     title: string;
 }
 

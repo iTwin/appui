@@ -1,5 +1,23 @@
 # Change Log - @itwin/components-react
 
+## 5.17.0
+
+### Patch Changes
+
+- Updated dependencies [2e99cd6]
+  - @itwin/core-react@5.17.0
+
+## 5.16.0
+
+### Minor Changes
+
+- 51fb78f: Added support for [React v19](https://react.dev/blog/2024/12/05/react-19).
+
+### Patch Changes
+
+- Updated dependencies [51fb78f]
+  - @itwin/core-react@5.16.0
+
 ## 5.15.2
 
 ### Patch Changes

@@ -473,6 +473,8 @@ function InstructionImage({
 }): React.ReactNode {
   let image: React.ReactNode;
 
+  if (instruction.iconElement) return instruction.iconElement;
+
   if (
     (typeof instruction.image === "string" ||
       instruction.image !== ToolAssistanceImage.Keyboard) &&

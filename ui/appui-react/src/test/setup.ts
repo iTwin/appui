@@ -4,6 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
 import TestUtils from "./TestUtils.js";
+import { useActiveSendBackWidgetIdStore } from "../appui-react/layout/widget/SendBack.js";
+import { useContainersStore } from "../appui-react/layout/widget/ContentManager.js";
+import { useAccuDrawStore } from "../appui-react/accudraw/AccuDrawStore.js";
 
 window.HTMLElement.prototype.scrollIntoView = () => {};
 window.HTMLElement.prototype.scrollTo = () => {};
@@ -34,4 +37,11 @@ afterEach(async () => {
   vi.useRealTimers();
   TestUtils.terminateUiFramework();
   await IModelApp.shutdown();
+
+  useActiveSendBackWidgetIdStore.setState(
+    useActiveSendBackWidgetIdStore.getInitialState(),
+    true
+  );
+  useContainersStore.setState(useContainersStore.getInitialState(), true);
+  useAccuDrawStore.setState(useAccuDrawStore.getInitialState(), true);
 });

@@ -46,6 +46,8 @@ export interface ContextMenuProps extends CommonProps {
   selectedIndex?: number;
   /** whether menu floats on the viewport, or the page. When false, container elements can clip menu with overflow: hidden; Default: true */
   floating?: boolean;
+  /** Additional offset to apply. */
+  offset?: number;
   /** @internal */
   parentMenu?: ContextMenu;
   /** @internal */
@@ -192,6 +194,7 @@ export class ContextMenu extends React.PureComponent<
       children,
       className,
       ignoreNextKeyUp,
+      offset = 0,
       ...props
     } = this.props;
     const renderDirection =
@@ -234,6 +237,11 @@ export class ContextMenu extends React.PureComponent<
               floating && "core-context-menu-floating",
               ContextMenu.getCSSClassNameFromDirection(renderDirection)
             )}
+            style={
+              {
+                "--_core-context-menu-offset": `${offset}px`,
+              } as React.CSSProperties
+            }
           >
             {this._injectedChildren}
           </div>

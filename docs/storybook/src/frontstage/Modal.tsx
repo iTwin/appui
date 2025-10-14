@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import {
   ModalFrontstageInfo,
   ToolbarItemUtilities,
@@ -12,12 +13,15 @@ import {
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage } from "../Utils";
+import { action } from "storybook/internal/actions";
 
-type ModalFrontstageStoryProps = Pick<ModalFrontstageInfo, "backButton">;
+type ModalFrontstageStoryProps = Pick<
+  ModalFrontstageInfo,
+  "backButton" | "notifyCloseRequest" | "appBarRight"
+>;
 
 /** [openModalFrontstage](https://www.itwinjs.org/reference/appui-react/frontstage/frameworkfrontstages/#openmodalfrontstage) can be used to open a modal frontstage. */
 export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
-  const { backButton } = props;
   return (
     <AppUiStory
       layout="fullscreen"
@@ -32,9 +36,10 @@ export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
               label: "Open modal frontstage",
               execute: () => {
                 UiFramework.frontstages.openModalFrontstage({
+                  id: "my-modal-frontstage",
                   content: <>Modal frontstage content</>,
                   title: "My Modal Frontstage",
-                  backButton,
+                  ...props,
                 });
               },
               layouts: {
@@ -47,6 +52,30 @@ export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
           ],
         },
       ]}
-    />
+    >
+      <ModalFrontstageEvents />
+    </AppUiStory>
   );
+}
+
+function ModalFrontstageEvents() {
+  React.useEffect(() => {
+    return UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
+      action("onModalFrontstageChangedEvent")
+    );
+  }, []);
+  React.useEffect(() => {
+    return UiFramework.frontstages.onCloseModalFrontstageRequestedEvent.addListener(
+      (args) => {
+        action("onCloseModalFrontstageRequestedEvent (close after 2s)")(args);
+        setTimeout(args.stageCloseFunc, 2000);
+      }
+    );
+  }, []);
+  React.useEffect(() => {
+    return UiFramework.frontstages.onModalFrontstageClosedEvent.addListener(
+      action("onModalFrontstageClosedEvent")
+    );
+  }, []);
+  return null;
 }

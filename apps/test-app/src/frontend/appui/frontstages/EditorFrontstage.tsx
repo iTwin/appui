@@ -18,7 +18,10 @@ import {
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
-import { ViewportContent } from "@itwin/appui-test-providers";
+import {
+  getCustomViewSelectorPopupItem,
+  ViewportContent,
+} from "@itwin/appui-test-providers";
 import { CreateCircleTool } from "../../tools/CreateCircleTool";
 
 export function createEditorFrontstage() {
@@ -39,7 +42,7 @@ export function createEditorFrontstage() {
     cornerButton: <BackstageAppButton />,
   });
 }
-createEditorFrontstage.stageId = "appui-test-app:editor-frontstage";
+createEditorFrontstage.stageId = "editor";
 
 export function createEditorFrontstageProvider(): UiItemsProvider {
   const id = "appui-test-app:editor-items";
@@ -63,6 +66,7 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
           },
         },
       }),
+      getCustomViewSelectorPopupItem(),
     ],
     getWidgets: () => {
       const layouts = {
