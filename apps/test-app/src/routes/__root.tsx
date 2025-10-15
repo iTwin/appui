@@ -179,7 +179,11 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
         density="dense"
         synchronizeColorScheme
         render={(props: any) => (
-          <ThemeProvider future={{ themeBridge, applyBackground }} {...props} />
+          <ThemeProvider
+            includeCss={true}
+            future={{ themeBridge, applyBackground }}
+            {...props}
+          />
         )}
       >
         {children}

@@ -1,0 +1,27 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+
+@use "./MessageCenterCommon";
+
+.uifw-statusFields-messageCenter-messageCenterField_panel {
+  margin: 0 8px;
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_popover {
+  div[role="tablist"] {
+    margin: 8px 16px;
+    & button {
+      display: flex;
+      justify-content: center;
+      width: 50%;
+    }
+  }
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_button {
+  &.pressed {
+    background-color: var(--stratakit-color-bg-glow-on-surface-neutral-hover);
+  }
+}

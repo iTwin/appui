@@ -6,19 +6,15 @@
  * @module Notification
  */
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
-import { Icon, NotificationMarker } from "@itwin/itwinui-react";
+import { NotificationMarker } from "@itwin/itwinui-react";
 import SvgChat from "../../icons/SvgChat.js";
 import SvgInfo from "../../icons/SvgInfo.js";
+import SvgStatusWarning from "../../icons/SvgStatusWarning.js";
+import SvgStatusError from "../../icons/SvgStatusError.js";
+import SvgStatusSuccess from "../../icons/SvgStatusSuccess.js";
 import { Button } from "@stratakit/bricks";
 import { Tabs } from "@stratakit/structures";
-import {
-  SvgStatusError,
-  SvgStatusSuccess,
-  SvgStatusWarning,
-} from "@itwin/itwinui-icons-react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
-
 import { MessageCenterMessage } from "./MessageCenterMessage.js";
 import { MessageManager } from "../../messages/MessageManager.js";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
@@ -26,9 +22,8 @@ import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
-import { usePreviewFeatures } from "../../preview/PreviewFeatures.js";
 
-import "./MessageCenterField.scss";
+import "./MessageCenterFieldSk.scss";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -41,17 +36,13 @@ const tabs = ["all", "errors"] as const;
  * @public
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export function MessageCenterFieldV2(_props: CommonProps) {
+export function MessageCenterFieldSK() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
   const [isOpen, setIsOpen] = React.useState(false);
   const [status, setStatus] =
     React.useState<NotificationMarkerStatus>("primary");
   const { translate } = useTranslation();
-
-  const previewFeatures = usePreviewFeatures();
-  // eslint-disable-next-line no-console
-  console.log("MessageCenterFieldV2: previewFeatures=", previewFeatures);
 
   const indicatorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -79,7 +70,7 @@ export function MessageCenterFieldV2(_props: CommonProps) {
     return MessageManager.onMessagesUpdatedEvent.addListener(() => {
       const newMessages = MessageManager.messages;
       newMessages.length > 0 ? setNotify(true) : setNotify(false);
-      setMessages(newMessages);
+      setMessages([...newMessages]);
 
       const lastMessage = newMessages[newMessages.length - 1];
       if (!lastMessage) return;
@@ -106,7 +97,7 @@ export function MessageCenterFieldV2(_props: CommonProps) {
       <>
         <TitleBar title={translate("messageCenter.messages")} />
         <Tabs.Provider>
-          <Tabs.TabList>
+          <Tabs.TabList tone="accent">
             {tabs.map((tab) => (
               <Tabs.Tab id={`message-center-tab-${tab}`} key={tab}>
                 {translate(`messageCenter.${tab}`)}
@@ -150,26 +141,28 @@ export function MessageCenterFieldV2(_props: CommonProps) {
   }
 
   return (
-    <StatusBarPopover
-      visible={isOpen}
-      onVisibleChange={(visible) => handleOpenChange(visible)}
-      className="uifw-statusFields-messageCenter-messageCenterField_popover"
-      content={renderPopoverContent()}
-    >
-      <Button
-        ref={indicatorRef}
-        variant="ghost"
-        className={`uifw-statusFields-messageCenter-messageCenterField_button ${
-          isOpen ? "pressed" : ""
-        }`}
+    <>
+      <StatusBarPopover
+        visible={isOpen}
+        onVisibleChange={(visible: boolean) => handleOpenChange(visible)}
+        className="uifw-statusFields-messageCenter-messageCenterField_popover"
+        content={renderPopoverContent()}
       >
-        <NotificationMarker status={status} enabled={notify}>
-          <SvgChat />
-        </NotificationMarker>
-        {translate("messageCenter.messages")}
-        <StatusBarPopover.ExpandIndicator />
-      </Button>
-    </StatusBarPopover>
+        <Button
+          ref={indicatorRef}
+          variant="ghost"
+          className={`uifw-statusFields-messageCenter-messageCenterField_button ${
+            isOpen ? "pressed" : ""
+          }`}
+        >
+          <NotificationMarker status={status} enabled={notify}>
+            <SvgChat />
+          </NotificationMarker>
+          {translate("messageCenter.messages")}
+          <StatusBarPopover.ExpandIndicator />
+        </Button>
+      </StatusBarPopover>
+    </>
   );
 }
 
@@ -181,27 +174,11 @@ function MessageIcon({ priority }: MessageIconProps) {
   switch (priority) {
     case OutputMessagePriority.Error:
     case OutputMessagePriority.Fatal:
-      return (
-        <Icon fill="negative">
-          <SvgStatusError />
-        </Icon>
-      );
+      return <SvgStatusError />;
     case OutputMessagePriority.Warning:
-      return (
-        <Icon fill="warning">
-          <SvgStatusWarning />
-        </Icon>
-      );
+      return <SvgStatusWarning />;
     case OutputMessagePriority.Info:
-      return (
-        <Icon fill="informational">
-          <SvgInfo />
-        </Icon>
-      );
+      return <SvgInfo />;
   }
-  return (
-    <Icon fill="positive">
-      <SvgStatusSuccess />
-    </Icon>
-  );
+  return <SvgStatusSuccess />;
 }
