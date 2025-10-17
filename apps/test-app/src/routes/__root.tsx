@@ -169,13 +169,13 @@ function AppRoot() {
 function ThemeBridge({ children }: React.PropsWithChildren) {
   const search = Route.useSearch();
   const themeBridge = search.themeBridge === 1;
-  // const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
   const applyBackground = config.transparentWindow ? false : undefined;
 
   if (themeBridge) {
     return (
       <Root
-        colorScheme="dark"
+        colorScheme={prefersDark ? "light" : "dark"}
         density="dense"
         synchronizeColorScheme
         render={(props: any) => (

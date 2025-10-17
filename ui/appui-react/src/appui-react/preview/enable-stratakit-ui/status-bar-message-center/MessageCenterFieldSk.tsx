@@ -7,21 +7,22 @@
  */
 import * as React from "react";
 import { NotificationMarker } from "@itwin/itwinui-react";
-import SvgChat from "../../icons/SvgChat.js";
-import SvgInfo from "../../icons/SvgInfo.js";
-import SvgStatusWarning from "../../icons/SvgStatusWarning.js";
-import SvgStatusError from "../../icons/SvgStatusError.js";
-import SvgStatusSuccess from "../../icons/SvgStatusSuccess.js";
+import SvgChat from "../../../icons/SvgChat.js";
+import SvgInfo from "../../../icons/SvgInfo.js";
+import SvgStatusWarning from "../../../icons/SvgStatusWarning.js";
+import SvgStatusError from "../../../icons/SvgStatusError.js";
+import SvgStatusSuccess from "../../../icons/SvgStatusSuccess.js";
 import { Button } from "@stratakit/bricks";
 import { Tabs } from "@stratakit/structures";
-import { OutputMessagePriority } from "@itwin/core-frontend";
-import { MessageCenterMessage } from "./MessageCenterMessage.js";
-import { MessageManager } from "../../messages/MessageManager.js";
-import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
+import type { NotifyMessageDetails } from "@itwin/core-frontend";
+import { OutputMessagePriority, OutputMessageType } from "@itwin/core-frontend";
+import { MessageCenterMessage } from "../../../statusfields/message-center/MessageCenterMessage.js";
+import { MessageManager } from "../../../messages/MessageManager.js";
+import { TitleBar } from "../../../layout/footer/dialog/TitleBar.js";
 
-import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
-import { useTranslation } from "../../hooks/useTranslation.js";
-import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+import type { NotifyMessageDetailsType } from "../../../messages/ReactNotifyMessageDetails.js";
+import { useTranslation } from "../../../hooks/useTranslation.js";
+import { StatusBarPopover } from "../../../statusbar/popup/StatusBarPopover.js";
 
 import "./MessageCenterFieldSk.scss";
 
@@ -32,10 +33,10 @@ type NotificationMarkerStatus = Required<
 
 const tabs = ["all", "errors"] as const;
 
-/** Message Center Field React component.
+/**
+ * Message Center Field React component using Stratakit.
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function MessageCenterFieldSK() {
   const [messages, setMessages] = React.useState(MessageManager.messages);
   const [notify, setNotify] = React.useState(false);
@@ -106,6 +107,30 @@ export function MessageCenterFieldSK() {
           </Tabs.TabList>
           {tabs.map((tab) => {
             let tabMessages = [...messages].reverse();
+            tabMessages.push({
+              detailedMessage: "info",
+              briefMessage: "info content",
+              msgType: OutputMessageType.Sticky,
+              priority: OutputMessagePriority.Info,
+            } as NotifyMessageDetails);
+            tabMessages.push({
+              detailedMessage: "warning",
+              briefMessage: "warning content",
+              msgType: OutputMessageType.Sticky,
+              priority: OutputMessagePriority.Warning,
+            } as NotifyMessageDetails);
+            tabMessages.push({
+              detailedMessage: "error",
+              briefMessage: "error content",
+              msgType: OutputMessageType.Sticky,
+              priority: OutputMessagePriority.Error,
+            } as NotifyMessageDetails);
+            tabMessages.push({
+              detailedMessage: "success",
+              briefMessage: "success content",
+              msgType: OutputMessageType.Sticky,
+              priority: OutputMessagePriority.Success,
+            } as NotifyMessageDetails);
             tabMessages =
               tab === "errors"
                 ? tabMessages.filter(isErrorMessage)
@@ -148,6 +173,13 @@ export function MessageCenterFieldSK() {
         className="uifw-statusFields-messageCenter-messageCenterField_popover"
         content={renderPopoverContent()}
       >
+        {/* <IconButton
+          variant="ghost"
+          ref={indicatorRef}
+          label={translate("messageCenter.messages")}
+          icon={<SvgChat />}
+          aria-label={translate("messageCenter.messages")}
+        /> */}
         <Button
           ref={indicatorRef}
           variant="ghost"

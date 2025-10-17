@@ -18,7 +18,7 @@ import { StatusBarSeparator } from "../statusbar/Separator.js";
 import type { UiItemsProvider } from "./UiItemsProvider.js";
 import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
 import { StatusBarSection } from "../statusbar/StatusBarItem.js";
-import MessageCenterSelector from "../statusfields/message-center/MessageCenterSelector.js";
+import MessageCenterSelector from "../preview/enable-stratakit-ui/status-bar-message-center/MessageCenterSelector.js";
 
 /** Defines what items to include from the provider.
  * @note When this object is used, only explicitly enabled items will be added to the status bar. I.e. `{ messageCenter: true }` will only add message center field to the statusbar.

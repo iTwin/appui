@@ -3,25 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-@use "./MessageCenterCommon";
+@use "../../../shared/_MessageCenterCommon";
 
 .uifw-statusFields-messageCenter-messageCenterField_panel {
   margin: 0 8px;
 }
 
 .uifw-statusFields-messageCenter-messageCenterField_popover {
+  margin-bottom: 10px;
   div[role="tablist"] {
-    margin: 8px 16px;
+    margin: 16px 16px;
     & button {
       display: flex;
       justify-content: center;
       width: 50%;
     }
-  }
-}
-
-.uifw-statusFields-messageCenter-messageCenterField_button {
-  &.pressed {
-    background-color: var(--stratakit-color-bg-glow-on-surface-neutral-hover);
   }
 }
