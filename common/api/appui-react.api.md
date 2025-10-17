@@ -1004,6 +1004,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
     // @deprecated
     viewOverlay?: boolean;
     widgetIcon?: boolean;
+    activeWidgetLabel?: boolean;
     widgetOpacity?: number;
 }
 
