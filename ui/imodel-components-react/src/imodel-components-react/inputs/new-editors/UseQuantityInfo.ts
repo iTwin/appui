@@ -5,7 +5,12 @@
 
 import type { IModelConnection, QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
-import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
+import {
+  type FormatterSpec,
+  FormatType,
+  parseFormatType,
+  type ParserSpec,
+} from "@itwin/core-quantity";
 import * as React from "react";
 import { useIModelConnection } from "../../IModelConnectionContext.js";
 import type { KindOfQuantity } from "@itwin/ecschema-metadata";
@@ -122,7 +127,13 @@ async function getFormatterParserSpec({
 
   const persistenceUnitName = persistenceUnit.fullName;
   const formatterSpec = await IModelApp.quantityFormatter.createFormatterSpec({
-    formatProps: { ...formatProps, precision: 12 },
+    formatProps: {
+      ...formatProps,
+      precision:
+        parseFormatType(formatProps.type, "") === FormatType.Decimal
+          ? 12
+          : formatProps.precision,
+    },
     persistenceUnitName,
   });
   const parserSpec = await IModelApp.quantityFormatter.createParserSpec({
