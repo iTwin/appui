@@ -240,6 +240,7 @@ export function ActiveFrontstageDefProvider({
   );
   const showWidgetIcon =
     configurableUi.widgetIcon ?? reduxShowWidgetIcon ?? true;
+  const showActiveWidgetLabel = configurableUi.activeWidgetLabel ?? false;
   const autoCollapseUnpinnedPanels =
     configurableUi.collapsePanels ?? reduxAutoCollapseUnpinnedPanels ?? false;
   const animateToolSettings =
@@ -266,6 +267,7 @@ export function ActiveFrontstageDefProvider({
         tab={tabElement}
         floatingWidget={floatingWidgetElement}
         showWidgetIcon={showWidgetIcon}
+        showActiveWidgetLabel={showActiveWidgetLabel}
         autoCollapseUnpinnedPanels={autoCollapseUnpinnedPanels}
         toolSettingsContent={toolSettingsContent}
         widgetContent={widgetContent}
