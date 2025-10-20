@@ -991,7 +991,6 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps): React_
 
 // @public @deprecated
 export interface ConfigurableUiContentProps extends CommonProps {
-    activeWidgetLabel?: boolean;
     animateToolSettings?: boolean;
     appBackstage?: React_2.ReactNode;
     childWindow?: React_2.ComponentType;
@@ -1000,6 +999,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
     idleTimeout?: number;
     // @internal (undocumented)
     intervalTimeout?: number;
+    showActiveWidgetLabel?: boolean;
     toolAsToolSettingsLabel?: boolean;
     toolbarOpacity?: number;
     // @deprecated
@@ -3928,7 +3928,7 @@ export const SessionStateActions: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
 };
 
 // @beta @deprecated
@@ -3966,7 +3966,7 @@ export const sessionStateMapDispatchToProps: {
     setNumItemsSelected: (numSelected: number) => ActionWithPayload_2<SessionStateActionId.SetNumItemsSelected, number>;
     setIModelConnection: (iModelConnection: any) => ActionWithPayload_2<SessionStateActionId.SetIModelConnection, any>;
     setSelectionScope: (activeSelectionScope: string) => ActionWithPayload_2<SessionStateActionId.SetSelectionScope, string>;
-    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuData> | DeepReadonlyObject_2<CursorMenuPayload>>;
+    updateCursorMenu: (cursorMenuData: CursorMenuData | CursorMenuPayload) => ActionWithPayload_2<SessionStateActionId.UpdateCursorMenu, DeepReadonlyObject_2<CursorMenuPayload> | DeepReadonlyObject_2<CursorMenuData>>;
 };
 
 // @public @deprecated
@@ -5441,7 +5441,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @public
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "popout" | "docked" | "floating";
+    widgetLocation: "floating" | "popout" | "docked";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
