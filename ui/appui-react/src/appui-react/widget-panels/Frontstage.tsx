@@ -240,7 +240,7 @@ export function ActiveFrontstageDefProvider({
   );
   const showWidgetIcon =
     configurableUi.widgetIcon ?? reduxShowWidgetIcon ?? true;
-  const showActiveWidgetLabel = configurableUi.activeWidgetLabel ?? false;
+  const showActiveWidgetLabel = configurableUi.showActiveWidgetLabel ?? false;
   const autoCollapseUnpinnedPanels =
     configurableUi.collapsePanels ?? reduxAutoCollapseUnpinnedPanels ?? false;
   const animateToolSettings =

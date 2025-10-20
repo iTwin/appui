@@ -74,7 +74,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
   /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
   widgetIcon?: boolean;
   /** Controls if the active widget's label should always be displayed. Defaults to `false`. */
-  activeWidgetLabel?: boolean;
+  showActiveWidgetLabel?: boolean;
   /** Controls if the unpinned panels should be collapsed automatically. Uses redux store as a fallback. Defaults to `false`. */
   collapsePanels?: boolean;
   /** Controls if the tool settings should be animated. Uses redux store as a fallback. Defaults to `false`. */

@@ -48,6 +48,7 @@ function StoryComponent(
               }),
               createWidget(2, { layouts }),
               createWidget(3, { layouts }),
+              createWidget(4, { layouts }),
             ];
           },
         },
@@ -60,7 +61,7 @@ function StoryComponent(
         widgetOpacity={props.widgetOpacity}
         toolbarOpacity={props.toolbarOpacity}
         widgetIcon={props.widgetIcon}
-        activeWidgetLabel={props.activeWidgetLabel}
+        showActiveWidgetLabel={props.showActiveWidgetLabel}
       />
     </AppUiStory>
   );
@@ -85,9 +86,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     widgetIcon: true,
-    activeWidgetLabel: false,
+    showActiveWidgetLabel: false,
     widgetOpacity: 1,
-    toolbarOpacity: 1,
   },
 };
 
@@ -97,15 +97,9 @@ export const SemiTransparentWidgets: Story = {
   },
 };
 
-export const TransparentToolbars: Story = {
-  args: {
-    toolbarOpacity: 0.4,
-  },
-};
-
 export const ShowActiveWidgetLabel: Story = {
   args: {
-    activeWidgetLabel: true,
+    showActiveWidgetLabel: true,
   },
 };
 
@@ -119,69 +113,7 @@ export const HideWidgetIcons: Story = {
 export const MixedStyles: Story = {
   args: {
     widgetOpacity: 0.7,
-    toolbarOpacity: 0.6,
-    activeWidgetLabel: true,
+    showActiveWidgetLabel: true,
     widgetIcon: true,
-  },
-};
-
-// Example showing how props could be changed at runtime (controls re-render via state).
-export const DynamicOpacity: Story = {
-  render: (args) => {
-    const Dynamic: React.FC = () => {
-      const [widgetOpacity, setWidgetOpacity] = React.useState<number>(
-        args.widgetOpacity ?? 1
-      );
-      const [toolbarOpacity, setToolbarOpacity] = React.useState<number>(
-        args.toolbarOpacity ?? 1
-      );
-      return (
-        <div style={{ height: "100vh" }}>
-          <div style={{ padding: "0.5rem", display: "flex", gap: "0.5rem" }}>
-            <label
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontSize: "0.75rem",
-              }}
-            >
-              Widget Opacity ({widgetOpacity.toFixed(2)})
-              <input
-                type="range"
-                min={0.2}
-                max={1}
-                step={0.05}
-                value={widgetOpacity}
-                onChange={(e) => setWidgetOpacity(Number(e.target.value))}
-              />
-            </label>
-            <label
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontSize: "0.75rem",
-              }}
-            >
-              Toolbar Opacity ({toolbarOpacity.toFixed(2)})
-              <input
-                type="range"
-                min={0.2}
-                max={1}
-                step={0.05}
-                value={toolbarOpacity}
-                onChange={(e) => setToolbarOpacity(Number(e.target.value))}
-              />
-            </label>
-          </div>
-          <StoryComponent
-            widgetOpacity={widgetOpacity}
-            toolbarOpacity={toolbarOpacity}
-            widgetIcon={args.widgetIcon}
-            activeWidgetLabel={args.activeWidgetLabel}
-          />
-        </div>
-      );
-    };
-    return <Dynamic />;
   },
 };
