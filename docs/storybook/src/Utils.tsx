@@ -2,11 +2,13 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import type { ArgTypes } from "@storybook/react-vite";
+import * as React from "react";
+import type { ArgTypes, Decorator } from "@storybook/react-vite";
 import {
   ContentProps,
   Frontstage,
   FrontstageUtilities,
+  MessageManager,
   StagePanelLocation,
   StagePanelSection,
   StageUsage,
@@ -14,6 +16,10 @@ import {
   StandardFrontstageProps,
   Widget,
 } from "@itwin/appui-react";
+import {
+  NotifyMessageDetails,
+  OutputMessagePriority,
+} from "@itwin/core-frontend";
 
 export function createFrontstage(
   overrides?: Partial<StandardFrontstageProps> &
@@ -106,5 +112,33 @@ export function createWidget(id: number, overrides?: Partial<Widget>): Widget {
       },
     },
     ...overrides,
+  };
+}
+
+export function createMessageDecorator({
+  priority,
+  briefMessage = "Message",
+  detailedMessage,
+}: {
+  priority: OutputMessagePriority;
+  briefMessage?: string;
+  detailedMessage?: string;
+}): Decorator {
+  return (Story) => {
+    React.useEffect(() => {
+      MessageManager.clearMessages();
+      Array.from({ length: 4 }).forEach((_, index) => {
+        const id = index + 1;
+        briefMessage = briefMessage ?? "Message";
+        MessageManager.addToMessageCenter(
+          new NotifyMessageDetails(
+            priority,
+            `${briefMessage} ${id}`,
+            detailedMessage ? `${detailedMessage} ${id}` : undefined
+          )
+        );
+      });
+    }, []);
+    return <Story />;
   };
 }

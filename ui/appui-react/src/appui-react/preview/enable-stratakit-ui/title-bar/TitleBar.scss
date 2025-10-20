@@ -1,0 +1,14 @@
+$horizontal-padding: var(--stratakit-space-x4);
+$vertical-padding: var(--stratakit-space-x3);
+
+.sk-footer-dialog-titleBar {
+  padding: $vertical-padding $horizontal-padding;
+  background-color: var(--stratakit-color-bg-page-base);
+  border-bottom: 1px solid var(--stratakit-color-border-neutral-muted);
+}
+
+.sk-title {
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--stratakit-color-text-neutral-primary);
+}
