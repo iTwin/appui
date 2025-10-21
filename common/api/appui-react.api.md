@@ -4594,7 +4594,7 @@ export function StatusBarPopover({ content, middleware, ...other }: React_2.Comp
 
 // @public
 export namespace StatusBarPopover {
-    const ExpandIndicator: typeof ButtonExpandIndicator;
+    export function ExpandIndicator(): React_2.JSX.Element;
 }
 
 // @public @deprecated
