@@ -175,7 +175,7 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
   if (themeBridge) {
     return (
       <Root
-        colorScheme={prefersDark ? "light" : "dark"}
+        colorScheme={prefersDark ? "dark" : "light"}
         density="dense"
         synchronizeColorScheme
         render={(props: any) => (
