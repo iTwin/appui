@@ -999,6 +999,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
     idleTimeout?: number;
     // @internal (undocumented)
     intervalTimeout?: number;
+    showActiveWidgetLabel?: boolean;
     toolAsToolSettingsLabel?: boolean;
     toolbarOpacity?: number;
     // @deprecated

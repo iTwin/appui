@@ -14,6 +14,7 @@ import {
   StandardFrontstageProps,
   Widget,
 } from "@itwin/appui-react";
+import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 
 export function createFrontstage(
   overrides?: Partial<StandardFrontstageProps> &
@@ -99,6 +100,7 @@ export function createWidget(id: number, overrides?: Partial<Widget>): Widget {
     id: `w${id}`,
     label: `Widget ${id}`,
     content: <>Widget {id} content</>,
+    iconNode: <SvgPlaceholder />,
     layouts: {
       standard: {
         location: StagePanelLocation.Left,
