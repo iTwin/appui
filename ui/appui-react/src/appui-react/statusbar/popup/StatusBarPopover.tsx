@@ -52,5 +52,7 @@ export namespace StatusBarPopover {
   /** Indicator to be used in popover trigger buttons to show expandable content.
    * @public
    */
-  export const ExpandIndicator = ButtonExpandIndicator;
+  export function ExpandIndicator() {
+    return <ButtonExpandIndicator />;
+  }
 }
