@@ -166,7 +166,6 @@ const usePreviewFeaturesStore = create<PreviewFeaturesState>((set) => {
     previewFeatures: {},
     setPreviewFeatures: (newPreviewFeatures: PreviewFeatures) => {
       const previewFeatures = trimToKnownFeaturesOnly(newPreviewFeatures);
-      previewFeatures.useStratakit = true; // temporarily force Stratakit usage
       set({ previewFeatures });
     },
   };

@@ -24,7 +24,7 @@ import type { NotifyMessageDetailsType } from "../../../messages/ReactNotifyMess
 import { useTranslation } from "../../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../../statusbar/popup/StatusBarPopover.js";
 
-import "./MessageCenterFieldSk.scss";
+import "./MessageCenterField.scss";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
