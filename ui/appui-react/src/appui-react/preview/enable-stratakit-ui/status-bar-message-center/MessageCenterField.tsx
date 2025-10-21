@@ -15,9 +15,10 @@ import SvgStatusSuccess from "../../../icons/SvgStatusSuccess.js";
 import { Button } from "@stratakit/bricks";
 import { Tabs } from "@stratakit/structures";
 import { OutputMessagePriority } from "@itwin/core-frontend";
+import type { MessageType } from "./MessageCenterMessage.js";
 import { MessageCenterMessage } from "./MessageCenterMessage.js";
 import { MessageManager } from "../../../messages/MessageManager.js";
-import { TitleBarSk } from "../title-bar/TitleBarSk.js";
+import { TitleBar } from "../title-bar/TitleBar.js";
 
 import type { NotifyMessageDetailsType } from "../../../messages/ReactNotifyMessageDetails.js";
 import { useTranslation } from "../../../hooks/useTranslation.js";
@@ -95,7 +96,7 @@ export function MessageCenterField() {
   function renderPopoverContent() {
     return (
       <>
-        <TitleBarSk title={translate("messageCenter.messages")} />
+        <TitleBar title={translate("messageCenter.messages")} />
         <Tabs.Provider>
           <Tabs.TabList tone="accent">
             {tabs.map((tab) => (
@@ -125,8 +126,8 @@ export function MessageCenterField() {
                     return (
                       <MessageCenterMessage
                         key={index}
-                        message={message.briefMessage}
-                        details={message.detailedMessage}
+                        message={message.briefMessage as MessageType}
+                        details={message.detailedMessage as MessageType}
                         icon={<MessageIcon priority={message.priority} />}
                       />
                     );

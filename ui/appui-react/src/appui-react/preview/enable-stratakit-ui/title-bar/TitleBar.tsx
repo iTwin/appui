@@ -2,8 +2,9 @@ import * as React from "react";
 import classnames from "classnames";
 
 import "./TitleBar.scss";
+import { Text } from "@stratakit/bricks";
 
-interface TitleBarSkProps {
+interface TitleBarProps {
   children?: React.ReactNode;
   title: string;
   classNames?: string;
@@ -13,16 +14,18 @@ interface TitleBarSkProps {
 /**
  * Title bar for stratakit.
  */
-export function TitleBarSk({
+export function TitleBar({
   classNames,
   style,
   title,
   children,
-}: TitleBarSkProps) {
+}: TitleBarProps) {
   const className = classnames("sk-footer-dialog-titleBar", classNames);
   return (
     <div className={className} style={style}>
-      <span className="sk-title">{title}</span>
+      <Text variant="body-lg" render={<span />} className="sk-title">
+        {title}
+      </Text>
       {children}
     </div>
   );

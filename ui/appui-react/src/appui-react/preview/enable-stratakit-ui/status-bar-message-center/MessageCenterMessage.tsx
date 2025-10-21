@@ -7,27 +7,23 @@
  */
 
 import * as React from "react";
-import type { CommonProps, MessageType } from "@itwin/core-react";
-import { MessageRenderer } from "@itwin/core-react";
+import { MessageRenderer } from "./MessageRenderer.js";
 import { Text } from "@stratakit/bricks";
 import "./MessageCenterMessage.scss";
+
+/** Message types that can be used in stratakit version of [[MessageCenterMessage]].
+ * @internal
+ */
+export type MessageType = string | HTMLElement | React.ReactNode;
 
 /** Properties of [[MessageCenterMessage]] component.
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface MessageCenterMessageProps extends CommonProps {
-  /** Message content. */
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
+export interface MessageCenterMessageProps {
   message?: MessageType;
-  /** Message icon. */
   icon?: React.ReactNode;
-  /** Additional Details */
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   details?: MessageType;
-  /** className */
   className?: string;
-  /** Optional style */
   style?: object;
 }
 
@@ -45,11 +41,9 @@ export function MessageCenterMessage(props: MessageCenterMessageProps) {
       {icon}
       {message && (
         <span className="uifw-content">
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <MessageRenderer message={message} className={className} useSpan />
+          <MessageRenderer message={message} className={className} inline />.
           {details && (
             <Text variant="body-sm">
-              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
               <MessageRenderer message={details} />
             </Text>
           )}

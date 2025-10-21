@@ -12,7 +12,7 @@ import { OutputMessagePriority } from "@itwin/core-frontend";
 import { createMessageDecorator } from "src/Utils";
 
 const meta = {
-  title: "PreviewFeatures/MessageCenterFieldSK",
+  title: "PreviewFeatures/MessageCenterFieldWithStratakitUI",
   component: MessageCenterFieldSk,
   tags: ["autodocs"],
   globals: { themeBridge: true },
@@ -49,7 +49,6 @@ export const Success: Story = {
   decorators: [
     createMessageDecorator({
       priority: OutputMessagePriority.Success,
-      briefMessage: "This is a success message.",
       detailedMessage: "This is a detailed success message.",
     }),
   ],
@@ -59,7 +58,6 @@ export const Error: Story = {
   decorators: [
     createMessageDecorator({
       priority: OutputMessagePriority.Error,
-      briefMessage: "This is an error message.",
       detailedMessage: "This is a detailed error message.",
     }),
   ],
@@ -69,7 +67,6 @@ export const Warning: Story = {
   decorators: [
     createMessageDecorator({
       priority: OutputMessagePriority.Warning,
-      briefMessage: "This is a warning message.",
       detailedMessage: "This is a detailed warning message.",
     }),
   ],
@@ -79,7 +76,6 @@ export const Info: Story = {
   decorators: [
     createMessageDecorator({
       priority: OutputMessagePriority.Info,
-      briefMessage: "This is an info message.",
       detailedMessage: "This is a detailed info message.",
     }),
   ],
