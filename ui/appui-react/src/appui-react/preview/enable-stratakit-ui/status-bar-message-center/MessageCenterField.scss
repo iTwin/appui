@@ -10,8 +10,9 @@
 }
 
 .uifw-statusFields-messageCenter-messageCenterField_popover {
+  transform: translateY(-6px);
   div[role="tablist"] {
-    margin: 16px 16px;
+    margin: 16px;
     & button {
       display: flex;
       justify-content: center;

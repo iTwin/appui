@@ -61,6 +61,9 @@ const availableFeatures: AvailableFeatures = {
   stableContentLayout: {
     label: "Stable content layout",
   },
+  useStratakit: {
+    label: "Use Stratakit components",
+  },
 };
 
 function PreviewFeatureList() {

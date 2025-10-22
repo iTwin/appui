@@ -4,13 +4,19 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import { MessageCenterField } from "./MessageCenterField.js";
+import { MessageCenterField as MessageCenterFieldWithSkComponent } from "./MessageCenterField.js";
+import { MessageCenterField } from "../../../statusfields/message-center/MessageCenterField.js";
 import { usePreviewFeatures } from "../../PreviewFeatures.js";
 
 /**
  * Selects which version of the Message Center to use based on preview features.
+ *
  */
 export function MessageCenterSelector(): React.JSX.Element {
   const { useStratakit } = usePreviewFeatures();
-  return useStratakit ? <MessageCenterField /> : <MessageCenterField />;
+  return useStratakit ? (
+    <MessageCenterFieldWithSkComponent />
+  ) : (
+    <MessageCenterField />
+  );
 }
