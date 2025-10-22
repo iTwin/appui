@@ -72,6 +72,7 @@ describe("EditorInterop", () => {
           valueFormat: PropertyValueFormat.Primitive,
           value: 1,
           displayValue: "1",
+          roundingError: 0.5,
         },
         {
           name: "TestProp",
@@ -89,6 +90,7 @@ describe("EditorInterop", () => {
       expect(value).toMatchObject({
         rawValue: 1,
         displayValue: "1",
+        roundingError: 0.5,
       } satisfies NumericValue);
     });
 
@@ -399,12 +401,17 @@ describe("EditorInterop", () => {
     });
 
     it("number", () => {
-      const value = { rawValue: 1, displayValue: "1" } satisfies NumericValue;
+      const value = {
+        rawValue: 1,
+        displayValue: "1",
+        roundingError: 0.5,
+      } satisfies NumericValue;
       const primitiveValue = EditorInterop.convertToPrimitiveValue(value);
       expect(primitiveValue).toMatchObject({
         valueFormat: PropertyValueFormat.Primitive,
         value: 1,
         displayValue: "1",
+        roundingError: 0.5,
       });
     });
 

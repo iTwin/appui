@@ -102,6 +102,7 @@ export namespace EditorInterop {
               : primitiveValue.value !== undefined
               ? `${primitiveValue.value as number}`
               : "",
+            roundingError: primitiveValue.roundingError,
           } satisfies NumericValue,
         };
       case "enum":
@@ -149,6 +150,7 @@ export namespace EditorInterop {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.rawValue,
         displayValue: newValue.displayValue,
+        roundingError: newValue.roundingError,
       };
     }
     if (isBoolean(newValue)) {
