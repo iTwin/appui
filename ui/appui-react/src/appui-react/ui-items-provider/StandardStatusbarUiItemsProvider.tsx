@@ -72,6 +72,19 @@ export class StandardStatusbarUiItemsProvider implements UiItemsProvider {
     }
 
     if (!this._defaultItems || this._defaultItems.toolAssistance) {
+      if (
+        !this._defaultItems ||
+        this._defaultItems.preToolAssistanceSeparator
+      ) {
+        statusBarItems.push(
+          StatusBarItemUtilities.createCustomItem({
+            id: "uifw.PreToolAssistance",
+            section: StatusBarSection.Left,
+            itemPriority: 15,
+            content: <StatusBarSeparator />,
+          })
+        );
+      }
       statusBarItems.push(
         StatusBarItemUtilities.createCustomItem({
           id: "uifw.ToolAssistance",
