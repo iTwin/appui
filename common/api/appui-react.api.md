@@ -999,6 +999,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
     idleTimeout?: number;
     // @internal (undocumented)
     intervalTimeout?: number;
+    showActiveWidgetLabel?: boolean;
     toolAsToolSettingsLabel?: boolean;
     toolbarOpacity?: number;
     // @deprecated
@@ -4593,7 +4594,7 @@ export function StatusBarPopover({ content, middleware, ...other }: React_2.Comp
 
 // @public
 export namespace StatusBarPopover {
-    const ExpandIndicator: typeof ButtonExpandIndicator;
+    export function ExpandIndicator(): React_2.JSX.Element;
 }
 
 // @public @deprecated

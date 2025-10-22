@@ -14,7 +14,7 @@
     "test:e2e": "npm start -- pnpm exec playwright -- test"
   },
   "devDependencies": {
-    "@playwright/test": "1.46.1",
+    "@playwright/test": "1.56.1",
     "test-app": "workspace:*",
     "tsx": "^4.7.1"
   },

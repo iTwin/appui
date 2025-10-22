@@ -114,6 +114,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
   const widgetId = React.useContext(WidgetIdContext);
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
+  const showActiveWidgetLabel = React.useContext(ShowActiveWidgetLabelContext);
   assert(!!id);
   assert(!!widgetId);
 
@@ -145,6 +146,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
   );
 
   const showLabel =
+    (showActiveWidgetLabel && active) ||
     (showIconOnly && !props.icon) ||
     (showWidgetIcon && !showIconOnly) ||
     !showWidgetIcon;
@@ -382,3 +384,7 @@ TabPositionContext.displayName = "nz:TabPositionContext";
 /** @internal */
 export const IconOnlyOnWidgetTabContext = React.createContext<boolean>(false);
 IconOnlyOnWidgetTabContext.displayName = "nz:IconOnlyOnWidgetTabContext";
+
+/** @internal */
+export const ShowActiveWidgetLabelContext = React.createContext<boolean>(false);
+ShowActiveWidgetLabelContext.displayName = "nz:ShowActiveWidgetLabelContext";

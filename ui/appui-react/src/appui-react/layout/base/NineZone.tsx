@@ -24,7 +24,7 @@ import {
   DraggedWidgetIdContext,
   DragProvider,
 } from "./DragManager.js";
-import { WidgetTab } from "../widget/Tab.js";
+import { ShowActiveWidgetLabelContext, WidgetTab } from "../widget/Tab.js";
 import type { NineZoneAction } from "../state/NineZoneAction.js";
 import type { LayoutStore } from "./LayoutStore.js";
 import { LayoutStoreContext, useLayout } from "./LayoutStore.js";
@@ -43,6 +43,7 @@ export interface NineZoneProps {
   tab?: React.ReactNode;
   floatingWidget?: React.ReactNode;
   showWidgetIcon?: boolean;
+  showActiveWidgetLabel?: boolean;
   autoCollapseUnpinnedPanels?: boolean;
   animateDockedToolSettings?: boolean;
   uiIsVisible?: boolean;
@@ -87,37 +88,45 @@ export function NineZoneProvider(props: NineZoneProviderProps) {
       <NineZoneDispatchContext.Provider value={props.dispatch}>
         <NineZoneLabelsContext.Provider value={props.labels}>
           <UiIsVisibleContext.Provider value={!!props.uiIsVisible}>
-            <ShowWidgetIconContext.Provider value={!!props.showWidgetIcon}>
-              <AutoCollapseUnpinnedPanelsContext.Provider
-                value={!!props.autoCollapseUnpinnedPanels}
-              >
-                <WidgetContentNodeContext.Provider value={props.widgetContent}>
-                  <ToolSettingsNodeContext.Provider
-                    value={props.toolSettingsContent}
+            <ShowActiveWidgetLabelContext.Provider
+              value={!!props.showActiveWidgetLabel}
+            >
+              <ShowWidgetIconContext.Provider value={!!props.showWidgetIcon}>
+                <AutoCollapseUnpinnedPanelsContext.Provider
+                  value={!!props.autoCollapseUnpinnedPanels}
+                >
+                  <WidgetContentNodeContext.Provider
+                    value={props.widgetContent}
                   >
-                    <TabNodeContext.Provider value={props.tab || tab}>
-                      <FloatingWidgetNodeContext.Provider
-                        value={props.floatingWidget || floatingWidget}
-                      >
-                        <AnimateDockedToolSettingsContext.Provider
-                          value={!!props.animateDockedToolSettings}
+                    <ToolSettingsNodeContext.Provider
+                      value={props.toolSettingsContent}
+                    >
+                      <TabNodeContext.Provider value={props.tab || tab}>
+                        <FloatingWidgetNodeContext.Provider
+                          value={props.floatingWidget || floatingWidget}
                         >
-                          <DragProvider>
-                            <CursorTypeProvider>
-                              <WidgetContentManager>
-                                <MeasureContext.Provider value={props.measure}>
-                                  {props.children}
-                                </MeasureContext.Provider>
-                              </WidgetContentManager>
-                            </CursorTypeProvider>
-                          </DragProvider>
-                        </AnimateDockedToolSettingsContext.Provider>
-                      </FloatingWidgetNodeContext.Provider>
-                    </TabNodeContext.Provider>
-                  </ToolSettingsNodeContext.Provider>
-                </WidgetContentNodeContext.Provider>
-              </AutoCollapseUnpinnedPanelsContext.Provider>
-            </ShowWidgetIconContext.Provider>
+                          <AnimateDockedToolSettingsContext.Provider
+                            value={!!props.animateDockedToolSettings}
+                          >
+                            <DragProvider>
+                              <CursorTypeProvider>
+                                <WidgetContentManager>
+                                  <MeasureContext.Provider
+                                    value={props.measure}
+                                  >
+                                    {props.children}
+                                  </MeasureContext.Provider>
+                                </WidgetContentManager>
+                              </CursorTypeProvider>
+                            </DragProvider>
+                          </AnimateDockedToolSettingsContext.Provider>
+                        </FloatingWidgetNodeContext.Provider>
+                      </TabNodeContext.Provider>
+                    </ToolSettingsNodeContext.Provider>
+                  </WidgetContentNodeContext.Provider>
+                </AutoCollapseUnpinnedPanelsContext.Provider>
+              </ShowWidgetIconContext.Provider>
+            </ShowActiveWidgetLabelContext.Provider>
           </UiIsVisibleContext.Provider>
         </NineZoneLabelsContext.Provider>
       </NineZoneDispatchContext.Provider>
