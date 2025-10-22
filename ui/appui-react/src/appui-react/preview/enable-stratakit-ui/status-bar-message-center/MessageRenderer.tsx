@@ -32,6 +32,25 @@ const isReactNode = (message: MessageContent): message is React.ReactNode => {
   );
 };
 
+const validateAnchors = (element: HTMLElement): boolean => {
+  const anchors = element.querySelectorAll('a[target="_blank"]');
+  return Array.from(anchors).every((anchor) => {
+    const rel = anchor.getAttribute("rel");
+    return rel && (rel.includes("noopener") || rel.includes("noreferrer"));
+  });
+};
+
+// Check if the element itself is an anchor with target="_blank"
+const isValidMainAnchor = (element: HTMLElement): boolean => {
+  if (element.tagName === "A" && element.getAttribute("target") === "_blank") {
+    const rel = element.getAttribute("rel");
+    return (
+      rel !== null && (rel.includes("noopener") || rel.includes("noreferrer"))
+    );
+  }
+  return true;
+};
+
 /**
  * React component that renders message content using Stratakit components.
  * Supports string, HTMLElement, or React node content with proper sanitization.
@@ -54,30 +73,6 @@ export function MessageRenderer(props: MessageRendererProps) {
   }
 
   if (isHTMLElement(message)) {
-    // Security validation for anchor tags
-    const validateAnchors = (element: HTMLElement): boolean => {
-      const anchors = element.querySelectorAll('a[target="_blank"]');
-      return Array.from(anchors).every((anchor) => {
-        const rel = anchor.getAttribute("rel");
-        return rel && (rel.includes("noopener") || rel.includes("noreferrer"));
-      });
-    };
-
-    // Check if the element itself is an anchor with target="_blank"
-    const isValidMainAnchor = (element: HTMLElement): boolean => {
-      if (
-        element.tagName === "A" &&
-        element.getAttribute("target") === "_blank"
-      ) {
-        const rel = element.getAttribute("rel");
-        return (
-          rel !== null &&
-          (rel.includes("noopener") || rel.includes("noreferrer"))
-        );
-      }
-      return true;
-    };
-
     const hasValidAnchors =
       isValidMainAnchor(message) && validateAnchors(message);
 
