@@ -44,7 +44,7 @@ describe("MessageRenderer", () => {
     expect(container.innerHTML).toContain('rel="noopener"');
   });
 
-  it("sanitizes HTMLElement without valid anchor rels", () => {
+  it("sanitizes HTMLElement without valid anchor rel", () => {
     const element = document.createElement("div");
     element.innerHTML =
       '<a href="https://example.com" target="_blank">Link</a>';
