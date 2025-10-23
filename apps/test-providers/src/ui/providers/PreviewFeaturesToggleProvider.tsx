@@ -8,7 +8,12 @@ import {
   PreviewFeaturesProvider,
   StatusBarSection,
 } from "@itwin/appui-react";
-import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
+import {
+  Checkbox,
+  DropdownButton,
+  MenuItem,
+  Tooltip,
+} from "@itwin/itwinui-react";
 import { SvgTechnicalPreviewBadgeBw } from "@itwin/itwinui-icons-react";
 
 const PreviewFeaturesContext = React.createContext<
@@ -17,8 +22,14 @@ const PreviewFeaturesContext = React.createContext<
 >(undefined);
 
 type AvailableFeatures = {
-  [K in keyof PreviewFeatures]: { label: string; value?: PreviewFeatures[K] };
+  [K in keyof PreviewFeatures]: {
+    label: string;
+    value?: PreviewFeatures[K];
+    extraInfo?: string;
+  };
 };
+
+const useStratakitLabel = "Enable Stratakit component";
 
 const availableFeatures: AvailableFeatures = {
   contentAlwaysMaxSize: {
@@ -62,9 +73,16 @@ const availableFeatures: AvailableFeatures = {
     label: "Stable content layout",
   },
   useStratakit: {
-    label: "Use Stratakit components",
+    label: useStratakitLabel,
+    extraInfo: "requires 'themeBridge'",
   },
 };
+
+function isThemeBridgeAbsentFromUrl() {
+  return (
+    new URLSearchParams(window.location.search).get("themeBridge") === null
+  );
+}
 
 function PreviewFeatureList() {
   const context = React.useContext(PreviewFeaturesContext);
@@ -74,33 +92,42 @@ function PreviewFeatureList() {
   }
 
   const [features, setFeatures] = context;
+
   const availableFeatureEntries = Object.entries(availableFeatures);
+
   return (
     <DropdownButton
       size="small"
       menuItems={() =>
-        availableFeatureEntries.map(([feature, { label, value }]) => (
-          <MenuItem
-            key={feature}
-            sublabel={feature}
-            endIcon={<Checkbox checked={feature in features} readOnly />}
-            onClick={() => {
-              setFeatures((prev) => {
-                if (Object.keys(prev).includes(feature)) {
-                  const { [feature]: _, ...rest } = prev;
-                  return rest;
-                }
+        availableFeatureEntries.map(
+          ([feature, { label, value, extraInfo }]) => (
+            <MenuItem
+              key={feature}
+              sublabel={feature}
+              endIcon={<Checkbox checked={feature in features} readOnly />}
+              disabled={
+                label.includes(useStratakitLabel) &&
+                isThemeBridgeAbsentFromUrl()
+              }
+              onClick={() => {
+                setFeatures((prev) => {
+                  if (Object.keys(prev).includes(feature)) {
+                    const { [feature]: _, ...rest } = prev;
+                    return rest;
+                  }
 
-                return {
-                  ...prev,
-                  [feature]: value === undefined ? true : value,
-                };
-              });
-            }}
-          >
-            {label}
-          </MenuItem>
-        ))
+                  return {
+                    ...prev,
+                    [feature]: value === undefined ? true : value,
+                  };
+                });
+              }}
+            >
+              {label}
+              <p>{extraInfo && <i>{extraInfo}</i>}</p>
+            </MenuItem>
+          )
+        )
       }
     >
       Preview features
@@ -148,6 +175,9 @@ export function AppPreviewFeatures({
   const finalFeatures = React.useMemo(() => {
     return { ...features, ...featureOverrides };
   }, [features, featureOverrides]);
+
+  useStratakitPreviewFeature(finalFeatures);
+
   return (
     <PreviewFeaturesContext.Provider value={[finalFeatures, setFeatures]}>
       <PreviewFeaturesProvider features={finalFeatures}>
@@ -169,4 +199,23 @@ function useSavedFeatures() {
   }, [features]);
 
   return [features, setFeatures] as const;
+}
+
+/**
+ * Ensures the 'useStratakit' preview feature is only enabled when the 'themeBridge'
+ * query parameter is present in the URL. If 'useStratakit' is enabled without 'themeBridge',
+ * it removes 'useStratakit' from the persisted preview features in localStorage.
+ */
+function useStratakitPreviewFeature(features: PreviewFeatures) {
+  React.useEffect(() => {
+    if (
+      features.useStratakit &&
+      new URLSearchParams(window.location.search).get("themeBridge") === null
+    ) {
+      window.localStorage.setItem(
+        "preview-features",
+        JSON.stringify({ ...features, useStratakit: undefined })
+      );
+    }
+  }, [features]);
 }
