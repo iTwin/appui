@@ -8,12 +8,7 @@ import {
   PreviewFeaturesProvider,
   StatusBarSection,
 } from "@itwin/appui-react";
-import {
-  Checkbox,
-  DropdownButton,
-  MenuItem,
-  Tooltip,
-} from "@itwin/itwinui-react";
+import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import { SvgTechnicalPreviewBadgeBw } from "@itwin/itwinui-icons-react";
 
 const PreviewFeaturesContext = React.createContext<
