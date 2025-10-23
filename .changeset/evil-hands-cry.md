@@ -2,4 +2,4 @@
 "@itwin/components-react": minor
 ---
 
-Fix toggle unecessary rerender in propertyGrid
+Render `ToggleEditor` component after loading to reduce flicker in the property grid.
