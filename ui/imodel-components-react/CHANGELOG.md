@@ -1,5 +1,15 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.18.0
+
+### Patch Changes
+
+- 4b5d07a: Fixed `QuantityEditor` overriding precision for fractional properties to invalid value.
+- Updated dependencies [a756971]
+- Updated dependencies [c7e347b]
+  - @itwin/components-react@5.18.0
+  - @itwin/core-react@5.18.0
+
 ## 5.17.0
 
 ### Patch Changes
