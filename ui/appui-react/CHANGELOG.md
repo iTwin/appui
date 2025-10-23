@@ -1,5 +1,16 @@
 # Change Log - @itwin/appui-react
 
+## 5.18.0
+
+### Patch Changes
+
+- Updated dependencies [4b5d07a]
+- Updated dependencies [a756971]
+- Updated dependencies [c7e347b]
+  - @itwin/imodel-components-react@5.18.0
+  - @itwin/components-react@5.18.0
+  - @itwin/core-react@5.18.0
+
 ## 5.17.0
 
 ### Minor Changes
