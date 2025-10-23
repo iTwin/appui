@@ -4,3 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 
 @use "../../shared/_MessageCenterCommon";
+
+.uifw-statusFields-messageCenter-messageCenterField_panel {
+  @include MessageCenterCommon.messageCenterField_panel;
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_popover {
+  @include MessageCenterCommon.messageCenterField_popover;
+  div[role="tablist"] {
+    margin: 8px 16px;
+  }
+}

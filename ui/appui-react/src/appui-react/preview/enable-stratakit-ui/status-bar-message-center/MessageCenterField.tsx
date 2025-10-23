@@ -115,7 +115,7 @@ export function MessageCenterField() {
               <Tabs.TabPanel
                 tabId={`message-center-tab-${tab}`}
                 key={tab}
-                className="uifw-statusFields-messageCenter-messageCenterField_panel"
+                className="uifw-statusFields-messageCenter-messageCenterField_sk_panel"
               >
                 {tabMessages.length === 0 ? (
                   <span className="uifw-message-prompt">
@@ -146,13 +146,13 @@ export function MessageCenterField() {
       <StatusBarPopover
         visible={isOpen}
         onVisibleChange={(visible: boolean) => handleOpenChange(visible)}
-        className="uifw-statusFields-messageCenter-messageCenterField_popover"
+        className="uifw-statusFields-messageCenter-messageCenterField_sk_popover"
         content={renderPopoverContent()}
       >
         <Button
           ref={indicatorRef}
           variant="ghost"
-          className={`uifw-statusFields-messageCenter-messageCenterField_button ${
+          className={`uifw-statusFields-messageCenter-messageCenterField_sk_button ${
             isOpen ? "pressed" : ""
           }`}
         >

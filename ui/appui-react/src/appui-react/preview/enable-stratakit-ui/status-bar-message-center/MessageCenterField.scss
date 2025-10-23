@@ -5,17 +5,25 @@
 
 @use "../../../shared/_MessageCenterCommon";
 
-.uifw-statusFields-messageCenter-messageCenterField_panel {
+.uifw-statusFields-messageCenter-messageCenterField_sk_panel {
+  @include MessageCenterCommon.messageCenterField_panel;
   margin: 0 8px;
 }
 
-.uifw-statusFields-messageCenter-messageCenterField_popover {
+.uifw-statusFields-messageCenter-messageCenterField_sk_popover {
+  @include MessageCenterCommon.messageCenterField_popover;
+  transform: translateY(-6px);
   div[role="tablist"] {
     margin: 16px;
     & button {
+      font-size: var(--stratakit-font-size-2);
       display: flex;
       justify-content: center;
       width: 50%;
     }
   }
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_sk_button {
+  font-size: var(--stratakit-font-size-2);
 }
