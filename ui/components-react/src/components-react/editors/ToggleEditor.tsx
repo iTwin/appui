@@ -18,6 +18,7 @@ import { ToggleSwitch } from "@itwin/itwinui-react";
 /** @internal */
 interface ToggleEditorState {
   toggleValue: boolean;
+  isLoaded: boolean;
 }
 
 /** ToggleEditor React component that is a property editor with checkbox input
@@ -32,6 +33,7 @@ export class ToggleEditor
 
   public override readonly state: Readonly<ToggleEditorState> = {
     toggleValue: false,
+    isLoaded: false,
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -114,10 +116,16 @@ export class ToggleEditor
     if (this._isMounted)
       this.setState({
         toggleValue,
+        isLoaded: true,
       });
   }
 
   public override render() {
+    // Don't render until the value is loaded to avoid showing false briefly
+    if (!this.state.isLoaded) {
+      return null;
+    }
+
     const className = classnames(
       "components-cell-editor",
       "components-toggle-editor",
