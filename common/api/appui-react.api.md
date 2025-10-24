@@ -3202,6 +3202,9 @@ export interface MessageAddedEventArgs {
 export function MessageCenterField(props: CommonProps): React_2.JSX.Element;
 
 // @public
+export function MessageCenterFieldSk(): React_2.JSX.Element;
+
+// @public
 export class MessageManager {
     static get activeMessageManager(): StatusMessageManager;
     static addMessage(message: NotifyMessageDetailsType): void;

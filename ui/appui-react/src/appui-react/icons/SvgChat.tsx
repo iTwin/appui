@@ -3,15 +3,13 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-@use "../../shared/_MessageCenterCommon";
+import * as React from "react";
+import { Icon } from "@stratakit/foundations";
 
-.uifw-statusFields-messageCenter-messageCenterField_panel {
-  @include MessageCenterCommon.messageCenterField_panel;
-}
-
-.uifw-statusFields-messageCenter-messageCenterField_popover {
-  @include MessageCenterCommon.messageCenterField_popover;
-  div[role="tablist"] {
-    margin: 8px 16px;
-  }
+/**
+ * Chat SVG Icon component from stratakit.
+ */
+export default function SvgChat() {
+  const chat = new URL("@stratakit/icons/chat.svg", import.meta.url).href;
+  return <Icon href={chat} />;
 }

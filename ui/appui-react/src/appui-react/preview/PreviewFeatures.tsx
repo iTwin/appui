@@ -81,6 +81,11 @@ interface KnownPreviewFeatures {
    * If `true`, the content layout will not re-mount given the same configuration.
    */
   stableContentLayout: boolean;
+
+  /**
+   * If `true`, Stratakit components will be used where possible.
+   */
+  useStratakit: boolean;
 }
 
 /** Object used trim to only known features at runtime.
@@ -99,6 +104,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,
   stableContentLayout: undefined,
+  useStratakit: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.
@@ -140,6 +146,7 @@ function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
       }
     );
   }
+
   return knownFeatures;
 }
 

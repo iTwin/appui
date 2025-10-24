@@ -1,0 +1,31 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+
+$xs-size: var(--stratakit-font-size-8);
+
+.uifw-statusFields-messageCenter-messageCenterMessage {
+  min-height: 48px;
+  box-sizing: border-box;
+  padding-left: $xs-size;
+  padding-right: $xs-size;
+  padding-bottom: $xs-size;
+  display: grid;
+  grid-gap: 12px;
+  grid-auto-flow: column;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+  line-height: 16px;
+  color: var(--stratakit-color-text-neutral-primary);
+
+  &:not(:first-child) {
+    padding-top: $xs-size;
+    border-top: 1px solid lightgrey;
+  }
+
+  > .uifw-content {
+    overflow: hidden;
+    overflow-wrap: break-word;
+  }
+}

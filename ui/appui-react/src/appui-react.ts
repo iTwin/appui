@@ -648,6 +648,9 @@ export { useDefaultStatusBarItems } from "./appui-react/statusbar/useDefaultStat
 export { TileLoadingIndicator } from "./appui-react/statusfields/tileloading/TileLoadingIndicator.js";
 export { ActivityCenterField } from "./appui-react/statusfields/ActivityCenter.js";
 export { MessageCenterField } from "./appui-react/statusfields/message-center/MessageCenterField.js";
+
+export { MessageCenterField as MessageCenterFieldSk } from "./appui-react/preview/enable-stratakit-ui/status-bar-message-center/MessageCenterField.js";
+
 export {
   SectionsStatusField,
   SectionsStatusFieldProps,

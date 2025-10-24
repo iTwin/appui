@@ -11,6 +11,7 @@ import {
   OutputMessagePriority,
 } from "@itwin/core-frontend";
 import { DropdownButton, MenuItem } from "@itwin/itwinui-react";
+import { createMessageDecorator } from "src/Utils";
 
 const AlignComponent: Decorator = (Story) => {
   return (
@@ -53,53 +54,33 @@ export const Empty: Story = {
   decorators: [NoMessages],
 };
 
-function createDecorator({
-  priority,
-  briefMessage = "Message",
-  detailedMessage,
-}: {
-  priority: OutputMessagePriority;
-  briefMessage?: string;
-  detailedMessage?: string;
-}): Decorator {
-  return (Story) => {
-    React.useEffect(() => {
-      MessageManager.clearMessages();
-      Array.from({ length: 4 }).forEach((_, index) => {
-        const id = index + 1;
-        briefMessage = briefMessage ?? "Message";
-        MessageManager.addToMessageCenter(
-          new NotifyMessageDetails(
-            priority,
-            `${briefMessage} ${id}`,
-            detailedMessage ? `${detailedMessage} ${id}` : undefined
-          )
-        );
-      });
-    }, []);
-    return <Story />;
-  };
-}
-
 export const Success: Story = {
-  decorators: [createDecorator({ priority: OutputMessagePriority.Success })],
+  decorators: [
+    createMessageDecorator({ priority: OutputMessagePriority.Success }),
+  ],
 };
 
 export const Info: Story = {
-  decorators: [createDecorator({ priority: OutputMessagePriority.Info })],
+  decorators: [
+    createMessageDecorator({ priority: OutputMessagePriority.Info }),
+  ],
 };
 
 export const Warning: Story = {
-  decorators: [createDecorator({ priority: OutputMessagePriority.Warning })],
+  decorators: [
+    createMessageDecorator({ priority: OutputMessagePriority.Warning }),
+  ],
 };
 
 export const Error: Story = {
-  decorators: [createDecorator({ priority: OutputMessagePriority.Error })],
+  decorators: [
+    createMessageDecorator({ priority: OutputMessagePriority.Error }),
+  ],
 };
 
 export const Detailed: Story = {
   decorators: [
-    createDecorator({
+    createMessageDecorator({
       priority: OutputMessagePriority.Success,
       briefMessage: "Brief message",
       detailedMessage: "Detailed message",
