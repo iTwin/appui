@@ -7,15 +7,21 @@ import "../lib/webfont/bentley-icons-generic-webfont.css";
 import React from "react";
 import { Provider } from "react-redux";
 import type { Decorator } from "@storybook/react-vite";
-import { StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
+import { ColorTheme, StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiIModelComponents } from "@itwin/imodel-components-react-internal/src/imodel-components-react/UiIModelComponents";
 
-export const AppUiDecorator: Decorator = (Story) => {
+export const AppUiDecorator: Decorator = (Story, context) => {
   new StateManager();
+
+  const darkModeGlobal = context.globals.darkMode;
+  const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+  const isDark = darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
+  const theme = isDark ? ColorTheme.Dark : ColorTheme.Light;
+
   return (
     <Provider store={StateManager.store}>
-      <ThemeManager>
+      <ThemeManager theme={theme}>
         <Story />
       </ThemeManager>
     </Provider>

@@ -17,7 +17,6 @@ import {
   FrameworkAccuDraw,
   FrameworkToolAdmin,
   Frontstage,
-  ThemeManager,
   UiFramework,
   UiItemsManager,
   UiItemsProvider,
@@ -147,7 +146,6 @@ function Initialized(props: AppUiStoryProps) {
   return (
     <>
       <Provider store={UiFramework.store}>
-        <ThemeManager>
           {props.children}
           {!props.displayChildrenOnly && (
             <ConfigurableUiContent
@@ -161,7 +159,6 @@ function Initialized(props: AppUiStoryProps) {
               widgetIcon={true}
             />
           )}
-        </ThemeManager>
       </Provider>
     </>
   );

@@ -47,6 +47,10 @@ const preview: Preview = {
     iModel: demoIModelGlobalType,
     resizer: resizerGlobalType,
     themeBridge: themeBridgeGlobalType,
+    darkMode: {
+      description: "Toggle dark mode",
+      defaultValue: "light",
+    },
   },
   decorators: [withDemoIModel, withThemeBridge],
 };

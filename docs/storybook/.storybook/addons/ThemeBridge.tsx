@@ -9,12 +9,16 @@ import { Root } from "@stratakit/foundations";
 
 export const withThemeBridge: Decorator = (Story, context) => {
   const themeBridge = !!context.globals.themeBridge;
+  const darkModeGlobal = context.globals.darkMode;
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+
+  // Use custom dark mode toggle, falling back to system preference
+  const isDark = darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
 
   if (themeBridge) {
     return (
       <Root
-        colorScheme={prefersDark ? "dark" : "light"}
+        colorScheme={isDark ? "dark" : "light"}
         density="dense"
         synchronizeColorScheme
         render={(props: any) => (
@@ -27,7 +31,7 @@ export const withThemeBridge: Decorator = (Story, context) => {
   }
 
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={isDark ? "dark" : "light"}>
       <Story />
     </ThemeProvider>
   );

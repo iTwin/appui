@@ -4,7 +4,17 @@
  *--------------------------------------------------------------------------------------------*/
 import { create } from "storybook/theming/create";
 
-export default create({
+// Check system preference for initial theme
+const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
+
+export const lightTheme = create({
   base: "light",
   brandTitle: "AppUI",
 });
+
+export const darkTheme = create({
+  base: "dark",
+  brandTitle: "AppUI",
+});
+
+export default prefersDark ? darkTheme : lightTheme;
