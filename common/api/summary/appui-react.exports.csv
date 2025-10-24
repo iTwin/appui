@@ -421,6 +421,7 @@ deprecated;class;MessageAddedEvent
 public;interface;MessageAddedEventArgs
 deprecated;interface;MessageAddedEventArgs
 public;function;MessageCenterField
+public;function;MessageCenterFieldSk
 public;class;MessageManager
 public;class;MessagesUpdatedEvent
 deprecated;class;MessagesUpdatedEvent
