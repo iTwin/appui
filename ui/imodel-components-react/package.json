@@ -1,6 +1,6 @@
 {
   "name": "@itwin/imodel-components-react",
-  "version": "5.17.0",
+  "version": "5.18.0",
   "description": "A react component library of iTwin.js UI iModel components",
   "type": "module",
   "types": "./lib/imodel-components-react.d.ts",
