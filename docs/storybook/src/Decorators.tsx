@@ -5,6 +5,7 @@
 // TODO: use https://vitejs.dev/config/server-options.html#server-fs-allow instead
 import "../lib/webfont/bentley-icons-generic-webfont.css";
 import React from "react";
+import { action } from "@storybook/addon-actions";
 import { Provider } from "react-redux";
 import type { Decorator } from "@storybook/react-vite";
 import { ColorTheme, StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
@@ -44,5 +45,54 @@ export const InitializerDecorator: Decorator = (Story) => {
     };
   }, []);
   if (!initialized) return <>Initializing...</>;
+  return <Story />;
+};
+
+// Decorator that forwards console.* calls to the Storybook actions panel
+export const ConsoleToActionsDecorator: Decorator = (Story) => {
+  React.useEffect(() => {
+    const originalConsole = {
+      log: console.log.bind(console),
+      warn: console.warn.bind(console),
+      error: console.error.bind(console),
+      info: console.info.bind(console),
+    };
+
+    const makeWrapper = (level: 'log' | 'warn' | 'error' | 'info') => {
+      const act = action(`console.${level}`);
+      return (...args: unknown[]) => {
+        try {
+          act(...args);
+        } catch {
+          // ignore action errors
+        }
+        // keep original behavior
+  originalConsole[level](...(args as unknown[]));
+      };
+    };
+
+    // replace console methods
+    // eslint-disable-next-line no-console
+    console.log = makeWrapper('log');
+    // eslint-disable-next-line no-console
+    console.warn = makeWrapper('warn');
+    // eslint-disable-next-line no-console
+    console.error = makeWrapper('error');
+    // eslint-disable-next-line no-console
+    console.info = makeWrapper('info');
+
+    return () => {
+      // restore originals
+      // eslint-disable-next-line no-console
+      console.log = originalConsole.log;
+      // eslint-disable-next-line no-console
+      console.warn = originalConsole.warn;
+      // eslint-disable-next-line no-console
+      console.error = originalConsole.error;
+      // eslint-disable-next-line no-console
+      console.info = originalConsole.info;
+    };
+  }, []);
+
   return <Story />;
 };

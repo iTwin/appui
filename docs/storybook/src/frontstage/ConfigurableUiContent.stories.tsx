@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import React from "react";
-import { AppUiDecorator } from "../Decorators";
+import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
-import { AppUiStory } from "../AppUiStory";
+import { SimpleAppUiStory } from "../AppUiStory";
 import {
   ConfigurableUiContent,
   StagePanelLocation,
@@ -24,7 +24,7 @@ function StoryComponent(
   props: React.ComponentProps<typeof ConfigurableUiContent>
 ) {
   return (
-    <AppUiStory
+    <SimpleAppUiStory
       frontstages={[createFrontstage()]}
       itemProviders={[
         {
@@ -63,7 +63,7 @@ function StoryComponent(
         widgetIcon={props.widgetIcon}
         showActiveWidgetLabel={props.showActiveWidgetLabel}
       />
-    </AppUiStory>
+    </SimpleAppUiStory>
   );
 }
 
@@ -71,7 +71,12 @@ const meta = {
   title: "Frontstage/ConfigurableUiContent",
   component: StoryComponent,
   tags: ["autodocs"],
-  decorators: [AppUiDecorator],
+  decorators: [InitializerDecorator, AppUiDecorator],
+  argTypes: {
+    widgetOpacity: {
+      control: { type: 'number', min: 0, max: 1, step: 0.1 },
+    },
+  },
   parameters: {
     docs: {
       page: () => <Page />,
@@ -101,19 +106,24 @@ export const ShowActiveWidgetLabel: Story = {
   args: {
     showActiveWidgetLabel: true,
   },
+  argTypes: {
+    widgetOpacity: {
+      table: {
+        disable: true,
+      },
+    },
+  }
 };
 
 export const HideWidgetIcons: Story = {
   args: {
     widgetIcon: false,
   },
-};
-
-// Combined example altering multiple props at once.
-export const MixedStyles: Story = {
-  args: {
-    widgetOpacity: 0.7,
-    showActiveWidgetLabel: true,
-    widgetIcon: true,
-  },
+   argTypes: {
+    widgetOpacity: {
+      table: {
+        disable: true,
+      },
+    },
+  }
 };

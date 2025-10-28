@@ -30,12 +30,15 @@ const Header: React.FC<React.PropsWithChildren<HeaderLayoutProps>> = ({
   );
 };
 
+Header.displayName = "WidgetContentLayout.Header";
+
 const Content = React.forwardRef<HTMLDivElement,
   React.PropsWithChildren<{
     isLoading?: boolean;
     isNonBlockingLoading?: boolean;
     centerContent?: boolean;
     className?: string;
+    style?: React.CSSProperties;
     onScroll?: React.UIEventHandler<HTMLDivElement>;
   }>
 >(function Content(props, ref) {
@@ -45,13 +48,14 @@ const Content = React.forwardRef<HTMLDivElement,
       {props.isLoading ? <LoadingOverlay /> : props.isNonBlockingLoading && <ProgressLinear />}
       <div ref={ref} onScroll={props.onScroll} className={classNames("nz-widget-content-layout-content-inner", props.className, {
         center: props.centerContent,
-      })}
+      })} style={props.style}
       >
         {props.children}
       </div>
     </div>
   );
 });
+Content.displayName = "WidgetContentLayout.Content";
 
 const Footer: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
   className,
@@ -63,6 +67,7 @@ const Footer: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
     </div>
   );
 };
+Footer.displayName = "WidgetContentLayout.Footer";
 
 const LoadingOverlay: React.FC = () => {
   return (

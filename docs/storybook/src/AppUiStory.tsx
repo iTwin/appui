@@ -184,6 +184,62 @@ export function Page() {
   );
 }
 
+/**
+ * A simplified App UI story wrapper for stories that only need frontstages and itemProviders
+ * without performing the full IModelApp/UIFramework startup. This assumes the environment
+ * (IModelApp/UiFramework) is already initialized by a decorator (e.g., `InitializerDecorator`).
+ */
+export function SimpleAppUiStory(props: {
+  children?: React.ReactNode;
+  itemProviders?: UiItemsProvider[];
+  frontstages?: Frontstage[] | (() => Frontstage[]);
+  appBackstage?: React.ReactNode;
+  layout?: "fullscreen";
+  displayChildrenOnly?: boolean;
+}) {
+  // Register providers and frontstages when mounted; clean up on unmount.
+  React.useEffect(() => {
+    // Register item providers
+    for (const provider of props.itemProviders ?? []) {
+      UiItemsManager.register(provider);
+    }
+
+    // Register frontstages
+    const frontstages = getFrontstages(props.frontstages);
+    for (const frontstage of frontstages) {
+      UiFramework.frontstages.addFrontstage(frontstage);
+    }
+
+    // Activate first frontstage if present
+    (async () => {
+      const first = frontstages[0];
+      if (first) await UiFramework.frontstages.setActiveFrontstage(first.id);
+    })();
+
+    return () => {
+      // Deactivate frontstage and clean up registrations
+      void UiFramework.frontstages.setActiveFrontstageDef(undefined);
+      UiFramework.frontstages.clearFrontstageProviders();
+      for (const provider of props.itemProviders ?? []) {
+        UiItemsManager.unregister(provider.id);
+      }
+    };
+  }, [props.frontstages, props.itemProviders]);
+
+  return (
+    <Provider store={UiFramework.store}>
+      {props.children}
+      {!props.displayChildrenOnly && (
+        <ConfigurableUiContent
+          style={{ height: props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)" }}
+          appBackstage={props.appBackstage}
+          widgetIcon={true}
+        />
+      )}
+    </Provider>
+  );
+}
+
 function getFrontstages(frontstages: AppUiStoryProps["frontstages"]) {
   if (!frontstages) return [createFrontstage()];
   if (Array.isArray(frontstages)) return frontstages;
