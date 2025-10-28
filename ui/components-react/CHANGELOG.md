@@ -1,5 +1,16 @@
 # Change Log - @itwin/components-react
 
+## 5.18.0
+
+### Minor Changes
+
+- a756971: Render `ToggleEditor` component after loading to reduce flicker in the property grid.
+
+### Patch Changes
+
+- c7e347b: Fix `roundingError` not being preserved when converting between new & legacy property editor value formats.
+  - @itwin/core-react@5.18.0
+
 ## 5.17.0
 
 ### Patch Changes

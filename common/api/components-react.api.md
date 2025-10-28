@@ -2762,7 +2762,7 @@ export class ToggleEditor extends React_3.PureComponent<PropertyEditorProps, Tog
     // (undocumented)
     get htmlElement(): HTMLElement | null;
     // (undocumented)
-    render(): React_3.JSX.Element;
+    render(): React_3.JSX.Element | null;
     // (undocumented)
     readonly state: Readonly<ToggleEditorState>;
 }
