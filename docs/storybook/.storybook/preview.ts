@@ -6,22 +6,16 @@ import type { Preview } from "@storybook/react-vite";
 import { withDemoIModel, demoIModelGlobalType } from "./addons/DemoIModel";
 import { resizerGlobalType } from "./addons/Resizer";
 import { themeBridgeGlobalType, withThemeBridge } from "./addons/ThemeBridge";
+import {
+  darkModeGlobalType,
+  withDarkModeBackground,
+} from "./addons/DarkModeToggle";
 
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     backgrounds: {
-      default: "background",
-      values: [
-        {
-          name: "background",
-          value: "white",
-        },
-        {
-          name: "background-backdrop",
-          value: "#eef0f1",
-        },
-      ],
+      disable: true, // Disable default background picker since we sync with dark mode
     },
     controls: {
       matchers: {
@@ -46,13 +40,10 @@ const preview: Preview = {
   globalTypes: {
     iModel: demoIModelGlobalType,
     resizer: resizerGlobalType,
+    darkMode: darkModeGlobalType,
     themeBridge: themeBridgeGlobalType,
-    darkMode: {
-      description: "Toggle dark mode",
-      defaultValue: "light",
-    },
   },
-  decorators: [withDemoIModel, withThemeBridge],
+  decorators: [withDarkModeBackground, withDemoIModel, withThemeBridge],
 };
 
 export default preview;

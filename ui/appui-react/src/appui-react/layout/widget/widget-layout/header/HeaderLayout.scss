@@ -1,0 +1,44 @@
+.nz-widget-layout-header-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-gap);
+
+  .nz-header-remaining-item {
+    overflow-x: auto;
+  }
+
+  .nz-header-buttons {
+    display: flex;
+    gap: var(--os-gap);
+    align-items: center;
+
+    width: 100%;
+    max-width: 560px;
+    & > button {
+      overflow: auto;
+      min-width: fit-content;
+    }
+  }
+
+  .nz-header-first-row {
+    display: flex;
+    gap: var(--os-gap);
+    width: 100%;
+    overflow: auto;
+
+    .nz-header-first-row-root.single-column .nz-header-buttons {
+      flex-wrap: wrap;
+    }
+  }
+
+  .nz-header-remaining-item .nz-header-buttons {
+    flex-wrap: wrap;
+  }
+
+  .nz-header-title {
+    font-weight: bolder;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
