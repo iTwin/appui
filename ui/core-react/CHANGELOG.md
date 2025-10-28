@@ -1,5 +1,7 @@
 # Change Log - @itwin/core-react
 
+## 5.18.0
+
 ## 5.17.0
 
 ### Minor Changes
