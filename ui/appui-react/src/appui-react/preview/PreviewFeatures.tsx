@@ -85,11 +85,7 @@ interface KnownPreviewFeatures {
    * If `true`, StrataKit components will be used where available throughout AppUI.
    * Alternatively, an object can be specified to enable StrataKit for specific areas of the UI.
    */
-  useStrataKit:
-    | boolean
-    | {
-        [key: string]: boolean | undefined;
-      };
+  useStrataKit: boolean | {};
 }
 
 /** Object used trim to only known features at runtime.
