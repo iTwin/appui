@@ -45,6 +45,7 @@ const meta = {
   tags: ["autodocs"],
   decorators: [withResizer, AppUiDecorator, InitializerDecorator],
   args: {
+    useStrataKit: false,
     orientation: ToolbarOrientation.Horizontal,
     usage: ToolbarUsage.ContentManipulation,
   },
