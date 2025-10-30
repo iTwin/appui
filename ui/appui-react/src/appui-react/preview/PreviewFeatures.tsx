@@ -84,6 +84,7 @@ interface KnownPreviewFeatures {
   /**
    * If `true`, StrataKit components will be used where available throughout AppUI.
    * Alternatively, an object can be specified to enable StrataKit for specific areas of the UI.
+   * @note This preview feature should be used with [StrataKit theme bridge](https://github.com/iTwin/iTwinUI/wiki/StrataKit-theme-bridge) enabled.
    */
   useStrataKit: boolean | {};
 }
