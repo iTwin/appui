@@ -13,6 +13,8 @@ import type { ToolbarOpacitySetting } from "@itwin/components-react";
 import { Direction, ToolbarPanelAlignment } from "@itwin/components-react";
 import type { ToolbarItem } from "./ToolbarItem.js";
 import { Toolbar as ToolGroupToolbar } from "./new-toolbars/Toolbar.js";
+import { Toolbar as StrataKitToolbar } from "../stratakit/toolbar/Toolbar.js";
+import { useStrataKit } from "../preview/use-stratakit/useStrataKit.js";
 
 /**
  * Properties of [[Toolbar.enableOverflow]] component.
@@ -55,6 +57,10 @@ export function Toolbar(props: ToolbarProps) {
     panelAlignment: panelAlignmentProp,
     ...rest
   } = props;
+  const useStrataKitToolbars = useStrataKit("toolbars");
+  if (useStrataKitToolbars) {
+    return <StrataKitToolbar {...props} />;
+  }
   const expandsTo = toDirection(expandsToProp);
   const panelAlignment = toPanelAlignment(panelAlignmentProp);
   return (
