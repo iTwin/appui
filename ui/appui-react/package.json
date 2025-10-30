@@ -90,6 +90,7 @@
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-react": "catalog:",
     "@itwin/webgl-compatibility": "catalog:",
+    "@stratakit/foundations": "catalog:",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
@@ -122,6 +123,8 @@
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-illustrations-react": "^2.0.1",
+    "@stratakit/bricks": "catalog:",
+    "@stratakit/structures": "catalog:",
     "classnames": "2.5.1",
     "immer": "^10.1.1",
     "lodash": "^4.17.10",
