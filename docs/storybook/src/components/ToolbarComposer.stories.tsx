@@ -12,6 +12,7 @@ import {
   CommandItemDef,
   ToolItemDef,
   ToolbarActionItem,
+  ToolbarCustomItem,
   ToolbarGroupItem,
   ToolbarHelper,
   ToolbarItemUtilities,
@@ -71,19 +72,57 @@ export const Empty: Story = {
 
 export const ActionItem: Story = {
   args: {
-    items: [items.action1, items.action2, items.action3],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem(),
+        factory.createActionItem(),
+        factory.createActionItem(),
+      ];
+    })(),
   },
 };
 
 export const GroupItem: Story = {
   args: {
-    items: [items.group1, items.group2, items.group3],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createGroupItem({
+          items: [factory.createActionItem(), factory.createActionItem()],
+        }),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem(),
+            factory.createActionItem(),
+            factory.createGroupItem({
+              items: [
+                factory.createActionItem(),
+                factory.createGroupItem({
+                  items: [factory.createActionItem()],
+                }),
+              ],
+            }),
+          ],
+        }),
+        factory.createGroupItem({
+          items: Array.from({ length: 10 }, () => factory.createActionItem()),
+        }),
+      ];
+    })(),
   },
 };
 
 export const CustomItem: Story = {
   args: {
-    items: [items.custom1, items.custom2, items.custom3],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createCustomItem(),
+        factory.createCustomItem(),
+        factory.createCustomItem(),
+      ];
+    })(),
   },
 };
 
@@ -603,9 +642,24 @@ function createItemFactory() {
     });
   }
 
+  function createCustomItem(
+    overrides?: Omit<Partial<ToolbarCustomItem>, "icon">
+  ) {
+    const id = `custom${++i}`;
+    const label = `Custom ${i}`;
+    return ToolbarItemUtilities.createCustomItem({
+      id,
+      label,
+      icon: <SvgPlaceholder />,
+      panelContent: <div>Custom panel content {i}</div>,
+      ...overrides,
+    });
+  }
+
   return {
     createActionItem,
     createGroupItem,
+    createCustomItem,
   };
 }
 
