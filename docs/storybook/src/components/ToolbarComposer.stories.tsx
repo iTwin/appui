@@ -222,26 +222,27 @@ export const Disabled: Story = {
 
 export const Hidden: Story = {
   args: {
-    items: [
-      items.action1,
-      items.action2,
-      {
-        ...items.action3,
-        isHidden: true,
-      },
-      items.group1,
-      items.group2,
-      {
-        ...items.group3,
-        isHidden: true,
-      },
-      items.custom1,
-      items.custom2,
-      {
-        ...items.custom3,
-        isHidden: true,
-      },
-    ],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem(),
+        factory.createActionItem(),
+        factory.createActionItem({ isHidden: true }),
+        factory.createGroupItem({
+          items: [factory.createActionItem()],
+        }),
+        factory.createGroupItem({
+          items: [factory.createActionItem()],
+        }),
+        factory.createGroupItem({
+          items: [factory.createActionItem()],
+          isHidden: true,
+        }),
+        factory.createCustomItem(),
+        factory.createCustomItem(),
+        factory.createCustomItem({ isHidden: true }),
+      ];
+    })(),
   },
 };
 

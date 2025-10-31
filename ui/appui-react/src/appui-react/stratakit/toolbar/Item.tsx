@@ -27,7 +27,9 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const isDisabled = useConditionalProp(item.isDisabled);
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const iconSpec = useConditionalProp(item.icon);
+    const isHidden = useConditionalProp(item.isHidden);
 
+    if (isHidden) return undefined;
     return (
       <IconButton
         icon={<Icon iconNode={item.iconNode} iconSpec={iconSpec} />}
@@ -76,6 +78,8 @@ export function MenuItem(props: MenuItemProps) {
   const { item, ...rest } = props;
   const label = useConditionalProp(item.label);
   const isDisabled = useConditionalProp(item.isDisabled);
+  const isHidden = useConditionalProp(item.isHidden);
 
+  if (isHidden) return undefined;
   return <DropdownMenu.Item label={label} disabled={isDisabled} {...rest} />;
 }
