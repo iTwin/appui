@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import { action } from "storybook/actions";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -33,12 +34,14 @@ import {
   SvgPlaceholder,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
+import genericPlaceholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
+import { Icon } from "@stratakit/foundations";
+import placeholderIcon from "@stratakit/icons/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
 import { enumArgType } from "../Utils";
-import { ToolbarComposerStory } from "./ToolbarComposer";
+import { ToolbarComposerStory, UseStrataKitContext } from "./ToolbarComposer";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -405,7 +408,7 @@ export const Icons = {
       ToolbarItemUtilities.createActionItem(
         "svg-loader",
         0,
-        placeholderIcon,
+        genericPlaceholderIcon,
         "SVG Loader",
         () => {}
       ),
@@ -439,7 +442,7 @@ export const GroupIcons: Story = {
       ToolbarItemUtilities.createGroupItem(
         "group-svg-loader",
         0,
-        placeholderIcon,
+        genericPlaceholderIcon,
         "SVG Loader",
         [...Icons.args.items]
       ),
@@ -623,7 +626,7 @@ function createItemFactory() {
     return ToolbarItemUtilities.createActionItem({
       id,
       label,
-      icon: <SvgPlaceholder />,
+      icon: <DynamicIcon />,
       execute: () => action(label)(),
       ...overrides,
     });
@@ -637,7 +640,7 @@ function createItemFactory() {
     return ToolbarItemUtilities.createGroupItem({
       id,
       label,
-      icon: <SvgPlaceholder />,
+      icon: <DynamicIcon />,
       ...overrides,
     });
   }
@@ -650,7 +653,7 @@ function createItemFactory() {
     return ToolbarItemUtilities.createCustomItem({
       id,
       label,
-      icon: <SvgPlaceholder />,
+      icon: <DynamicIcon />,
       panelContent: <div>Custom panel content {i}</div>,
       ...overrides,
     });
@@ -661,6 +664,14 @@ function createItemFactory() {
     createGroupItem,
     createCustomItem,
   };
+}
+
+function DynamicIcon() {
+  const useStrataKit = React.useContext(UseStrataKitContext);
+  if (useStrataKit) {
+    return <Icon href={`${placeholderIcon}#icon-large`} size="large" />;
+  }
+  return <SvgPlaceholder />;
 }
 
 function createItems() {

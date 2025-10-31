@@ -9,7 +9,6 @@
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon as CoreIcon } from "@itwin/core-react";
-import { Icon as StrataKitIcon } from "@stratakit/foundations";
 import { IconButton } from "@stratakit/bricks";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import { useConditionalProp } from "../../hooks/useConditionalProp.js";
@@ -60,15 +59,10 @@ function Icon(props: IconProps) {
     return <>{iconNode}</>;
   }, [iconNode]);
   return (
-    <StrataKitIcon
-      render={
-        iconElement ?? (
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <CoreIcon iconSpec={iconSpec} />
-        )
-      }
-      size="large"
-    />
+    iconElement ?? (
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
+      <CoreIcon iconSpec={iconSpec} />
+    )
   );
 }
 
