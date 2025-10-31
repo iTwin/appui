@@ -202,27 +202,21 @@ export const Badge: Story = {
 
 export const Disabled: Story = {
   args: {
-    items: [
-      {
-        ...items.action1,
-        isDisabled: true,
-      },
-      {
-        ...items.group1,
-        isDisabled: true,
-      },
-      {
-        ...items.group2,
-        items: items.group2.items.map((item) => ({
-          ...item,
-          isDisabled: true,
-        })),
-      },
-      {
-        ...items.custom1,
-        isDisabled: true,
-      },
-    ],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem({ isDisabled: true }),
+        factory.createGroupItem({ isDisabled: true }),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem({ isDisabled: true }),
+            factory.createActionItem({ isDisabled: true }),
+            factory.createGroupItem({ isDisabled: true }),
+          ],
+        }),
+        factory.createCustomItem({ isDisabled: true }),
+      ];
+    })(),
   },
 };
 

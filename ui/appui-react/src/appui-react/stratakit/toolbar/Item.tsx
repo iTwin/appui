@@ -75,5 +75,7 @@ interface MenuItemProps
 export function MenuItem(props: MenuItemProps) {
   const { item, ...rest } = props;
   const label = useConditionalProp(item.label);
-  return <DropdownMenu.Item label={label} {...rest} />;
+  const isDisabled = useConditionalProp(item.isDisabled);
+
+  return <DropdownMenu.Item label={label} disabled={isDisabled} {...rest} />;
 }
