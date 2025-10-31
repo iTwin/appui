@@ -21,19 +21,26 @@ import { CustomItem } from "./CustomItem.js";
 /** @internal */
 export function Toolbar(props: ToolbarProps) {
   return (
-    <StrataKitToolbar.Group variant="solid">
-      {props.items.map((item) => {
-        if (isToolbarActionItem(item)) {
-          return <ActionItem key={item.id} item={item} />;
-        }
-        if (isToolbarGroupItem(item)) {
-          return <GroupItem key={item.id} item={item} />;
-        }
-        if (isToolbarCustomItem(item)) {
-          return <CustomItem key={item.id} item={item} />;
-        }
-        return undefined;
-      })}
-    </StrataKitToolbar.Group>
+    <div
+      style={{
+        flex: "1 1 100%",
+        minWidth: 0,
+      }}
+    >
+      <StrataKitToolbar.Group variant="solid">
+        {props.items.map((item) => {
+          if (isToolbarActionItem(item)) {
+            return <ActionItem key={item.id} item={item} />;
+          }
+          if (isToolbarGroupItem(item)) {
+            return <GroupItem key={item.id} item={item} />;
+          }
+          if (isToolbarCustomItem(item)) {
+            return <CustomItem key={item.id} item={item} />;
+          }
+          return undefined;
+        })}
+      </StrataKitToolbar.Group>
+    </div>
   );
 }
