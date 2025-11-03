@@ -8,6 +8,7 @@
 
 import * as React from "react";
 import type { ToolbarProps } from "../../toolbar/Toolbar.js";
+import { Divider } from "@stratakit/bricks";
 import { unstable_Toolbar as StrataKitToolbar } from "@stratakit/structures";
 import {
   isToolbarActionItem,
@@ -17,9 +18,11 @@ import {
 import { GroupItem } from "./GroupItem.js";
 import { ActionItem } from "./ActionItem.js";
 import { CustomItem } from "./CustomItem.js";
+import { useVisibleItems } from "./useVisibleItems.js";
 
 /** @internal */
 export function Toolbar(props: ToolbarProps) {
+  const visibleItems = useVisibleItems(props.items);
   return (
     <div
       style={{
@@ -28,17 +31,28 @@ export function Toolbar(props: ToolbarProps) {
       }}
     >
       <StrataKitToolbar.Group variant="solid">
-        {props.items.map((item) => {
+        {visibleItems.map((item, index) => {
+          const nextItem = visibleItems[index + 1];
+          const renderSeparator = nextItem
+            ? item.groupPriority !== nextItem.groupPriority
+            : false;
+
+          let itemElement: React.JSX.Element | undefined;
           if (isToolbarActionItem(item)) {
-            return <ActionItem key={item.id} item={item} />;
+            itemElement = <ActionItem item={item} />;
           }
           if (isToolbarGroupItem(item)) {
-            return <GroupItem key={item.id} item={item} />;
+            itemElement = <GroupItem item={item} />;
           }
           if (isToolbarCustomItem(item)) {
-            return <CustomItem key={item.id} item={item} />;
+            itemElement = <CustomItem item={item} />;
           }
-          return undefined;
+          return (
+            <React.Fragment key={item.id}>
+              {itemElement}
+              {renderSeparator && <Divider orientation="vertical" />}
+            </React.Fragment>
+          );
         })}
       </StrataKitToolbar.Group>
     </div>

@@ -27,10 +27,9 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const isDisabled = useConditionalProp(item.isDisabled);
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const iconSpec = useConditionalProp(item.icon);
-    const isHidden = useConditionalProp(item.isHidden);
+
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const active = isActiveCondition ?? item.isActive;
-    if (isHidden) return undefined;
     return (
       <IconButton
         variant="ghost"
