@@ -124,6 +124,7 @@
     "@itwin/itwinui-icons-react": "^2.8.0",
     "@itwin/itwinui-illustrations-react": "^2.0.1",
     "@stratakit/bricks": "catalog:",
+    "@stratakit/icons": "catalog:",
     "@stratakit/structures": "catalog:",
     "classnames": "2.5.1",
     "immer": "^10.1.1",
