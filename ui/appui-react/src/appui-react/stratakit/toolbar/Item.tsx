@@ -68,7 +68,7 @@ function Icon(props: IconProps) {
 }
 
 interface MenuItemProps
-  extends Partial<React.ComponentProps<typeof DropdownMenu.Item>> {
+  extends Partial<React.ComponentProps<typeof DropdownMenu.CheckboxItem>> {
   item: ToolbarItem;
 }
 
@@ -80,8 +80,16 @@ export function MenuItem(props: MenuItemProps) {
   const isDisabled = useConditionalProp(item.isDisabled);
   const isHidden = useConditionalProp(item.isHidden);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
-  const _active = isActiveCondition ?? item.isActive; // TODO: active state of menu item
+  const active = isActiveCondition ?? item.isActive;
 
   if (isHidden) return undefined;
-  return <DropdownMenu.Item label={label} disabled={isDisabled} {...rest} />;
+  return (
+    <DropdownMenu.CheckboxItem
+      name={item.id}
+      label={label}
+      disabled={isDisabled}
+      checked={active}
+      {...rest}
+    />
+  );
 }
