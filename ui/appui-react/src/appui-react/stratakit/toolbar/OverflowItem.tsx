@@ -20,7 +20,7 @@ import {
   type ToolbarItem,
 } from "../../toolbar/ToolbarItem.js";
 import { ActionMenuItem } from "./ActionItem.js";
-import { GroupMenuItem } from "./GroupItem.js";
+import { GroupMenuItems } from "./GroupItem.js";
 import { CustomMenuItem } from "./CustomItem.js";
 
 interface OverflowItemProps {
@@ -55,7 +55,7 @@ export const OverflowItem = React.forwardRef<
                   return <ActionMenuItem key={item.id} item={item} />;
                 }
                 if (isToolbarGroupItem(item)) {
-                  return <GroupMenuItem key={item.id} item={item} />;
+                  return <GroupMenuItems key={item.id} item={item} />;
                 }
                 if (isToolbarCustomItem(item)) {
                   return <CustomMenuItem key={item.id} item={item} />;

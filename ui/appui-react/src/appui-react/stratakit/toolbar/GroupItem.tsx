@@ -11,13 +11,15 @@ import {
   DropdownMenu,
   unstable_Toolbar as Toolbar,
 } from "@stratakit/structures";
-import { Item, MenuItem } from "./Item.js";
+import { Item } from "./Item.js";
+import type { ToolbarActionItem } from "../../toolbar/ToolbarItem.js";
 import {
   isToolbarActionItem,
   isToolbarGroupItem,
   type ToolbarGroupItem,
 } from "../../toolbar/ToolbarItem.js";
 import { ActionMenuItem } from "./ActionItem.js";
+import { Divider } from "@stratakit/bricks";
 
 interface GroupItemProps {
   item: ToolbarGroupItem;
@@ -36,7 +38,7 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
                 render={<Item item={item} {...itemProps} />}
               />
               <DropdownMenu.Content>
-                <MenuItems items={item.items} />
+                <GroupMenuItems item={item} />
               </DropdownMenu.Content>
             </DropdownMenu.Provider>
           );
@@ -47,34 +49,39 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
   }
 );
 
+type FlatToolbarGroupItem = Omit<ToolbarGroupItem, "items"> & {
+  items: ReadonlyArray<ToolbarActionItem>;
+};
+
 /** @internal */
-export function GroupMenuItem(props: GroupItemProps) {
+export function GroupMenuItems(props: GroupItemProps) {
   const { item } = props;
-  return (
-    <MenuItem
-      item={item}
-      submenu={
-        <DropdownMenu.Submenu>
-          <MenuItems items={item.items} />
-        </DropdownMenu.Submenu>
+  const flatGroupItems = React.useMemo(() => {
+    const groups: FlatToolbarGroupItem[] = [];
+    const stack = [item];
+    while (stack.length > 0) {
+      const current = stack.pop()!;
+      const actionItems = current.items.filter(isToolbarActionItem);
+      if (actionItems.length > 0) {
+        groups.push({
+          ...current,
+          items: actionItems,
+        });
       }
-    />
-  );
-}
 
-interface MenuItemsProps {
-  items: ToolbarGroupItem["items"];
-}
-
-function MenuItems(props: MenuItemsProps) {
-  const { items } = props;
-  return items.map((item) => {
-    if (isToolbarActionItem(item)) {
-      return <ActionMenuItem key={item.id} item={item} />;
+      const groupItems = current.items.filter(isToolbarGroupItem);
+      stack.push(...groupItems);
     }
-    if (isToolbarGroupItem(item)) {
-      return <GroupMenuItem key={item.id} item={item} />;
-    }
-    return undefined;
+    return groups;
+  }, [item]);
+  return flatGroupItems.map((group, index) => {
+    return (
+      <React.Fragment key={group.id}>
+        {index > 0 && <Divider />}
+        {group.items.map((actionItem) => (
+          <ActionMenuItem key={actionItem.id} item={actionItem} />
+        ))}
+      </React.Fragment>
+    );
   });
 }
