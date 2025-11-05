@@ -15,11 +15,13 @@ import {
 import moreIcon from "@stratakit/icons/more-horizontal.svg";
 import {
   isToolbarActionItem,
+  isToolbarCustomItem,
   isToolbarGroupItem,
   type ToolbarItem,
 } from "../../toolbar/ToolbarItem.js";
 import { ActionMenuItem } from "./ActionItem.js";
 import { GroupMenuItem } from "./GroupItem.js";
+import { CustomMenuItem } from "./CustomItem.js";
 
 interface OverflowItemProps {
   items: ToolbarItem[];
@@ -54,6 +56,9 @@ export const OverflowItem = React.forwardRef<
                 }
                 if (isToolbarGroupItem(item)) {
                   return <GroupMenuItem key={item.id} item={item} />;
+                }
+                if (isToolbarCustomItem(item)) {
+                  return <CustomMenuItem key={item.id} item={item} />;
                 }
                 return undefined;
               })}

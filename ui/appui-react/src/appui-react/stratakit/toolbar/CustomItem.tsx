@@ -7,10 +7,10 @@
  */
 
 import * as React from "react";
+import { Popover } from "@itwin/itwinui-react";
 import { unstable_Toolbar as Toolbar } from "@stratakit/structures";
 import type { ToolbarCustomItem } from "../../toolbar/ToolbarItem.js";
-import { Item } from "./Item.js";
-import { Popover } from "@itwin/itwinui-react";
+import { Item, MenuItem } from "./Item.js";
 
 interface CustomItemProps {
   item: ToolbarCustomItem;
@@ -43,3 +43,28 @@ export const CustomItem = React.forwardRef<HTMLButtonElement, CustomItemProps>(
     );
   }
 );
+
+/** @internal */
+export function CustomMenuItem(props: CustomItemProps) {
+  const { item } = props;
+  const [visible, setVisible] = React.useState(false);
+  return (
+    <Popover
+      content={item.panelContent}
+      applyBackground
+      visible={visible}
+      onVisibleChange={setVisible}
+      style={{
+        padding: "var(--stratakit-space-x1)",
+      }}
+      middleware={{
+        offset: 4,
+      }}
+    >
+      <MenuItem
+        item={props.item}
+        data-has-popover-open={visible ? true : undefined} // TODO: patch iTwinUI Popover usage with StrataKit trigger
+      />
+    </Popover>
+  );
+}
