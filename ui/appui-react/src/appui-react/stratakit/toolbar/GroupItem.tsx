@@ -47,7 +47,8 @@ export const GroupItem = React.forwardRef<HTMLButtonElement, GroupItemProps>(
   }
 );
 
-function GroupMenuItem(props: GroupItemProps) {
+/** @internal */
+export function GroupMenuItem(props: GroupItemProps) {
   const { item } = props;
   return (
     <MenuItem
