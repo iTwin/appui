@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { useTranslation as useComponentsTranslation } from "@itwin/components-react/internal";
 import { IconButton } from "@stratakit/bricks";
 import {
   DropdownMenu,
@@ -33,6 +34,7 @@ export const OverflowItem = React.forwardRef<
   OverflowItemProps
 >(function OverflowItem(props, forwardedRef) {
   const { items } = props;
+  const { translate } = useComponentsTranslation();
   return (
     <Toolbar.Item
       render={(itemProps) => {
@@ -43,7 +45,7 @@ export const OverflowItem = React.forwardRef<
                 <IconButton
                   variant="ghost"
                   icon={`${moreIcon}#icon-large`}
-                  label="More"
+                  label={translate("toolbar.overflow")}
                   ref={forwardedRef}
                   {...itemProps}
                 />
