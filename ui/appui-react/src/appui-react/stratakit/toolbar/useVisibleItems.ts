@@ -13,21 +13,14 @@ import { ConditionalBooleanValue } from "../../shared/ConditionalValue.js";
 
 /** @internal */
 export function useVisibleItems(items: ToolbarItem[]) {
-  const [visibleItems, setVisibleItems] = React.useState<ToolbarItem[]>(() => {
-    const initialVisibleItems: ToolbarItem[] = [];
-    for (const item of items) {
-      if (item.isHidden instanceof ConditionalBooleanValue) {
-        item.isHidden.refresh();
-      }
-      const isHidden = ConditionalBooleanValue.getValue(item.isHidden);
-      if (isHidden) continue;
-      initialVisibleItems.push(item);
-    }
-    return initialVisibleItems;
+  const [hiddenItems, setHiddenItems] = React.useState<string[]>(() => {
+    return getHiddenItems(items);
   });
+
   React.useEffect(() => {
+    setHiddenItems(getHiddenItems(items));
     return SyncUiEventDispatcher.onSyncUiEvent.addListener((args) => {
-      const newVisibleItems: ToolbarItem[] = [];
+      const newHiddenItems: string[] = [];
       let refreshed = false;
       for (const item of items) {
         if (
@@ -37,13 +30,27 @@ export function useVisibleItems(items: ToolbarItem[]) {
         }
 
         const isHidden = ConditionalBooleanValue.getValue(item.isHidden);
-        if (isHidden) continue;
-        newVisibleItems.push(item);
+        if (!isHidden) continue;
+        newHiddenItems.push(item.id);
       }
       if (!refreshed) return;
-      setVisibleItems(newVisibleItems);
+      setHiddenItems(newHiddenItems);
     });
   }, [items]);
 
+  const visibleItems = items.filter((item) => !hiddenItems.includes(item.id));
   return visibleItems;
+}
+
+function getHiddenItems(items: ToolbarItem[]): string[] {
+  const hiddenItems: string[] = [];
+  for (const item of items) {
+    if (item.isHidden instanceof ConditionalBooleanValue) {
+      item.isHidden.refresh();
+    }
+    const isHidden = ConditionalBooleanValue.getValue(item.isHidden);
+    if (!isHidden) continue;
+    hiddenItems.push(item.id);
+  }
+  return hiddenItems;
 }
