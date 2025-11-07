@@ -530,8 +530,8 @@ importers:
         specifier: 4.10.2
         version: 4.10.2(@types/node@22.18.1)
       '@storybook/addon-actions':
-        specifier: ^9.0.8
-        version: 9.0.8
+        specifier: ^8.3.2
+        version: 8.6.14(storybook@9.0.9(@testing-library/dom@10.4.1)(prettier@3.5.3))
       '@storybook/addon-docs':
         specifier: ^9.0.9
         version: 9.0.9(@types/react@19.2.0)(storybook@9.0.9(@testing-library/dom@10.4.1)(prettier@3.5.3))
@@ -3031,8 +3031,10 @@ packages:
     resolution: {integrity: sha512-t09vSN3MdfsyCHoFcTRCH/iUtG7OJ0CsjzB8cjAmKc/va/kIgeDI/TxsigdncE/4be734m0cvIYwNaV4i2XqAw==}
     engines: {node: '>=10'}
 
-  '@storybook/addon-actions@9.0.8':
-    resolution: {integrity: sha512-LFePu7PPnWN0Il/uoUpmA5T0J0C7d6haJIbg0pXrjxW2MQVSYXE4S4LSUz8fOImltBDV3xAl6tLPYHFj6VcrOA==}
+  '@storybook/addon-actions@8.6.14':
+    resolution: {integrity: sha512-mDQxylxGGCQSK7tJPkD144J8jWh9IU9ziJMHfB84PKpI/V5ZgqMDnpr2bssTrUaGDqU5e1/z8KcRF+Melhs9pQ==}
+    peerDependencies:
+      storybook: ^8.6.14
 
   '@storybook/addon-docs@9.0.9':
     resolution: {integrity: sha512-jioo7RXTEzuCvZ1mD+7e2n6sGvlXH0mm8ENEsercM35vPKZzrmsmwQ+SPJk5GNjrcNy2qXR7bXJA14hwc+shuA==}
@@ -3494,6 +3496,9 @@ packages:
 
   '@types/use-sync-external-store@0.0.6':
     resolution: {integrity: sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==}
+
+  '@types/uuid@9.0.8':
+    resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
   '@types/yargs-parser@21.0.3':
     resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
@@ -6151,6 +6156,10 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
+  polished@4.3.1:
+    resolution: {integrity: sha512-OBatVyC/N7SCW/FaDHrSd+vn0o5cS855TOmYi4OkdWUMSJCET/xip//ch8xGUvtr3i44X9LVyWwQlRMTN3pwSA==}
+    engines: {node: '>=10'}
+
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
@@ -7186,6 +7195,10 @@ packages:
   utils-merge@1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  uuid@9.0.1:
+    resolution: {integrity: sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==}
+    hasBin: true
 
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
@@ -9787,7 +9800,14 @@ snapshots:
 
   '@sindresorhus/is@4.6.0': {}
 
-  '@storybook/addon-actions@9.0.8': {}
+  '@storybook/addon-actions@8.6.14(storybook@9.0.9(@testing-library/dom@10.4.1)(prettier@3.5.3))':
+    dependencies:
+      '@storybook/global': 5.0.0
+      '@types/uuid': 9.0.8
+      dequal: 2.0.3
+      polished: 4.3.1
+      storybook: 9.0.9(@testing-library/dom@10.4.1)(prettier@3.5.3)
+      uuid: 9.0.1
 
   '@storybook/addon-docs@9.0.9(@types/react@19.2.0)(storybook@9.0.9(@testing-library/dom@10.4.1)(prettier@3.5.3))':
     dependencies:
@@ -10261,6 +10281,8 @@ snapshots:
   '@types/unist@3.0.3': {}
 
   '@types/use-sync-external-store@0.0.6': {}
+
+  '@types/uuid@9.0.8': {}
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -13472,6 +13494,10 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.2
 
+  polished@4.3.1:
+    dependencies:
+      '@babel/runtime': 7.27.0
+
   possible-typed-array-names@1.1.0: {}
 
   postcss-scss@4.0.9(postcss@8.4.49):
@@ -14645,6 +14671,8 @@ snapshots:
   util-deprecate@1.0.2: {}
 
   utils-merge@1.0.1: {}
+
+  uuid@9.0.1: {}
 
   v8-compile-cache-lib@3.0.1: {}
 
