@@ -12,9 +12,14 @@ export const withDarkModeBackground: Decorator = (Story, context) => {
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
 
   // Use custom dark mode toggle, falling back to system preference
-  const isDark = darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
+  const isDark =
+    darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
 
-  return <DarkModeBackgroundWrapper isDark={isDark}><Story /></DarkModeBackgroundWrapper>;
+  return (
+    <DarkModeBackgroundWrapper isDark={isDark}>
+      <Story />
+    </DarkModeBackgroundWrapper>
+  );
 };
 
 function useMediaQuery(query: string) {

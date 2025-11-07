@@ -3,7 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { AppUiDecorator, ConsoleToActionsDecorator, InitializerDecorator } from "../../Decorators";
+import {
+  AppUiDecorator,
+  ConsoleToActionsDecorator,
+  InitializerDecorator,
+} from "../../Decorators";
 import WidgetContentLayout from "./WidgetContentLayout";
 import { Page } from "src/AppUiStory";
 
@@ -20,8 +24,8 @@ const meta = {
           <WidgetContentLayout.Header title="Header" />
           <WidgetContentLayout.Content>Content</WidgetContentLayout.Content>
           <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
-        </WidgetContentLayout>`
-      }
+        </WidgetContentLayout>`,
+      },
     },
   },
 } as Meta<typeof WidgetContentLayout>;
@@ -39,14 +43,24 @@ export const Full: Story = {
   },
   argTypes: {
     id: {
-      description: "Widget identifier used to determine layout padding and responsive gaps. If omitted, default spacing is applied.",
-      control: { type: 'text' },
-      table: { category: "WidgetContentLayout", type: { summary: 'string' }, defaultValue: { summary: 'undefined' } },
+      description:
+        "Widget identifier used to determine layout padding and responsive gaps. If omitted, default spacing is applied.",
+      control: { type: "text" },
+      table: {
+        category: "WidgetContentLayout",
+        type: { summary: "string" },
+        defaultValue: { summary: "undefined" },
+      },
     },
     isLoading: {
-      description: "When true, renders a blocking loading overlay covering the content area.",
-      control: { type: 'boolean' },
-  table: { category: "WidgetContentLayout", type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      description:
+        "When true, renders a blocking loading overlay covering the content area.",
+      control: { type: "boolean" },
+      table: {
+        category: "WidgetContentLayout",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
   },
 };

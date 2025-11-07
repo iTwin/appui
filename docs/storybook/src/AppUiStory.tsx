@@ -146,19 +146,17 @@ function Initialized(props: AppUiStoryProps) {
   return (
     <>
       <Provider store={UiFramework.store}>
-          {props.children}
-          {!props.displayChildrenOnly && (
-            <ConfigurableUiContent
-              style={{
-                height:
-                  props.layout === "fullscreen"
-                    ? "100vh"
-                    : "calc(100vh - 2rem)",
-              }}
-              appBackstage={props.appBackstage}
-              widgetIcon={true}
-            />
-          )}
+        {props.children}
+        {!props.displayChildrenOnly && (
+          <ConfigurableUiContent
+            style={{
+              height:
+                props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
+            }}
+            appBackstage={props.appBackstage}
+            widgetIcon={true}
+          />
+        )}
       </Provider>
     </>
   );
@@ -231,7 +229,10 @@ export function SimpleAppUiStory(props: {
       {props.children}
       {!props.displayChildrenOnly && (
         <ConfigurableUiContent
-          style={{ height: props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)" }}
+          style={{
+            height:
+              props.layout === "fullscreen" ? "100vh" : "calc(100vh - 2rem)",
+          }}
           appBackstage={props.appBackstage}
           widgetIcon={true}
         />

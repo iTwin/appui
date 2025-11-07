@@ -13,8 +13,10 @@ import { createFrontstage, createWidget } from "../../Utils";
  * The WidgetContentLayout provides a flexible layout structure for widgets with optional header controls,
  * scrollable content area, and footer actions.
  */
-export function WidgetContentLayoutHeader(props: ComponentProps<typeof WCL.Header>) {
- const widgetContent = (
+export function WidgetContentLayoutHeader(
+  props: ComponentProps<typeof WCL.Header>
+) {
+  const widgetContent = (
     <WCL>
       <WCL.Header {...props} />
       <WCL.Content>Content</WCL.Content>

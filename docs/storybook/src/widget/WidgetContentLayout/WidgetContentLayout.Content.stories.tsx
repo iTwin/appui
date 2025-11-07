@@ -3,7 +3,11 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { AppUiDecorator, ConsoleToActionsDecorator, InitializerDecorator } from "../../Decorators";
+import {
+  AppUiDecorator,
+  ConsoleToActionsDecorator,
+  InitializerDecorator,
+} from "../../Decorators";
 import { Page } from "../../AppUiStory";
 import { WidgetContentLayoutContent } from "./WidgetContentLayout.Content";
 
@@ -23,8 +27,8 @@ const meta = {
   </WidgetContentLayout>`,
       },
     },
-  }
-} as Meta<typeof WidgetContentLayoutContent>
+  },
+} as Meta<typeof WidgetContentLayoutContent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -37,19 +41,34 @@ export const Full: Story = {
   },
   argTypes: {
     isLoading: {
-      description: 'Renders a blocking loading overlay covering the content area when true.',
-      control: { type: 'boolean' },
-      table: { category: 'WidgetContentLayout.Content', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      description:
+        "Renders a blocking loading overlay covering the content area when true.",
+      control: { type: "boolean" },
+      table: {
+        category: "WidgetContentLayout.Content",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     isNonBlockingLoading: {
-      description: 'Shows a non-blocking loading indicator (does not prevent interaction) when true.',
-      control: { type: 'boolean' },
-      table: { category: 'WidgetContentLayout.Content', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      description:
+        "Shows a non-blocking loading indicator (does not prevent interaction) when true.",
+      control: { type: "boolean" },
+      table: {
+        category: "WidgetContentLayout.Content",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
     centerContent: {
-      description: 'Centers the content both vertically and horizontally inside the content area when true.',
-      control: { type: 'boolean' },
-      table: { category: 'WidgetContentLayout.Content', type: { summary: 'boolean' }, defaultValue: { summary: 'false' } },
+      description:
+        "Centers the content both vertically and horizontally inside the content area when true.",
+      control: { type: "boolean" },
+      table: {
+        category: "WidgetContentLayout.Content",
+        type: { summary: "boolean" },
+        defaultValue: { summary: "false" },
+      },
     },
   },
 };

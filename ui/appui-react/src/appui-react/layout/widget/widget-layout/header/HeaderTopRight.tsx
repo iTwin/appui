@@ -1,7 +1,14 @@
-import  "./HeaderTopRight.scss";
+import "./HeaderTopRight.scss";
 import React from "react";
 
-import { ButtonGroup, Divider, DropdownMenu, IconButton, MenuDivider, MenuItem } from "@itwin/itwinui-react";
+import {
+  ButtonGroup,
+  Divider,
+  DropdownMenu,
+  IconButton,
+  MenuDivider,
+  MenuItem,
+} from "@itwin/itwinui-react";
 
 import { GAP_WIDTH, ICON_SIZE_MAP, MAX_SEARCH_WIDTH } from "./constants.js";
 import { HeaderSearch } from "./HeaderSearch.js";
@@ -34,7 +41,8 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
             ? searchIsExpanded
               ? MAX_SEARCH_WIDTH
               : iconPixelSize
-            : iconPixelSize + (searchIsExpanded ? GAP_WIDTH + MAX_SEARCH_WIDTH : 0),
+            : iconPixelSize +
+              (searchIsExpanded ? GAP_WIDTH + MAX_SEARCH_WIDTH : 0),
         minHeight: iconPixelSize,
       }}
     >
@@ -50,8 +58,7 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
                 .map((_, _index) => {
                   const index = overflowStart - _index;
                   const icon = props.menuIcons.at(index);
-                  if (!icon)
-                    return <></>;
+                  if (!icon) return <></>;
                   return icon.type === "divider" ? (
                     _index === 0 || searchIsExpanded ? (
                       <React.Fragment key={index}></React.Fragment>
@@ -87,7 +94,8 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
                       {icon.label}
                     </MenuItem>
                   );
-                })}
+                })
+            }
           >
             <IconButton
               size={props.iconSize}
@@ -128,7 +136,7 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
             >
               {icon.icon}
             </IconButton>
-          ),
+          )
         )}
       </ButtonGroup>
     </div>

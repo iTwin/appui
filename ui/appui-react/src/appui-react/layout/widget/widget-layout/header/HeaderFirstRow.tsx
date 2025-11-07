@@ -30,7 +30,6 @@ export interface HeaderFirstRowProps {
   leftContent: React.JSX.Element[];
 }
 
-
 /**
  *
  */
@@ -46,18 +45,32 @@ export const HeaderFirstRow: React.FC<HeaderFirstRowProps> = (props) => {
 
   const searchExpandedState = React.useState(false);
 
-  return <div className={classNames("nz-header-first-row-root", (props.leftContent.length === 0 || menuIcons.length === 0) && "single-column")}>
-    {props.leftContent.length > 0 &&
-      <div className={classNames("nz-header-first-row-top-left", props.topLeftClassName)}>
-        {props.leftContent}
-      </div>}
-    {menuIcons.length > 0 && (
-      <HeaderTopRight
-        menuIcons={menuIcons}
-        onSearch={props.onSearch}
-        searchExpandedState={searchExpandedState}
-        iconSize={props.iconSize}
-      />
-    )}
-  </div>;
+  return (
+    <div
+      className={classNames(
+        "nz-header-first-row-root",
+        (props.leftContent.length === 0 || menuIcons.length === 0) &&
+          "single-column"
+      )}
+    >
+      {props.leftContent.length > 0 && (
+        <div
+          className={classNames(
+            "nz-header-first-row-top-left",
+            props.topLeftClassName
+          )}
+        >
+          {props.leftContent}
+        </div>
+      )}
+      {menuIcons.length > 0 && (
+        <HeaderTopRight
+          menuIcons={menuIcons}
+          onSearch={props.onSearch}
+          searchExpandedState={searchExpandedState}
+          iconSize={props.iconSize}
+        />
+      )}
+    </div>
+  );
 };

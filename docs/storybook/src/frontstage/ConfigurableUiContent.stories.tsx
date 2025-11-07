@@ -74,7 +74,7 @@ const meta = {
   decorators: [InitializerDecorator, AppUiDecorator],
   argTypes: {
     widgetOpacity: {
-      control: { type: 'number', min: 0, max: 1, step: 0.1 },
+      control: { type: "number", min: 0, max: 1, step: 0.1 },
     },
   },
   parameters: {
@@ -112,18 +112,18 @@ export const ShowActiveWidgetLabel: Story = {
         disable: true,
       },
     },
-  }
+  },
 };
 
 export const HideWidgetIcons: Story = {
   args: {
     widgetIcon: false,
   },
-   argTypes: {
+  argTypes: {
     widgetOpacity: {
       table: {
         disable: true,
       },
     },
-  }
+  },
 };

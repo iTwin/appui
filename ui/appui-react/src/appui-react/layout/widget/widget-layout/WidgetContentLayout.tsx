@@ -32,7 +32,8 @@ const Header: React.FC<React.PropsWithChildren<HeaderLayoutProps>> = ({
 
 Header.displayName = "WidgetContentLayout.Header";
 
-const Content = React.forwardRef<HTMLDivElement,
+const Content = React.forwardRef<
+  HTMLDivElement,
   React.PropsWithChildren<{
     isLoading?: boolean;
     isNonBlockingLoading?: boolean;
@@ -43,12 +44,29 @@ const Content = React.forwardRef<HTMLDivElement,
   }>
 >(function Content(props, ref) {
   return (
-    <div className={classNames("nz-widget-content-layout-content", props.isNonBlockingLoading && "nz-widget-content-layout-non-blocking-loading")}
+    <div
+      className={classNames(
+        "nz-widget-content-layout-content",
+        props.isNonBlockingLoading &&
+          "nz-widget-content-layout-non-blocking-loading"
+      )}
     >
-      {props.isLoading ? <LoadingOverlay /> : props.isNonBlockingLoading && <ProgressLinear />}
-      <div ref={ref} onScroll={props.onScroll} className={classNames("nz-widget-content-layout-content-inner", props.className, {
-        center: props.centerContent,
-      })} style={props.style}
+      {props.isLoading ? (
+        <LoadingOverlay />
+      ) : (
+        props.isNonBlockingLoading && <ProgressLinear />
+      )}
+      <div
+        ref={ref}
+        onScroll={props.onScroll}
+        className={classNames(
+          "nz-widget-content-layout-content-inner",
+          props.className,
+          {
+            center: props.centerContent,
+          }
+        )}
+        style={props.style}
       >
         {props.children}
       </div>
@@ -107,14 +125,10 @@ const WidgetContentLayoutInner: React.FC<WidgetContentLayoutInnerProps> = ({
 
   React.useEffect(() => {
     React.Children.forEach(children, (child) => {
-      if (!React.isValidElement(child))
-        return;
-      if (child.type === Header)
-        setHeaderElement(child);
-      else if (child.type === Content)
-        setContentElement(child);
-      else if (child.type === Footer)
-        setFooterElement(child);
+      if (!React.isValidElement(child)) return;
+      if (child.type === Header) setHeaderElement(child);
+      else if (child.type === Content) setContentElement(child);
+      else if (child.type === Footer) setFooterElement(child);
     });
   }, [children]);
 
@@ -140,7 +154,8 @@ const WidgetContentLayoutInner: React.FC<WidgetContentLayoutInnerProps> = ({
 /**
  *
  */
-export type WidgetContentLayoutProps = WidgetSizeProviderProps & WidgetContentLayoutInnerProps;
+export type WidgetContentLayoutProps = WidgetSizeProviderProps &
+  WidgetContentLayoutInnerProps;
 
 /**
  *
@@ -152,7 +167,9 @@ export const WidgetContentLayout: React.FC<WidgetContentLayoutProps> & {
 } = ({ children, isLoading, className, ...widgetSizeProviderProps }) => {
   return (
     <WidgetSizeProvider {...widgetSizeProviderProps}>
-      <WidgetContentLayoutInner className={className} isLoading={isLoading}>{children}</WidgetContentLayoutInner>
+      <WidgetContentLayoutInner className={className} isLoading={isLoading}>
+        {children}
+      </WidgetContentLayoutInner>
     </WidgetSizeProvider>
   );
 };

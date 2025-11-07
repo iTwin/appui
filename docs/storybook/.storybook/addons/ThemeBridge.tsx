@@ -14,7 +14,8 @@ export const withThemeBridge: Decorator = (Story, context) => {
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
 
   // Use custom dark mode toggle, falling back to system preference
-  const isDark = darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
+  const isDark =
+    darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
 
   if (themeBridge) {
     return (

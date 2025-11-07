@@ -8,7 +8,12 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Provider } from "react-redux";
 import type { Decorator } from "@storybook/react-vite";
-import { ColorTheme, StateManager, ThemeManager, UiFramework } from "@itwin/appui-react";
+import {
+  ColorTheme,
+  StateManager,
+  ThemeManager,
+  UiFramework,
+} from "@itwin/appui-react";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiIModelComponents } from "@itwin/imodel-components-react-internal/src/imodel-components-react/UiIModelComponents";
 
@@ -16,8 +21,11 @@ export const AppUiDecorator: Decorator = (Story, context) => {
   new StateManager();
 
   const darkModeGlobal = context.globals.darkMode;
-  const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-  const isDark = darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
+  const prefersDark = window.matchMedia?.(
+    "(prefers-color-scheme: dark)"
+  ).matches;
+  const isDark =
+    darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
   const theme = isDark ? ColorTheme.Dark : ColorTheme.Light;
 
   return (
@@ -58,7 +66,7 @@ export const ConsoleToActionsDecorator: Decorator = (Story) => {
       info: console.info.bind(console),
     };
 
-    const makeWrapper = (level: 'log' | 'warn' | 'error' | 'info') => {
+    const makeWrapper = (level: "log" | "warn" | "error" | "info") => {
       const act = action(`console.${level}`);
       return (...args: unknown[]) => {
         try {
@@ -67,19 +75,19 @@ export const ConsoleToActionsDecorator: Decorator = (Story) => {
           // ignore action errors
         }
         // keep original behavior
-  originalConsole[level](...(args as unknown[]));
+        originalConsole[level](...(args as unknown[]));
       };
     };
 
     // replace console methods
     // eslint-disable-next-line no-console
-    console.log = makeWrapper('log');
+    console.log = makeWrapper("log");
     // eslint-disable-next-line no-console
-    console.warn = makeWrapper('warn');
+    console.warn = makeWrapper("warn");
     // eslint-disable-next-line no-console
-    console.error = makeWrapper('error');
+    console.error = makeWrapper("error");
     // eslint-disable-next-line no-console
-    console.info = makeWrapper('info');
+    console.info = makeWrapper("info");
 
     return () => {
       // restore originals

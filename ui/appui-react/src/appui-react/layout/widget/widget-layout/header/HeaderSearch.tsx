@@ -1,4 +1,4 @@
-import  "./HeaderSearch.scss";
+import "./HeaderSearch.scss";
 import React from "react";
 
 import { SearchBox } from "@itwin/itwinui-react";
@@ -23,17 +23,14 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
 
   React.useEffect(() => {
-    if (!isExpanded)
-      return;
+    if (!isExpanded) return;
     const el = inputRef.current;
-    if (!el)
-      return;
+    if (!el) return;
     // Focus on next animation frame to allow expand animation / layout to settle.
     const id = requestAnimationFrame(() => {
       el.focus();
       const v = el.value;
-      if (v)
-        el.selectionStart = el.selectionEnd = v.length;
+      if (v) el.selectionStart = el.selectionEnd = v.length;
     });
     return () => cancelAnimationFrame(id);
   }, [isExpanded]);
@@ -75,8 +72,7 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
           onClick={() => {
             setIsExpanded(false);
             setSearchText("");
-            if (searchText)
-              props.onSearch?.("");
+            if (searchText) props.onSearch?.("");
           }}
         >
           <SvgClose />

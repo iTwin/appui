@@ -2,7 +2,12 @@ import "./HeaderLayout.scss";
 import classNames from "classnames";
 import React from "react";
 
-import { DropdownButton, MenuItem, Text, ToggleSwitch } from "@itwin/itwinui-react";
+import {
+  DropdownButton,
+  MenuItem,
+  Text,
+  ToggleSwitch,
+} from "@itwin/itwinui-react";
 
 import type { HeaderFirstRowProps } from "./HeaderFirstRow.js";
 import { HeaderFirstRow } from "./HeaderFirstRow.js";
@@ -10,7 +15,8 @@ import { HeaderFirstRow } from "./HeaderFirstRow.js";
 /**
  * Props for the HeaderLayout component.
  */
-export interface HeaderLayoutProps extends Omit<HeaderFirstRowProps, "leftContent"> {
+export interface HeaderLayoutProps
+  extends Omit<HeaderFirstRowProps, "leftContent"> {
   /**
    * CSS class name for the header element.
    */
@@ -23,7 +29,7 @@ export interface HeaderLayoutProps extends Omit<HeaderFirstRowProps, "leftConten
   /**
    * React node to display a toggle in the header.
    */
-  toggle?: React.ComponentProps<typeof ToggleSwitch>,
+  toggle?: React.ComponentProps<typeof ToggleSwitch>;
   /**
    * Array of buttons to display in the header.
    */
@@ -34,7 +40,7 @@ export interface HeaderLayoutProps extends Omit<HeaderFirstRowProps, "leftConten
   menu?: {
     title: string;
     items: { label: string; onClick: () => void }[];
-  }
+  };
   /**
    *  Title to display in the header.
    */
@@ -57,8 +63,27 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   title,
 }) => {
   const leftItems = [
-    toggle ? <React.Fragment key="toggle">{<ToggleSwitch {...toggle}/>}</React.Fragment> : undefined,
-    menu ? <React.Fragment key="menu">{<DropdownButton className="nz-widget-layout-header-menu" menuItems={menu.items.map(i => <MenuItem key={i.label} onClick={i.onClick}>{i.label}</MenuItem>)}>{menu.title}</DropdownButton>}</React.Fragment> : undefined,
+    toggle ? (
+      <React.Fragment key="toggle">
+        {<ToggleSwitch {...toggle} />}
+      </React.Fragment>
+    ) : undefined,
+    menu ? (
+      <React.Fragment key="menu">
+        {
+          <DropdownButton
+            className="nz-widget-layout-header-menu"
+            menuItems={menu.items.map((i) => (
+              <MenuItem key={i.label} onClick={i.onClick}>
+                {i.label}
+              </MenuItem>
+            ))}
+          >
+            {menu.title}
+          </DropdownButton>
+        }
+      </React.Fragment>
+    ) : undefined,
     buttons?.length > 0 ? (
       <div
         key="buttons"
@@ -68,7 +93,13 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
       </div>
     ) : undefined,
   ].filter((item) => !!item);
-  const firstRowLeftItems = title ? [<Text key="title" className="nz-header-title">{title}</Text>] : leftItems.slice(0, 1);
+  const firstRowLeftItems = title
+    ? [
+        <Text key="title" className="nz-header-title">
+          {title}
+        </Text>,
+      ]
+    : leftItems.slice(0, 1);
   const remainingLeftItems = title ? leftItems : leftItems.slice(1);
 
   return (
@@ -85,7 +116,9 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
         </div>
       )}
       {remainingLeftItems.map((item, index) => (
-        <div className="nz-header-remaining-item" key={index}>{item}</div>
+        <div className="nz-header-remaining-item" key={index}>
+          {item}
+        </div>
       ))}
     </div>
   );

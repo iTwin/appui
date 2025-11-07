@@ -10,7 +10,10 @@ import "./WidgetSizeProvider.scss";
 import classNames from "classnames";
 import React from "react";
 
-import type { Breakpoints, BreakpointSize} from "../../../hooks/useElementSize.js";
+import type {
+  Breakpoints,
+  BreakpointSize,
+} from "../../../hooks/useElementSize.js";
 import { useElementSize } from "../../../hooks/useElementSize.js";
 
 /**
@@ -23,9 +26,9 @@ export interface WidgetSizeProviderProps {
   className?: string;
 
   /**
- * ID for the widget size provider. Used for CSS class names.
- * i.e. for an id of widget-id, we have `@container widget-id style(--layout-size: [xs|sm|m|l|xl])`.
- */
+   * ID for the widget size provider. Used for CSS class names.
+   * i.e. for an id of widget-id, we have `@container widget-id style(--layout-size: [xs|sm|m|l|xl])`.
+   */
   id?: string;
   /**
    * Custom breakpoints for the widget size.
@@ -67,7 +70,9 @@ export const WidgetSizeProvider: React.FC<
         <WidgetSizeContext.Provider value={{ size, dimension }}>
           {props.children}
         </WidgetSizeContext.Provider>
-      ) : props.children}
+      ) : (
+        props.children
+      )}
     </div>
   );
 };
