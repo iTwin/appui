@@ -3,7 +3,12 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import { StagePanelState, UiItemsProvider, WidgetSizeProvider, useWidgetSize } from "@itwin/appui-react";
+import {
+  StagePanelState,
+  UiItemsProvider,
+  WidgetSizeProvider,
+  useWidgetSize,
+} from "@itwin/appui-react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { Page, SimpleAppUiStory } from "../AppUiStory";
 import { createFrontstage, createWidget } from "src/Utils";
@@ -29,9 +34,11 @@ function WidgetSizeProviderStory(props: WidgetSizeProviderStoryProps) {
     id: "widget-layout-provider",
     getWidgets: () => [
       createWidget(1, {
-        content: <WidgetSizeProvider id={id} breakpoints={breakpoints}>
-          <WidgetContent breakpoints={breakpoints} />
-        </WidgetSizeProvider>,
+        content: (
+          <WidgetSizeProvider id={id} breakpoints={breakpoints}>
+            <WidgetContent breakpoints={breakpoints} />
+          </WidgetSizeProvider>
+        ),
         label: "Widget Layout Demo",
       }),
     ],
@@ -39,16 +46,16 @@ function WidgetSizeProviderStory(props: WidgetSizeProviderStoryProps) {
 
   return (
     <SimpleAppUiStory
-          itemProviders={[provider]}
-          frontstages={[
-            createFrontstage({
-              leftPanelProps: {
-                defaultState: StagePanelState.Open,
-                pinned: true,
-              },
-            }),
-          ]}
-        />
+      itemProviders={[provider]}
+      frontstages={[
+        createFrontstage({
+          leftPanelProps: {
+            defaultState: StagePanelState.Open,
+            pinned: true,
+          },
+        }),
+      ]}
+    />
     // <div style={{ padding: "20px" }}>
     //   <h3>Widget Size Provider Demo</h3>
     //   <p>Resize the container to see the size change.</p>
@@ -73,7 +80,11 @@ function WidgetSizeProviderStory(props: WidgetSizeProviderStoryProps) {
   );
 }
 
-function WidgetContent({ breakpoints }: { breakpoints?: Record<string, number> }) {
+function WidgetContent({
+  breakpoints,
+}: {
+  breakpoints?: Record<string, number>;
+}) {
   const { size, dimension } = useWidgetSize();
 
   return (
@@ -126,10 +137,19 @@ function WidgetContent({ breakpoints }: { breakpoints?: Record<string, number> }
         <h4 style={{ marginTop: 0 }}>Breakpoint Info</h4>
         <ul style={{ margin: 0, paddingLeft: "20px" }}>
           <li>xs: 0px - {(breakpoints?.sm ?? defaultBreakpoints.sm) - 1}px</li>
-          <li>sm: 300px - {(breakpoints?.md ?? defaultBreakpoints.md) - 1}px</li>
-          <li>md: 600px - {(breakpoints?.lg ?? defaultBreakpoints.lg) - 1}px</li>
-          <li>lg: 1024px - {(breakpoints?.xl ?? defaultBreakpoints.xl) - 1}px</li>
-          <li>xl: 1280px - {(breakpoints?.["2xl"] ?? defaultBreakpoints["2xl"]) - 1}px</li>
+          <li>
+            sm: 300px - {(breakpoints?.md ?? defaultBreakpoints.md) - 1}px
+          </li>
+          <li>
+            md: 600px - {(breakpoints?.lg ?? defaultBreakpoints.lg) - 1}px
+          </li>
+          <li>
+            lg: 1024px - {(breakpoints?.xl ?? defaultBreakpoints.xl) - 1}px
+          </li>
+          <li>
+            xl: 1280px -{" "}
+            {(breakpoints?.["2xl"] ?? defaultBreakpoints["2xl"]) - 1}px
+          </li>
           <li>2xl: 1536px+</li>
         </ul>
       </div>
@@ -154,34 +174,38 @@ function ResponsiveContent() {
       <h4 style={{ marginTop: 0 }}>Responsive Content</h4>
       {size === "xs" && (
         <p>
-          <strong>Extra Small:</strong> Minimal content displayed for very narrow
-          widgets.
+          <strong>Extra Small:</strong> Minimal content displayed for very
+          narrow widgets.
         </p>
       )}
       {size === "sm" && (
         <p>
-          <strong>Small:</strong> Compact layout with essential information only.
+          <strong>Small:</strong> Compact layout with essential information
+          only.
         </p>
       )}
       {size === "md" && (
         <p>
-          <strong>Medium:</strong> Standard layout with balanced content and spacing.
+          <strong>Medium:</strong> Standard layout with balanced content and
+          spacing.
         </p>
       )}
       {size === "lg" && (
         <p>
-          <strong>Large:</strong> Expanded layout with additional details and features.
+          <strong>Large:</strong> Expanded layout with additional details and
+          features.
         </p>
       )}
       {size === "xl" && (
         <p>
-          <strong>Extra Large:</strong> Full-featured layout with maximum content
-          visibility.
+          <strong>Extra Large:</strong> Full-featured layout with maximum
+          content visibility.
         </p>
       )}
       {size === "2xl" && (
         <p>
-          <strong>2X Large:</strong> Ultra-wide layout optimized for large displays.
+          <strong>2X Large:</strong> Ultra-wide layout optimized for large
+          displays.
         </p>
       )}
     </div>
@@ -238,4 +262,3 @@ export const CustomBreakpoints: Story = {
     },
   },
 };
-

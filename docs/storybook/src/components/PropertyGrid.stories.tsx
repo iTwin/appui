@@ -418,14 +418,14 @@ export const Links: Story = {
 };
 
 function EditableStoryComponent(props: any) {
-  const [editableRecords, setEditableRecords] = useState(
-    () => createPropertyRecords("editable_")
+  const [editableRecords, setEditableRecords] = useState(() =>
+    createPropertyRecords("editable_")
   );
-  const [readonlyRecords] = useState(
-    () => createPropertyRecords("readonly_", { isReadonly: true })
+  const [readonlyRecords] = useState(() =>
+    createPropertyRecords("readonly_", { isReadonly: true })
   );
-  const [disabledRecords] = useState(
-    () => createPropertyRecords("disabled_", { isDisabled: true })
+  const [disabledRecords] = useState(() =>
+    createPropertyRecords("disabled_", { isDisabled: true })
   );
 
   const onPropertyUpdated = async ({
@@ -473,7 +473,14 @@ function EditableStoryComponent(props: any) {
     },
   };
 
-  return <PropertyGridStory {...props} data={data} alwaysShowEditor={(_propertyRecord: PropertyRecord) => false} onPropertyUpdated={onPropertyUpdated} />;
+  return (
+    <PropertyGridStory
+      {...props}
+      data={data}
+      alwaysShowEditor={(_propertyRecord: PropertyRecord) => false}
+      onPropertyUpdated={onPropertyUpdated}
+    />
+  );
 }
 
 export const Editable: Story = {
