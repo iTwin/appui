@@ -49,6 +49,7 @@ const WidgetSizeContext = React.createContext<WidgetSizeContextProps>({
 
 /**
  * A provider component that supplies the size and dimensions (width and height) of a widget to its children.
+ * @public
  */
 export const WidgetSizeProvider: React.FC<
   React.PropsWithChildren<WidgetSizeProviderProps>
@@ -79,6 +80,7 @@ export const WidgetSizeProvider: React.FC<
 
 /**
  * A hook to use the widget size context.
+ * @public
  */
 export const useWidgetSize = (): WidgetSizeContextProps => {
   return React.useContext(WidgetSizeContext);

@@ -801,6 +801,7 @@ public;const;WIDGET_OPACITY_DEFAULT
 alpha;function;WidgetAction
 alpha;function;WidgetActions
 public;interface;WidgetConfig
+public;const;WidgetContentLayout
 public;class;WidgetControl
 deprecated;class;WidgetControl
 public;class;WidgetDef
@@ -808,6 +809,7 @@ public;class;WidgetHost
 public;interface;WidgetLayouts
 beta;class;WidgetManager
 public;type;WidgetPanelProps
+public;const;WidgetSizeProvider
 public;enum;WidgetState
 public;class;WidgetStateChangedEvent
 deprecated;class;WidgetStateChangedEvent

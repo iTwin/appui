@@ -95,20 +95,6 @@ const LoadingOverlay: React.FC = () => {
   );
 };
 
-/**
- * A layout component for widgets that provides a top section for buttons, a content section and a footer section.
- * @example
- * <WidgetContentLayout>
- *  <WidgetContentLayout.Header />
- *  <WidgetContentLayout.Content>
- *   <ContentComponent />
- *  </WidgetContentLayout.Content>
- *  <WidgetContentLayout.Footer>
- *   <FooterComponent />
- *  </WidgetContentLayout.Footer>
- * </WidgetContentLayout>
- */
-
 type WidgetContentLayoutInnerProps = React.PropsWithChildren<{
   className?: string;
   isLoading?: boolean;
@@ -158,7 +144,18 @@ export type WidgetContentLayoutProps = WidgetSizeProviderProps &
   WidgetContentLayoutInnerProps;
 
 /**
- *
+ * A layout component for widgets that provides a top section for buttons, a content section and a footer section.
+ * @example
+ * <WidgetContentLayout>
+ *  <WidgetContentLayout.Header />
+ *  <WidgetContentLayout.Content>
+ *   <ContentComponent />
+ *  </WidgetContentLayout.Content>
+ *  <WidgetContentLayout.Footer>
+ *   <FooterComponent />
+ *  </WidgetContentLayout.Footer>
+ * </WidgetContentLayout>
+ *  @public
  */
 export const WidgetContentLayout: React.FC<WidgetContentLayoutProps> & {
   Header: typeof Header;
