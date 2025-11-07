@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@itwin/build-tools": "4.10.2",
+    "@storybook/addon-actions": "^9.0.8",
     "@storybook/addon-docs": "^9.0.9",
     "@storybook/addon-links": "^9.0.9",
     "@storybook/components": "^8.6.14",
