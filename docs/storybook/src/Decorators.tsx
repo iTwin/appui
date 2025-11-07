@@ -80,24 +80,16 @@ export const ConsoleToActionsDecorator: Decorator = (Story) => {
     };
 
     // replace console methods
-    // eslint-disable-next-line no-console
     console.log = makeWrapper("log");
-    // eslint-disable-next-line no-console
     console.warn = makeWrapper("warn");
-    // eslint-disable-next-line no-console
     console.error = makeWrapper("error");
-    // eslint-disable-next-line no-console
     console.info = makeWrapper("info");
 
     return () => {
       // restore originals
-      // eslint-disable-next-line no-console
       console.log = originalConsole.log;
-      // eslint-disable-next-line no-console
       console.warn = originalConsole.warn;
-      // eslint-disable-next-line no-console
       console.error = originalConsole.error;
-      // eslint-disable-next-line no-console
       console.info = originalConsole.info;
     };
   }, []);
