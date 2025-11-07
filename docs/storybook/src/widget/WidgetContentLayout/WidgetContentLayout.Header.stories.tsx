@@ -52,7 +52,7 @@ export const Full: Story = {
   args: {
     title: "Title",
     menu: {
-      title: "Dropdown Menu",
+      title: "Select what is displayed below",
       items: [
         { label: "Item 1", onClick: () => console.log("Item 1 clicked") },
         { label: "Item 2", onClick: () => console.log("Item 2 clicked") },
@@ -63,9 +63,12 @@ export const Full: Story = {
       { label: "Icon 2", icon: <SvgPlaceholder />, onClick: () => console.log("Icon 2 clicked") },
     ],
     iconSize: "small",
+    toggle: {
+      label: "Toggle",
+    },
     buttons: [
-      <Button onClick={() => console.log("Button 1 clicked")}>Button 1</Button>,
-      <Button onClick={() => console.log("Button 2 clicked")}>Button 2</Button>,
+      <Button styleType="high-visibility" key="button-1" onClick={() => console.log("Primary button clicked")}>Primary</Button>,
+      <Button key="button-2" onClick={() => console.log("Secondary button clicked")}>Secondary</Button>,
     ],
     onSearch: (value: string) => console.log(`Search for: ${value}`),
   },
@@ -140,8 +143,8 @@ export const IconsAndSearch: Story = {
 export const Buttons: Story = {
   args: {
     buttons: [
-      <Button key="button-1" onClick={() => console.log("Button 1 clicked")}>Button 1</Button>,
-      <Button key="button-2" onClick={() => console.log("Button 2 clicked")}>Button 2</Button>,
+      <Button styleType="high-visibility" key="button-1" onClick={() => console.log("Primary button clicked")}>Primary</Button>,
+      <Button key="button-2" onClick={() => console.log("Secondary button clicked")}>Secondary</Button>,
     ],
     onSearch: (value: string) => console.log(`Search for: ${value}`),
   },
@@ -153,5 +156,16 @@ export const Toggle: Story = {
       label: "Toggle",
       onChange: (e) => console.log(`Toggle is now ${e.target.checked}`),
     },
+  },
+};
+
+export const CustomHeader: Story = {
+  args: {
+    onSearch: (value: string) => console.log(`Search for: ${value}`),
+    children: (
+      <div style={{ padding: "8px", fontWeight: "bold", backgroundColor: "red" }}>
+        Custom Header Content
+      </div>
+    ),
   },
 };

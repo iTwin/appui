@@ -58,7 +58,7 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
 }) => {
   const leftItems = [
     toggle ? <React.Fragment key="toggle">{<ToggleSwitch {...toggle}/>}</React.Fragment> : undefined,
-    menu ? <React.Fragment key="menu">{<DropdownButton menuItems={menu.items.map(i => <MenuItem key={i.label} onClick={i.onClick}>{i.label}</MenuItem>)}>{menu.title}</DropdownButton>}</React.Fragment> : undefined,
+    menu ? <React.Fragment key="menu">{<DropdownButton className="nz-widget-layout-header-menu" menuItems={menu.items.map(i => <MenuItem key={i.label} onClick={i.onClick}>{i.label}</MenuItem>)}>{menu.title}</DropdownButton>}</React.Fragment> : undefined,
     buttons?.length > 0 ? (
       <div
         key="buttons"
