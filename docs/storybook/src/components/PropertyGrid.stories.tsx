@@ -19,7 +19,6 @@ import { PropertyValueRendererManager } from "@itwin/components-react";
 import { MultilineTextPropertyValueRenderer } from "@itwin/components-react-internal/src/components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
 
 import { AppUiDecorator } from "../Decorators";
-import { useState } from "react";
 import { Orientation } from "@itwin/core-react";
 import { PropertyGridStory } from "./PropertyGrid";
 
@@ -47,57 +46,7 @@ const PaddingDecorator: Decorator = (Story) => {
   );
 };
 
-// Create renderer manager via a factory so it can be recreated on HMR reloads.
-let rendererManager = createRendererManager();
-
-function createRendererManager() {
-  const mgr = new PropertyValueRendererManager();
-  // register default/custom renderers
-  mgr.registerRenderer("customRendererStructPropertyRenderer", {
-    canRender: () => true,
-    render: (record) => {
-      const entries = Object.entries((record.value as StructValue).members);
-      return (
-        <ul>
-          {entries.map((entry) => {
-            return (
-              <li key={entry[0]}>
-                {entry[0]} = {(entry[1].value as PrimitiveValue).displayValue}
-              </li>
-            );
-          })}
-        </ul>
-      );
-    },
-  });
-
-  mgr.registerRenderer("customRendererArrayPropertyRenderer", {
-    canRender: () => true,
-    render: (record) => {
-      const items = (record.value as ArrayValue).items;
-      return (
-        <ol>
-          {items.map((item, index) => {
-            return (
-              <li key={index}>{(item.value as PrimitiveValue).displayValue}</li>
-            );
-          })}
-        </ol>
-      );
-    },
-  });
-
-  mgr.registerRenderer("defaultRendererPropertyRenderer", {
-    canRender: () => false,
-    render: () => {
-      return <div>Should not render</div>;
-    },
-  });
-
-  mgr.registerRenderer("multiline", new MultilineTextPropertyValueRenderer());
-
-  return mgr;
-}
+const rendererManager = new PropertyValueRendererManager();
 
 const meta = {
   title: "Components/PropertyGrid",
@@ -417,78 +366,32 @@ export const Links: Story = {
   },
 };
 
-function EditableStoryComponent(props: any) {
-  const [editableRecords, setEditableRecords] = useState(() =>
-    createPropertyRecords("editable_")
-  );
-  const [readonlyRecords] = useState(() =>
-    createPropertyRecords("readonly_", { isReadonly: true })
-  );
-  const [disabledRecords] = useState(() =>
-    createPropertyRecords("disabled_", { isDisabled: true })
-  );
-
-  const onPropertyUpdated = async ({
-    propertyRecord,
-    newValue,
-  }: {
-    propertyRecord: PropertyRecord;
-    newValue: PropertyValue;
-  }) => {
-    action("onPropertyUpdated")(
-      `Property "${propertyRecord.property.name}" updated to: ${
-        (newValue as PrimitiveValue).value
-      }`
-    );
-
-    const name = propertyRecord.property.name;
-    setEditableRecords((prev) =>
-      prev.map((r) => {
-        if (r.property.name !== name) return r;
-        return new PropertyRecord(
-          {
-            valueFormat: PropertyValueFormat.Primitive,
-            value: (newValue as PrimitiveValue).value,
-            displayValue: (newValue as PrimitiveValue).displayValue,
-          },
-          r.property
-        );
-      })
-    );
-
-    return true;
-  };
-
-  const data = {
-    label: PropertyRecord.fromString("Record 1"),
-    categories: [
-      { name: "Editable", label: "Editable", expand: true },
-      { name: "Readonly", label: "Readonly", expand: true },
-      { name: "Disabled", label: "Disabled", expand: true },
-    ],
-    records: {
-      Editable: editableRecords,
-      Readonly: readonlyRecords,
-      Disabled: disabledRecords,
-    },
-  };
-
-  return (
-    <PropertyGridStory
-      {...props}
-      data={data}
-      alwaysShowEditor={(_propertyRecord: PropertyRecord) => false}
-      onPropertyUpdated={onPropertyUpdated}
-    />
-  );
-}
-
 export const Editable: Story = {
   args: {
     height: 1000,
     isPropertyEditingEnabled: true,
+    onPropertyUpdated: async ({ propertyRecord, newValue }) => {
+      action("onPropertyUpdated")(
+        `Property "${propertyRecord.property.name}" updated to: ${
+          (newValue as PrimitiveValue).value
+        }`
+      );
+      return true;
+    },
+    data: {
+      label: PropertyRecord.fromString("Record 1"),
+      categories: [
+        { name: "Editable", label: "Editable", expand: true },
+        { name: "Readonly", label: "Readonly", expand: true },
+        { name: "Disabled", label: "Disabled", expand: true },
+      ],
+      records: {
+        Editable: createPropertyRecords("editable_"),
+        Readonly: createPropertyRecords("readonly_", { isReadonly: true }),
+        Disabled: createPropertyRecords("disabled_", { isDisabled: true }),
+      },
+    },
   },
-  render: (args) => <EditableStoryComponent {...args} />,
 };
 
 export const AlwaysVisibleEditor: Story = {
@@ -511,18 +414,6 @@ export const AlwaysVisibleEditor: Story = {
               displayLabel: "Always visible toggle editor",
               typename: "boolean",
               editor: { name: "toggle" },
-            }
-          ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Primitive,
-              value: 6565.66562,
-            },
-            {
-              name: "numberProperty",
-              displayLabel: "Testing double editor",
-              typename: "double",
-              editor: { name: "number" },
             }
           ),
           new PropertyRecord(
@@ -567,21 +458,56 @@ export const AlwaysVisibleEditor: Story = {
     },
     onPropertyContextMenu: undefined,
     isPropertyEditingEnabled: true,
-    alwaysShowEditor: (_propertyRecord: PropertyRecord) => true,
+    alwaysShowEditor: (propertyRecord: PropertyRecord) =>
+      propertyRecord.property.editor?.name === "toggle",
   },
 };
 
-// On HMR re-create renderer manager so updated renderers are used.
-if ((import.meta as any).hot) {
-  const hot = (import.meta as any).hot;
-  hot.accept(() => {
-    // When this module or dependencies are updated, create a fresh manager
-    rendererManager = createRendererManager();
-  });
-  hot.dispose(() => {
-    // nothing specific to dispose for now, but reserve hook for cleanup
-  });
-}
+rendererManager.registerRenderer("customRendererStructPropertyRenderer", {
+  canRender: () => true,
+  render: (record) => {
+    const entries = Object.entries((record.value as StructValue).members);
+    return (
+      <ul>
+        {entries.map((entry) => {
+          return (
+            <li key={entry[0]}>
+              {entry[0]} = {(entry[1].value as PrimitiveValue).displayValue}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  },
+});
+
+rendererManager.registerRenderer("customRendererArrayPropertyRenderer", {
+  canRender: () => true,
+  render: (record) => {
+    const items = (record.value as ArrayValue).items;
+    return (
+      <ol>
+        {items.map((item, index) => {
+          return (
+            <li key={index}>{(item.value as PrimitiveValue).displayValue}</li>
+          );
+        })}
+      </ol>
+    );
+  },
+});
+
+rendererManager.registerRenderer("defaultRendererPropertyRenderer", {
+  canRender: () => false,
+  render: () => {
+    return <div>Should not render</div>;
+  },
+});
+
+rendererManager.registerRenderer(
+  "multiline",
+  new MultilineTextPropertyValueRenderer()
+);
 
 function createPropertyRecords(
   prefix: string = "",
@@ -603,12 +529,12 @@ function createPropertyRecords(
     createPropertyRecord(
       {
         valueFormat: PropertyValueFormat.Primitive,
-        value: 42.3434,
+        value: 42,
       },
       {
         name: `${prefix}intProperty`,
         displayLabel: "Int Property",
-        kindOfQuantityName: "Length",
+        typename: StandardTypeNames.Int,
       },
       recordProps
     ),
