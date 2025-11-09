@@ -6,13 +6,20 @@
  * @module Toolbar
  */
 
+import "./Item.scss";
+import classnames from "classnames";
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
-import { Icon as CoreIcon } from "@itwin/core-react";
+import { Icon as StrataKitIcon } from "@stratakit/foundations";
 import { IconButton } from "@stratakit/bricks";
+import { DropdownMenu } from "@stratakit/structures";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import { useConditionalProp } from "../../hooks/useConditionalProp.js";
-import { DropdownMenu } from "@stratakit/structures";
+import {
+  getTypedValue,
+  SvgLoader,
+  useIconSpecValue,
+} from "@itwin/core-react/internal";
 
 interface ItemProps extends Partial<React.ComponentProps<typeof IconButton>> {
   item: ToolbarItem;
@@ -56,14 +63,33 @@ function Icon(props: IconProps) {
 
   const iconElement = React.useMemo(() => {
     if (!iconNode) return undefined;
-    if (React.isValidElement(iconNode)) return iconNode;
-    return <>{iconNode}</>;
+    if (!React.isValidElement(iconNode)) return undefined;
+    return iconNode;
   }, [iconNode]);
+
+  const iconSpecValue = useIconSpecValue(iconSpec);
+  const typedValue = getTypedValue(iconSpecValue);
+  const iconSpecElement = React.useMemo(() => {
+    if (typedValue.type === "css-icon") {
+      return <i className={classnames("icon", typedValue.iconName)} />;
+    }
+    if (typedValue.type === "svg-loader") {
+      return <SvgLoader src={typedValue.src} />;
+    }
+    if (React.isValidElement(typedValue.node)) {
+      return typedValue.node;
+    }
+    return <>{typedValue.node}</>;
+  }, [typedValue]);
   return (
-    iconElement ?? (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <CoreIcon iconSpec={iconSpec} />
-    )
+    <StrataKitIcon
+      className={classnames("uifw-stratakit-toolbar-item_icon", {
+        "uifw-css-icon": typedValue.type === "css-icon",
+        "uifw-svg-loader": typedValue.type === "svg-loader",
+      })}
+      size="large"
+      render={iconElement ?? iconSpecElement}
+    />
   );
 }
 

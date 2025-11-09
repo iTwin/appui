@@ -348,30 +348,35 @@ export const Icons = {
     items: [
       ToolbarItemUtilities.createActionItem({
         id: "node",
-        label: "Icon Node",
+        label: "Icon node",
         icon: <SvgPlaceholder />,
       }),
       ToolbarItemUtilities.createActionItem(
         "spec-node",
         0,
         <SvgPlaceholder />,
-        "Icon Spec Node",
+        "Icon spec node",
         () => {}
       ),
       ToolbarItemUtilities.createActionItem(
         "svg-loader",
         0,
         genericPlaceholderIcon,
-        "SVG Loader",
+        "SVG loader",
         () => {}
       ),
       ToolbarItemUtilities.createActionItem(
         "font-icon",
         0,
         "icon-placeholder",
-        "Font Icon",
+        "Font icon",
         () => {}
       ),
+      ToolbarItemUtilities.createActionItem({
+        id: "dynamic-icon",
+        icon: <DynamicIcon />,
+        label: "Dynamic icon",
+      }),
     ],
   },
 } satisfies Story;
