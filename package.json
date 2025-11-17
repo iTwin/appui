@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "@changesets/cli": "2.29.6",
-    "@types/node": "20.17.8",
     "cspell": "^8.19.3",
     "fast-glob": "^3.3.3",
     "prettier": "^2.8.8",
