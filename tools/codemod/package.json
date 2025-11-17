@@ -36,7 +36,6 @@
   "devDependencies": {
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.1.6",
-    "@types/node": "20.17.8",
     "@types/yargs": "^17.0.22"
   }
 }
