@@ -10,12 +10,12 @@ import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { useResizeObserver } from "@itwin/core-react/internal";
-import { useLabel } from "../base/NineZone.js";
 import { PanelSideContext } from "../widget-panels/Panel.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { Popover } from "@itwin/itwinui-react";
 import { SvgMoreVertical } from "@itwin/itwinui-icons-react";
 import { TabBarButton } from "./Button.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** @internal */
 export interface WidgetOverflowProps {
@@ -38,7 +38,8 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
     };
   }, [handleClose]);
 
-  const moreWidgetsTitle = useLabel("moreWidgetsTitle");
+  const { translate } = useTranslation();
+  const moreWidgetsTitle = translate("widget.tooltips.moreWidgets");
   return (
     <WidgetOverflowContext.Provider value={overflowContext}>
       <Popover
