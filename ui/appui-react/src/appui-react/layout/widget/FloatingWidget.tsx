@@ -283,15 +283,20 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
       const newRelativePosition = bounds.topLeft().getOffsetTo(pointerPosition);
       const offset = relativePosition.current.getOffsetTo(newRelativePosition);
       let resizeBy = getResizeBy(handle, offset);
-      
+
       // Don't allow moving the top below zero
       if (handle === "top" || handle === "topLeft" || handle === "topRight") {
         const currentTop = bounds.top - measureNz().top;
-        if ((currentTop - resizeBy.top) < 0) {
-          resizeBy = new Rectangle(resizeBy.left, currentTop, resizeBy.right, resizeBy.bottom);
+        if (currentTop - resizeBy.top < 0) {
+          resizeBy = new Rectangle(
+            resizeBy.left,
+            currentTop,
+            resizeBy.right,
+            resizeBy.bottom
+          );
         }
       }
-      
+
       dispatch({
         type: "FLOATING_WIDGET_RESIZE",
         id,
