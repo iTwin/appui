@@ -38,9 +38,9 @@ stages:
             clean: true
 
           - task: NodeTool@0
-            displayName: Use Node 22
+            displayName: Use Node
             inputs:
-              versionSpec: 22
+              versionSpec: 24
               checkLatest: true
 
           - script: corepack enable
