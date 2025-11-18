@@ -1,5 +1,18 @@
 # Change Log - @itwin/appui-react
 
+## 5.19.0
+
+### Minor Changes
+
+- d9f5d3e: Updated floating widget resizing logic to prevent resizing the widgets outside of the main container bounds.
+- b7e0437: Refactored more widgets menu to use [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) instead of deprecated `Popup` from `@itwin/core-react`.
+
+### Patch Changes
+
+- @itwin/components-react@5.19.0
+- @itwin/core-react@5.19.0
+- @itwin/imodel-components-react@5.19.0
+
 ## 5.18.0
 
 ### Patch Changes
