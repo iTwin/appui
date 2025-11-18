@@ -9,15 +9,13 @@
 import "./Overflow.scss";
 import classnames from "classnames";
 import * as React from "react";
-import {
-  useRefs,
-  useRefState,
-  useResizeObserver,
-} from "@itwin/core-react/internal";
-import { WidgetMenu } from "./Menu.js";
-import { useLabel } from "../base/NineZone.js";
+import { useResizeObserver } from "@itwin/core-react/internal";
 import { PanelSideContext } from "../widget-panels/Panel.js";
 import { useLayout } from "../base/LayoutStore.js";
+import { Popover } from "@itwin/itwinui-react";
+import { SvgChevronRightSmall } from "@itwin/itwinui-icons-react";
+import { TabBarButton } from "./Button.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 /** @internal */
 export interface WidgetOverflowProps {
@@ -29,49 +27,40 @@ export interface WidgetOverflowProps {
 /** @internal */
 export function WidgetOverflow(props: WidgetOverflowProps) {
   const [open, setOpen] = React.useState(false);
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [targetRef, target] = useRefState<HTMLDivElement>();
   const resizeObserverRef = useResizeObserver<HTMLDivElement>(props.onResize);
-  const refs = useRefs(ref, resizeObserverRef);
-  const handleClick = React.useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setOpen((prev) => !prev);
-  }, []);
   const handleClose = React.useCallback(() => {
     setOpen(false);
   }, []);
   usePanelPopup(handleClose);
-  const className = classnames(
-    "nz-widget-overflow",
-    props.hidden && "nz-hidden"
-  );
   const overflowContext = React.useMemo<WidgetOverflowContextArgs>(() => {
     return {
       close: handleClose,
     };
   }, [handleClose]);
-  const moreWidgetsTitle = useLabel("moreWidgetsTitle");
+
+  const { translate } = useTranslation();
+  const moreWidgetsTitle = translate("widget.tooltips.moreWidgets");
   return (
-    <div className={className} ref={refs}>
-      <div // eslint-disable-line jsx-a11y/click-events-have-key-events
-        className="nz-button"
-        onClick={handleClick}
-        ref={targetRef}
-        role="button"
-        tabIndex={-1}
-        title={moreWidgetsTitle}
+    <WidgetOverflowContext.Provider value={overflowContext}>
+      <Popover
+        className="nz-widget-overflow_menu"
+        visible={open}
+        onVisibleChange={setOpen}
+        content={props.children}
+        applyBackground
       >
-        <div className="nz-icon" />
-      </div>
-      <WidgetOverflowContext.Provider value={overflowContext}>
-        <WidgetMenu
-          children={props.children} // eslint-disable-line react/no-children-prop
-          open={open}
-          onClose={handleClose}
-          target={target}
-        />
-      </WidgetOverflowContext.Provider>
-    </div>
+        <TabBarButton
+          label={moreWidgetsTitle}
+          className={classnames(
+            "nz-widget-overflow",
+            props.hidden && "nz-hidden"
+          )}
+          ref={resizeObserverRef}
+        >
+          <SvgChevronRightSmall />
+        </TabBarButton>
+      </Popover>
+    </WidgetOverflowContext.Provider>
   );
 }
 

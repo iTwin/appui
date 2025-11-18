@@ -39,22 +39,22 @@ describe("WidgetOverflow", () => {
           }}
         >
           <WidgetOverflow>
-            <div>A</div>
-            <div>B</div>
+            <div>Widget 1</div>
+            <div>Widget 2</div>
           </WidgetOverflow>
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = component.container.getElementsByClassName("nz-button")[0];
-    act(() => {
-      fireEvent.click(button);
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.moreWidgets",
     });
-    component.getByText("A");
-    component.getByText("B");
+    fireEvent.click(button);
+    component.getByText("Widget 1");
+    component.getByText("Widget 2");
   });
 
-  it("should close panel on outside click", () => {
-    const { container } = render(
+  it("should close panel on outside click", async () => {
+    const component = render(
       <TestNineZoneProvider>
         <WidgetTabsEntryContext.Provider
           value={{
@@ -63,23 +63,23 @@ describe("WidgetOverflow", () => {
           }}
         >
           <WidgetOverflow>
-            <div>A</div>
-            <div>B</div>
+            <div>Widget 1</div>
+            <div>Widget 2</div>
           </WidgetOverflow>
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );
-    const button = container.getElementsByClassName("nz-button")[0];
-    act(() => {
-      fireEvent.click(button);
+    const button = component.getByRole("button", {
+      name: "widget.tooltips.moreWidgets",
     });
-    expect(document.getElementsByClassName("nz-widget-menu")).toHaveLength(1);
+    button.click();
+    await component.findByText("Widget 1");
 
     act(() => {
       fireEvent.pointerDown(document);
       fireEvent.pointerUp(document);
     });
 
-    expect(document.getElementsByClassName("nz-widget-menu")).toHaveLength(0);
+    expect(component.queryByText("Widget 1")).toBeNull();
   });
 });
