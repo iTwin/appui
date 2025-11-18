@@ -282,7 +282,6 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
       const newRelativePosition = bounds.topLeft().getOffsetTo(pointerPosition);
       const offset = relativePosition.current.getOffsetTo(newRelativePosition);
       const resizeBy = getResizeBy(handle, offset);
-
       dispatch({
         type: "FLOATING_WIDGET_RESIZE",
         id,
