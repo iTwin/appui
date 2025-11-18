@@ -269,7 +269,6 @@ interface FloatingWidgetHandleProps {
 
 function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
-  const measureNz = React.useContext(MeasureContext);
   const id = useFloatingWidgetId();
   const { handle } = props;
   const relativePosition = React.useRef<Point>(new Point());
@@ -282,20 +281,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
       const bounds = Rectangle.create(ref.current.getBoundingClientRect());
       const newRelativePosition = bounds.topLeft().getOffsetTo(pointerPosition);
       const offset = relativePosition.current.getOffsetTo(newRelativePosition);
-      let resizeBy = getResizeBy(handle, offset);
-
-      // Don't allow moving the top below zero
-      if (handle === "top" || handle === "topLeft" || handle === "topRight") {
-        const currentTop = bounds.top - measureNz().top;
-        if (currentTop - resizeBy.top < 0) {
-          resizeBy = new Rectangle(
-            resizeBy.left,
-            currentTop,
-            resizeBy.right,
-            resizeBy.bottom
-          );
-        }
-      }
+      const resizeBy = getResizeBy(handle, offset);
 
       dispatch({
         type: "FLOATING_WIDGET_RESIZE",
@@ -303,7 +289,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
         resizeBy,
       });
     },
-    [dispatch, handle, id, measureNz]
+    [dispatch, handle, id]
   );
   const handleDragStart = useDragResizeHandle({
     handle,
