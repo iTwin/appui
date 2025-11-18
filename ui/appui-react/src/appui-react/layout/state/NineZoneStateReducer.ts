@@ -336,21 +336,25 @@ export function NineZoneStateReducer(
       let newBounds = Rectangle.create(floatingWidget.bounds);
 
       // Resize top-left corner.
+      const minLeft = 0;
+      const minTop = 0;
       const maxLeft = newBounds.right - minWidth;
       const maxTop = newBounds.bottom - minHeight;
 
       newBounds = newBounds.inset(-resizeBy.left, -resizeBy.top, 0, 0);
-      const left = Math.min(maxLeft, newBounds.left);
-      const top = Math.min(maxTop, newBounds.top);
+      const left = Math.max(Math.min(maxLeft, newBounds.left), minLeft);
+      const top = Math.max(Math.min(maxTop, newBounds.top), minTop);
       newBounds = new Rectangle(left, top, newBounds.right, newBounds.bottom);
 
       // Resize bottom-right corner.
       const minRight = newBounds.left + minWidth;
       const minBottom = newBounds.top + minHeight;
+      const maxRight = state.size.width;
+      const maxBottom = state.size.height;
 
       newBounds = newBounds.inset(0, 0, -resizeBy.right, -resizeBy.bottom);
-      const right = Math.max(minRight, newBounds.right);
-      const bottom = Math.max(minBottom, newBounds.bottom);
+      const right = Math.max(Math.min(maxRight, newBounds.right), minRight);
+      const bottom = Math.max(Math.min(maxBottom, newBounds.bottom), minBottom);
       newBounds = new Rectangle(left, top, right, bottom);
 
       state = updateFloatingWidgetState(state, action.id, {
