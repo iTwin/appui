@@ -71,6 +71,26 @@
       "console": "integratedTerminal"
     },
     // TEST APPS
+    // STORYBOOK
+    {
+      "name": "Storybook",
+      "presentation": {
+        "group": "2_storybook"
+      },
+      "cwd": "${workspaceFolder}/docs/storybook",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "serverReadyAction": {
+        "pattern": "Local:\\s+(https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    },
+    // TEST APPS
     {
       /* PARTIAL */ "name": "[BACKEND] test-app (chrome)",
       "presentation": {

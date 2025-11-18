@@ -1,0 +1,18 @@
+.nz-header-top-right-root {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  direction: rtl;
+  position: relative;
+  gap: var(--os-gap);
+
+  .nz-button-group {
+    gap: var(--os-gap);
+  }
+
+  .nz-icon-button {
+    &[data-iui-active="true"]:after {
+      inset-block: unset;
+    }
+  }
+}

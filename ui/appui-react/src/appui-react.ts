@@ -332,6 +332,11 @@ export {
 
 export { WidgetAction } from "./appui-react/layout/widget/WidgetAction.js";
 export { WidgetActions } from "./appui-react/layout/widget/WidgetActions.js";
+export { WidgetContentLayout } from "./appui-react/layout/widget/widget-layout/WidgetContentLayout.js";
+export {
+  WidgetSizeProvider,
+  useWidgetSize,
+} from "./appui-react/layout/widget/widget-layout/WidgetSizeProvider.js";
 
 export { AppNotificationManager } from "./appui-react/messages/AppNotificationManager.js";
 export { InputFieldMessage } from "./appui-react/messages/InputField.js";

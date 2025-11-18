@@ -1,0 +1,105 @@
+@container style(--layout-size: sm) {
+  div.nz-widget-content-layout-root {
+    --os-gap: var(--stratakit-space-x2);
+    --os-padding: var(--stratakit-space-x2);
+    --os-layout-gap: var(--stratakit-space-x2);
+  }
+
+  div.nz-widget-content-layout-footer {
+    flex-wrap: wrap;
+  }
+}
+
+@container style(--layout-size: xs) {
+  div.nz-widget-content-layout-root {
+    --os-gap: var(--stratakit-space-x1);
+    --os-padding: var(--stratakit-space-x1);
+    --os-layout-gap: var(--stratakit-space-x1);
+  }
+
+  div.nz-widget-content-layout-footer {
+    flex-wrap: wrap;
+    & > button {
+      flex: 1;
+      overflow: auto;
+      min-width: fit-content;
+    }
+  }
+}
+
+.nz-widget-content-layout-root {
+  --stratakit-space-x1: 0.25rem;
+  --stratakit-space-x2: 0.5rem;
+  --stratakit-space-x3: 0.75rem;
+  --os-gap: var(--stratakit-space-x3);
+  --os-layout-gap: var(--stratakit-space-x3);
+  --os-padding: var(--stratakit-space-x3);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: var(--os-layout-gap);
+  padding: var(--os-padding);
+  transition: padding 0.3s, gap 0.3s;
+  position: relative;
+}
+
+.nz-widget-content-layout-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-gap);
+  transition: gap 0.3s;
+}
+
+.nz-widget-content-layout-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 0px;
+  width: 100%;
+  gap: var(--os-gap);
+}
+
+.nz-widget-content-layout-content-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--os-gap);
+  flex: 1;
+  overflow: auto;
+  transition: gap 0.3s;
+
+  &.center {
+    display: grid;
+    place-items: center;
+  }
+}
+
+.nz-widget-content-layout-non-blocking-loading {
+  &:not(:first-child) {
+    margin-top: calc(-1 * var(--os-gap));
+  }
+}
+
+.nz-widget-content-layout-footer {
+  display: flex;
+  gap: var(--os-gap);
+  justify-content: flex-end;
+  width: 100%;
+  transition: gap 0.3s;
+}
+
+.nz-widget-content-layout-loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}

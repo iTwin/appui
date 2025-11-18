@@ -90,6 +90,7 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
+import { default as React_3 } from 'react';
 import { RectangleProps as RectangleProps_2 } from '@itwin/core-react';
 import { Reducer as Reducer_2 } from 'redux';
 import type { RefObject } from 'react';
@@ -107,6 +108,7 @@ import { StandardViewId } from '@itwin/core-frontend';
 import { StatusBarFieldProps } from './Field.js';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
+import { ToggleSwitch } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
@@ -5650,6 +5652,13 @@ export interface WidgetConfig extends Widget {
     readonly tooltipKey?: string;
 }
 
+// @public (undocumented)
+export const WidgetContentLayout: React_3.FC<WidgetContentLayoutProps> & {
+    Header: typeof Header;
+    Content: typeof Content;
+    Footer: typeof Footer;
+};
+
 // @public @deprecated
 export class WidgetControl extends ConfigurableUiControl {
     constructor(info: ConfigurableCreateInfo, options: any);
@@ -5794,6 +5803,9 @@ export class WidgetManager {
 
 // @public
 export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
+
+// @public
+export const WidgetSizeProvider: React_3.FC<React_3.PropsWithChildren<WidgetSizeProviderProps>>;
 
 // @public
 export enum WidgetState {

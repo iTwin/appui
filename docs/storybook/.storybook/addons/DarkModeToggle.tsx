@@ -4,11 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
 import type { Decorator } from "@storybook/react-vite";
-import { ThemeProvider } from "@itwin/itwinui-react";
-import { Root } from "@stratakit/foundations";
+import { DarkModeBackgroundWrapper } from "./DarkModeBackgroundWrapper";
 
-export const withThemeBridge: Decorator = (Story, context) => {
-  const themeBridge = !!context.globals.themeBridge;
+export const withDarkModeBackground: Decorator = (Story, context) => {
   const darkModeGlobal = context.globals.darkMode;
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
@@ -17,26 +15,10 @@ export const withThemeBridge: Decorator = (Story, context) => {
   const isDark =
     darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
 
-  if (themeBridge) {
-    return (
-      <Root
-        colorScheme={isDark ? "dark" : "light"}
-        density="dense"
-        synchronizeColorScheme
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        render={(props: any) => (
-          <ThemeProvider future={{ themeBridge }} {...props} />
-        )}
-      >
-        <Story />
-      </Root>
-    );
-  }
-
   return (
-    <ThemeProvider theme={isDark ? "dark" : "light"}>
+    <DarkModeBackgroundWrapper isDark={isDark}>
       <Story />
-    </ThemeProvider>
+    </DarkModeBackgroundWrapper>
   );
 };
 
@@ -57,15 +39,16 @@ function useMediaQuery(query: string) {
   return React.useSyncExternalStore(subscribe, getClientSnapshot);
 }
 
-export const themeBridgeGlobalType = {
-  description: "iTwinUI v5 theme bridge",
-  defaultValue: undefined,
+export const darkModeGlobalType = {
+  description: "Toggle dark mode",
+  defaultValue: "light",
   toolbar: {
-    title: "Theme bridge",
-    icon: "paintbrush",
+    title: "Dark mode",
+    icon: "moon",
     items: [
-      { title: "Enable", value: "true" },
-      { title: "Disable", type: "reset" },
+      { title: "Light", value: "light", icon: "sun" },
+      { title: "Dark", value: "dark", icon: "moon" },
     ],
+    dynamicTitle: true,
   },
 };

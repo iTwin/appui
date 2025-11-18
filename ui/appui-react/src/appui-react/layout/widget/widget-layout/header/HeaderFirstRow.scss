@@ -1,0 +1,19 @@
+.nz-header-first-row-root {
+  gap: var(--os-gap);
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+
+  &.single-column {
+    grid-template-columns: 1fr;
+  }
+
+  .nz-header-first-row-top-left {
+    display: flex;
+    gap: var(--os-gap);
+    align-items: center;
+    text-wrap-mode: nowrap;
+    overflow: auto;
+  }
+}
