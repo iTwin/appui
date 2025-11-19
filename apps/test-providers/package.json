@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@itwin/build-tools": "4.10.2",
+    "@itwin/build-tools": "catalog:",
     "@itwin/eslint-plugin": "5.1.0",
     "@types/react": "^19.2.0",
     "cpx2": "^3.0.0",

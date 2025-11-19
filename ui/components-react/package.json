@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@itwin/appui-abstract": "catalog:",
-    "@itwin/build-tools": "4.10.2",
+    "@itwin/build-tools": "catalog:",
     "@itwin/core-bentley": "catalog:",
     "@itwin/core-common": "catalog:",
     "@itwin/core-i18n": "catalog:",

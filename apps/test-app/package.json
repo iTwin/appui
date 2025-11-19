@@ -36,7 +36,7 @@
     "url": "http://www.bentley.com"
   },
   "devDependencies": {
-    "@itwin/build-tools": "4.10.2",
+    "@itwin/build-tools": "catalog:",
     "@itwin/eslint-plugin": "5.0.0-dev.2",
     "@tanstack/router-plugin": "^1.87.6",
     "@tanstack/router-devtools": "^1.87.6",
