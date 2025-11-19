@@ -19,7 +19,6 @@ import { ProgressRadial } from '@itwin/itwinui-react';
 import * as React_2 from 'react';
 import ReactAutosuggest from 'react-autosuggest';
 import { RelativePosition } from '@itwin/appui-abstract';
-import { WithOnOutsideClickProps as WithOnOutsideClickProps_2 } from '../hocs/withOnOutsideClick.js';
 
 // @public @deprecated
 export class ActivateSettingsTabEvent extends BeUiEvent<ActivateSettingsTabEventArgs> {
@@ -399,7 +398,7 @@ export interface DivProps extends CommonDivProps {
 
 // @public @deprecated
 export const DivWithOutsideClick: {
-    new (props: CommonDivProps & WithOnOutsideClickProps_2): {
+    new (props: CommonDivProps & WithOnOutsideClickProps): {
         outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
@@ -413,22 +412,22 @@ export const DivWithOutsideClick: {
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
         context: unknown;
-        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps_2>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
+        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps_2>;
+        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
-        shouldComponentUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
-        getSnapshotBeforeUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, prevState: Readonly<{}>): any;
-        componentDidUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, prevState: Readonly<{}>, snapshot?: any): void;
+        getSnapshotBeforeUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, prevState: Readonly<{}>): any;
+        componentDidUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, prevState: Readonly<{}>, snapshot?: any): void;
         componentWillMount?(): void;
         UNSAFE_componentWillMount?(): void;
-        componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextContext: any): void;
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextContext: any): void;
-        componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): void;
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextContext: any): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextContext: any): void;
+        componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): void;
     };
-    new (props: CommonDivProps & WithOnOutsideClickProps_2, context: any): {
+    new (props: CommonDivProps & WithOnOutsideClickProps, context: any): {
         outsideClickContainerDiv?: HTMLDivElement | null;
         isDownOutside: boolean;
         isInCorePopup(element: HTMLElement): boolean;
@@ -442,20 +441,20 @@ export const DivWithOutsideClick: {
         componentWillUnmount(): void;
         render(): React_2.JSX.Element;
         context: unknown;
-        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps_2>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
+        setState<K extends never>(state: {} | ((prevState: Readonly<{}>, props: Readonly<CommonDivProps & WithOnOutsideClickProps>) => {} | Pick<{}, K> | null) | Pick<{}, K> | null, callback?: (() => void) | undefined): void;
         forceUpdate(callback?: (() => void) | undefined): void;
-        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps_2>;
+        readonly props: Readonly<CommonDivProps & WithOnOutsideClickProps>;
         state: Readonly<{}>;
-        shouldComponentUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): boolean;
+        shouldComponentUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): boolean;
         componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
-        getSnapshotBeforeUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, prevState: Readonly<{}>): any;
-        componentDidUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, prevState: Readonly<{}>, snapshot?: any): void;
+        getSnapshotBeforeUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, prevState: Readonly<{}>): any;
+        componentDidUpdate?(prevProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, prevState: Readonly<{}>, snapshot?: any): void;
         componentWillMount?(): void;
         UNSAFE_componentWillMount?(): void;
-        componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextContext: any): void;
-        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextContext: any): void;
-        componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): void;
-        UNSAFE_componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps_2>, nextState: Readonly<{}>, nextContext: any): void;
+        componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextContext: any): void;
+        UNSAFE_componentWillReceiveProps?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextContext: any): void;
+        componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): void;
+        UNSAFE_componentWillUpdate?(nextProps: Readonly<CommonDivProps & WithOnOutsideClickProps>, nextState: Readonly<{}>, nextContext: any): void;
     };
     contextType?: React_2.Context<any> | undefined;
     propTypes?: any;
