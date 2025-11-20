@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { useTranslation as useComponentsTranslation } from "@itwin/components-react/internal";
 import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { useLabelProps } from "./Item.js";
@@ -35,7 +36,7 @@ export const OverflowButton = React.forwardRef<
   const placement = usePopoverPlacement();
   const labelProps = useLabelProps();
   const { setPopoverOpen } = useSafeContext(ToolbarContext);
-
+  const { translate } = useComponentsTranslation();
   return (
     <ToolbarMenu
       menuItems={(close) => {
@@ -52,7 +53,7 @@ export const OverflowButton = React.forwardRef<
     >
       <IconButton
         ref={ref}
-        label="More"
+        label={translate("toolbar.overflow")}
         labelProps={labelProps}
         styleType="borderless"
       >

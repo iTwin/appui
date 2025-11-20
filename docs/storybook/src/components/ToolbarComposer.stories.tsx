@@ -12,32 +12,37 @@ import {
   CommandItemDef,
   ToolItemDef,
   ToolbarActionItem,
+  ToolbarCustomItem,
   ToolbarGroupItem,
   ToolbarHelper,
+  ToolbarItem,
   ToolbarItemUtilities,
   ToolbarOrientation,
   ToolbarUsage,
   useConditionalValue,
+  useToolbarIcon,
 } from "@itwin/appui-react";
-import { BadgeType, ConditionalIconItem, IconHelper } from "@itwin/core-react";
+import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
   Svg2D,
   Svg3D,
   SvgActivity,
   SvgAdd,
   SvgAirplane,
-  SvgAndroid,
   SvgClipboard,
   SvgExport,
   SvgPlaceholder,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
+import genericPlaceholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
+import { Icon } from "@stratakit/foundations";
+import placeholderIcon from "@stratakit/icons/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
 import { enumArgType } from "../Utils";
 import { ToolbarComposerStory } from "./ToolbarComposer";
+import { usePreviewFeatures } from "@itwin/appui-react-internal/lib/appui-react/preview/PreviewFeatures";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -45,6 +50,7 @@ const meta = {
   tags: ["autodocs"],
   decorators: [withResizer, AppUiDecorator, InitializerDecorator],
   args: {
+    useStrataKit: false,
     orientation: ToolbarOrientation.Horizontal,
     usage: ToolbarUsage.ContentManipulation,
   },
@@ -60,8 +66,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const items = createItems();
-
 export const Empty: Story = {
   args: {
     items: [],
@@ -70,141 +74,134 @@ export const Empty: Story = {
 
 export const ActionItem: Story = {
   args: {
-    items: [items.action1, items.action2, items.action3],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem(),
+        factory.createActionItem(),
+        factory.createActionItem(),
+      ];
+    })(),
   },
 };
 
 export const GroupItem: Story = {
   args: {
-    items: [items.group1, items.group2, items.group3],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createGroupItem({
+          items: [factory.createActionItem(), factory.createActionItem()],
+        }),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem(),
+            factory.createActionItem(),
+            factory.createGroupItem({
+              items: [
+                factory.createActionItem(),
+                factory.createGroupItem({
+                  items: [factory.createActionItem()],
+                }),
+              ],
+            }),
+          ],
+        }),
+        factory.createGroupItem({
+          items: Array.from({ length: 10 }, () => factory.createActionItem()),
+        }),
+      ];
+    })(),
   },
 };
 
 export const CustomItem: Story = {
   args: {
-    items: [items.custom1, items.custom2, items.custom3],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createCustomItem(),
+        factory.createCustomItem(),
+        factory.createCustomItem(),
+      ];
+    })(),
   },
 };
 
 export const Badge: Story = {
   args: {
-    items: [
-      {
-        ...items.action1,
-        description: "TechnicalPreview badge",
-        badge: BadgeType.TechnicalPreview,
-      },
-      {
-        ...items.group1,
-        description: "TechnicalPreview badge",
-        badge: BadgeType.TechnicalPreview,
-      },
-      {
-        ...items.custom1,
-        description: "TechnicalPreview badge",
-        badge: BadgeType.TechnicalPreview,
-      },
-      {
-        ...items.action2,
-        description: "New badge",
-        badge: BadgeType.New,
-      },
-      {
-        ...items.group2,
-        description: "New badge",
-        badge: BadgeType.New,
-        items: items.group2.items.map((item, index) => {
-          const badges = [
-            BadgeType.New,
-            BadgeType.TechnicalPreview,
-            "deprecated",
+    items: (() => {
+      const factory = createItemFactory();
+      const badges: ToolbarItem["badgeKind"][] = [
+        "technical-preview",
+        "new",
+        "deprecated",
+      ];
+      return [
+        ...badges.flatMap((badgeKind) => {
+          return [
+            factory.createActionItem({
+              description: `${badgeKind} badge`,
+              badgeKind,
+            }),
+            factory.createGroupItem({
+              description: `${badgeKind} badge`,
+              badgeKind,
+            }),
+            factory.createCustomItem({
+              description: `${badgeKind} badge`,
+              badgeKind,
+            }),
           ];
-          const badgeIndex = index % badges.length;
-          const badge = badges[badgeIndex];
-          return {
-            ...item,
-            badge: typeof badge === "string" ? undefined : badge,
-            badgeKind: typeof badge === "string" ? badge : undefined,
-          };
         }),
-      },
-      {
-        ...items.custom2,
-        description: "New badge",
-        badge: BadgeType.New,
-      },
-      {
-        ...items.action3,
-        description: "Deprecated badge",
-        badgeKind: "deprecated",
-      },
-      {
-        ...items.group3,
-        description: "Deprecated badge",
-        badgeKind: "deprecated",
-      },
-      {
-        ...items.custom3,
-        description: "Deprecated badge",
-        badgeKind: "deprecated",
-      },
-      {
-        ...items.action4,
-        description: "No badge",
-        badge: BadgeType.None,
-      },
-    ],
+      ];
+    })(),
   },
 };
 
 export const Disabled: Story = {
   args: {
-    items: [
-      {
-        ...items.action1,
-        isDisabled: true,
-      },
-      {
-        ...items.group1,
-        isDisabled: true,
-      },
-      {
-        ...items.group2,
-        items: items.group2.items.map((item) => ({
-          ...item,
-          isDisabled: true,
-        })),
-      },
-      {
-        ...items.custom1,
-        isDisabled: true,
-      },
-    ],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem({ isDisabled: true }),
+        factory.createGroupItem({ isDisabled: true }),
+        factory.createGroupItem({
+          items: [
+            factory.createActionItem({ isDisabled: true }),
+            factory.createActionItem({ isDisabled: true }),
+            factory.createGroupItem({ isDisabled: true }),
+          ],
+        }),
+        factory.createCustomItem({ isDisabled: true }),
+      ];
+    })(),
   },
 };
 
 export const Hidden: Story = {
   args: {
-    items: [
-      items.action1,
-      items.action2,
-      {
-        ...items.action3,
-        isHidden: true,
-      },
-      items.group1,
-      items.group2,
-      {
-        ...items.group3,
-        isHidden: true,
-      },
-      items.custom1,
-      items.custom2,
-      {
-        ...items.custom3,
-        isHidden: true,
-      },
-    ],
+    items: (() => {
+      const factory = createItemFactory();
+      return [
+        factory.createActionItem(),
+        factory.createActionItem(),
+        factory.createActionItem({ isHidden: true }),
+        factory.createGroupItem({
+          items: [factory.createActionItem()],
+        }),
+        factory.createGroupItem({
+          items: [factory.createActionItem()],
+        }),
+        factory.createGroupItem({
+          items: [factory.createActionItem()],
+          isHidden: true,
+        }),
+        factory.createCustomItem(),
+        factory.createCustomItem(),
+        factory.createCustomItem({ isHidden: true }),
+      ];
+    })(),
   },
 };
 
@@ -352,30 +349,35 @@ export const Icons = {
     items: [
       ToolbarItemUtilities.createActionItem({
         id: "node",
-        label: "Icon Node",
+        label: "Icon node",
         icon: <SvgPlaceholder />,
       }),
       ToolbarItemUtilities.createActionItem(
         "spec-node",
         0,
         <SvgPlaceholder />,
-        "Icon Spec Node",
+        "Icon spec node",
         () => {}
       ),
       ToolbarItemUtilities.createActionItem(
         "svg-loader",
         0,
-        placeholderIcon,
-        "SVG Loader",
+        genericPlaceholderIcon,
+        "SVG loader",
         () => {}
       ),
       ToolbarItemUtilities.createActionItem(
         "font-icon",
         0,
         "icon-placeholder",
-        "Font Icon",
+        "Font icon",
         () => {}
       ),
+      ToolbarItemUtilities.createActionItem({
+        id: "dynamic-icon",
+        icon: <DynamicIcon />,
+        label: "Dynamic icon",
+      }),
     ],
   },
 } satisfies Story;
@@ -399,7 +401,7 @@ export const GroupIcons: Story = {
       ToolbarItemUtilities.createGroupItem(
         "group-svg-loader",
         0,
-        placeholderIcon,
+        genericPlaceholderIcon,
         "SVG Loader",
         [...Icons.args.items]
       ),
@@ -583,7 +585,7 @@ function createItemFactory() {
     return ToolbarItemUtilities.createActionItem({
       id,
       label,
-      icon: <SvgPlaceholder />,
+      icon: <DynamicIcon />,
       execute: () => action(label)(),
       ...overrides,
     });
@@ -597,7 +599,21 @@ function createItemFactory() {
     return ToolbarItemUtilities.createGroupItem({
       id,
       label,
-      icon: <SvgPlaceholder />,
+      icon: <DynamicIcon />,
+      ...overrides,
+    });
+  }
+
+  function createCustomItem(
+    overrides?: Omit<Partial<ToolbarCustomItem>, "icon">
+  ) {
+    const id = `custom${++i}`;
+    const label = `Custom ${i}`;
+    return ToolbarItemUtilities.createCustomItem({
+      id,
+      label,
+      icon: <DynamicIcon />,
+      panelContent: <div>Custom panel content {i}</div>,
       ...overrides,
     });
   }
@@ -605,129 +621,23 @@ function createItemFactory() {
   return {
     createActionItem,
     createGroupItem,
+    createCustomItem,
   };
 }
 
-function createItems() {
-  const action1 = ToolbarItemUtilities.createActionItem(
-    "item1",
-    100,
-    "",
-    "Item 1",
-    action("Item 1"),
-    {
-      iconNode: <Svg2D />,
-    }
-  );
-  const action2 = ToolbarItemUtilities.createActionItem(
-    "item2",
-    100,
-    <Svg3D />,
-    "Item 2",
-    action("Item 2")
-  );
-  const action3 = ToolbarItemUtilities.createActionItem(
-    "item3",
-    100,
-    <SvgAndroid />,
-    "Item 3",
-    action("Item 3")
-  );
-  const action4 = ToolbarItemUtilities.createActionItem(
-    "item4",
-    100,
-    <SvgAdd />,
-    "Item 4",
-    action("Item 4")
-  );
+type IconProps = React.ComponentProps<typeof Icon>;
 
-  const group1 = ToolbarItemUtilities.createGroupItem(
-    "group1",
-    100,
-    "",
-    "Group 1",
-    [action1, action2],
-    {
-      iconNode: <SvgActivity />,
-    }
-  );
-
-  const group2_2 = ToolbarItemUtilities.createGroupItem(
-    "group2_2",
-    100,
-    <SvgAirplane />,
-    "Group 2_2",
-    [action2]
-  );
-  const group2_1 = ToolbarItemUtilities.createGroupItem(
-    "group2_1",
-    100,
-    <SvgAndroid />,
-    "Group 2_1",
-    [action1, group2_2]
-  );
-  const group2 = ToolbarItemUtilities.createGroupItem(
-    "group2",
-    100,
-    <SvgClipboard />,
-    "Group 2",
-    [action1, action2, group2_1]
-  );
-
-  const group3 = ToolbarItemUtilities.createGroupItem(
-    "group3",
-    100,
-    <SvgExport />,
-    "Group 3",
-    Array.from({ length: 10 }, (_, i) => {
-      const item = [action1, action2, action3][i % 3];
-      return {
-        ...item,
-        id: `${item.id}_${i}`,
-        label: `${item.label} (${i})`,
-        itemPriority: i,
-      };
-    })
-  );
-
-  const custom1 = ToolbarItemUtilities.createCustomItem(
-    "custom1",
-    100,
-    "",
-    "Custom 1",
-    <div>Custom panel content 1</div>,
-    {
-      iconNode: <Svg2D />,
-    }
-  );
-  const custom2 = ToolbarItemUtilities.createCustomItem(
-    "custom2",
-    100,
-    <Svg3D />,
-    "Custom 2",
-    <div>Custom panel content 2</div>
-  );
-  const custom3 = ToolbarItemUtilities.createCustomItem(
-    "custom3",
-    100,
-    <SvgActivity />,
-    "Custom 3",
-    <div>Custom panel content 3</div>
-  );
-
-  return {
-    action1,
-    action2,
-    action3,
-    action4,
-    /** Group item. */
-    group1,
-    /** Group item with nested groups. */
-    group2,
-    /** Group item with multiple columns. */
-    group3,
-    custom1,
-    custom2,
-    custom3,
-  };
+function DynamicIcon(props: IconProps) {
+  const { useStrataKit } = usePreviewFeatures();
+  const { size } = useToolbarIcon();
+  if (useStrataKit) {
+    return (
+      <Icon
+        href={`${placeholderIcon}#icon${size === "regular" ? "" : `-${size}`}`}
+        size={size}
+        {...props}
+      />
+    );
+  }
+  return <SvgPlaceholder />;
 }

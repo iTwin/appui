@@ -14,6 +14,12 @@ export {
   FocusTrap,
 } from "./core-react/focustrap/FocusTrap.js";
 
+export {
+  useIconSpecValue,
+  getTypedValue,
+  SvgLoader,
+} from "./core-react/icons/IconComponent.js";
+
 export { usePackageTranslation } from "./core-react/l10n/usePackageTranslation.js";
 
 export { PopupContext } from "./core-react/popup/Popup.js";

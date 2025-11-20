@@ -1,0 +1,33 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@layer appui.component {
+  .uifw-stratakit-toolbar-item_icon {
+    &:where(svg) {
+      fill: currentColor; // Fix color of icons from `@itwin/itwinui-icons-react`.
+    }
+
+    &.uifw-css-icon {
+      &[data-_uifw-size="regular"] {
+        font-size: 1rem; // Fix size of deprecated CSS icons.
+      }
+
+      &[data-_uifw-size="large"] {
+        font-size: 1.5rem; // Fix size of deprecated CSS icons.
+      }
+    }
+
+    &.uifw-svg-loader svg {
+      // Fix color of icons loaded via `<svg-loader>` element.
+      fill: currentColor;
+    }
+  }
+
+  .uifw-stratakit-toolbar-item_checkboxIcon {
+    &.uifw-svg-loader svg-loader {
+      flex: 1;
+      align-self: stretch;
+    }
+  }
+}

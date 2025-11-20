@@ -56,72 +56,57 @@ function getWebComponentSource(iconSpec: string): string | undefined {
  * @deprecated in 4.16.0. Used to render a deprecated {@link IconSpec} type. Use {@link https://itwinui.bentley.com/ iTwinUI Icon} instead.
  */
 export function Icon(props: IconProps) {
-  if (!props.iconSpec) return null;
+  const { iconSpec, ...rest } = props;
+  const iconSpecValue = useIconSpecValue(iconSpec);
+  if (!iconSpec) return undefined;
 
-  const iconSpecValue = getIconSpecValue(props.iconSpec);
-  if (typeof iconSpecValue === "string") {
-    const iconString = iconSpecValue;
-    const webComponentString = getWebComponentSource(iconString);
+  const typedValue = getTypedValue(iconSpecValue);
 
-    if (
-      iconString.startsWith("data:") ||
-      iconString.endsWith(".svg") ||
-      webComponentString
-    ) {
-      const definitiveIconString = webComponentString
-        ? webComponentString
-        : iconString;
-      const svgLoader = `<svg-loader src="${definitiveIconString}"></svg-loader>`;
-      const svgDiv = `<div>${svgLoader}</div>`;
-
-      const sanitizerConfig = {
-        ALLOWED_TAGS: ["svg-loader"],
-        ADD_URI_SAFE_ATTR: definitiveIconString.startsWith("data:")
-          ? ["src"]
-          : [],
-      };
-
-      const sanitizedIconString = DOMPurify.sanitize(svgDiv, sanitizerConfig);
-      const webComponentNode = (
-        // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
-        // eslint-disable-next-line jam3/no-sanitizer-with-danger
-        <div dangerouslySetInnerHTML={{ __html: sanitizedIconString }}></div>
-      );
-      return (
-        <i className={classnames("icon", "core-svg-icon", props.className)}>
-          {webComponentNode}
-        </i>
-      );
-    }
-
-    // CSS icon
+  if (typedValue.type === "css-icon") {
     return (
       <i
+        {...rest}
         className={classnames(
           "icon",
           "core-css-icon",
-          iconString,
+          typedValue.iconName,
           props.className
         )}
-        style={props.style}
       />
     );
   }
 
-  // ReactNode icon
+  if (typedValue.type === "svg-loader") {
+    return (
+      <i
+        {...rest}
+        className={classnames("icon", "core-svg-icon", props.className)}
+      >
+        <SvgLoader src={typedValue.src} />
+      </i>
+    );
+  }
+
   return (
     <i
+      {...rest}
       className={classnames("icon", "core-svg-icon", props.className)}
       style={props.style}
     >
-      {iconSpecValue}
+      {typedValue.node}
     </i>
   );
 }
 
-function getIconSpecValue(
-  iconSpec: IconSpec
-): Exclude<IconSpec, ConditionalIconItem | ConditionalStringValue> {
+type IconSpecValue = Exclude<
+  IconSpec,
+  ConditionalIconItem | ConditionalStringValue
+>;
+
+/** @internal */
+export function useIconSpecValue(
+  iconSpec: IconSpec | undefined
+): IconSpecValue | undefined {
   let value = iconSpec;
   while (true) {
     if (value instanceof ConditionalIconItem) {
@@ -135,4 +120,55 @@ function getIconSpecValue(
     break;
   }
   return value;
+}
+
+/** @internal */
+export function getTypedValue(value: IconSpecValue) {
+  if (typeof value === "string") {
+    const webComponentSource = getWebComponentSource(value);
+    if (
+      value.startsWith("data:") ||
+      value.endsWith(".svg") ||
+      webComponentSource
+    ) {
+      const src = webComponentSource ? webComponentSource : value;
+      return {
+        type: "svg-loader" as const,
+        src,
+      };
+    }
+
+    return {
+      type: "css-icon" as const,
+      iconName: value,
+    };
+  }
+  return {
+    type: "react-node" as const,
+    node: value,
+  };
+}
+
+interface SvgLoaderProps {
+  src: string;
+}
+
+/** @internal */
+export function SvgLoader(props: SvgLoaderProps) {
+  const { src, ...rest } = props;
+  const svgLoader = `<svg-loader src="${src}"></svg-loader>`;
+  const svgDiv = `<div>${svgLoader}</div>`;
+  const sanitizerConfig = {
+    ALLOWED_TAGS: ["svg-loader"],
+    ADD_URI_SAFE_ATTR: src.startsWith("data:") ? ["src"] : [],
+  };
+  const sanitizedIconString = DOMPurify.sanitize(svgDiv, sanitizerConfig);
+  return (
+    <div
+      {...rest}
+      // we can safely disable jam3/no-sanitizer-with-danger as we are sanitizing above
+      // eslint-disable-next-line jam3/no-sanitizer-with-danger
+      dangerouslySetInnerHTML={{ __html: sanitizedIconString }}
+    />
+  );
 }
