@@ -86,7 +86,7 @@ interface KnownPreviewFeatures {
    * Alternatively, an object can be specified to enable StrataKit for specific areas of the UI.
    * @note This preview feature should be used with [StrataKit theme bridge](https://github.com/iTwin/iTwinUI/wiki/StrataKit-theme-bridge) enabled.
    */
-  useStrataKit: boolean | {};
+  useStrataKit: boolean | {}; // eslint-disable-line @typescript-eslint/no-empty-object-type
 }
 
 /** Object used trim to only known features at runtime.
