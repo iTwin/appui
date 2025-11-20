@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.20.0
+
+### Minor Changes
+
+- 55bd48e: Removed explicit `font-size` from root wrapper element of `ConfigurableUiContent` component. Font size is set by iTwinUI theme provider.
+
+### Patch Changes
+
+- @itwin/components-react@5.20.0
+- @itwin/core-react@5.20.0
+- @itwin/imodel-components-react@5.20.0
+
 ## 5.19.0
 
 ### Minor Changes
