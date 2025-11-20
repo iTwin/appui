@@ -1,0 +1,22 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-underlined-button {
+  background: transparent;
+  color: var(--iui-color-icon-accent);
+  border: 0px solid var(--iui-color-icon-accent);
+  border-bottom-width: 1px;
+  width: fit-content;
+  cursor: pointer;
+}
+.core-underlined-button:hover {
+  color: var(--iui-color-text-accent-hover);
+  border-color: var(--iui-color-text-accent-hover);
+}
+.core-underlined-button:focus {
+  color: var(--iui-color-text-accent-hover);
+  border-color: var(--iui-color-text-accent-hover);
+  background-color: hsl(var(--iui-opacity-6));
+  outline: none;
+}
