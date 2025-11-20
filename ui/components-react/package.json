@@ -1,6 +1,6 @@
 {
   "name": "@itwin/components-react",
-  "version": "5.18.0",
+  "version": "5.19.0",
   "description": "A react component library of iTwin.js UI data-oriented components",
   "type": "module",
   "types": "./lib/components-react.d.ts",
@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@itwin/appui-abstract": "catalog:",
-    "@itwin/build-tools": "4.10.2",
+    "@itwin/build-tools": "catalog:",
     "@itwin/core-bentley": "catalog:",
     "@itwin/core-common": "catalog:",
     "@itwin/core-i18n": "catalog:",
@@ -75,7 +75,6 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/linkify-it": "~2.1.0",
     "@types/lodash": "^4.14.0",
-    "@types/node": "20.17.8",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@types/react-window": "^1.8.2",
@@ -90,7 +89,7 @@
     "raf": "^3.4.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "rimraf": "^6.0.1",
+    "rimraf": "catalog:",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
     "typescript": "~5.6.2",

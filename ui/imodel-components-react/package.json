@@ -1,6 +1,6 @@
 {
   "name": "@itwin/imodel-components-react",
-  "version": "5.18.0",
+  "version": "5.19.0",
   "description": "A react component library of iTwin.js UI iModel components",
   "type": "module",
   "types": "./lib/imodel-components-react.d.ts",
@@ -67,7 +67,7 @@
   },
   "devDependencies": {
     "@itwin/appui-abstract": "catalog:",
-    "@itwin/build-tools": "4.10.2",
+    "@itwin/build-tools": "catalog:",
     "@itwin/components-react": "workspace:*",
     "@itwin/core-bentley": "catalog:",
     "@itwin/core-common": "catalog:",
@@ -83,7 +83,6 @@
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "20.17.8",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitest/coverage-v8": "^3.0.6",
@@ -99,7 +98,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "reflect-metadata": "^0.1.13",
-    "rimraf": "^6.0.1",
+    "rimraf": "catalog:",
     "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
     "typescript": "~5.6.2",
