@@ -20,6 +20,7 @@ import {
   ToolbarOrientation,
   ToolbarUsage,
   useConditionalValue,
+  useToolbarIcon,
 } from "@itwin/appui-react";
 import { ConditionalIconItem, IconHelper } from "@itwin/core-react";
 import {
@@ -624,10 +625,19 @@ function createItemFactory() {
   };
 }
 
-function DynamicIcon() {
+type IconProps = React.ComponentProps<typeof Icon>;
+
+function DynamicIcon(props: IconProps) {
   const { useStrataKit } = usePreviewFeatures();
+  const { size } = useToolbarIcon();
   if (useStrataKit) {
-    return <Icon href={`${placeholderIcon}#icon-large`} size="large" />;
+    return (
+      <Icon
+        href={`${placeholderIcon}#icon${size === "regular" ? "" : `-${size}`}`}
+        size={size}
+        {...props}
+      />
+    );
   }
   return <SvgPlaceholder />;
 }

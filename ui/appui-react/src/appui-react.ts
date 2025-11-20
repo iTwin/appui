@@ -667,6 +667,8 @@ export {
   ToolAssistanceFieldProps,
 } from "./appui-react/statusfields/toolassistance/ToolAssistanceField.js";
 
+export { useToolbarIcon } from "./appui-react/stratakit/toolbar/Item.js";
+
 export { SyncUiEventDispatcher } from "./appui-react/syncui/SyncUiEventDispatcher.js";
 export {
   UiSyncEvent,

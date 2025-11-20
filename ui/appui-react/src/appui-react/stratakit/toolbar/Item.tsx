@@ -32,15 +32,16 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
     const label = useConditionalProp(item.label);
     const isActiveCondition = useConditionalProp(item.isActiveCondition);
     const isDisabled = useConditionalProp(item.isDisabled);
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    const iconSpec = useConditionalProp(item.icon);
+    const iconSpec = useConditionalProp(item.icon); // eslint-disable-line @typescript-eslint/no-deprecated
 
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     const active = isActiveCondition ?? item.isActive;
     return (
       <IconButton
         variant="ghost"
-        icon={<Icon iconNode={item.iconNode} iconSpec={iconSpec} />}
+        icon={
+          <Icon iconNode={item.iconNode} iconSpec={iconSpec} size="large" />
+        }
         label={label ?? ""}
         disabled={isDisabled}
         active={active}
@@ -52,14 +53,14 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
   }
 );
 
-interface IconProps {
+interface IconProps extends StrataKitIconProps {
   iconNode?: React.ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
 }
 
 function Icon(props: IconProps) {
-  const { iconNode, iconSpec } = props;
+  const { iconNode, iconSpec, size = "regular", ...rest } = props;
 
   const iconElement = React.useMemo(() => {
     if (!iconNode) return undefined;
@@ -82,14 +83,21 @@ function Icon(props: IconProps) {
     return <>{typedValue.node}</>;
   }, [typedValue]);
   return (
-    <StrataKitIcon
-      className={classnames("uifw-stratakit-toolbar-item_icon", {
-        "uifw-css-icon": typedValue.type === "css-icon",
-        "uifw-svg-loader": typedValue.type === "svg-loader",
-      })}
-      size="large"
-      render={iconElement ?? iconSpecElement}
-    />
+    <ToolbarIconSizeContext.Provider value={size}>
+      <StrataKitIcon
+        className={classnames(
+          "uifw-stratakit-toolbar-item_icon",
+          {
+            "uifw-css-icon": typedValue.type === "css-icon",
+            "uifw-svg-loader": typedValue.type === "svg-loader",
+          },
+          props.className
+        )}
+        render={iconElement ?? iconSpecElement}
+        size={size}
+        {...rest}
+      />
+    </ToolbarIconSizeContext.Provider>
   );
 }
 
@@ -105,17 +113,32 @@ export function MenuItem(props: MenuItemProps) {
   const isActiveCondition = useConditionalProp(item.isActiveCondition);
   const isDisabled = useConditionalProp(item.isDisabled);
   const isHidden = useConditionalProp(item.isHidden);
+  const iconSpec = useConditionalProp(item.icon); // eslint-disable-line @typescript-eslint/no-deprecated
+
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const active = isActiveCondition ?? item.isActive;
-
   if (isHidden) return undefined;
   return (
     <DropdownMenu.CheckboxItem
       name={item.id}
       label={label}
+      icon={<Icon iconNode={item.iconNode} iconSpec={iconSpec} />}
       disabled={isDisabled}
       checked={active}
       {...rest}
     />
   );
+}
+
+type StrataKitIconProps = React.ComponentProps<typeof StrataKitIcon>;
+type StrataKitIconSize = Exclude<StrataKitIconProps["size"], undefined>;
+const ToolbarIconSizeContext =
+  React.createContext<StrataKitIconSize>("regular");
+
+/** @alpha */
+export function useToolbarIcon() {
+  const size = React.useContext(ToolbarIconSizeContext);
+  return {
+    size,
+  };
 }
