@@ -9,7 +9,13 @@
     }
 
     &.uifw-css-icon {
+      &[data-_uifw-size="regular"] {
+        font-size: 1rem; // Fix size of deprecated CSS icons.
+      }
+
+      &[data-_uifw-size="large"] {
       font-size: 1.5rem; // Fix size of deprecated CSS icons.
+      }
     }
 
     &.uifw-svg-loader svg {

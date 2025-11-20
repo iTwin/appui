@@ -85,6 +85,9 @@ function Icon(props: IconProps) {
   return (
     <ToolbarIconSizeContext.Provider value={size}>
       <StrataKitIcon
+        render={iconElement ?? iconSpecElement}
+        size={size}
+        {...rest}
         className={classnames(
           "uifw-stratakit-toolbar-item_icon",
           {
@@ -93,9 +96,7 @@ function Icon(props: IconProps) {
           },
           props.className
         )}
-        render={iconElement ?? iconSpecElement}
-        size={size}
-        {...rest}
+        data-_uifw-size={size}
       />
     </ToolbarIconSizeContext.Provider>
   );
