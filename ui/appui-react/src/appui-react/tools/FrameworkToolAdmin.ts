@@ -49,5 +49,7 @@ function isElement(target: EventTarget | null): target is Element {
 const editableTags = ["input", "textarea", "select"];
 function isEditable(element: Element) {
   const tagName = element.tagName.toLowerCase();
-  return editableTags.includes(tagName);
+  if (editableTags.includes(tagName)) return true;
+  if (element instanceof HTMLElement && element.isContentEditable) return true;
+  return false;
 }
