@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { StorybookConfig } from "@storybook/react-vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
@@ -18,6 +19,9 @@ const config: StorybookConfig = {
     config.build.chunkSizeWarningLimit = 5000;
     // This prevents component name mangling in stories.
     config.build.minify = false;
+
+    // Avoid bundling same module twice when using tsconfig paths.
+    config.plugins = [...(config.plugins ?? []), tsconfigPaths()];
     return config;
   },
 };

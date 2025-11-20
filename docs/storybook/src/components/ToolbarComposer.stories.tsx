@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import * as React from "react";
 import { action } from "storybook/actions";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
@@ -41,7 +40,8 @@ import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
 import { enumArgType } from "../Utils";
-import { ToolbarComposerStory, UseStrataKitContext } from "./ToolbarComposer";
+import { ToolbarComposerStory } from "./ToolbarComposer";
+import { usePreviewFeatures } from "@itwin/appui-react-internal/lib/appui-react/preview/PreviewFeatures";
 
 const meta = {
   title: "Components/ToolbarComposer",
@@ -625,7 +625,7 @@ function createItemFactory() {
 }
 
 function DynamicIcon() {
-  const useStrataKit = React.useContext(UseStrataKitContext);
+  const { useStrataKit } = usePreviewFeatures();
   if (useStrataKit) {
     return <Icon href={`${placeholderIcon}#icon-large`} size="large" />;
   }

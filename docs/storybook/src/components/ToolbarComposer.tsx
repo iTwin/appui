@@ -25,11 +25,7 @@ export function ToolbarComposerStory(props: StoryProps) {
   }, [activeToolId]);
   return (
     <PreviewFeaturesProvider features={{ useStrataKit }}>
-      <UseStrataKitContext.Provider value={!!useStrataKit}>
-        <ToolbarComposer {...rest} />
-      </UseStrataKitContext.Provider>
+      <ToolbarComposer {...rest} />
     </PreviewFeaturesProvider>
   );
 }
-
-export const UseStrataKitContext = React.createContext<boolean>(false);
