@@ -14,13 +14,20 @@
       }
 
       &[data-_uifw-size="large"] {
-      font-size: 1.5rem; // Fix size of deprecated CSS icons.
+        font-size: 1.5rem; // Fix size of deprecated CSS icons.
       }
     }
 
     &.uifw-svg-loader svg {
       // Fix color of icons loaded via `<svg-loader>` element.
       fill: currentColor;
+    }
+  }
+
+  .uifw-stratakit-toolbar-item_checkboxIcon {
+    &.uifw-svg-loader svg-loader {
+      flex: 1;
+      align-self: stretch;
     }
   }
 }

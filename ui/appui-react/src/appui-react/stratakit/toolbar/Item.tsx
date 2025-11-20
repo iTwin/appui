@@ -123,7 +123,13 @@ export function MenuItem(props: MenuItemProps) {
     <DropdownMenu.CheckboxItem
       name={item.id}
       label={label}
-      icon={<Icon iconNode={item.iconNode} iconSpec={iconSpec} />}
+      icon={
+        <Icon
+          className="uifw-stratakit-toolbar-item_checkboxIcon"
+          iconNode={item.iconNode}
+          iconSpec={iconSpec}
+        />
+      }
       disabled={isDisabled}
       checked={active}
       {...rest}
