@@ -152,7 +152,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (showWidgetIcon && !showIconOnly) ||
     !showWidgetIcon;
   return (
-    <Tooltip content={label} ariaStrategy={showLabel ? "none" : "description"}>
+    <Tooltip content={label} ariaStrategy={showLabel ? "none" : "label"}>
       <div
         data-item-id={id}
         data-item-type="widget-tab"
