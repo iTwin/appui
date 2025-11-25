@@ -46,7 +46,7 @@ export function widgetLocator(args: WidgetLocatorArgs) {
 }
 
 export function tabLocator(page: Page, label: string) {
-  return page.locator(`[title="${label}"]`);
+  return page.getByRole("tab", { name: label });
 }
 
 export function activeTabLocator(widget: Locator) {

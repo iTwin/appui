@@ -19,6 +19,7 @@ import {
   useRefs,
   useResizeObserver,
 } from "@itwin/core-react/internal";
+import { Tooltip } from "@itwin/itwinui-react";
 import { useDragTab } from "../base/DragManager.js";
 import {
   MeasureContext,
@@ -151,23 +152,24 @@ function WidgetTabComponent(props: WidgetTabProps) {
     (showWidgetIcon && !showIconOnly) ||
     !showWidgetIcon;
   return (
-    <div
-      data-item-id={id}
-      data-item-type="widget-tab"
-      className={className}
-      ref={refs}
-      role="tab"
-      style={props.style}
-      title={label}
-      tabIndex={0}
-    >
-      {(showWidgetIcon || showIconOnly) && (
-        <span className="nz-icon">{props.icon}</span>
-      )}
-      {showLabel && <span className="nz-label">{label}</span>}
-      {props.badge && <div className="nz-badge">{props.badge}</div>}
-      <TabTarget />
-    </div>
+    <Tooltip content={label} ariaStrategy={showLabel ? "none" : "label"}>
+      <div
+        data-item-id={id}
+        data-item-type="widget-tab"
+        className={className}
+        ref={refs}
+        role="tab"
+        style={props.style}
+        tabIndex={0}
+      >
+        {(showWidgetIcon || showIconOnly) && (
+          <span className="nz-icon">{props.icon}</span>
+        )}
+        {showLabel && <span className="nz-label">{label}</span>}
+        {props.badge && <div className="nz-badge">{props.badge}</div>}
+        <TabTarget />
+      </div>
+    </Tooltip>
   );
 }
 
