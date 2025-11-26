@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.21.0
+
+### Minor Changes
+
+- 696ad64: Changed the release tag of `notifyCloseRequest` property in the `ModalFrontstageInfo` interface from `@alpha` to `@public`.
+
+### Patch Changes
+
+- @itwin/components-react@5.21.0
+- @itwin/core-react@5.21.0
+- @itwin/imodel-components-react@5.21.0
+
 ## 5.20.0
 
 ### Minor Changes
