@@ -35,14 +35,15 @@ export enum ToolbarOrientation {
 }
 
 /**
- * Used to specify the custom usage of the toolbar which determines the toolbar position. This takes precedence over the {@link ToolbarUsage}.
+ * Used to specify the advanced usage of the toolbar which determines the toolbar position. This takes precedence over the {@link ToolbarUsage}.
  *
- * Known custom usages:
+ * Known advanced usages:
  * - `"view-settings"`: contains tools to control the view settings. Positioned at the bottom-right of the content area by default.
  *
+ * @note This type is non-exhaustive to allow for future additions.
  * @public
  */
-export type ToolbarCustomUsage = "view-settings" | (string & {});
+export type ToolbarAdvancedUsage = "view-settings" | (string & {});
 
 /** Describes the data needed to insert a UI items into an existing set of UI items.
  * @public
@@ -190,6 +191,6 @@ export interface StandardLayoutToolbarItem {
   readonly usage: ToolbarUsage;
   /** Describes toolbar orientation. */
   readonly orientation: ToolbarOrientation;
-  /** Describes a custom toolbar usage. This takes precedence over the {@link usage}. */
-  readonly customUsage?: ToolbarCustomUsage;
+  /** Describes an advanced toolbar usage. This takes precedence over the {@link usage}. */
+  readonly advancedUsage?: ToolbarAdvancedUsage;
 }
