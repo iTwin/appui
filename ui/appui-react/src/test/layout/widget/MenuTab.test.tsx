@@ -47,16 +47,14 @@ describe("MenuTab", () => {
 
   it("should render", () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1");
+    state = addTab(state, "t1", { label: "Tab 1" });
     state = addPanelWidget(state, "top", "w1", ["t1"]);
-    const { container } = render(<WidgetMenuTab />, {
+    const { getByRole } = render(<WidgetMenuTab />, {
       wrapper: (props: any) => (
         <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
       ),
     });
-    expect(container.getElementsByClassName("nz-widget-menuTab")).toHaveLength(
-      1
-    );
+    getByRole("menuitem", { name: "Tab 1" });
   });
 
   it("should render with badge and icon", async () => {
@@ -79,10 +77,10 @@ describe("MenuTab", () => {
 
   it("should close overflow menu", async () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1");
+    state = addTab(state, "t1", { label: "Tab 1" });
     state = addPanelWidget(state, "top", "w1", ["t1"]);
     const close = vi.fn();
-    render(
+    const { getByRole } = render(
       <WidgetOverflowContext.Provider value={{ close }}>
         <WidgetContext.Provider value={{ measure: () => new Rectangle() }}>
           <WidgetMenuTab />
@@ -94,7 +92,7 @@ describe("MenuTab", () => {
         ),
       }
     );
-    const tab = document.getElementsByClassName("nz-widget-menuTab")[0];
+    const tab = getByRole("menuitem", { name: "Tab 1" });
 
     // On drag start
     act(() => {
