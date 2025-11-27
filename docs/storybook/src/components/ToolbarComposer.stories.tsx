@@ -11,8 +11,6 @@ import {
 import {
   CommandItemDef,
   ToolItemDef,
-  ToolbarActionItem,
-  ToolbarGroupItem,
   ToolbarHelper,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -36,7 +34,10 @@ import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";
-import { enumArgType } from "../Utils";
+import {
+  enumArgType,
+  createToolbarItemFactory as createItemFactory,
+} from "../Utils";
 import { ToolbarComposerStory } from "./ToolbarComposer";
 
 const meta = {
@@ -570,41 +571,6 @@ function createAbstractConditionalIcon() {
   return {
     internalData,
     icon,
-  };
-}
-
-function createItemFactory() {
-  let i = 0;
-  function createActionItem(
-    overrides?: Omit<Partial<ToolbarActionItem>, "icon">
-  ) {
-    const id = `item${++i}`;
-    const label = `Item ${i}`;
-    return ToolbarItemUtilities.createActionItem({
-      id,
-      label,
-      icon: <SvgPlaceholder />,
-      execute: () => action(label)(),
-      ...overrides,
-    });
-  }
-
-  function createGroupItem(
-    overrides?: Omit<Partial<ToolbarGroupItem>, "icon">
-  ) {
-    const id = `group${++i}`;
-    const label = `Group ${i}`;
-    return ToolbarItemUtilities.createGroupItem({
-      id,
-      label,
-      icon: <SvgPlaceholder />,
-      ...overrides,
-    });
-  }
-
-  return {
-    createActionItem,
-    createGroupItem,
   };
 }
 
