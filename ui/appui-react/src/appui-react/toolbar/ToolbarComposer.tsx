@@ -19,6 +19,7 @@ import { ToolbarDragInteractionContext } from "./DragInteraction.js";
 import type {
   CommonToolbarItem,
   ToolbarActionItem,
+  ToolbarAdvancedUsage,
   ToolbarGroupItem,
   ToolbarItem,
 } from "./ToolbarItem.js";
@@ -196,6 +197,8 @@ export interface ExtensibleToolbarProps {
   usage: ToolbarUsage;
   /** Toolbar orientation. */
   orientation: ToolbarOrientation;
+  /** Advanced usage string to further specify the toolbar context for UI item providers. */
+  advancedUsage?: ToolbarAdvancedUsage;
   /** Describes the ids of active toolbar items.
    * By default only the toolbar item with id that matches the active `Tool` id is active.
    * @note Property {@link CommonToolbarItem.isActiveCondition} takes precedence when determining the active state of a toolbar item.
@@ -210,10 +213,19 @@ export interface ExtensibleToolbarProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function ToolbarComposer(props: ExtensibleToolbarProps) {
-  const { usage, orientation, activeItemIds: activeItemIdsProp } = props;
+  const {
+    usage,
+    orientation,
+    advancedUsage,
+    activeItemIds: activeItemIdsProp,
+  } = props;
 
   // process items from addon UI providers
-  const addonItems = useActiveStageProvidedToolbarItems(usage, orientation);
+  const addonItems = useActiveStageProvidedToolbarItems(
+    usage,
+    orientation,
+    advancedUsage
+  );
 
   const allItems = React.useMemo(() => {
     return combineItems(props.items, addonItems);

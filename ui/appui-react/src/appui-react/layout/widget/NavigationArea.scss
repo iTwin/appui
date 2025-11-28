@@ -14,9 +14,10 @@
   grid-gap: 6px;
   grid-template-areas:
     "htools button"
-    ". vtools";
+    ". vtools"
+    "secondary-htools vtools";
   grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   justify-items: end;
 
   &.nz-hidden {
@@ -39,7 +40,6 @@
   > .nz-vertical-toolbar-container {
     grid-area: vtools;
 
-    height: calc(100% - 60px);
     display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
@@ -65,5 +65,17 @@
       display: flex;
       justify-content: flex-end;
     }
+  }
+
+  > .nz-secondary-vertical-toolbar-container {
+    grid-area: vtools;
+
+    @include nz-widget-opacity;
+  }
+
+  > .nz-secondary-horizontal-toolbar-container {
+    grid-area: secondary-htools;
+
+    @include nz-widget-opacity;
   }
 }

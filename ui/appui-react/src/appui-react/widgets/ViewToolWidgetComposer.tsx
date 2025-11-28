@@ -56,6 +56,22 @@ export function ViewToolWidgetComposer(props: ViewToolWidgetComposerProps) {
           orientation={ToolbarOrientation.Vertical}
         />
       }
+      secondaryHorizontalToolbar={
+        <ToolbarComposer
+          items={[]}
+          usage={ToolbarUsage.ViewNavigation}
+          orientation={ToolbarOrientation.Horizontal}
+          advancedUsage="view-settings"
+        />
+      }
+      secondaryVerticalToolbar={
+        <ToolbarComposer
+          items={[]}
+          usage={ToolbarUsage.ViewNavigation}
+          orientation={ToolbarOrientation.Vertical}
+          advancedUsage="view-settings"
+        />
+      }
     />
   );
 }

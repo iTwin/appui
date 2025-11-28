@@ -21,10 +21,14 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
    * I.e. [[AppButton]] in NavigationArea zone or navigation aid control in Navigation zone.
    */
   navigationAid?: React.ReactNode;
-  /** Horizontal toolbar. See [[Toolbar]] */
+  /** Horizontal toolbar. Positioned at the top-right. */
   horizontalToolbar?: React.ReactNode;
-  /** Vertical toolbar. See [[Toolbar]] */
+  /** Vertical toolbar. Positioned at the top-right. */
   verticalToolbar?: React.ReactNode;
+  /** Secondary horizontal toolbar. Positioned at the bottom-right. */
+  secondaryHorizontalToolbar?: React.ReactNode;
+  /** Secondary vertical toolbar. Positioned at the bottom-right. */
+  secondaryVerticalToolbar?: React.ReactNode;
   /** Handler for mouse enter */
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   /** Handler for mouse leave */
@@ -68,7 +72,17 @@ export function NavigationArea(props: NavigationAreaProps) {
         onMouseLeave={props.onMouseLeave}
       >
         {props.verticalToolbar}
+        <div style={{ marginTop: "6px" }}>{props.secondaryVerticalToolbar}</div>
       </div>
+      {props.secondaryHorizontalToolbar && (
+        <div
+          className="nz-secondary-horizontal-toolbar-container"
+          onMouseEnter={props.onMouseEnter}
+          onMouseLeave={props.onMouseLeave}
+        >
+          {props.secondaryHorizontalToolbar}
+        </div>
+      )}
     </div>
   );
 }
