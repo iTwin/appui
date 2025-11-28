@@ -70,7 +70,6 @@
       "smartStep": true,
       "console": "integratedTerminal"
     },
-    // TEST APPS
     // STORYBOOK
     {
       "name": "Storybook",
