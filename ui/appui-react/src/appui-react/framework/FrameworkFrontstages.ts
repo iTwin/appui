@@ -186,9 +186,10 @@ export interface ModalFrontstageInfo {
   content: React.ReactNode;
   /** Content displayed in the upper right of the modal frontstage. */
   appBarRight?: React.ReactNode;
-  /** Set notifyCloseRequest to true on stages that register to listen for `onCloseModalFrontstageRequestedEvent` so
+  /**
+   * Set notifyCloseRequest to true on stages that register to listen for `onCloseModalFrontstageRequestedEvent` so
    * that the stage can save unsaved data before closing. Used by the ModalSettingsStage.
-   * @alpha */
+   */
   notifyCloseRequest?: boolean;
   /** If specified overrides the default back button. See {@link ModalFrontstageButton}. */
   backButton?: React.ReactNode;
