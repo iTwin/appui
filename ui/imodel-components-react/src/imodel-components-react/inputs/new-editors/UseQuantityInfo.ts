@@ -145,8 +145,6 @@ async function getFormatterParserSpec({
   }
 
   const persistenceUnitName = persistenceUnit.fullName;
-  // eslint-disable-next-line no-console
-  console.log(parseFormatType(formatProps.type, "") === FormatType.Decimal);
   const highPrecisionFormatterSpec =
     await IModelApp.quantityFormatter.createFormatterSpec({
       formatProps: {
@@ -160,9 +158,8 @@ async function getFormatterParserSpec({
     });
   const defaultFormatterSpec =
     await IModelApp.quantityFormatter.createFormatterSpec({
-      formatProps: {
-        ...formatProps,
-      },
+      formatProps,
+
       persistenceUnitName,
     });
   const parserSpec = await IModelApp.quantityFormatter.createParserSpec({

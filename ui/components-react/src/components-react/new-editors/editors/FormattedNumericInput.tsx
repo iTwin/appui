@@ -86,8 +86,6 @@ function useParsedNumberInput({
 
   React.useEffect(() => {
     setState((prevState) => {
-      // eslint-disable-next-line no-console
-      console.log("prevState.value.rawValue", prevState.value.rawValue);
       return {
         ...prevState,
         value: {
