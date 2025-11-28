@@ -10,7 +10,11 @@ import {
 } from "@itwin/appui-react";
 import { Page } from "../AppUiStory";
 import { ToolbarStory } from "./Toolbar";
-import { createToolbarItemFactory, enumArgType } from "../Utils";
+import {
+  createToolbarItemFactory,
+  enumArgType,
+  removeProperty,
+} from "../Utils";
 
 const meta = {
   title: "Frontstage/Toolbar",
@@ -109,5 +113,69 @@ export const ViewSettingsVertical: Story = {
   args: {
     ...ViewSettings.args,
     orientation: ToolbarOrientation.Vertical,
+  },
+};
+
+export const All: Story = {
+  args: {
+    getItemProvider: () => {
+      return {
+        id: "items",
+        getToolbarItems: () => {
+          const factory = createToolbarItemFactory();
+          const allLayouts: ToolbarItemLayouts[] = [
+            {
+              standard: {
+                usage: ToolbarUsage.ContentManipulation,
+                orientation: ToolbarOrientation.Horizontal,
+              },
+            },
+            {
+              standard: {
+                usage: ToolbarUsage.ContentManipulation,
+                orientation: ToolbarOrientation.Vertical,
+              },
+            },
+            {
+              standard: {
+                usage: ToolbarUsage.ViewNavigation,
+                orientation: ToolbarOrientation.Horizontal,
+              },
+            },
+            {
+              standard: {
+                usage: ToolbarUsage.ViewNavigation,
+                orientation: ToolbarOrientation.Vertical,
+              },
+            },
+            {
+              standard: {
+                usage: ToolbarUsage.ViewNavigation,
+                orientation: ToolbarOrientation.Horizontal,
+                advancedUsage: "view-settings",
+              },
+            },
+            {
+              standard: {
+                usage: ToolbarUsage.ViewNavigation,
+                orientation: ToolbarOrientation.Vertical,
+                advancedUsage: "view-settings",
+              },
+            },
+          ];
+          return allLayouts.flatMap((layouts) => {
+            return [
+              factory.createActionItem({ layouts }),
+              factory.createActionItem({ layouts }),
+              factory.createActionItem({ layouts }),
+            ];
+          });
+        },
+      };
+    },
+  },
+  argTypes: {
+    usage: removeProperty(),
+    orientation: removeProperty(),
   },
 };
