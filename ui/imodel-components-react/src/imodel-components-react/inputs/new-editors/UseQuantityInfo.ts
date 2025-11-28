@@ -26,20 +26,24 @@ interface UseQuantityInfoProps {
  * @internal
  */
 export function useQuantityInfo({ type }: UseQuantityInfoProps) {
-  const [{ formatter, parser }, setState] = React.useState<{
-    formatter: FormatterSpec | undefined;
-    parser: ParserSpec | undefined;
-  }>(() => ({
-    formatter: undefined,
-    parser: undefined,
-  }));
+  const [{ defaultFormatter, highPrecisionFormatter, parser }, setState] =
+    React.useState<{
+      defaultFormatter: FormatterSpec | undefined;
+      highPrecisionFormatter: FormatterSpec | undefined;
+      parser: ParserSpec | undefined;
+    }>(() => ({
+      defaultFormatter: undefined,
+      highPrecisionFormatter: undefined,
+      parser: undefined,
+    }));
 
   const imodel = useIModelConnection();
 
   React.useEffect(() => {
     if (type === undefined) {
       setState({
-        formatter: undefined,
+        defaultFormatter: undefined,
+        highPrecisionFormatter: undefined,
         parser: undefined,
       });
       return;
@@ -47,12 +51,18 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
 
     let disposed = false;
     const loadFormatterParser = async () => {
-      const { formatterSpec, parserSpec } = await getFormatterParserSpec({
-        imodel,
-        type,
-      });
+      const { defaultFormatterSpec, highPrecisionFormatterSpec, parserSpec } =
+        await getFormatterParserSpec({
+          imodel,
+          type,
+        });
+
       if (!disposed) {
-        setState({ formatter: formatterSpec, parser: parserSpec });
+        setState({
+          defaultFormatter: defaultFormatterSpec,
+          highPrecisionFormatter: highPrecisionFormatterSpec,
+          parser: parserSpec,
+        });
       }
     };
 
@@ -86,7 +96,7 @@ export function useQuantityInfo({ type }: UseQuantityInfoProps) {
     };
   }, [imodel, type]);
 
-  return { formatter, parser };
+  return { defaultFormatter, highPrecisionFormatter, parser };
 }
 
 async function getFormatterParserSpec({
@@ -107,14 +117,19 @@ async function getFormatterParserSpec({
       IModelApp.quantityFormatter.findParserSpecByQuantityType(type);
 
     return {
-      formatterSpec: quantityFormatterSpec,
+      highPrecisionFormatterSpec: quantityFormatterSpec,
+      defaultFormatterSpec: quantityFormatterSpec,
       parserSpec: quantityParserSpec,
     };
   }
 
   const koq = await imodel.schemaContext.getSchemaItem(type);
   if (!koq) {
-    return { formatter: undefined, parser: undefined };
+    return {
+      highPrecisionFormatterSpec: undefined,
+      defaultFormatterSpec: undefined,
+      parser: undefined,
+    };
   }
 
   // TODO: `KindOfQuantity` here is used only as a type because we don't have peerDep on `ecschema-metadata`
@@ -122,26 +137,38 @@ async function getFormatterParserSpec({
   const persistenceUnit = await (koq as KindOfQuantity).persistenceUnit;
   const formatProps = await IModelApp.formatsProvider.getFormat(type);
   if (!persistenceUnit || !formatProps) {
-    return { formatter: undefined, parser: undefined };
+    return {
+      highPrecisionFormatterSpec: undefined,
+      defaultFormatterSpec: undefined,
+      parser: undefined,
+    };
   }
 
   const persistenceUnitName = persistenceUnit.fullName;
-  const formatterSpec = await IModelApp.quantityFormatter.createFormatterSpec({
-    formatProps: {
-      ...formatProps,
-      precision:
-        parseFormatType(formatProps.type, "") === FormatType.Decimal
-          ? 12
-          : formatProps.precision,
-    },
-    persistenceUnitName,
-  });
+  const highPrecisionFormatterSpec =
+    await IModelApp.quantityFormatter.createFormatterSpec({
+      formatProps: {
+        ...formatProps,
+        precision:
+          parseFormatType(formatProps.type, "") === FormatType.Decimal
+            ? 12
+            : formatProps.precision,
+      },
+      persistenceUnitName,
+    });
+  const defaultFormatterSpec =
+    await IModelApp.quantityFormatter.createFormatterSpec({
+      formatProps,
+
+      persistenceUnitName,
+    });
   const parserSpec = await IModelApp.quantityFormatter.createParserSpec({
     formatProps,
     persistenceUnitName,
   });
   return {
-    formatterSpec,
+    highPrecisionFormatterSpec,
+    defaultFormatterSpec,
     parserSpec,
   };
 }

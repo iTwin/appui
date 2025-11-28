@@ -21,6 +21,7 @@ import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
 import { immerable } from 'immer';
+import { Input } from '@itwin/itwinui-react';
 import type { LinkElementsInfo } from '@itwin/appui-abstract';
 import type { Localization } from '@itwin/core-common';
 import { LocalizationProvider as LocalizationProvider_2 } from '@itwin/core-react';
@@ -840,7 +841,7 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
 }
 
 // @beta
-export function FormattedNumericInput({ onChange, value, parseValue, formatValue, disabled, size, }: FormattedNumericInputProps): React_3.JSX.Element;
+export function FormattedNumericInput({ onChange, value, parseValue, formatValue, disabled, size, ...props }: FormattedNumericInputProps): React_3.JSX.Element;
 
 // @public
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
