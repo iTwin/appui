@@ -2,8 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { act, fireEvent, render } from "@testing-library/react";
 import * as React from "react";
+import { act, fireEvent, render } from "@testing-library/react";
 import { WidgetOverflow } from "../../../appui-react/layout/widget/Overflow.js";
 import { WidgetTabsEntryContext } from "../../../appui-react/layout/widget/Tabs.js";
 import { TestNineZoneProvider } from "../Providers.js";
@@ -18,10 +18,9 @@ describe("WidgetOverflow", () => {
             onResize: () => {},
           }}
         >
-          <WidgetOverflow>
-            <div>A</div>
-            <div>B</div>
-          </WidgetOverflow>
+          <WidgetOverflow
+            items={[<div key="a">A</div>, <div key="b">B</div>]}
+          />
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );
@@ -38,10 +37,9 @@ describe("WidgetOverflow", () => {
             onResize: () => {},
           }}
         >
-          <WidgetOverflow>
-            <div>Widget 1</div>
-            <div>Widget 2</div>
-          </WidgetOverflow>
+          <WidgetOverflow
+            items={[<div key="w1">Widget 1</div>, <div key="w2">Widget 2</div>]}
+          />
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );
@@ -62,10 +60,9 @@ describe("WidgetOverflow", () => {
             onResize: () => {},
           }}
         >
-          <WidgetOverflow>
-            <div>Widget 1</div>
-            <div>Widget 2</div>
-          </WidgetOverflow>
+          <WidgetOverflow
+            items={[<div key="w1">Widget 1</div>, <div key="w2">Widget 2</div>]}
+          />
         </WidgetTabsEntryContext.Provider>
       </TestNineZoneProvider>
     );

@@ -93,6 +93,9 @@ export function WidgetTabs() {
           return [key, child];
         })
       : [];
+  const overflowItems = panelChildren.map(([key, child]) => {
+    return <React.Fragment key={key}>{child}</React.Fragment>;
+  });
   return (
     <div className="nz-widget-tabs" ref={ref} role="tablist">
       {tabChildren.map(([key, child], index, array) => {
@@ -112,11 +115,8 @@ export function WidgetTabs() {
       <WidgetOverflow
         hidden={overflown && panelChildren.length === 0}
         onResize={handleOverflowResize}
-      >
-        {panelChildren.map(([key, child]) => {
-          return <React.Fragment key={key}>{child}</React.Fragment>;
-        })}
-      </WidgetOverflow>
+        items={overflowItems}
+      />
     </div>
   );
 }

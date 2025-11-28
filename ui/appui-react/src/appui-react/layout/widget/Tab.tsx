@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { assert } from "@itwin/core-bentley";
-import type { CommonProps } from "@itwin/core-react";
 import { Timer } from "@itwin/core-react";
 import {
   Point,
@@ -84,13 +83,10 @@ export function WidgetTabProvider({
   );
 }
 
-/** Properties of [[WidgetTab]] component.
- * @internal
- */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface WidgetTabProps extends CommonProps {
+interface WidgetTabProps {
   badge?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: React.ReactElement;
 }
 
 /** Component that displays a tab in a side panel widget.
@@ -142,8 +138,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
     undefined === side && minimized && "nz-minimized",
     first && "nz-first",
     last && "nz-last",
-    firstInactive && "nz-first-inactive",
-    props.className
+    firstInactive && "nz-first-inactive"
   );
 
   const showLabel =
@@ -159,7 +154,6 @@ function WidgetTabComponent(props: WidgetTabProps) {
         className={className}
         ref={refs}
         role="tab"
-        style={props.style}
         tabIndex={0}
       >
         {(showWidgetIcon || showIconOnly) && (
