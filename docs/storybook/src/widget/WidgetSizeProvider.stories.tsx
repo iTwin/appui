@@ -10,7 +10,7 @@ import {
   useWidgetSize,
 } from "@itwin/appui-react";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
-import { Page, SimpleAppUiStory } from "../AppUiStory";
+import { Page, AppUiStory } from "../AppUiStory";
 import { createFrontstage, createWidget } from "src/Utils";
 import { defaultBreakpoints } from "@itwin/appui-react-internal/lib/appui-react/hooks/useElementSize";
 
@@ -45,7 +45,7 @@ function WidgetSizeProviderStory(props: WidgetSizeProviderStoryProps) {
   };
 
   return (
-    <SimpleAppUiStory
+    <AppUiStory
       itemProviders={[provider]}
       frontstages={[
         createFrontstage({

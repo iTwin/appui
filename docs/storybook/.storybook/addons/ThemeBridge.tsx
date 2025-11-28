@@ -9,21 +9,14 @@ import { Root } from "@stratakit/foundations";
 
 export const withThemeBridge: Decorator = (Story, context) => {
   const themeBridge = !!context.globals.themeBridge;
-  const darkModeGlobal = context.globals.darkMode;
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
-
-  // Use custom dark mode toggle, falling back to system preference
-  const isDark =
-    darkModeGlobal === "dark" || (darkModeGlobal !== "light" && prefersDark);
 
   if (themeBridge) {
     return (
       <Root
-        colorScheme={isDark ? "dark" : "light"}
+        colorScheme={prefersDark ? "dark" : "light"}
         density="dense"
         synchronizeColorScheme
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         render={(props: any) => (
           <ThemeProvider future={{ themeBridge }} {...props} />
         )}
@@ -34,7 +27,7 @@ export const withThemeBridge: Decorator = (Story, context) => {
   }
 
   return (
-    <ThemeProvider theme={isDark ? "dark" : "light"}>
+    <ThemeProvider>
       <Story />
     </ThemeProvider>
   );

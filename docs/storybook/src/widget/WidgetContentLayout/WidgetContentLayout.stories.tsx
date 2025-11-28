@@ -5,8 +5,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import {
   AppUiDecorator,
-  ConsoleToActionsDecorator,
-  InitializerDecorator,
 } from "../../Decorators";
 import WidgetContentLayout from "./WidgetContentLayout";
 import { Page } from "src/AppUiStory";
@@ -15,7 +13,7 @@ const meta = {
   title: "Widget/Widget Content Layout",
   component: WidgetContentLayout,
   tags: ["autodocs"],
-  decorators: [InitializerDecorator, ConsoleToActionsDecorator, AppUiDecorator],
+  decorators: [AppUiDecorator],
   parameters: {
     docs: {
       page: () => <Page />,
@@ -33,9 +31,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// =============================================================================
-// Basic Examples
-// =============================================================================
 export const Full: Story = {
   args: {
     id: "basic-widget",

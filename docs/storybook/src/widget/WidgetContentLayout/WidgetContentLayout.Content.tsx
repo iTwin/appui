@@ -5,7 +5,7 @@
 import { ComponentProps } from "react";
 import { WidgetContentLayout as WCL } from "@itwin/appui-react";
 import { StagePanelState, UiItemsProvider } from "@itwin/appui-react";
-import { SimpleAppUiStory } from "../../AppUiStory";
+import { AppUiStory } from "../../AppUiStory";
 import { createFrontstage, createWidget } from "../../Utils";
 
 /**
@@ -35,7 +35,7 @@ export function WidgetContentLayoutContent(
   };
 
   return (
-    <SimpleAppUiStory
+    <AppUiStory
       itemProviders={[provider]}
       frontstages={[
         createFrontstage({
