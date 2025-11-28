@@ -58,11 +58,6 @@ export class SampleTool extends PrimitiveTool {
   public readonly points: Point3d[] = [];
   private _showCoordinatesOnPointerMove = false;
   private _stationFormatterSpec?: FormatterSpec;
-  private _lengthDescription = new LengthDescription();
-  private _surveyLengthDescription = new SurveyLengthDescription(
-    SampleTool._surveyLengthName,
-    "Survey"
-  );
 
   private toggleCoordinateUpdate() {
     this._showCoordinatesOnPointerMove = !this._showCoordinatesOnPointerMove;
@@ -367,6 +362,8 @@ export class SampleTool extends PrimitiveTool {
     this._lengthValue.value = option;
   }
 
+  private _lengthDescription = new LengthDescription();
+
   // ------------- Survey Length ---------------
   private static _surveyLengthName = "surveyLength";
 
@@ -380,6 +377,11 @@ export class SampleTool extends PrimitiveTool {
   public set surveyLength(option: number) {
     this._surveyLengthValue.value = option;
   }
+
+  private _surveyLengthDescription = new SurveyLengthDescription(
+    SampleTool._surveyLengthName,
+    "Survey"
+  );
 
   // ------------- Angle ---------------
 

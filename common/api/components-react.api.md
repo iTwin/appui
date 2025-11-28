@@ -31,7 +31,6 @@ import { Orientation as Orientation_2 } from '@itwin/core-react';
 import type { ParseResults } from '@itwin/appui-abstract';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PrimitiveValue } from '@itwin/appui-abstract';
-import { PropertyData as PropertyData_2 } from '../PropertyDataProvider.js';
 import { PropertyDescription } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
@@ -3323,7 +3322,7 @@ export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(d
 export function usePropertyData(props: {
     dataProvider: IPropertyDataProvider;
 }): {
-    value: PropertyData_2 | undefined;
+    value: PropertyData | undefined;
     inProgress: boolean;
 };
 

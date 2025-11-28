@@ -36,8 +36,7 @@
     "react-redux": "^9.1.2"
   },
   "devDependencies": {
-    "@itwin/build-tools": "4.10.2",
-    "@storybook/addon-actions": "^8.3.2",
+    "@itwin/build-tools": "catalog:",
     "@storybook/addon-docs": "^9.0.9",
     "@storybook/addon-links": "^9.0.9",
     "@storybook/components": "^8.6.14",

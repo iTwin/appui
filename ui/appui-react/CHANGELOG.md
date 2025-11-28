@@ -1,5 +1,32 @@
 # Change Log - @itwin/appui-react
 
+## 5.20.0
+
+### Minor Changes
+
+- 55bd48e: Removed explicit `font-size` from root wrapper element of `ConfigurableUiContent` component. Font size is set by iTwinUI theme provider.
+- be7ae97: Updated widget tabs to use iTwinUI [`Tooltip`](https://itwinui.bentley.com/docs/tooltip) component instead of [`title`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/title) attribute.
+- d881d32: Updated `FrameworkToolAdmin` to consider elements with `contentEditable` attribute as editable when processing shortcut keys.
+
+### Patch Changes
+
+- @itwin/components-react@5.20.0
+- @itwin/core-react@5.20.0
+- @itwin/imodel-components-react@5.20.0
+
+## 5.19.0
+
+### Minor Changes
+
+- d9f5d3e: Updated floating widget resizing logic to prevent resizing the widgets outside of the main container bounds.
+- b7e0437: Refactored more widgets menu to use [iTwinUI Popover](https://itwinui.bentley.com/docs/popover) instead of deprecated `Popup` from `@itwin/core-react`.
+
+### Patch Changes
+
+- @itwin/components-react@5.19.0
+- @itwin/core-react@5.19.0
+- @itwin/imodel-components-react@5.19.0
+
 ## 5.18.0
 
 ### Patch Changes
