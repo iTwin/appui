@@ -3298,7 +3298,6 @@ export interface ModalFrontstageInfo {
     backButton?: React.ReactNode;
     content: React.ReactNode;
     id?: string;
-    // @alpha
     notifyCloseRequest?: boolean;
     title: string;
 }
