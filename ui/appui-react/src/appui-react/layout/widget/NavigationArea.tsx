@@ -9,13 +9,8 @@
 import "./NavigationArea.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 
-/** Properties of [[NavigationArea]] component.
- * @internal
- */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
+interface NavigationAreaProps {
   /**
    * Button displayed between horizontal and vertical toolbars.
    * I.e. [[AppButton]] in NavigationArea zone or navigation aid control in Navigation zone.
@@ -42,11 +37,10 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
 export function NavigationArea(props: NavigationAreaProps) {
   const className = classnames(
     "nz-widget-navigationArea",
-    props.hidden && "nz-hidden",
-    props.className
+    props.hidden && "nz-hidden"
   );
   return (
-    <div className={className} style={props.style}>
+    <div className={className}>
       <div
         className="nz-horizontal-toolbar-container"
         onMouseEnter={props.onMouseEnter}
@@ -72,7 +66,7 @@ export function NavigationArea(props: NavigationAreaProps) {
         onMouseLeave={props.onMouseLeave}
       >
         {props.verticalToolbar}
-        <div style={{ marginTop: "6px" }}>{props.secondaryVerticalToolbar}</div>
+        {props.secondaryVerticalToolbar}
       </div>
       {props.secondaryHorizontalToolbar && (
         <div

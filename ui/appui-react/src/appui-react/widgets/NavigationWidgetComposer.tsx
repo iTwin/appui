@@ -276,9 +276,9 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
         verticalToolbar={verticalToolbar}
         secondaryHorizontalToolbar={secondaryHorizontalToolbar}
         secondaryVerticalToolbar={secondaryVerticalToolbar}
-        {...otherProps}
         onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
         hidden={!uiIsVisible}
+        {...otherProps}
       />
     </WidgetOpacityContext.Provider>
   );

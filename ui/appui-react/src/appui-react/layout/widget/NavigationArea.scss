@@ -67,12 +67,6 @@
     }
   }
 
-  > .nz-secondary-vertical-toolbar-container {
-    grid-area: vtools;
-
-    @include nz-widget-opacity;
-  }
-
   > .nz-secondary-horizontal-toolbar-container {
     grid-area: secondary-htools;
 
