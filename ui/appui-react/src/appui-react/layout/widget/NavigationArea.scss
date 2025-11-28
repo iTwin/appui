@@ -6,12 +6,14 @@
 @use "../widgetopacity" as *;
 
 .nz-widget-navigationArea {
+  $gap: 6px;
+
   transition: visibility var(--iui-duration-2) ease,
     opacity var(--iui-duration-2) ease;
   display: grid;
   box-sizing: border-box;
   height: 100%;
-  grid-gap: 6px;
+  grid-gap: $gap;
   grid-template-areas:
     "htools button"
     ". vtools"
@@ -43,6 +45,7 @@
     display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
+    grid-gap: $gap;
     @include nz-widget-opacity;
 
     &.nz-span {
