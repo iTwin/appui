@@ -10,10 +10,7 @@ import React from "react";
 import { HeaderTopRight } from "./HeaderTopRight.js";
 import type { IconMenu, IconMenuDivider, IconMenuSearch } from "./types.js";
 
-/**
- *
- */
-export interface HeaderFirstRowProps {
+interface HeaderFirstRowProps {
   /**
    * CSS class name for the top left container.
    */
@@ -38,10 +35,9 @@ export interface HeaderFirstRowProps {
 /**
  *
  */
-export const HeaderFirstRow: React.FC<HeaderFirstRowProps> = (props) => {
-  const { onSearch } = props;
+export function HeaderFirstRow(props: HeaderFirstRowProps) {
   let menuIcons: (IconMenu | IconMenuSearch)[] = props.icons || [];
-  if (onSearch) {
+  if (props.onSearch) {
     if (menuIcons.length > 0)
       menuIcons = [{ type: "divider" } as IconMenuDivider, ...menuIcons];
     menuIcons = [{ type: "search" } as IconMenuSearch, ...menuIcons];
@@ -52,15 +48,16 @@ export const HeaderFirstRow: React.FC<HeaderFirstRowProps> = (props) => {
   return (
     <div
       className={classNames(
-        "nz-header-first-row-root",
+        "nz-widget-widgetContentLayout-header-headerFirstRow",
         (props.leftContent.length === 0 || menuIcons.length === 0) &&
-          "single-column"
+          "nz-singleColumn"
       )}
+      data-search-expanded={searchExpandedState[0] ? "true" : "false"}
     >
       {props.leftContent.length > 0 && (
         <div
           className={classNames(
-            "nz-header-first-row-top-left",
+            "nz-leftContent",
             props.topLeftClassName
           )}
         >

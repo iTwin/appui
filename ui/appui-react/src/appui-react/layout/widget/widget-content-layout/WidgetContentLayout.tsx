@@ -8,22 +8,18 @@
 
 import "./WidgetContentLayout.scss";
 import classNames from "classnames";
+import type { ComponentProps, ComponentPropsWithRef } from "react";
 import React from "react";
 
 import { Divider, ProgressLinear, ProgressRadial } from "@itwin/itwinui-react";
 
 import type { HeaderLayoutProps } from "./header/HeaderLayout.js";
 import { HeaderLayout } from "./header/HeaderLayout.js";
-import type { WidgetSizeProviderProps } from "./WidgetSizeProvider.js";
-import { WidgetSizeProvider } from "./WidgetSizeProvider.js";
 
-const Header: React.FC<React.PropsWithChildren<HeaderLayoutProps>> = ({
-  className,
-  children,
-  ...headerLayoutProps
-}) => {
+function Header(props: React.PropsWithChildren<HeaderLayoutProps>) {
+  const { className, children, ...headerLayoutProps } = props;
   return (
-    <div className={classNames("nz-widget-content-layout-header", className)}>
+    <div className={classNames("nz-widget-widgetContentLayout-header", className)}>
       <HeaderLayout {...headerLayoutProps} />
       {children}
     </div>
@@ -32,23 +28,20 @@ const Header: React.FC<React.PropsWithChildren<HeaderLayoutProps>> = ({
 
 Header.displayName = "WidgetContentLayout.Header";
 
-const Body = React.forwardRef<
-  HTMLDivElement,
-  React.PropsWithChildren<{
-    isLoading?: boolean;
-    isNonBlockingLoading?: boolean;
-    centerContent?: boolean;
-    className?: string;
-    style?: React.CSSProperties;
-    onScroll?: React.UIEventHandler<HTMLDivElement>;
-  }>
->(function Body(props, ref) {
+type BodyProps = {
+  isLoading?: boolean;
+  isNonBlockingLoading?: boolean;
+  children?: React.ReactNode;
+} & ComponentPropsWithRef<"div">
+
+const Body = React.forwardRef<HTMLDivElement,BodyProps>(function Body(props, ref) {
+  const { isNonBlockingLoading, isLoading, className, children, ...rest } = props;
   return (
     <div
       className={classNames(
-        "nz-widget-content-layout-body",
+        "nz-widget-widgetContentLayout-body",
         props.isNonBlockingLoading &&
-          "nz-widget-content-layout-non-blocking-loading"
+          "nz-nonBlockingLoading"
       )}
     >
       {props.isLoading ? (
@@ -57,16 +50,12 @@ const Body = React.forwardRef<
         props.isNonBlockingLoading && <ProgressLinear />
       )}
       <div
-        ref={ref}
-        onScroll={props.onScroll}
         className={classNames(
-          "nz-widget-content-layout-content-inner",
+          "nz-inner",
           props.className,
-          {
-            center: props.centerContent,
-          }
         )}
-        style={props.style}
+        {...rest}
+        ref={ref}
       >
         {props.children}
       </div>
@@ -75,48 +64,46 @@ const Body = React.forwardRef<
 });
 Body.displayName = "WidgetContentLayout.Body";
 
-const Footer: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
-  className,
-  children,
-}) => {
+type FooterProps = {
+  children?: React.ReactNode;
+} & ComponentProps<"div">;
+
+function Footer(props: FooterProps) {
+  const { className, children,  ...rest } = props;
   return (
-    <div className={classNames("nz-widget-content-layout-footer", className)}>
+    <div className={classNames("nz-widget-widgetContentLayout-footer", className)} {...rest}>
       {children}
     </div>
   );
 };
 Footer.displayName = "WidgetContentLayout.Footer";
 
-const LoadingOverlay: React.FC = () => {
+function LoadingOverlay() {
   return (
-    <div className="nz-widget-content-layout-loading-overlay">
-      <ProgressRadial indeterminate size="large" />
+    <div className="nz-widget-widgetContentLayout-loadingOverlay">
+      <ProgressRadial />
     </div>
   );
 };
 
-type WidgetContentLayoutInnerProps = React.PropsWithChildren<{
+type WidgetContentLayoutProps = React.PropsWithChildren<{
   className?: string;
   isLoading?: boolean;
 }>;
 
-const WidgetContentLayoutInner: React.FC<WidgetContentLayoutInnerProps> = ({
-  children,
-  className,
-  isLoading,
-}) => {
+function WidgetContentLayoutInner(props: WidgetContentLayoutProps) {
   const [headerElement, setHeaderElement] = React.useState<React.ReactNode>();
   const [bodyElement, setBodyElement] = React.useState<React.ReactNode>();
   const [footerElement, setFooterElement] = React.useState<React.ReactNode>();
 
   React.useEffect(() => {
-    React.Children.forEach(children, (child) => {
+    React.Children.forEach(props.children, (child) => {
       if (!React.isValidElement(child)) return;
       if (child.type === Header) setHeaderElement(child);
       else if (child.type === Body) setBodyElement(child);
       else if (child.type === Footer) setFooterElement(child);
     });
-  }, [children]);
+  }, [props.children]);
 
   const widgetComponents = [
     headerElement,
@@ -125,23 +112,17 @@ const WidgetContentLayoutInner: React.FC<WidgetContentLayoutInnerProps> = ({
   ].filter(Boolean);
 
   return (
-    <div className={classNames("nz-widget-content-layout-root", className)}>
-      {isLoading && <LoadingOverlay />}
+    <div className={classNames("nz-widget-widgetContentLayout", props.className)}>
+      {props.isLoading && <LoadingOverlay />}
       {widgetComponents.map((component, index) => (
         <React.Fragment key={index}>
           {component}
-          {index < widgetComponents.length - 1 && <Divider />}
+          {index < widgetComponents.length - 1 && <Divider className="nz-widget-widgetContentLayout-divider" />}
         </React.Fragment>
       ))}
     </div>
   );
 };
-
-/**
- *
- */
-export type WidgetContentLayoutProps = WidgetSizeProviderProps &
-  WidgetContentLayoutInnerProps;
 
 /**
  * A layout component for widgets that provides a top section for buttons, a body section and a footer section.
@@ -157,21 +138,11 @@ export type WidgetContentLayoutProps = WidgetSizeProviderProps &
  * </WidgetContentLayout>
  *  @public
  */
-export const WidgetContentLayout: React.FC<WidgetContentLayoutProps> & {
-  Header: typeof Header;
-  Body: typeof Body;
-  Footer: typeof Footer;
-} = ({ children, isLoading, className, ...widgetSizeProviderProps }) => {
-  return (
-    <WidgetSizeProvider {...widgetSizeProviderProps}>
-      <WidgetContentLayoutInner className={className} isLoading={isLoading}>
-        {children}
-      </WidgetContentLayoutInner>
-    </WidgetSizeProvider>
-  );
-};
-
-WidgetContentLayout.displayName = "WidgetContentLayout";
+export const WidgetContentLayout = Object.assign(WidgetContentLayoutInner, {
+  Header,
+  Body,
+  Footer,
+});
 
 WidgetContentLayout.Header = Header;
 WidgetContentLayout.Body = Body;

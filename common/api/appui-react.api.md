@@ -5790,9 +5790,6 @@ export class WidgetManager {
 export type WidgetPanelProps = Omit<StagePanelConfig, "widgets" | "runtimeProps" | "header" | "allowedZones" | "panelZones">;
 
 // @public
-export const WidgetSizeProvider: React_3.FC<React_3.PropsWithChildren<WidgetSizeProviderProps>>;
-
-// @public
 export enum WidgetState {
     Closed = 1,
     Floating = 3,

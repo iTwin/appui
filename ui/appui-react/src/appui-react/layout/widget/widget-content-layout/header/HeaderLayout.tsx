@@ -5,6 +5,7 @@
 
 import "./HeaderLayout.scss";
 import classNames from "classnames";
+import type { ComponentProps } from "react";
 import React from "react";
 
 import {
@@ -14,14 +15,13 @@ import {
   ToggleSwitch,
 } from "@itwin/itwinui-react";
 
-import type { HeaderFirstRowProps } from "./HeaderFirstRow.js";
 import { HeaderFirstRow } from "./HeaderFirstRow.js";
 
 /**
  * Props for the HeaderLayout component.
  */
 export interface HeaderLayoutProps
-  extends Omit<HeaderFirstRowProps, "leftContent"> {
+  extends Omit<ComponentProps<typeof HeaderFirstRow>, "leftContent"> {
   /**
    * CSS class name for the header element.
    */
@@ -77,7 +77,7 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
       <React.Fragment key="menu">
         {
           <DropdownButton
-            className="nz-widget-layout-header-menu"
+            className="nz-menu"
             menuItems={menu.items.map((i) => (
               <MenuItem key={i.label} onClick={i.onClick}>
                 {i.label}
@@ -92,7 +92,7 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
     buttons?.length > 0 ? (
       <div
         key="buttons"
-        className={classNames("nz-header-buttons", buttonsClassName)}
+        className={classNames("nz-buttons", buttonsClassName)}
       >
         {buttons}
       </div>
@@ -100,7 +100,7 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   ].filter((item) => !!item);
   const firstRowLeftItems = title
     ? [
-        <Text key="title" className="nz-header-title">
+        <Text key="title" className="nz-title">
           {title}
         </Text>,
       ]
@@ -108,20 +108,18 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   const remainingLeftItems = title ? leftItems : leftItems.slice(1);
 
   return (
-    <div className={classNames("nz-widget-layout-header-header", className)}>
+    <div className={classNames("nz-widget-widgetContentLayout-header-headerLayout", className)}>
       {(onSearch || firstRowLeftItems.length > 0 || icons.length > 0) && (
-        <div className="nz-header-first-row">
-          <HeaderFirstRow
-            leftContent={firstRowLeftItems}
-            onSearch={onSearch}
-            icons={icons}
-            iconSize={iconSize}
-            topLeftClassName={topLeftClassName}
-          />
-        </div>
+        <HeaderFirstRow
+          leftContent={firstRowLeftItems}
+          onSearch={onSearch}
+          icons={icons}
+          iconSize={iconSize}
+          topLeftClassName={topLeftClassName}
+        />
       )}
       {remainingLeftItems.map((item, index) => (
-        <div className="nz-header-remaining-item" key={index}>
+        <div className="nz-remainingItems" key={index}>
           {item}
         </div>
       ))}

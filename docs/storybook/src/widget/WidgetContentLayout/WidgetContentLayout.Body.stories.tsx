@@ -35,7 +35,6 @@ export const Full: Story = {
   args: {
     isLoading: false,
     isNonBlockingLoading: false,
-    centerContent: false,
   },
   argTypes: {
     isLoading: {
@@ -58,16 +57,6 @@ export const Full: Story = {
         defaultValue: { summary: "false" },
       },
     },
-    centerContent: {
-      description:
-        "Centers the content both vertically and horizontally inside the content area when true.",
-      control: { type: "boolean" },
-      table: {
-        category: "WidgetContentLayout.Body",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
   },
 };
 
@@ -80,11 +69,5 @@ export const BlockingLoading: Story = {
 export const NonBlockingLoading: Story = {
   args: {
     isNonBlockingLoading: true,
-  },
-};
-
-export const CenteredContent: Story = {
-  args: {
-    centerContent: true,
   },
 };

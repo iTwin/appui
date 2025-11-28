@@ -1,0 +1,41 @@
+.nz-widget-widgetContentLayout-header-headerTopRight {
+  --icon-size: 36px;
+  --max-search-width: 200px;
+  min-width: var(--icon-size);
+  min-height: var(--icon-size);
+
+  &[data-icon-size="small"] {
+    --icon-size: 26px;
+  }
+
+  &[data-icon-size="large"] {
+    --icon-size: 48px;
+  }
+
+  &[data-search-expanded="true"] {
+    &[data-single-item="true"] {
+      min-width: var(--max-search-width);
+    }
+    &[data-single-item="false"] {
+      min-width: calc(
+        var(--max-search-width) + var(--icon-size) + var(--stratakit-space-x3)
+      );
+    }
+  }
+
+  .nz-buttonGroup {
+    gap: var(--stratakit-space-x3);
+    &:before {
+      content: "";
+      flex: 1;
+    }
+
+    & > :first-child {
+      margin-inline-start: calc(-1 * var(--stratakit-space-x3));
+    }
+
+    .nz-iconButton[data-iui-active="true"]:after {
+      inset-block: unset;
+    }
+  }
+}

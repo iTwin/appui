@@ -15,7 +15,6 @@ import {
   MenuItem,
 } from "@itwin/itwinui-react";
 
-import { GAP_WIDTH, ICON_SIZE_MAP, MAX_SEARCH_WIDTH } from "./constants.js";
 import { HeaderSearch } from "./HeaderSearch.js";
 import type { IconMenu, IconMenuSearch, SearchExpandedState } from "./types.js";
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
@@ -34,24 +33,16 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
   const [searchIsExpanded, setSearchIsExpanded] = props.searchExpandedState;
   const searchState = React.useState("");
 
-  const iconPixelSize = ICON_SIZE_MAP[props.iconSize ?? "normal"];
   return (
     <div
-      className="nz-header-top-right-root"
-      style={{
-        minWidth:
-          props.menuIcons.length === 1
-            ? searchIsExpanded
-              ? MAX_SEARCH_WIDTH
-              : iconPixelSize
-            : iconPixelSize +
-              (searchIsExpanded ? GAP_WIDTH + MAX_SEARCH_WIDTH : 0),
-        minHeight: iconPixelSize,
-      }}
+      className="nz-widget-widgetContentLayout-header-headerTopRight"
+      data-icon-size={props.iconSize ?? "normal"}
+      data-search-expanded={searchIsExpanded ? "true" : "false"}
+      data-single-item={props.menuIcons.length === 1 ? "true" : "false"}
     >
       <ButtonGroup
         key={String(searchIsExpanded)}
-        className="nz-button-group"
+        className="nz-buttonGroup"
         overflowPlacement="end"
         overflowButton={(overflowStart) => (
           <DropdownMenu
@@ -134,7 +125,7 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
               onClick={icon.onClick}
               labelProps={{ placement: "bottom" }}
               isActive={icon.isActive}
-              className="nz-icon-button"
+              className="nz-iconButton"
             >
               {icon.icon}
             </IconButton>

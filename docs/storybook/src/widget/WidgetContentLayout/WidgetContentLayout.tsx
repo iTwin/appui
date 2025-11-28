@@ -6,14 +6,13 @@ import { WidgetContentLayout as WCL } from "@itwin/appui-react";
 import { StagePanelState, UiItemsProvider } from "@itwin/appui-react";
 import { AppUiStory } from "../../AppUiStory";
 import { createFrontstage, createWidget } from "../../Utils";
-import { WidgetContentLayoutProps } from "@itwin/appui-react-internal/lib/appui-react/layout/widget/widget-layout/WidgetContentLayout";
 
 /**
  * Showcases the WidgetContentLayout component with its Header, Content, and Footer sections.
  * The WidgetContentLayout provides a flexible layout structure for widgets with optional header controls,
  * scrollable content area, and footer actions.
  */
-function WidgetContentLayout(props: WidgetContentLayoutProps) {
+function WidgetContentLayout(props: React.ComponentProps<typeof WCL>) {
   const widgetContent = (
     <WCL {...props}>
       <WCL.Header title="Header" />

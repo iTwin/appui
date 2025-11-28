@@ -809,7 +809,6 @@ public;class;WidgetHost
 public;interface;WidgetLayouts
 beta;class;WidgetManager
 public;type;WidgetPanelProps
-public;const;WidgetSizeProvider
 public;enum;WidgetState
 public;class;WidgetStateChangedEvent
 deprecated;class;WidgetStateChangedEvent

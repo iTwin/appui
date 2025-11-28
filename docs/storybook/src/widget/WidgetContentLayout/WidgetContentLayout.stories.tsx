@@ -33,20 +33,9 @@ type Story = StoryObj<typeof meta>;
 
 export const Full: Story = {
   args: {
-    id: "basic-widget",
     isLoading: false,
   },
   argTypes: {
-    id: {
-      description:
-        "Widget identifier used to determine layout padding and responsive gaps. If omitted, default spacing is applied.",
-      control: { type: "text" },
-      table: {
-        category: "WidgetContentLayout",
-        type: { summary: "string" },
-        defaultValue: { summary: "undefined" },
-      },
-    },
     isLoading: {
       description:
         "When true, renders a blocking loading overlay covering the content area.",

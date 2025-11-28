@@ -8,7 +8,6 @@ import React from "react";
 
 import { SearchBox } from "@itwin/itwinui-react";
 
-import { MAX_SEARCH_WIDTH } from "./constants.js";
 import type { SearchExpandedState } from "./types.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 
@@ -44,10 +43,7 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
     <SearchBox
       onExpand={() => setIsExpanded(true)}
       isExpanded={isExpanded}
-      className="nz-header-search"
-      style={{
-        maxWidth: MAX_SEARCH_WIDTH,
-      }}
+      className="nz-widget-widgetContentLayout-header-headerSearch"
       expandable
       size={props.iconSize}
     >
