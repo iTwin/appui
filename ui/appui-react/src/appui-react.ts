@@ -703,6 +703,7 @@ export {
   CommonToolbarItem,
   StandardLayoutToolbarItem,
   ToolbarActionItem,
+  ToolbarAdvancedUsage,
   ToolbarCustomItem,
   ToolbarGroupItem,
   ToolbarItem,

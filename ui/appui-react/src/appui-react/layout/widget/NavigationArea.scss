@@ -6,18 +6,22 @@
 @use "../widgetopacity" as *;
 
 .nz-widget-navigationArea {
+  $gap: 6px;
+
   transition: visibility var(--iui-duration-2) ease,
     opacity var(--iui-duration-2) ease;
   display: grid;
   box-sizing: border-box;
   height: 100%;
-  grid-gap: 6px;
+  grid-gap: $gap;
   grid-template-areas:
     "htools button"
-    ". vtools";
+    ". vtools"
+    "secondary-htools vtools";
   grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto 1fr auto;
   justify-items: end;
+  min-height: 0;
 
   &.nz-hidden {
     opacity: 0;
@@ -39,10 +43,10 @@
   > .nz-vertical-toolbar-container {
     grid-area: vtools;
 
-    height: calc(100% - 60px);
     display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
+    grid-gap: $gap;
     @include nz-widget-opacity;
 
     &.nz-span {
@@ -65,5 +69,11 @@
       display: flex;
       justify-content: flex-end;
     }
+  }
+
+  > .nz-secondary-horizontal-toolbar-container {
+    grid-area: secondary-htools;
+
+    @include nz-widget-opacity;
   }
 }
