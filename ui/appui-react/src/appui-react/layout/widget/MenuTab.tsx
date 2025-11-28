@@ -9,6 +9,7 @@
 import "./MenuTab.scss";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
+import { SvgCheckmark } from "@itwin/itwinui-icons-react";
 import { MenuItem } from "@itwin/itwinui-react";
 import { useTabInteractions } from "./Tab.js";
 import { useActiveTabId } from "./Widget.js";
@@ -46,10 +47,14 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
   const active = activeTabId === id;
   return (
     <MenuItem
+      role="menuitemcheckbox"
       ref={ref}
       title={label}
       startIcon={showWidgetIcon ? props.icon : undefined}
+      endIcon={active ? <SvgCheckmark /> : <></>}
+      aria-checked={active}
       isSelected={active}
+      aria-selected={undefined} // Keep styling provided by isSelected, but handle checked state via aria-checked
     >
       {props.badge && (
         <div className="nz-widget-menuTab_badge">{props.badge}</div>
