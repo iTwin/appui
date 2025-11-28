@@ -12,7 +12,7 @@ import { Page } from "../../AppUiStory";
 import { WidgetContentLayoutContent } from "./WidgetContentLayout.Content";
 
 const meta = {
-  title: "Widget/Widget Content Layout/WidgetContentLayout.Content",
+  title: "Widget/Layout/Content",
   component: WidgetContentLayoutContent,
   tags: ["autodocs"],
   decorators: [InitializerDecorator, ConsoleToActionsDecorator, AppUiDecorator],
