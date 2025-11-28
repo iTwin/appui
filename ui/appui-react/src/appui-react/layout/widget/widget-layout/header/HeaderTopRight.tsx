@@ -32,13 +32,11 @@ interface HeaderTopRightProps {
  */
 export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
   const [searchIsExpanded, setSearchIsExpanded] = props.searchExpandedState;
-  const headerRef = React.useRef<HTMLDivElement>(null);
   const searchState = React.useState("");
 
   const iconPixelSize = ICON_SIZE_MAP[props.iconSize ?? "normal"];
   return (
     <div
-      ref={headerRef}
       className="nz-header-top-right-root"
       style={{
         minWidth:
@@ -54,14 +52,14 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
       <ButtonGroup
         key={String(searchIsExpanded)}
         className="nz-button-group"
-        overflowPlacement="start"
+        overflowPlacement="end"
         overflowButton={(overflowStart) => (
           <DropdownMenu
             menuItems={(close) =>
-              Array(Math.max(overflowStart + 1, 0))
+              Array(props.menuIcons.length - overflowStart)
                 .fill(null)
                 .map((_, _index) => {
-                  const index = overflowStart - _index;
+                  const index = overflowStart + _index;
                   const icon = props.menuIcons.at(index);
                   if (!icon) return <></>;
                   return icon.type === "divider" ? (
@@ -116,7 +114,6 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
           icon.type === "divider" ? (
             <Divider
               orientation="vertical"
-              // className={styles.divider}
               key={index}
             />
           ) : icon.type === "search" ? (

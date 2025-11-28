@@ -54,6 +54,7 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
       <SearchBox.CollapsedState>
         <SearchBox.ExpandButton
           label="Search"
+          labelProps={{placement: "bottom"}}
           size={props.iconSize}
           styleType="borderless"
         >
@@ -74,6 +75,8 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
         />
         <SearchBox.CollapseButton
           size={props.iconSize}
+          label="Clear"
+          labelProps={{ placement: "bottom" }}
           onClick={() => {
             setIsExpanded(false);
             setSearchText("");

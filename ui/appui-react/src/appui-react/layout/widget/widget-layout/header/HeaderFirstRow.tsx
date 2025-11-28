@@ -40,12 +40,11 @@ export interface HeaderFirstRowProps {
  */
 export const HeaderFirstRow: React.FC<HeaderFirstRowProps> = (props) => {
   const { onSearch } = props;
-  const icons = props.icons || [];
-  const menuIcons: (IconMenu | IconMenuSearch)[] = [...icons].reverse();
+  let menuIcons: (IconMenu | IconMenuSearch)[] = props.icons || [];
   if (onSearch) {
-    if (icons.length > 0)
-      menuIcons.push({ type: "divider" } as IconMenuDivider);
-    menuIcons.push({ type: "search" } as IconMenuSearch);
+    if (menuIcons.length > 0)
+      menuIcons = [{ type: "divider" } as IconMenuDivider, ...menuIcons];
+    menuIcons = [{ type: "search" } as IconMenuSearch, ...menuIcons];
   }
 
   const searchExpandedState = React.useState(false);
