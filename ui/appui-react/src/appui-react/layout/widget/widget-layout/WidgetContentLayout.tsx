@@ -32,7 +32,7 @@ const Header: React.FC<React.PropsWithChildren<HeaderLayoutProps>> = ({
 
 Header.displayName = "WidgetContentLayout.Header";
 
-const Content = React.forwardRef<
+const Body = React.forwardRef<
   HTMLDivElement,
   React.PropsWithChildren<{
     isLoading?: boolean;
@@ -42,11 +42,11 @@ const Content = React.forwardRef<
     style?: React.CSSProperties;
     onScroll?: React.UIEventHandler<HTMLDivElement>;
   }>
->(function Content(props, ref) {
+>(function Body(props, ref) {
   return (
     <div
       className={classNames(
-        "nz-widget-content-layout-content",
+        "nz-widget-content-layout-body",
         props.isNonBlockingLoading &&
           "nz-widget-content-layout-non-blocking-loading"
       )}
@@ -73,7 +73,7 @@ const Content = React.forwardRef<
     </div>
   );
 });
-Content.displayName = "WidgetContentLayout.Content";
+Body.displayName = "WidgetContentLayout.Body";
 
 const Footer: React.FC<React.PropsWithChildren<{ className?: string }>> = ({
   className,
@@ -106,21 +106,21 @@ const WidgetContentLayoutInner: React.FC<WidgetContentLayoutInnerProps> = ({
   isLoading,
 }) => {
   const [headerElement, setHeaderElement] = React.useState<React.ReactNode>();
-  const [contentElement, setContentElement] = React.useState<React.ReactNode>();
+  const [bodyElement, setBodyElement] = React.useState<React.ReactNode>();
   const [footerElement, setFooterElement] = React.useState<React.ReactNode>();
 
   React.useEffect(() => {
     React.Children.forEach(children, (child) => {
       if (!React.isValidElement(child)) return;
       if (child.type === Header) setHeaderElement(child);
-      else if (child.type === Content) setContentElement(child);
+      else if (child.type === Body) setBodyElement(child);
       else if (child.type === Footer) setFooterElement(child);
     });
   }, [children]);
 
   const widgetComponents = [
     headerElement,
-    contentElement,
+    bodyElement,
     footerElement,
   ].filter(Boolean);
 
@@ -144,13 +144,13 @@ export type WidgetContentLayoutProps = WidgetSizeProviderProps &
   WidgetContentLayoutInnerProps;
 
 /**
- * A layout component for widgets that provides a top section for buttons, a content section and a footer section.
+ * A layout component for widgets that provides a top section for buttons, a body section and a footer section.
  * @example
  * <WidgetContentLayout>
  *  <WidgetContentLayout.Header />
- *  <WidgetContentLayout.Content>
+ *  <WidgetContentLayout.Body>
  *   <ContentComponent />
- *  </WidgetContentLayout.Content>
+ *  </WidgetContentLayout.Body>
  *  <WidgetContentLayout.Footer>
  *   <FooterComponent />
  *  </WidgetContentLayout.Footer>
@@ -159,7 +159,7 @@ export type WidgetContentLayoutProps = WidgetSizeProviderProps &
  */
 export const WidgetContentLayout: React.FC<WidgetContentLayoutProps> & {
   Header: typeof Header;
-  Content: typeof Content;
+  Body: typeof Body;
   Footer: typeof Footer;
 } = ({ children, isLoading, className, ...widgetSizeProviderProps }) => {
   return (
@@ -174,5 +174,5 @@ export const WidgetContentLayout: React.FC<WidgetContentLayoutProps> & {
 WidgetContentLayout.displayName = "WidgetContentLayout";
 
 WidgetContentLayout.Header = Header;
-WidgetContentLayout.Content = Content;
+WidgetContentLayout.Body = Body;
 WidgetContentLayout.Footer = Footer;

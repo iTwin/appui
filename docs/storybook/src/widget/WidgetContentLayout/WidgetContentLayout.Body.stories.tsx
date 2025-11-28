@@ -7,11 +7,11 @@ import {
   AppUiDecorator,
 } from "../../Decorators";
 import { Page } from "../../AppUiStory";
-import { WidgetContentLayoutContent } from "./WidgetContentLayout.Content";
+import { WidgetContentLayoutBody } from "./WidgetContentLayout.Body";
 
 const meta = {
-  title: "Widget/Layout/Content",
-  component: WidgetContentLayoutContent,
+  title: "Widget/Layout/Body",
+  component: WidgetContentLayoutBody,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
   parameters: {
@@ -20,13 +20,13 @@ const meta = {
       source: {
         code: `<WidgetContentLayout>
     <WidgetContentLayout.Header title="Header" />
-    <WidgetContentLayout.Content>Content</WidgetContentLayout.Content>
+    <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
     <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
   </WidgetContentLayout>`,
       },
     },
   },
-} as Meta<typeof WidgetContentLayoutContent>;
+} as Meta<typeof WidgetContentLayoutBody>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -43,7 +43,7 @@ export const Full: Story = {
         "Renders a blocking loading overlay covering the content area when true.",
       control: { type: "boolean" },
       table: {
-        category: "WidgetContentLayout.Content",
+        category: "WidgetContentLayout.Body",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -53,7 +53,7 @@ export const Full: Story = {
         "Shows a non-blocking loading indicator (does not prevent interaction) when true.",
       control: { type: "boolean" },
       table: {
-        category: "WidgetContentLayout.Content",
+        category: "WidgetContentLayout.Body",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },
@@ -63,7 +63,7 @@ export const Full: Story = {
         "Centers the content both vertically and horizontally inside the content area when true.",
       control: { type: "boolean" },
       table: {
-        category: "WidgetContentLayout.Content",
+        category: "WidgetContentLayout.Body",
         type: { summary: "boolean" },
         defaultValue: { summary: "false" },
       },

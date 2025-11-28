@@ -17,7 +17,7 @@ function WidgetContentLayout(props: WidgetContentLayoutProps) {
   const widgetContent = (
     <WCL {...props}>
       <WCL.Header title="Header" />
-      <WCL.Content>Content</WCL.Content>
+      <WCL.Body>Body</WCL.Body>
       <WCL.Footer>Footer</WCL.Footer>
     </WCL>
   );

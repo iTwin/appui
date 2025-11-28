@@ -19,7 +19,7 @@ export function WidgetContentLayoutHeader(
   const widgetContent = (
     <WCL>
       <WCL.Header {...props} />
-      <WCL.Content>Content</WCL.Content>
+      <WCL.Body>Body</WCL.Body>
       <WCL.Footer>Footer</WCL.Footer>
     </WCL>
   );

@@ -52,7 +52,7 @@
   transition: gap 0.3s;
 }
 
-.nz-widget-content-layout-content {
+.nz-widget-content-layout-body {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@
   gap: var(--os-gap);
 }
 
-.nz-widget-content-layout-content-inner {
+.nz-widget-content-layout-body-inner {
   display: flex;
   flex-direction: column;
   gap: var(--os-gap);

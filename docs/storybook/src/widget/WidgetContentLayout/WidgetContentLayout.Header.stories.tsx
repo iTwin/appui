@@ -12,7 +12,7 @@ import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { Button } from "@itwin/itwinui-react";
 
 const meta = {
-  title: "Widget/Widget Content Layout/WidgetContentLayout.Header",
+  title: "Widget/Layout/Header",
   component: WidgetContentLayoutHeader,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
@@ -39,7 +39,7 @@ const meta = {
         <Button>Button 2</Button>
       ]}
     />
-    <WidgetContentLayout.Content>Content</WidgetContentLayout.Content>
+    <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
     <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
   </WidgetContentLayout>`,
       },

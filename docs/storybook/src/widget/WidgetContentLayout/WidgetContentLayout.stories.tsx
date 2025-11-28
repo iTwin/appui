@@ -10,7 +10,7 @@ import WidgetContentLayout from "./WidgetContentLayout";
 import { Page } from "src/AppUiStory";
 
 const meta = {
-  title: "Widget/Widget Content Layout",
+  title: "Widget/Layout",
   component: WidgetContentLayout,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
@@ -20,7 +20,7 @@ const meta = {
       source: {
         code: `<WidgetContentLayout id="basic-widget" isLoading={false}>
           <WidgetContentLayout.Header title="Header" />
-          <WidgetContentLayout.Content>Content</WidgetContentLayout.Content>
+          <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
           <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
         </WidgetContentLayout>`,
       },

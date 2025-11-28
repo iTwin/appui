@@ -9,17 +9,17 @@ import { AppUiStory } from "../../AppUiStory";
 import { createFrontstage, createWidget } from "../../Utils";
 
 /**
- * Showcases the WidgetContentLayout component with its Header, Content, and Footer sections.
+ * Showcases the WidgetContentLayout component with its Header, Body, and Footer sections.
  * The WidgetContentLayout provides a flexible layout structure for widgets with optional header controls,
  * scrollable content area, and footer actions.
  */
-export function WidgetContentLayoutContent(
-  props: ComponentProps<typeof WCL.Content>
+export function WidgetContentLayoutBody(
+  props: ComponentProps<typeof WCL.Body>
 ) {
   const widgetContent = (
     <WCL>
       <WCL.Header title="Header" />
-      <WCL.Content {...props}>Content</WCL.Content>
+      <WCL.Body {...props}>Body</WCL.Body>
       <WCL.Footer>Footer</WCL.Footer>
     </WCL>
   );

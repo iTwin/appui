@@ -95,7 +95,6 @@ function WidgetContent({
         flexDirection: "column",
         gap: "16px",
         padding: "16px",
-        backgroundColor: "white",
         borderRadius: "4px",
       }}
     >
@@ -116,8 +115,8 @@ function WidgetContent({
       <div
         style={{
           padding: "16px",
-          backgroundColor: "#e8e8e8",
           borderRadius: "4px",
+          border: "1px solid #ccc",
         }}
       >
         <h4 style={{ marginTop: 0 }}>Dimensions</h4>
@@ -130,8 +129,8 @@ function WidgetContent({
       <div
         style={{
           padding: "16px",
-          backgroundColor: "#e8e8e8",
           borderRadius: "4px",
+          border: "1px solid #ccc",
         }}
       >
         <h4 style={{ marginTop: 0 }}>Breakpoint Info</h4>
@@ -166,8 +165,8 @@ function ResponsiveContent() {
     <div
       style={{
         padding: "16px",
-        backgroundColor: "#e8e8e8",
         borderRadius: "4px",
+        border: "1px solid #ccc",
         flex: 1,
       }}
     >
