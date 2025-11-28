@@ -35,6 +35,7 @@
 
     > .nz-centerContent {
       grid-area: cc;
+      min-height: 0;
 
       pointer-events: none;
     }

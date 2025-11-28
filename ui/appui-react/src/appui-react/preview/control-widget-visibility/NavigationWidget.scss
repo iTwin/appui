@@ -8,6 +8,7 @@
     grid-gap: 6px;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
+    min-height: 0;
   }
 
   .uifw-preview-navigationWidget_add {
