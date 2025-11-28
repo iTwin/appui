@@ -191,6 +191,6 @@ export interface StandardLayoutToolbarItem {
   readonly usage: ToolbarUsage;
   /** Describes toolbar orientation. */
   readonly orientation: ToolbarOrientation;
-  /** Describes an advanced toolbar usage. This takes precedence over the {@link usage}. */
+  /** Describes an advanced toolbar usage. This takes precedence over the `usage`. */
   readonly advancedUsage?: ToolbarAdvancedUsage;
 }
