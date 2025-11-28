@@ -248,8 +248,8 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   const useProximityOpacity = useProximityOpacitySetting();
   const snapWidgetOpacity = useSnapWidgetOpacitySetting();
 
-  const expandsTo = toExpandsTo(orientation, usage);
-  const panelAlignment = toPanelAlignment(orientation, usage);
+  const expandsTo = toExpandsTo(orientation, usage, advancedUsage);
+  const panelAlignment = toPanelAlignment(orientation, usage, advancedUsage);
   return (
     <Toolbar
       enableOverflow={true}
@@ -267,7 +267,18 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
   );
 }
 
-function toExpandsTo(orientation: ToolbarOrientation, usage: ToolbarUsage) {
+function toExpandsTo(
+  orientation: ToolbarOrientation,
+  usage: ToolbarUsage,
+  advancedUsage?: ToolbarAdvancedUsage
+) {
+  if (advancedUsage === "view-settings") {
+    if (orientation === ToolbarOrientation.Horizontal) {
+      return Direction.Top;
+    }
+    return Direction.Left;
+  }
+
   if (orientation === ToolbarOrientation.Vertical) {
     if (usage === ToolbarUsage.ViewNavigation) return Direction.Left;
     return Direction.Right;
@@ -278,8 +289,13 @@ function toExpandsTo(orientation: ToolbarOrientation, usage: ToolbarUsage) {
 
 function toPanelAlignment(
   orientation: ToolbarOrientation,
-  usage: ToolbarUsage
+  usage: ToolbarUsage,
+  advancedUsage?: ToolbarAdvancedUsage
 ) {
+  if (advancedUsage === "view-settings") {
+    return ToolbarPanelAlignment.End;
+  }
+
   if (
     orientation === ToolbarOrientation.Horizontal &&
     usage === ToolbarUsage.ViewNavigation
