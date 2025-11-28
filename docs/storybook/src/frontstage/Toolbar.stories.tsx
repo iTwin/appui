@@ -42,6 +42,10 @@ const meta = {
           } satisfies ToolbarItemLayouts;
           return [
             factory.createActionItem({ layouts }),
+            factory.createGroupItem({
+              layouts,
+              items: [factory.createActionItem(), factory.createActionItem()],
+            }),
             factory.createActionItem({ layouts }),
             factory.createActionItem({ layouts }),
           ];
@@ -166,6 +170,10 @@ export const All: Story = {
           return allLayouts.flatMap((layouts) => {
             return [
               factory.createActionItem({ layouts }),
+              factory.createGroupItem({
+                layouts,
+                items: [factory.createActionItem(), factory.createActionItem()],
+              }),
               factory.createActionItem({ layouts }),
               factory.createActionItem({ layouts }),
             ];
