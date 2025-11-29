@@ -28,6 +28,8 @@ import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react/internal';
 import { CompassMode } from '@itwin/core-frontend';
+import type { ComponentProps } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
@@ -5637,10 +5639,10 @@ export interface WidgetConfig extends Widget {
     readonly tooltipKey?: string;
 }
 
-// @public (undocumented)
-export const WidgetContentLayout: React_3.FC<WidgetContentLayoutProps> & {
+// @public
+export const WidgetContentLayout: typeof WidgetContentLayoutInner & {
     Header: typeof Header;
-    Content: typeof Content;
+    Body: React_3.ForwardRefExoticComponent<Omit<BodyProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
     Footer: typeof Footer;
 };
 
