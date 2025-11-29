@@ -28,6 +28,8 @@ import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react/internal';
 import { CompassMode } from '@itwin/core-frontend';
+import type { ComponentProps } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
@@ -79,6 +81,7 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
+import { default as React_3 } from 'react';
 import { RectangleProps as RectangleProps_2 } from '@itwin/core-react';
 import { Reducer as Reducer_2 } from 'redux';
 import type { RefObject } from 'react';
@@ -94,6 +97,7 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
+import { ToggleSwitch } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
@@ -5634,6 +5638,13 @@ export interface WidgetConfig extends Widget {
     readonly preferredPanelSize?: "fit-content";
     readonly tooltipKey?: string;
 }
+
+// @public
+export const WidgetContentLayout: typeof WidgetContentLayoutInner & {
+    Header: typeof Header;
+    Body: React_3.ForwardRefExoticComponent<Omit<BodyProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+    Footer: typeof Footer;
+};
 
 // @public @deprecated
 export class WidgetControl extends ConfigurableUiControl {

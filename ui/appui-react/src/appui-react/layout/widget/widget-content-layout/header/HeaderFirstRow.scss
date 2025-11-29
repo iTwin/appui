@@ -1,0 +1,27 @@
+.nz-widget-widgetContentLayout-header-headerFirstRow {
+  gap: var(--stratakit-space-x3);
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+
+  &.nz-singleColumn {
+    grid-template-columns: 1fr;
+  }
+
+  .nz-leftContent {
+    display: flex;
+    gap: var(--stratakit-space-x3);
+    align-items: center;
+    text-wrap-mode: nowrap;
+    overflow: auto;
+  }
+}
+
+@container header-layout (width < 200px) {
+  .nz-widget-widgetContentLayout-header-headerFirstRow {
+    &[data-search-expanded="true"] {
+      overflow: auto;
+    }
+  }
+}

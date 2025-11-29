@@ -801,6 +801,7 @@ public;const;WIDGET_OPACITY_DEFAULT
 alpha;function;WidgetAction
 alpha;function;WidgetActions
 public;interface;WidgetConfig
+public;const;WidgetContentLayout
 public;class;WidgetControl
 deprecated;class;WidgetControl
 public;class;WidgetDef
