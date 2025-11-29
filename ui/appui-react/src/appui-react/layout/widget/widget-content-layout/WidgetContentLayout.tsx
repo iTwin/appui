@@ -19,12 +19,14 @@ import { HeaderLayout } from "./header/HeaderLayout.js";
 function Header(props: React.PropsWithChildren<HeaderLayoutProps>) {
   const { className, children, ...headerLayoutProps } = props;
   return (
-    <div className={classNames("nz-widget-widgetContentLayout-header", className)}>
+    <div
+      className={classNames("nz-widget-widgetContentLayout-header", className)}
+    >
       <HeaderLayout {...headerLayoutProps} />
       {children}
     </div>
   );
-};
+}
 
 Header.displayName = "WidgetContentLayout.Header";
 
@@ -32,16 +34,19 @@ type BodyProps = {
   isLoading?: boolean;
   isNonBlockingLoading?: boolean;
   children?: React.ReactNode;
-} & ComponentPropsWithRef<"div">
+} & ComponentPropsWithRef<"div">;
 
-const Body = React.forwardRef<HTMLDivElement,BodyProps>(function Body(props, ref) {
-  const { isNonBlockingLoading, isLoading, className, children, ...rest } = props;
+const Body = React.forwardRef<HTMLDivElement, BodyProps>(function Body(
+  props,
+  ref
+) {
+  const { isNonBlockingLoading, isLoading, className, children, ...rest } =
+    props;
   return (
     <div
       className={classNames(
         "nz-widget-widgetContentLayout-body",
-        props.isNonBlockingLoading &&
-          "nz-nonBlockingLoading"
+        props.isNonBlockingLoading && "nz-nonBlockingLoading"
       )}
     >
       {props.isLoading ? (
@@ -50,10 +55,7 @@ const Body = React.forwardRef<HTMLDivElement,BodyProps>(function Body(props, ref
         props.isNonBlockingLoading && <ProgressLinear />
       )}
       <div
-        className={classNames(
-          "nz-inner",
-          props.className,
-        )}
+        className={classNames("nz-inner", props.className)}
         {...rest}
         ref={ref}
       >
@@ -69,13 +71,16 @@ type FooterProps = {
 } & ComponentProps<"div">;
 
 function Footer(props: FooterProps) {
-  const { className, children,  ...rest } = props;
+  const { className, children, ...rest } = props;
   return (
-    <div className={classNames("nz-widget-widgetContentLayout-footer", className)} {...rest}>
+    <div
+      className={classNames("nz-widget-widgetContentLayout-footer", className)}
+      {...rest}
+    >
       {children}
     </div>
   );
-};
+}
 Footer.displayName = "WidgetContentLayout.Footer";
 
 function LoadingOverlay() {
@@ -84,7 +89,7 @@ function LoadingOverlay() {
       <ProgressRadial />
     </div>
   );
-};
+}
 
 type WidgetContentLayoutProps = React.PropsWithChildren<{
   className?: string;
@@ -105,24 +110,26 @@ function WidgetContentLayoutInner(props: WidgetContentLayoutProps) {
     });
   }, [props.children]);
 
-  const widgetComponents = [
-    headerElement,
-    bodyElement,
-    footerElement,
-  ].filter(Boolean);
+  const widgetComponents = [headerElement, bodyElement, footerElement].filter(
+    Boolean
+  );
 
   return (
-    <div className={classNames("nz-widget-widgetContentLayout", props.className)}>
+    <div
+      className={classNames("nz-widget-widgetContentLayout", props.className)}
+    >
       {props.isLoading && <LoadingOverlay />}
       {widgetComponents.map((component, index) => (
         <React.Fragment key={index}>
           {component}
-          {index < widgetComponents.length - 1 && <Divider className="nz-widget-widgetContentLayout-divider" />}
+          {index < widgetComponents.length - 1 && (
+            <Divider className="nz-widget-widgetContentLayout-divider" />
+          )}
         </React.Fragment>
       ))}
     </div>
   );
-};
+}
 
 /**
  * A layout component for widgets that provides a top section for buttons, a body section and a footer section.

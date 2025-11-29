@@ -55,12 +55,7 @@ export function HeaderFirstRow(props: HeaderFirstRowProps) {
       data-search-expanded={searchExpandedState[0] ? "true" : "false"}
     >
       {props.leftContent.length > 0 && (
-        <div
-          className={classNames(
-            "nz-leftContent",
-            props.topLeftClassName
-          )}
-        >
+        <div className={classNames("nz-leftContent", props.topLeftClassName)}>
           {props.leftContent}
         </div>
       )}
@@ -74,4 +69,4 @@ export function HeaderFirstRow(props: HeaderFirstRowProps) {
       )}
     </div>
   );
-};
+}

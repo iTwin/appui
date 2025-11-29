@@ -103,10 +103,7 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
       >
         {props.menuIcons.map((icon, index) =>
           icon.type === "divider" ? (
-            <Divider
-              orientation="vertical"
-              key={index}
-            />
+            <Divider orientation="vertical" key={index} />
           ) : icon.type === "search" ? (
             <HeaderSearch
               key={index}

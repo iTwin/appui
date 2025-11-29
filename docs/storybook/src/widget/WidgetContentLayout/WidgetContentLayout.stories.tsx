@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  AppUiDecorator,
-} from "../../Decorators";
+import { AppUiDecorator } from "../../Decorators";
 import WidgetContentLayout from "./WidgetContentLayout";
 import { Page } from "src/AppUiStory";
 
@@ -35,7 +33,7 @@ export const LoadingOverlay: Story = {
   args: {
     isLoading: false,
   },
-   argTypes: {
+  argTypes: {
     isLoading: {
       description:
         "When true, renders a blocking loading overlay covering the content area.",

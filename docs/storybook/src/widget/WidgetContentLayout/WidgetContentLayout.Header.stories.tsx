@@ -3,9 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
-import {
-  AppUiDecorator,
-} from "../../Decorators";
+import { AppUiDecorator } from "../../Decorators";
 import { Page } from "../../AppUiStory";
 import { WidgetContentLayoutHeader } from "./WidgetContentLayout.Header";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";

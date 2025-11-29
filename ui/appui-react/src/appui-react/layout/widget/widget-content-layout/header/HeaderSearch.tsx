@@ -50,7 +50,7 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = (props) => {
       <SearchBox.CollapsedState>
         <SearchBox.ExpandButton
           label="Search"
-          labelProps={{placement: "bottom"}}
+          labelProps={{ placement: "bottom" }}
           size={props.iconSize}
           styleType="borderless"
         >

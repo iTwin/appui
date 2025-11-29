@@ -90,10 +90,7 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
       </React.Fragment>
     ) : undefined,
     buttons?.length > 0 ? (
-      <div
-        key="buttons"
-        className={classNames("nz-buttons", buttonsClassName)}
-      >
+      <div key="buttons" className={classNames("nz-buttons", buttonsClassName)}>
         {buttons}
       </div>
     ) : undefined,
@@ -108,7 +105,12 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   const remainingLeftItems = title ? leftItems : leftItems.slice(1);
 
   return (
-    <div className={classNames("nz-widget-widgetContentLayout-header-headerLayout", className)}>
+    <div
+      className={classNames(
+        "nz-widget-widgetContentLayout-header-headerLayout",
+        className
+      )}
+    >
       {(onSearch || firstRowLeftItems.length > 0 || icons.length > 0) && (
         <HeaderFirstRow
           leftContent={firstRowLeftItems}
