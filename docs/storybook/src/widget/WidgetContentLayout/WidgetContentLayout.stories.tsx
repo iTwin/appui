@@ -31,11 +31,11 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Full: Story = {
+export const LoadingOverlay: Story = {
   args: {
     isLoading: false,
   },
-  argTypes: {
+   argTypes: {
     isLoading: {
       description:
         "When true, renders a blocking loading overlay covering the content area.",
@@ -46,11 +46,5 @@ export const Full: Story = {
         defaultValue: { summary: "false" },
       },
     },
-  },
-};
-
-export const LoadingOverlay: Story = {
-  args: {
-    isLoading: true,
   },
 };
