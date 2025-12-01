@@ -16,7 +16,11 @@ import type { NumericValue } from "../values/Values.js";
  * Props for FormattedNumericInput component.
  * @beta
  */
-interface FormattedNumericInputProps {
+interface FormattedNumericInputProps
+  extends Pick<
+    React.ComponentPropsWithoutRef<typeof Input>,
+    "onBlur" | "onFocus"
+  > {
   value: NumericValue;
   onChange: (value: NumericValue) => void;
   parseValue: (value: string) => number | undefined;
@@ -36,6 +40,7 @@ export function FormattedNumericInput({
   formatValue,
   disabled,
   size,
+  ...props
 }: FormattedNumericInputProps) {
   const { currentValue, inputProps } = useParsedNumberInput({
     initialValue: value.rawValue,
@@ -51,7 +56,7 @@ export function FormattedNumericInput({
     onChangeRef.current(currentValue);
   }, [currentValue]);
 
-  return <Input disabled={disabled} size={size} {...inputProps} />;
+  return <Input {...props} {...inputProps} disabled={disabled} size={size} />;
 }
 
 function useParsedNumberInput({
