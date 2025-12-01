@@ -48,9 +48,9 @@ describe("WidgetTab", () => {
 
   it("should render a menu tab", () => {
     let state = createNineZoneState();
-    state = addTab(state, "t1");
+    state = addTab(state, "t1", { label: "Tab 1" });
     state = addPanelWidget(state, "left", "w1", ["t1"]);
-    const { container } = render(
+    const { getByRole } = render(
       <TestNineZoneProvider defaultState={state}>
         <WidgetIdContext.Provider value="w1">
           <WidgetTabsEntryContext.Provider
@@ -65,9 +65,7 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    expect(container.getElementsByClassName("nz-widget-menuTab")).toHaveLength(
-      1
-    );
+    getByRole("menuitemcheckbox", { name: "Tab 1" });
   });
 
   it("should render minimized", () => {

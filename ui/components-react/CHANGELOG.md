@@ -1,5 +1,15 @@
 # Change Log - @itwin/components-react
 
+## 5.21.0
+
+### Minor Changes
+
+- 43acfb9: Added `onBlur` and `onFocus` callbacks to `FormattedNumericInput`
+
+### Patch Changes
+
+- @itwin/core-react@5.21.0
+
 ## 5.20.0
 
 ### Patch Changes
