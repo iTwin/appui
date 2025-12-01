@@ -65,7 +65,7 @@ describe("WidgetTab", () => {
         </WidgetIdContext.Provider>
       </TestNineZoneProvider>
     );
-    getByRole("menuitem", { name: "Tab 1" });
+    getByRole("menuitemcheckbox", { name: "Tab 1" });
   });
 
   it("should render minimized", () => {

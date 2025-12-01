@@ -54,7 +54,7 @@ describe("MenuTab", () => {
         <Wrapper defaultState={state} widgetId="w1" tabId="t1" {...props} />
       ),
     });
-    getByRole("menuitem", { name: "Tab 1" });
+    getByRole("menuitemcheckbox", { name: "Tab 1" });
   });
 
   it("should render with badge and icon", async () => {
@@ -92,7 +92,7 @@ describe("MenuTab", () => {
         ),
       }
     );
-    const tab = getByRole("menuitem", { name: "Tab 1" });
+    const tab = getByRole("menuitemcheckbox", { name: "Tab 1" });
 
     // On drag start
     act(() => {
