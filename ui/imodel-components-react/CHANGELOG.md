@@ -1,5 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.21.0
+
+### Patch Changes
+
+- 43acfb9: Quantity editor now displays values with precision of 12 when focused and reverts to consumer precision when unfocused.
+- Updated dependencies [43acfb9]
+  - @itwin/components-react@5.21.0
+  - @itwin/core-react@5.21.0
+
 ## 5.20.0
 
 ### Patch Changes
