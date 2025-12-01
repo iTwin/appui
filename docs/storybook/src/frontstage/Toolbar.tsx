@@ -14,7 +14,14 @@ import { createFrontstage } from "../Utils";
 type ToolbarStoryProps = {
   usage: ToolbarUsage;
   orientation: ToolbarOrientation;
+  length: number;
   getItemProvider: (props: ToolbarStoryProps) => UiItemsProvider;
+  contentManipulationHorizontalLength?: number;
+  contentManipulationVerticalLength?: number;
+  viewNavigationHorizontalLength?: number;
+  viewNavigationVerticalLength?: number;
+  viewSettingsHorizontalLength?: number;
+  viewSettingsVerticalLength?: number;
 };
 
 export function ToolbarStory(props: ToolbarStoryProps) {

@@ -29,7 +29,8 @@ const meta = {
   args: {
     usage: ToolbarUsage.ContentManipulation,
     orientation: ToolbarOrientation.Horizontal,
-    getItemProvider: ({ usage, orientation }) => {
+    length: 4,
+    getItemProvider: ({ usage, orientation, length }) => {
       return {
         id: "items",
         getToolbarItems: () => {
@@ -40,15 +41,15 @@ const meta = {
               orientation,
             },
           } satisfies ToolbarItemLayouts;
-          return [
-            factory.createActionItem({ layouts }),
-            factory.createGroupItem({
-              layouts,
-              items: [factory.createActionItem(), factory.createActionItem()],
-            }),
-            factory.createActionItem({ layouts }),
-            factory.createActionItem({ layouts }),
-          ];
+          return Array.from({ length }).map((_, index) => {
+            if (index === 1) {
+              return factory.createGroupItem({
+                layouts,
+                items: [factory.createActionItem(), factory.createActionItem()],
+              });
+            }
+            return factory.createActionItem({ layouts });
+          });
         },
       };
     },
@@ -56,6 +57,13 @@ const meta = {
   argTypes: {
     usage: enumArgType(ToolbarUsage),
     orientation: enumArgType(ToolbarOrientation),
+    getItemProvider: removeProperty(),
+    contentManipulationHorizontalLength: removeProperty(),
+    contentManipulationVerticalLength: removeProperty(),
+    viewNavigationHorizontalLength: removeProperty(),
+    viewNavigationVerticalLength: removeProperty(),
+    viewSettingsHorizontalLength: removeProperty(),
+    viewSettingsVerticalLength: removeProperty(),
   },
 } satisfies Meta<typeof ToolbarStory>;
 
@@ -89,7 +97,7 @@ export const ViewNavigationVertical: Story = {
 export const ViewSettings: Story = {
   args: {
     usage: ToolbarUsage.ViewNavigation,
-    getItemProvider: ({ usage, orientation }) => {
+    getItemProvider: ({ usage, orientation, length }) => {
       return {
         id: "items",
         getToolbarItems: () => {
@@ -101,19 +109,27 @@ export const ViewSettings: Story = {
               advancedUsage: "view-settings",
             },
           } satisfies ToolbarItemLayouts;
-          return [
-            factory.createActionItem({ layouts }),
-            factory.createActionItem({ layouts }),
-            factory.createActionItem({ layouts }),
-          ];
+          return Array.from({ length }).map((_, index) => {
+            if (index === 1) {
+              return factory.createGroupItem({
+                layouts,
+                items: [factory.createActionItem(), factory.createActionItem()],
+              });
+            }
+            return factory.createActionItem({ layouts });
+          });
         },
       };
     },
+  },
+  argTypes: {
+    usage: removeProperty(),
   },
 };
 
 export const ViewSettingsVertical: Story = {
   name: "View Settings (vertical)",
+  ...ViewSettings,
   args: {
     ...ViewSettings.args,
     orientation: ToolbarOrientation.Vertical,
@@ -122,61 +138,92 @@ export const ViewSettingsVertical: Story = {
 
 export const All: Story = {
   args: {
-    getItemProvider: () => {
+    getItemProvider: ({
+      length,
+      contentManipulationHorizontalLength,
+      contentManipulationVerticalLength,
+      viewSettingsHorizontalLength,
+      viewSettingsVerticalLength,
+      viewNavigationHorizontalLength,
+      viewNavigationVerticalLength,
+    }) => {
       return {
         id: "items",
         getToolbarItems: () => {
           const factory = createToolbarItemFactory();
-          const allLayouts: ToolbarItemLayouts[] = [
+          const toolbars: {
+            layouts: ToolbarItemLayouts;
+            length: number;
+          }[] = [
             {
-              standard: {
-                usage: ToolbarUsage.ContentManipulation,
-                orientation: ToolbarOrientation.Horizontal,
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ContentManipulation,
+                  orientation: ToolbarOrientation.Horizontal,
+                },
               },
+              length: contentManipulationHorizontalLength ?? length,
             },
             {
-              standard: {
-                usage: ToolbarUsage.ContentManipulation,
-                orientation: ToolbarOrientation.Vertical,
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ContentManipulation,
+                  orientation: ToolbarOrientation.Vertical,
+                },
               },
+              length: contentManipulationVerticalLength ?? length,
             },
             {
-              standard: {
-                usage: ToolbarUsage.ViewNavigation,
-                orientation: ToolbarOrientation.Horizontal,
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ViewNavigation,
+                  orientation: ToolbarOrientation.Horizontal,
+                },
               },
+              length: viewNavigationHorizontalLength ?? length,
             },
             {
-              standard: {
-                usage: ToolbarUsage.ViewNavigation,
-                orientation: ToolbarOrientation.Vertical,
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ViewNavigation,
+                  orientation: ToolbarOrientation.Vertical,
+                },
               },
+              length: viewNavigationVerticalLength ?? length,
             },
             {
-              standard: {
-                usage: ToolbarUsage.ViewNavigation,
-                orientation: ToolbarOrientation.Horizontal,
-                advancedUsage: "view-settings",
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ViewNavigation,
+                  orientation: ToolbarOrientation.Horizontal,
+                  advancedUsage: "view-settings",
+                },
               },
+              length: viewSettingsHorizontalLength ?? length,
             },
             {
-              standard: {
-                usage: ToolbarUsage.ViewNavigation,
-                orientation: ToolbarOrientation.Vertical,
-                advancedUsage: "view-settings",
+              layouts: {
+                standard: {
+                  usage: ToolbarUsage.ViewNavigation,
+                  orientation: ToolbarOrientation.Vertical,
+                  advancedUsage: "view-settings",
+                },
               },
+              length: viewSettingsVerticalLength ?? length,
             },
           ];
-          return allLayouts.flatMap((layouts) => {
-            return [
-              factory.createActionItem({ layouts }),
-              factory.createGroupItem({
-                layouts,
-                items: [factory.createActionItem(), factory.createActionItem()],
-              }),
-              factory.createActionItem({ layouts }),
-              factory.createActionItem({ layouts }),
-            ];
+          return toolbars.flatMap((toolbar) => {
+            return Array.from({ length: toolbar.length }).map((_, index) => {
+              if (index === 1)
+                return factory.createGroupItem({
+                  layouts: toolbar.layouts,
+                  items: [
+                    factory.createActionItem(),
+                    factory.createActionItem(),
+                  ],
+                });
+              return factory.createActionItem({ layouts: toolbar.layouts });
+            });
           });
         },
       };
@@ -185,5 +232,47 @@ export const All: Story = {
   argTypes: {
     usage: removeProperty(),
     orientation: removeProperty(),
+  },
+};
+
+export const AllCustom: Story = {
+  name: "All (custom)",
+  ...All,
+  args: {
+    ...All.args,
+    viewSettingsVerticalLength: 8,
+  },
+  argTypes: {
+    ...All.argTypes,
+    contentManipulationHorizontalLength: {
+      table: {
+        disable: false,
+      },
+    },
+    contentManipulationVerticalLength: {
+      table: {
+        disable: false,
+      },
+    },
+    viewNavigationHorizontalLength: {
+      table: {
+        disable: false,
+      },
+    },
+    viewNavigationVerticalLength: {
+      table: {
+        disable: false,
+      },
+    },
+    viewSettingsHorizontalLength: {
+      table: {
+        disable: false,
+      },
+    },
+    viewSettingsVerticalLength: {
+      table: {
+        disable: false,
+      },
+    },
   },
 };
