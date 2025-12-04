@@ -16,6 +16,7 @@ type ToolbarStoryProps = {
   orientation: ToolbarOrientation;
   length: number;
   getItemProvider: (props: ToolbarStoryProps) => UiItemsProvider;
+  hideNavigationAid: boolean;
   contentManipulationHorizontalLength?: number;
   contentManipulationVerticalLength?: number;
   viewNavigationHorizontalLength?: number;
@@ -29,8 +30,7 @@ export function ToolbarsStory(props: ToolbarStoryProps) {
     rightPanelProps: {
       sizeSpec: 250,
     },
-    hideStatusBar: true,
-    hideToolSettings: true,
+    hideNavigationAid: props.hideNavigationAid,
   });
   const provider = props.getItemProvider?.(props);
   return (
