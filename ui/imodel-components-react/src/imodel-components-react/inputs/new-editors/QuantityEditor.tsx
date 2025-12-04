@@ -49,9 +49,10 @@ function QuantityEditor({
   onChange,
   size,
 }: EditorProps<QuantityValueMetadata, NumericValue>) {
-  const { formatter, parser } = useQuantityInfo({
+  const { defaultFormatter, highPrecisionFormatter, parser } = useQuantityInfo({
     type: metadata.quantityType,
   });
+  const [isEditing, setEditing] = React.useState(false);
   const currentValue = value
     ? value
     : { rawValue: undefined, displayValue: "" };
@@ -61,8 +62,10 @@ function QuantityEditor({
       value={currentValue}
       onChange={onChange}
       size={size}
-      formatter={formatter}
+      formatter={isEditing ? highPrecisionFormatter : defaultFormatter}
       parser={parser}
+      onBlur={() => setEditing(false)}
+      onFocus={() => setEditing(true)}
     />
   );
 }

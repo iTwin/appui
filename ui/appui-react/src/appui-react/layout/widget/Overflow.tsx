@@ -12,14 +12,13 @@ import * as React from "react";
 import { useResizeObserver } from "@itwin/core-react/internal";
 import { PanelSideContext } from "../widget-panels/Panel.js";
 import { useLayout } from "../base/LayoutStore.js";
-import { Popover } from "@itwin/itwinui-react";
+import { DropdownMenu } from "@itwin/itwinui-react";
 import { SvgChevronRightSmall } from "@itwin/itwinui-icons-react";
 import { TabBarButton } from "./Button.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 
-/** @internal */
-export interface WidgetOverflowProps {
-  children?: React.ReactNode;
+interface WidgetOverflowProps {
+  items: React.ReactElement[];
   hidden?: boolean;
   onResize?: (w: number) => void;
 }
@@ -42,12 +41,11 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
   const moreWidgetsTitle = translate("widget.tooltips.moreWidgets");
   return (
     <WidgetOverflowContext.Provider value={overflowContext}>
-      <Popover
+      <DropdownMenu
         className="nz-widget-overflow_menu"
+        menuItems={props.items}
         visible={open}
         onVisibleChange={setOpen}
-        content={props.children}
-        applyBackground
       >
         <TabBarButton
           label={moreWidgetsTitle}
@@ -59,7 +57,7 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
         >
           <SvgChevronRightSmall />
         </TabBarButton>
-      </Popover>
+      </DropdownMenu>
     </WidgetOverflowContext.Provider>
   );
 }

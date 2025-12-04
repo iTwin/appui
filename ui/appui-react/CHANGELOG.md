@@ -1,5 +1,20 @@
 # Change Log - @itwin/appui-react
 
+## 5.21.0
+
+### Minor Changes
+
+- 7ce8cb0: Changed widget tab overflow menu to use `DropdownMenu` instead of custom implementation based on `Popover`.
+- 696ad64: Changed the release tag of `notifyCloseRequest` property in the `ModalFrontstageInfo` interface from `@alpha` to `@public`.
+
+### Patch Changes
+
+- Updated dependencies [43acfb9]
+- Updated dependencies [43acfb9]
+  - @itwin/components-react@5.21.0
+  - @itwin/imodel-components-react@5.21.0
+  - @itwin/core-react@5.21.0
+
 ## 5.20.0
 
 ### Minor Changes
