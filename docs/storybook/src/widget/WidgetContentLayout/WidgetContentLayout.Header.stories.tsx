@@ -8,6 +8,7 @@ import { Page } from "../../AppUiStory";
 import { WidgetContentLayoutHeader } from "./WidgetContentLayout.Header";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { Button } from "@itwin/itwinui-react";
+import { fn } from "storybook/test";
 
 const meta = {
   title: "Widget/Layout/Header",
@@ -54,42 +55,43 @@ export const Full: Story = {
     menu: {
       title: "Select what is displayed below",
       items: [
-        { label: "Item 1", onClick: () => console.log("Item 1 clicked") },
-        { label: "Item 2", onClick: () => console.log("Item 2 clicked") },
+        { label: "Item 1", onClick: fn() },
+        { label: "Item 2", onClick: fn() },
       ],
     },
     icons: [
       {
         label: "Icon 1",
         icon: <SvgPlaceholder />,
-        onClick: () => console.log("Icon 1 clicked"),
+        onClick: fn(),
       },
       {
         label: "Icon 2",
         icon: <SvgPlaceholder />,
-        onClick: () => console.log("Icon 2 clicked"),
+        onClick: fn(),
       },
     ],
     iconSize: "small",
     toggle: {
       label: "Toggle",
+      onChange: fn(),
     },
     buttons: [
       <Button
         styleType="high-visibility"
         key="button-1"
-        onClick={() => console.log("Primary button clicked")}
+        onClick={fn()}
       >
         Primary
       </Button>,
       <Button
         key="button-2"
-        onClick={() => console.log("Secondary button clicked")}
+        onClick={fn()}
       >
         Secondary
       </Button>,
     ],
-    onSearch: (value: string) => console.log(`Search for: ${value}`),
+    onSearch: fn(),
   },
   argTypes: {
     title: {
@@ -162,8 +164,8 @@ export const Menu: Story = {
     menu: {
       title: "Dropdown Menu",
       items: [
-        { label: "Item 1", onClick: () => console.log("Item 1 clicked") },
-        { label: "Item 2", onClick: () => console.log("Item 2 clicked") },
+        { label: "Item 1", onClick: fn() },
+        { label: "Item 2", onClick: fn() },
       ],
     },
   },
@@ -176,15 +178,15 @@ export const IconsAndSearch: Story = {
       {
         label: "Icon 1",
         icon: <SvgPlaceholder />,
-        onClick: () => console.log("Icon 1 clicked"),
+        onClick: fn(),
       },
       {
         label: "Icon 2",
         icon: <SvgPlaceholder />,
-        onClick: () => console.log("Icon 2 clicked"),
+        onClick: fn(),
       },
     ],
-    onSearch: (value: string) => console.log(`Search for: ${value}`),
+    onSearch: fn(),
   },
   argTypes: {
     iconSize: {
@@ -200,18 +202,18 @@ export const Buttons: Story = {
       <Button
         styleType="high-visibility"
         key="button-1"
-        onClick={() => console.log("Primary button clicked")}
+        onClick={fn()}
       >
         Primary
       </Button>,
       <Button
         key="button-2"
-        onClick={() => console.log("Secondary button clicked")}
+        onClick={fn()}
       >
         Secondary
       </Button>,
     ],
-    onSearch: (value: string) => console.log(`Search for: ${value}`),
+    onSearch: fn(),
   },
 };
 
@@ -219,14 +221,14 @@ export const Toggle: Story = {
   args: {
     toggle: {
       label: "Toggle",
-      onChange: (e) => console.log(`Toggle is now ${e.target.checked}`),
+      onChange: fn(),
     },
   },
 };
 
 export const CustomHeader: Story = {
   args: {
-    onSearch: (value: string) => console.log(`Search for: ${value}`),
+    onSearch: fn(),
     children: (
       <div
         style={{ padding: "8px", fontWeight: "bold", backgroundColor: "red" }}
