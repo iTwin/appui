@@ -19,17 +19,27 @@ import { HeaderSearch } from "./HeaderSearch.js";
 import type { IconMenu, IconMenuSearch, SearchExpandedState } from "./types.js";
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
 
+/**
+ * Props for the {@link HeaderTopRight} component.
+ */
 interface HeaderTopRightProps {
+  /** Array of icon menu items to display, including regular icons, search, and dividers. */
   menuIcons: (IconMenu | IconMenuSearch)[];
+  /** Size of the icons. */
   iconSize?: "small" | "large";
+  /** Callback function invoked when the search text changes. */
   onSearch?: (value: string) => void;
+  /** State tuple controlling whether the search box is expanded or collapsed. */
   searchExpandedState: SearchExpandedState;
 }
 
 /**
- *
+ * Header toolbar component that displays menu icons with overflow handling.
+ * Renders a button group with icons, search functionality, and an overflow menu.
+ * Icons that don't fit in the available space are moved into a dropdown menu.
+ * @public
  */
-export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
+export function HeaderTopRight(props: HeaderTopRightProps) {
   const [searchIsExpanded, setSearchIsExpanded] = props.searchExpandedState;
   const searchState = React.useState("");
 
@@ -131,4 +141,4 @@ export const HeaderTopRight: React.FC<HeaderTopRightProps> = (props) => {
       </ButtonGroup>
     </div>
   );
-};
+}

@@ -55,69 +55,62 @@ export interface HeaderLayoutProps
 /**
  * A layout component for the header, including optional search, icons, buttons, title, and a menu.
  */
-export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
-  className,
-  buttonsClassName,
-  topLeftClassName,
-  toggle,
-  onSearch,
-  icons = [],
-  menu,
-  buttons = [],
-  iconSize,
-  title,
-}) => {
+export function HeaderLayout(props: HeaderLayoutProps) {
+  const buttons = props.buttons || [];
+  const icons = props.icons || [];
   const leftItems = [
-    toggle ? (
+    props.toggle ? (
       <React.Fragment key="toggle">
-        {<ToggleSwitch {...toggle} />}
+        {<ToggleSwitch {...props.toggle} />}
       </React.Fragment>
     ) : undefined,
-    menu ? (
+    props.menu ? (
       <React.Fragment key="menu">
         {
           <DropdownButton
             className="nz-menu"
-            menuItems={menu.items.map((i) => (
+            menuItems={props.menu.items.map((i) => (
               <MenuItem key={i.label} onClick={i.onClick}>
                 {i.label}
               </MenuItem>
             ))}
           >
-            {menu.title}
+            {props.menu.title}
           </DropdownButton>
         }
       </React.Fragment>
     ) : undefined,
-    buttons?.length > 0 ? (
-      <div key="buttons" className={classNames("nz-buttons", buttonsClassName)}>
+    buttons.length > 0 ? (
+      <div
+        key="buttons"
+        className={classNames("nz-buttons", props.buttonsClassName)}
+      >
         {buttons}
       </div>
     ) : undefined,
   ].filter((item) => !!item);
-  const firstRowLeftItems = title
+  const firstRowLeftItems = props.title
     ? [
         <Text key="title" className="nz-title">
-          {title}
+          {props.title}
         </Text>,
       ]
     : leftItems.slice(0, 1);
-  const remainingLeftItems = title ? leftItems : leftItems.slice(1);
-
+  const remainingLeftItems = props.title ? leftItems : leftItems.slice(1);
   return (
     <div
       className={classNames(
         "nz-widget-widgetContentLayout-header-headerLayout",
-        className
+        props.className
       )}
     >
-      {(onSearch || firstRowLeftItems.length > 0 || icons.length > 0) && (
+      {(props.onSearch || firstRowLeftItems.length > 0 || icons.length > 0) && (
         <HeaderFirstRow
           leftContent={firstRowLeftItems}
-          onSearch={onSearch}
+          onSearch={props.onSearch}
           icons={icons}
-          iconSize={iconSize}
-          topLeftClassName={topLeftClassName}
+          iconSize={props.iconSize}
+          topLeftClassName={props.topLeftClassName}
         />
       )}
       {remainingLeftItems.map((item, index) => (
@@ -127,4 +120,4 @@ export const HeaderLayout: React.FC<HeaderLayoutProps> = ({
       ))}
     </div>
   );
-};
+}
