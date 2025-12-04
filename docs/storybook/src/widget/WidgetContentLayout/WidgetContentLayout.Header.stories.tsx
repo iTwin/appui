@@ -19,7 +19,7 @@ const meta = {
     docs: {
       page: () => <Page />,
       source: {
-        code: `<WidgetContentLayout id="header-widget">
+        code: `<WidgetContentLayout>
     <WidgetContentLayout.Header
       title="Title"
       menu={{
@@ -77,17 +77,10 @@ export const Full: Story = {
       onChange: fn(),
     },
     buttons: [
-      <Button
-        styleType="high-visibility"
-        key="button-1"
-        onClick={fn()}
-      >
+      <Button styleType="high-visibility" key="button-1" onClick={fn()}>
         Primary
       </Button>,
-      <Button
-        key="button-2"
-        onClick={fn()}
-      >
+      <Button key="button-2" onClick={fn()}>
         Secondary
       </Button>,
     ],
@@ -199,17 +192,10 @@ export const IconsAndSearch: Story = {
 export const Buttons: Story = {
   args: {
     buttons: [
-      <Button
-        styleType="high-visibility"
-        key="button-1"
-        onClick={fn()}
-      >
+      <Button styleType="high-visibility" key="button-1" onClick={fn()}>
         Primary
       </Button>,
-      <Button
-        key="button-2"
-        onClick={fn()}
-      >
+      <Button key="button-2" onClick={fn()}>
         Secondary
       </Button>,
     ],

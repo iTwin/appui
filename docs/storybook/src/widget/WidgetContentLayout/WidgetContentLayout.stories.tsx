@@ -16,7 +16,7 @@ const meta = {
     docs: {
       page: () => <Page />,
       source: {
-        code: `<WidgetContentLayout id="basic-widget" isLoading={false}>
+        code: `<WidgetContentLayout isLoading={false}>
           <WidgetContentLayout.Header title="Header" />
           <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
           <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
