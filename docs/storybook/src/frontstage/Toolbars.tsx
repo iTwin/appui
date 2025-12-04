@@ -24,7 +24,7 @@ type ToolbarStoryProps = {
   viewSettingsVerticalLength?: number;
 };
 
-export function ToolbarStory(props: ToolbarStoryProps) {
+export function ToolbarsStory(props: ToolbarStoryProps) {
   const frontstage = createFrontstage({
     rightPanelProps: {
       sizeSpec: 250,

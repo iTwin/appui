@@ -9,7 +9,7 @@ import {
   ToolbarItemLayouts,
 } from "@itwin/appui-react";
 import { Page } from "../AppUiStory";
-import { ToolbarStory } from "./Toolbar";
+import { ToolbarsStory } from "./Toolbars";
 import {
   createToolbarItemFactory,
   enumArgType,
@@ -17,8 +17,8 @@ import {
 } from "../Utils";
 
 const meta = {
-  title: "Frontstage/Toolbar",
-  component: ToolbarStory,
+  title: "Frontstage/Toolbars",
+  component: ToolbarsStory,
   tags: ["autodocs"],
   parameters: {
     docs: {
@@ -65,7 +65,7 @@ const meta = {
     viewSettingsHorizontalLength: removeProperty(),
     viewSettingsVerticalLength: removeProperty(),
   },
-} satisfies Meta<typeof ToolbarStory>;
+} satisfies Meta<typeof ToolbarsStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
