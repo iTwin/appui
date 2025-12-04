@@ -74,6 +74,9 @@
   > .nz-secondary-horizontal-toolbar-container {
     grid-area: secondary-htools;
 
+    width: 100%;
+    min-width: 0;
+
     @include nz-widget-opacity;
   }
 }
