@@ -36,6 +36,10 @@ catalog:
   "@bentley/icons-generic": ^1.0.34
   "@bentley/icons-generic-webfont": ^1.0.34
   # Other packages
+  "@types/react": ^19.2.7
+  "@types/react-dom": ^19.2.3
+  react: ^19.2.1
+  react-dom: ^19.2.1
   zustand: ^4.4.1
   # Testing
   vitest: ^3.2.4
