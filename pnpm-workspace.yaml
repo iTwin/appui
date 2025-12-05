@@ -31,6 +31,7 @@ catalog:
   "@itwin/itwinui-react": "^3.19.6"
   "@stratakit/bricks": ^0.4.2
   "@stratakit/foundations": ^0.3.2
+  "@stratakit/icons": ^0.2.2
   # Icons
   "@bentley/icons-generic": ^1.0.34
   "@bentley/icons-generic-webfont": ^1.0.34
