@@ -11,6 +11,7 @@ import { useActiveStageId } from "../hooks/useActiveStageId.js";
 import { useAvailableUiItemsProviders } from "../hooks/useAvailableUiItemsProviders.js";
 import { UiFramework } from "../UiFramework.js";
 import type {
+  ToolbarAdvancedUsage,
   ToolbarItem,
   ToolbarOrientation,
   ToolbarUsage,
@@ -20,7 +21,8 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 function getItems(
   stageId: string,
   usage: ToolbarUsage,
-  orientation: ToolbarOrientation
+  orientation: ToolbarOrientation,
+  advancedUsage: ToolbarAdvancedUsage | undefined
 ) {
   const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
   if (!frontstageDef) return [];
@@ -31,7 +33,10 @@ function getItems(
     usage,
     orientation
   );
-  return toolbarItems;
+  return toolbarItems.filter((item) => {
+    const itemUsage = item.layouts?.standard?.advancedUsage;
+    return itemUsage === advancedUsage;
+  });
 }
 
 /**
@@ -41,13 +46,14 @@ function getItems(
  */
 export const useActiveStageProvidedToolbarItems = (
   usage: ToolbarUsage,
-  orientation: ToolbarOrientation
+  orientation: ToolbarOrientation,
+  advancedUsage: ToolbarAdvancedUsage | undefined
 ): readonly ToolbarItem[] => {
   const uiItemsProviderIds = useAvailableUiItemsProviders();
   const stageId = useActiveStageId();
 
   const [items, setItems] = React.useState<readonly ToolbarItem[]>(() =>
-    getItems(stageId, usage, orientation)
+    getItems(stageId, usage, orientation, advancedUsage)
   );
   const providersRef = React.useRef("");
   const currentStageRef = React.useRef("");
@@ -65,8 +71,8 @@ export const useActiveStageProvidedToolbarItems = (
 
     currentStageRef.current = stageId;
     providersRef.current = uiProviders;
-    const newItems = getItems(stageId, usage, orientation);
+    const newItems = getItems(stageId, usage, orientation, advancedUsage);
     setItems(newItems);
-  }, [orientation, stageId, uiItemsProviderIds, usage]);
+  }, [orientation, stageId, uiItemsProviderIds, usage, advancedUsage]);
   return items;
 };
