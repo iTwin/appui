@@ -146,7 +146,11 @@ export const CustomHeader: Story = {
     onSearch: fn(),
     children: (
       <div
-        style={{ padding: "8px", fontWeight: "bold", backgroundColor: "red" }}
+        style={{
+          padding: "8px",
+          fontWeight: "bold",
+          backgroundColor: "var(--iui-color-background-accent)",
+        }}
       >
         Custom Header Content
       </div>
