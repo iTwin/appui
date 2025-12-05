@@ -1,5 +1,5 @@
 .nz-widget-widgetContentLayout-header-headerFirstRow {
-  gap: var(--stratakit-space-x3);
+  gap: var(--iui-size-s);
   justify-content: space-between;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -11,7 +11,7 @@
 
   .nz-leftContent {
     display: flex;
-    gap: var(--stratakit-space-x3);
+    gap: var(--iui-size-s);
     align-items: center;
     text-wrap-mode: nowrap;
     overflow: auto;

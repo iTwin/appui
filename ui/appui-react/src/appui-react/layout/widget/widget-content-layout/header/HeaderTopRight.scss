@@ -18,20 +18,20 @@
     }
     &[data-single-item="false"] {
       min-width: calc(
-        var(--max-search-width) + var(--icon-size) + var(--stratakit-space-x3)
+        var(--max-search-width) + var(--icon-size) + var(--iui-size-s)
       );
     }
   }
 
   .nz-buttonGroup {
-    gap: var(--stratakit-space-x3);
+    gap: var(--iui-size-s);
     &:before {
       content: "";
       flex: 1;
     }
 
     & > :first-child {
-      margin-inline-start: calc(-1 * var(--stratakit-space-x3));
+      margin-inline-start: calc(-1 * var(--iui-size-s));
     }
 
     .nz-iconButton[data-iui-active="true"]:after {

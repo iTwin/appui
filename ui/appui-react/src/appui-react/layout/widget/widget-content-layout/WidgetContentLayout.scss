@@ -1,6 +1,4 @@
 .nz-widget-widgetContentLayout {
-  --stratakit-space-x3: 0.75rem;
-
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -11,8 +9,8 @@
 .nz-widget-widgetContentLayout-header {
   display: flex;
   flex-direction: column;
-  gap: var(--stratakit-space-x3);
-  padding: var(--stratakit-space-x3);
+  gap: var(--iui-size-s);
+  padding: var(--iui-size-s);
 }
 
 .nz-widget-widgetContentLayout-body {
@@ -22,13 +20,13 @@
   flex: 1;
   height: 0px;
   width: 100%;
-  gap: var(--stratakit-space-x3);
-  padding: var(--stratakit-space-x3);
+  gap: var(--iui-size-s);
+  padding: var(--iui-size-s);
 
   .nz-inner {
     display: flex;
     flex-direction: column;
-    gap: var(--stratakit-space-x3);
+    gap: var(--iui-size-s);
     flex: 1;
     overflow: auto;
   }
@@ -40,10 +38,10 @@
 
 .nz-widget-widgetContentLayout-footer {
   display: flex;
-  gap: var(--stratakit-space-x3);
+  gap: var(--iui-size-s);
   justify-content: flex-end;
   width: 100%;
-  padding: var(--stratakit-space-x3);
+  padding: var(--iui-size-s);
 }
 
 .nz-widget-widgetContentLayout-loadingOverlay {
@@ -59,5 +57,5 @@
 }
 
 .nz-widget-widgetContentLayout-divider {
-  margin-inline: var(--stratakit-space-x3);
+  margin-inline: var(--iui-size-s);
 }
