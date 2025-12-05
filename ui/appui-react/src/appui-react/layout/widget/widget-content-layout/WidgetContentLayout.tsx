@@ -94,6 +94,7 @@ function LoadingOverlay() {
 type WidgetContentLayoutProps = React.PropsWithChildren<{
   className?: string;
   isLoading?: boolean;
+  hideDividers?: boolean;
 }>;
 
 function WidgetContentLayoutInner(props: WidgetContentLayoutProps) {
@@ -122,7 +123,7 @@ function WidgetContentLayoutInner(props: WidgetContentLayoutProps) {
       {widgetComponents.map((component, index) => (
         <React.Fragment key={index}>
           {component}
-          {index < widgetComponents.length - 1 && (
+          {index < widgetComponents.length - 1 && !props.hideDividers && (
             <Divider className="nz-widget-widgetContentLayout-divider" />
           )}
         </React.Fragment>

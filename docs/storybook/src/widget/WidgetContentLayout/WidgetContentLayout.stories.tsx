@@ -4,45 +4,39 @@
  *--------------------------------------------------------------------------------------------*/
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../../Decorators";
-import WidgetContentLayout from "./WidgetContentLayout";
+import WidgetContentLayoutStory from "./WidgetContentLayout";
 import { Page } from "src/AppUiStory";
 
 const meta = {
   title: "Widget/Layout",
-  component: WidgetContentLayout,
+  component: WidgetContentLayoutStory,
   tags: ["autodocs"],
   decorators: [AppUiDecorator],
   parameters: {
     docs: {
       page: () => <Page />,
-      source: {
-        code: `<WidgetContentLayout isLoading={false}>
-          <WidgetContentLayout.Header title="Header" />
-          <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
-          <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
-        </WidgetContentLayout>`,
-      },
     },
   },
-} as Meta<typeof WidgetContentLayout>;
+} as Meta<typeof WidgetContentLayoutStory>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoadingOverlay: Story = {
+export const Default: Story = {
   args: {
     isLoading: false,
+    hideDividers: false,
   },
-  argTypes: {
-    isLoading: {
-      description:
-        "When true, renders a blocking loading overlay covering the content area.",
-      control: { type: "boolean" },
-      table: {
-        category: "WidgetContentLayout",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
+};
+
+export const LoadingOverlay: Story = {
+  args: {
+    isLoading: true,
+  },
+};
+
+export const HideDivider: Story = {
+  args: {
+    hideDividers: true,
   },
 };

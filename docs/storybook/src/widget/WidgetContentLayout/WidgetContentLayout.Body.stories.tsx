@@ -15,13 +15,6 @@ const meta = {
   parameters: {
     docs: {
       page: () => <Page />,
-      source: {
-        code: `<WidgetContentLayout>
-    <WidgetContentLayout.Header title="Header" />
-    <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
-    <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
-  </WidgetContentLayout>`,
-      },
     },
   },
 } as Meta<typeof WidgetContentLayoutBody>;
@@ -33,28 +26,6 @@ export const Full: Story = {
   args: {
     isLoading: false,
     isNonBlockingLoading: false,
-  },
-  argTypes: {
-    isLoading: {
-      description:
-        "Renders a blocking loading overlay covering the content area when true.",
-      control: { type: "boolean" },
-      table: {
-        category: "WidgetContentLayout.Body",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
-    isNonBlockingLoading: {
-      description:
-        "Shows a non-blocking loading indicator (does not prevent interaction) when true.",
-      control: { type: "boolean" },
-      table: {
-        category: "WidgetContentLayout.Body",
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
   },
 };
 

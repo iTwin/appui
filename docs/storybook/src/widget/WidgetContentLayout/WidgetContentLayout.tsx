@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import { WidgetContentLayout as WCL } from "@itwin/appui-react";
+import { WidgetContentLayout } from "@itwin/appui-react";
 import { StagePanelState, UiItemsProvider } from "@itwin/appui-react";
 import { AppUiStory } from "../../AppUiStory";
 import { createFrontstage, createWidget } from "../../Utils";
@@ -12,13 +12,15 @@ import { createFrontstage, createWidget } from "../../Utils";
  * The WidgetContentLayout provides a flexible layout structure for widgets with optional header controls,
  * scrollable content area, and footer actions.
  */
-function WidgetContentLayout(props: React.ComponentProps<typeof WCL>) {
+function WidgetContentLayoutStory(
+  props: React.ComponentProps<typeof WidgetContentLayout>
+) {
   const widgetContent = (
-    <WCL {...props}>
-      <WCL.Header title="Header" />
-      <WCL.Body>Body</WCL.Body>
-      <WCL.Footer>Footer</WCL.Footer>
-    </WCL>
+    <WidgetContentLayout {...props}>
+      <WidgetContentLayout.Header title="Header" />
+      <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
+      <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
+    </WidgetContentLayout>
   );
 
   const provider: UiItemsProvider = {
@@ -46,4 +48,4 @@ function WidgetContentLayout(props: React.ComponentProps<typeof WCL>) {
   );
 }
 
-export default WidgetContentLayout;
+export default WidgetContentLayoutStory;

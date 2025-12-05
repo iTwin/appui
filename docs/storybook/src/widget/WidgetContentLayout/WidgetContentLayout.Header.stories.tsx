@@ -18,30 +18,6 @@ const meta = {
   parameters: {
     docs: {
       page: () => <Page />,
-      source: {
-        code: `<WidgetContentLayout>
-    <WidgetContentLayout.Header
-      title="Title"
-      menu={{
-        title: "Dropdown Menu",
-        items: [
-          { label: "Item 1", onClick: () => console.log("Item 1 clicked") },
-          { label: "Item 2", onClick: () => console.log("Item 2 clicked") },
-        ],
-      }}
-      icons={[
-        { label: "Icon 1", icon: <SvgPlaceholder />, onClick: () => console.log("Icon 1 clicked") },
-        { label: "Icon 2", icon: <SvgPlaceholder />, onClick: () => console.log("Icon 2 clicked") },
-      ]}
-      buttons={[
-        <Button>Button 1</Button>,
-        <Button>Button 2</Button>
-      ]}
-    />
-    <WidgetContentLayout.Body>Body</WidgetContentLayout.Body>
-    <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
-  </WidgetContentLayout>`,
-      },
     },
   },
 } as Meta<typeof WidgetContentLayoutHeader>;
@@ -49,7 +25,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Full: Story = {
+export const Default: Story = {
   args: {
     title: "Title",
     menu: {
@@ -87,53 +63,6 @@ export const Full: Story = {
     onSearch: fn(),
   },
   argTypes: {
-    title: {
-      description: "Primary header title text shown in the header area.",
-      control: { type: "text" },
-      table: {
-        category: "WidgetContentLayout.Header",
-        type: { summary: "string" },
-        defaultValue: { summary: "undefined" },
-      },
-    },
-    menu: {
-      description:
-        "Optional dropdown menu configuration. Provide { title, items } where items is an array of { label, onClick }.",
-      control: { type: "object" },
-      table: {
-        category: "WidgetContentLayout.Header",
-        type: { summary: "object" },
-        defaultValue: { summary: "undefined" },
-      },
-    },
-    icons: {
-      description:
-        "Array of icon definitions displayed in the header (label, icon, onClick).",
-      control: { type: "object" },
-      table: {
-        category: "WidgetContentLayout.Header",
-        type: { summary: "Array" },
-        defaultValue: { summary: "[]" },
-      },
-    },
-    buttons: {
-      description: "Array of JSX Buttons to render in the header actions area.",
-      control: { type: "object" },
-      table: {
-        category: "WidgetContentLayout.Header",
-        type: { summary: "Array<JSX.Element>" },
-        defaultValue: { summary: "[]" },
-      },
-    },
-    onSearch: {
-      description:
-        "Optional search callback function called with the search input value when the user submits a search.",
-      table: {
-        category: "WidgetContentLayout.Header",
-        type: { summary: "(value: string) => void" },
-        defaultValue: { summary: "undefined" },
-      },
-    },
     iconSize: {
       control: { type: "inline-radio" },
       options: ["small", undefined, "large"],

@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { ComponentProps } from "react";
-import { WidgetContentLayout as WCL } from "@itwin/appui-react";
+import { WidgetContentLayout } from "@itwin/appui-react";
 import { StagePanelState, UiItemsProvider } from "@itwin/appui-react";
 import { AppUiStory } from "../../AppUiStory";
 import { createFrontstage, createWidget } from "../../Utils";
@@ -14,14 +14,14 @@ import { createFrontstage, createWidget } from "../../Utils";
  * scrollable content area, and footer actions.
  */
 export function WidgetContentLayoutBody(
-  props: ComponentProps<typeof WCL.Body>
+  props: ComponentProps<typeof WidgetContentLayout.Body>
 ) {
   const widgetContent = (
-    <WCL>
-      <WCL.Header title="Header" />
-      <WCL.Body {...props}>Body</WCL.Body>
-      <WCL.Footer>Footer</WCL.Footer>
-    </WCL>
+    <WidgetContentLayout>
+      <WidgetContentLayout.Header title="Header" />
+      <WidgetContentLayout.Body {...props}>Body</WidgetContentLayout.Body>
+      <WidgetContentLayout.Footer>Footer</WidgetContentLayout.Footer>
+    </WidgetContentLayout>
   );
 
   const provider: UiItemsProvider = {
