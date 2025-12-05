@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.21.1
+
+### Patch Changes
+
+- a1178aa: Fixed widget tab icon size when using StrataKit icons.
+  - @itwin/components-react@5.21.1
+  - @itwin/core-react@5.21.1
+  - @itwin/imodel-components-react@5.21.1
+
 ## 5.21.0
 
 ### Minor Changes
