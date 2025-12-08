@@ -84,6 +84,9 @@ catalogs:
     '@stratakit/foundations':
       specifier: ^0.3.2
       version: 0.3.2
+    '@stratakit/icons':
+      specifier: ^0.2.2
+      version: 0.2.2
     '@types/react':
       specifier: ^19.2.7
       version: 19.2.7
@@ -528,6 +531,9 @@ importers:
       '@stratakit/foundations':
         specifier: 'catalog:'
         version: 0.3.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      '@stratakit/icons':
+        specifier: 'catalog:'
+        version: 0.2.2
       react:
         specifier: 'catalog:'
         version: 19.2.1
@@ -3129,6 +3135,9 @@ packages:
         optional: true
       react-dom:
         optional: true
+
+  '@stratakit/icons@0.2.2':
+    resolution: {integrity: sha512-CXv2z0PhC+KU1dqZ//1gxZe2LTToO5WbhFmI65H1+VNDeZ+WH9GnaWHhOnmY54s0jQjOwut7jjSKkYXJbL8llg==}
 
   '@swc/core-darwin-arm64@1.13.5':
     resolution: {integrity: sha512-lKNv7SujeXvKn16gvQqUQI5DdyY8v7xcoO3k06/FJbHJS90zEwZdQiMNRiqpYw/orU543tPaWgz7cIYWhbopiQ==}
@@ -9807,6 +9816,8 @@ snapshots:
     optionalDependencies:
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
+
+  '@stratakit/icons@0.2.2': {}
 
   '@swc/core-darwin-arm64@1.13.5':
     optional: true

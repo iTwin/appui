@@ -18,6 +18,7 @@
   border: 0 solid var(--iui-color-border);
   max-width: 9em;
   background: var(--iui-color-background-backdrop);
+  flex-shrink: 0;
 
   > .nz-icon {
     svg {
