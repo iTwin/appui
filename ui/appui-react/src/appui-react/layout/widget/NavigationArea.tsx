@@ -35,32 +35,36 @@ interface NavigationAreaProps {
  * @internal
  */
 export function NavigationArea(props: NavigationAreaProps) {
-  const className = classnames(
-    "nz-widget-navigationArea",
-    props.hidden && "nz-hidden"
-  );
   return (
-    <div className={className}>
+    <div
+      className={classnames(
+        "nz-widget-navigationArea",
+        props.hidden && "nz-hidden"
+      )}
+    >
       <div
-        className="nz-horizontal-toolbar-container"
+        className={classnames(
+          "nz-horizontal-toolbar-container",
+          !!props.navigationAid && "nz-navigation-aid"
+        )}
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
       >
         {props.horizontalToolbar}
+        {props.navigationAid && (
+          <div
+            className="nz-navigation-aid-container"
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
+          >
+            {props.navigationAid}
+          </div>
+        )}
       </div>
-      {props.navigationAid && (
-        <div
-          className="nz-navigation-aid-container"
-          onMouseEnter={props.onMouseEnter}
-          onMouseLeave={props.onMouseLeave}
-        >
-          {props.navigationAid}
-        </div>
-      )}
       <div
         className={classnames(
           "nz-vertical-toolbar-container",
-          !props.navigationAid && "nz-span"
+          !!props.navigationAid && "nz-navigation-aid"
         )}
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
