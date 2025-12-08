@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import {
+  BackstageAppButton,
   ToolbarOrientation,
   ToolbarUsage,
   UiFramework,
@@ -17,6 +18,7 @@ type ToolbarStoryProps = {
   length: number;
   getItemProvider: (props: ToolbarStoryProps) => UiItemsProvider;
   hideNavigationAid: boolean;
+  cornerButton: boolean;
   contentManipulationHorizontalLength?: number;
   contentManipulationVerticalLength?: number;
   viewNavigationHorizontalLength?: number;
@@ -31,6 +33,7 @@ export function ToolbarsStory(props: ToolbarStoryProps) {
       sizeSpec: 250,
     },
     hideNavigationAid: props.hideNavigationAid,
+    cornerButton: props.cornerButton ? <BackstageAppButton /> : undefined,
   });
   const provider = props.getItemProvider?.(props);
   return (

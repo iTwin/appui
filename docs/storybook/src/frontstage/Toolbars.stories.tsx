@@ -31,6 +31,7 @@ const meta = {
     orientation: ToolbarOrientation.Horizontal,
     length: 4,
     hideNavigationAid: true,
+    cornerButton: false,
     getItemProvider: ({ usage, orientation, length }) => {
       return {
         id: "items",
@@ -242,7 +243,6 @@ export const AllCustom: Story = {
   args: {
     ...All.args,
     viewSettingsVerticalLength: 8,
-    hideNavigationAid: false,
   },
   argTypes: {
     ...All.argTypes,
