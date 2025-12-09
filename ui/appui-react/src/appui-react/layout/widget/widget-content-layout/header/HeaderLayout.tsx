@@ -4,8 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import "./HeaderLayout.scss";
-import classNames from "classnames";
-import type { ComponentProps } from "react";
 import React from "react";
 
 import {
@@ -24,15 +22,7 @@ import type { WidgetContentLayoutHeaderProps } from "../WidgetContentLayout.js";
  */
 type HeaderLayoutProps = Pick<
   WidgetContentLayoutHeaderProps,
-  | "className"
-  | "buttonsClassName"
-  | "toggle"
-  | "buttons"
-  | "menu"
-  | "title"
-  | "onSearch"
-  | "icons"
-  | "iconSize"
+  "toggle" | "buttons" | "menu" | "title" | "onSearch" | "icons" | "iconSize"
 >;
 
 /**
@@ -58,10 +48,7 @@ export function HeaderLayout(props: HeaderLayoutProps) {
       </DropdownButton>
     ) : undefined,
     buttons.length > 0 ? (
-      <div
-        key="buttons"
-        className={classNames("nz-buttons", props.buttonsClassName)}
-      >
+      <div key="buttons" className="nz-buttons">
         {buttons}
       </div>
     ) : undefined,
@@ -75,12 +62,7 @@ export function HeaderLayout(props: HeaderLayoutProps) {
     : leftItems.slice(0, 1);
   const remainingLeftItems = props.title ? leftItems : leftItems.slice(1);
   return (
-    <div
-      className={classNames(
-        "nz-widget-widgetContentLayout-header-headerLayout",
-        props.className
-      )}
-    >
+    <div className="nz-widget-widgetContentLayout-header-headerLayout">
       {(props.onSearch || topBarLeftItems.length > 0 || icons.length > 0) && (
         <HeaderTopBar
           primaryContent={topBarLeftItems}

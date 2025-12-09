@@ -114,10 +114,13 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
       >
         {props.menuIcons.map((icon, index) =>
           icon.type === "divider" ? (
-            <Divider orientation="vertical" key={index} />
+            <Divider
+              orientation="vertical"
+              key={icon.key ?? `divider-${index}`}
+            />
           ) : icon.type === "search" ? (
             <HeaderSearch
-              key={index}
+              key="search"
               searchExpandedState={props.searchExpandedState}
               searchState={searchState}
               iconSize={props.iconSize}

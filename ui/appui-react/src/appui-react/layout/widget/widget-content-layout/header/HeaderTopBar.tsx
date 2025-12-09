@@ -33,12 +33,22 @@ interface HeaderTopBarProps
  * @internal
  */
 export function HeaderTopBar(props: HeaderTopBarProps) {
-  let menuIcons: (IconMenu | IconMenuSearch)[] = props.icons || [];
-  if (props.onSearch) {
-    if (menuIcons.length > 0)
-      menuIcons = [{ type: "divider" } as IconMenuDivider, ...menuIcons];
-    menuIcons = [{ type: "search" } as IconMenuSearch, ...menuIcons];
-  }
+  const menuIcons = React.useMemo(() => {
+    let icons: (IconMenu | IconMenuSearch)[] = props.icons || [];
+    if (props.onSearch) {
+      if (icons.length > 0)
+        icons = [
+          { type: "divider", key: "search-divider" } as IconMenuDivider,
+          ...icons.map((icon, index) =>
+            icon.type === "divider"
+              ? ({ ...icon, key: `divider-${index}` } as IconMenuDivider)
+              : icon
+          ),
+        ];
+      icons = [{ type: "search" } as IconMenuSearch, ...icons];
+    }
+    return icons;
+  }, [props.icons, props.onSearch]);
 
   const searchExpandedState = React.useState(false);
 

@@ -34,6 +34,7 @@ interface IconMenuButton {
 /** Interface for icon menu divider items */
 export interface IconMenuDivider {
   type: "divider";
+  key?: string;
 }
 
 /**
@@ -86,17 +87,45 @@ export interface WidgetContentLayoutHeaderProps {
   children?: React.ReactNode;
 }
 
-function Header(props: WidgetContentLayoutHeaderProps) {
-  const { className, children, ...headerLayoutProps } = props;
-  return (
-    <div
-      className={classNames("nz-widget-widgetContentLayout-header", className)}
-    >
-      <HeaderLayout {...headerLayoutProps} />
-      {children}
-    </div>
-  );
-}
+const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
+  function Header(props, ref) {
+    const {
+      className,
+      children,
+      toggle,
+      buttons,
+      menu,
+      title,
+      onSearch,
+      icons,
+      iconSize,
+      ...divProps
+    } = props;
+    const headerLayoutProps = {
+      toggle,
+      buttons,
+      menu,
+      title,
+      onSearch,
+      icons,
+      iconSize,
+    };
+
+    return (
+      <div
+        className={classNames(
+          "nz-widget-widgetContentLayout-header",
+          className
+        )}
+        {...divProps}
+        ref={ref}
+      >
+        <HeaderLayout {...headerLayoutProps} />
+        {children}
+      </div>
+    );
+  }
+);
 
 Header.displayName = "appui:WidgetContentLayout.Header";
 
@@ -156,17 +185,23 @@ export interface WidgetContentLayoutFooterProps extends ComponentProps<"div"> {
   children?: React.ReactNode;
 }
 
-function Footer(props: WidgetContentLayoutFooterProps) {
-  const { className, children, ...rest } = props;
-  return (
-    <div
-      className={classNames("nz-widget-widgetContentLayout-footer", className)}
-      {...rest}
-    >
-      {children}
-    </div>
-  );
-}
+const Footer = React.forwardRef<HTMLDivElement, WidgetContentLayoutFooterProps>(
+  function Footer(props, ref) {
+    const { className, children, ...rest } = props;
+    return (
+      <div
+        className={classNames(
+          "nz-widget-widgetContentLayout-footer",
+          className
+        )}
+        {...rest}
+        ref={ref}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 Footer.displayName = "appui:WidgetContentLayout.Footer";
 
 function LoadingOverlay() {
