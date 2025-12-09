@@ -15,7 +15,7 @@ import {
   ToggleSwitch,
 } from "@itwin/itwinui-react";
 
-import { HeaderFirstRow } from "./HeaderFirstRow.js";
+import { HeaderTopBar } from "./HeaderTopBar.js";
 import type { WidgetContentLayoutHeaderProps } from "../WidgetContentLayout.js";
 
 /**
@@ -83,7 +83,7 @@ export function HeaderLayout(props: HeaderLayoutProps) {
       )}
     >
       {(props.onSearch || firstRowLeftItems.length > 0 || icons.length > 0) && (
-        <HeaderFirstRow
+        <HeaderTopBar
           leftContent={firstRowLeftItems}
           onSearch={props.onSearch}
           icons={icons}

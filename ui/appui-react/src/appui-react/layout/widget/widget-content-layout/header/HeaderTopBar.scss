@@ -1,5 +1,5 @@
 @layer appui.component {
-  .nz-widget-widgetContentLayout-header-headerFirstRow {
+  .nz-widget-widgetContentLayout-header-headerTopBar {
     gap: var(--iui-size-s);
     justify-content: space-between;
     display: grid;
@@ -20,7 +20,7 @@
   }
 
   @container header-layout (width < 200px) {
-    .nz-widget-widgetContentLayout-header-headerFirstRow {
+    .nz-widget-widgetContentLayout-header-headerTopBar {
       &[data-search-expanded="true"] {
         overflow: auto;
       }

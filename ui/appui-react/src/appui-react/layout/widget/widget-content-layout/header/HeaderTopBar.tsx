@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import "./HeaderFirstRow.scss";
+import "./HeaderTopBar.scss";
 import classNames from "classnames";
 import React from "react";
 
@@ -12,10 +12,10 @@ import type { IconMenuSearch } from "./types.js";
 import type { IconMenu, IconMenuDivider } from "../WidgetContentLayout.js";
 
 /**
- * Props for the [[HeaderFirstRow]] component.
+ * Props for the [[HeaderTopBar]] component.
  * @internal
  */
-interface HeaderFirstRowProps {
+interface HeaderTopBarProps {
   /**
    * CSS class name for the top left container.
    */
@@ -38,11 +38,11 @@ interface HeaderFirstRowProps {
 }
 
 /**
- * Internal layout component that renders the first row of the widget header,
+ * Internal layout component that renders the top bar of the widget header,
  * including optional left content and a top-right icon/search area.
  * @internal
  */
-export function HeaderFirstRow(props: HeaderFirstRowProps) {
+export function HeaderTopBar(props: HeaderTopBarProps) {
   let menuIcons: (IconMenu | IconMenuSearch)[] = props.icons || [];
   if (props.onSearch) {
     if (menuIcons.length > 0)
@@ -55,7 +55,7 @@ export function HeaderFirstRow(props: HeaderFirstRowProps) {
   return (
     <div
       className={classNames(
-        "nz-widget-widgetContentLayout-header-headerFirstRow",
+        "nz-widget-widgetContentLayout-header-headerTopBar",
         (props.leftContent.length === 0 || menuIcons.length === 0) &&
           "nz-singleColumn"
       )}
