@@ -10,15 +10,13 @@ import { SearchBox } from "@itwin/itwinui-react";
 
 import type { SearchExpandedState } from "./types.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
+import type { WidgetContentLayoutHeaderProps } from "../WidgetContentLayout.js";
 
 /**
- * Props for the {@link HeaderSearch} component.
+ * Props for the [[HeaderSearch]] component.
  */
-interface HeaderSearchProps {
-  /** Size of the search icon. Defaults to "small". */
-  iconSize?: "small" | "large";
-  /** Callback function invoked when the search text changes. */
-  onSearch?: (value: string) => void;
+interface HeaderSearchProps
+  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch"> {
   /** State tuple controlling whether the search box is expanded or collapsed. */
   searchExpandedState: SearchExpandedState;
   /** State tuple for the search text value and its setter function. */
@@ -28,7 +26,7 @@ interface HeaderSearchProps {
 /**
  * A collapsible search box component for widget headers.
  * Provides an expandable search input with icons that automatically focuses when expanded.
- * @public
+ * @internal
  */
 export function HeaderSearch(props: HeaderSearchProps) {
   const [isExpanded, setIsExpanded] = props.searchExpandedState;

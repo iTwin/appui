@@ -38,7 +38,7 @@ interface HeaderIconToolbarProps
  * Header toolbar component that displays menu icons with overflow handling.
  * Renders a button group with icons, search functionality, and an overflow menu.
  * Icons that don't fit in the available space are moved into a dropdown menu.
- * @public
+ * @internal
  */
 export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
   const [searchIsExpanded, setSearchIsExpanded] = props.searchExpandedState;
