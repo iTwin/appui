@@ -28,8 +28,8 @@ export function NavigationWidget({
   return (
     <div className="uifw-preview-navigationWidget">
       {children}
-      <div>
-        {showAdd && (
+      {showAdd && (
+        <div>
           <DropdownButton
             className="uifw-preview-navigationWidget_add"
             startIcon={<SvgAdd />}
@@ -54,8 +54,8 @@ export function NavigationWidget({
           >
             {label}
           </DropdownButton>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
