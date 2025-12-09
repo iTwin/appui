@@ -1,51 +1,47 @@
-.nz-widget-widgetContentLayout-header-headerLayout {
-  --icon-size: 36px;
-  --max-search-width: 200px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: var(--iui-size-s);
-  container: header-layout / inline-size;
-
-  .nz-menu {
+@layer appui.component {
+  .nz-widget-widgetContentLayout-header-headerLayout {
     width: 100%;
-    max-width: 560px;
-  }
-
-  .nz-buttons {
     display: flex;
+    flex-direction: column;
     gap: var(--iui-size-s);
-    align-items: center;
+    container: header-layout / inline-size;
 
-    width: 100%;
-    max-width: 560px;
-    & > button {
-      overflow: auto;
-      min-width: fit-content;
+    .nz-menu {
+      width: 100%;
+      max-width: 560px;
     }
-  }
-
-  .nz-title {
-    font-weight: bolder;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  .nz-remainingItems {
-    overflow-x: auto;
 
     .nz-buttons {
-      flex-wrap: wrap;
+      display: flex;
+      gap: var(--iui-size-s);
+      align-items: center;
+
+      width: 100%;
+      max-width: 560px;
+      > button {
+        overflow: auto;
+        min-width: fit-content;
+      }
     }
-  }
 
-  .nz-headerFirstRowWrapper {
-    display: flex;
-    gap: var(--iui-size-s);
-    width: 100%;
+    .nz-title {
+      font-weight: bolder;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
 
-    // .nz-header-first-row-root.single-column .nz-header-buttons {
-    //   flex-wrap: wrap;
-    // }
+    .nz-remainingItems {
+      overflow-x: auto;
+
+      .nz-buttons {
+        flex-wrap: wrap;
+      }
+    }
+
+    .nz-headerFirstRowWrapper {
+      display: flex;
+      gap: var(--iui-size-s);
+      width: 100%;
+    }
   }
 }

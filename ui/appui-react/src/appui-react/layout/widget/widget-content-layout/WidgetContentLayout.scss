@@ -1,61 +1,63 @@
-.nz-widget-widgetContentLayout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-.nz-widget-widgetContentLayout-header {
-  display: flex;
-  flex-direction: column;
-  gap: var(--iui-size-s);
-  padding: var(--iui-size-s);
-}
-
-.nz-widget-widgetContentLayout-body {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  height: 0px;
-  width: 100%;
-  gap: var(--iui-size-s);
-  padding: var(--iui-size-s);
-
-  .nz-inner {
+@layer appui.component {
+  .nz-widget-widgetContentLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  .nz-widget-widgetContentLayout-header {
     display: flex;
     flex-direction: column;
     gap: var(--iui-size-s);
+    padding: var(--iui-size-s);
+  }
+
+  .nz-widget-widgetContentLayout-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     flex: 1;
-    overflow: auto;
+    height: 0px;
+    width: 100%;
+    gap: var(--iui-size-s);
+    padding: var(--iui-size-s);
+
+    .nz-inner {
+      display: flex;
+      flex-direction: column;
+      gap: var(--iui-size-s);
+      flex: 1;
+      overflow: auto;
+    }
+
+    &.nz-nonBlockingLoading {
+      padding-block-start: 0px;
+    }
   }
 
-  &.nz-nonBlockingLoading {
-    padding-block-start: 0px;
+  .nz-widget-widgetContentLayout-footer {
+    display: flex;
+    gap: var(--iui-size-s);
+    justify-content: flex-end;
+    width: 100%;
+    padding: var(--iui-size-s);
   }
-}
 
-.nz-widget-widgetContentLayout-footer {
-  display: flex;
-  gap: var(--iui-size-s);
-  justify-content: flex-end;
-  width: 100%;
-  padding: var(--iui-size-s);
-}
+  .nz-widget-widgetContentLayout-loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+  }
 
-.nz-widget-widgetContentLayout-loadingOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  place-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(5px);
-}
-
-.nz-widget-widgetContentLayout-divider {
-  margin-inline: var(--iui-size-s);
+  .nz-widget-widgetContentLayout-divider {
+    margin-inline: var(--iui-size-s);
+  }
 }
