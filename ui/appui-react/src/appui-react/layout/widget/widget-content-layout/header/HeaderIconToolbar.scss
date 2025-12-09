@@ -31,7 +31,7 @@
         flex: 1;
       }
 
-      & > :first-child {
+      > :first-child {
         margin-inline-start: calc(-1 * var(--iui-size-s));
       }
 
