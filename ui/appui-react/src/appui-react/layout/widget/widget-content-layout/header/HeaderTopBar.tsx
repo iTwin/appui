@@ -7,34 +7,24 @@ import "./HeaderTopBar.scss";
 import classNames from "classnames";
 import React from "react";
 
-import { HeaderTopRight } from "./HeaderTopRight.js";
+import { HeaderIconToolbar } from "./HeaderIconToolbar.js";
 import type { IconMenuSearch } from "./types.js";
-import type { IconMenu, IconMenuDivider } from "../WidgetContentLayout.js";
+import type {
+  IconMenu,
+  IconMenuDivider,
+  WidgetContentLayoutHeaderProps,
+} from "../WidgetContentLayout.js";
 
 /**
  * Props for the [[HeaderTopBar]] component.
  * @internal
  */
-interface HeaderTopBarProps {
-  /**
-   * CSS class name for the top left container.
-   */
-  topLeftClassName?: string;
-  /**
-   * Array of icons to display in the top right of the header.
-   */
-  icons?: IconMenu[];
-  /**
-   * Callback function to handle search input changes.
-   * Should be memoized to avoid unnecessary re-renders.
-   * @param {string} value - The new search value.
-   */
-  onSearch?: (value: string) => void;
-  /**
-   * Size of the icons in the header.
-   */
-  iconSize?: "small" | "large";
-  leftContent: React.JSX.Element[];
+interface HeaderTopBarProps
+  extends Pick<
+    WidgetContentLayoutHeaderProps,
+    "icons" | "onSearch" | "iconSize"
+  > {
+  primaryContent: React.JSX.Element[];
 }
 
 /**
@@ -56,18 +46,16 @@ export function HeaderTopBar(props: HeaderTopBarProps) {
     <div
       className={classNames(
         "nz-widget-widgetContentLayout-header-headerTopBar",
-        (props.leftContent.length === 0 || menuIcons.length === 0) &&
+        (props.primaryContent.length === 0 || menuIcons.length === 0) &&
           "nz-singleColumn"
       )}
       data-search-expanded={searchExpandedState[0] ? "true" : "false"}
     >
-      {props.leftContent.length > 0 && (
-        <div className={classNames("nz-leftContent", props.topLeftClassName)}>
-          {props.leftContent}
-        </div>
+      {props.primaryContent.length > 0 && (
+        <div className="nz-primaryContent">{props.primaryContent}</div>
       )}
       {menuIcons.length > 0 && (
-        <HeaderTopRight
+        <HeaderIconToolbar
           menuIcons={menuIcons}
           onSearch={props.onSearch}
           searchExpandedState={searchExpandedState}

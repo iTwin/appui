@@ -33,7 +33,6 @@ type HeaderLayoutProps = Pick<
   | "onSearch"
   | "icons"
   | "iconSize"
-  | "topLeftClassName"
 >;
 
 /**
@@ -67,7 +66,7 @@ export function HeaderLayout(props: HeaderLayoutProps) {
       </div>
     ) : undefined,
   ].filter((item) => !!item);
-  const firstRowLeftItems = props.title
+  const topBarLeftItems = props.title
     ? [
         <Text key="title" className="nz-title">
           {props.title}
@@ -82,13 +81,12 @@ export function HeaderLayout(props: HeaderLayoutProps) {
         props.className
       )}
     >
-      {(props.onSearch || firstRowLeftItems.length > 0 || icons.length > 0) && (
+      {(props.onSearch || topBarLeftItems.length > 0 || icons.length > 0) && (
         <HeaderTopBar
-          leftContent={firstRowLeftItems}
+          primaryContent={topBarLeftItems}
           onSearch={props.onSearch}
           icons={icons}
           iconSize={props.iconSize}
-          topLeftClassName={props.topLeftClassName}
         />
       )}
       {remainingLeftItems.map((item, index) => (

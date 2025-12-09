@@ -16,9 +16,12 @@ import type { ToggleSwitch } from "@itwin/itwinui-react";
 
 import { HeaderLayout } from "./header/HeaderLayout.js";
 
-/** Union type for icon menu items */
+/**
+ * Type union for icon menu items.
+ */
 export type IconMenu = IconMenuButton | IconMenuDivider;
 
+/** Interface for icon menu button items */
 interface IconMenuButton {
   icon: React.ReactNode;
   onClick: () => void;
@@ -77,10 +80,6 @@ export interface WidgetContentLayoutHeaderProps {
    * Size of the icons.
    */
   iconSize?: "small" | "large";
-  /**
-   * CSS class name for the top left section.
-   */
-  topLeftClassName?: string;
   /**
    * Child elements to render within the header.
    */

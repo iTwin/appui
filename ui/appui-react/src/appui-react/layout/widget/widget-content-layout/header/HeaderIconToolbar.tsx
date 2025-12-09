@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import "./HeaderTopRight.scss";
+import "./HeaderIconToolbar.scss";
 import React from "react";
 
 import {
@@ -16,19 +16,20 @@ import {
 } from "@itwin/itwinui-react";
 
 import { HeaderSearch } from "./HeaderSearch.js";
-import type { IconMenu, IconMenuSearch, SearchExpandedState } from "./types.js";
+import type { IconMenuSearch, SearchExpandedState } from "./types.js";
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
+import type {
+  IconMenu,
+  WidgetContentLayoutHeaderProps,
+} from "../WidgetContentLayout.js";
 
 /**
- * Props for the {@link HeaderTopRight} component.
+ * Props for the [[HeaderIconToolbar]] component.
  */
-interface HeaderTopRightProps {
+interface HeaderIconToolbarProps
+  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch"> {
   /** Array of icon menu items to display, including regular icons, search, and dividers. */
   menuIcons: (IconMenu | IconMenuSearch)[];
-  /** Size of the icons. */
-  iconSize?: "small" | "large";
-  /** Callback function invoked when the search text changes. */
-  onSearch?: (value: string) => void;
   /** State tuple controlling whether the search box is expanded or collapsed. */
   searchExpandedState: SearchExpandedState;
 }
@@ -39,13 +40,13 @@ interface HeaderTopRightProps {
  * Icons that don't fit in the available space are moved into a dropdown menu.
  * @public
  */
-export function HeaderTopRight(props: HeaderTopRightProps) {
+export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
   const [searchIsExpanded, setSearchIsExpanded] = props.searchExpandedState;
   const searchState = React.useState("");
 
   return (
     <div
-      className="nz-widget-widgetContentLayout-header-headerTopRight"
+      className="nz-widget-widgetContentLayout-header-headerIconToolbar"
       data-icon-size={props.iconSize ?? "normal"}
       data-search-expanded={searchIsExpanded ? "true" : "false"}
       data-single-item={props.menuIcons.length === 1 ? "true" : "false"}
