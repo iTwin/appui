@@ -8,7 +8,7 @@ import { Page } from "../../AppUiStory";
 import { WidgetContentLayoutHeader } from "./WidgetContentLayout.Header";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { Button } from "@itwin/itwinui-react";
-import { fn } from "storybook/test";
+import { action } from "storybook/actions";
 
 const meta = {
   title: "Widget/Layout/Header",
@@ -31,36 +31,36 @@ export const Default: Story = {
     menu: {
       title: "Select what is displayed below",
       items: [
-        { label: "Item 1", onClick: fn() },
-        { label: "Item 2", onClick: fn() },
+        { label: "Item 1", onClick: action("Item 1 clicked") },
+        { label: "Item 2", onClick: action("Item 2 clicked") },
       ],
     },
     icons: [
       {
         label: "Icon 1",
         icon: <SvgPlaceholder />,
-        onClick: fn(),
+        onClick: action("Icon 1 clicked"),
       },
       {
         label: "Icon 2",
         icon: <SvgPlaceholder />,
-        onClick: fn(),
+        onClick: action("Icon 2 clicked"),
       },
     ],
     iconSize: "small",
     toggle: {
       label: "Toggle",
-      onChange: fn(),
+      onChange: action("Toggle changed"),
     },
     buttons: [
-      <Button styleType="high-visibility" key="button-1" onClick={fn()}>
+      <Button styleType="high-visibility" key="button-1" onClick={action("Primary button clicked")}>
         Primary
       </Button>,
-      <Button key="button-2" onClick={fn()}>
+      <Button key="button-2" onClick={action("Secondary button clicked")}>
         Secondary
       </Button>,
     ],
-    onSearch: fn(),
+    onSearch: action("Search performed"),
   },
   argTypes: {
     iconSize: {
@@ -86,8 +86,8 @@ export const Menu: Story = {
     menu: {
       title: "Dropdown Menu",
       items: [
-        { label: "Item 1", onClick: fn() },
-        { label: "Item 2", onClick: fn() },
+        { label: "Item 1", onClick: action("Item 1 clicked") },
+        { label: "Item 2", onClick: action("Item 2 clicked") },
       ],
     },
   },
@@ -100,15 +100,15 @@ export const IconsAndSearch: Story = {
       {
         label: "Icon 1",
         icon: <SvgPlaceholder />,
-        onClick: fn(),
+        onClick: action("Icon 1 clicked"),
       },
       {
         label: "Icon 2",
         icon: <SvgPlaceholder />,
-        onClick: fn(),
+        onClick: action("Icon 2 clicked"),
       },
     ],
-    onSearch: fn(),
+    onSearch: action("Search performed"),
   },
   argTypes: {
     iconSize: {
@@ -121,14 +121,14 @@ export const IconsAndSearch: Story = {
 export const Buttons: Story = {
   args: {
     buttons: [
-      <Button styleType="high-visibility" key="button-1" onClick={fn()}>
+      <Button styleType="high-visibility" key="button-1" onClick={action("Primary button clicked")}>
         Primary
       </Button>,
-      <Button key="button-2" onClick={fn()}>
+      <Button key="button-2" onClick={action("Secondary button clicked")}>
         Secondary
       </Button>,
     ],
-    onSearch: fn(),
+    onSearch: action("Search performed"),
   },
 };
 
@@ -136,14 +136,14 @@ export const Toggle: Story = {
   args: {
     toggle: {
       label: "Toggle",
-      onChange: fn(),
+      onChange: action("Toggle changed"),
     },
   },
 };
 
 export const CustomHeader: Story = {
   args: {
-    onSearch: fn(),
+    onSearch: action("Search performed"),
     children: (
       <div
         style={{
