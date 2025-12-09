@@ -128,7 +128,7 @@ const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
       <div
         className={classNames(
           "nz-widget-widgetContentLayout-body",
-          isNonBlockingLoading && "nz-nonBlockingLoading"
+          !isLoading && isNonBlockingLoading && "nz-nonBlockingLoading"
         )}
       >
         {isLoading ? (
