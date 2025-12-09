@@ -89,8 +89,8 @@ export function HeaderLayout(props: HeaderLayoutProps) {
           iconSize={props.iconSize}
         />
       )}
-      {remainingLeftItems.map((item, index) => (
-        <div className="nz-remainingItems" key={index}>
+      {remainingLeftItems.map((item) => (
+        <div className="nz-remainingItems" key={item.key}>
           {item}
         </div>
       ))}
