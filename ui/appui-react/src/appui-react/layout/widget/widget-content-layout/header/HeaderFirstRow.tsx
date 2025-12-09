@@ -8,8 +8,13 @@ import classNames from "classnames";
 import React from "react";
 
 import { HeaderTopRight } from "./HeaderTopRight.js";
-import type { IconMenu, IconMenuDivider, IconMenuSearch } from "./types.js";
+import type { IconMenuSearch } from "./types.js";
+import type { IconMenu, IconMenuDivider } from "../WidgetContentLayout.js";
 
+/**
+ * Props for the [[HeaderFirstRow]] component.
+ * @internal
+ */
 interface HeaderFirstRowProps {
   /**
    * CSS class name for the top left container.
@@ -33,7 +38,9 @@ interface HeaderFirstRowProps {
 }
 
 /**
- *
+ * Internal layout component that renders the first row of the widget header,
+ * including optional left content and a top-right icon/search area.
+ * @internal
  */
 export function HeaderFirstRow(props: HeaderFirstRowProps) {
   let menuIcons: (IconMenu | IconMenuSearch)[] = props.icons || [];

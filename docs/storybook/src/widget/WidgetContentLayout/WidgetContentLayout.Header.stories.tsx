@@ -9,6 +9,7 @@ import { WidgetContentLayoutHeader } from "./WidgetContentLayout.Header";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { Button } from "@itwin/itwinui-react";
 import { action } from "storybook/actions";
+import { unionArgType } from "../../Utils";
 
 const meta = {
   title: "Widget/Layout/Header",
@@ -53,7 +54,11 @@ export const Default: Story = {
       onChange: action("Toggle changed"),
     },
     buttons: [
-      <Button styleType="high-visibility" key="button-1" onClick={action("Primary button clicked")}>
+      <Button
+        styleType="high-visibility"
+        key="button-1"
+        onClick={action("Primary button clicked")}
+      >
         Primary
       </Button>,
       <Button key="button-2" onClick={action("Secondary button clicked")}>
@@ -63,15 +68,7 @@ export const Default: Story = {
     onSearch: action("Search performed"),
   },
   argTypes: {
-    iconSize: {
-      control: { type: "inline-radio" },
-      options: ["small", undefined, "large"],
-      table: {
-        category: "WidgetContentLayout.Header",
-        type: { summary: `'small' | undefined | 'large'` },
-        defaultValue: { summary: "undefined" },
-      },
-    },
+    iconSize: unionArgType(["small", undefined, "large"]),
   },
 };
 
@@ -111,17 +108,18 @@ export const IconsAndSearch: Story = {
     onSearch: action("Search performed"),
   },
   argTypes: {
-    iconSize: {
-      control: { type: "inline-radio" },
-      options: ["small", undefined, "large"],
-    },
+    iconSize: unionArgType(["small", undefined, "large"]),
   },
 };
 
 export const Buttons: Story = {
   args: {
     buttons: [
-      <Button styleType="high-visibility" key="button-1" onClick={action("Primary button clicked")}>
+      <Button
+        styleType="high-visibility"
+        key="button-1"
+        onClick={action("Primary button clicked")}
+      >
         Primary
       </Button>,
       <Button key="button-2" onClick={action("Secondary button clicked")}>

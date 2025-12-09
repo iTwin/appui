@@ -12,11 +12,82 @@ import type { ComponentProps, ComponentPropsWithRef } from "react";
 import React from "react";
 
 import { Divider, ProgressLinear, ProgressRadial } from "@itwin/itwinui-react";
+import type { ToggleSwitch } from "@itwin/itwinui-react";
 
-import type { HeaderLayoutProps } from "./header/HeaderLayout.js";
 import { HeaderLayout } from "./header/HeaderLayout.js";
 
-function Header(props: React.PropsWithChildren<HeaderLayoutProps>) {
+/** Union type for icon menu items */
+export type IconMenu = IconMenuButton | IconMenuDivider;
+
+interface IconMenuButton {
+  icon: React.ReactNode;
+  onClick: () => void;
+  label: string;
+  type?: "button";
+  disabled?: boolean;
+  isActive?: boolean;
+}
+
+/** Interface for icon menu divider items */
+export interface IconMenuDivider {
+  type: "divider";
+}
+
+/**
+ * Props for the [[WidgetContentLayout.Header]] component.
+ * @public
+ */
+export interface WidgetContentLayoutHeaderProps {
+  /**
+   * CSS class name for the header element.
+   */
+  className?: string;
+  /**
+   * CSS class name for the buttons container.
+   */
+  buttonsClassName?: string;
+  /**
+   * Toggle switch in the header.
+   */
+  toggle?: React.ComponentProps<typeof ToggleSwitch>;
+  /**
+   * Array of buttons to display in the header.
+   */
+  buttons?: React.ReactNode[];
+  /**
+   * Menu in the header.
+   */
+  menu?: {
+    title: string;
+    items: { label: string; onClick: () => void }[];
+  };
+  /**
+   * Title to display in the header.
+   */
+  title?: string;
+  /**
+   * Callback function for search functionality.
+   */
+  onSearch?: (value: string) => void;
+  /**
+   * Array of icon menu items to display in the header.
+   */
+  icons?: IconMenu[];
+  /**
+   * Size of the icons.
+   */
+  iconSize?: "small" | "large";
+  /**
+   * CSS class name for the top left section.
+   */
+  topLeftClassName?: string;
+  /**
+   * Child elements to render within the header.
+   */
+  children?: React.ReactNode;
+}
+
+function Header(props: WidgetContentLayoutHeaderProps) {
   const { className, children, ...headerLayoutProps } = props;
   return (
     <div
@@ -28,49 +99,65 @@ function Header(props: React.PropsWithChildren<HeaderLayoutProps>) {
   );
 }
 
-Header.displayName = "WidgetContentLayout.Header";
+Header.displayName = "appui:WidgetContentLayout.Header";
 
-type BodyProps = {
+/**
+ * Props for the [[WidgetContentLayout.Body]] component.
+ * @public
+ */
+export interface WidgetContentLayoutBodyProps
+  extends ComponentPropsWithRef<"div"> {
+  /**
+   * Whether the body is in a loading state.
+   */
   isLoading?: boolean;
+  /**
+   * Whether to show a non-blocking loading indicator.
+   */
   isNonBlockingLoading?: boolean;
+  /**
+   * Child elements to render within the body.
+   */
   children?: React.ReactNode;
-} & ComponentPropsWithRef<"div">;
+}
 
-const Body = React.forwardRef<HTMLDivElement, BodyProps>(function Body(
-  props,
-  ref
-) {
-  const { isNonBlockingLoading, isLoading, className, children, ...rest } =
-    props;
-  return (
-    <div
-      className={classNames(
-        "nz-widget-widgetContentLayout-body",
-        props.isNonBlockingLoading && "nz-nonBlockingLoading"
-      )}
-    >
-      {props.isLoading ? (
-        <LoadingOverlay />
-      ) : (
-        props.isNonBlockingLoading && <ProgressLinear />
-      )}
+const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
+  function Body(props, ref) {
+    const { isNonBlockingLoading, isLoading, className, children, ...rest } =
+      props;
+    return (
       <div
-        className={classNames("nz-inner", props.className)}
-        {...rest}
-        ref={ref}
+        className={classNames(
+          "nz-widget-widgetContentLayout-body",
+          isNonBlockingLoading && "nz-nonBlockingLoading"
+        )}
       >
-        {props.children}
+        {isLoading ? (
+          <LoadingOverlay />
+        ) : (
+          isNonBlockingLoading && <ProgressLinear />
+        )}
+        <div className={classNames("nz-inner", className)} {...rest} ref={ref}>
+          {children}
+        </div>
       </div>
-    </div>
-  );
-});
-Body.displayName = "WidgetContentLayout.Body";
+    );
+  }
+);
+Body.displayName = "appui:WidgetContentLayout.Body";
 
-type FooterProps = {
+/**
+ * Props for the [[WidgetContentLayout.Footer]] component.
+ * @public
+ */
+export interface WidgetContentLayoutFooterProps extends ComponentProps<"div"> {
+  /**
+   * Child elements to render within the footer.
+   */
   children?: React.ReactNode;
-} & ComponentProps<"div">;
+}
 
-function Footer(props: FooterProps) {
+function Footer(props: WidgetContentLayoutFooterProps) {
   const { className, children, ...rest } = props;
   return (
     <div
@@ -81,7 +168,7 @@ function Footer(props: FooterProps) {
     </div>
   );
 }
-Footer.displayName = "WidgetContentLayout.Footer";
+Footer.displayName = "appui:WidgetContentLayout.Footer";
 
 function LoadingOverlay() {
   return (
@@ -91,11 +178,28 @@ function LoadingOverlay() {
   );
 }
 
-type WidgetContentLayoutProps = React.PropsWithChildren<{
+/**
+ * Props for the [[WidgetContentLayout]] component.
+ * @public
+ */
+export interface WidgetContentLayoutProps {
+  /**
+   * CSS class name for the layout container.
+   */
   className?: string;
+  /**
+   * Whether the entire layout is in a loading state.
+   */
   isLoading?: boolean;
+  /**
+   * Whether to hide dividers between sections.
+   */
   hideDividers?: boolean;
-}>;
+  /**
+   * Child elements (Header, Body, Footer) to render.
+   */
+  children?: React.ReactNode;
+}
 
 function WidgetContentLayoutInner(props: WidgetContentLayoutProps) {
   const [headerElement, setHeaderElement] = React.useState<React.ReactNode>();
