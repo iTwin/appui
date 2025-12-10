@@ -28,7 +28,6 @@ import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react/internal';
 import { CompassMode } from '@itwin/core-frontend';
-import type { ComponentProps } from 'react';
 import type { ComponentPropsWithRef } from 'react';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
@@ -97,7 +96,7 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
-import { ToggleSwitch } from '@itwin/itwinui-react';
+import type { ToggleSwitch } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
@@ -5640,11 +5639,48 @@ export interface WidgetConfig extends Widget {
 }
 
 // @public
-export const WidgetContentLayout: typeof WidgetContentLayoutInner & {
-    Header: typeof Header;
-    Body: React_3.ForwardRefExoticComponent<Omit<BodyProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
-    Footer: typeof Footer;
+export const WidgetContentLayout: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutProps, "ref"> & React_3.RefAttributes<HTMLDivElement>> & {
+    Header: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutHeaderProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+    Body: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutBodyProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+    Footer: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutFooterProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
 };
+
+// @public
+export interface WidgetContentLayoutBodyProps extends ComponentPropsWithRef<"div"> {
+    children?: React_3.ReactNode;
+    isLoading?: boolean;
+    isNonBlockingLoading?: boolean;
+}
+
+// @public
+export interface WidgetContentLayoutFooterProps extends ComponentPropsWithRef<"div"> {
+    children?: React_3.ReactNode;
+}
+
+// @public
+export interface WidgetContentLayoutHeaderProps extends ComponentPropsWithRef<"div"> {
+    buttons?: React_3.ReactNode[];
+    children?: React_3.ReactNode;
+    icons?: IconMenu[];
+    iconSize?: "small" | "large";
+    menu?: {
+        title: string;
+        items: {
+            label: string;
+            onClick: () => void;
+        }[];
+    };
+    onSearch?: (value: string) => void;
+    title?: string;
+    toggle?: React_3.ComponentProps<typeof ToggleSwitch>;
+}
+
+// @public
+export interface WidgetContentLayoutProps extends ComponentPropsWithRef<"div"> {
+    children?: React_3.ReactNode;
+    hideDividers?: boolean;
+    isLoading?: boolean;
+}
 
 // @public @deprecated
 export class WidgetControl extends ConfigurableUiControl {
