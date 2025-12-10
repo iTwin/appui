@@ -19,7 +19,7 @@
     }
   }
 
-  @container header-layout (width < 200px) {
+  @container (width < 200px) {
     .nz-widget-widgetContentLayout-header-headerTopBar {
       &[data-search-expanded="true"] {
         overflow: auto;
