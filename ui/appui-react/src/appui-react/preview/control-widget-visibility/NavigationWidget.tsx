@@ -18,45 +18,37 @@ import { panelSides } from "../../layout/widget-panels/Panel.js";
 /** Displays a dropdown button to un-hide widgets in the bottom-right corner of the navigation widget area.
  * @internal
  */
-export function NavigationWidget({
-  children,
-}: React.PropsWithChildren<object>) {
+export function NavigationWidget() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const tabs = useUserControlledHiddenTabs();
   const hasWidgets = useHasWidgets();
   const showAdd = tabs.length > 0 && !hasWidgets;
+  if (!showAdd) return null;
   return (
-    <div className="uifw-preview-navigationWidget">
-      {children}
-      {showAdd && (
-        <div>
-          <DropdownButton
-            className="uifw-preview-navigationWidget_add"
-            startIcon={<SvgAdd />}
-            menuItems={(close) =>
-              tabs.map((tab) => {
-                return (
-                  <MenuItem
-                    key={tab.id}
-                    onClick={() => {
-                      dispatch({
-                        type: "WIDGET_TAB_SHOW",
-                        id: tab.id,
-                      });
-                      close();
-                    }}
-                  >
-                    {tab.label}
-                  </MenuItem>
-                );
-              })
-            }
-          >
-            {label}
-          </DropdownButton>
-        </div>
-      )}
-    </div>
+    <DropdownButton
+      className="uifw-preview-navigationWidget_add"
+      startIcon={<SvgAdd />}
+      menuItems={(close) =>
+        tabs.map((tab) => {
+          return (
+            <MenuItem
+              key={tab.id}
+              onClick={() => {
+                dispatch({
+                  type: "WIDGET_TAB_SHOW",
+                  id: tab.id,
+                });
+                close();
+              }}
+            >
+              {tab.label}
+            </MenuItem>
+          );
+        })
+      }
+    >
+      {label}
+    </DropdownButton>
   );
 }
 
