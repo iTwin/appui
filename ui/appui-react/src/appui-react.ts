@@ -999,3 +999,7 @@ registerEditors();
  * @docs-group-description Widget
  * Classes for working with a Widget
  */
+/**
+ * @docs-group-description WidgetContentLayout
+ * Components for organizing widget content with header, body, and footer sections.
+ */
