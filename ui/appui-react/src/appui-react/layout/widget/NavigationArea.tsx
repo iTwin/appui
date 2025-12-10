@@ -44,7 +44,7 @@ export function NavigationArea(props: NavigationAreaProps) {
     >
       <div
         className={classnames(
-          "nz-horizontal-toolbar-container",
+          "nz-widget-navigationArea_horizontalContainer",
           !!props.navigationAid && "nz-navigation-aid"
         )}
         onMouseEnter={props.onMouseEnter}
@@ -53,7 +53,7 @@ export function NavigationArea(props: NavigationAreaProps) {
         {props.horizontalToolbar}
         {props.navigationAid && (
           <div
-            className="nz-navigation-aid-container"
+            className="nz-widget-navigationArea_navigationAid"
             onMouseEnter={props.onMouseEnter}
             onMouseLeave={props.onMouseLeave}
           >
@@ -63,7 +63,7 @@ export function NavigationArea(props: NavigationAreaProps) {
       </div>
       <div
         className={classnames(
-          "nz-vertical-toolbar-container",
+          "nz-widget-navigationArea_verticalContainer",
           !!props.navigationAid && "nz-navigation-aid"
         )}
         onMouseEnter={props.onMouseEnter}
@@ -74,7 +74,7 @@ export function NavigationArea(props: NavigationAreaProps) {
       </div>
       {props.secondaryHorizontalToolbar && (
         <div
-          className="nz-secondary-horizontal-toolbar-container"
+          className="nz-widget-navigationArea_secondaryContainer"
           onMouseEnter={props.onMouseEnter}
           onMouseLeave={props.onMouseLeave}
         >
