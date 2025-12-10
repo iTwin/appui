@@ -47,7 +47,7 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
   return (
     <div
       className="nz-widget-widgetContentLayout-header-headerIconToolbar"
-      data-icon-size={props.iconSize ?? "normal"}
+      data-icon-size={props.iconSize}
       data-search-expanded={searchIsExpanded ? "true" : "false"}
       data-single-item={props.menuIcons.length === 1 ? "true" : "false"}
     >

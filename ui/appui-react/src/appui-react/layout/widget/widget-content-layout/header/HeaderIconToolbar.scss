@@ -1,16 +1,16 @@
 @layer appui.component {
   .nz-widget-widgetContentLayout-header-headerIconToolbar {
-    --icon-size: 36px;
+    --icon-size: var(--iui-component-height);
     --max-search-width: 200px;
     min-width: var(--icon-size);
     min-height: var(--icon-size);
 
     &[data-icon-size="small"] {
-      --icon-size: 26px;
+      --icon-size: var(--iui-component-height-small);
     }
 
     &[data-icon-size="large"] {
-      --icon-size: 48px;
+      --icon-size: var(--iui-component-height-large);
     }
 
     &[data-search-expanded="true"] {
