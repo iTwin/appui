@@ -8,7 +8,7 @@
 
 import "./WidgetContentLayout.scss";
 import classNames from "classnames";
-import type { ComponentProps, ComponentPropsWithRef } from "react";
+import type { ComponentPropsWithRef } from "react";
 import React from "react";
 
 import { Divider, ProgressLinear, ProgressRadial } from "@itwin/itwinui-react";
