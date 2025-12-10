@@ -4,6 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   BackstageAppButton,
+  PreviewFeatures,
+  PreviewFeaturesProvider,
   ToolbarOrientation,
   ToolbarUsage,
   UiFramework,
@@ -12,7 +14,8 @@ import {
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage } from "../Utils";
 
-type ToolbarStoryProps = {
+interface ToolbarStoryProps
+  extends Pick<PreviewFeatures, "controlWidgetVisibility"> {
   usage: ToolbarUsage;
   orientation: ToolbarOrientation;
   length: number;
@@ -25,7 +28,7 @@ type ToolbarStoryProps = {
   viewNavigationVerticalLength?: number;
   viewSettingsHorizontalLength?: number;
   viewSettingsVerticalLength?: number;
-};
+}
 
 export function ToolbarsStory(props: ToolbarStoryProps) {
   const frontstage = createFrontstage({
@@ -37,13 +40,17 @@ export function ToolbarsStory(props: ToolbarStoryProps) {
   });
   const provider = props.getItemProvider?.(props);
   return (
-    <AppUiStory
-      layout="fullscreen"
-      frontstages={[frontstage]}
-      itemProviders={[provider]}
-      onInitialize={async () => {
-        UiFramework.visibility.autoHideUi = false;
-      }}
-    />
+    <PreviewFeaturesProvider
+      features={{ controlWidgetVisibility: props.controlWidgetVisibility }}
+    >
+      <AppUiStory
+        layout="fullscreen"
+        frontstages={[frontstage]}
+        itemProviders={[provider]}
+        onInitialize={async () => {
+          UiFramework.visibility.autoHideUi = false;
+        }}
+      />
+    </PreviewFeaturesProvider>
   );
 }

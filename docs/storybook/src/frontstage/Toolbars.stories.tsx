@@ -7,14 +7,20 @@ import {
   ToolbarUsage,
   ToolbarOrientation,
   ToolbarItemLayouts,
+  WidgetState,
 } from "@itwin/appui-react";
 import { Page } from "../AppUiStory";
 import { ToolbarsStory } from "./Toolbars";
 import {
   createToolbarItemFactory,
+  createWidget,
   enumArgType,
   removeProperty,
 } from "../Utils";
+
+function getWidgets() {
+  return [createWidget(1, { defaultState: WidgetState.Hidden })];
+}
 
 const meta = {
   title: "Frontstage/Toolbars",
@@ -53,8 +59,10 @@ const meta = {
             return factory.createActionItem({ layouts });
           });
         },
+        getWidgets,
       };
     },
+    controlWidgetVisibility: false,
   },
   argTypes: {
     usage: enumArgType(ToolbarUsage),
@@ -121,6 +129,7 @@ export const ViewSettings: Story = {
             return factory.createActionItem({ layouts });
           });
         },
+        getWidgets,
       };
     },
   },
@@ -228,6 +237,7 @@ export const All: Story = {
             });
           });
         },
+        getWidgets,
       };
     },
   },
