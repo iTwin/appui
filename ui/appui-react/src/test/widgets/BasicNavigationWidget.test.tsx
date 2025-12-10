@@ -17,7 +17,6 @@ import {
   ToolbarHelper,
   UiFramework,
 } from "../../appui-react.js";
-import { childStructure } from "../TestUtils.js";
 import { render } from "@testing-library/react";
 
 describe("BasicNavigationWidget", () => {
@@ -141,12 +140,7 @@ describe("BasicNavigationWidget", () => {
       contentControlMock.object
     );
 
-    const { container } = render(<BasicNavigationWidget />);
-
-    expect(container).to.satisfy(
-      childStructure(
-        `.nz-navigation-aid-container .uifw-standard-rotation-navigation`
-      )
-    );
+    const { getByTitle } = render(<BasicNavigationWidget />);
+    getByTitle("standardRotationNavigationAid.title");
   });
 });
