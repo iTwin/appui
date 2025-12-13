@@ -55,7 +55,7 @@ import type { FrontstageProvider } from "./FrontstageProvider.js";
 import { InternalFrontstageManager } from "./InternalFrontstageManager.js";
 import { StageUsage } from "./StageUsage.js";
 import type { Frontstage } from "./Frontstage.js";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import { FrameworkContent } from "../framework/FrameworkContent.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { RectangleProps } from "../utils/RectangleProps.js";
@@ -63,6 +63,7 @@ import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
 } from "../widget-panels/Frontstage.js";
+import type { createPanelsStore } from "../panel/PanelsState.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -96,6 +97,8 @@ export class FrontstageDef {
   private _toolAdminDefaultToolId?: string;
   private _dispatch?: NineZoneDispatch;
   private _batching = false;
+  private _panelsStore?: ReturnType<typeof createPanelsStore>;
+  private _panels?: FrontstagePanels;
 
   public get id(): string {
     return this._id;
@@ -149,6 +152,13 @@ export class FrontstageDef {
   }
   public get contentGroup(): ContentGroup | undefined {
     return this._contentGroup;
+  }
+
+  public get panels(): FrontstagePanels {
+    if (!this._panels) {
+      this._panels = createFrontstagePanels(this);
+    }
+    return this._panels;
   }
 
   /** @internal */
@@ -296,6 +306,16 @@ export class FrontstageDef {
   }
   public set dispatch(dispatch: NineZoneDispatch) {
     this._dispatch = dispatch;
+  }
+
+  /** @internal */
+  public setPanelsStore(panelsStore: ReturnType<typeof createPanelsStore>) {
+    this._panelsStore = panelsStore;
+  }
+
+  /** @internal */
+  public getPanelsStore(): ReturnType<typeof createPanelsStore> | undefined {
+    return this._panelsStore;
   }
 
   /** Dispatch multiple actions inside `fn`, but trigger events once.
@@ -1138,4 +1158,73 @@ export function useSpecificWidgetDef(widgetId: string) {
     );
   }, [frontstageDef, widgetId]);
   return widgetDef;
+}
+
+interface OpenPanelArgs {
+  id: string;
+}
+
+interface OpenDynamicPanelArgs {
+  id: string;
+  placement: "left" | "right";
+}
+
+interface ClosePanelArgs {
+  id: string;
+}
+
+interface CloseDynamicPanelArgs {
+  placement: "left" | "right";
+  id?: string;
+}
+
+interface FrontstagePanels {
+  open: (args: OpenPanelArgs) => void;
+  close: (args: ClosePanelArgs) => void;
+  openDynamic: (args: OpenDynamicPanelArgs) => void;
+  closeDynamic: (args: CloseDynamicPanelArgs) => void;
+}
+
+function createFrontstagePanels(
+  frontstageDef: FrontstageDef
+): FrontstagePanels {
+  return {
+    open: (args) => {
+      const panelsStore = frontstageDef.getPanelsStore();
+      if (!panelsStore) return;
+      const state = panelsStore.getState();
+      state.open(args.id);
+    },
+    close: (args) => {
+      const panelsStore = frontstageDef.getPanelsStore();
+      if (!panelsStore) return;
+      const state = panelsStore.getState();
+
+      if (!args.id) return;
+      state.close(args.id);
+    },
+    openDynamic: (args) => {
+      const { id, placement } = args;
+      const panelsStore = frontstageDef.getPanelsStore();
+      if (!panelsStore) return;
+      const state = panelsStore.getState();
+      state.dynamic[placement].open(id);
+    },
+    closeDynamic: (args) => {
+      const { id, placement } = args;
+      const panelsStore = frontstageDef.getPanelsStore();
+      if (!panelsStore) return;
+      const state = panelsStore.getState();
+
+      const panelSlice = state.dynamic[placement];
+      if (!id) {
+        panelSlice.close();
+        return;
+      }
+
+      if (!panelSlice.activePanel) return;
+      if (panelSlice.activePanel.id !== id) return;
+      panelSlice.close();
+    },
+  };
 }

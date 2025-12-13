@@ -25,6 +25,7 @@ import {
   createAbstractUiItemsManagerAdapter,
   createGetPropertyAdapter,
 } from "./AbstractUiItemsManager.js";
+import type { Panel } from "../panel/Panel.js";
 
 /** UiItemsProvider register event args.
  * @public
@@ -273,6 +274,27 @@ export class UiItemsManager {
 
       const providerItems =
         uiProvider.getToolbarItems?.().map((item) => ({
+          ...item,
+          providerId,
+        })) ?? [];
+      items.push(...providerItems);
+    });
+
+    return getUniqueItems(items);
+  }
+
+  public static getPanels(
+    stageId: string,
+    stageUsage: string
+  ): ReadonlyArray<ProviderItem<Panel>> {
+    const items: ProviderItem<Panel>[] = [];
+    UiItemsManager._registeredUiItemsProviders.forEach((entry) => {
+      const uiProvider = entry.provider;
+      const providerId = entry.overrides?.providerId ?? uiProvider.id;
+      if (!this.allowItemsFromProvider(entry, stageId, stageUsage)) return;
+
+      const providerItems =
+        uiProvider.getPanels?.().map((item) => ({
           ...item,
           providerId,
         })) ?? [];

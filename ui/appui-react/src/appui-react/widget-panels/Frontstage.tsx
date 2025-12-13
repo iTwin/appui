@@ -69,6 +69,7 @@ import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings.js";
 import type { UiStateStorageResult } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { useLatestRef } from "../hooks/useLatestRef.js";
+import { PanelsProvider } from "../panel/PanelsState.js";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -82,26 +83,28 @@ function WidgetPanelsFrontstageComponent() {
         enabled={previewFeatures.horizontalPanelAlignment}
       >
         <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
-          <StandardLayout
-            centerContent={
-              <>
-                <WidgetPanelsToolbars />
-                <WidgetPanelExpanders />
-              </>
-            }
-            toolSettings={<WidgetPanelsToolSettings />}
-            statusBar={<WidgetPanelsStatusBar />}
-            topPanel={<WidgetPanelProvider side="top" />}
-            leftPanel={<WidgetPanelProvider side="left" />}
-            rightPanel={<WidgetPanelProvider side="right" />}
-            bottomPanel={<WidgetPanelProvider side="bottom" />}
-          >
-            <WidgetPanelsFrontstageContent />
-          </StandardLayout>
-          <WidgetContentRenderers />
-          <FloatingWidgets />
-          <PopoutWidgets />
+          <PanelsProvider>
+            <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+            <StandardLayout
+              centerContent={
+                <>
+                  <WidgetPanelsToolbars />
+                  <WidgetPanelExpanders />
+                </>
+              }
+              toolSettings={<WidgetPanelsToolSettings />}
+              statusBar={<WidgetPanelsStatusBar />}
+              topPanel={<WidgetPanelProvider side="top" />}
+              leftPanel={<WidgetPanelProvider side="left" />}
+              rightPanel={<WidgetPanelProvider side="right" />}
+              bottomPanel={<WidgetPanelProvider side="bottom" />}
+            >
+              <WidgetPanelsFrontstageContent />
+            </StandardLayout>
+            <WidgetContentRenderers />
+            <FloatingWidgets />
+            <PopoutWidgets />
+          </PanelsProvider>
         </ToolbarPopupAutoHideContext.Provider>
       </PreviewHorizontalPanelAlignFeatureProvider>
     </MaximizedWidgetProvider>

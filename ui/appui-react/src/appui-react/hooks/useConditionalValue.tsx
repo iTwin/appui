@@ -19,6 +19,7 @@ export function useConditionalValue<T>(getValue: () => T, eventIds: string[]) {
   const getValueRef = React.useRef(getValue);
   React.useEffect(() => {
     getValueRef.current = getValue;
+    setValue(getValue());
   }, [getValue]);
 
   const eventIdsRef = React.useRef(eventIds);
