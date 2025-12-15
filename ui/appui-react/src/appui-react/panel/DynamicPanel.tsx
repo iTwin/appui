@@ -25,18 +25,18 @@ export function DynamicPanel(props: DynamicPanelProps) {
     if (side === "left") return state.dynamic.left;
     return state.dynamic.right;
   });
-  const { activePanel, close } = panelSlice;
+  const { active: panel, close } = panelSlice;
   const label = useConditionalValue(
     () => {
-      if (!activePanel) return undefined;
-      if (isConditionalValue(activePanel.label)) {
-        return activePanel.label.getValue();
+      if (!panel) return undefined;
+      if (isConditionalValue(panel.label)) {
+        return panel.label.getValue();
       }
-      return activePanel.label;
+      return panel.label;
     },
-    isConditionalValue(activePanel?.label) ? activePanel.label.eventIds : []
+    isConditionalValue(panel?.label) ? panel.label.eventIds : []
   );
-  if (!activePanel) return null;
+  if (!panel) return null;
   return (
     <div className="uifw-panel-dynamicPanel">
       <div className="uifw-panel-dynamicPanel_header">
@@ -51,7 +51,7 @@ export function DynamicPanel(props: DynamicPanelProps) {
         </IconButton>
       </div>
       <Divider className="uifw-panel-dynamicPanel_divider" />
-      <div>{activePanel.content}</div>
+      <div>{panel.content}</div>
     </div>
   );
 }

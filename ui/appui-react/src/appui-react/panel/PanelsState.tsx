@@ -12,19 +12,33 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { produce } from "immer";
 
-interface PanelsState {
+interface OpenPanelArgs {
+  id: string;
+}
+
+type ClosePanelArgs =
+  | {
+      id: string;
+    }
+  | {
+      type: "dynamic";
+      placement: "left" | "right";
+    };
+
+/** @internal */
+export interface PanelsState {
   panels: Panel[];
   setPanels: (panels: Panel[]) => void;
   dynamic: {
     left: DynamicPanelSlice;
     right: DynamicPanelSlice;
   };
-  open: (id: Panel["id"]) => void;
-  close: (id: Panel["id"]) => void;
+  open: (args: OpenPanelArgs) => void;
+  close: (args: ClosePanelArgs) => void;
 }
 
 interface DynamicPanelSlice {
-  activePanel: DynamicPanel | undefined;
+  active: DynamicPanel | undefined;
   open: (id: Panel["id"]) => void;
   close: () => void;
 }
@@ -34,7 +48,7 @@ const createDynamicPanelSlice =
     side: "left" | "right"
   ): StateCreator<PanelsState, [], [], DynamicPanelSlice> =>
   (set) => ({
-    activePanel: undefined,
+    active: undefined,
     open: (id: Panel["id"]) => {
       set((state) =>
         produce(state, (draft) => {
@@ -42,7 +56,7 @@ const createDynamicPanelSlice =
           if (!panel) return;
 
           if (isDynamicPanel(panel)) {
-            draft.dynamic[side].activePanel = panel;
+            draft.dynamic[side].active = panel;
           }
         })
       );
@@ -50,7 +64,7 @@ const createDynamicPanelSlice =
     close: () => {
       set((state) =>
         produce(state, (draft) => {
-          draft.dynamic[side].activePanel = undefined;
+          draft.dynamic[side].active = undefined;
         })
       );
     },
@@ -62,33 +76,30 @@ export function createPanelsStore(stateOverrides?: Partial<PanelsState>) {
     return {
       panels: [],
       setPanels: (panels: Panel[]) => set({ panels }),
-      open: (id: Panel["id"]) => {
-        set((state) =>
-          produce(state, (draft) => {
-            const panel = state.panels.find((p) => p.id === id);
-            if (!panel) return;
-
-            if (isDynamicPanel(panel)) {
-              const placement = panel.placement;
-              if (placement === "left") {
-                draft.dynamic.left.activePanel = panel;
-              }
-            }
-          })
-        );
-      },
-      close: (id: Panel["id"]) => {
-        set((state) =>
-          produce(state, (draft) => {
-            if (draft.dynamic.left.activePanel?.id === id) {
-              draft.dynamic.left.activePanel = undefined;
-            }
-          })
-        );
-      },
       dynamic: {
         left: createDynamicPanelSlice("left")(set, get, store),
         right: createDynamicPanelSlice("right")(set, get, store),
+      },
+      open: (args) => {
+        set((state) =>
+          produce(state, (draft) => {
+            const panel = draft.panels.find((p) => p.id === args.id);
+            if (!panel) return;
+            if (!isDynamicPanel(panel)) return;
+            draft.dynamic.left.active = panel;
+          })
+        );
+      },
+      close: (args) => {
+        set((state) =>
+          produce(state, (draft) => {
+            if ("type" in args) {
+              draft.dynamic[args.placement].active = undefined;
+              return;
+            }
+            draft.dynamic.left.active = undefined;
+          })
+        );
       },
       ...stateOverrides,
     };
@@ -125,6 +136,24 @@ export function PanelsProvider(props: React.PropsWithChildren) {
     if (!frontstageDef) return;
     frontstageDef.setPanelsStore(store);
   }, [store, frontstageDef]);
+  React.useEffect(() => {
+    if (!frontstageDef) return;
+    return store.subscribe((state, prevState) => {
+      const prevOpen = prevState.dynamic.left.active?.id;
+      const currOpen = state.dynamic.left.active?.id;
+      if (prevOpen === currOpen) return;
+      prevOpen &&
+        frontstageDef.panels.onPanelOpenChanged.raiseEvent({
+          id: prevOpen,
+          open: false,
+        });
+      currOpen &&
+        frontstageDef.panels.onPanelOpenChanged.raiseEvent({
+          id: currOpen,
+          open: true,
+        });
+    });
+  }, [frontstageDef, store]);
   return (
     <PanelsStoreContext.Provider value={store}>
       {props.children}

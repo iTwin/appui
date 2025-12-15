@@ -27,7 +27,7 @@ interface InformationPanel extends CommonPanel {
 /** @internal */
 export interface DynamicPanel extends CommonPanel {
   readonly type: "dynamic";
-  readonly placement: "left" | "right" | (string & {});
+  readonly placement?: "left" | "right" | (string & {});
 }
 
 /** Describes the data needed to provide a panel.

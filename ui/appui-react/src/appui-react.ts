@@ -391,7 +391,6 @@ export {
 } from "./appui-react/navigationaids/StandardRotationNavigationAid.js";
 
 export { Panel } from "./appui-react/panel/Panel.js";
-export { usePanelsStore } from "./appui-react/panel/PanelsState.js";
 
 export {
   ExpandableSection,

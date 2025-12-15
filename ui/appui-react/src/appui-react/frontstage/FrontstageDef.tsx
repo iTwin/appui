@@ -7,6 +7,7 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
+import { BeEvent } from "@itwin/core-bentley";
 import { BentleyStatus } from "@itwin/core-bentley";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import {
@@ -63,7 +64,8 @@ import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
 } from "../widget-panels/Frontstage.js";
-import type { createPanelsStore } from "../panel/PanelsState.js";
+import type { createPanelsStore, PanelsState } from "../panel/PanelsState.js";
+import type { Panel } from "../panel/Panel.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -1160,29 +1162,13 @@ export function useSpecificWidgetDef(widgetId: string) {
   return widgetDef;
 }
 
-interface OpenPanelArgs {
-  id: string;
-}
-
-interface OpenDynamicPanelArgs {
-  id: string;
-  placement: "left" | "right";
-}
-
-interface ClosePanelArgs {
-  id: string;
-}
-
-interface CloseDynamicPanelArgs {
-  placement: "left" | "right";
-  id?: string;
-}
-
 interface FrontstagePanels {
-  open: (args: OpenPanelArgs) => void;
-  close: (args: ClosePanelArgs) => void;
-  openDynamic: (args: OpenDynamicPanelArgs) => void;
-  closeDynamic: (args: CloseDynamicPanelArgs) => void;
+  open: PanelsState["open"];
+  close: PanelsState["close"];
+  getOpenPanels: () => Panel["id"][];
+  onPanelOpenChanged: BeEvent<
+    (args: { id: Panel["id"]; open: boolean }) => void
+  >;
 }
 
 function createFrontstagePanels(
@@ -1193,38 +1179,25 @@ function createFrontstagePanels(
       const panelsStore = frontstageDef.getPanelsStore();
       if (!panelsStore) return;
       const state = panelsStore.getState();
-      state.open(args.id);
+      state.open(args);
     },
     close: (args) => {
       const panelsStore = frontstageDef.getPanelsStore();
       if (!panelsStore) return;
       const state = panelsStore.getState();
-
-      if (!args.id) return;
-      state.close(args.id);
+      state.close(args);
     },
-    openDynamic: (args) => {
-      const { id, placement } = args;
+    getOpenPanels: () => {
       const panelsStore = frontstageDef.getPanelsStore();
-      if (!panelsStore) return;
+      if (!panelsStore) return [];
       const state = panelsStore.getState();
-      state.dynamic[placement].open(id);
+      const openPanels: Panel["id"][] = [];
+      if (state.dynamic.left.active)
+        openPanels.push(state.dynamic.left.active.id);
+      if (state.dynamic.right.active)
+        openPanels.push(state.dynamic.right.active.id);
+      return openPanels;
     },
-    closeDynamic: (args) => {
-      const { id, placement } = args;
-      const panelsStore = frontstageDef.getPanelsStore();
-      if (!panelsStore) return;
-      const state = panelsStore.getState();
-
-      const panelSlice = state.dynamic[placement];
-      if (!id) {
-        panelSlice.close();
-        return;
-      }
-
-      if (!panelSlice.activePanel) return;
-      if (panelSlice.activePanel.id !== id) return;
-      panelSlice.close();
-    },
+    onPanelOpenChanged: new BeEvent(),
   };
 }

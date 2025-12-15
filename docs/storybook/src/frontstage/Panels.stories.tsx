@@ -7,7 +7,9 @@ import { Page } from "../AppUiStory";
 import { PanelsStory } from "./Panels";
 import { createWidget, removeProperty } from "../Utils";
 import { Button } from "@itwin/itwinui-react";
-import { useActiveFrontstageDef, usePanelsStore } from "@itwin/appui-react";
+import { useActiveFrontstageDef } from "@itwin/appui-react";
+import React from "react";
+import { action } from "storybook/internal/actions";
 
 const meta = {
   title: "Frontstage/Panels",
@@ -60,18 +62,31 @@ export const DynamicPanel: Story = {
 
 function Widget() {
   const frontstageDef = useActiveFrontstageDef();
-  const state = usePanelsStore((state) => state);
+  const [isActive, setIsActive] = React.useState(() => {
+    if (!frontstageDef) return false;
+    return frontstageDef?.panels.getOpenPanels().includes("panel1");
+  });
+  React.useEffect(() => {
+    if (!frontstageDef) return;
+    return frontstageDef.panels.onPanelOpenChanged.addListener((args) => {
+      action("onPanelOpenChanged")(args);
+      if (args.id !== "panel1") return;
+      setIsActive(args.open);
+    });
+  }, [frontstageDef]);
   return (
     <div>
       Widget 1 Content
       <Button
         onClick={() => {
-          if (state.dynamic.left.activePanel) {
-            state.close("panel1");
+          if (!frontstageDef) return;
+
+          if (isActive) {
+            frontstageDef.panels.close({
+              id: "panel1",
+            });
             return;
           }
-
-          if (!frontstageDef) return;
           frontstageDef.panels.open({ id: "panel1" });
         }}
       >
