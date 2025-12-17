@@ -94,15 +94,6 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
       iconSize,
       ...rest
     } = props;
-    const headerLayoutProps = {
-      toggle,
-      buttons,
-      menu,
-      title,
-      onSearch,
-      icons,
-      iconSize,
-    };
 
     return (
       <div
@@ -110,10 +101,18 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
           "nz-widget-widgetContentLayout-header",
           className
         )}
-        {...divProps}
+        {...rest}
         ref={ref}
       >
-        <HeaderLayout {...headerLayoutProps} />
+        <HeaderLayout
+          toggle={toggle}
+          buttons={buttons}
+          menu={menu}
+          title={title}
+          onSearch={onSearch}
+          icons={icons}
+          iconSize={iconSize}
+        />
         {children}
       </div>
     );
