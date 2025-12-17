@@ -24,8 +24,9 @@
     gap: var(--iui-size-s);
     padding: var(--iui-size-s);
 
-    .nz-inner {
+    .nz-scrollableContent {
       display: flex;
+      width: 100%;
       flex-direction: column;
       gap: var(--iui-size-s);
       flex: 1;

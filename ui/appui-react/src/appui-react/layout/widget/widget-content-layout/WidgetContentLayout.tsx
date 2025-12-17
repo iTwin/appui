@@ -157,7 +157,11 @@ const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
         ) : (
           isNonBlockingLoading && <ProgressLinear />
         )}
-        <div className={classNames("nz-inner", className)} {...rest} ref={ref}>
+        <div
+          className={classNames("nz-scrollableContent", className)}
+          {...rest}
+          ref={ref}
+        >
           {children}
         </div>
       </div>
