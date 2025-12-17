@@ -92,7 +92,7 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
       onSearch,
       icons,
       iconSize,
-      ...divProps
+      ...rest
     } = props;
     const headerLayoutProps = {
       toggle,
