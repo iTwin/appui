@@ -47,9 +47,9 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
   return (
     <div
       className="nz-widget-widgetContentLayout-header-headerIconToolbar"
-      data-icon-size={props.iconSize}
-      data-search-expanded={searchIsExpanded ? "true" : "false"}
-      data-single-item={props.menuIcons.length === 1 ? "true" : "false"}
+      data-_appui-icon-size={props.iconSize}
+      data-_appui-search-expanded={searchIsExpanded ? "true" : "false"}
+      data-_appui-single-item={props.menuIcons.length === 1 ? "true" : "false"}
     >
       <ButtonGroup
         key={String(searchIsExpanded)}

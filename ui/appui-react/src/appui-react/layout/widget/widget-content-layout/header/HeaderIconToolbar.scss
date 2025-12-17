@@ -1,25 +1,26 @@
 @layer appui.component {
   .nz-widget-widgetContentLayout-header-headerIconToolbar {
-    --icon-size: var(--iui-component-height);
-    --max-search-width: 200px;
-    min-width: var(--icon-size);
-    min-height: var(--icon-size);
+    --_appui-icon-size: var(--iui-component-height);
+    --_appui-max-search-width: 200px;
+    min-width: var(--_appui-icon-size);
+    min-height: var(--_appui-icon-size);
 
-    &[data-icon-size="small"] {
+    &[data-_appui-icon-size="small"] {
       --icon-size: var(--iui-component-height-small);
     }
 
-    &[data-icon-size="large"] {
+    &[data-_appui-icon-size="large"] {
       --icon-size: var(--iui-component-height-large);
     }
 
-    &[data-search-expanded="true"] {
-      &[data-single-item="true"] {
-        min-width: var(--max-search-width);
+    &[data-_appui-search-expanded="true"] {
+      &[data-_appui-single-item="true"] {
+        min-width: var(--_appui-max-search-width);
       }
-      &[data-single-item="false"] {
+      &[data-_appui-single-item="false"] {
         min-width: calc(
-          var(--max-search-width) + var(--icon-size) + var(--iui-size-s)
+          var(--_appui-max-search-width) + var(--_appui-icon-size) +
+            var(--iui-size-s)
         );
       }
     }
