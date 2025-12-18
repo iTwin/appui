@@ -6,11 +6,12 @@ import * as React from "react";
 import type { StateCreator } from "zustand";
 import { createStore, useStore } from "zustand";
 import { useSafeContext } from "../hooks/useSafeContext.js";
-import type { DynamicPanel } from "./Panel.js";
 import { isDynamicPanel, type Panel } from "./Panel.js";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { produce } from "immer";
+
+type DynamicPanel = Extract<Panel, { type: "dynamic" }>;
 
 interface OpenPanelArgs {
   id: string;
