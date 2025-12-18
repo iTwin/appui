@@ -1000,15 +1000,23 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  const widget = state.widgets[widgetId];
+  const currentTabIndex = widget.tabs.indexOf(id);
+
+  //Get the original index if already saved, otherwise use current
+  const existingSavedTab = state.savedTabs.byId[id];
+  const originalTabIndex =
+    existingSavedTab?.home?.originalTabIndex ?? currentTabIndex;
+
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
     // widgetDef.setFloatingContainerId(location.floatingWidgetId);
     state = updateSavedTabState(state, id, (draft) => {
       draft.home = {
         widgetId,
-        tabIndex,
+        tabIndex: currentTabIndex,
         floatingWidget,
+        originalTabIndex, // Preserve the original position
       };
     });
   } else if (isPanelTabLocation(location)) {
@@ -1019,7 +1027,8 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
         widgetId,
         side,
         widgetIndex,
-        tabIndex,
+        tabIndex: currentTabIndex,
+        originalTabIndex, // Preserve the original position
       };
     });
   }

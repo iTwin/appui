@@ -211,11 +211,12 @@ export function addRemovedTab(
 
   const savedTab = state.savedTabs.byId[tabId];
   const home = savedTab?.home || defaultHomeState;
-  const { tabIndex, widgetId } = home;
+  const insertIndex = home.originalTabIndex ?? home.tabIndex;
+  const { widgetId } = home;
 
   // Add to an existing widget (by widget id).
   if (widgetId in state.widgets) {
-    return insertTabToWidget(state, tabId, widgetId, tabIndex);
+    return insertTabToWidget(state, tabId, widgetId, insertIndex);
   }
 
   // Add to a floating widget.
@@ -231,7 +232,6 @@ export function addRemovedTab(
     });
   }
 
-  // Add to a panel section.
   const panel = state.panels[home.side];
 
   // Add to existing panel section.
