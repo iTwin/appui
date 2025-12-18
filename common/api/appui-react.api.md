@@ -5645,43 +5645,6 @@ export const WidgetContentLayout: React_3.ForwardRefExoticComponent<Omit<WidgetC
     Footer: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutFooterProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
 };
 
-// @public
-export interface WidgetContentLayoutBodyProps extends ComponentPropsWithRef<"div"> {
-    children?: React_3.ReactNode;
-    isLoading?: boolean;
-    isNonBlockingLoading?: boolean;
-}
-
-// @public
-export interface WidgetContentLayoutFooterProps extends ComponentPropsWithRef<"div"> {
-    children?: React_3.ReactNode;
-}
-
-// @public
-export interface WidgetContentLayoutHeaderProps extends ComponentPropsWithRef<"div"> {
-    buttons?: React_3.ReactNode[];
-    children?: React_3.ReactNode;
-    icons?: IconMenu[];
-    iconSize?: "small" | "large";
-    menu?: {
-        title: string;
-        items: {
-            label: string;
-            onClick: () => void;
-        }[];
-    };
-    onSearch?: (value: string) => void;
-    title?: string;
-    toggle?: React_3.ComponentProps<typeof ToggleSwitch>;
-}
-
-// @public
-export interface WidgetContentLayoutProps extends ComponentPropsWithRef<"div"> {
-    children?: React_3.ReactNode;
-    hideDividers?: boolean;
-    isLoading?: boolean;
-}
-
 // @public @deprecated
 export class WidgetControl extends ConfigurableUiControl {
     constructor(info: ConfigurableCreateInfo, options: any);

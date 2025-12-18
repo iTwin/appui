@@ -802,10 +802,6 @@ alpha;function;WidgetAction
 alpha;function;WidgetActions
 public;interface;WidgetConfig
 public;const;WidgetContentLayout
-public;interface;WidgetContentLayoutBodyProps
-public;interface;WidgetContentLayoutFooterProps
-public;interface;WidgetContentLayoutHeaderProps
-public;interface;WidgetContentLayoutProps
 public;class;WidgetControl
 deprecated;class;WidgetControl
 public;class;WidgetDef
