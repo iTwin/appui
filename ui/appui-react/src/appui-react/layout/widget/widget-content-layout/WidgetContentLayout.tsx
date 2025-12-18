@@ -148,7 +148,7 @@ const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
     return (
       <div
         className={classNames(
-          "nz-widget-widgetContentLayout-body",
+          "nz-widget-widgetContentLayout-body_wrapper",
           !isLoading && isNonBlockingLoading && "nz-nonBlockingLoading"
         )}
       >
@@ -158,7 +158,10 @@ const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
           isNonBlockingLoading && <ProgressLinear />
         )}
         <div
-          className={classNames("nz-scrollableContent", className)}
+          className={classNames(
+            "nz-widget-widgetContentLayout-body",
+            className
+          )}
           {...rest}
           ref={ref}
         >

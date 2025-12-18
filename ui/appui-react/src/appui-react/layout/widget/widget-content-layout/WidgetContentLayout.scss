@@ -14,7 +14,7 @@
     padding: var(--iui-size-s);
   }
 
-  .nz-widget-widgetContentLayout-body {
+  .nz-widget-widgetContentLayout-body_wrapper {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -24,7 +24,7 @@
     gap: var(--iui-size-s);
     padding: var(--iui-size-s);
 
-    .nz-scrollableContent {
+    .nz-widget-widgetContentLayout-body {
       display: flex;
       width: 100%;
       flex-direction: column;
