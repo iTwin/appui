@@ -28,6 +28,7 @@ import type { CommonDivProps } from '@itwin/core-react';
 import type { CommonProps } from '@itwin/core-react';
 import type { CommonToolbarItemWithBadgeKind } from '@itwin/components-react/internal';
 import { CompassMode } from '@itwin/core-frontend';
+import type { ComponentPropsWithRef } from 'react';
 import { ConditionalBooleanValue as ConditionalBooleanValue_2 } from '@itwin/appui-abstract';
 import { ConditionalStringValue as ConditionalStringValue_2 } from '@itwin/appui-abstract';
 import type { CustomButtonDefinition } from '@itwin/appui-abstract';
@@ -94,6 +95,7 @@ import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
 import type { StringGetter } from '@itwin/appui-abstract';
+import type { ToggleSwitch } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
 import { ToolAdmin } from '@itwin/core-frontend';
 import type { ToolAssistanceInstructions } from '@itwin/core-frontend';
@@ -5634,6 +5636,13 @@ export interface WidgetConfig extends Widget {
     readonly preferredPanelSize?: "fit-content";
     readonly tooltipKey?: string;
 }
+
+// @public
+export const WidgetContentLayout: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutProps, "ref"> & React_2.RefAttributes<HTMLDivElement>> & {
+    Header: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutHeaderProps, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+    Body: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutBodyProps, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+    Footer: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutFooterProps, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+};
 
 // @public @deprecated
 export class WidgetControl extends ConfigurableUiControl {

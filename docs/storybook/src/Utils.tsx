@@ -95,6 +95,13 @@ export function enumArgType(_enum: any): ArgTypes[0] {
   };
 }
 
+export function unionArgType<T>(options: T[]): ArgTypes[0] {
+  return {
+    control: { type: "inline-radio" },
+    options,
+  };
+}
+
 export function createWidget(id: number, overrides?: Partial<Widget>): Widget {
   return {
     id: `w${id}`,
