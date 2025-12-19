@@ -9,7 +9,7 @@ import { createWidget, removeProperty } from "../Utils";
 import { Button } from "@itwin/itwinui-react";
 import { useActiveFrontstageDef } from "@itwin/appui-react";
 import React from "react";
-import { action } from "storybook/internal/actions";
+import { action } from "storybook/actions";
 
 const meta = {
   title: "Frontstage/Panels",
