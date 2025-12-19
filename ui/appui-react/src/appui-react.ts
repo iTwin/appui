@@ -332,6 +332,7 @@ export {
 
 export { WidgetAction } from "./appui-react/layout/widget/WidgetAction.js";
 export { WidgetActions } from "./appui-react/layout/widget/WidgetActions.js";
+export { WidgetContentLayout } from "./appui-react/layout/widget/widget-content-layout/WidgetContentLayout.js";
 
 export { AppNotificationManager } from "./appui-react/messages/AppNotificationManager.js";
 export { InputFieldMessage } from "./appui-react/messages/InputField.js";
@@ -993,4 +994,8 @@ registerEditors();
 /**
  * @docs-group-description Widget
  * Classes for working with a Widget
+ */
+/**
+ * @docs-group-description WidgetContentLayout
+ * Components for organizing widget content with header, body, and footer sections.
  */

@@ -1,0 +1,44 @@
+@layer appui.component {
+  .nz-widget-widgetContentLayout-header-headerIconToolbar {
+    --_appui-icon-size: var(--iui-component-height);
+    --_appui-max-search-width: 200px;
+    min-width: var(--_appui-icon-size);
+    min-height: var(--_appui-icon-size);
+
+    &[data-_appui-icon-size="small"] {
+      --icon-size: var(--iui-component-height-small);
+    }
+
+    &[data-_appui-icon-size="large"] {
+      --icon-size: var(--iui-component-height-large);
+    }
+
+    &[data-_appui-search-expanded="true"] {
+      &[data-_appui-single-item="true"] {
+        min-width: var(--_appui-max-search-width);
+      }
+      &[data-_appui-single-item="false"] {
+        min-width: calc(
+          var(--_appui-max-search-width) + var(--_appui-icon-size) +
+            var(--iui-size-s)
+        );
+      }
+    }
+
+    .nz-buttonGroup {
+      gap: var(--iui-size-s);
+      &:before {
+        content: "";
+        flex: 1;
+      }
+
+      > :first-child {
+        margin-inline-start: calc(-1 * var(--iui-size-s));
+      }
+
+      .nz-iconButton[data-iui-active="true"]:after {
+        inset-block: unset;
+      }
+    }
+  }
+}
