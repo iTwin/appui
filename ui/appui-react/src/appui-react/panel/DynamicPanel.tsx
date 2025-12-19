@@ -12,40 +12,28 @@ import { Divider, IconButton } from "@itwin/itwinui-react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 import { useConditionalValue } from "../hooks/useConditionalValue.js";
 import type { ConditionalValue } from "../shared/ConditionalValue.js";
-import { usePanelsStore } from "./PanelsState.js";
+import type { DynamicPanel, DynamicPanelSlice } from "./PanelsState.js";
+import { PanelSideContext } from "../layout/widget-panels/Panel.js";
 
 interface DynamicPanelProps {
-  side: "left" | "right";
+  panel: DynamicPanel;
+  slice: DynamicPanelSlice;
 }
 
 /** @internal */
-export function DynamicPanel(props: DynamicPanelProps) {
-  const { side } = props;
-  const panelSlice = usePanelsStore((state) => {
-    if (side === "left") return state.dynamic.left;
-    return state.dynamic.right;
-  });
-  const { active: panel, close } = panelSlice;
-  const label = useConditionalValue(
-    () => {
-      if (!panel) return undefined;
-      if (isConditionalValue(panel.label)) {
-        return panel.label.getValue();
-      }
-      return panel.label;
-    },
-    isConditionalValue(panel?.label) ? panel.label.eventIds : []
-  );
-  if (!panel) return null;
+function DynamicPanelComponent(props: DynamicPanelProps) {
+  const side = React.useContext(PanelSideContext);
+  const { panel, slice } = props;
+  const label = useConditionalValueProp(panel.label);
   return (
-    <div className="uifw-panel-dynamicPanel">
+    <div className="uifw-panel-dynamicPanel" data-_appui-panel-side={side}>
       <div className="uifw-panel-dynamicPanel_header">
         <span className="uifw-panel-dynamicPanel_label">{label}</span>
         <IconButton
           label="Close"
           styleType="borderless"
           size="small"
-          onClick={close}
+          onClick={slice.close}
         >
           <SvgCloseSmall />
         </IconButton>
@@ -56,9 +44,9 @@ export function DynamicPanel(props: DynamicPanelProps) {
   );
 }
 
-function isConditionalValue<T, TC>(
-  value: T | ConditionalValue<TC>
-): value is ConditionalValue<TC> {
+function isConditionalValue<T>(
+  value: T | ConditionalValue<T>
+): value is ConditionalValue<T> {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -66,3 +54,17 @@ function isConditionalValue<T, TC>(
     "getValue" in value
   );
 }
+
+function useConditionalValueProp<T>(prop: T | ConditionalValue<T>): T {
+  return useConditionalValue(
+    () => {
+      if (isConditionalValue(prop)) {
+        return prop.getValue();
+      }
+      return prop;
+    },
+    isConditionalValue(prop) ? prop.eventIds : []
+  );
+}
+
+export { DynamicPanelComponent as DynamicPanel };

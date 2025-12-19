@@ -11,7 +11,14 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { produce } from "immer";
 
-type DynamicPanel = Extract<Panel, { type: "dynamic" }>;
+/** @internal */
+export type DynamicPanel = Extract<Panel, { type: "dynamic" }>;
+
+/** @internal */
+export type DynamicPanelPlacement = Extract<
+  DynamicPanel["placement"],
+  "left" | "right"
+>;
 
 interface OpenPanelArgs {
   id: string;
@@ -38,7 +45,8 @@ export interface PanelsState {
   close: (args: ClosePanelArgs) => void;
 }
 
-interface DynamicPanelSlice {
+/** @internal */
+export interface DynamicPanelSlice {
   active: DynamicPanel | undefined;
   open: (id: Panel["id"]) => void;
   close: () => void;
@@ -87,7 +95,12 @@ export function createPanelsStore(stateOverrides?: Partial<PanelsState>) {
             const panel = draft.panels.find((p) => p.id === args.id);
             if (!panel) return;
             if (!isDynamicPanel(panel)) return;
-            draft.dynamic.left.active = panel;
+            const placement = (() => {
+              if (panel.placement === "left") return "left";
+              if (panel.placement === "right") return "right";
+              return "left";
+            })();
+            draft.dynamic[placement].active = panel;
           })
         );
       },
@@ -98,7 +111,16 @@ export function createPanelsStore(stateOverrides?: Partial<PanelsState>) {
               draft.dynamic[args.placement].active = undefined;
               return;
             }
-            draft.dynamic.left.active = undefined;
+
+            const placements = ["left", "right"] as const;
+            for (const placement of placements) {
+              const slice = draft.dynamic[placement];
+              const panel = slice.active;
+              if (!panel) continue;
+              if (panel.id !== args.id) continue;
+
+              slice.active = undefined;
+            }
           })
         );
       },
@@ -140,19 +162,22 @@ export function PanelsProvider(props: React.PropsWithChildren) {
   React.useEffect(() => {
     if (!frontstageDef) return;
     return store.subscribe((state, prevState) => {
-      const prevOpen = prevState.dynamic.left.active?.id;
-      const currOpen = state.dynamic.left.active?.id;
-      if (prevOpen === currOpen) return;
-      prevOpen &&
-        frontstageDef.panels.onPanelOpenChanged.raiseEvent({
-          id: prevOpen,
-          open: false,
-        });
-      currOpen &&
-        frontstageDef.panels.onPanelOpenChanged.raiseEvent({
-          id: currOpen,
-          open: true,
-        });
+      const placements = ["left", "right"] as const;
+      for (const placement of placements) {
+        const prevOpen = prevState.dynamic[placement].active?.id;
+        const currOpen = state.dynamic[placement].active?.id;
+        if (prevOpen === currOpen) continue;
+        prevOpen &&
+          frontstageDef.panels.onPanelOpenChanged.raiseEvent({
+            id: prevOpen,
+            open: false,
+          });
+        currOpen &&
+          frontstageDef.panels.onPanelOpenChanged.raiseEvent({
+            id: currOpen,
+            open: true,
+          });
+      }
     });
   }, [frontstageDef, store]);
   return (

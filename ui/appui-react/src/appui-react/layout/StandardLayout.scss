@@ -80,6 +80,8 @@
 
   .nz-standardLayout_rightPanel {
     grid-area: rp;
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .nz-standardLayout_bottomPanel {

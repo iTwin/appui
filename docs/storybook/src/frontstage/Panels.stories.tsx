@@ -44,16 +44,24 @@ export const DynamicPanel: Story = {
         getPanels: () => [
           {
             id: "panel1",
-            content: <>Hello world</>,
+            content: <>Panel 1 content</>,
             type: "dynamic",
             placement: "left",
             label: "Dynamic panel 1",
+          },
+          {
+            id: "panel2",
+            content: <>Panel 2 content</>,
+            type: "dynamic",
+            placement: "right",
+            label: "Dynamic panel 2",
           },
         ],
         getWidgets: () => [
           createWidget(1, {
             content: <Widget />,
           }),
+          createWidget(2),
         ],
       };
     },
@@ -62,35 +70,55 @@ export const DynamicPanel: Story = {
 
 function Widget() {
   const frontstageDef = useActiveFrontstageDef();
-  const [isActive, setIsActive] = React.useState(() => {
-    if (!frontstageDef) return false;
-    return frontstageDef?.panels.getOpenPanels().includes("panel1");
+  const [openPanels, setOpenPanels] = React.useState(() => {
+    if (!frontstageDef) return [];
+    return frontstageDef.panels.getOpenPanels();
   });
   React.useEffect(() => {
     if (!frontstageDef) return;
     return frontstageDef.panels.onPanelOpenChanged.addListener((args) => {
       action("onPanelOpenChanged")(args);
-      if (args.id !== "panel1") return;
-      setIsActive(args.open);
+      setOpenPanels(frontstageDef.panels.getOpenPanels());
     });
   }, [frontstageDef]);
   return (
-    <div>
-      Widget 1 Content
+    <div
+      style={{
+        padding: "var(--iui-size-xs)",
+        display: "flex",
+        flexDirection: "column",
+        gap: 8,
+      }}
+    >
       <Button
         onClick={() => {
-          if (!frontstageDef) return;
-
+          const id = "panel1";
+          const isActive = openPanels.some((p) => p === id);
           if (isActive) {
-            frontstageDef.panels.close({
-              id: "panel1",
+            frontstageDef?.panels.close({
+              id,
             });
             return;
           }
-          frontstageDef.panels.open({ id: "panel1" });
+          frontstageDef?.panels.open({ id });
         }}
       >
-        Open panel
+        Toggle panel1
+      </Button>
+      <Button
+        onClick={() => {
+          const id = "panel2";
+          const isActive = openPanels.some((p) => p === id);
+          if (isActive) {
+            frontstageDef?.panels.close({
+              id,
+            });
+            return;
+          }
+          frontstageDef?.panels.open({ id });
+        }}
+      >
+        Toggle panel2
       </Button>
     </div>
   );
