@@ -5,20 +5,16 @@
 
 import "./HeaderTopBar.scss";
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 
 import { HeaderIconToolbar } from "./HeaderIconToolbar.js";
-import type { IconMenuSearch } from "./types.js";
-import type {
-  IconMenu,
-  IconMenuDivider,
-  WidgetContentLayoutHeaderProps,
-} from "../WidgetContentLayout.js";
+import type { WidgetContentLayout } from "../WidgetContentLayout.js";
 
-/**
- * Props for the [[HeaderTopBar]] component.
- * @internal
- */
+type WidgetContentLayoutHeaderProps = React.ComponentProps<
+  typeof WidgetContentLayout.Header
+>;
+type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
+
 interface HeaderTopBarProps
   extends Pick<
     WidgetContentLayoutHeaderProps,
@@ -34,18 +30,18 @@ interface HeaderTopBarProps
  */
 export function HeaderTopBar(props: HeaderTopBarProps) {
   const menuIcons = React.useMemo(() => {
-    let icons: (IconMenu | IconMenuSearch)[] = props.icons || [];
+    let icons: HeaderIconToolbarProps["menuIcons"] = props.icons || [];
     if (props.onSearch) {
       if (icons.length > 0)
         icons = [
-          { type: "divider", key: "search-divider" } as IconMenuDivider,
+          { type: "divider", key: "search-divider" },
           ...icons.map((icon, index) =>
             icon.type === "divider"
-              ? ({ ...icon, key: `divider-${index}` } as IconMenuDivider)
+              ? { ...icon, key: `divider-${index}` }
               : icon
           ),
         ];
-      icons = [{ type: "search" } as IconMenuSearch, ...icons];
+      icons = [{ type: "search" }, ...icons];
     }
     return icons;
   }, [props.icons, props.onSearch]);

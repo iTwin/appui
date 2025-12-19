@@ -4,22 +4,20 @@
  *--------------------------------------------------------------------------------------------*/
 
 import "./HeaderLayout.scss";
-import React from "react";
-
+import * as React from "react";
 import {
   DropdownButton,
   MenuItem,
   Text,
   ToggleSwitch,
 } from "@itwin/itwinui-react";
-
 import { HeaderTopBar } from "./HeaderTopBar.js";
-import type { WidgetContentLayoutHeaderProps } from "../WidgetContentLayout.js";
+import type { WidgetContentLayout } from "../WidgetContentLayout.js";
 
-/**
- * Props for the [[HeaderLayout]] component.
- * @internal
- */
+type WidgetContentLayoutHeaderProps = React.ComponentProps<
+  typeof WidgetContentLayout.Header
+>;
+
 type HeaderLayoutProps = Pick<
   WidgetContentLayoutHeaderProps,
   "toggle" | "buttons" | "menu" | "title" | "onSearch" | "icons" | "iconSize"

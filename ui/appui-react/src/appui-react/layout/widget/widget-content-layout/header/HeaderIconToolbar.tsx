@@ -4,8 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import "./HeaderIconToolbar.scss";
-import React from "react";
-
+import * as React from "react";
 import {
   ButtonGroup,
   Divider,
@@ -14,18 +13,24 @@ import {
   MenuDivider,
   MenuItem,
 } from "@itwin/itwinui-react";
-
-import { HeaderSearch } from "./HeaderSearch.js";
-import type { IconMenuSearch, SearchExpandedState } from "./types.js";
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
-import type {
-  IconMenu,
-  WidgetContentLayoutHeaderProps,
-} from "../WidgetContentLayout.js";
+import { HeaderSearch } from "./HeaderSearch.js";
+import type { WidgetContentLayout } from "../WidgetContentLayout.js";
 
-/**
- * Props for the [[HeaderIconToolbar]] component.
- */
+type WidgetContentLayoutHeaderProps = React.ComponentProps<
+  typeof WidgetContentLayout.Header
+>;
+type IconMenu = NonNullable<WidgetContentLayoutHeaderProps["icons"]>[number];
+
+interface IconMenuSearch {
+  type: "search";
+}
+
+type SearchExpandedState = [
+  boolean,
+  React.Dispatch<React.SetStateAction<boolean>>
+];
+
 interface HeaderIconToolbarProps
   extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch"> {
   /** Array of icon menu items to display, including regular icons, search, and dividers. */

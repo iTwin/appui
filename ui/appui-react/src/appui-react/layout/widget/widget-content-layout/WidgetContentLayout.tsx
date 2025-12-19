@@ -3,25 +3,21 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 /** @packageDocumentation
- * @module Widget
+ * @module WidgetContentLayout
  */
 
 import "./WidgetContentLayout.scss";
 import classNames from "classnames";
 import type { ComponentPropsWithRef } from "react";
-import React from "react";
+import * as React from "react";
 
 import { Divider, ProgressLinear, ProgressRadial } from "@itwin/itwinui-react";
 import type { ToggleSwitch } from "@itwin/itwinui-react";
 
 import { HeaderLayout } from "./header/HeaderLayout.js";
 
-/**
- * Type union for icon menu items.
- */
-export type IconMenu = IconMenuButton | IconMenuDivider;
+type IconMenu = IconMenuButton | IconMenuDivider;
 
-/** Interface for icon menu button items */
 interface IconMenuButton {
   icon: React.ReactNode;
   onClick: () => void;
@@ -31,18 +27,12 @@ interface IconMenuButton {
   isActive?: boolean;
 }
 
-/** Interface for icon menu divider items */
-export interface IconMenuDivider {
+interface IconMenuDivider {
   type: "divider";
   key?: string;
 }
 
-/**
- * Props for the [[WidgetContentLayout.Header]] component.
- * @public
- */
-export interface WidgetContentLayoutHeaderProps
-  extends ComponentPropsWithRef<"div"> {
+interface WidgetContentLayoutHeaderProps extends ComponentPropsWithRef<"div"> {
   /**
    * Toggle switch in the header.
    */
@@ -121,12 +111,7 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
 
 Header.displayName = "appui:WidgetContentLayout.Header";
 
-/**
- * Props for the [[WidgetContentLayout.Body]] component.
- * @public
- */
-export interface WidgetContentLayoutBodyProps
-  extends ComponentPropsWithRef<"div"> {
+interface WidgetContentLayoutBodyProps extends ComponentPropsWithRef<"div"> {
   /**
    * Whether the body is in a loading state.
    */
@@ -173,12 +158,7 @@ const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
 );
 Body.displayName = "appui:WidgetContentLayout.Body";
 
-/**
- * Props for the [[WidgetContentLayout.Footer]] component.
- * @public
- */
-export interface WidgetContentLayoutFooterProps
-  extends ComponentPropsWithRef<"div"> {
+interface WidgetContentLayoutFooterProps extends ComponentPropsWithRef<"div"> {
   /**
    * Child elements to render within the footer.
    */
@@ -212,11 +192,7 @@ function LoadingOverlay() {
   );
 }
 
-/**
- * Props for the [[WidgetContentLayout]] component.
- * @public
- */
-export interface WidgetContentLayoutProps extends ComponentPropsWithRef<"div"> {
+interface WidgetContentLayoutProps extends ComponentPropsWithRef<"div"> {
   /**
    * Whether the entire layout is in a loading state.
    */

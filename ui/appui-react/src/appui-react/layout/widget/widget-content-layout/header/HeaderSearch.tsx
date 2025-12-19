@@ -4,21 +4,22 @@
  *--------------------------------------------------------------------------------------------*/
 
 import "./HeaderSearch.scss";
-import React from "react";
+import * as React from "react";
 
 import { SearchBox } from "@itwin/itwinui-react";
 
-import type { SearchExpandedState } from "./types.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import type { WidgetContentLayoutHeaderProps } from "../WidgetContentLayout.js";
+import type { WidgetContentLayout } from "../WidgetContentLayout.js";
+import type { HeaderIconToolbar } from "./HeaderIconToolbar.js";
 
-/**
- * Props for the [[HeaderSearch]] component.
- */
+type WidgetContentLayoutHeaderProps = React.ComponentProps<
+  typeof WidgetContentLayout.Header
+>;
+type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
+
 interface HeaderSearchProps
-  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch"> {
-  /** State tuple controlling whether the search box is expanded or collapsed. */
-  searchExpandedState: SearchExpandedState;
+  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch">,
+    Pick<HeaderIconToolbarProps, "searchExpandedState"> {
   /** State tuple for the search text value and its setter function. */
   searchState: [string, React.Dispatch<React.SetStateAction<string>>];
 }
