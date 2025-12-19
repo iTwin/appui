@@ -20,8 +20,8 @@ const preview: Preview = {
         "background-backdrop": {
           name: "background-backdrop",
           value: "#eef0f1",
-        }
-      }
+        },
+      },
     },
     controls: {
       matchers: {
@@ -54,9 +54,9 @@ const preview: Preview = {
 
   initialGlobals: {
     backgrounds: {
-      value: "background"
-    }
-  }
+      value: "background",
+    },
+  },
 };
 
 export default preview;
