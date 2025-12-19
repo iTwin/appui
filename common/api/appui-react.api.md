@@ -80,7 +80,6 @@ import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyUpdatedArgs } from '@itwin/components-react';
 import type { QuantityTypeArg } from '@itwin/core-frontend';
 import * as React_2 from 'react';
-import { default as React_3 } from 'react';
 import { RectangleProps as RectangleProps_2 } from '@itwin/core-react';
 import { Reducer as Reducer_2 } from 'redux';
 import type { RefObject } from 'react';
@@ -5639,10 +5638,10 @@ export interface WidgetConfig extends Widget {
 }
 
 // @public
-export const WidgetContentLayout: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutProps, "ref"> & React_3.RefAttributes<HTMLDivElement>> & {
-    Header: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutHeaderProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
-    Body: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutBodyProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
-    Footer: React_3.ForwardRefExoticComponent<Omit<WidgetContentLayoutFooterProps, "ref"> & React_3.RefAttributes<HTMLDivElement>>;
+export const WidgetContentLayout: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutProps, "ref"> & React_2.RefAttributes<HTMLDivElement>> & {
+    Header: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutHeaderProps, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+    Body: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutBodyProps, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
+    Footer: React_2.ForwardRefExoticComponent<Omit<WidgetContentLayoutFooterProps, "ref"> & React_2.RefAttributes<HTMLDivElement>>;
 };
 
 // @public @deprecated
