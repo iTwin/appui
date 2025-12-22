@@ -2,14 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
+import { useActiveFrontstageDef } from "@itwin/appui-react";
+import { Button } from "@itwin/itwinui-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { action } from "storybook/actions";
 import { Page } from "../AppUiStory";
 import { PanelsStory } from "./Panels";
 import { createWidget, removeProperty } from "../Utils";
-import { Button } from "@itwin/itwinui-react";
-import { useActiveFrontstageDef } from "@itwin/appui-react";
-import React from "react";
-import { action } from "storybook/actions";
 
 const meta = {
   title: "Frontstage/Panels",
@@ -68,19 +68,27 @@ export const DynamicPanel: Story = {
   },
 };
 
+function useOpenPanels() {
+  const frontstageDef = useActiveFrontstageDef();
+  const subscribe = React.useCallback(
+    (onStoreChange: () => void) => {
+      if (!frontstageDef) return () => {};
+      return frontstageDef.panels.onPanelOpenChanged.addListener((args) => {
+        action("onPanelOpenChanged")(args);
+        onStoreChange();
+      });
+    },
+    [frontstageDef]
+  );
+  const getSnapshot = React.useCallback(() => {
+    return frontstageDef?.panels.getOpenPanels();
+  }, [frontstageDef]);
+  return React.useSyncExternalStore(subscribe, getSnapshot);
+}
+
 function Widget() {
   const frontstageDef = useActiveFrontstageDef();
-  const [openPanels, setOpenPanels] = React.useState(() => {
-    if (!frontstageDef) return [];
-    return frontstageDef.panels.getOpenPanels();
-  });
-  React.useEffect(() => {
-    if (!frontstageDef) return;
-    return frontstageDef.panels.onPanelOpenChanged.addListener((args) => {
-      action("onPanelOpenChanged")(args);
-      setOpenPanels(frontstageDef.panels.getOpenPanels());
-    });
-  }, [frontstageDef]);
+  const openPanels = useOpenPanels();
   return (
     <div
       style={{
@@ -93,7 +101,7 @@ function Widget() {
       <Button
         onClick={() => {
           const id = "panel1";
-          const isActive = openPanels.some((p) => p === id);
+          const isActive = openPanels?.some((p) => p === id);
           if (isActive) {
             frontstageDef?.panels.close({
               id,
@@ -108,7 +116,7 @@ function Widget() {
       <Button
         onClick={() => {
           const id = "panel2";
-          const isActive = openPanels.some((p) => p === id);
+          const isActive = openPanels?.some((p) => p === id);
           if (isActive) {
             frontstageDef?.panels.close({
               id,

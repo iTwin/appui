@@ -66,6 +66,7 @@ import {
 } from "../widget-panels/Frontstage.js";
 import type { createPanelsStore, PanelsState } from "../panel/PanelsState.js";
 import type { Panel } from "../panel/Panel.js";
+import { shallow } from "zustand/shallow";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -1174,6 +1175,7 @@ interface FrontstagePanels {
 function createFrontstagePanels(
   frontstageDef: FrontstageDef
 ): FrontstagePanels {
+  let prevOpenPanels: Panel["id"][] = [];
   return {
     open: (args) => {
       const panelsStore = frontstageDef.getPanelsStore();
@@ -1188,14 +1190,20 @@ function createFrontstagePanels(
       state.close(args);
     },
     getOpenPanels: () => {
-      const panelsStore = frontstageDef.getPanelsStore();
-      if (!panelsStore) return [];
-      const state = panelsStore.getState();
-      const openPanels: Panel["id"][] = [];
-      if (state.dynamic.left.active)
-        openPanels.push(state.dynamic.left.active.id);
-      if (state.dynamic.right.active)
-        openPanels.push(state.dynamic.right.active.id);
+      const openPanels = (() => {
+        const panelsStore = frontstageDef.getPanelsStore();
+        if (!panelsStore) return [];
+        const state = panelsStore.getState();
+        const panels: Panel["id"][] = [];
+        if (state.dynamic.left.active)
+          panels.push(state.dynamic.left.active.id);
+        if (state.dynamic.right.active)
+          panels.push(state.dynamic.right.active.id);
+        return panels;
+      })();
+      if (shallow(openPanels, prevOpenPanels)) return prevOpenPanels;
+
+      prevOpenPanels = openPanels;
       return openPanels;
     },
     onPanelOpenChanged: new BeEvent(),
