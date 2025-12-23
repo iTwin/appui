@@ -146,28 +146,17 @@ export function insertTabToWidget(
  */
 export function removeTabFromWidget(
   state: NineZoneState,
-  tabId: TabState["id"]
+  tabId: TabState["id"],
   unmodifiedState?: NineZoneState
 ): NineZoneState {
   const location = getTabLocation(state, tabId);
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const widget = getWidgetState(state, widgetId);
+  const widget = getWidgetState(unmodifiedState || state, widgetId);
 
-  // Create a copy of the tabs array to avoid mutating the original state directly.
   const tabs = [...widget.tabs];
   const tabIndex = tabs.indexOf(tabId);
-
-  // IGNORE THIS FOR NOW
-  // this index is incorrect on restoring multiple widgets with same tab
-  // Once w1 is remove then w2 becomes the new w1
-  // const tabIndex = getTabIndex({
-  //   state,
-  //   tabId,
-  //   widgetId,
-  //   currentTabs: tabs,
-  // });
 
   tabs.splice(tabIndex, 1);
 

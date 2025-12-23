@@ -83,9 +83,6 @@ export function NineZoneStateReducer(
   state: NineZoneState,
   action: NineZoneAction
 ): NineZoneState {
-  // eslint-disable-next-line no-console
-  console.log(action);
-
   switch (action.type) {
     case "RESIZE": {
       state = produce(state, (draft) => {

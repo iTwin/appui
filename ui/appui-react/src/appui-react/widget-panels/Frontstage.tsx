@@ -69,8 +69,7 @@ import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings.js";
 import type { UiStateStorageResult } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { useLatestRef } from "../hooks/useLatestRef.js";
-import { cloneDeep } from "lodash";
-// import cloneDeep from "lodash/cloneDeep.js";
+import cloneDeep from "lodash/cloneDeep.js";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
