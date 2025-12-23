@@ -56,6 +56,13 @@ export const DynamicPanel: Story = {
             placement: "right",
             label: "Dynamic panel 2",
           },
+          {
+            id: "panel3",
+            content: <>Panel 3 content</>,
+            type: "dynamic",
+            placement: "left",
+            label: "Dynamic panel 3",
+          },
         ],
         getWidgets: () => [
           createWidget(1, {
@@ -127,6 +134,21 @@ function Widget() {
         }}
       >
         Toggle panel2
+      </Button>
+      <Button
+        onClick={() => {
+          const id = "panel3";
+          const isActive = openPanels?.some((p) => p === id);
+          if (isActive) {
+            frontstageDef?.panels.close({
+              id,
+            });
+            return;
+          }
+          frontstageDef?.panels.open({ id });
+        }}
+      >
+        Toggle panel3
       </Button>
     </div>
   );
