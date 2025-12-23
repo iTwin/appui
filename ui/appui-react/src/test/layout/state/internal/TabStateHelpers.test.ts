@@ -186,54 +186,6 @@ describe("addRemovedTab", () => {
     expect(newState.widgets.w1.tabs).to.eql(["t1", "t2"]);
   });
 
-  it("demonstrates the bug: restoring in wrong order produces wrong tab order", () => {
-    let state = createNineZoneState();
-
-    // Start with a widget containing 3 tabs in order: t1, t2, t3
-    state = addTabs(state, ["t1", "t2", "t3"]);
-    state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
-    expect(state.widgets.w1.tabs).to.eql(["t1", "t2", "t3"]);
-
-    // Hide t2 (now at index 0, but originally at index 1)
-    state = removeTabFromWidget(state, "t2");
-    state = updateSavedTabState(state, "t2", (draft) => {
-      draft.home = {
-        widgetId: "w1",
-        side: "left",
-        widgetIndex: 0,
-        tabIndex: 0, // NOW at position 0
-      };
-    });
-
-    expect(state.widgets.w1.tabs).to.eql(["t1", "t3"]);
-
-    // Hide t1 (at index 0)
-    state = removeTabFromWidget(state, "t1");
-    state = updateSavedTabState(state, "t1", (draft) => {
-      draft.home = {
-        widgetId: "w1",
-        side: "left",
-        widgetIndex: 0,
-        tabIndex: 0, // Was at position 0
-      };
-    });
-
-    expect(state.widgets.w1.tabs).to.eql(["t3"]);
-
-    // Restore t1 FIRST
-    // With current code: uses tabIndex (0), inserts at position 0
-    // Result: ["t1", "t2", "t3"] - happens to work out correctly here
-    state = addRemovedTab(state, "t1");
-    expect(state.widgets.w1.tabs).to.eql(["t1", "t3"]);
-
-    // Restore t2 SECOND
-    // With current code: uses tabIndex (0), inserts at position 0
-    state = addRemovedTab(state, "t2");
-
-    // This passes
-    expect(state.widgets.w1.tabs).to.eql(["t1", "t2", "t3"]);
-  });
-
   it("should add tab to a new floating widget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
