@@ -19,11 +19,11 @@
     flex-direction: column;
     gap: $padding;
 
-    &:where([data-_appui-panel-side="left"]) {
+    &:where([data-_appui-placement="left"]) {
       border-right-width: 1px;
     }
 
-    &:where([data-_appui-panel-side="right"]) {
+    &:where([data-_appui-placement="right"]) {
       border-left-width: 1px;
     }
   }

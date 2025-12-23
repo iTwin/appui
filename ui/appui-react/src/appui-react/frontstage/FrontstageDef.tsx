@@ -64,7 +64,11 @@ import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
 } from "../widget-panels/Frontstage.js";
-import type { createPanelsStore, PanelsState } from "../panel/PanelsState.js";
+import {
+  type createPanelsStore,
+  dynamicPanelPlacements,
+  type PanelsState,
+} from "../panel/PanelsState.js";
 import type { Panel } from "../panel/Panel.js";
 import { shallow } from "zustand/shallow";
 
@@ -1195,10 +1199,12 @@ function createFrontstagePanels(
         if (!panelsStore) return [];
         const state = panelsStore.getState();
         const panels: Panel["id"][] = [];
-        if (state.dynamic.left.active)
-          panels.push(state.dynamic.left.active.id);
-        if (state.dynamic.right.active)
-          panels.push(state.dynamic.right.active.id);
+        for (const placement of dynamicPanelPlacements) {
+          const slice = state.dynamic[placement];
+          const panel = slice.active;
+          if (!panel) continue;
+          panels.push(panel.id);
+        }
         return panels;
       })();
       if (shallow(openPanels, prevOpenPanels)) return prevOpenPanels;

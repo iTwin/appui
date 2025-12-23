@@ -20,17 +20,23 @@ export type DynamicPanelPlacement = Extract<
   "left" | "right"
 >;
 
+/** @internal */
+export const dynamicPanelPlacements = [
+  "left",
+  "right",
+] as const satisfies readonly DynamicPanelPlacement[];
+
 interface OpenPanelArgs {
   id: string;
 }
 
 type ClosePanelArgs =
   | {
-      id: string;
+      id: Panel["id"];
     }
   | {
       type: "dynamic";
-      placement: "left" | "right";
+      placement: DynamicPanelPlacement;
     };
 
 /** @internal */
@@ -112,8 +118,7 @@ export function createPanelsStore(stateOverrides?: Partial<PanelsState>) {
               return;
             }
 
-            const placements = ["left", "right"] as const;
-            for (const placement of placements) {
+            for (const placement of dynamicPanelPlacements) {
               const slice = draft.dynamic[placement];
               const panel = slice.active;
               if (!panel) continue;

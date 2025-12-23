@@ -31,11 +31,7 @@ import type {
 import { useAnimatePanel } from "./useAnimatePanel.js";
 import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
-import { DynamicPanel } from "../../panel/DynamicPanel.js";
-import {
-  type DynamicPanelPlacement,
-  usePanelsStore,
-} from "../../panel/PanelsState.js";
+import { DynamicPanelRenderer } from "../../panel/DynamicPanel.js";
 
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal
@@ -51,11 +47,6 @@ export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
   const hasWidgets = useLayout(
     (state) => state.panels[side].widgets.length > 0
   );
-  const slice = usePanelsStore((state) => {
-    const placement = toDynamicPanelPlacement(side);
-    if (!placement) return undefined;
-    return state.dynamic[placement];
-  });
   return (
     <PanelSideContext.Provider value={side}>
       <div className="nz-widgetPanels_panelContainer">
@@ -63,19 +54,10 @@ export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
         <PanelTargets />
         <PanelOutline />
       </div>
-      {slice?.active && <DynamicPanel slice={slice} panel={slice.active} />}
+      <DynamicPanelRenderer />
     </PanelSideContext.Provider>
   );
 }
-
-function toDynamicPanelPlacement(
-  side: PanelSide
-): DynamicPanelPlacement | undefined {
-  if (side === "left") return "left";
-  if (side === "right") return "right";
-  return undefined;
-}
-
 /** @internal */
 export function WidgetPanel() {
   const side = React.useContext(PanelSideContext);
