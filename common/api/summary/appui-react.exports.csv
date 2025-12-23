@@ -478,6 +478,7 @@ public;interface;OpenChildWindowInfo
 public;class;OpenMessageCenterEvent
 deprecated;class;OpenMessageCenterEvent
 public;interface;OverflowToolbarOptions
+public;type;Panel
 public;interface;PanelPinnedChangedEventArgs
 deprecated;interface;PanelPinnedChangedEventArgs
 beta;class;PanelStateChangedEvent
