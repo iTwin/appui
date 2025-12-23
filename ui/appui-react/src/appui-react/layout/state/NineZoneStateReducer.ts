@@ -83,6 +83,9 @@ export function NineZoneStateReducer(
   state: NineZoneState,
   action: NineZoneAction
 ): NineZoneState {
+  // eslint-disable-next-line no-console
+  console.log(action);
+
   switch (action.type) {
     case "RESIZE": {
       state = produce(state, (draft) => {
@@ -696,9 +699,9 @@ export function NineZoneStateReducer(
     }
     case "WIDGET_TAB_REMOVE": {
       // Save tab state.
-      state = hideTab(state, action.id);
+      state = hideTab(state, action.id, action.initialState);
       // Remove tab.
-      return removeTab(state, action.id);
+      return removeTab(state, action.id, action.initialState);
     }
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, (draft) => {
@@ -982,7 +985,16 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
   return [state, location] as const;
 }
 
-function hideTab(state: NineZoneState, id: TabState["id"]) {
+//
+//
+//
+//
+//
+function hideTab(
+  state: NineZoneState,
+  id: TabState["id"],
+  unmodifiedState?: NineZoneState
+) {
   state = produce(state, (draft) => {
     if (!draft.toolSettings) return;
 
@@ -1000,13 +1012,7 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const widget = state.widgets[widgetId];
-  const currentTabIndex = widget.tabs.indexOf(id);
-
-  //Get the original index if already saved, otherwise use current
-  const existingSavedTab = state.savedTabs.byId[id];
-  const originalTabIndex =
-    existingSavedTab?.home?.originalTabIndex ?? currentTabIndex;
+  const tabIndex = unmodifiedState?.widgets[widgetId].tabs.indexOf(id);
 
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
@@ -1014,26 +1020,26 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
     state = updateSavedTabState(state, id, (draft) => {
       draft.home = {
         widgetId,
-        tabIndex: currentTabIndex,
+        tabIndex: tabIndex || state.widgets[widgetId].tabs.indexOf(id),
         floatingWidget,
-        originalTabIndex, // Preserve the original position
       };
     });
   } else if (isPanelTabLocation(location)) {
     const side = location.side;
     const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
+
     state = updateSavedTabState(state, id, (draft) => {
       draft.home = {
         widgetId,
         side,
         widgetIndex,
-        tabIndex: currentTabIndex,
-        originalTabIndex, // Preserve the original position
+        tabIndex: tabIndex || state.widgets[widgetId].tabs.indexOf(id),
       };
     });
   }
 
   return removeTabFromWidget(state, id);
+  // return removeTabFromWidget(state, id, unmodifiedState);
 }
 
 function addTabToPanelSection(

@@ -50,6 +50,42 @@ import {
   ViewportContent,
 } from "@itwin/appui-test-providers";
 
+export function createMyItemsProvider(): UiItemsProvider {
+  return {
+    id: "myID",
+    getWidgets: () => [
+      {
+        id: "WR-B",
+        label: "WR-B",
+        icon: <SvgTextAlignRight />,
+        canPopout: true,
+        defaultState: WidgetState.Hidden,
+        content: <h2>Right WR-B</h2>,
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+      {
+        id: "WR-1",
+        label: "WR-1",
+        icon: <SvgTextAlignCenter />,
+        canPopout: false,
+        content: <h2>Right WR-1</h2>,
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        },
+        priority: 40,
+      },
+    ],
+  };
+}
+
 /** Tool settings widget can be configured by providing a URL param `toolSettings` with values `off` or `hidden`. */
 export function createWidgetApiFrontstage(): Frontstage {
   const config = FrontstageUtilities.createStandardFrontstage({
@@ -291,23 +327,6 @@ function createRightPanelWidgets(): Widget[] {
       layouts: startLayout,
     },
     {
-      id: "WR-B",
-      label: "WR-B",
-      icon: <SvgTextAlignRight />,
-      canPopout: true,
-      defaultState: WidgetState.Hidden,
-      content: <h2>Right WR-B</h2>,
-      layouts: startLayout,
-    },
-    {
-      id: "WR-1",
-      label: "WR-1",
-      icon: <SvgTextAlignCenter />,
-      canPopout: false,
-      content: <h2>Right WR-1</h2>,
-      layouts: endLayout,
-    },
-    {
       id: "WR-2",
       label: "WR-2",
       icon: <SvgTextAlignJustify />,
@@ -316,6 +335,7 @@ function createRightPanelWidgets(): Widget[] {
       content: <h2>Right WR-2</h2>,
       allowedPanels: [StagePanelLocation.Right],
       layouts: endLayout,
+      priority: 20,
     },
     {
       id: "WR-3",
@@ -324,6 +344,7 @@ function createRightPanelWidgets(): Widget[] {
       canPopout: true,
       content: <h2>Right WR-3</h2>,
       layouts: endLayout,
+      priority: 30,
     },
     {
       id: "WR-4",

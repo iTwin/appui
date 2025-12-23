@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*---------------------------------------------------------------------------------------------
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
@@ -146,14 +147,28 @@ export function insertTabToWidget(
 export function removeTabFromWidget(
   state: NineZoneState,
   tabId: TabState["id"]
+  unmodifiedState?: NineZoneState
 ): NineZoneState {
   const location = getTabLocation(state, tabId);
   if (!location) return state;
 
   const widgetId = location.widgetId;
   const widget = getWidgetState(state, widgetId);
+
+  // Create a copy of the tabs array to avoid mutating the original state directly.
   const tabs = [...widget.tabs];
   const tabIndex = tabs.indexOf(tabId);
+
+  // IGNORE THIS FOR NOW
+  // this index is incorrect on restoring multiple widgets with same tab
+  // Once w1 is remove then w2 becomes the new w1
+  // const tabIndex = getTabIndex({
+  //   state,
+  //   tabId,
+  //   widgetId,
+  //   currentTabs: tabs,
+  // });
+
   tabs.splice(tabIndex, 1);
 
   if (tabs.length === 0) {
@@ -174,12 +189,14 @@ export function removeTabFromWidget(
  */
 export function removeTab(
   state: NineZoneState,
-  tabId: TabState["id"]
+  tabId: TabState["id"],
+  unmodifiedState?: NineZoneState
 ): NineZoneState {
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
-  state = removeTabFromWidget(state, tabId);
+  state = removeTabFromWidget(state, tabId, unmodifiedState);
+
   return produce(state, (draft) => {
     delete draft.tabs[tabId];
 
@@ -211,12 +228,11 @@ export function addRemovedTab(
 
   const savedTab = state.savedTabs.byId[tabId];
   const home = savedTab?.home || defaultHomeState;
-  const insertIndex = home.originalTabIndex ?? home.tabIndex;
-  const { widgetId } = home;
+  const { tabIndex, widgetId } = home; // tabPosition here
 
   // Add to an existing widget (by widget id).
   if (widgetId in state.widgets) {
-    return insertTabToWidget(state, tabId, widgetId, insertIndex);
+    return insertTabToWidget(state, tabId, widgetId, tabIndex);
   }
 
   // Add to a floating widget.
@@ -251,3 +267,47 @@ export function addRemovedTab(
     home.widgetIndex
   );
 }
+
+// function getTabIndex({
+//   state,
+//   tabId,
+//   widgetId,
+//   currentTabs,
+// }: {
+//   state: NineZoneState;
+//   tabId: TabState["id"];
+//   widgetId: WidgetState["id"];
+//   currentTabs: string[];
+// }): number {
+//   const currentTabIndex = currentTabs.indexOf(tabId);
+//   const savedTabs = Object.values(state.savedTabs.byId) as SavedTabState[];
+//   const alreadyHaveTabAtIndex = savedTabs.find(
+//     (savedTab) =>
+//       savedTab?.home?.widgetId === widgetId &&
+//       savedTab?.home?.tabIndex === currentTabIndex &&
+//       savedTab?.id !== tabId
+//   );
+
+//   if (alreadyHaveTabAtIndex) {
+//     return incrementIndex(savedTabs, widgetId);
+//   }
+//   return currentTabIndex;
+// }
+
+// function incrementIndex(
+//   savedTabs: SavedTabState[],
+//   widgetId: WidgetState["id"]
+// ) {
+//   const allUniqIndex = new Set<number>();
+//   savedTabs.forEach((savedTab) => {
+//     if (
+//       savedTab?.home?.widgetId === widgetId &&
+//       savedTab?.home?.tabIndex !== undefined
+//     ) {
+//       allUniqIndex.add(savedTab.home.tabIndex);
+//     }
+//   });
+//   console.log(" unique index -> ", allUniqIndex);
+//   const sortedIndexes = Array.from(allUniqIndex).sort((a, b) => a - b);
+//   return sortedIndexes[sortedIndexes.length - 1] + 1;
+// }

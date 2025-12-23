@@ -15,14 +15,60 @@ import {
   RectangleProps,
   StagePanelDef,
   StagePanelLocation,
+  StagePanelSection,
   StagePanelState,
   UiFramework,
+  UiItemsManager,
+  UiItemsProvider,
   useActiveFrontstageDef,
   WidgetState,
 } from "@itwin/appui-react";
 import { NumberInput } from "@itwin/core-react";
 import { Button, Input, Select, SelectOption } from "@itwin/itwinui-react";
 import { BeUiEvent } from "@itwin/core-bentley";
+import {
+  SvgTextAlignCenter,
+  SvgTextAlignRight,
+} from "@itwin/itwinui-icons-react";
+
+function createMyItemsProvider(): UiItemsProvider {
+  return {
+    id: "myID",
+    getWidgets: () => [
+      {
+        id: "w1",
+        label: "w1",
+        icon: <SvgTextAlignRight />,
+        canPopout: true,
+        defaultState: WidgetState.Open,
+        content: <h2>w1</h2>,
+        priority: 20,
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        },
+      },
+      {
+        id: "w2",
+        label: "w2",
+        icon: <SvgTextAlignCenter />,
+        canPopout: false,
+        content: <h2>w2</h2>,
+        layouts: {
+          standard: {
+            location: StagePanelLocation.Right,
+            section: StagePanelSection.Start,
+          },
+        },
+        priority: 40,
+      },
+    ],
+  };
+}
+
+const myProvider = createMyItemsProvider();
 
 const InternalFrontstageManager =
   UiFramework.frontstages as unknown as typeof UiFramework.frontstages & {
@@ -500,8 +546,28 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
 
 function WidgetControls({ id }: { id: string }) {
   const [state, setState] = React.useState<WidgetState | undefined>(undefined);
+
+  const handleRegister = () => {
+    UiItemsManager.register(myProvider);
+  };
+
+  const handleUnregister = () => {
+    UiItemsManager.unregister(myProvider.id);
+  };
+
   return (
     <>
+      <div
+        style={{
+          border: "1px solid #333",
+          padding: "5px",
+          marginBottom: "10px",
+        }}
+      >
+        <button onClick={handleRegister}>REGISTER PROVIDER</button>
+        <button onClick={handleUnregister}>UNREGISTER PROVIDER</button>
+      </div>
+
       <span>Widget state</span>
       <WidgetStateSelect
         state={state}

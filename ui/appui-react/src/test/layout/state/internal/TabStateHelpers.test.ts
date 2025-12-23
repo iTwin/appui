@@ -202,7 +202,6 @@ describe("addRemovedTab", () => {
         side: "left",
         widgetIndex: 0,
         tabIndex: 0, // NOW at position 0
-        originalTabIndex: 1, // But ORIGINALLY at position 1
       };
     });
 
@@ -216,7 +215,6 @@ describe("addRemovedTab", () => {
         side: "left",
         widgetIndex: 0,
         tabIndex: 0, // Was at position 0
-        originalTabIndex: 0, // Originally at position 0
       };
     });
 

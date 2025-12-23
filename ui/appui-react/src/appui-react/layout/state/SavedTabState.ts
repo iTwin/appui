@@ -14,7 +14,6 @@ import type { SizeProps } from "../../utils/SizeProps.js";
 /** @internal */
 export type TabHomeState = WidgetRestoreState & {
   readonly tabIndex: number;
-  readonly originalTabIndex?: number;
 };
 
 /** @internal */

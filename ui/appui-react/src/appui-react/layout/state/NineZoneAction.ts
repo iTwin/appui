@@ -26,6 +26,7 @@ import type { StagePanelSizeSpec } from "../../stagepanels/StagePanelConfig.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
 import type { PopoutBounds } from "./SavedTabState.js";
+import type { NineZoneState } from "./NineZoneState.js";
 
 /** @internal */
 export interface ResizeAction {
@@ -248,6 +249,7 @@ export interface WidgetTabHideAction {
 export interface WidgetTabRemoveAction {
   readonly type: "WIDGET_TAB_REMOVE";
   readonly id: TabState["id"];
+  readonly initialState?: NineZoneState;
 }
 
 /** @internal */

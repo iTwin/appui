@@ -1902,7 +1902,6 @@ describe("NineZoneStateReducer", () => {
       expect(newState.savedTabs.byId.t1?.home).to.eql({
         widgetId: "w1",
         tabIndex: 0,
-        originalTabIndex: 0,
         floatingWidget: state.floatingWidgets.byId.w1,
       });
     });
@@ -1920,7 +1919,6 @@ describe("NineZoneStateReducer", () => {
       expect(newState.savedTabs.byId.t1?.home).to.eql({
         widgetId: "w1",
         tabIndex: 0,
-        originalTabIndex: 0,
         floatingWidget: state.floatingWidgets.byId.w1,
       });
     });
@@ -1936,7 +1934,6 @@ describe("NineZoneStateReducer", () => {
       });
       expect(newState.panels.left.widgets).lengthOf(0);
       expect(newState.savedTabs.byId.t1?.home).to.eql({
-        originalTabIndex: 0,
         widgetId: "w1",
         side: "left",
         widgetIndex: 0,
@@ -1971,7 +1968,6 @@ describe("NineZoneStateReducer", () => {
       expect(newState.savedTabs.byId.t1).to.eql({
         id: "t1",
         home: {
-          originalTabIndex: 0,
           side: "right",
           tabIndex: 0,
           widgetId: "w1",
