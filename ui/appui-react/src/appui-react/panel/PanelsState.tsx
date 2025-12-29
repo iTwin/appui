@@ -5,7 +5,6 @@
 import * as React from "react";
 import type { StateCreator } from "zustand";
 import { createStore, useStore } from "zustand";
-import { useSafeContext } from "../hooks/useSafeContext.js";
 import { isDynamicPanel, type Panel } from "./Panel.js";
 import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
@@ -134,7 +133,8 @@ export function createPanelsStore(stateOverrides?: Partial<PanelsState>) {
   });
 }
 
-const PanelsStoreContext = React.createContext<
+/** @internal */
+export const PanelsStoreContext = React.createContext<
   ReturnType<typeof createPanelsStore> | undefined
 >(undefined);
 
@@ -190,12 +190,4 @@ export function PanelsProvider(props: React.PropsWithChildren) {
       {props.children}
     </PanelsStoreContext.Provider>
   );
-}
-
-/** @internal */
-export function usePanelsStore<SelectorOutput>(
-  selector: (state: PanelsState) => SelectorOutput
-) {
-  const store = useSafeContext(PanelsStoreContext);
-  return useStore(store, selector);
 }

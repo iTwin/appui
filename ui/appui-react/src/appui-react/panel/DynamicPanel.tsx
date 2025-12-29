@@ -8,13 +8,15 @@
 
 import "./DynamicPanel.scss";
 import * as React from "react";
+import { useStore } from "zustand";
 import { Divider, IconButton } from "@itwin/itwinui-react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
-import { type DynamicPanelPlacement, usePanelsStore } from "./PanelsState.js";
+import { PanelsStoreContext } from "./PanelsState.js";
 import { useConditionalValueProp } from "../shared/ConditionalValue.js";
 import { PanelSideContext } from "../layout/widget-panels/Panel.js";
+import type { createPanelsStore } from "./PanelsState.js";
+import type { DynamicPanelPlacement } from "./PanelsState.js";
 import type { PanelSide } from "../layout/widget-panels/PanelTypes.js";
-import { useSafeContext } from "../hooks/useSafeContext.js";
 
 interface DynamicPanelProps {
   placement: DynamicPanelPlacement;
@@ -46,11 +48,12 @@ function DynamicPanelComponent(props: DynamicPanelProps) {
 
 interface FrameworkDynamicPanelProps {
   placement: DynamicPanelPlacement;
+  store: ReturnType<typeof createPanelsStore>;
 }
 
 function FrameworkDynamicPanel(props: FrameworkDynamicPanelProps) {
-  const { placement } = props;
-  const slice = usePanelsStore((state) => {
+  const { placement, store } = props;
+  const slice = useStore(store, (state) => {
     if (!placement) return undefined;
     return state.dynamic[placement];
   });
@@ -69,14 +72,15 @@ function FrameworkDynamicPanel(props: FrameworkDynamicPanelProps) {
 
 /** @internal */
 export function DynamicPanelRenderer() {
-  const side = useSafeContext(PanelSideContext);
+  const side = React.useContext(PanelSideContext);
+  const store = React.useContext(PanelsStoreContext);
   const placement = toDynamicPanelPlacement(side);
-  if (!placement) return;
-  return <FrameworkDynamicPanel placement={placement} />;
+  if (!placement || !store) return;
+  return <FrameworkDynamicPanel placement={placement} store={store} />;
 }
 
 function toDynamicPanelPlacement(
-  side: PanelSide
+  side: PanelSide | undefined
 ): DynamicPanelPlacement | undefined {
   if (side === "left") return "left";
   if (side === "right") return "right";
