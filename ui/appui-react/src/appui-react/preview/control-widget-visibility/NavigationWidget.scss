@@ -3,15 +3,10 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 @layer appui.preview {
-  .uifw-preview-navigationWidget {
-    display: grid;
-    grid-gap: 6px;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto;
-  }
-
   .uifw-preview-navigationWidget_add {
+    grid-column: 2;
     pointer-events: all;
-    float: right;
+
+    justify-self: end;
   }
 }
