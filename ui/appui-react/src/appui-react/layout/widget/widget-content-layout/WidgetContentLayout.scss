@@ -25,8 +25,8 @@
     .nz-widget-widgetContentLayout-progress {
       padding-inline: var(--iui-size-s);
 
-      /* check if it has sibling with classname .nz-scrollableContent */
-      + .nz-scrollableContent {
+      /* check if it has sibling with classname .nz-widget-widgetContentLayout-body */
+      + .nz-widget-widgetContentLayout-body {
         padding-block-start: 0px;
       }
     }
