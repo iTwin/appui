@@ -16,13 +16,20 @@
 
   .nz-widget-widgetContentLayout-body_wrapper {
     position: relative;
-    display: flex;
-    flex-direction: column;
     flex: 1;
     height: 0px;
     width: 100%;
+    display: grid;
     gap: var(--iui-size-s);
-    padding: var(--iui-size-s);
+
+    .nz-widget-widgetContentLayout-progress {
+      padding-inline: var(--iui-size-s);
+
+      /* check if it has sibling with classname .nz-scrollableContent */
+      + .nz-scrollableContent {
+        padding-block-start: 0px;
+      }
+    }
 
     .nz-widget-widgetContentLayout-body {
       display: flex;
@@ -31,10 +38,7 @@
       gap: var(--iui-size-s);
       flex: 1;
       overflow: auto;
-    }
-
-    &.nz-nonBlockingLoading {
-      padding-block-start: 0px;
+      padding: var(--iui-size-s);
     }
   }
 
