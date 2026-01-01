@@ -21,18 +21,20 @@ describe("useConditionalValue", () => {
     let counter = 0;
     const { result } = renderHook(() =>
       useConditionalValue(() => {
-        return counter++;
+        return counter;
       }, ["myEvent1"])
     );
     expect(result.current).toEqual(0);
 
     act(() => {
+      counter++;
       SyncUiEventDispatcher.dispatchSyncUiEvent("myEvent1");
       vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
     });
     expect(result.current).toEqual(1);
 
     act(() => {
+      counter++;
       SyncUiEventDispatcher.dispatchSyncUiEvent("myevent1");
       vi.advanceTimersByTime(timeToWaitForUiSyncCallback);
     });
