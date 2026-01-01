@@ -131,16 +131,13 @@ const Body = React.forwardRef<HTMLDivElement, WidgetContentLayoutBodyProps>(
     const { isNonBlockingLoading, isLoading, className, children, ...rest } =
       props;
     return (
-      <div
-        className={classNames(
-          "nz-widget-widgetContentLayout-body_wrapper",
-          !isLoading && isNonBlockingLoading && "nz-nonBlockingLoading"
-        )}
-      >
+      <div className="nz-widget-widgetContentLayout-body_wrapper">
         {isLoading ? (
           <LoadingOverlay />
         ) : (
-          isNonBlockingLoading && <ProgressLinear />
+          isNonBlockingLoading && (
+            <ProgressLinear className="nz-widget-widgetContentLayout-progress" />
+          )
         )}
         <div
           className={classNames(
