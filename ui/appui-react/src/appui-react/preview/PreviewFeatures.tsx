@@ -62,6 +62,9 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/859
    */
   controlWidgetVisibility: boolean | WidgetDef["id"][];
+  /** If `true`, the close button will be shown on widget tabs. Requires `controlWidgetVisibility` to be enabled.
+   */
+  closeButtonOnTab: boolean;
   /**
    * If `true`, the tool settings will be using the new editor API. The new system delivers same default editors as the old one.
    * However, in order to use custom editors they need to be provided using `EditorsRegistryProvider` component.
@@ -95,6 +98,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   allowBearingLettersInAccuDrawInputFields: undefined,
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
+  closeButtonOnTab: undefined,
   toolSettingsNewEditors: undefined,
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,

@@ -48,6 +48,7 @@ import { useFloatingWidgetId } from "./FloatingWidget.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { FloatingTab } from "./FloatingTab.js";
+import { usePreviewFeatures } from "../../preview/PreviewFeatures.js";
 
 /** @internal */
 export interface WidgetTabProviderProps extends TabPositionContextArgs {
@@ -112,6 +113,8 @@ function WidgetTabComponent(props: WidgetTabProps) {
   const showIconOnly = React.useContext(IconOnlyOnWidgetTabContext);
   const showWidgetIcon = React.useContext(ShowWidgetIconContext);
   const showActiveWidgetLabel = React.useContext(ShowActiveWidgetLabelContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const { controlWidgetVisibility, closeButtonOnTab } = usePreviewFeatures();
   assert(!!id);
   assert(!!widgetId);
 
@@ -162,6 +165,19 @@ function WidgetTabComponent(props: WidgetTabProps) {
         {showLabel && <span className="nz-label">{label}</span>}
         {props.badge && <div className="nz-badge">{props.badge}</div>}
         <TabTarget />
+        {controlWidgetVisibility && closeButtonOnTab && (
+          <button
+            className="icon icon-close"
+            onClick={() =>
+              dispatch({
+                type: "WIDGET_TAB_HIDE",
+                id,
+              })
+            }
+            aria-label="Close tab"
+            type="button"
+          />
+        )}
       </div>
     </Tooltip>
   );

@@ -33,6 +33,8 @@ interface PreviewStoryProps
   visibleWidgets: number;
   /** Threshold of `widgetActionDropdown`. */
   dropdownThreshold: number;
+  /** Whether to show close buttons on tabs. */
+  closeButtonOnTab?: boolean;
 }
 
 /** `enableMaximizedFloatingWidget` and `enableMaximizedPanelWidget` preview features. When enabled the widget will have a "maximize" button. */
@@ -40,12 +42,14 @@ export function PreviewStory({
   controlWidgetVisibility,
   dropdownThreshold,
   visibleWidgets,
+  closeButtonOnTab,
 }: PreviewStoryProps) {
   const provider = createProvider(visibleWidgets);
   return (
     <PreviewFeaturesProvider
       features={{
         controlWidgetVisibility,
+        closeButtonOnTab,
         widgetActionDropdown: { threshold: dropdownThreshold },
       }}
     >

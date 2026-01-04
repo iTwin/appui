@@ -35,9 +35,9 @@ export function CloseWidgetButton() {
 /** @internal */
 export function useCloseTab() {
   const id = useActiveTabId();
-  const { controlWidgetVisibility } = usePreviewFeatures();
+  const { controlWidgetVisibility, closeButtonOnTab } = usePreviewFeatures();
   if (Array.isArray(controlWidgetVisibility)) {
-    return controlWidgetVisibility.includes(id);
+    return controlWidgetVisibility.includes(id) && !closeButtonOnTab;
   }
-  return !!controlWidgetVisibility;
+  return !!controlWidgetVisibility && !closeButtonOnTab;
 }

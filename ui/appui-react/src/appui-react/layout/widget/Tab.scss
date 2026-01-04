@@ -20,6 +20,15 @@
   background: var(--iui-color-background-backdrop);
   flex-shrink: 0;
 
+  .icon-close {
+    display: none;
+    font-size: 8px;
+    background: unset;
+    border: unset;
+    padding: unset;
+    cursor: pointer;
+  }
+
   > .nz-icon {
     svg {
       width: #{math.div(14, 16)}rem;
@@ -62,6 +71,11 @@
       &.nz-last {
         border-right-width: 1px;
       }
+
+      .icon-close {
+        display: flex;
+        color: var(--iui-color-text-accent);
+      }
     }
   }
 
@@ -83,7 +97,9 @@
 
   &:hover {
     background: var(--iui-color-background);
-
+    .icon-close {
+      display: flex;
+    }
     &:not(.nz-active) {
       color: var(--iui-color-text);
     }
