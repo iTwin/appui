@@ -175,7 +175,7 @@ function WidgetTabComponent(props: WidgetTabProps) {
                 id,
               })
             }
-            aria-label="Close tab"
+            aria-label={`Close ${label} tab`}
             type="button"
           />
         )}
