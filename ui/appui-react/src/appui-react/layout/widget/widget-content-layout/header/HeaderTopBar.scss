@@ -1,0 +1,29 @@
+@layer appui.component {
+  .nz-widget-widgetContentLayout-header-headerTopBar {
+    gap: var(--iui-size-s);
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    width: 100%;
+
+    &.nz-singleColumn {
+      grid-template-columns: 1fr;
+    }
+
+    .nz-primaryContent {
+      display: flex;
+      gap: var(--iui-size-s);
+      align-items: center;
+      text-wrap-mode: nowrap;
+      overflow: auto;
+    }
+  }
+
+  @container (width < 200px) {
+    .nz-widget-widgetContentLayout-header-headerTopBar {
+      &[data-search-expanded="true"] {
+        overflow: auto;
+      }
+    }
+  }
+}

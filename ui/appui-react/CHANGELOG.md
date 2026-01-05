@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.22.0
+
+### Minor Changes
+
+- 5becc14: Add new WidgetContentLayout component for widget content organization with Header, Body, and Footer sub-components
+
+### Patch Changes
+
+- @itwin/components-react@5.22.0
+- @itwin/core-react@5.22.0
+- @itwin/imodel-components-react@5.22.0
+
 ## 5.21.1
 
 ### Patch Changes
