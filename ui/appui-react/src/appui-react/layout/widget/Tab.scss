@@ -27,8 +27,10 @@
     gap: 6px;
     align-items: center;
     padding: 0;
+    cursor: pointer;
 
     > .nz-icon {
+      display: flex;
       cursor: pointer;
       svg {
         width: #{math.div(14, 16)}rem;
@@ -61,8 +63,13 @@
 
   &:not(.nz-minimized) {
     &.nz-active {
+      cursor: default;
       .nz-tab-button {
         color: var(--iui-color-text-accent);
+        cursor: default;
+      }
+      .nz-icon {
+        cursor: default;
       }
       background: var(--iui-color-background);
       color: var(--iui-color-text-accent);
