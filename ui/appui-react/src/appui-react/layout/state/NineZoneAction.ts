@@ -249,7 +249,7 @@ export interface WidgetTabHideAction {
 export interface WidgetTabRemoveAction {
   readonly type: "WIDGET_TAB_REMOVE";
   readonly id: TabState["id"];
-  readonly initialState?: NineZoneState;
+  readonly originalState?: NineZoneState;
 }
 
 /** @internal */

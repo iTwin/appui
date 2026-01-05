@@ -1953,6 +1953,113 @@ describe("NineZoneStateReducer", () => {
       expect(newState.popoutWidgets.allIds).lengthOf(0);
       expect(newState.savedTabs.byId.t1).toEqual(undefined);
     });
+
+    it("should use originalState to determine tabIndex when hiding multiple tabs", () => {
+      // Setup: Create a widget with 3 tabs
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      // Save the original state before any tabs are hidden
+      const originalState = state;
+
+      // First, hide tab "t1" (index 0)
+      const newState1 = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Verify t1 is saved with correct index from original state
+      expect(newState1.savedTabs.byId.t1?.home).to.eql({
+        widgetId: "w1",
+        side: "left",
+        widgetIndex: 0,
+        tabIndex: 0, // Index in original state
+      });
+
+      // Now the current state has tabs ["t2", "t3"] where t2 is at index 0
+      // But we want to hide t2 using the originalState to get its original index (1)
+      const newState2 = NineZoneStateReducer(newState1, {
+        type: "WIDGET_TAB_REMOVE",
+        id: "t2",
+        originalState, // Pass the original state
+      });
+
+      // Verify t2 is saved with index 1 (from originalState) not index 0 (from current state)
+      expect(newState2.savedTabs.byId.t2?.home).to.eql({
+        widgetId: "w1",
+        side: "left",
+        widgetIndex: 0,
+        tabIndex: 1, // Index from originalState, not from current state
+      });
+
+      // The widget should now only contain t3
+      expect(newState2.widgets.w1.tabs).to.eql(["t3"]);
+    });
+
+    it("should use originalState to determine tabIndex in floating widget", () => {
+      // Setup: Create a floating widget with 3 tabs
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addFloatingWidget(state, "fw1", ["t1", "t2", "t3"], {
+        bounds: { left: 0, top: 0, right: 100, bottom: 100 },
+      });
+
+      const originalState = state;
+
+      // Hide t1 first
+      const newState1 = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      expect(newState1.savedTabs.byId.t1?.home).to.eql({
+        widgetId: "fw1",
+        tabIndex: 0,
+        floatingWidget: originalState.floatingWidgets.byId.fw1,
+      });
+
+      // Hide t2 using originalState
+      const newState2 = NineZoneStateReducer(newState1, {
+        type: "WIDGET_TAB_REMOVE",
+        id: "t2",
+        originalState,
+      });
+
+      // t2 should have tabIndex 1 from originalState, not 0 from current state
+      expect(newState2.savedTabs.byId.t2?.home).to.eql({
+        widgetId: "fw1",
+        tabIndex: 1,
+        floatingWidget: originalState.floatingWidgets.byId.fw1,
+      });
+    });
+
+    it("should fallback to current state when originalState is not provided", () => {
+      // Setup
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      // Hide t1
+      const newState1 = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Hide t2 WITHOUT originalState
+      const newState2 = NineZoneStateReducer(newState1, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t2",
+      });
+
+      // t2 should have tabIndex 0 from current state (since t1 was already removed)
+      expect(newState2.savedTabs.byId.t2?.home).to.eql({
+        widgetId: "w1",
+        side: "left",
+        widgetIndex: 0,
+        tabIndex: 0, // Index from current state since originalState not provided
+      });
+    });
   });
 
   describe("WIDGET_TAB_REMOVE", () => {

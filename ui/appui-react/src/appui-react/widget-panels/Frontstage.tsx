@@ -475,7 +475,7 @@ function hideWidgetDef(frontstageDef: FrontstageDef, widgetDef: WidgetDef) {
  */
 function removeMissingWidgets(frontstageDef: FrontstageDef) {
   const state = frontstageDef.nineZoneState;
-  const cloned = cloneDeep(state);
+  const clonedState = cloneDeep(state);
 
   if (!state) return;
   const toolSettingsTabId = state.toolSettings?.tabId;
@@ -493,7 +493,7 @@ function removeMissingWidgets(frontstageDef: FrontstageDef) {
     frontstageDef.dispatch({
       type: "WIDGET_TAB_REMOVE",
       id: tab.id,
-      initialState: cloned,
+      originalState: clonedState,
     });
   }
 }
