@@ -157,14 +157,15 @@ function WidgetTabComponent(props: WidgetTabProps) {
         className={className}
         ref={refs}
         role="tab"
-        tabIndex={0}
       >
-        {(showWidgetIcon || showIconOnly) && (
-          <span className="nz-icon">{props.icon}</span>
-        )}
-        {showLabel && <span className="nz-label">{label}</span>}
-        {props.badge && <div className="nz-badge">{props.badge}</div>}
-        <TabTarget />
+        <button className="nz-tab-button" type="button">
+          {(showWidgetIcon || showIconOnly) && (
+            <span className="nz-icon">{props.icon}</span>
+          )}
+          {showLabel && <span className="nz-label">{label}</span>}
+          {props.badge && <div className="nz-badge">{props.badge}</div>}
+          <TabTarget />
+        </button>
         {controlWidgetVisibility && closeButtonOnTab && (
           <button
             className="icon icon-close"

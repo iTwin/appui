@@ -12,13 +12,43 @@
   display: flex;
   gap: 6px;
   align-items: center;
-  cursor: pointer;
   padding: 4px 1em 0;
   position: relative;
   border: 0 solid var(--iui-color-border);
   max-width: 9em;
   background: var(--iui-color-background-backdrop);
   flex-shrink: 0;
+  cursor: pointer;
+
+  .nz-tab-button {
+    background: unset;
+    border: unset;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 0;
+
+    > .nz-icon {
+      cursor: pointer;
+      svg {
+        width: #{math.div(14, 16)}rem;
+        height: #{math.div(14, 16)}rem;
+        fill: currentColor;
+      }
+    }
+
+    > .nz-label {
+      font-size: $nz-widget-tab-font-size;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    > .nz-badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
 
   .icon-close {
     display: none;
@@ -29,28 +59,11 @@
     cursor: pointer;
   }
 
-  > .nz-icon {
-    svg {
-      width: #{math.div(14, 16)}rem;
-      height: #{math.div(14, 16)}rem;
-      fill: currentColor;
-    }
-  }
-
-  > .nz-label {
-    font-size: $nz-widget-tab-font-size;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  > .nz-badge {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
   &:not(.nz-minimized) {
     &.nz-active {
+      .nz-tab-button {
+        color: var(--iui-color-text-accent);
+      }
       background: var(--iui-color-background);
       color: var(--iui-color-text-accent);
       padding-bottom: 1px;
