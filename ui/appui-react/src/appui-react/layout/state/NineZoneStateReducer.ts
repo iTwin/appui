@@ -982,11 +982,6 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
   return [state, location] as const;
 }
 
-//
-//
-//
-//
-//
 function hideTab(
   state: NineZoneState,
   id: TabState["id"],
@@ -1036,7 +1031,6 @@ function hideTab(
   }
 
   return removeTabFromWidget(state, id);
-  // return removeTabFromWidget(state, id, unmodifiedState);
 }
 
 function addTabToPanelSection(

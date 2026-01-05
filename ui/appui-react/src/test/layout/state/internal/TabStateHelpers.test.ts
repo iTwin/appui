@@ -189,7 +189,6 @@ describe("addRemovedTab", () => {
   it("should add tab to a new floating widget", () => {
     let state = createNineZoneState();
     state = addTabs(state, ["t1"]);
-
     state = updateSavedTabState(state, "t1", (draft) => {
       draft.home = {
         widgetId: "w1",

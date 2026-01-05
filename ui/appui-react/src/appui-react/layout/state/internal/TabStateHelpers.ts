@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /*---------------------------------------------------------------------------------------------
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
@@ -157,7 +156,6 @@ export function removeTabFromWidget(
 
   const tabs = [...widget.tabs];
   const tabIndex = tabs.indexOf(tabId);
-
   tabs.splice(tabIndex, 1);
 
   if (tabs.length === 0) {
@@ -217,7 +215,7 @@ export function addRemovedTab(
 
   const savedTab = state.savedTabs.byId[tabId];
   const home = savedTab?.home || defaultHomeState;
-  const { tabIndex, widgetId } = home; // tabPosition here
+  const { tabIndex, widgetId } = home;
 
   // Add to an existing widget (by widget id).
   if (widgetId in state.widgets) {
@@ -256,47 +254,3 @@ export function addRemovedTab(
     home.widgetIndex
   );
 }
-
-// function getTabIndex({
-//   state,
-//   tabId,
-//   widgetId,
-//   currentTabs,
-// }: {
-//   state: NineZoneState;
-//   tabId: TabState["id"];
-//   widgetId: WidgetState["id"];
-//   currentTabs: string[];
-// }): number {
-//   const currentTabIndex = currentTabs.indexOf(tabId);
-//   const savedTabs = Object.values(state.savedTabs.byId) as SavedTabState[];
-//   const alreadyHaveTabAtIndex = savedTabs.find(
-//     (savedTab) =>
-//       savedTab?.home?.widgetId === widgetId &&
-//       savedTab?.home?.tabIndex === currentTabIndex &&
-//       savedTab?.id !== tabId
-//   );
-
-//   if (alreadyHaveTabAtIndex) {
-//     return incrementIndex(savedTabs, widgetId);
-//   }
-//   return currentTabIndex;
-// }
-
-// function incrementIndex(
-//   savedTabs: SavedTabState[],
-//   widgetId: WidgetState["id"]
-// ) {
-//   const allUniqIndex = new Set<number>();
-//   savedTabs.forEach((savedTab) => {
-//     if (
-//       savedTab?.home?.widgetId === widgetId &&
-//       savedTab?.home?.tabIndex !== undefined
-//     ) {
-//       allUniqIndex.add(savedTab.home.tabIndex);
-//     }
-//   });
-//   console.log(" unique index -> ", allUniqIndex);
-//   const sortedIndexes = Array.from(allUniqIndex).sort((a, b) => a - b);
-//   return sortedIndexes[sortedIndexes.length - 1] + 1;
-// }
