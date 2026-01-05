@@ -124,4 +124,9 @@
       color: var(--iui-color-text);
     }
   }
+  &:focus-within {
+    .icon-close {
+      display: flex;
+    }
+  }
 }
