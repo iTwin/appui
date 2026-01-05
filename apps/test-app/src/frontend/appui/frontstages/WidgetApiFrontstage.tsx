@@ -30,8 +30,10 @@ import {
 import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import {
   SvgRefresh,
+  SvgTextAlignCenter,
   SvgTextAlignJustify,
   SvgTextAlignLeft,
+  SvgTextAlignRight,
   SvgUser,
   SvgUsers,
   SvgZoomIn,
@@ -287,6 +289,23 @@ function createRightPanelWidgets(): Widget[] {
       content: <h2>Right WR-A</h2>,
       allowedPanels: [StagePanelLocation.Left, StagePanelLocation.Right],
       layouts: startLayout,
+    },
+    {
+      id: "WR-B",
+      label: "WR-B",
+      icon: <SvgTextAlignRight />,
+      canPopout: true,
+      defaultState: WidgetState.Hidden,
+      content: <h2>Right WR-B</h2>,
+      layouts: startLayout,
+    },
+    {
+      id: "WR-1",
+      label: "WR-1",
+      icon: <SvgTextAlignCenter />,
+      canPopout: false,
+      content: <h2>Right WR-1</h2>,
+      layouts: endLayout,
     },
     {
       id: "WR-2",
