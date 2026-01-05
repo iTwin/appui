@@ -500,7 +500,6 @@ function PanelControls({ location }: { location: StagePanelLocation }) {
 
 function WidgetControls({ id }: { id: string }) {
   const [state, setState] = React.useState<WidgetState | undefined>(undefined);
-
   return (
     <>
       <span>Widget state</span>
