@@ -47,8 +47,8 @@ describe("WidgetTabs", () => {
         </PanelSideContext.Provider>
       </TestNineZoneProvider>
     );
-    component.getByRole(
-      "button" /* TODO: needs a label , { name: "Other widgets" } */
+    component.getByTestId(
+      "widget-overflow-button" /* TODO: needs a label , { name: "Other widgets" } */
     );
   });
 
