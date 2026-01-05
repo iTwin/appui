@@ -335,7 +335,6 @@ function createRightPanelWidgets(): Widget[] {
       content: <h2>Right WR-2</h2>,
       allowedPanels: [StagePanelLocation.Right],
       layouts: endLayout,
-      priority: 20,
     },
     {
       id: "WR-3",
@@ -344,7 +343,6 @@ function createRightPanelWidgets(): Widget[] {
       canPopout: true,
       content: <h2>Right WR-3</h2>,
       layouts: endLayout,
-      priority: 30,
     },
     {
       id: "WR-4",
