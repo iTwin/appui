@@ -152,7 +152,6 @@ export function removeTabFromWidget(
 
   const widgetId = location.widgetId;
   const widget = getWidgetState(state, widgetId);
-
   const tabs = [...widget.tabs];
   const tabIndex = tabs.indexOf(tabId);
   tabs.splice(tabIndex, 1);
@@ -181,7 +180,6 @@ export function removeTab(
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
   state = removeTabFromWidget(state, tabId);
-
   return produce(state, (draft) => {
     delete draft.tabs[tabId];
 
