@@ -11,17 +11,17 @@ const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     backgrounds: {
-      default: "background",
-      values: [
-        {
+      options: {
+        background: {
           name: "background",
           value: "white",
         },
-        {
+
+        "background-backdrop": {
           name: "background-backdrop",
           value: "#eef0f1",
         },
-      ],
+      },
     },
     controls: {
       matchers: {
@@ -43,12 +43,20 @@ const preview: Preview = {
       },
     },
   },
+
   globalTypes: {
     iModel: demoIModelGlobalType,
     resizer: resizerGlobalType,
     themeBridge: themeBridgeGlobalType,
   },
+
   decorators: [withDemoIModel, withThemeBridge],
+
+  initialGlobals: {
+    backgrounds: {
+      value: "background",
+    },
+  },
 };
 
 export default preview;

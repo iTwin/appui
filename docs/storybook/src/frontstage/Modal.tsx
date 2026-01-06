@@ -13,7 +13,7 @@ import {
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage } from "../Utils";
-import { action } from "storybook/internal/actions";
+import { action } from "storybook/actions";
 
 type ModalFrontstageStoryProps = Pick<
   ModalFrontstageInfo,

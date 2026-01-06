@@ -1,0 +1,47 @@
+@layer appui.component {
+  .nz-widget-widgetContentLayout-header-headerLayout {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--iui-size-s);
+    container-type: inline-size;
+
+    .nz-menu {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    .nz-buttons {
+      display: flex;
+      gap: var(--iui-size-s);
+      align-items: center;
+
+      width: 100%;
+      max-width: 560px;
+      > button {
+        overflow: auto;
+        min-width: fit-content;
+      }
+    }
+
+    .nz-title {
+      font-weight: bolder;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .nz-remainingItems {
+      overflow-x: auto;
+
+      .nz-buttons {
+        flex-wrap: wrap;
+      }
+    }
+
+    .nz-headerTopBarWrapper {
+      display: flex;
+      gap: var(--iui-size-s);
+      width: 100%;
+    }
+  }
+}
