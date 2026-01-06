@@ -145,14 +145,13 @@ export function insertTabToWidget(
  */
 export function removeTabFromWidget(
   state: NineZoneState,
-  tabId: TabState["id"],
-  originalState?: NineZoneState
+  tabId: TabState["id"]
 ): NineZoneState {
   const location = getTabLocation(state, tabId);
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const widget = getWidgetState(originalState ?? state, widgetId);
+  const widget = getWidgetState(state, widgetId);
 
   const tabs = [...widget.tabs];
   const tabIndex = tabs.indexOf(tabId);
@@ -176,13 +175,12 @@ export function removeTabFromWidget(
  */
 export function removeTab(
   state: NineZoneState,
-  tabId: TabState["id"],
-  originalState?: NineZoneState
+  tabId: TabState["id"]
 ): NineZoneState {
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   if (!(tabId in state.tabs)) throw new UiError(category, "Tab does not exist");
 
-  state = removeTabFromWidget(state, tabId, originalState);
+  state = removeTabFromWidget(state, tabId);
 
   return produce(state, (draft) => {
     delete draft.tabs[tabId];

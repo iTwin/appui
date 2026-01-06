@@ -69,7 +69,6 @@ import { useSaveFrontstageSettings } from "./useSaveFrontstageSettings.js";
 import type { UiStateStorageResult } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { useLatestRef } from "../hooks/useLatestRef.js";
-import cloneDeep from "lodash/cloneDeep.js";
 
 function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
@@ -475,27 +474,24 @@ function hideWidgetDef(frontstageDef: FrontstageDef, widgetDef: WidgetDef) {
  */
 function removeMissingWidgets(frontstageDef: FrontstageDef) {
   const state = frontstageDef.nineZoneState;
-  const clonedState = cloneDeep(state);
 
   if (!state) return;
   const toolSettingsTabId = state.toolSettings?.tabId;
 
-  const removedWidgets = [];
+  const removedWidgets = Object.values(state.tabs)
+    .filter(
+      (tab) =>
+        tab.id !== toolSettingsTabId && !frontstageDef.findWidgetDef(tab.id)
+    )
+    .map((tab) => tab.id);
 
-  for (const [, tab] of Object.entries(state.tabs)) {
-    if (tab.id === toolSettingsTabId) continue;
-    const widgetDef = frontstageDef.findWidgetDef(tab.id);
-    if (widgetDef) continue;
-    removedWidgets.push(tab);
-  }
+  if (removedWidgets.length === 0) return;
 
-  for (const tab of removedWidgets) {
-    frontstageDef.dispatch({
-      type: "WIDGET_TAB_REMOVE",
-      id: tab.id,
-      originalState: clonedState,
-    });
-  }
+  frontstageDef.dispatch(
+    removedWidgets.length === 1
+      ? { type: "WIDGET_TAB_REMOVE", id: removedWidgets[0] }
+      : { type: "WIDGET_TABS_REMOVE", ids: removedWidgets }
+  );
 }
 
 function getWidgetLabel(label: string) {

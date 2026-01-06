@@ -11,7 +11,11 @@ import { Point, Rectangle } from "@itwin/core-react/internal";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState.js";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation.js";
-import type { NineZoneAction, WidgetDefAddAction } from "./NineZoneAction.js";
+import type {
+  NineZoneAction,
+  WidgetDefAddAction,
+  WidgetTabsRemoveAction,
+} from "./NineZoneAction.js";
 import {
   isPanelDropTargetState,
   isSectionDropTargetState,
@@ -694,11 +698,22 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_HIDE": {
       return hideTab(state, action.id);
     }
+    case "WIDGET_TABS_REMOVE": {
+      const tabLocations = getTabIndexesBeforeRemoval(action, state);
+
+      for (const id of action.ids) {
+        const captured = tabLocations.get(id);
+        state = hideTab(state, id, captured);
+        state = removeTab(state, id);
+      }
+
+      return state;
+    }
     case "WIDGET_TAB_REMOVE": {
       // Save tab state.
-      state = hideTab(state, action.id, action.originalState);
+      state = hideTab(state, action.id);
       // Remove tab.
-      return removeTab(state, action.id, action.originalState);
+      return removeTab(state, action.id);
     }
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, (draft) => {
@@ -921,6 +936,24 @@ export function NineZoneStateReducer(
   return state;
 }
 
+function getTabIndexesBeforeRemoval(
+  action: WidgetTabsRemoveAction,
+  state: NineZoneState
+) {
+  const tabLocations = new Map<TabState["id"], number>();
+
+  for (const id of action.ids) {
+    const location = getTabLocation(state, id);
+    if (location) {
+      const widgetId = location.widgetId;
+      const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+      tabLocations.set(id, tabIndex);
+    }
+  }
+
+  return tabLocations;
+}
+
 function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
   if (
     state.toolSettings?.tabId === id &&
@@ -985,7 +1018,7 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
 function hideTab(
   state: NineZoneState,
   id: TabState["id"],
-  originalState?: NineZoneState
+  capturedIndex?: number
 ) {
   state = produce(state, (draft) => {
     if (!draft.toolSettings) return;
@@ -1003,10 +1036,13 @@ function hideTab(
   const location = getTabLocation(state, id);
   if (!location) return state;
 
+  let tabIndex;
   const widgetId = location.widgetId;
-  const tabIndex =
-    originalState?.widgets[widgetId].tabs.indexOf(id) ??
-    state.widgets[widgetId].tabs.indexOf(id);
+  if (capturedIndex === undefined) {
+    tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  } else {
+    tabIndex = capturedIndex;
+  }
 
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
