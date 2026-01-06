@@ -231,6 +231,7 @@ export function addRemovedTab(
     });
   }
 
+  // Add to a panel section.
   const panel = state.panels[home.side];
 
   // Add to existing panel section.
