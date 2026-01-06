@@ -14,13 +14,13 @@ import type { BadgeType, IconSpec } from "@itwin/core-react";
 import type { BadgeKind } from "@itwin/core-react/internal";
 import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 
-/** Used to specify the usage of the toolbar which determine the toolbar position.
+/** Used to specify the usage of the toolbar which determines the toolbar position.
  * @public
  */
 export enum ToolbarUsage {
-  /** Contains tools to Create Update and Delete content - in AppUI this is in top left of content area. */
+  /** Contains tools to manipulate the content. Positioned at the top-left of the content area by default. */
   ContentManipulation = 0,
-  /** Manipulate view/camera - in AppUI this is in top right of content area. */
+  /** Contains tools to navigate the view and control the camera. Positioned at the top-right of the content area by default. */
   ViewNavigation = 1,
 }
 
@@ -28,11 +28,22 @@ export enum ToolbarUsage {
  * @public
  */
 export enum ToolbarOrientation {
-  /** Horizontal toolbar. */
+  /** Horizontal toolbar with items are arranged left to right. */
   Horizontal = 0,
-  /** Vertical toolbar. */
+  /** Vertical toolbar with items are arranged top to bottom. */
   Vertical = 1,
 }
+
+/**
+ * Used to specify the advanced usage of the toolbar which determines the toolbar position. This takes precedence over the {@link ToolbarUsage}.
+ *
+ * Known advanced usages:
+ * - `"view-settings"`: contains tools to control the view settings. Positioned at the bottom-right of the content area by default.
+ *
+ * @note This type is non-exhaustive to allow for future additions.
+ * @public
+ */
+export type ToolbarAdvancedUsage = "view-settings" | (string & {});
 
 /** Describes the data needed to insert a UI items into an existing set of UI items.
  * @public
@@ -180,4 +191,6 @@ export interface StandardLayoutToolbarItem {
   readonly usage: ToolbarUsage;
   /** Describes toolbar orientation. */
   readonly orientation: ToolbarOrientation;
+  /** Describes an advanced toolbar usage. This takes precedence over the `usage`. */
+  readonly advancedUsage?: ToolbarAdvancedUsage;
 }

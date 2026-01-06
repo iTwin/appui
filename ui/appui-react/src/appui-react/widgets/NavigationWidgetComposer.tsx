@@ -205,10 +205,14 @@ function DefaultNavigationAid() {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface NavigationWidgetComposerProps extends CommonProps {
-  /** Optional horizontal toolbar */
+  /** Optional horizontal toolbar. Positioned at the top-right. */
   horizontalToolbar?: React.ReactNode;
-  /** Optional vertical toolbar */
+  /** Optional vertical toolbar. Positioned at the top-right. */
   verticalToolbar?: React.ReactNode;
+  /** Optional secondary horizontal toolbar. Positioned at the bottom-right. */
+  secondaryHorizontalToolbar?: React.ReactNode;
+  /** Optional secondary vertical toolbar. Positioned at the bottom-right. */
+  secondaryVerticalToolbar?: React.ReactNode;
   /** Optional navigation aid to override the default {@link NavigationAidHost}. */
   navigationAidHost?: React.ReactNode;
   /** If true no navigation aid will be shown. Defaults to `false`. */
@@ -226,6 +230,8 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
     navigationAidHost,
     horizontalToolbar,
     verticalToolbar,
+    secondaryHorizontalToolbar,
+    secondaryVerticalToolbar,
     hideNavigationAid,
     ...otherProps
   } = props;
@@ -268,9 +274,11 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
         navigationAid={navigationAid}
         horizontalToolbar={horizontalToolbar}
         verticalToolbar={verticalToolbar}
-        {...otherProps}
+        secondaryHorizontalToolbar={secondaryHorizontalToolbar}
+        secondaryVerticalToolbar={secondaryVerticalToolbar}
         onMouseEnter={UiFramework.visibility.handleWidgetMouseEnter}
         hidden={!uiIsVisible}
+        {...otherProps}
       />
     </WidgetOpacityContext.Provider>
   );
