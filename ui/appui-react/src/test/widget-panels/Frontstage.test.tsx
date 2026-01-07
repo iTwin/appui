@@ -55,6 +55,7 @@ import {
   restoreNineZoneState,
   stateVersion,
   useFrontstageManager,
+  useItemsManager,
   useLayoutStore,
   useNineZoneDispatch,
   useSavedFrontstageState,
@@ -1156,6 +1157,72 @@ describe("Frontstage local storage wrapper", () => {
             status: UiStateStorageStatus.UnknownError,
           })
         ).toEqual(false);
+      });
+    });
+
+    describe("refreshNineZoneState", () => {
+      it("should dispatch WIDGET_TAB_REMOVE for single missing widget", () => {
+        const frontstageDef = new FrontstageDef();
+        let nineZone = createNineZoneState();
+
+        // Add tabs to state
+        nineZone = addTab(nineZone, "t1");
+        nineZone = addTab(nineZone, "t2");
+        nineZone = addPanelWidget(nineZone, "left", "w1", ["t1", "t2"]);
+        frontstageDef.nineZoneState = nineZone;
+
+        // Mock findWidgetDef to return undefined for t2 (missing widget)
+        vi.spyOn(frontstageDef, "findWidgetDef").mockImplementation((id) => {
+          if (id === "t1") return new WidgetDef();
+          return undefined;
+        });
+
+        // Spy on dispatch
+        const dispatchSpy = vi.fn();
+        frontstageDef.dispatch = dispatchSpy;
+
+        // Call refreshNineZoneState
+        renderHook(() => useItemsManager(frontstageDef));
+
+        // Verify dispatch was called with WIDGET_TAB_REMOVE action
+        expect(dispatchSpy).toHaveBeenCalledWith({
+          type: "WIDGET_TAB_REMOVE",
+          id: "t2",
+        });
+        expect(dispatchSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it("should dispatch WIDGET_TAB_REMOVE for multiple missing widgets", () => {
+        const frontstageDef = new FrontstageDef();
+        let nineZone = createNineZoneState();
+
+        // Add tabs to state
+        nineZone = addTab(nineZone, "t1");
+        nineZone = addTab(nineZone, "t2");
+        nineZone = addTab(nineZone, "t3");
+        nineZone = addPanelWidget(nineZone, "left", "w1", ["t1", "t2", "t3"]);
+        frontstageDef.nineZoneState = nineZone;
+
+        // Mock findWidgetDef to return undefined for t2 and t3 (missing widgets)
+        vi.spyOn(frontstageDef, "findWidgetDef").mockImplementation((id) => {
+          if (id === "t1") return new WidgetDef();
+          return undefined;
+        });
+
+        // Spy on dispatch
+        const dispatchSpy = vi.fn();
+        frontstageDef.dispatch = dispatchSpy;
+
+        // Call refreshNineZoneState
+        renderHook(() => useItemsManager(frontstageDef));
+
+        // Verify dispatch was called with WIDGET_TAB_REMOVE action for both missing widgets
+        expect(dispatchSpy).toHaveBeenCalledWith({
+          type: "WIDGET_TABS_REMOVE",
+          ids: ["t2", "t3"],
+        });
+
+        expect(dispatchSpy).toHaveBeenCalledTimes(1);
       });
     });
 
