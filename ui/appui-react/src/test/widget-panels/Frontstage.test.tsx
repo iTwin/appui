@@ -1161,7 +1161,7 @@ describe("Frontstage local storage wrapper", () => {
     });
 
     describe("refreshNineZoneState", () => {
-      it("should dispatch WIDGET_TAB_REMOVE for single missing widget", () => {
+      it("should dispatch WIDGET_TABS_REMOVE for single missing widget", () => {
         const frontstageDef = new FrontstageDef();
         let nineZone = createNineZoneState();
 
@@ -1184,10 +1184,10 @@ describe("Frontstage local storage wrapper", () => {
         // Call refreshNineZoneState
         renderHook(() => useItemsManager(frontstageDef));
 
-        // Verify dispatch was called with WIDGET_TAB_REMOVE action
+        // Verify dispatch was called with WIDGET_TABS_REMOVE action
         expect(dispatchSpy).toHaveBeenCalledWith({
-          type: "WIDGET_TAB_REMOVE",
-          id: "t2",
+          type: "WIDGET_TABS_REMOVE",
+          ids: ["t2"],
         });
         expect(dispatchSpy).toHaveBeenCalledTimes(1);
       });

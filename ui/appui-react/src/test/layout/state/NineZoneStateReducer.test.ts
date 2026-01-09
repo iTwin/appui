@@ -2043,7 +2043,7 @@ describe("NineZoneStateReducer", () => {
       expect(newState.widgets.w2.tabs).to.eql(["t4"]);
     });
 
-    it("should handle single tab removal (same as WIDGET_TAB_REMOVE)", () => {
+    it("should handle single tab removal", () => {
       let state = createNineZoneState();
       state = addTabs(state, ["t1", "t2"]);
       state = addPanelWidget(state, "top", "w1", ["t1", "t2"]);
@@ -2093,8 +2093,8 @@ describe("NineZoneStateReducer", () => {
       state = addPanelWidget(state, "right", "w1", ["t1"]);
 
       const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_REMOVE",
-        id: "t1",
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t1"],
       });
       expect(newState.savedTabs.byId.t1).to.eql({
         id: "t1",

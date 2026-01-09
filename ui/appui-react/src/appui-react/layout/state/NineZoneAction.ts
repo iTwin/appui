@@ -245,12 +245,6 @@ export interface WidgetTabHideAction {
 }
 
 /** @internal */
-export interface WidgetTabRemoveAction {
-  readonly type: "WIDGET_TAB_REMOVE";
-  readonly id: TabState["id"];
-}
-
-/** @internal */
 export interface WidgetTabsRemoveAction {
   readonly type: "WIDGET_TABS_REMOVE";
   readonly ids: TabState["id"][];
@@ -383,7 +377,6 @@ export type NineZoneAction =
   | WidgetTabExpandAction
   | WidgetTabFloatAction
   | WidgetTabHideAction
-  | WidgetTabRemoveAction
   | WidgetTabsRemoveAction
   | WidgetTabOpenAction
   | WidgetTabPopoutAction

@@ -699,21 +699,15 @@ export function NineZoneStateReducer(
       return hideTab(state, action.id);
     }
     case "WIDGET_TABS_REMOVE": {
-      const tabLocations = getTabIndexesBeforeRemoval(action, state);
+      // Sort ids by their tab index in descending order
+      const sortedIds = sortIndexes(action, state);
 
-      for (const id of action.ids) {
-        const captured = tabLocations.get(id);
-        state = hideTab(state, id, captured);
+      for (const id of sortedIds) {
+        state = hideTab(state, id);
         state = removeTab(state, id);
       }
 
       return state;
-    }
-    case "WIDGET_TAB_REMOVE": {
-      // Save tab state.
-      state = hideTab(state, action.id);
-      // Remove tab.
-      return removeTab(state, action.id);
     }
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, (draft) => {
@@ -936,22 +930,15 @@ export function NineZoneStateReducer(
   return state;
 }
 
-function getTabIndexesBeforeRemoval(
-  action: WidgetTabsRemoveAction,
-  state: NineZoneState
-) {
-  const tabLocations = new Map<TabState["id"], number>();
-
-  for (const id of action.ids) {
-    const location = getTabLocation(state, id);
-    if (location) {
-      const widgetId = location.widgetId;
-      const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
-      tabLocations.set(id, tabIndex);
-    }
-  }
-
-  return tabLocations;
+function sortIndexes(action: WidgetTabsRemoveAction, state: NineZoneState) {
+  return [...action.ids].sort((a, b) => {
+    const locationA = getTabLocation(state, a);
+    const locationB = getTabLocation(state, b);
+    if (!locationA || !locationB) return 0;
+    const indexA = state.widgets[locationA.widgetId].tabs.indexOf(a);
+    const indexB = state.widgets[locationB.widgetId].tabs.indexOf(b);
+    return indexB - indexA;
+  });
 }
 
 function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
@@ -1015,11 +1002,7 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
   return [state, location] as const;
 }
 
-function hideTab(
-  state: NineZoneState,
-  id: TabState["id"],
-  capturedIndex?: number
-) {
+function hideTab(state: NineZoneState, id: TabState["id"]) {
   state = produce(state, (draft) => {
     if (!draft.toolSettings) return;
 
@@ -1036,13 +1019,8 @@ function hideTab(
   const location = getTabLocation(state, id);
   if (!location) return state;
 
-  let tabIndex;
   const widgetId = location.widgetId;
-  if (capturedIndex === undefined) {
-    tabIndex = state.widgets[widgetId].tabs.indexOf(id);
-  } else {
-    tabIndex = capturedIndex;
-  }
+  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
 
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];

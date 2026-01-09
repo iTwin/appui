@@ -487,11 +487,7 @@ function removeMissingWidgets(frontstageDef: FrontstageDef) {
 
   if (removedWidgets.length === 0) return;
 
-  frontstageDef.dispatch(
-    removedWidgets.length === 1
-      ? { type: "WIDGET_TAB_REMOVE", id: removedWidgets[0] }
-      : { type: "WIDGET_TABS_REMOVE", ids: removedWidgets }
-  );
+  frontstageDef.dispatch({ type: "WIDGET_TABS_REMOVE", ids: removedWidgets });
 }
 
 function getWidgetLabel(label: string) {
@@ -649,7 +645,7 @@ export function restoreNineZoneState(
             tabId: tab.id,
           }
         );
-        frontstageDef.dispatch({ type: "WIDGET_TAB_REMOVE", id: tab.id });
+        frontstageDef.dispatch({ type: "WIDGET_TABS_REMOVE", ids: [tab.id] });
         continue;
       }
 
