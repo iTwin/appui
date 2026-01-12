@@ -2084,9 +2084,7 @@ describe("NineZoneStateReducer", () => {
       // Only t1 should remain
       expect(newState.widgets.w1.tabs).to.eql(["t1"]);
     });
-  });
 
-  describe("WIDGET_TAB_REMOVE", () => {
     it("should save state and remove the tab", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
