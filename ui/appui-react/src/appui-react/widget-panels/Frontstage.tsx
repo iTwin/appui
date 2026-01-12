@@ -474,17 +474,20 @@ function hideWidgetDef(frontstageDef: FrontstageDef, widgetDef: WidgetDef) {
  */
 function removeMissingWidgets(frontstageDef: FrontstageDef) {
   const state = frontstageDef.nineZoneState;
+
   if (!state) return;
   const toolSettingsTabId = state.toolSettings?.tabId;
-  for (const [, tab] of Object.entries(state.tabs)) {
-    if (tab.id === toolSettingsTabId) continue;
-    const widgetDef = frontstageDef.findWidgetDef(tab.id);
-    if (widgetDef) continue;
-    frontstageDef.dispatch({
-      type: "WIDGET_TAB_REMOVE",
-      id: tab.id,
-    });
-  }
+
+  const removedWidgets = Object.values(state.tabs)
+    .filter(
+      (tab) =>
+        tab.id !== toolSettingsTabId && !frontstageDef.findWidgetDef(tab.id)
+    )
+    .map((tab) => tab.id);
+
+  if (removedWidgets.length === 0) return;
+
+  frontstageDef.dispatch({ type: "WIDGET_TABS_REMOVE", ids: removedWidgets });
 }
 
 function getWidgetLabel(label: string) {
@@ -642,7 +645,7 @@ export function restoreNineZoneState(
             tabId: tab.id,
           }
         );
-        frontstageDef.dispatch({ type: "WIDGET_TAB_REMOVE", id: tab.id });
+        frontstageDef.dispatch({ type: "WIDGET_TABS_REMOVE", ids: [tab.id] });
         continue;
       }
 

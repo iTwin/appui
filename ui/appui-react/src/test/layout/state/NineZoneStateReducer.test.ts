@@ -1955,15 +1955,144 @@ describe("NineZoneStateReducer", () => {
     });
   });
 
-  describe("WIDGET_TAB_REMOVE", () => {
+  describe("WIDGET_TABS_REMOVE", () => {
+    it("should handle removing all tabs from widget", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "bottom", "w1", ["t1", "t2", "t3"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t1", "t2", "t3"],
+      });
+
+      // All tabs should be saved with their original indices
+      expect(newState.savedTabs.byId?.t1?.home?.tabIndex).to.equal(0);
+      expect(newState.savedTabs.byId?.t2?.home?.tabIndex).to.equal(1);
+      expect(newState.savedTabs.byId?.t3?.home?.tabIndex).to.equal(2);
+
+      // Widget should be empty
+      expect(newState.widgets.w1).toBeUndefined();
+
+      // No tabs should remain in the tabs state
+      expect(newState.tabs.t1).to.not.exist;
+      expect(newState.tabs.t2).to.not.exist;
+      expect(newState.tabs.t3).to.not.exist;
+    });
+
+    it("should handle removing tabs from floating widget", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addFloatingWidget(state, "fw1", ["t1", "t2", "t3"], {
+        bounds: { left: 0, top: 0, right: 100, bottom: 100 },
+      });
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t1", "t3"],
+      });
+
+      // Tabs should be saved with floating widget home
+      expect(newState.savedTabs.byId?.t1?.home).to.exist;
+      expect(newState.savedTabs.byId?.t1?.home?.tabIndex).to.equal(0);
+      expect(newState.savedTabs.byId?.t1?.home?.widgetId).to.equal("fw1");
+
+      expect(newState.savedTabs.byId?.t3?.home).to.exist;
+      expect(newState.savedTabs.byId?.t3?.home?.tabIndex).to.equal(2);
+      expect(newState.savedTabs.byId?.t3?.home?.widgetId).to.equal("fw1");
+
+      // t2 should remain
+      expect(newState.widgets.fw1.tabs).to.eql(["t2"]);
+    });
+
+    it("should handle removing tabs from multiple widgets", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3", "t4"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
+      state = addPanelWidget(state, "right", "w2", ["t3", "t4"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t1", "t3"],
+      });
+
+      // t1 should be saved from w1
+      expect(newState.savedTabs.byId.t1).to.eql({
+        id: "t1",
+        home: {
+          side: "left",
+          tabIndex: 0,
+          widgetId: "w1",
+          widgetIndex: 0,
+        },
+      });
+
+      // t3 should be saved from w2
+      expect(newState.savedTabs.byId.t3).to.eql({
+        id: "t3",
+        home: {
+          side: "right",
+          tabIndex: 0,
+          widgetId: "w2",
+          widgetIndex: 0,
+        },
+      });
+
+      // Remaining tabs should still be present
+      expect(newState.widgets.w1.tabs).to.eql(["t2"]);
+      expect(newState.widgets.w2.tabs).to.eql(["t4"]);
+    });
+
+    it("should handle single tab removal", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2"]);
+      state = addPanelWidget(state, "top", "w1", ["t1", "t2"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t1"],
+      });
+
+      expect(newState.savedTabs.byId.t1).to.eql({
+        id: "t1",
+        home: {
+          side: "top",
+          tabIndex: 0,
+          widgetId: "w1",
+          widgetIndex: 0,
+        },
+      });
+      expect(newState.tabs.t1).to.not.exist;
+      expect(newState.widgets.w1.tabs).to.eql(["t2"]);
+    });
+
+    it("should preserve original indices when removing tabs in reverse order", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3", "t4"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3", "t4"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t4", "t3", "t2"],
+      });
+
+      // Each tab should have its original index preserved, not shifted
+      expect(newState.savedTabs.byId?.t4?.home?.tabIndex).to.equal(3);
+      expect(newState.savedTabs.byId?.t3?.home?.tabIndex).to.equal(2);
+      expect(newState.savedTabs.byId?.t2?.home?.tabIndex).to.equal(1);
+
+      // Only t1 should remain
+      expect(newState.widgets.w1.tabs).to.eql(["t1"]);
+    });
+
     it("should save state and remove the tab", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPanelWidget(state, "right", "w1", ["t1"]);
 
       const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_REMOVE",
-        id: "t1",
+        type: "WIDGET_TABS_REMOVE",
+        ids: ["t1"],
       });
       expect(newState.savedTabs.byId.t1).to.eql({
         id: "t1",

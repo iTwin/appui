@@ -11,7 +11,11 @@ import { Point, Rectangle } from "@itwin/core-react/internal";
 import { assert } from "@itwin/core-bentley";
 import type { TabState } from "./TabState.js";
 import { getWidgetLocation, isPanelWidgetLocation } from "./WidgetLocation.js";
-import type { NineZoneAction, WidgetDefAddAction } from "./NineZoneAction.js";
+import type {
+  NineZoneAction,
+  WidgetDefAddAction,
+  WidgetTabsRemoveAction,
+} from "./NineZoneAction.js";
 import {
   isPanelDropTargetState,
   isSectionDropTargetState,
@@ -694,11 +698,16 @@ export function NineZoneStateReducer(
     case "WIDGET_TAB_HIDE": {
       return hideTab(state, action.id);
     }
-    case "WIDGET_TAB_REMOVE": {
-      // Save tab state.
-      state = hideTab(state, action.id);
-      // Remove tab.
-      return removeTab(state, action.id);
+    case "WIDGET_TABS_REMOVE": {
+      // Sort ids by their tab index in descending order
+      const sortedIds = sortIndexes(action, state);
+
+      for (const id of sortedIds) {
+        state = hideTab(state, id);
+        state = removeTab(state, id);
+      }
+
+      return state;
     }
     case "WIDGET_TAB_SET_LABEL": {
       return updateTabState(state, action.id, (draft) => {
@@ -921,6 +930,17 @@ export function NineZoneStateReducer(
   return state;
 }
 
+function sortIndexes(action: WidgetTabsRemoveAction, state: NineZoneState) {
+  return [...action.ids].sort((a, b) => {
+    const locationA = getTabLocation(state, a);
+    const locationB = getTabLocation(state, b);
+    if (!locationA || !locationB) return 0;
+    const indexA = state.widgets[locationA.widgetId].tabs.indexOf(a);
+    const indexB = state.widgets[locationB.widgetId].tabs.indexOf(b);
+    return indexB - indexA;
+  });
+}
+
 function openWidgetTab(state: NineZoneState, id: TabState["id"]) {
   if (
     state.toolSettings?.tabId === id &&
@@ -1001,6 +1021,7 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
 
   const widgetId = location.widgetId;
   const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
     // widgetDef.setFloatingContainerId(location.floatingWidgetId);
@@ -1014,6 +1035,7 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   } else if (isPanelTabLocation(location)) {
     const side = location.side;
     const widgetIndex = state.panels[side].widgets.indexOf(widgetId);
+
     state = updateSavedTabState(state, id, (draft) => {
       draft.home = {
         widgetId,
