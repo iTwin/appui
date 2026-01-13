@@ -1,5 +1,20 @@
 # Change Log - @itwin/appui-react
 
+## 5.23.0
+
+### Minor Changes
+
+- b128dbc: Fix widget order when 2 widgets get unregistered then registered again in the same panel
+- fe3d1ba: Improve widget content layout body padding
+
+### Patch Changes
+
+- 0747cb9: Remove noisy CursorMenu logging
+- ceb5cca: Fix widget tab activation issue in the dropdown menu of widget overflow.
+  - @itwin/components-react@5.23.0
+  - @itwin/core-react@5.23.0
+  - @itwin/imodel-components-react@5.23.0
+
 ## 5.22.0
 
 ### Minor Changes
