@@ -14,7 +14,6 @@ import type { CursorMenuItemProps } from "../../shared/MenuItem.js";
 import { MenuItemHelpers } from "../../shared/MenuItem.js";
 import { SyncUiEventDispatcher } from "../../syncui/SyncUiEventDispatcher.js";
 import { UiFramework } from "../../UiFramework.js";
-import { Logger } from "@itwin/core-bentley";
 
 /** Popup Menu to show at cursor typically used by tools to provide a right-click context menu.
  * @alpha
@@ -65,10 +64,6 @@ export function CursorPopupMenu(props: CommonProps) {
         const parentWindow = el?.ownerDocument.defaultView ?? undefined;
         const windowId = UiFramework.childWindows.findId(parentWindow);
         windowIdRef.current = windowId;
-        Logger.logInfo(
-          UiFramework.loggerCategory("UiFramework"),
-          `Cursor Menu for ${windowId ?? "main"} window`
-        );
       }}
     >
       {items && items.length > 0 && opened && (
