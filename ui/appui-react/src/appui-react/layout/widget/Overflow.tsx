@@ -46,6 +46,7 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
         menuItems={props.items}
         visible={open}
         onVisibleChange={setOpen}
+        closeOnItemClick={false}
       >
         <TabBarButton
           label={moreWidgetsTitle}
