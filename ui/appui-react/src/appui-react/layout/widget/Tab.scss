@@ -12,36 +12,65 @@
   display: flex;
   gap: 6px;
   align-items: center;
-  cursor: pointer;
   padding: 4px 1em 0;
   position: relative;
   border: 0 solid var(--iui-color-border);
   max-width: 9em;
   background: var(--iui-color-background-backdrop);
   flex-shrink: 0;
+  cursor: pointer;
 
-  > .nz-icon {
-    svg {
-      width: #{math.div(14, 16)}rem;
-      height: #{math.div(14, 16)}rem;
-      fill: currentColor;
+  .nz-tab-button {
+    background: unset;
+    border: unset;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    padding: 0;
+    cursor: pointer;
+
+    > .nz-icon {
+      display: flex;
+      cursor: pointer;
+      svg {
+        width: #{math.div(14, 16)}rem;
+        height: #{math.div(14, 16)}rem;
+        fill: currentColor;
+      }
+    }
+
+    > .nz-label {
+      font-size: $nz-widget-tab-font-size;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    > .nz-badge {
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
 
-  > .nz-label {
-    font-size: $nz-widget-tab-font-size;
-    text-overflow: ellipsis;
-    overflow: hidden;
-  }
-
-  > .nz-badge {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .icon-close {
+    display: none;
+    font-size: 8px;
+    background: unset;
+    border: unset;
+    padding: unset;
+    cursor: pointer;
   }
 
   &:not(.nz-minimized) {
     &.nz-active {
+      cursor: default;
+      .nz-tab-button {
+        color: var(--iui-color-text-accent);
+        cursor: default;
+      }
+      .nz-icon {
+        cursor: default;
+      }
       background: var(--iui-color-background);
       color: var(--iui-color-text-accent);
       padding-bottom: 1px;
@@ -61,6 +90,11 @@
 
       &.nz-last {
         border-right-width: 1px;
+      }
+
+      .icon-close {
+        display: flex;
+        color: var(--iui-color-text-accent);
       }
     }
   }
@@ -83,9 +117,16 @@
 
   &:hover {
     background: var(--iui-color-background);
-
+    .icon-close {
+      display: flex;
+    }
     &:not(.nz-active) {
       color: var(--iui-color-text);
+    }
+  }
+  &:focus-within {
+    .icon-close {
+      display: flex;
     }
   }
 }
