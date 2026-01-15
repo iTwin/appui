@@ -8,23 +8,21 @@
 
 import * as React from "react";
 import { Tabs } from "@itwin/itwinui-react";
-import { WidgetIdContext } from "../../layout/widget/Widget.js";
+import { useActiveTabId, WidgetIdContext } from "../../layout/widget/Widget.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
 import { useLayout } from "../../layout/base/LayoutStore.js";
 import { getWidgetState } from "../../layout/state/internal/WidgetStateHelpers.js";
 import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
+import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
+import { useTabInteractions } from "../../layout/widget/Tab.js";
 
 /** @internal */
 export function Widget() {
   const widgetId = useSafeContext(WidgetIdContext);
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
-  const [value, setValue] = React.useState(tabIds[0]);
+  const activeTabId = useActiveTabId();
   return (
-    <Tabs.Wrapper
-      value={value}
-      onValueChange={setValue}
-      focusActivationMode="manual"
-    >
+    <Tabs.Wrapper value={activeTabId} focusActivationMode="manual">
       <Tabs.TabList>
         {tabIds.map((tabId) => {
           return (
@@ -35,7 +33,9 @@ export function Widget() {
         })}
       </Tabs.TabList>
 
-      <Tabs.Panel value={value}>Content of {value}</Tabs.Panel>
+      <Tabs.Panel value={activeTabId}>
+        <PanelContent />
+      </Tabs.Panel>
     </Tabs.Wrapper>
   );
 }
@@ -43,9 +43,19 @@ export function Widget() {
 function Tab() {
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
+  const ref = useTabInteractions({});
   return (
-    <Tabs.Tab value={id}>
+    <Tabs.Tab value={id} ref={ref}>
       <Tabs.TabLabel>{label}</Tabs.TabLabel>
     </Tabs.Tab>
+  );
+}
+
+function PanelContent() {
+  const ref = useWidgetContentContainer();
+  return (
+    <>
+      <div ref={ref} />
+    </>
   );
 }

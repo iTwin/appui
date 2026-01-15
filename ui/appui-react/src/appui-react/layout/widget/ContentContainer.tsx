@@ -9,12 +9,12 @@
 import "./ContentContainer.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { assert } from "@itwin/core-bentley";
 import { WidgetContentManagerContext } from "./ContentManager.js";
 import { PanelSideContext } from "../widget-panels/Panel.js";
-import { WidgetIdContext } from "./Widget.js";
+import { useActiveTabId, WidgetIdContext } from "./Widget.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 /** @internal */
 export interface WidgetContentContainerProps {
@@ -23,31 +23,34 @@ export interface WidgetContentContainerProps {
 
 /** @internal */
 export function WidgetContentContainer(props: WidgetContentContainerProps) {
-  const widgetId = React.useContext(WidgetIdContext);
-  const widgetContentManager = React.useContext(WidgetContentManagerContext);
   const side = React.useContext(PanelSideContext);
-  assert(!!widgetId);
-  const { minimized, activeTabId } = useLayout((state) => {
-    const widget = getWidgetState(state, widgetId);
-    return { minimized: widget.minimized, activeTabId: widget.activeTabId };
-  }, true);
-  const ref = React.useCallback<React.RefCallback<HTMLDivElement>>(
-    (instance) => {
-      if (!widgetContentManager) return;
+  const widgetId = useSafeContext(WidgetIdContext);
+  const minimized = useLayout((state) => {
+    return getWidgetState(state, widgetId).minimized;
+  });
+  const ref = useWidgetContentContainer();
 
-      widgetContentManager.setContainer(activeTabId, instance ?? undefined);
-    },
-    [widgetContentManager, activeTabId]
-  );
-
-  const className = classnames(
-    "nz-widget-contentContainer",
-    undefined === side && minimized && "nz-minimized"
-  );
   return (
-    <div className={className}>
+    <div
+      className={classnames(
+        "nz-widget-contentContainer",
+        undefined === side && minimized && "nz-minimized"
+      )}
+    >
       <div className="nz-content" ref={ref} />
       {props.children}
     </div>
+  );
+}
+
+/** @internal */
+export function useWidgetContentContainer(): React.RefCallback<HTMLDivElement> {
+  const widgetContentManager = useSafeContext(WidgetContentManagerContext);
+  const activeTabId = useActiveTabId();
+  return React.useCallback(
+    (instance) => {
+      widgetContentManager.setContainer(activeTabId, instance ?? undefined);
+    },
+    [widgetContentManager, activeTabId]
   );
 }

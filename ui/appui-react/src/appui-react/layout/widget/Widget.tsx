@@ -25,6 +25,7 @@ import { useLayout } from "../base/LayoutStore.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 /** @internal */
 export interface WidgetProviderProps {
@@ -211,8 +212,7 @@ export function restrainInitialWidgetSize(
 
 /** @internal */
 export function useActiveTabId() {
-  const id = React.useContext(WidgetIdContext);
-  assert(!!id);
+  const id = useSafeContext(WidgetIdContext);
   return useLayout((state) => {
     const widget = getWidgetState(state, id);
     return widget.activeTabId;
