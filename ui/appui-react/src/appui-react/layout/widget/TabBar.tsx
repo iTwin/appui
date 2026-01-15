@@ -81,7 +81,6 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     onDragEnd,
   });
 
-  const containerRef = React.useRef<HTMLDivElement>(null);
   const handleDragStart = React.useCallback(
     (initialPointerPosition: Point, pointerPosition: Point) => {
       handleWidgetDragStart({
@@ -106,14 +105,17 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     handleDoubleClick
   );
   const maximizedWidgetHandle = useMaximizedWidgetTabBarHandle();
-  const className = classnames(
-    "nz-widget-tabBar",
-    props.separator && "nz-separator"
-  );
-  const handleClassName = classnames("nz-handle", maximizedWidgetHandle);
   return (
-    <div ref={containerRef} className={className}>
-      <div className={handleClassName} ref={ref} />
+    <div
+      className={classnames(
+        "nz-widget-tabBar",
+        props.separator && "nz-separator"
+      )}
+    >
+      <div
+        className={classnames("nz-handle", maximizedWidgetHandle)}
+        ref={ref}
+      />
       <WidgetTabs />
       {widgetActions ?? <WidgetActions />}
     </div>
