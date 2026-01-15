@@ -6,6 +6,7 @@
  * @module Widget
  */
 
+import "./Widget.scss";
 import * as React from "react";
 import { Tabs } from "@itwin/itwinui-react";
 import {
@@ -30,6 +31,7 @@ export function Widget() {
   return (
     <WidgetContext.Provider value={value}>
       <Tabs.Wrapper
+        className="uifw-preview-widgetTabActions-widget_wrapper"
         value={activeTabId}
         focusActivationMode="manual"
         ref={widgetRef}
@@ -44,7 +46,10 @@ export function Widget() {
           })}
         </Tabs.TabList>
 
-        <Tabs.Panel value={activeTabId}>
+        <Tabs.Panel
+          value={activeTabId}
+          className="uifw-preview-widgetTabActions-widget_panel"
+        >
           <PanelContent />
         </Tabs.Panel>
       </Tabs.Wrapper>
