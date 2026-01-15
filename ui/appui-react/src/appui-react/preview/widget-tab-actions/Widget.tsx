@@ -7,6 +7,7 @@
  */
 
 import "./Widget.scss";
+import classnames from "classnames";
 import * as React from "react";
 import { Tabs } from "@itwin/itwinui-react";
 import {
@@ -21,9 +22,16 @@ import { getWidgetState } from "../../layout/state/internal/WidgetStateHelpers.j
 import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
 import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
 import { useTabInteractions } from "../../layout/widget/Tab.js";
+import { useFloatingWidgetStyle } from "../../layout/widget/FloatingWidget.js";
+
+interface WidgetProps {
+  className?: string;
+  style?: React.CSSProperties;
+}
 
 /** @internal */
-export function Widget() {
+export function Widget(props: WidgetProps) {
+  const { className, ...rest } = props;
   const widgetId = useSafeContext(WidgetIdContext);
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const activeTabId = useActiveTabId();
@@ -31,7 +39,11 @@ export function Widget() {
   return (
     <WidgetContext.Provider value={value}>
       <Tabs.Wrapper
-        className="uifw-preview-widgetTabActions-widget_wrapper"
+        {...rest}
+        className={classnames(
+          "uifw-preview-widgetTabActions-widget_wrapper",
+          className
+        )}
         value={activeTabId}
         focusActivationMode="manual"
         ref={widgetRef}
@@ -75,4 +87,10 @@ function PanelContent() {
       <div ref={ref} />
     </>
   );
+}
+
+/** @internal */
+export function FloatingWidget() {
+  const { style } = useFloatingWidgetStyle();
+  return <Widget className="uifw-floating" style={style} />;
 }

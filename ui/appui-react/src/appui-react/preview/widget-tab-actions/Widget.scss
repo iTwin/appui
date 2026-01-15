@@ -2,8 +2,20 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
+@use "../../layout/widgetopacity" as *;
+
 .uifw-preview-widgetTabActions-widget_wrapper {
   flex: 1;
+
+  &.uifw-floating {
+    position: absolute;
+    min-width: 200px;
+    min-height: 120px;
+
+    @include uicore-z-index(dragged-widget);
+    @include nz-widget-opacity;
+  }
 }
 
 .uifw-preview-widgetTabActions-widget_panel {

@@ -43,6 +43,8 @@ import {
   useIsMaximizedWidget,
   useMaximizedFloatingWidget,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { useWidgetTabActions } from "../../preview/widget-tab-actions/useWidgetTabActions.js";
+import { FloatingWidget as TabActionsWidget } from "../../preview/widget-tab-actions/Widget.js";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -64,7 +66,12 @@ export interface FloatingWidgetProviderProps {
 /** @internal */
 export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
-  return <WidgetProvider id={props.id}>{floatingWidget}</WidgetProvider>;
+  const widgetTabActions = useWidgetTabActions();
+  return (
+    <WidgetProvider id={props.id}>
+      {widgetTabActions ? <TabActionsWidget /> : floatingWidget}
+    </WidgetProvider>
+  );
 }
 
 /** @internal */
@@ -78,14 +85,8 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const uiIsVisible = React.useContext(UiIsVisibleContext);
   const id = useFloatingWidgetId();
   assert(!!id);
-  const {
-    autoSized,
-    bounds,
-    hideWithUiWhenFloating,
-    isToolSettingsTab,
-    minimized,
-    resizable,
-  } = useFloatingWidgetState();
+  const { hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } =
+    useFloatingWidgetState();
   const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
 
   const item = React.useMemo(
@@ -107,18 +108,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     hideFloatingWidget && "nz-hidden",
     maximizedWidget.classNames
   );
-  const style = React.useMemo(() => {
-    const boundsRect = Rectangle.create(bounds);
-    const { height, width } = boundsRect.getSize();
-    const position = boundsRect.topLeft();
-    return {
-      transform: `translate(${position.x}px, ${position.y}px)`,
-      height: minimized || autoSized ? undefined : height,
-      width: autoSized ? undefined : width,
-      maxHeight: autoSized ? "60%" : undefined,
-      maxWidth: autoSized ? "60%" : undefined,
-    };
-  }, [autoSized, bounds, minimized]);
+  const { style } = useFloatingWidgetStyle();
 
   const content = React.useMemo(
     () => (
@@ -149,10 +139,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     <Widget
       className={className}
       widgetId={id}
-      style={{
-        ...style,
-        ...maximizedWidget.style,
-      }}
+      style={style}
       ref={ref}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
@@ -189,6 +176,30 @@ function useFloatingWidgetState() {
       resizable,
     };
   }, true);
+}
+
+/** @internal */
+export function useFloatingWidgetStyle() {
+  const { autoSized, bounds, minimized } = useFloatingWidgetState();
+  const style = React.useMemo(() => {
+    const boundsRect = Rectangle.create(bounds);
+    const { height, width } = boundsRect.getSize();
+    const position = boundsRect.topLeft();
+    return {
+      transform: `translate(${position.x}px, ${position.y}px)`,
+      height: minimized || autoSized ? undefined : height,
+      width: autoSized ? undefined : width,
+      maxHeight: autoSized ? "60%" : undefined,
+      maxWidth: autoSized ? "60%" : undefined,
+    };
+  }, [autoSized, bounds, minimized]);
+  const maximizedWidget = useMaximizedFloatingWidget();
+  return {
+    style: {
+      ...style,
+      ...maximizedWidget.style,
+    },
+  };
 }
 
 // Re-adjust bounds so that widget is behind pointer when auto-sized.
