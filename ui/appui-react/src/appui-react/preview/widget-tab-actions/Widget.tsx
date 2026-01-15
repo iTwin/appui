@@ -74,6 +74,7 @@ export function Widget(props: WidgetProps) {
 
 function Tab() {
   const id = useSafeContext(TabIdContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
   const label = useLayout((state) => state.tabs[id].label);
   const ref = useTabInteractions({});
   const closeAction = useWidgetTabCloseAction();
@@ -82,27 +83,33 @@ function Tab() {
       className="uifw-preview-widgetTabActions-widget_tab"
       value={id}
       ref={ref}
+      onKeyDown={(e) => {
+        if (e.key === "Delete") {
+          e.preventDefault();
+          dispatch({
+            type: "WIDGET_TAB_HIDE",
+            id,
+          });
+        }
+      }}
     >
       <Tabs.TabLabel>{label}</Tabs.TabLabel>
-      {closeAction && <CloseTabAction label={label} />}
+      {closeAction && <CloseTabAction />}
     </Tabs.Tab>
   );
 }
 
-interface CloseTabActionProps {
-  label: string;
-}
-
-function CloseTabAction(props: CloseTabActionProps) {
+function CloseTabAction() {
   const id = useSafeContext(TabIdContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
+  const label = useLayout((state) => state.tabs[id].label);
   return (
     <IconButton
       as={Tabs.TabIcon}
       className="uifw-preview-widgetTabActions-widget_action"
       styleType="borderless"
       size="small"
-      label={`Close ${props.label}`}
+      label={`Close ${label}`}
       aria-hidden="true"
       onClick={() => {
         dispatch({
