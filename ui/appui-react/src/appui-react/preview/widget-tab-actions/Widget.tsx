@@ -8,7 +8,12 @@
 
 import * as React from "react";
 import { Tabs } from "@itwin/itwinui-react";
-import { useActiveTabId, WidgetIdContext } from "../../layout/widget/Widget.js";
+import {
+  useActiveTabId,
+  useWidgetContextValue,
+  WidgetContext,
+  WidgetIdContext,
+} from "../../layout/widget/Widget.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
 import { useLayout } from "../../layout/base/LayoutStore.js";
 import { getWidgetState } from "../../layout/state/internal/WidgetStateHelpers.js";
@@ -21,22 +26,29 @@ export function Widget() {
   const widgetId = useSafeContext(WidgetIdContext);
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const activeTabId = useActiveTabId();
+  const [widgetRef, value] = useWidgetContextValue();
   return (
-    <Tabs.Wrapper value={activeTabId} focusActivationMode="manual">
-      <Tabs.TabList>
-        {tabIds.map((tabId) => {
-          return (
-            <TabIdContext.Provider key={tabId} value={tabId}>
-              <Tab />
-            </TabIdContext.Provider>
-          );
-        })}
-      </Tabs.TabList>
+    <WidgetContext.Provider value={value}>
+      <Tabs.Wrapper
+        value={activeTabId}
+        focusActivationMode="manual"
+        ref={widgetRef}
+      >
+        <Tabs.TabList>
+          {tabIds.map((tabId) => {
+            return (
+              <TabIdContext.Provider key={tabId} value={tabId}>
+                <Tab />
+              </TabIdContext.Provider>
+            );
+          })}
+        </Tabs.TabList>
 
-      <Tabs.Panel value={activeTabId}>
-        <PanelContent />
-      </Tabs.Panel>
-    </Tabs.Wrapper>
+        <Tabs.Panel value={activeTabId}>
+          <PanelContent />
+        </Tabs.Panel>
+      </Tabs.Wrapper>
+    </WidgetContext.Provider>
   );
 }
 

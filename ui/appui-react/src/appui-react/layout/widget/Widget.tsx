@@ -147,22 +147,12 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         element?.removeEventListener("click", listener);
       };
     }, [dispatch, floatingWidgetId]);
-    const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
-      if (!elementRef.current) return new Rectangle();
-      const bounds = elementRef.current.getBoundingClientRect();
-      return Rectangle.create(bounds);
-    }, []);
-    const widgetContextValue = React.useMemo<WidgetContextArgs>(
-      () => ({
-        measure,
-      }),
-      [measure]
-    );
+    const [widgetRef, value] = useWidgetContextValue();
 
-    const ref = useRefs(forwardedRef, elementRef);
+    const ref = useRefs(forwardedRef, elementRef, widgetRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
-      <WidgetContext.Provider value={widgetContextValue}>
+      <WidgetContext.Provider value={value}>
         <div
           className={className}
           onMouseEnter={props.onMouseEnter}
@@ -178,6 +168,23 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
     );
   }
 );
+
+/** @internal */
+export function useWidgetContextValue() {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
+    if (!ref.current) return new Rectangle();
+    const bounds = ref.current.getBoundingClientRect();
+    return Rectangle.create(bounds);
+  }, []);
+  const value = React.useMemo<WidgetContextArgs>(
+    () => ({
+      measure,
+    }),
+    [measure]
+  );
+  return [ref, value] as const;
+}
 
 /** @internal */
 export const WidgetIdContext = React.createContext<
