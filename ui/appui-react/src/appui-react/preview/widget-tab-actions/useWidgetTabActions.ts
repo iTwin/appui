@@ -10,3 +10,10 @@ export function useWidgetTabActions() {
   const { widgetTabActions } = usePreviewFeatures();
   return !!widgetTabActions;
 }
+
+/** @internal */
+export function useWidgetTabCloseAction() {
+  const { widgetTabActions } = usePreviewFeatures();
+  const { controlWidgetVisibility } = usePreviewFeatures();
+  return widgetTabActions && controlWidgetVisibility;
+}

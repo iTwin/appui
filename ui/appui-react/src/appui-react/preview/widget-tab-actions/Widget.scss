@@ -18,6 +18,18 @@
   }
 }
 
+.uifw-preview-widgetTabActions-widget_tab {
+  grid-template:
+    "icon label action"
+    "icon description action"
+    minmax(0, auto) / auto minmax(min-content, 1fr) auto;
+}
+
 .uifw-preview-widgetTabActions-widget_panel {
   padding: 0;
+}
+
+.uifw-preview-widgetTabActions-widget_action {
+  grid-area: action;
+  margin-inline-start: var(--iui-size-2xs);
 }

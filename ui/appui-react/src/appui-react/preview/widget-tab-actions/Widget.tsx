@@ -9,7 +9,7 @@
 import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Tabs } from "@itwin/itwinui-react";
+import { IconButton, Tabs } from "@itwin/itwinui-react";
 import {
   useActiveTabId,
   useWidgetContextValue,
@@ -23,6 +23,9 @@ import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
 import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
 import { useTabInteractions } from "../../layout/widget/Tab.js";
 import { useFloatingWidgetStyle } from "../../layout/widget/FloatingWidget.js";
+import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
+import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
+import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 
 interface WidgetProps {
   className?: string;
@@ -73,10 +76,43 @@ function Tab() {
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
   const ref = useTabInteractions({});
+  const closeAction = useWidgetTabCloseAction();
   return (
-    <Tabs.Tab value={id} ref={ref}>
+    <Tabs.Tab
+      className="uifw-preview-widgetTabActions-widget_tab"
+      value={id}
+      ref={ref}
+    >
       <Tabs.TabLabel>{label}</Tabs.TabLabel>
+      {closeAction && <CloseTabAction label={label} />}
     </Tabs.Tab>
+  );
+}
+
+interface CloseTabActionProps {
+  label: string;
+}
+
+function CloseTabAction(props: CloseTabActionProps) {
+  const id = useSafeContext(TabIdContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  return (
+    <IconButton
+      as={Tabs.TabIcon}
+      className="uifw-preview-widgetTabActions-widget_action"
+      styleType="borderless"
+      size="small"
+      label={`Close ${props.label}`}
+      aria-hidden="true"
+      onClick={() => {
+        dispatch({
+          type: "WIDGET_TAB_HIDE",
+          id,
+        });
+      }}
+    >
+      <SvgCloseSmall />
+    </IconButton>
   );
 }
 
