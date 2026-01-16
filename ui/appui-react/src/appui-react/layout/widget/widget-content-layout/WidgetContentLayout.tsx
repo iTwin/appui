@@ -22,6 +22,7 @@ interface IconMenuButton {
   icon: React.ReactNode;
   onClick: () => void;
   label: string;
+  tooltipContent?: string;
   type?: "button";
   disabled?: boolean;
   isActive?: boolean;

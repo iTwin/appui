@@ -96,6 +96,7 @@ export const IconsAndSearch: Story = {
     icons: [
       {
         label: "Icon 1",
+        tooltipContent: "This is the content of the tooltip for Icon 1",
         icon: <SvgPlaceholder />,
         onClick: action("Icon 1 clicked"),
       },

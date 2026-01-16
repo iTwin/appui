@@ -55,7 +55,7 @@ export function HeaderTopBar(props: HeaderTopBarProps) {
         (props.primaryContent.length === 0 || menuIcons.length === 0) &&
           "nz-singleColumn"
       )}
-      data-search-expanded={searchExpandedState[0] ? "true" : "false"}
+      data-search-expanded={searchExpandedState[0]}
     >
       {props.primaryContent.length > 0 && (
         <div className="nz-primaryContent">{props.primaryContent}</div>

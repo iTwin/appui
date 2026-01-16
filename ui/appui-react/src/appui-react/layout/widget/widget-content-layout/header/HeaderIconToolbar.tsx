@@ -12,6 +12,7 @@ import {
   IconButton,
   MenuDivider,
   MenuItem,
+  Text,
 } from "@itwin/itwinui-react";
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
 import { HeaderSearch } from "./HeaderSearch.js";
@@ -134,7 +135,18 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
           ) : (
             <IconButton
               disabled={icon.disabled}
-              label={icon.label}
+              label={
+                icon.tooltipContent ? (
+                  <>
+                    {icon.label}
+                    <Text isMuted variant="small">
+                      {icon.tooltipContent}
+                    </Text>
+                  </>
+                ) : (
+                  icon.label
+                )
+              }
               key={icon.label}
               size={props.iconSize}
               styleType="borderless"
