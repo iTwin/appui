@@ -9,7 +9,7 @@
 import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { IconButton, Tabs } from "@itwin/itwinui-react";
+import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
 import {
   useActiveTabId,
   useWidgetContextValue,
@@ -27,6 +27,11 @@ import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 
+const TabActionsContext = React.createContext<{
+  focused: string | undefined;
+  setFocused: (id: string | undefined) => void;
+}>({ focused: undefined, setFocused: () => {} });
+
 interface WidgetProps {
   className?: string;
   style?: React.CSSProperties;
@@ -39,35 +44,42 @@ export function Widget(props: WidgetProps) {
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const activeTabId = useActiveTabId();
   const [widgetRef, value] = useWidgetContextValue();
+  const [focused, setFocused] = React.useState<string | undefined>(undefined);
   return (
     <WidgetContext.Provider value={value}>
-      <Tabs.Wrapper
-        {...rest}
-        className={classnames(
-          "uifw-preview-widgetTabActions-widget_wrapper",
-          className
-        )}
-        value={activeTabId}
-        focusActivationMode="manual"
-        ref={widgetRef}
-      >
-        <Tabs.TabList>
-          {tabIds.map((tabId) => {
-            return (
-              <TabIdContext.Provider key={tabId} value={tabId}>
-                <Tab />
-              </TabIdContext.Provider>
-            );
-          })}
-        </Tabs.TabList>
-
-        <Tabs.Panel
+      <TabActionsContext.Provider value={{ focused, setFocused }}>
+        <Tabs.Wrapper
+          {...rest}
+          className={classnames(
+            "uifw-preview-widgetTabActions-widget_wrapper",
+            className,
+          )}
           value={activeTabId}
-          className="uifw-preview-widgetTabActions-widget_panel"
+          focusActivationMode="manual"
+          ref={widgetRef}
         >
-          <PanelContent />
-        </Tabs.Panel>
-      </Tabs.Wrapper>
+          <Tabs.TabList>
+            {tabIds.map((tabId) => {
+              return (
+                <TabIdContext.Provider key={tabId} value={tabId}>
+                  <Tab />
+                </TabIdContext.Provider>
+              );
+            })}
+          </Tabs.TabList>
+
+          <Tabs.Actions>
+            {focused && <TabActionsButton id={focused} />}
+          </Tabs.Actions>
+
+          <Tabs.Panel
+            value={activeTabId}
+            className="uifw-preview-widgetTabActions-widget_panel"
+          >
+            <PanelContent />
+          </Tabs.Panel>
+        </Tabs.Wrapper>
+      </TabActionsContext.Provider>
     </WidgetContext.Provider>
   );
 }
@@ -78,6 +90,7 @@ function Tab() {
   const label = useLayout((state) => state.tabs[id].label);
   const ref = useTabInteractions({});
   const closeAction = useWidgetTabCloseAction();
+  const { setFocused } = React.useContext(TabActionsContext);
   return (
     <Tabs.Tab
       className="uifw-preview-widgetTabActions-widget_tab"
@@ -92,6 +105,9 @@ function Tab() {
           });
         }
       }}
+      onFocus={() => {
+        setFocused(id);
+      }}
     >
       <Tabs.TabLabel>{label}</Tabs.TabLabel>
       {closeAction && <CloseTabAction />}
@@ -101,6 +117,7 @@ function Tab() {
 
 function CloseTabAction() {
   const id = useSafeContext(TabIdContext);
+  const { focused } = React.useContext(TabActionsContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const label = useLayout((state) => state.tabs[id].label);
   return (
@@ -117,9 +134,45 @@ function CloseTabAction() {
           id,
         });
       }}
+      data-_appui-focused={focused === id ? "true" : undefined}
     >
       <SvgCloseSmall />
     </IconButton>
+  );
+}
+
+interface TabActionsButtonProps {
+  id: string;
+}
+
+function TabActionsButton(props: TabActionsButtonProps) {
+  const { id } = props;
+  const { setFocused } = React.useContext(TabActionsContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const label = useLayout((state) => state.tabs[id].label);
+
+  return (
+    <VisuallyHidden
+      as="span"
+      className="uifw-preview-widgetTabActions-widget_actionsButton"
+      style={{}}
+    >
+      <IconButton
+        onBlur={() => setFocused(undefined)}
+        label={`Close ${label}`}
+        styleType="borderless"
+        size="small"
+        onClick={() => {
+          setFocused(undefined);
+          dispatch({
+            type: "WIDGET_TAB_HIDE",
+            id,
+          });
+        }}
+      >
+        <SvgCloseSmall />
+      </IconButton>
+    </VisuallyHidden>
   );
 }
 

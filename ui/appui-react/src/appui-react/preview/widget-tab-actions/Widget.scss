@@ -32,4 +32,15 @@
 .uifw-preview-widgetTabActions-widget_action {
   grid-area: action;
   margin-inline-start: var(--iui-size-2xs);
+
+  &[data-_appui-focused="true"] {
+    anchor-name: --_appui-actions-tab;
+  }
+}
+
+.uifw-preview-widgetTabActions-widget_actionsButton {
+  position: absolute;
+  position-anchor: --_appui-actions-tab;
+  right: anchor(right);
+  align-self: anchor-center;
 }
