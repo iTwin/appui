@@ -26,6 +26,8 @@ import { useFloatingWidgetStyle } from "../../layout/widget/FloatingWidget.js";
 import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
+import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
+import { WidgetActions } from "../../layout/widget/WidgetActions.js";
 
 const TabActionsContext = React.createContext<{
   focused: string | undefined;
@@ -68,9 +70,7 @@ export function Widget(props: WidgetProps) {
             })}
           </Tabs.TabList>
 
-          <Tabs.Actions>
-            {focused && <TabActionsButton id={focused} />}
-          </Tabs.Actions>
+          <TabsActions />
 
           <Tabs.Panel
             value={activeTabId}
@@ -173,6 +173,17 @@ function TabActionsButton(props: TabActionsButtonProps) {
         <SvgCloseSmall />
       </IconButton>
     </VisuallyHidden>
+  );
+}
+
+function TabsActions() {
+  const { widgetActions } = React.useContext(ConfigurableUiContext);
+  const { focused } = React.useContext(TabActionsContext);
+  return (
+    <Tabs.Actions>
+      {focused && <TabActionsButton id={focused} />}
+      {widgetActions ?? <WidgetActions />}
+    </Tabs.Actions>
   );
 }
 
