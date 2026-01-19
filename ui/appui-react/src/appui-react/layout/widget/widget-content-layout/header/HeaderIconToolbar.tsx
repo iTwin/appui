@@ -13,6 +13,7 @@ import {
   MenuDivider,
   MenuItem,
   Text,
+  Tooltip,
 } from "@itwin/itwinui-react";
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
 import { HeaderSearch } from "./HeaderSearch.js";
@@ -91,6 +92,21 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
                     ) : (
                       <React.Fragment key={index}></React.Fragment>
                     )
+                  ) : icon.tooltipContent ? (
+                    <Tooltip content={icon.tooltipContent} key={index}>
+                      <MenuItem
+                        isSelected={icon.isActive}
+                        disabled={icon.disabled}
+                        key={index}
+                        onClick={() => {
+                          icon.onClick();
+                          close();
+                        }}
+                        startIcon={<>{icon.icon}</>}
+                      >
+                        {icon.label}
+                      </MenuItem>
+                    </Tooltip>
                   ) : (
                     <MenuItem
                       isSelected={icon.isActive}
@@ -137,12 +153,12 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
               disabled={icon.disabled}
               label={
                 icon.tooltipContent ? (
-                  <>
-                    {icon.label}
+                  <div className="nz-widget-widgetContentLayout-header-headerIconToolbar-iconButton-tooltip">
+                    <Text variant="small">{icon.label}</Text>
                     <Text isMuted variant="small">
                       {icon.tooltipContent}
                     </Text>
-                  </>
+                  </div>
                 ) : (
                   icon.label
                 )
