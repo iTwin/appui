@@ -41,10 +41,12 @@
 
   @supports (anchor-name: --_appui-actions-tab) {
     .uifw-preview-widgetTabActions-widget_actionsButton {
-      position: absolute;
-      position-anchor: --_appui-actions-tab;
-      right: anchor(right);
-      align-self: anchor-center;
+      &:where([data-_appui-anchor="true"]) {
+        position: absolute;
+        position-anchor: --_appui-actions-tab;
+        right: anchor(right);
+        align-self: anchor-center;
+      }
     }
   }
 }

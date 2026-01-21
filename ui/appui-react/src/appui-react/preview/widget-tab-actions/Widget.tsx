@@ -33,11 +33,15 @@ import { useRefs } from "@itwin/core-react/internal";
 const TabActionsContext = React.createContext<{
   focused: string | undefined;
   setFocused: (id: string | undefined) => void;
+  anchored: boolean;
+  setAnchored: (anchored: boolean) => void;
   hideTab: (id: string) => void;
   setTabElement: (id: string, element: HTMLElement | null) => void;
 }>({
   focused: undefined,
   setFocused: () => {},
+  anchored: false,
+  setAnchored: () => {},
   hideTab: () => {},
   setTabElement: () => {},
 });
@@ -56,6 +60,7 @@ export function Widget(props: WidgetProps) {
   const activeTabId = useActiveTabId();
   const [widgetRef, value] = useWidgetContextValue();
   const [focused, setFocused] = React.useState<string | undefined>(undefined);
+  const [anchored, setAnchored] = React.useState(false);
   const [tabs, setTabs] = React.useState<Map<string, HTMLElement | null>>(
     new Map(),
   );
@@ -84,7 +89,14 @@ export function Widget(props: WidgetProps) {
   return (
     <WidgetContext.Provider value={value}>
       <TabActionsContext.Provider
-        value={{ focused, setFocused, hideTab, setTabElement }}
+        value={{
+          focused,
+          setFocused,
+          hideTab,
+          setTabElement,
+          anchored,
+          setAnchored,
+        }}
       >
         <Tabs.Wrapper
           {...rest}
@@ -158,9 +170,25 @@ function Tab() {
 }
 
 function CloseTabAction() {
-  const { focused, hideTab } = React.useContext(TabActionsContext);
+  const { focused, hideTab, setAnchored } = React.useContext(TabActionsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
+  const ref = React.useRef<HTMLButtonElement | null>(null);
+  React.useEffect(() => {
+    if (focused !== id) return;
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setAnchored(entry.isIntersecting);
+      },
+      { threshold: 1 },
+    );
+    observer.observe(ref.current);
+    return () => {
+      observer.disconnect();
+    };
+  }, [focused, id, setAnchored]);
   return (
     <IconButton
       as={Tabs.TabIcon}
@@ -173,6 +201,7 @@ function CloseTabAction() {
         hideTab(id);
       }}
       data-_appui-focused={focused === id ? "true" : undefined}
+      ref={ref}
     >
       <SvgCloseSmall />
     </IconButton>
@@ -185,13 +214,14 @@ interface TabActionsButtonProps {
 
 function TabActionsButton(props: TabActionsButtonProps) {
   const { id } = props;
-  const { setFocused, hideTab } = React.useContext(TabActionsContext);
+  const { setFocused, hideTab, anchored } = React.useContext(TabActionsContext);
   const label = useLayout((state) => state.tabs[id].label);
 
   return (
     <VisuallyHidden
       as="span"
       className="uifw-preview-widgetTabActions-widget_actionsButton"
+      data-_appui-anchor={anchored ? "true" : undefined}
     >
       <IconButton
         onBlur={() => setFocused(undefined)}
