@@ -192,7 +192,6 @@ function TabActionsButton(props: TabActionsButtonProps) {
     <VisuallyHidden
       as="span"
       className="uifw-preview-widgetTabActions-widget_actionsButton"
-      style={{}}
     >
       <IconButton
         onBlur={() => setFocused(undefined)}

@@ -5,42 +5,44 @@
 @use "~@itwin/core-react/lib/core-react/z-index" as *;
 @use "../../layout/widgetopacity" as *;
 
-.uifw-preview-widgetTabActions-widget_wrapper {
-  flex: 1;
+@layer appui.preview {
+  .uifw-preview-widgetTabActions-widget_wrapper {
+    flex: 1;
 
-  &.uifw-floating {
+    &.uifw-floating {
+      position: absolute;
+      min-width: 200px;
+      min-height: 120px;
+
+      @include uicore-z-index(dragged-widget);
+      @include nz-widget-opacity;
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_tab {
+    grid-template:
+      "icon label action"
+      "icon description action"
+      minmax(0, auto) / auto minmax(min-content, 1fr) auto;
+  }
+
+  .uifw-preview-widgetTabActions-widget_panel {
+    padding: 0;
+  }
+
+  .uifw-preview-widgetTabActions-widget_action {
+    grid-area: action;
+    margin-inline-start: var(--iui-size-2xs);
+
+    &[data-_appui-focused="true"] {
+      anchor-name: --_appui-actions-tab;
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_actionsButton {
     position: absolute;
-    min-width: 200px;
-    min-height: 120px;
-
-    @include uicore-z-index(dragged-widget);
-    @include nz-widget-opacity;
+    position-anchor: --_appui-actions-tab;
+    right: anchor(right);
+    align-self: anchor-center;
   }
-}
-
-.uifw-preview-widgetTabActions-widget_tab {
-  grid-template:
-    "icon label action"
-    "icon description action"
-    minmax(0, auto) / auto minmax(min-content, 1fr) auto;
-}
-
-.uifw-preview-widgetTabActions-widget_panel {
-  padding: 0;
-}
-
-.uifw-preview-widgetTabActions-widget_action {
-  grid-area: action;
-  margin-inline-start: var(--iui-size-2xs);
-
-  &[data-_appui-focused="true"] {
-    anchor-name: --_appui-actions-tab;
-  }
-}
-
-.uifw-preview-widgetTabActions-widget_actionsButton {
-  position: absolute;
-  position-anchor: --_appui-actions-tab;
-  right: anchor(right);
-  align-self: anchor-center;
 }
