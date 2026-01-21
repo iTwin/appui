@@ -19,7 +19,8 @@
     flex: 1;
     height: 0px;
     width: 100%;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: var(--iui-size-s);
 
     .nz-widget-widgetContentLayout-progress {
