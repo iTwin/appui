@@ -39,10 +39,12 @@
     }
   }
 
-  .uifw-preview-widgetTabActions-widget_actionsButton {
-    position: absolute;
-    position-anchor: --_appui-actions-tab;
-    right: anchor(right);
-    align-self: anchor-center;
+  @supports (anchor-name: --_appui-actions-tab) {
+    .uifw-preview-widgetTabActions-widget_actionsButton {
+      position: absolute;
+      position-anchor: --_appui-actions-tab;
+      right: anchor(right);
+      align-self: anchor-center;
+    }
   }
 }
