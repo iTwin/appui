@@ -1,5 +1,17 @@
 # Change Log - @itwin/appui-react
 
+## 5.24.0
+
+### Minor Changes
+
+- 6d0c07d: Tooltip content for icons in HeaderIconToolbar of WidgetContentLayout
+
+### Patch Changes
+
+- @itwin/components-react@5.24.0
+- @itwin/core-react@5.24.0
+- @itwin/imodel-components-react@5.24.0
+
 ## 5.23.1
 
 ### Patch Changes
