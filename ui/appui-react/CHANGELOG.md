@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.23.1
+
+### Patch Changes
+
+- 589407a: Fix styling in WidgetContentLayout
+  - @itwin/components-react@5.23.1
+  - @itwin/core-react@5.23.1
+  - @itwin/imodel-components-react@5.23.1
+
 ## 5.23.0
 
 ### Minor Changes
