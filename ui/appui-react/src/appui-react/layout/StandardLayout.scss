@@ -74,10 +74,14 @@
 
   .nz-standardLayout_leftPanel {
     grid-area: lp;
+    display: flex;
+    flex-direction: row;
   }
 
   .nz-standardLayout_rightPanel {
     grid-area: rp;
+    display: flex;
+    flex-direction: row-reverse;
   }
 
   .nz-standardLayout_bottomPanel {

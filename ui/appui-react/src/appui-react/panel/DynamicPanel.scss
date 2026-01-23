@@ -1,0 +1,46 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@layer appui.component {
+  $padding: var(--iui-size-s);
+
+  .uifw-panel-dynamicPanel {
+    position: relative;
+    background-color: var(--iui-color-background);
+    border-width: 0;
+    border-style: solid;
+    border-color: var(--iui-color-border);
+    padding: $padding;
+    min-width: 200px;
+    max-width: 350px;
+
+    display: flex;
+    flex-direction: column;
+    gap: $padding;
+
+    &:where([data-_appui-placement="left"]) {
+      border-right-width: 1px;
+    }
+
+    &:where([data-_appui-placement="right"]) {
+      border-left-width: 1px;
+    }
+  }
+
+  .uifw-panel-dynamicPanel_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .uifw-panel-dynamicPanel_label {
+    font-size: var(--iui-font-size-1);
+    font-weight: var(--iui-font-weight-semibold);
+  }
+
+  .uifw-panel-dynamicPanel_divider {
+    margin-left: calc(-1 * $padding);
+    margin-right: calc(-1 * $padding);
+  }
+}
