@@ -55,6 +55,7 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
             props.hidden && "nz-hidden"
           )}
           ref={resizeObserverRef}
+          data-testid="widget-overflow-button"
         >
           <SvgChevronRightSmall />
         </TabBarButton>
