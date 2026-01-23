@@ -1806,6 +1806,7 @@ export interface ExpandableSectionProps extends CommonProps {
 // @public @deprecated
 export interface ExtensibleToolbarProps {
     activeItemIds?: string[];
+    advancedUsage?: ToolbarAdvancedUsage;
     items: ToolbarItem[];
     orientation: ToolbarOrientation;
     usage: ToolbarUsage;
@@ -3414,6 +3415,8 @@ export interface NavigationWidgetComposerProps extends CommonProps {
     hideNavigationAid?: boolean;
     horizontalToolbar?: React_2.ReactNode;
     navigationAidHost?: React_2.ReactNode;
+    secondaryHorizontalToolbar?: React_2.ReactNode;
+    secondaryVerticalToolbar?: React_2.ReactNode;
     verticalToolbar?: React_2.ReactNode;
 }
 
@@ -4328,6 +4331,7 @@ export function StandardLayout(props: StandardLayoutProps): React_2.JSX.Element;
 
 // @public
 export interface StandardLayoutToolbarItem {
+    readonly advancedUsage?: ToolbarAdvancedUsage;
     readonly orientation: ToolbarOrientation;
     readonly usage: ToolbarUsage;
 }
@@ -4756,6 +4760,9 @@ export interface ToolbarActionItem extends CommonToolbarItem {
     readonly label: string | ConditionalStringValue_2;
     readonly parentGroupItemId?: string;
 }
+
+// @public
+export type ToolbarAdvancedUsage = "view-settings" | (string & {});
 
 // @public
 export class ToolbarButtonHelper {
