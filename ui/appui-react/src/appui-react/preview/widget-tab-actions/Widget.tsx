@@ -10,6 +10,7 @@ import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
+import { assert } from "@itwin/core-bentley";
 import {
   useActiveTabId,
   useWidgetContextValue,
@@ -30,68 +31,65 @@ import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiConten
 import { WidgetActions } from "../../layout/widget/WidgetActions.js";
 import { useRefs } from "@itwin/core-react/internal";
 
-const TabActionsContext = React.createContext<{
-  focused: string | undefined;
-  setFocused: (id: string | undefined) => void;
-  anchored: boolean;
-  setAnchored: (anchored: boolean) => void;
-  hideTab: (id: string) => void;
-  setTabElement: (id: string, element: HTMLElement | null) => void;
-}>({
-  focused: undefined,
-  setFocused: () => {},
-  anchored: false,
-  setAnchored: () => {},
-  hideTab: () => {},
-  setTabElement: () => {},
-});
-
-interface WidgetProps {
-  className?: string;
-  style?: React.CSSProperties;
-}
+const TabsContext = React.createContext<
+  | {
+      // Last focused tab, used to expose decorative actions to screen readers.
+      actionTabId: string | undefined;
+      setActionTabId: (id: string | undefined) => void;
+      // Describes if the action should be anchored to the decorative action.
+      anchored: boolean;
+      setAnchored: (anchored: boolean) => void;
+      hideTab: (id: string) => void;
+      setTabElement: (id: string, element: HTMLElement | undefined) => void;
+    }
+  | undefined
+>(undefined);
 
 /** @internal */
-export function Widget(props: WidgetProps) {
-  const { className, ...rest } = props;
+export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
   const widgetId = useSafeContext(WidgetIdContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const activeTabId = useActiveTabId();
   const [widgetRef, value] = useWidgetContextValue();
-  const [focused, setFocused] = React.useState<string | undefined>(undefined);
-  const [anchored, setAnchored] = React.useState(false);
-  const [tabs, setTabs] = React.useState<Map<string, HTMLElement | null>>(
-    new Map(),
+  const [actionTabId, setActionTabId] = React.useState<string | undefined>(
+    undefined,
   );
-  const hideTab = (id: string) => {
-    setFocused(undefined);
-    dispatch({
-      type: "WIDGET_TAB_HIDE",
-      id,
-    });
+  const [anchored, setAnchored] = React.useState(false);
+  const tabElementsRef = React.useRef(
+    new Map<string, HTMLElement | undefined>(),
+  );
+  const hideTab = React.useCallback(
+    (id: string) => {
+      setActionTabId(undefined);
+      dispatch({
+        type: "WIDGET_TAB_HIDE",
+        id,
+      });
 
-    const tabIndex = tabIds.indexOf(id);
-    const nextTabIndex =
-      tabIndex + 1 > tabIds.length - 1 ? tabIndex - 1 : tabIndex + 1;
+      const tabIndex = tabIds.indexOf(id);
+      const nextTabIndex =
+        tabIndex + 1 > tabIds.length - 1 ? tabIndex - 1 : tabIndex + 1;
 
-    if (nextTabIndex < 0) return;
-    const nextTabId = tabIds[nextTabIndex];
-    const tabEl = tabs.get(nextTabId);
-    tabEl?.focus();
-  };
+      if (nextTabIndex < 0) return;
+      const nextTabId = tabIds[nextTabIndex];
+      const tabEl = tabElementsRef.current.get(nextTabId);
+      tabEl?.focus();
+    },
+    [dispatch, tabIds],
+  );
   const setTabElement = React.useCallback(
-    (id: string, element: HTMLElement | null) => {
-      setTabs((prev) => new Map(prev).set(id, element));
+    (id: string, element: HTMLElement | undefined) => {
+      tabElementsRef.current.set(id, element);
     },
     [],
   );
   return (
     <WidgetContext.Provider value={value}>
-      <TabActionsContext.Provider
+      <TabsContext.Provider
         value={{
-          focused,
-          setFocused,
+          actionTabId,
+          setActionTabId,
           hideTab,
           setTabElement,
           anchored,
@@ -99,10 +97,10 @@ export function Widget(props: WidgetProps) {
         }}
       >
         <Tabs.Wrapper
-          {...rest}
+          {...props}
           className={classnames(
             "uifw-preview-widgetTabActions-widget_wrapper",
-            className,
+            props.className,
           )}
           value={activeTabId}
           focusActivationMode="manual"
@@ -127,32 +125,29 @@ export function Widget(props: WidgetProps) {
             <PanelContent />
           </Tabs.Panel>
         </Tabs.Wrapper>
-      </TabActionsContext.Provider>
+      </TabsContext.Provider>
     </WidgetContext.Provider>
   );
 }
 
 function Tab() {
-  const { setFocused, hideTab, setTabElement } =
-    React.useContext(TabActionsContext);
+  const { setActionTabId, hideTab, setTabElement } =
+    useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
-  const interactionsRef = useTabInteractions({});
   const closeAction = useWidgetTabCloseAction();
-  const ref = useRefs(
-    interactionsRef,
-    React.useCallback(
-      (el: HTMLElement | null) => {
-        setTabElement(id, el);
-      },
-      [id, setTabElement],
-    ),
+  const interactionsRef = useTabInteractions({});
+  const ref = React.useCallback(
+    (el: HTMLElement | null) => {
+      setTabElement(id, el ?? undefined);
+    },
+    [id, setTabElement],
   );
   return (
     <Tabs.Tab
       className="uifw-preview-widgetTabActions-widget_tab"
       value={id}
-      ref={ref}
+      ref={useRefs(ref, interactionsRef)}
       onKeyDown={(e) => {
         if (e.key === "Delete") {
           e.preventDefault();
@@ -160,23 +155,27 @@ function Tab() {
         }
       }}
       onFocus={() => {
-        setFocused(id);
+        setActionTabId(id);
       }}
     >
       <Tabs.TabLabel>{label}</Tabs.TabLabel>
-      {closeAction && <CloseTabAction />}
+      {closeAction && <CloseTabDecoration />}
     </Tabs.Tab>
   );
 }
 
-function CloseTabAction() {
-  const { focused, hideTab, setAnchored } = React.useContext(TabActionsContext);
+/**
+ * Decorative button to close the tab.
+ */
+function CloseTabDecoration() {
+  const { actionTabId, hideTab, setAnchored } = useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
   const ref = React.useRef<HTMLButtonElement | null>(null);
+  const isActionTab = actionTabId === id;
   React.useEffect(() => {
-    if (focused !== id) return;
-    if (!ref.current) return;
+    if (!isActionTab || !ref.current) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
@@ -186,13 +185,14 @@ function CloseTabAction() {
     );
     observer.observe(ref.current);
     return () => {
+      setAnchored(false);
       observer.disconnect();
     };
-  }, [focused, id, setAnchored]);
+  }, [isActionTab, setAnchored]);
   return (
     <IconButton
       as={Tabs.TabIcon}
-      className="uifw-preview-widgetTabActions-widget_action"
+      className="uifw-preview-widgetTabActions-widget_decoration"
       styleType="borderless"
       size="small"
       label={`Close ${label}`}
@@ -200,7 +200,7 @@ function CloseTabAction() {
       onClick={() => {
         hideTab(id);
       }}
-      data-_appui-focused={focused === id ? "true" : undefined}
+      data-_appui-action={isActionTab ? "true" : undefined}
       ref={ref}
     >
       <SvgCloseSmall />
@@ -208,28 +208,29 @@ function CloseTabAction() {
   );
 }
 
-interface TabActionsButtonProps {
-  id: string;
-}
-
-function TabActionsButton(props: TabActionsButtonProps) {
-  const { id } = props;
-  const { setFocused, hideTab, anchored } = React.useContext(TabActionsContext);
-  const label = useLayout((state) => state.tabs[id].label);
+/**
+ * Visually hidden button to expose decorative close action to screen readers.
+ * The action is anchored to the respective decoration when decoration is visible.
+ */
+function CloseTabAction() {
+  const { setActionTabId, hideTab, anchored, actionTabId } =
+    useSafeContext(TabsContext);
+  assert(!!actionTabId);
+  const label = useLayout((state) => state.tabs[actionTabId].label);
 
   return (
     <VisuallyHidden
       as="span"
-      className="uifw-preview-widgetTabActions-widget_actionsButton"
+      className="uifw-preview-widgetTabActions-widget_action"
       data-_appui-anchor={anchored ? "true" : undefined}
     >
       <IconButton
-        onBlur={() => setFocused(undefined)}
+        onBlur={() => setActionTabId(undefined)}
         label={`Close ${label}`}
         styleType="borderless"
         size="small"
         onClick={() => {
-          hideTab(id);
+          hideTab(actionTabId);
         }}
       >
         <SvgCloseSmall />
@@ -239,11 +240,14 @@ function TabActionsButton(props: TabActionsButtonProps) {
 }
 
 function TabsActions() {
+  const { actionTabId } = useSafeContext(TabsContext);
+  const widgetId = useSafeContext(WidgetIdContext);
   const { widgetActions } = React.useContext(ConfigurableUiContext);
-  const { focused } = React.useContext(TabActionsContext);
+  const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
+  const actionTab = tabIds.find((id) => id === actionTabId);
   return (
     <Tabs.Actions>
-      {focused && <TabActionsButton id={focused} />}
+      {actionTab && <CloseTabAction />}
       {widgetActions ?? <WidgetActions />}
     </Tabs.Actions>
   );

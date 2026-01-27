@@ -21,29 +21,28 @@
 
   .uifw-preview-widgetTabActions-widget_tab {
     grid-template:
-      "icon label action"
-      "icon description action"
-      minmax(0, auto) / auto minmax(min-content, 1fr) auto;
+      "label icon"
+      "description icon" minmax(0, auto) / minmax(min-content, 1fr) auto;
+    min-inline-size: min-content;
   }
 
   .uifw-preview-widgetTabActions-widget_panel {
     padding: 0;
   }
 
-  .uifw-preview-widgetTabActions-widget_action {
-    grid-area: action;
+  .uifw-preview-widgetTabActions-widget_decoration {
     margin-inline-start: var(--iui-size-2xs);
 
-    &[data-_appui-focused="true"] {
-      anchor-name: --_appui-actions-tab;
+    &[data-_appui-action="true"] {
+      anchor-name: --_appui-tab-action;
     }
   }
 
-  @supports (anchor-name: --_appui-actions-tab) {
-    .uifw-preview-widgetTabActions-widget_actionsButton {
+  @supports (anchor-name: --_appui-tab-action) {
+    .uifw-preview-widgetTabActions-widget_action {
       &:where([data-_appui-anchor="true"]) {
         position: absolute;
-        position-anchor: --_appui-actions-tab;
+        position-anchor: --_appui-tab-action;
         right: anchor(right);
         align-self: anchor-center;
       }
