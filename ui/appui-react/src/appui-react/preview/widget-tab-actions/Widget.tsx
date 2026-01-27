@@ -9,8 +9,11 @@
 import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
 import { assert } from "@itwin/core-bentley";
+import { useRefs } from "@itwin/core-react/internal";
+import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
+import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
+
 import {
   useActiveTabId,
   useWidgetContextValue,
@@ -25,11 +28,10 @@ import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.
 import { useTabInteractions } from "../../layout/widget/Tab.js";
 import { useFloatingWidgetStyle } from "../../layout/widget/FloatingWidget.js";
 import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
-import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
 import { WidgetActions } from "../../layout/widget/WidgetActions.js";
-import { useRefs } from "@itwin/core-react/internal";
+import { TabTarget } from "../../layout/target/TabTarget.js";
 
 const TabsContext = React.createContext<
   | {
@@ -160,6 +162,7 @@ function Tab() {
     >
       <Tabs.TabLabel>{label}</Tabs.TabLabel>
       {closeAction && <CloseTabDecoration />}
+      <TabTarget />
     </Tabs.Tab>
   );
 }
