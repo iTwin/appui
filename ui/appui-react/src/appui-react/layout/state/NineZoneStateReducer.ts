@@ -37,6 +37,7 @@ import {
   addRemovedTab,
   addTab,
   addTabToWidget,
+  removeSavedTabState,
   removeTab,
   removeTabFromWidget,
   updateSavedTabState,
@@ -930,7 +931,10 @@ export function NineZoneStateReducer(
   return state;
 }
 
-function sortIndexes(action: WidgetTabsRemoveAction, state: NineZoneState) {
+function sortIndexes(
+  action: WidgetTabsRemoveAction,
+  state: NineZoneState
+) {
   return [...action.ids].sort((a, b) => {
     const locationA = getTabLocation(state, a);
     const locationB = getTabLocation(state, b);
@@ -999,6 +1003,9 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
   state = updateTabState(state, id, (draft) => {
     draft.unloaded = false;
   });
+
+  // Why are we not cleaning up savedState when unhiding a tab?
+  state = removeSavedTabState(state, id);
   return [state, location] as const;
 }
 
@@ -1020,7 +1027,7 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  const tabIndex = getTabIndex({ state, widgetId, id });
 
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
@@ -1071,4 +1078,42 @@ function addTabToPanelSection(
   const sectionIndex = Math.min(index, panel.widgets.length - 1);
   const existingSectionId = panel.widgets[sectionIndex];
   return addTabToWidget(state, tabId, existingSectionId);
+}
+
+function getTabIndex({
+  state,
+  widgetId,
+  id,
+}: {
+  state: NineZoneState;
+  widgetId: string;
+  id: string;
+}) {
+  const allTabs = getAllTabsFromWidget(state, widgetId);
+  const indexIncludingHidden = allTabs.indexOf(id);
+
+  if (indexIncludingHidden !== -1) {
+    return indexIncludingHidden;
+  }
+
+  return state.widgets[widgetId].tabs.indexOf(id);
+}
+
+function getAllTabsFromWidget(
+  state: NineZoneState,
+  widgetId: WidgetState["id"]
+) {
+  const visibleTabIds = [...state.widgets[widgetId].tabs];
+  const savedTabs = Object.values(state.savedTabs.byId);
+
+  for (const savedTab of savedTabs) {
+    if (
+      savedTab?.home &&
+      savedTab.home.widgetId === widgetId
+    ) {
+      visibleTabIds.splice(savedTab.home.tabIndex, 0, savedTab.id);
+    }
+  }
+
+  return visibleTabIds;
 }
