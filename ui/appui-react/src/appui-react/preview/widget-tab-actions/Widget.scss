@@ -19,6 +19,10 @@
     }
   }
 
+  .uifw-preview-widgetTabActions-widget_tabList {
+    z-index: 1;
+  }
+
   .uifw-preview-widgetTabActions-widget_tab {
     grid-template:
       "label icon"
@@ -28,6 +32,8 @@
 
   .uifw-preview-widgetTabActions-widget_panel {
     padding: 0;
+    position: relative;
+    display: flex;
   }
 
   .uifw-preview-widgetTabActions-widget_decoration {
@@ -36,6 +42,10 @@
     &[data-_appui-action="true"] {
       anchor-name: --_appui-tab-action;
     }
+  }
+
+  .uifw-preview-widgetTabActions-widget_actions {
+    z-index: 1;
   }
 
   @supports (anchor-name: --_appui-tab-action) {

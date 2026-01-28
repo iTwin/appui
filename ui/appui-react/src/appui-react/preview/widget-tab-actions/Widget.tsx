@@ -32,6 +32,10 @@ import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
 import { WidgetActions } from "../../layout/widget/WidgetActions.js";
 import { TabTarget } from "../../layout/target/TabTarget.js";
+import { TitleBarTarget } from "../../layout/target/TitleBarTarget.js";
+import { WidgetTarget } from "../../layout/target/WidgetTarget.js";
+import { WidgetOutline } from "../../layout/outline/WidgetOutline.js";
+import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 
 const TabsContext = React.createContext<
   | {
@@ -108,7 +112,7 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
           focusActivationMode="manual"
           ref={widgetRef}
         >
-          <Tabs.TabList>
+          <Tabs.TabList className="uifw-preview-widgetTabActions-widget_tabList">
             {tabIds.map((tabId) => {
               return (
                 <TabIdContext.Provider key={tabId} value={tabId}>
@@ -116,6 +120,7 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
                 </TabIdContext.Provider>
               );
             })}
+            <TitleBarTarget />
           </Tabs.TabList>
 
           <TabsActions />
@@ -249,7 +254,7 @@ function TabsActions() {
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const actionTab = tabIds.find((id) => id === actionTabId);
   return (
-    <Tabs.Actions>
+    <Tabs.Actions className="uifw-preview-widgetTabActions-widget_actions">
       {actionTab && <CloseTabAction />}
       {widgetActions ?? <WidgetActions />}
     </Tabs.Actions>
@@ -257,10 +262,20 @@ function TabsActions() {
 }
 
 function PanelContent() {
+  const side = React.useContext(PanelSideContext);
   const ref = useWidgetContentContainer();
+  const showTarget = useLayout((state) => {
+    if (side) {
+      const panel = state.panels[side];
+      return panel.widgets.length > 1;
+    }
+    return true;
+  });
   return (
     <>
       <div ref={ref} />
+      {showTarget && <WidgetTarget />}
+      <WidgetOutline />
     </>
   );
 }
