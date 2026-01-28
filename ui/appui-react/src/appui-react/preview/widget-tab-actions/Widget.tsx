@@ -26,7 +26,10 @@ import { getWidgetState } from "../../layout/state/internal/WidgetStateHelpers.j
 import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
 import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
 import { useTabInteractions } from "../../layout/widget/Tab.js";
-import { useFloatingWidgetStyle } from "../../layout/widget/FloatingWidget.js";
+import {
+  useFloatingWidgetStyle,
+  useIsDraggedWidget,
+} from "../../layout/widget/FloatingWidget.js";
 import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
@@ -36,6 +39,7 @@ import { TitleBarTarget } from "../../layout/target/TitleBarTarget.js";
 import { WidgetTarget } from "../../layout/target/WidgetTarget.js";
 import { WidgetOutline } from "../../layout/outline/WidgetOutline.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
+import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
 
 const TabsContext = React.createContext<
   | {
@@ -112,6 +116,7 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
           focusActivationMode="manual"
           ref={widgetRef}
         >
+          <WidgetHandle />
           <Tabs.TabList className="uifw-preview-widgetTabActions-widget_tabList">
             {tabIds.map((tabId) => {
               return (
@@ -283,5 +288,19 @@ function PanelContent() {
 /** @internal */
 export function FloatingWidget() {
   const { style } = useFloatingWidgetStyle();
-  return <Widget className="uifw-floating" style={style} />;
+  const dragged = useIsDraggedWidget();
+  return (
+    <Widget
+      data-_appui-floating="true"
+      data-_appui-dragged={dragged ? "true" : undefined}
+      style={style}
+    />
+  );
+}
+
+function WidgetHandle() {
+  const ref = useDragWidgetHandle();
+  return (
+    <div className="uifw-preview-widgetTabActions-widget_handle" ref={ref} />
+  );
 }

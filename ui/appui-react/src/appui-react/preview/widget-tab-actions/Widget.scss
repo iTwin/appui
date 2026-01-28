@@ -4,12 +4,13 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/core-react/z-index" as *;
 @use "../../layout/widgetopacity" as *;
+@use "../../layout/widget/variables" as *;
 
 @layer appui.preview {
   .uifw-preview-widgetTabActions-widget_wrapper {
     flex: 1;
 
-    &.uifw-floating {
+    &:where([data-_appui-floating]) {
       position: absolute;
       min-width: 200px;
       min-height: 120px;
@@ -17,10 +18,29 @@
       @include uicore-z-index(dragged-widget);
       @include nz-widget-opacity;
     }
+
+    &:where([data-_appui-dragged="true"]) {
+      pointer-events: none;
+      opacity: $nz-dragged-widget-opacity;
+
+      @include uicore-z-index(drag-preview);
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_handle {
+    grid-column: tabs / tabs-actions;
+    grid-row: tabs;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   .uifw-preview-widgetTabActions-widget_tabList {
+    grid-area: tabs;
     z-index: 1;
+
+    // Let handle receive pointer events
+    pointer-events: none;
   }
 
   .uifw-preview-widgetTabActions-widget_tab {
@@ -28,6 +48,9 @@
       "label icon"
       "description icon" minmax(0, auto) / minmax(min-content, 1fr) auto;
     min-inline-size: min-content;
+
+    // Restore pointer events
+    pointer-events: all;
   }
 
   .uifw-preview-widgetTabActions-widget_panel {
