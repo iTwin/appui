@@ -1953,6 +1953,148 @@ describe("NineZoneStateReducer", () => {
       expect(newState.popoutWidgets.allIds).lengthOf(0);
       expect(newState.savedTabs.byId.t1).toEqual(undefined);
     });
+
+    it("should return correct index for first tab", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      expect(newState.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+    });
+
+    it("should return correct index for middle tab", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t2",
+      });
+
+      expect(newState.savedTabs.byId.t2?.home?.tabIndex).to.equal(1);
+    });
+
+    it("should return correct index when previous tabs are already hidden", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      // Hide first tab
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Hide third tab - should still get index 2, not 1
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+
+      expect(newState.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(newState.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+    });
+
+    it("should return correct index in floating widget when other tabs hidden", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addFloatingWidget(state, "fw1", ["t1", "t2", "t3"]);
+
+      // Hide first tab
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Hide last tab
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+
+      expect(newState.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(newState.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+    });
+
+    it("should handle hiding all tabs sequentially with correct indices", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      // Hide tabs one by one
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t2",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+
+      // All should have their original indices
+      expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(state.savedTabs.byId.t2?.home?.tabIndex).to.equal(1);
+      expect(state.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+    });
+
+    it("should handle hiding tabs in reverse order with correct indices", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      // Hide tabs in reverse order
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t2",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // All should have their original indices
+      expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(state.savedTabs.byId.t2?.home?.tabIndex).to.equal(1);
+      expect(state.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+    });
+
+    it("should handle tabs from different widgets independently", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3", "t4"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
+      state = addPanelWidget(state, "right", "w2", ["t3", "t4"]);
+
+      // Hide t2 from w1
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t2",
+      });
+
+      // Hide t3 from w2 - should not be affected by t2 being hidden
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+
+      expect(newState.savedTabs.byId.t2?.home?.tabIndex).to.equal(1);
+      expect(newState.savedTabs.byId.t2?.home?.widgetId).to.equal("w1");
+      expect(newState.savedTabs.byId.t3?.home?.tabIndex).to.equal(0);
+      expect(newState.savedTabs.byId.t3?.home?.widgetId).to.equal("w2");
+    });
   });
 
   describe("WIDGET_TABS_REMOVE", () => {
