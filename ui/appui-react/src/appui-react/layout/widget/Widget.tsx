@@ -25,6 +25,7 @@ import { useLayout } from "../base/LayoutStore.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import { useFloatingWidgetId } from "./FloatingWidget.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 /** @internal */
 export interface WidgetProviderProps {
@@ -80,12 +81,12 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         if (floatingWidgetId !== undefined) return;
         const nzBounds = measureNz();
         let bounds = Rectangle.create(
-          elementRef.current.getBoundingClientRect()
+          elementRef.current.getBoundingClientRect(),
         );
 
         const size = restrainInitialWidgetSize(
           bounds.getSize(),
-          nzBounds.getSize()
+          nzBounds.getSize(),
         );
         bounds = bounds.setSize(size);
 
@@ -126,7 +127,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         measureNz,
         preferredFloatingWidgetSize,
         userSized,
-      ]
+      ],
     );
     useDragWidget({
       widgetId,
@@ -146,22 +147,12 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         element?.removeEventListener("click", listener);
       };
     }, [dispatch, floatingWidgetId]);
-    const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
-      if (!elementRef.current) return new Rectangle();
-      const bounds = elementRef.current.getBoundingClientRect();
-      return Rectangle.create(bounds);
-    }, []);
-    const widgetContextValue = React.useMemo<WidgetContextArgs>(
-      () => ({
-        measure,
-      }),
-      [measure]
-    );
+    const [widgetRef, value] = useWidgetContextValue();
 
-    const ref = useRefs(forwardedRef, elementRef);
+    const ref = useRefs(forwardedRef, elementRef, widgetRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
-      <WidgetContext.Provider value={widgetContextValue}>
+      <WidgetContext.Provider value={value}>
         <div
           className={className}
           onMouseEnter={props.onMouseEnter}
@@ -175,8 +166,25 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         </div>
       </WidgetContext.Provider>
     );
-  }
+  },
 );
+
+/** @internal */
+export function useWidgetContextValue() {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const measure = React.useCallback<WidgetContextArgs["measure"]>(() => {
+    if (!ref.current) return new Rectangle();
+    const bounds = ref.current.getBoundingClientRect();
+    return Rectangle.create(bounds);
+  }, []);
+  const value = React.useMemo<WidgetContextArgs>(
+    () => ({
+      measure,
+    }),
+    [measure],
+  );
+  return [ref, value] as const;
+}
 
 /** @internal */
 export const WidgetIdContext = React.createContext<
@@ -199,7 +207,7 @@ const minHeight = 200;
 /** @internal */
 export function restrainInitialWidgetSize(
   size: SizeProps,
-  nzSize: SizeProps
+  nzSize: SizeProps,
 ): SizeProps {
   const width = Math.max(Math.min(nzSize.width / 3, size.width), minWidth);
   const height = Math.max(Math.min(nzSize.height / 3, size.height), minHeight);
@@ -211,8 +219,7 @@ export function restrainInitialWidgetSize(
 
 /** @internal */
 export function useActiveTabId() {
-  const id = React.useContext(WidgetIdContext);
-  assert(!!id);
+  const id = useSafeContext(WidgetIdContext);
   return useLayout((state) => {
     const widget = getWidgetState(state, id);
     return widget.activeTabId;

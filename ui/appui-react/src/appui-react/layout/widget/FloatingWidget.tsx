@@ -43,6 +43,8 @@ import {
   useIsMaximizedWidget,
   useMaximizedFloatingWidget,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { useWidgetTabActions } from "../../preview/widget-tab-actions/useWidgetTabActions.js";
+import { FloatingWidget as TabActionsWidget } from "../../preview/widget-tab-actions/Widget.js";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -64,7 +66,12 @@ export interface FloatingWidgetProviderProps {
 /** @internal */
 export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
-  return <WidgetProvider id={props.id}>{floatingWidget}</WidgetProvider>;
+  const widgetTabActions = useWidgetTabActions();
+  return (
+    <WidgetProvider id={props.id}>
+      {widgetTabActions ? <TabActionsWidget /> : floatingWidget}
+    </WidgetProvider>
+  );
 }
 
 /** @internal */
@@ -77,25 +84,11 @@ export interface FloatingWidgetProps {
 export function FloatingWidget(props: FloatingWidgetProps) {
   const uiIsVisible = React.useContext(UiIsVisibleContext);
   const id = useFloatingWidgetId();
-  assert(!!id);
-  const {
-    autoSized,
-    bounds,
-    hideWithUiWhenFloating,
-    isToolSettingsTab,
-    minimized,
-    resizable,
-  } = useFloatingWidgetState();
+  const { hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } =
+    useFloatingWidgetState();
   const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
 
-  const item = React.useMemo(
-    () => ({
-      id,
-      type: "widget" as const,
-    }),
-    [id]
-  );
-  const dragged = useIsDraggedItem(item);
+  const dragged = useIsDraggedWidget();
   const ref = useHandleAutoSize(dragged);
   const maximizedWidget = useMaximizedFloatingWidget();
 
@@ -105,20 +98,9 @@ export function FloatingWidget(props: FloatingWidgetProps) {
     isToolSettingsTab && "nz-floating-toolSettings",
     minimized && "nz-minimized",
     hideFloatingWidget && "nz-hidden",
-    maximizedWidget.classNames
+    maximizedWidget.classNames,
   );
-  const style = React.useMemo(() => {
-    const boundsRect = Rectangle.create(bounds);
-    const { height, width } = boundsRect.getSize();
-    const position = boundsRect.topLeft();
-    return {
-      transform: `translate(${position.x}px, ${position.y}px)`,
-      height: minimized || autoSized ? undefined : height,
-      width: autoSized ? undefined : width,
-      maxHeight: autoSized ? "60%" : undefined,
-      maxWidth: autoSized ? "60%" : undefined,
-    };
-  }, [autoSized, bounds, minimized]);
+  const { style } = useFloatingWidgetStyle();
 
   const content = React.useMemo(
     () => (
@@ -127,7 +109,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
         <WidgetOutline />
       </WidgetContentContainer>
     ),
-    []
+    [],
   );
   const handles = React.useMemo(
     () =>
@@ -143,16 +125,13 @@ export function FloatingWidget(props: FloatingWidgetProps) {
           <FloatingWidgetHandle handle="bottomRight" />
         </>
       ),
-    [resizable]
+    [resizable],
   );
   return (
     <Widget
       className={className}
       widgetId={id}
-      style={{
-        ...style,
-        ...maximizedWidget.style,
-      }}
+      style={style}
       ref={ref}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
@@ -162,6 +141,20 @@ export function FloatingWidget(props: FloatingWidgetProps) {
       {handles}
     </Widget>
   );
+}
+
+/** @internal */
+export function useIsDraggedWidget() {
+  const id = useFloatingWidgetId();
+  assert(!!id);
+  const item = React.useMemo(
+    () => ({
+      id,
+      type: "widget" as const,
+    }),
+    [id],
+  );
+  return useIsDraggedItem(item);
 }
 
 function useFloatingWidgetState() {
@@ -191,6 +184,30 @@ function useFloatingWidgetState() {
   }, true);
 }
 
+/** @internal */
+export function useFloatingWidgetStyle() {
+  const { autoSized, bounds, minimized } = useFloatingWidgetState();
+  const style = React.useMemo(() => {
+    const boundsRect = Rectangle.create(bounds);
+    const { height, width } = boundsRect.getSize();
+    const position = boundsRect.topLeft();
+    return {
+      transform: `translate(${position.x}px, ${position.y}px)`,
+      height: minimized || autoSized ? undefined : height,
+      width: autoSized ? undefined : width,
+      maxHeight: autoSized ? "60%" : undefined,
+      maxWidth: autoSized ? "60%" : undefined,
+    };
+  }, [autoSized, bounds, minimized]);
+  const maximizedWidget = useMaximizedFloatingWidget();
+  return {
+    style: {
+      ...style,
+      ...maximizedWidget.style,
+    },
+  };
+}
+
 // Re-adjust bounds so that widget is behind pointer when auto-sized.
 function useHandleAutoSize(dragged: boolean) {
   const dragManager = React.useContext(DragManagerContext);
@@ -199,7 +216,7 @@ function useHandleAutoSize(dragged: boolean) {
   const id = useFloatingWidgetId();
   assert(!!id);
   const userSized = useLayout(
-    (state) => state.floatingWidgets.byId[id].userSized
+    (state) => state.floatingWidgets.byId[id].userSized,
   );
   const maximizedWidget = useIsMaximizedWidget();
 
@@ -288,7 +305,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
         resizeBy,
       });
     },
-    [dispatch, handle, id]
+    [dispatch, handle, id],
   );
   const handleDragStart = useDragResizeHandle({
     handle,
@@ -312,7 +329,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
         id,
       });
     },
-    [dispatch, handleDragStart, id]
+    [dispatch, handleDragStart, id],
   );
   const pointerCaptorRef = usePointerCaptor(handlePointerDown);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -320,7 +337,7 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const isMaximized = useIsMaximizedWidget();
   const className = classnames(
     "nz-widget-floatingWidget_handle",
-    `nz-${handle}`
+    `nz-${handle}`,
   );
   if (isMaximized) return null;
   return <div className={className} ref={refs} />;
