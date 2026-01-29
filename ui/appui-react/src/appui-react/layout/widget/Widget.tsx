@@ -56,83 +56,9 @@ export interface WidgetProps extends CommonProps {
 export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
   function Widget(props, forwardedRef) {
     const dispatch = React.useContext(NineZoneDispatchContext);
-    const side = React.useContext(PanelSideContext);
-    const id = React.useContext(WidgetIdContext);
-    const measureNz = React.useContext(MeasureContext);
     const floatingWidgetId = useFloatingWidgetId();
-    assert(!!id);
-    const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
-      const widget = getWidgetState(state, id);
-      const tab = state.tabs[widget.activeTabId];
-      return {
-        preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
-        userSized:
-          tab.userSized ||
-          (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize),
-      };
-    }, true);
     const elementRef = React.useRef<HTMLDivElement>(null);
-    const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
-    const onDragStart = React.useCallback<
-      NonNullable<UseDragWidgetArgs["onDragStart"]>
-    >(
-      (updateId, initialPointerPosition, pointerPosition) => {
-        assert(!!elementRef.current);
-        if (floatingWidgetId !== undefined) return;
-        const nzBounds = measureNz();
-        let bounds = Rectangle.create(
-          elementRef.current.getBoundingClientRect(),
-        );
 
-        const size = restrainInitialWidgetSize(
-          bounds.getSize(),
-          nzBounds.getSize(),
-        );
-        bounds = bounds.setSize(size);
-
-        if (preferredFloatingWidgetSize) {
-          bounds = bounds.setSize(preferredFloatingWidgetSize);
-        }
-
-        // Pointer is outside of tab area. Need to re-adjust widget bounds so that tab is behind pointer
-        if (initialPointerPosition.x > bounds.right) {
-          const offset = initialPointerPosition.x - bounds.right + 20;
-          bounds = bounds.offsetX(offset);
-        }
-
-        const dragOffset = initialPointerPosition.getOffsetTo(pointerPosition);
-        bounds = bounds.offset(dragOffset);
-
-        // Adjust bounds to be relative to 9z origin
-        bounds = bounds.offset({ x: -nzBounds.left, y: -nzBounds.top });
-
-        const newFloatingWidgetId = getUniqueId();
-        updateId(newFloatingWidgetId);
-
-        assert(!!side);
-        dispatch({
-          type: "PANEL_WIDGET_DRAG_START",
-          newFloatingWidgetId,
-          id,
-          bounds,
-          side,
-          userSized,
-        });
-      },
-      [
-        dispatch,
-        floatingWidgetId,
-        id,
-        side,
-        measureNz,
-        preferredFloatingWidgetSize,
-        userSized,
-      ],
-    );
-    useDragWidget({
-      widgetId,
-      onDragStart,
-    });
     React.useEffect(() => {
       const listener = () => {
         floatingWidgetId &&
@@ -148,8 +74,8 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
       };
     }, [dispatch, floatingWidgetId]);
     const [widgetRef, value] = useWidgetContextValue();
-
-    const ref = useRefs(forwardedRef, elementRef, widgetRef);
+    const dockedWidgetRef = useDragDockedWidget();
+    const ref = useRefs(forwardedRef, elementRef, widgetRef, dockedWidgetRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
       <WidgetContext.Provider value={value}>
@@ -168,6 +94,88 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
     );
   },
 );
+
+/** @internal */
+export function useDragDockedWidget() {
+  const id = useSafeContext(WidgetIdContext);
+  const side = React.useContext(PanelSideContext);
+  const measureNz = React.useContext(MeasureContext);
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  const widgetId = floatingWidgetId === undefined ? id : floatingWidgetId;
+  const { preferredFloatingWidgetSize, userSized } = useLayout((state) => {
+    const widget = getWidgetState(state, id);
+    const tab = state.tabs[widget.activeTabId];
+    return {
+      preferredFloatingWidgetSize: tab.preferredFloatingWidgetSize,
+      userSized:
+        tab.userSized ||
+        (tab.isFloatingWidgetResizable && !!tab.preferredFloatingWidgetSize),
+    };
+  }, true);
+
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  const onDragStart = React.useCallback<
+    NonNullable<UseDragWidgetArgs["onDragStart"]>
+  >(
+    (updateId, initialPointerPosition, pointerPosition) => {
+      if (!ref.current) return;
+      if (floatingWidgetId !== undefined) return;
+      const nzBounds = measureNz();
+      let bounds = Rectangle.create(ref.current.getBoundingClientRect());
+
+      const size = restrainInitialWidgetSize(
+        bounds.getSize(),
+        nzBounds.getSize(),
+      );
+      bounds = bounds.setSize(size);
+
+      if (preferredFloatingWidgetSize) {
+        bounds = bounds.setSize(preferredFloatingWidgetSize);
+      }
+
+      // Pointer is outside of tab area. Need to re-adjust widget bounds so that tab is behind pointer
+      if (initialPointerPosition.x > bounds.right) {
+        const offset = initialPointerPosition.x - bounds.right + 20;
+        bounds = bounds.offsetX(offset);
+      }
+
+      const dragOffset = initialPointerPosition.getOffsetTo(pointerPosition);
+      bounds = bounds.offset(dragOffset);
+
+      // Adjust bounds to be relative to 9z origin
+      bounds = bounds.offset({ x: -nzBounds.left, y: -nzBounds.top });
+
+      const newFloatingWidgetId = getUniqueId();
+      updateId(newFloatingWidgetId);
+
+      assert(!!side);
+      dispatch({
+        type: "PANEL_WIDGET_DRAG_START",
+        newFloatingWidgetId,
+        id,
+        bounds,
+        side,
+        userSized,
+      });
+    },
+    [
+      dispatch,
+      floatingWidgetId,
+      id,
+      side,
+      measureNz,
+      preferredFloatingWidgetSize,
+      userSized,
+    ],
+  );
+  useDragWidget({
+    widgetId,
+    onDragStart,
+  });
+  return ref;
+}
 
 /** @internal */
 export function useWidgetContextValue() {

@@ -16,6 +16,7 @@ import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 
 import {
   useActiveTabId,
+  useDragDockedWidget,
   useWidgetContextValue,
   WidgetContext,
   WidgetIdContext,
@@ -61,7 +62,6 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const activeTabId = useActiveTabId();
-  const [widgetRef, value] = useWidgetContextValue();
   const [actionTabId, setActionTabId] = React.useState<string | undefined>(
     undefined,
   );
@@ -94,6 +94,10 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
     },
     [],
   );
+
+  const [widgetRef, value] = useWidgetContextValue();
+  const dockedWidgetRef = useDragDockedWidget();
+  const ref = useRefs(widgetRef, dockedWidgetRef);
   return (
     <WidgetContext.Provider value={value}>
       <TabsContext.Provider
@@ -114,7 +118,7 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
           )}
           value={activeTabId}
           focusActivationMode="manual"
-          ref={widgetRef}
+          ref={ref}
         >
           <WidgetHandle />
           <Tabs.TabList className="uifw-preview-widgetTabActions-widget_tabList">
