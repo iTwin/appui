@@ -42,19 +42,18 @@ export function WidgetProvider(props: WidgetProviderProps) {
   );
 }
 
-/** @internal */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface WidgetProps extends CommonProps {
+interface WidgetProps extends CommonProps {
   children?: React.ReactNode;
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onTransitionEnd?(): void;
-  widgetId?: string;
 }
 
 /** @internal */
 export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
   function Widget(props, forwardedRef) {
+    const id = React.useContext(WidgetIdContext);
     const [widgetRef, value] = useWidgetContextValue();
     const dockedWidgetRef = useDragPanelWidget();
     const ref = useRefs(forwardedRef, widgetRef, dockedWidgetRef);
@@ -68,7 +67,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
           onTransitionEnd={props.onTransitionEnd}
           ref={ref}
           style={props.style}
-          data-widget-id={props.widgetId}
+          data-widget-id={id}
         >
           {props.children}
         </div>

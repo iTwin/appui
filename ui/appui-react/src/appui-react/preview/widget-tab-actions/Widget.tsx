@@ -27,11 +27,7 @@ import { getWidgetState } from "../../layout/state/internal/WidgetStateHelpers.j
 import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
 import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
 import { useTabInteractions } from "../../layout/widget/Tab.js";
-import {
-  useBringToFront,
-  useFloatingWidgetStyle,
-  useIsDraggedWidget,
-} from "../../layout/widget/FloatingWidget.js";
+import { useFloatingWidget } from "../../layout/widget/FloatingWidget.js";
 import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
@@ -300,9 +296,16 @@ export function PanelWidget() {
 
 /** @internal */
 export function FloatingWidget() {
-  const { style } = useFloatingWidgetStyle();
-  const dragged = useIsDraggedWidget();
-  const ref = useBringToFront();
+  const {
+    ref,
+    style,
+    hidden: _hidden,
+    minimized: _minimized,
+    resizable: _resizable,
+    dragged,
+    isToolSettingsTab: _isToolSettingsTab,
+    maximizedWidget: _maximizedWidget,
+  } = useFloatingWidget();
   return (
     <Widget
       data-_appui-floating="true"
