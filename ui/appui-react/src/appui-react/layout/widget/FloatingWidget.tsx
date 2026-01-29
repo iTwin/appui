@@ -253,11 +253,13 @@ function useHandleAutoSize(dragged: boolean) {
   return refs;
 }
 
-interface FloatingWidgetHandleProps {
+interface FloatingWidgetHandleProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   handle: FloatingWidgetResizeHandle;
 }
 
-function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
+/** @internal */
+export function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = useFloatingWidgetId();
   const { handle } = props;
@@ -308,12 +310,18 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const refs = useRefs(ref, pointerCaptorRef);
   const isMaximized = useIsMaximizedWidget();
-  const className = classnames(
-    "nz-widget-floatingWidget_handle",
-    `nz-${handle}`,
-  );
   if (isMaximized) return null;
-  return <div className={className} ref={refs} />;
+  return (
+    <div
+      {...props}
+      className={classnames(
+        "nz-widget-floatingWidget_handle",
+        `nz-${handle}`,
+        props.className,
+      )}
+      ref={refs}
+    />
+  );
 }
 
 /** @internal */

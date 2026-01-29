@@ -73,6 +73,10 @@
     z-index: 1;
   }
 
+  .uifw-preview-widgetTabActions-widget_resizeHandle {
+    z-index: 1;
+  }
+
   @supports (anchor-name: --_appui-tab-action) {
     .uifw-preview-widgetTabActions-widget_action {
       &:where([data-_appui-anchor="true"]) {

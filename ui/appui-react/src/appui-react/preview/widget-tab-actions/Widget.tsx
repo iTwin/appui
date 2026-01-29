@@ -27,7 +27,10 @@ import { getWidgetState } from "../../layout/state/internal/WidgetStateHelpers.j
 import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
 import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
 import { useTabInteractions } from "../../layout/widget/Tab.js";
-import { useFloatingWidget } from "../../layout/widget/FloatingWidget.js";
+import {
+  FloatingWidgetHandle,
+  useFloatingWidget,
+} from "../../layout/widget/FloatingWidget.js";
 import { useWidgetTabCloseAction } from "./useWidgetTabActions.js";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { ConfigurableUiContext } from "../../configurableui/ConfigurableUiContent.js";
@@ -53,96 +56,102 @@ const TabsContext = React.createContext<
   | undefined
 >(undefined);
 
-const Widget = React.forwardRef<
-  HTMLElement,
-  React.ComponentProps<typeof Tabs.Wrapper>
->((props, forwardedRef) => {
-  const widgetId = useSafeContext(WidgetIdContext);
-  const dispatch = React.useContext(NineZoneDispatchContext);
-  const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
-  const activeTabId = useActiveTabId();
-  const [actionTabId, setActionTabId] = React.useState<string | undefined>(
-    undefined,
-  );
-  const [anchored, setAnchored] = React.useState(false);
-  const tabElementsRef = React.useRef(
-    new Map<string, HTMLElement | undefined>(),
-  );
-  const hideTab = React.useCallback(
-    (id: string) => {
-      setActionTabId(undefined);
-      dispatch({
-        type: "WIDGET_TAB_HIDE",
-        id,
-      });
+type WidgetProps = React.ComponentProps<typeof Tabs.Wrapper> & {
+  handles?: React.ReactNode;
+};
 
-      const tabIndex = tabIds.indexOf(id);
-      const nextTabIndex =
-        tabIndex + 1 > tabIds.length - 1 ? tabIndex - 1 : tabIndex + 1;
+const Widget = React.forwardRef<HTMLElement, WidgetProps>(
+  (props, forwardedRef) => {
+    const { handles, ...rest } = props;
+    const widgetId = useSafeContext(WidgetIdContext);
+    const dispatch = React.useContext(NineZoneDispatchContext);
+    const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
+    const activeTabId = useActiveTabId();
+    const [actionTabId, setActionTabId] = React.useState<string | undefined>(
+      undefined,
+    );
+    const [anchored, setAnchored] = React.useState(false);
+    const tabElementsRef = React.useRef(
+      new Map<string, HTMLElement | undefined>(),
+    );
+    const hideTab = React.useCallback(
+      (id: string) => {
+        setActionTabId(undefined);
+        dispatch({
+          type: "WIDGET_TAB_HIDE",
+          id,
+        });
 
-      if (nextTabIndex < 0) return;
-      const nextTabId = tabIds[nextTabIndex];
-      const tabEl = tabElementsRef.current.get(nextTabId);
-      tabEl?.focus();
-    },
-    [dispatch, tabIds],
-  );
-  const setTabElement = React.useCallback(
-    (id: string, element: HTMLElement | undefined) => {
-      tabElementsRef.current.set(id, element);
-    },
-    [],
-  );
+        const tabIndex = tabIds.indexOf(id);
+        const nextTabIndex =
+          tabIndex + 1 > tabIds.length - 1 ? tabIndex - 1 : tabIndex + 1;
 
-  const [widgetRef, value] = useWidgetContextValue();
-  const ref = useRefs(forwardedRef, widgetRef);
-  return (
-    <WidgetContext.Provider value={value}>
-      <TabsContext.Provider
-        value={{
-          actionTabId,
-          setActionTabId,
-          hideTab,
-          setTabElement,
-          anchored,
-          setAnchored,
-        }}
-      >
-        <Tabs.Wrapper
-          {...props}
-          className={classnames(
-            "uifw-preview-widgetTabActions-widget_wrapper",
-            props.className,
-          )}
-          value={activeTabId}
-          focusActivationMode="manual"
-          ref={ref}
+        if (nextTabIndex < 0) return;
+        const nextTabId = tabIds[nextTabIndex];
+        const tabEl = tabElementsRef.current.get(nextTabId);
+        tabEl?.focus();
+      },
+      [dispatch, tabIds],
+    );
+    const setTabElement = React.useCallback(
+      (id: string, element: HTMLElement | undefined) => {
+        tabElementsRef.current.set(id, element);
+      },
+      [],
+    );
+
+    const [widgetRef, value] = useWidgetContextValue();
+    const ref = useRefs(forwardedRef, widgetRef);
+    return (
+      <WidgetContext.Provider value={value}>
+        <TabsContext.Provider
+          value={{
+            actionTabId,
+            setActionTabId,
+            hideTab,
+            setTabElement,
+            anchored,
+            setAnchored,
+          }}
         >
-          <WidgetHandle />
-          <Tabs.TabList className="uifw-preview-widgetTabActions-widget_tabList">
-            {tabIds.map((tabId) => {
-              return (
-                <TabIdContext.Provider key={tabId} value={tabId}>
-                  <Tab />
-                </TabIdContext.Provider>
-              );
-            })}
-            <TitleBarTarget />
-          </Tabs.TabList>
-
-          <TabsActions />
-
-          <Tabs.Panel
+          <Tabs.Wrapper
+            {...rest}
+            className={classnames(
+              "uifw-preview-widgetTabActions-widget_wrapper",
+              props.className,
+            )}
             value={activeTabId}
-            className="uifw-preview-widgetTabActions-widget_panel"
+            focusActivationMode="manual"
+            ref={ref}
           >
-            <PanelContent />
-          </Tabs.Panel>
-        </Tabs.Wrapper>
-      </TabsContext.Provider>
-    </WidgetContext.Provider>
-  );
-});
+            <WidgetHandle />
+            <Tabs.TabList className="uifw-preview-widgetTabActions-widget_tabList">
+              {tabIds.map((tabId) => {
+                return (
+                  <TabIdContext.Provider key={tabId} value={tabId}>
+                    <Tab />
+                  </TabIdContext.Provider>
+                );
+              })}
+              <TitleBarTarget />
+            </Tabs.TabList>
+
+            <TabsActions />
+
+            <Tabs.Panel
+              value={activeTabId}
+              className="uifw-preview-widgetTabActions-widget_panel"
+            >
+              <PanelContent />
+            </Tabs.Panel>
+
+            {handles}
+          </Tabs.Wrapper>
+        </TabsContext.Provider>
+      </WidgetContext.Provider>
+    );
+  },
+);
 Widget.displayName = "Widget";
 
 function Tab() {
@@ -288,6 +297,13 @@ function PanelContent() {
   );
 }
 
+function WidgetHandle() {
+  const ref = useDragWidgetHandle();
+  return (
+    <div className="uifw-preview-widgetTabActions-widget_handle" ref={ref} />
+  );
+}
+
 /** @internal */
 export function PanelWidget() {
   const widgetRef = useDragPanelWidget();
@@ -301,13 +317,14 @@ export function FloatingWidget() {
     style,
     hidden: _hidden,
     minimized: _minimized,
-    resizable: _resizable,
+    resizable: resizable,
     dragged,
     isToolSettingsTab: _isToolSettingsTab,
     maximizedWidget: _maximizedWidget,
   } = useFloatingWidget();
   return (
     <Widget
+      handles={resizable ? <ResizeHandles /> : undefined}
       data-_appui-floating="true"
       data-_appui-dragged={dragged ? "true" : undefined}
       style={style}
@@ -316,9 +333,28 @@ export function FloatingWidget() {
   );
 }
 
-function WidgetHandle() {
-  const ref = useDragWidgetHandle();
+function ResizeHandle(
+  props: Pick<React.ComponentProps<typeof FloatingWidgetHandle>, "handle">,
+) {
   return (
-    <div className="uifw-preview-widgetTabActions-widget_handle" ref={ref} />
+    <FloatingWidgetHandle
+      {...props}
+      className="uifw-preview-widgetTabActions-widget_resizeHandle"
+    />
+  );
+}
+
+function ResizeHandles() {
+  return (
+    <>
+      <ResizeHandle handle="left" />
+      <ResizeHandle handle="top" />
+      <ResizeHandle handle="right" />
+      <ResizeHandle handle="bottom" />
+      <ResizeHandle handle="topLeft" />
+      <ResizeHandle handle="topRight" />
+      <ResizeHandle handle="bottomLeft" />
+      <ResizeHandle handle="bottomRight" />
+    </>
   );
 }
