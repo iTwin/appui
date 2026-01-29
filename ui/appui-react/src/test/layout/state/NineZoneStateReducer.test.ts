@@ -2095,6 +2095,117 @@ describe("NineZoneStateReducer", () => {
       expect(newState.savedTabs.byId.t3?.home?.tabIndex).to.equal(0);
       expect(newState.savedTabs.byId.t3?.home?.widgetId).to.equal("w2");
     });
+
+    it("should preserve tab index when hiding middle tab after first is hidden", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3", "t4"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3", "t4"]);
+
+      // Hide first tab
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Hide middle tab - should get its original index (2), not current visible index (1)
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+
+      expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(state.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+    });
+
+    it("should handle non-contiguous hidden tabs correctly", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3", "t4", "t5"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3", "t4", "t5"]);
+
+      // Hide t1, t3, t5 (non-contiguous)
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t5",
+      });
+
+      expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(state.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+      expect(state.savedTabs.byId.t5?.home?.tabIndex).to.equal(4);
+      expect(state.widgets.w1.tabs).to.eql(["t2", "t4"]);
+    });
+
+    it("should preserve tab index in floating widget when hiding non-contiguous tabs", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3", "t4"]);
+      state = addFloatingWidget(state, "fw1", ["t1", "t2", "t3", "t4"]);
+
+      // Hide t1 and t3
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t3",
+      });
+
+      expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      expect(state.savedTabs.byId.t3?.home?.tabIndex).to.equal(2);
+    });
+
+    it("should not include duplicate tab ids when savedTabs contains stale entries", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
+
+      // Hide t1
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Manually add t1 back to the widget (simulating a restore without cleanup)
+      state = produce(state, (draft) => {
+        draft.widgets.w1.tabs = ["t1", "t2"];
+      });
+
+      // Now hide t2 - should not cause issues with duplicate t1
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t2",
+      });
+
+      // t2 should still get correct index
+      expect(newState.savedTabs.byId.t2?.home?.tabIndex).to.equal(1);
+    });
+
+    it("should correctly identify widget via panel position when widgetId doesn't match", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1", "t2", "t3"]);
+      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3"]);
+
+      // Hide t1
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+
+      // Verify t1's saved home references the correct widget
+      expect(state.savedTabs.byId.t1?.home?.widgetId).to.equal("w1");
+      expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
+      if (state.savedTabs.byId.t1?.home && "side" in state.savedTabs.byId.t1.home) {
+        expect(state.savedTabs.byId.t1.home.side).to.equal("left");
+        expect(state.savedTabs.byId.t1.home.widgetIndex).to.equal(0);
+      }
+    });
   });
 
   describe("WIDGET_TABS_REMOVE", () => {
