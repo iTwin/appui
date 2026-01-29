@@ -318,9 +318,9 @@ export function FloatingWidget() {
     style,
     hidden,
     minimized,
-    resizable: resizable,
+    resizable,
     dragged,
-    isToolSettingsTab: _isToolSettingsTab,
+    isToolSettingsTab,
     maximizedWidget,
   } = useFloatingWidget();
   return (
@@ -334,6 +334,7 @@ export function FloatingWidget() {
       data-_appui-dragged={dragged ? "true" : undefined}
       data-_appui-hidden={hidden ? "true" : undefined}
       data-_appui-minimized={minimized ? "true" : undefined}
+      data-_appui-tool-settings={isToolSettingsTab ? "true" : undefined}
       style={style}
       ref={ref}
     />

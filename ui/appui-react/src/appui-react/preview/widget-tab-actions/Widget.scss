@@ -40,6 +40,10 @@
         overflow: hidden;
       }
     }
+
+    &:where([data-_appui-tool-settings="true"]) {
+      min-height: 60px;
+    }
   }
 
   .uifw-preview-widgetTabActions-widget_handle {
