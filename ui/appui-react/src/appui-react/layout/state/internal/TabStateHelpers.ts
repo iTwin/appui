@@ -79,20 +79,6 @@ export function updateSavedTabState(
   });
 }
 
-/** @internal */
-export function removeSavedTabState(
-  state: NineZoneState,
-  id: TabState["id"]
-) {
-  return produce(state, (draft) => {
-    const allIds = draft.savedTabs.allIds;
-    const byId = draft.savedTabs.byId;
-    const index = allIds.indexOf(id);
-    allIds.splice(index, 1);
-    delete byId[id];
-  });
-}
-
 /** Adds a new `tab`.
  * @internal
  */
