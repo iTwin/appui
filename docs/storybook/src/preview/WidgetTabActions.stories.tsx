@@ -18,7 +18,8 @@ const meta = {
     },
   },
   args: {
-    threshold: 2,
+    enableMaximizedFloatingWidget: false,
+    enableMaximizedPanelWidget: false,
   },
 } satisfies Meta<typeof PreviewStory>;
 

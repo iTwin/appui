@@ -321,11 +321,14 @@ export function FloatingWidget() {
     resizable: resizable,
     dragged,
     isToolSettingsTab: _isToolSettingsTab,
-    maximizedWidget: _maximizedWidget,
+    maximizedWidget,
   } = useFloatingWidget();
   return (
     <Widget
-      className="uifw-preview-widgetTabActions-widget_floating"
+      className={classnames(
+        "uifw-preview-widgetTabActions-widget_floating",
+        maximizedWidget.classNames,
+      )}
       handles={resizable ? <ResizeHandles /> : undefined}
       minimized={minimized}
       data-_appui-dragged={dragged ? "true" : undefined}
