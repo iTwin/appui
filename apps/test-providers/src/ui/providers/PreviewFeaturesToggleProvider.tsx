@@ -43,6 +43,9 @@ const availableFeatures: AvailableFeatures = {
   controlWidgetVisibility: {
     label: "Control widget visibility",
   },
+  widgetTabActions: {
+    label: "Widget tab actions",
+  },
   allowLettersInAccuDrawInputFields: {
     label: "Allow letters in AccuDraw input fields",
   },
