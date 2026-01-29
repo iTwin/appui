@@ -37,7 +37,6 @@ import {
   addRemovedTab,
   addTab,
   addTabToWidget,
-  removeSavedTabState,
   removeTab,
   removeTabFromWidget,
   updateSavedTabState,
@@ -1004,8 +1003,6 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
     draft.unloaded = false;
   });
 
-  // Why are we not cleaning up savedState when unhiding a tab?
-  state = removeSavedTabState(state, id);
   return [state, location] as const;
 }
 
@@ -1090,10 +1087,10 @@ function getTabIndex({
   id: string;
 }) {
   const allTabs = getAllTabsFromWidget(state, widgetId);
-  const indexIncludingHidden = allTabs.indexOf(id);
+  const index = allTabs.indexOf(id);
 
-  if (indexIncludingHidden !== -1) {
-    return indexIncludingHidden;
+  if (index !== -1) {
+    return index;
   }
 
   return state.widgets[widgetId].tabs.indexOf(id);
@@ -1103,17 +1100,26 @@ function getAllTabsFromWidget(
   state: NineZoneState,
   widgetId: WidgetState["id"]
 ) {
-  const visibleTabIds = [...state.widgets[widgetId].tabs];
+  const allTabsId = [...state.widgets[widgetId].tabs];
   const savedTabs = Object.values(state.savedTabs.byId);
 
   for (const savedTab of savedTabs) {
-    if (
-      savedTab?.home &&
-      savedTab.home.widgetId === widgetId
-    ) {
-      visibleTabIds.splice(savedTab.home.tabIndex, 0, savedTab.id);
+    if (!savedTab?.home) continue;
+
+    // Check if this saved tab belongs to the target widget
+    let belongsToWidget = savedTab.home.widgetId === widgetId;
+
+    // If no direct match, check if it belongs via panel position
+    if (!belongsToWidget && "side" in savedTab.home) {
+      const tabWidgetId =
+        state.panels[savedTab.home.side].widgets[savedTab.home.widgetIndex];
+      belongsToWidget = tabWidgetId === widgetId;
+    }
+
+    if (belongsToWidget) {
+      allTabsId.splice(savedTab.home.tabIndex, 0, savedTab.id);
     }
   }
 
-  return visibleTabIds;
+  return allTabsId;
 }
