@@ -1094,13 +1094,16 @@ function getTabIndex({
 
 function getAllTabsFromWidget(
   state: NineZoneState,
-  widgetId: WidgetState["id"],
+  widgetId: WidgetState["id"]
 ) {
   const allTabsId = [...state.widgets[widgetId].tabs];
   const savedTabs = Object.values(state.savedTabs.byId);
 
   for (const savedTab of savedTabs) {
     if (!savedTab?.home) continue;
+
+    // Skip if this tab is already visible in the widget
+    if (allTabsId.includes(savedTab.id)) continue;
 
     // Check if this saved tab belongs to the target widget
     let belongsToWidget = savedTab.home.widgetId === widgetId;
