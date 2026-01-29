@@ -44,7 +44,7 @@ import {
   useMaximizedFloatingWidget,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { useWidgetTabActions } from "../../preview/widget-tab-actions/useWidgetTabActions.js";
-import { FloatingWidget as TabActionsWidget } from "../../preview/widget-tab-actions/Widget.js";
+import { FloatingWidget as TabActionsFloatingWidget } from "../../preview/widget-tab-actions/Widget.js";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -69,7 +69,7 @@ export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const widgetTabActions = useWidgetTabActions();
   return (
     <WidgetProvider id={props.id}>
-      {widgetTabActions ? <TabActionsWidget /> : floatingWidget}
+      {widgetTabActions ? <TabActionsFloatingWidget /> : floatingWidget}
     </WidgetProvider>
   );
 }

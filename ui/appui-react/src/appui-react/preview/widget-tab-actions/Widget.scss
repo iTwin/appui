@@ -41,6 +41,10 @@
 
     // Let handle receive pointer events
     pointer-events: none;
+
+    & > * {
+      pointer-events: all;
+    }
   }
 
   .uifw-preview-widgetTabActions-widget_tab {
@@ -48,9 +52,6 @@
       "label icon"
       "description icon" minmax(0, auto) / minmax(min-content, 1fr) auto;
     min-inline-size: min-content;
-
-    // Restore pointer events
-    pointer-events: all;
   }
 
   .uifw-preview-widgetTabActions-widget_panel {
