@@ -28,6 +28,7 @@ import { TabIdContext } from "../../layout/widget/ContentRenderer.js";
 import { useWidgetContentContainer } from "../../layout/widget/ContentContainer.js";
 import { useTabInteractions } from "../../layout/widget/Tab.js";
 import {
+  useBringToFront,
   useFloatingWidgetStyle,
   useIsDraggedWidget,
 } from "../../layout/widget/FloatingWidget.js";
@@ -57,7 +58,10 @@ const TabsContext = React.createContext<
 >(undefined);
 
 /** @internal */
-export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
+export const Widget = React.forwardRef<
+  HTMLElement,
+  React.ComponentProps<typeof Tabs.Wrapper>
+>((props, forwardedRef) => {
   const widgetId = useSafeContext(WidgetIdContext);
   const dispatch = React.useContext(NineZoneDispatchContext);
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
@@ -97,7 +101,7 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
 
   const [widgetRef, value] = useWidgetContextValue();
   const dockedWidgetRef = useDragDockedWidget();
-  const ref = useRefs(widgetRef, dockedWidgetRef);
+  const ref = useRefs(forwardedRef, widgetRef, dockedWidgetRef);
   return (
     <WidgetContext.Provider value={value}>
       <TabsContext.Provider
@@ -144,7 +148,8 @@ export function Widget(props: React.ComponentProps<typeof Tabs.Wrapper>) {
       </TabsContext.Provider>
     </WidgetContext.Provider>
   );
-}
+});
+Widget.displayName = "Widget";
 
 function Tab() {
   const { setActionTabId, hideTab, setTabElement } =
@@ -293,11 +298,13 @@ function PanelContent() {
 export function FloatingWidget() {
   const { style } = useFloatingWidgetStyle();
   const dragged = useIsDraggedWidget();
+  const ref = useBringToFront();
   return (
     <Widget
       data-_appui-floating="true"
       data-_appui-dragged={dragged ? "true" : undefined}
       style={style}
+      ref={ref}
     />
   );
 }

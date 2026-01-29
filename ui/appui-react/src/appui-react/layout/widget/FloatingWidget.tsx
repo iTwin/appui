@@ -89,8 +89,10 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
 
   const dragged = useIsDraggedWidget();
-  const ref = useHandleAutoSize(dragged);
   const maximizedWidget = useMaximizedFloatingWidget();
+  const autoSizeRef = useHandleAutoSize(dragged);
+  const bringToFrontRef = useBringToFront();
+  const ref = useRefs(autoSizeRef, bringToFrontRef);
 
   const className = classnames(
     "nz-widget-floatingWidget",
@@ -390,4 +392,26 @@ export function useWidgetAllowedToDock(): boolean {
     }
     return true;
   });
+}
+
+/** @internal */
+export function useBringToFront() {
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const listener = () => {
+      floatingWidgetId &&
+        dispatch({
+          type: "FLOATING_WIDGET_BRING_TO_FRONT",
+          id: floatingWidgetId,
+        });
+    };
+    const element = ref.current;
+    element?.addEventListener("click", listener);
+    return () => {
+      element?.removeEventListener("click", listener);
+    };
+  }, [dispatch, floatingWidgetId]);
+  return ref;
 }

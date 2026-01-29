@@ -55,27 +55,9 @@ export interface WidgetProps extends CommonProps {
 /** @internal */
 export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
   function Widget(props, forwardedRef) {
-    const dispatch = React.useContext(NineZoneDispatchContext);
-    const floatingWidgetId = useFloatingWidgetId();
-    const elementRef = React.useRef<HTMLDivElement>(null);
-
-    React.useEffect(() => {
-      const listener = () => {
-        floatingWidgetId &&
-          dispatch({
-            type: "FLOATING_WIDGET_BRING_TO_FRONT",
-            id: floatingWidgetId,
-          });
-      };
-      const element = elementRef.current;
-      element?.addEventListener("click", listener);
-      return () => {
-        element?.removeEventListener("click", listener);
-      };
-    }, [dispatch, floatingWidgetId]);
     const [widgetRef, value] = useWidgetContextValue();
     const dockedWidgetRef = useDragDockedWidget();
-    const ref = useRefs(forwardedRef, elementRef, widgetRef, dockedWidgetRef);
+    const ref = useRefs(forwardedRef, widgetRef, dockedWidgetRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
       <WidgetContext.Provider value={value}>
