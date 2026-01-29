@@ -315,7 +315,7 @@ export function FloatingWidget() {
   const {
     ref,
     style,
-    hidden: _hidden,
+    hidden,
     minimized: _minimized,
     resizable: resizable,
     dragged,
@@ -324,9 +324,10 @@ export function FloatingWidget() {
   } = useFloatingWidget();
   return (
     <Widget
+      className="uifw-preview-widgetTabActions-widget_floating"
       handles={resizable ? <ResizeHandles /> : undefined}
-      data-_appui-floating="true"
       data-_appui-dragged={dragged ? "true" : undefined}
+      data-_appui-hidden={hidden ? "true" : undefined}
       style={style}
       ref={ref}
     />
