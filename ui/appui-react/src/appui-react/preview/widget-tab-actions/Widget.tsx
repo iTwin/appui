@@ -16,7 +16,7 @@ import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
 
 import {
   useActiveTabId,
-  useDragDockedWidget,
+  useDragPanelWidget,
   useWidgetContextValue,
   WidgetContext,
   WidgetIdContext,
@@ -57,8 +57,7 @@ const TabsContext = React.createContext<
   | undefined
 >(undefined);
 
-/** @internal */
-export const Widget = React.forwardRef<
+const Widget = React.forwardRef<
   HTMLElement,
   React.ComponentProps<typeof Tabs.Wrapper>
 >((props, forwardedRef) => {
@@ -100,8 +99,7 @@ export const Widget = React.forwardRef<
   );
 
   const [widgetRef, value] = useWidgetContextValue();
-  const dockedWidgetRef = useDragDockedWidget();
-  const ref = useRefs(forwardedRef, widgetRef, dockedWidgetRef);
+  const ref = useRefs(forwardedRef, widgetRef);
   return (
     <WidgetContext.Provider value={value}>
       <TabsContext.Provider
@@ -292,6 +290,12 @@ function PanelContent() {
       <WidgetOutline />
     </>
   );
+}
+
+/** @internal */
+export function PanelWidget() {
+  const widgetRef = useDragPanelWidget();
+  return <Widget ref={widgetRef} />;
 }
 
 /** @internal */

@@ -56,7 +56,7 @@ export interface WidgetProps extends CommonProps {
 export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
   function Widget(props, forwardedRef) {
     const [widgetRef, value] = useWidgetContextValue();
-    const dockedWidgetRef = useDragDockedWidget();
+    const dockedWidgetRef = useDragPanelWidget();
     const ref = useRefs(forwardedRef, widgetRef, dockedWidgetRef);
     const className = classnames("nz-widget-widget", props.className);
     return (
@@ -78,7 +78,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
 );
 
 /** @internal */
-export function useDragDockedWidget() {
+export function useDragPanelWidget() {
   const id = useSafeContext(WidgetIdContext);
   const side = React.useContext(PanelSideContext);
   const measureNz = React.useContext(MeasureContext);
