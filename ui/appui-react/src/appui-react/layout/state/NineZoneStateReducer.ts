@@ -930,10 +930,7 @@ export function NineZoneStateReducer(
   return state;
 }
 
-function sortIndexes(
-  action: WidgetTabsRemoveAction,
-  state: NineZoneState
-) {
+function sortIndexes(action: WidgetTabsRemoveAction, state: NineZoneState) {
   return [...action.ids].sort((a, b) => {
     const locationA = getTabLocation(state, a);
     const locationB = getTabLocation(state, b);
