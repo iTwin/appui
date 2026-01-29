@@ -176,10 +176,8 @@ function useFloatingWidgetStyle() {
   }, [autoSized, bounds, minimized]);
   const maximizedWidget = useMaximizedFloatingWidget();
   return {
-    style: {
-      ...style,
-      ...maximizedWidget.style,
-    },
+    ...style,
+    ...maximizedWidget.style,
   };
 }
 
@@ -393,7 +391,6 @@ export function useFloatingWidget() {
   const id = useSafeContext(WidgetIdContext);
   const uiIsVisible = React.useContext(UiIsVisibleContext);
   const minimized = useLayout((state) => getWidgetState(state, id).minimized);
-
   const hideWithUiWhenFloating = useLayout((state) => {
     const widget = getWidgetState(state, id);
     const activeTab = state.tabs[widget.activeTabId];
@@ -410,7 +407,7 @@ export function useFloatingWidget() {
   });
   const hidden = !uiIsVisible && hideWithUiWhenFloating;
 
-  const { style } = useFloatingWidgetStyle();
+  const style = useFloatingWidgetStyle();
   const dragged = useIsDraggedWidget();
   const maximizedWidget = useMaximizedFloatingWidget();
   const autoSizeRef = useHandleAutoSize(dragged);
