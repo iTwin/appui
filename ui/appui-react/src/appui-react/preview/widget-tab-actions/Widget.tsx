@@ -57,12 +57,13 @@ const TabsContext = React.createContext<
 >(undefined);
 
 type WidgetProps = React.ComponentProps<typeof Tabs.Wrapper> & {
+  minimized?: boolean;
   handles?: React.ReactNode;
 };
 
 const Widget = React.forwardRef<HTMLElement, WidgetProps>(
   (props, forwardedRef) => {
-    const { handles, ...rest } = props;
+    const { handles, minimized, ...rest } = props;
     const widgetId = useSafeContext(WidgetIdContext);
     const dispatch = React.useContext(NineZoneDispatchContext);
     const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
@@ -120,7 +121,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
               "uifw-preview-widgetTabActions-widget_wrapper",
               props.className,
             )}
-            value={activeTabId}
+            value={minimized ? "" : activeTabId}
             focusActivationMode="manual"
             ref={ref}
           >
@@ -316,7 +317,7 @@ export function FloatingWidget() {
     ref,
     style,
     hidden,
-    minimized: _minimized,
+    minimized,
     resizable: resizable,
     dragged,
     isToolSettingsTab: _isToolSettingsTab,
@@ -326,8 +327,10 @@ export function FloatingWidget() {
     <Widget
       className="uifw-preview-widgetTabActions-widget_floating"
       handles={resizable ? <ResizeHandles /> : undefined}
+      minimized={minimized}
       data-_appui-dragged={dragged ? "true" : undefined}
       data-_appui-hidden={hidden ? "true" : undefined}
+      data-_appui-minimized={minimized ? "true" : undefined}
       style={style}
       ref={ref}
     />

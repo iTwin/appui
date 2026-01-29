@@ -32,6 +32,14 @@
       opacity: 0;
       pointer-events: none;
     }
+
+    &:where([data-_appui-minimized="true"]) {
+      .uifw-preview-widgetTabActions-widget_panel {
+        height: 0;
+        border: 0;
+        overflow: hidden;
+      }
+    }
   }
 
   .uifw-preview-widgetTabActions-widget_handle {
