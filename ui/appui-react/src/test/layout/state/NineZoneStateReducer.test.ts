@@ -2120,7 +2120,13 @@ describe("NineZoneStateReducer", () => {
     it("should handle non-contiguous hidden tabs correctly", () => {
       let state = createNineZoneState();
       state = addTabs(state, ["t1", "t2", "t3", "t4", "t5"]);
-      state = addPanelWidget(state, "left", "w1", ["t1", "t2", "t3", "t4", "t5"]);
+      state = addPanelWidget(state, "left", "w1", [
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+      ]);
 
       // Hide t1, t3, t5 (non-contiguous)
       state = NineZoneStateReducer(state, {
@@ -2201,7 +2207,10 @@ describe("NineZoneStateReducer", () => {
       // Verify t1's saved home references the correct widget
       expect(state.savedTabs.byId.t1?.home?.widgetId).to.equal("w1");
       expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
-      if (state.savedTabs.byId.t1?.home && "side" in state.savedTabs.byId.t1.home) {
+      if (
+        state.savedTabs.byId.t1?.home &&
+        "side" in state.savedTabs.byId.t1.home
+      ) {
         expect(state.savedTabs.byId.t1.home.side).to.equal("left");
         expect(state.savedTabs.byId.t1.home.widgetIndex).to.equal(0);
       }
