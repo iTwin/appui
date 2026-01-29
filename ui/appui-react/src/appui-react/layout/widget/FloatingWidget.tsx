@@ -152,34 +152,16 @@ function useIsDraggedWidget() {
   return useIsDraggedItem(item);
 }
 
-function useFloatingWidgetState() {
+function useFloatingWidgetStyle() {
   const id = useSafeContext(WidgetIdContext);
-  return useLayout((state) => {
+  const autoSized = useLayout((state) => {
     const widget = getWidgetState(state, id);
     const floatingWidget = state.floatingWidgets.byId[id];
-    const tabs = widget.tabs;
-    const activeTabId = widget.activeTabId;
-    const activeTab = state.tabs[activeTabId];
-    const userSized = floatingWidget.userSized;
-    const singleTab = 1 === tabs.length;
-
-    const toolSettingsTabId = state.toolSettings?.tabId;
-    const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
-    const resizable = !!floatingWidget.resizable && !isToolSettingsTab;
-    const autoSized = singleTab && !userSized;
-    return {
-      autoSized,
-      bounds: floatingWidget.bounds,
-      hideWithUiWhenFloating: activeTab.hideWithUiWhenFloating,
-      isToolSettingsTab,
-      minimized: widget.minimized,
-      resizable,
-    };
-  }, true);
-}
-
-function useFloatingWidgetStyle() {
-  const { autoSized, bounds, minimized } = useFloatingWidgetState();
+    const singleTab = 1 === widget.tabs.length;
+    return singleTab && !floatingWidget.userSized;
+  });
+  const bounds = useLayout((state) => state.floatingWidgets.byId[id].bounds);
+  const minimized = useLayout((state) => getWidgetState(state, id).minimized);
   const style = React.useMemo(() => {
     const boundsRect = Rectangle.create(bounds);
     const { height, width } = boundsRect.getSize();
@@ -408,9 +390,24 @@ function useBringToFront() {
 
 /** @internal */
 export function useFloatingWidget() {
+  const id = useSafeContext(WidgetIdContext);
   const uiIsVisible = React.useContext(UiIsVisibleContext);
-  const { hideWithUiWhenFloating, isToolSettingsTab, minimized, resizable } =
-    useFloatingWidgetState();
+  const minimized = useLayout((state) => getWidgetState(state, id).minimized);
+
+  const hideWithUiWhenFloating = useLayout((state) => {
+    const widget = getWidgetState(state, id);
+    const activeTab = state.tabs[widget.activeTabId];
+    return activeTab.hideWithUiWhenFloating;
+  });
+  const isToolSettingsTab = useLayout((state) => {
+    const widget = getWidgetState(state, id);
+    const toolSettingsTabId = state.toolSettings?.tabId;
+    return widget.tabs[0] === toolSettingsTabId;
+  });
+  const resizable = useLayout((state) => {
+    const floatingWidget = state.floatingWidgets.byId[id];
+    return !!floatingWidget.resizable && !isToolSettingsTab;
+  });
   const hidden = !uiIsVisible && hideWithUiWhenFloating;
 
   const { style } = useFloatingWidgetStyle();
