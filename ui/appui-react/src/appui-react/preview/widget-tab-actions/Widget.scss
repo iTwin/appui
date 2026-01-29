@@ -14,6 +14,7 @@
       position: absolute;
       min-width: 200px;
       min-height: 120px;
+      inline-size: auto;
 
       @include uicore-z-index(dragged-widget);
       @include nz-widget-opacity;
