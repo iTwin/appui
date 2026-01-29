@@ -1002,7 +1002,6 @@ function unhideTab(state: NineZoneState, id: TabState["id"]) {
   state = updateTabState(state, id, (draft) => {
     draft.unloaded = false;
   });
-
   return [state, location] as const;
 }
 
@@ -1098,7 +1097,7 @@ function getTabIndex({
 
 function getAllTabsFromWidget(
   state: NineZoneState,
-  widgetId: WidgetState["id"]
+  widgetId: WidgetState["id"],
 ) {
   const allTabsId = [...state.widgets[widgetId].tabs];
   const savedTabs = Object.values(state.savedTabs.byId);
