@@ -687,7 +687,7 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1
       lodash:
-        specifier: ^4.17.23
+        specifier: ^4.17.10
         version: 4.17.23
       react-error-boundary:
         specifier: ^5.0.0
@@ -850,7 +850,7 @@ importers:
         specifier: ~2.2.0
         version: 2.2.0
       lodash:
-        specifier: ^4.17.23
+        specifier: ^4.17.10
         version: 4.17.23
       react-window:
         specifier: ^1.8.9
@@ -974,7 +974,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.5
       lodash:
-        specifier: ^4.17.23
+        specifier: ^4.17.10
         version: 4.17.23
       react-autosuggest:
         specifier: ^10.1.0

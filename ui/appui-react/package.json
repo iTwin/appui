@@ -118,7 +118,7 @@
     "@itwin/itwinui-illustrations-react": "^2.0.1",
     "classnames": "2.5.1",
     "immer": "^10.1.1",
-    "lodash": "^4.17.23",
+    "lodash": "^4.17.10",
     "react-error-boundary": "^5.0.0",
     "react-transition-group": "^4.4.2",
     "rxjs": "^7.8.1",
