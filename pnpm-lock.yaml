@@ -688,7 +688,7 @@ importers:
         version: 10.1.1
       lodash:
         specifier: ^4.17.10
-        version: 4.17.23
+        version: 4.17.21
       react-error-boundary:
         specifier: ^5.0.0
         version: 5.0.0(react@19.2.1)
@@ -851,7 +851,7 @@ importers:
         version: 2.2.0
       lodash:
         specifier: ^4.17.10
-        version: 4.17.23
+        version: 4.17.21
       react-window:
         specifier: ^1.8.9
         version: 1.8.11(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -975,7 +975,7 @@ importers:
         version: 3.2.5
       lodash:
         specifier: ^4.17.10
-        version: 4.17.23
+        version: 4.17.21
       react-autosuggest:
         specifier: ^10.1.0
         version: 10.1.0(react@19.2.1)
@@ -5640,8 +5640,8 @@ packages:
   lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
 
-  lodash@4.17.23:
-    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
+  lodash@4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -9675,7 +9675,7 @@ snapshots:
       '@rushstack/rig-package': 0.5.3
       '@rushstack/terminal': 0.18.0(@types/node@22.18.1)
       '@rushstack/ts-command-line': 5.0.5(@types/node@22.18.1)
-      lodash: 4.17.23
+      lodash: 4.17.21
       minimatch: 10.0.3
       resolve: 1.22.10
       semver: 7.5.4
@@ -10266,7 +10266,7 @@ snapshots:
       chalk: 3.0.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.6.3
-      lodash: 4.17.23
+      lodash: 4.17.21
       redent: 3.0.0
 
   '@testing-library/react@16.3.0(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
@@ -12921,7 +12921,7 @@ snapshots:
 
   lodash.startcase@4.4.0: {}
 
-  lodash@4.17.23: {}
+  lodash@4.17.21: {}
 
   log-symbols@4.1.0:
     dependencies:
@@ -14701,7 +14701,7 @@ snapshots:
   typemoq@2.1.0:
     dependencies:
       circular-json: 0.3.3
-      lodash: 4.17.23
+      lodash: 4.17.21
       postinstall-build: 5.0.3
 
   typescript-eslint@8.11.0(eslint@8.57.1)(typescript@5.6.3):
