@@ -25,9 +25,10 @@ import { isHorizontalPanelState } from "../state/PanelState.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { getWidgetState } from "../state/internal/WidgetStateHelpers.js";
 import type { NineZoneState } from "../state/NineZoneState.js";
+import { PanelWidget as TabActionsPanelWidget } from "../../preview/widget-tab-actions/Widget.js";
+import { useWidgetTabActions } from "../../preview/widget-tab-actions/useWidgetTabActions.js";
 
-/** @internal */
-export interface PanelWidgetProps {
+interface PanelWidgetProps {
   widgetId: WidgetState["id"];
 }
 
@@ -52,7 +53,7 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
       "nz-widget-panelWidget",
       horizontal && "nz-horizontal",
       `nz-${mode}`,
-      borders
+      borders,
     );
     const content = React.useMemo(
       () => (
@@ -61,19 +62,25 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
           <WidgetOutline />
         </WidgetContentContainer>
       ),
-      [showTarget]
+      [showTarget],
     );
+
+    const widgetTabActions = useWidgetTabActions();
     return (
       <WidgetProvider id={widgetId}>
-        <Widget className={className} ref={ref}>
-          <WidgetTabBar
-            separator={isHorizontalPanelSide(side) ? true : !minimized}
-          />
-          {content}
-        </Widget>
+        {widgetTabActions ? (
+          <TabActionsPanelWidget />
+        ) : (
+          <Widget className={className} ref={ref}>
+            <WidgetTabBar
+              separator={isHorizontalPanelSide(side) ? true : !minimized}
+            />
+            {content}
+          </Widget>
+        )}
       </WidgetProvider>
     );
-  }
+  },
 );
 
 function findFillWidget(state: NineZoneState, side: PanelSide) {
