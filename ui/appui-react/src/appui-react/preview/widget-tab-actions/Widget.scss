@@ -71,6 +71,12 @@
       "label icon"
       "description icon" minmax(0, auto) / minmax(min-content, 1fr) auto;
     min-inline-size: min-content;
+
+    @media (any-hover: hover) {
+      &:where(:not(:hover, :focus-visible)) {
+        --_appui-decoration-opacity: 0;
+      }
+    }
   }
 
   .uifw-preview-widgetTabActions-widget_panel {
@@ -81,6 +87,7 @@
 
   .uifw-preview-widgetTabActions-widget_decoration {
     margin-inline-start: var(--iui-size-2xs);
+    opacity: var(--_appui-decoration-opacity);
 
     &[data-_appui-action="true"] {
       anchor-name: --_appui-tab-action;
