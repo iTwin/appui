@@ -109,7 +109,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
       });
       expect(newState.panels.left.collapsed).not.toEqual(
-        state.panels.left.collapsed,
+        state.panels.left.collapsed
       );
     });
   });
@@ -384,7 +384,7 @@ describe("NineZoneStateReducer", () => {
           },
           {
             minimized: true,
-          },
+          }
         );
         const newState = NineZoneStateReducer(state, {
           type: "WIDGET_DRAG_END",
@@ -443,7 +443,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.fw1.home).not.toEqual(
-          state.floatingWidgets.byId.fw1.home,
+          state.floatingWidgets.byId.fw1.home
         );
         expect(newState.floatingWidgets.byId.fw1.home).toEqual({
           side: "bottom",
@@ -1015,7 +1015,7 @@ describe("NineZoneStateReducer", () => {
         NineZoneStateReducer(state, {
           type: "WIDGET_TAB_FLOAT",
           id: "t0",
-        }),
+        })
       ).toThrow();
     });
 
@@ -1380,7 +1380,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.fw1.home).not.toEqual(
-          state.floatingWidgets.byId.fw1.home,
+          state.floatingWidgets.byId.fw1.home
         );
         expect(newState.floatingWidgets.byId.fw1.home).toEqual({
           side: "bottom",
