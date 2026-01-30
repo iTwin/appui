@@ -109,7 +109,7 @@ describe("NineZoneStateReducer", () => {
         side: "left",
       });
       expect(newState.panels.left.collapsed).not.toEqual(
-        state.panels.left.collapsed
+        state.panels.left.collapsed,
       );
     });
   });
@@ -384,7 +384,7 @@ describe("NineZoneStateReducer", () => {
           },
           {
             minimized: true,
-          }
+          },
         );
         const newState = NineZoneStateReducer(state, {
           type: "WIDGET_DRAG_END",
@@ -443,7 +443,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.fw1.home).not.toEqual(
-          state.floatingWidgets.byId.fw1.home
+          state.floatingWidgets.byId.fw1.home,
         );
         expect(newState.floatingWidgets.byId.fw1.home).toEqual({
           side: "bottom",
@@ -1015,7 +1015,7 @@ describe("NineZoneStateReducer", () => {
         NineZoneStateReducer(state, {
           type: "WIDGET_TAB_FLOAT",
           id: "t0",
-        })
+        }),
       ).toThrow();
     });
 
@@ -1380,7 +1380,7 @@ describe("NineZoneStateReducer", () => {
           },
         });
         expect(newState.floatingWidgets.byId.fw1.home).not.toEqual(
-          state.floatingWidgets.byId.fw1.home
+          state.floatingWidgets.byId.fw1.home,
         );
         expect(newState.floatingWidgets.byId.fw1.home).toEqual({
           side: "bottom",
@@ -2207,13 +2207,10 @@ describe("NineZoneStateReducer", () => {
       // Verify t1's saved home references the correct widget
       expect(state.savedTabs.byId.t1?.home?.widgetId).to.equal("w1");
       expect(state.savedTabs.byId.t1?.home?.tabIndex).to.equal(0);
-      if (
-        state.savedTabs.byId.t1?.home &&
-        "side" in state.savedTabs.byId.t1.home
-      ) {
-        expect(state.savedTabs.byId.t1.home.side).to.equal("left");
-        expect(state.savedTabs.byId.t1.home.widgetIndex).to.equal(0);
-      }
+
+      assert("side" in state.savedTabs.byId.t1!.home!);
+      expect(state.savedTabs.byId.t1!.home.side).to.equal("left");
+      expect(state.savedTabs.byId.t1!.home.widgetIndex).to.equal(0);
     });
   });
 

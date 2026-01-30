@@ -1020,7 +1020,7 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const tabIndex = getTabIndex({ state, widgetId, id });
+  const tabIndex = getSavedTabIndex({ state, widgetId, id });
 
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
@@ -1073,7 +1073,7 @@ function addTabToPanelSection(
   return addTabToWidget(state, tabId, existingSectionId);
 }
 
-function getTabIndex({
+function getSavedTabIndex({
   state,
   widgetId,
   id,
@@ -1084,14 +1084,11 @@ function getTabIndex({
 }) {
   const allTabs = getAllTabsFromWidget(state, widgetId);
   const index = allTabs.indexOf(id);
-
-  if (index !== -1) {
-    return index;
-  }
-
-  return state.widgets[widgetId].tabs.indexOf(id);
+  assert(index !== -1);
+  return index;
 }
 
+/** Returns all widget tabs, even those that are currently hidden. */
 function getAllTabsFromWidget(
   state: NineZoneState,
   widgetId: WidgetState["id"]
@@ -1109,7 +1106,7 @@ function getAllTabsFromWidget(
     let belongsToWidget = savedTab.home.widgetId === widgetId;
 
     // If no direct match, check if it belongs via panel position
-    if (!belongsToWidget && "side" in savedTab.home) {
+    if (!belongsToWidget && isPanelWidgetRestoreState(savedTab.home)) {
       const tabWidgetId =
         state.panels[savedTab.home.side].widgets[savedTab.home.widgetIndex];
       belongsToWidget = tabWidgetId === widgetId;
