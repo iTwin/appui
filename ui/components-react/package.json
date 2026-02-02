@@ -74,7 +74,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/linkify-it": "~2.1.0",
-    "@types/lodash": "^4.14.0",
+    "@types/lodash": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/react-window": "^1.8.2",
@@ -101,7 +101,7 @@
     "classnames": "2.5.1",
     "immer": "^10.1.1",
     "linkify-it": "~2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "catalog:",
     "react-window": "^1.8.9",
     "rxjs": "^7.8.1",
     "ts-key-enum": "~2.0.12"

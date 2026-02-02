@@ -90,6 +90,9 @@ catalogs:
     '@stratakit/icons':
       specifier: ^0.2.2
       version: 0.2.2
+    '@types/lodash':
+      specifier: ^4.17.23
+      version: 4.17.23
     '@types/react':
       specifier: ^19.2.7
       version: 19.2.7
@@ -108,6 +111,9 @@ catalogs:
     eslint-config-prettier:
       specifier: ^10.1.8
       version: 10.1.8
+    lodash:
+      specifier: ^4.17.23
+      version: 4.17.23
     react:
       specifier: ^19.2.1
       version: 19.2.1
@@ -696,8 +702,8 @@ importers:
         specifier: ^10.1.1
         version: 10.1.1
       lodash:
-        specifier: ^4.17.10
-        version: 4.17.21
+        specifier: 'catalog:'
+        version: 4.17.23
       react-error-boundary:
         specifier: ^5.0.0
         version: 5.0.0(react@19.2.1)
@@ -769,8 +775,8 @@ importers:
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.1)
       '@types/lodash':
-        specifier: ^4.14.0
-        version: 4.17.16
+        specifier: 'catalog:'
+        version: 4.17.23
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.7
@@ -859,8 +865,8 @@ importers:
         specifier: ~2.2.0
         version: 2.2.0
       lodash:
-        specifier: ^4.17.10
-        version: 4.17.21
+        specifier: 'catalog:'
+        version: 4.17.23
       react-window:
         specifier: ^1.8.9
         version: 1.8.11(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -908,8 +914,8 @@ importers:
         specifier: ~2.1.0
         version: 2.1.0
       '@types/lodash':
-        specifier: ^4.14.0
-        version: 4.17.16
+        specifier: 'catalog:'
+        version: 4.17.23
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.7
@@ -983,8 +989,8 @@ importers:
         specifier: ^3.2.4
         version: 3.2.5
       lodash:
-        specifier: ^4.17.10
-        version: 4.17.21
+        specifier: 'catalog:'
+        version: 4.17.23
       react-autosuggest:
         specifier: ^10.1.0
         version: 10.1.0(react@19.2.1)
@@ -1026,8 +1032,8 @@ importers:
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.1)
       '@types/lodash':
-        specifier: ^4.14.0
-        version: 4.17.16
+        specifier: 'catalog:'
+        version: 4.17.23
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.7
@@ -3575,8 +3581,8 @@ packages:
   '@types/linkify-it@2.1.0':
     resolution: {integrity: sha512-Q7DYAOi9O/+cLLhdaSvKdaumWyHbm7HAk/bFwwyTuU0arR5yyCeW5GOoqt4tJTpDRxhpx9Q8kQL6vMpuw9hDSw==}
 
-  '@types/lodash@4.17.16':
-    resolution: {integrity: sha512-HX7Em5NYQAXKW+1T+FiuG27NGwzJfCX3s1GjOa7ujxZa52kjJLOr4FUxT+giF6Tgxv1e+/czV/iTtBw27WTU9g==}
+  '@types/lodash@4.17.23':
+    resolution: {integrity: sha512-RDvF6wTulMPjrNdCoYRC8gNR880JNGT8uB+REUpC2Ns4pRqQJhGz90wh7rgdXDPpCczF3VGktDuFGVnz8zP7HA==}
 
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
@@ -5693,6 +5699,9 @@ packages:
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  lodash@4.17.23:
+    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
   log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -10424,7 +10433,7 @@ snapshots:
 
   '@types/linkify-it@2.1.0': {}
 
-  '@types/lodash@4.17.16': {}
+  '@types/lodash@4.17.23': {}
 
   '@types/mdast@4.0.4':
     dependencies:
@@ -12975,6 +12984,8 @@ snapshots:
 
   lodash@4.17.21: {}
 
+  lodash@4.17.23: {}
+
   log-symbols@4.1.0:
     dependencies:
       chalk: 4.1.2
@@ -14738,7 +14749,7 @@ snapshots:
   typemoq@2.1.0:
     dependencies:
       circular-json: 0.3.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       postinstall-build: 5.0.3
 
   typescript@5.6.3: {}
