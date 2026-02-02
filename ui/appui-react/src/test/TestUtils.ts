@@ -50,14 +50,13 @@ const initialState: SampleAppState = {
   placeHolder: false,
 };
 
-/** */
+/** @internal */
 export interface RootState {
   sampleAppState: SampleAppState;
   testDifferentFrameworkKey?: FrameworkState;
 }
 
 export const SampleAppActions = {
-  // eslint-disable-next-line jsdoc/require-jsdoc
   example: () => createAction("SampleApp:EXAMPLE"),
 };
 

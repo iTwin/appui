@@ -52,7 +52,6 @@ export class FavoritePropertiesRenderer {
   public renderFavorites(
     propertyData: PropertyData,
     orientation?: Orientation,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
     _createRoot?: CreateRoot
   ): HTMLElement | string;
   public renderFavorites(

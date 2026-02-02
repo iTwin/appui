@@ -208,13 +208,11 @@ export class InternalFrontstageManager {
     new BeUiEvent<ToolActivatedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Get ToolSetting Reload event. */
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onToolSettingsReloadEvent = new BeUiEvent<void>();
 
   /** Get Tool Panel Opened event.
    * @internal
    */
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onToolPanelOpenedEvent = new BeUiEvent<void>();
 
   /** Get Tool Icon Changed event. */
@@ -238,30 +236,23 @@ export class InternalFrontstageManager {
     new BeUiEvent<WidgetStateChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** @internal */
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onWidgetDefsUpdatedEvent = new BeUiEvent<void>();
 
   /** @internal */
-  public static readonly onFrontstageNineZoneStateChangedEvent =
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    new BeUiEvent<{
-      frontstageDef: FrontstageDef;
-      state: NineZoneState | undefined;
-    }>();
+  public static readonly onFrontstageNineZoneStateChangedEvent = new BeUiEvent<{
+    frontstageDef: FrontstageDef;
+    state: NineZoneState | undefined;
+  }>();
 
   /** @internal */
-  public static readonly onFrontstageRestoreLayoutEvent =
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    new BeUiEvent<{
-      frontstageDef: FrontstageDef;
-    }>();
+  public static readonly onFrontstageRestoreLayoutEvent = new BeUiEvent<{
+    frontstageDef: FrontstageDef;
+  }>();
 
   /** @internal */
-  public static readonly onFrontstageWidgetsChangedEvent =
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    new BeUiEvent<{
-      frontstageDef: FrontstageDef;
-    }>();
+  public static readonly onFrontstageWidgetsChangedEvent = new BeUiEvent<{
+    frontstageDef: FrontstageDef;
+  }>();
 
   /** Get panel state changed event.
    * @alpha

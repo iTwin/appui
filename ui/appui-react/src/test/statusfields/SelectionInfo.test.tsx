@@ -12,8 +12,6 @@ import {
 } from "../../appui-react.js";
 import TestUtils from "../TestUtils.js";
 
-/* eslint-disable @typescript-eslint/no-deprecated */
-
 describe("SelectionInfoField", () => {
   it("SelectionInfoField should render with 0", () => {
     UiFramework.frameworkState!.sessionState.numItemsSelected = 0;

@@ -74,6 +74,7 @@ export function createWidgetApiFrontstage(): Frontstage {
     cornerButton: (
       <BackstageAppButton
         key="appui-test-providers-WidgetApi-backstage"
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         icon="icon-bentley-systems"
       />
     ),

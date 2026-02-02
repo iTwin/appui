@@ -43,7 +43,6 @@ export class ModelessDialog extends React.Component<ModelessDialogProps> {
     } = this.props;
 
     return (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Dialog
         {...props}
         modal={false}

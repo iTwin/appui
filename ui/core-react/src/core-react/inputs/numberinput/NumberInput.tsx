@@ -309,7 +309,6 @@ const ForwardRefNumberInput = React.forwardRef<
           showTouchButtons && "core-number-buttons-for-touch"
         )}
       >
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           className="core-number-input-button core-number-input-button-up"
           tabIndex={-1}
@@ -318,7 +317,6 @@ const ForwardRefNumberInput = React.forwardRef<
         >
           <Icon iconSpec={caretUp} />
         </div>
-        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div
           className="core-number-input-button core-number-input-button-down"
           tabIndex={-1}
