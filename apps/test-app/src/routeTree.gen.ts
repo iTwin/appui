@@ -10,167 +10,72 @@
 
 import { createFileRoute } from '@tanstack/react-router'
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SigninCallbackRouteImport } from './routes/signin-callback'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as LocalRouteImport } from './routes/local'
+import { Route as ITwinsRouteImport } from './routes/iTwins'
+import { Route as BlankRouteImport } from './routes/blank'
+import { Route as LocalFileNameRouteImport } from './routes/local_.$fileName'
+import { Route as ITwinITwinIdRouteImport } from './routes/iTwin_.$iTwinId'
+import { Route as BriefcaseFileNameRouteImport } from './routes/briefcase.$fileName'
+import { Route as ITwinITwinIdIModelIModelIdRouteImport } from './routes/iTwin.$iTwinId.iModel.$iModelId'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as SigninCallbackImport } from './routes/signin-callback'
-import { Route as SettingsImport } from './routes/settings'
-import { Route as LocalImport } from './routes/local'
-import { Route as ITwinsImport } from './routes/iTwins'
-import { Route as BlankImport } from './routes/blank'
-import { Route as LocalFileNameImport } from './routes/local_.$fileName'
-import { Route as ITwinITwinIdImport } from './routes/iTwin_.$iTwinId'
-import { Route as BriefcaseFileNameImport } from './routes/briefcase.$fileName'
-import { Route as ITwinITwinIdIModelIModelIdImport } from './routes/iTwin.$iTwinId.iModel.$iModelId'
+const IndexLazyRouteImport = createFileRoute('/')()
 
-// Create Virtual Routes
-
-const IndexLazyImport = createFileRoute('/')()
-
-// Create/Update Routes
-
-const SigninCallbackRoute = SigninCallbackImport.update({
+const SigninCallbackRoute = SigninCallbackRouteImport.update({
   id: '/signin-callback',
   path: '/signin-callback',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const SettingsRoute = SettingsImport.update({
+const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const LocalRoute = LocalImport.update({
+const LocalRoute = LocalRouteImport.update({
   id: '/local',
   path: '/local',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/local.lazy').then((d) => d.Route))
-
-const ITwinsRoute = ITwinsImport.update({
+const ITwinsRoute = ITwinsRouteImport.update({
   id: '/iTwins',
   path: '/iTwins',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const BlankRoute = BlankImport.update({
+const BlankRoute = BlankRouteImport.update({
   id: '/blank',
   path: '/blank',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/blank.lazy').then((d) => d.Route))
-
-const IndexLazyRoute = IndexLazyImport.update({
+const IndexLazyRoute = IndexLazyRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-
-const LocalFileNameRoute = LocalFileNameImport.update({
+const LocalFileNameRoute = LocalFileNameRouteImport.update({
   id: '/local_/$fileName',
   path: '/local/$fileName',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const ITwinITwinIdRoute = ITwinITwinIdImport.update({
+const ITwinITwinIdRoute = ITwinITwinIdRouteImport.update({
   id: '/iTwin_/$iTwinId',
   path: '/iTwin/$iTwinId',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const BriefcaseFileNameRoute = BriefcaseFileNameImport.update({
+const BriefcaseFileNameRoute = BriefcaseFileNameRouteImport.update({
   id: '/briefcase/$fileName',
   path: '/briefcase/$fileName',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any).lazy(() =>
   import('./routes/briefcase.$fileName.lazy').then((d) => d.Route),
 )
-
-const ITwinITwinIdIModelIModelIdRoute = ITwinITwinIdIModelIModelIdImport.update(
-  {
+const ITwinITwinIdIModelIModelIdRoute =
+  ITwinITwinIdIModelIModelIdRouteImport.update({
     id: '/iTwin/$iTwinId/iModel/$iModelId',
     path: '/iTwin/$iTwinId/iModel/$iModelId',
-    getParentRoute: () => rootRoute,
-  } as any,
-)
-
-// Populate the FileRoutesByPath interface
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/blank': {
-      id: '/blank'
-      path: '/blank'
-      fullPath: '/blank'
-      preLoaderRoute: typeof BlankImport
-      parentRoute: typeof rootRoute
-    }
-    '/iTwins': {
-      id: '/iTwins'
-      path: '/iTwins'
-      fullPath: '/iTwins'
-      preLoaderRoute: typeof ITwinsImport
-      parentRoute: typeof rootRoute
-    }
-    '/local': {
-      id: '/local'
-      path: '/local'
-      fullPath: '/local'
-      preLoaderRoute: typeof LocalImport
-      parentRoute: typeof rootRoute
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsImport
-      parentRoute: typeof rootRoute
-    }
-    '/signin-callback': {
-      id: '/signin-callback'
-      path: '/signin-callback'
-      fullPath: '/signin-callback'
-      preLoaderRoute: typeof SigninCallbackImport
-      parentRoute: typeof rootRoute
-    }
-    '/briefcase/$fileName': {
-      id: '/briefcase/$fileName'
-      path: '/briefcase/$fileName'
-      fullPath: '/briefcase/$fileName'
-      preLoaderRoute: typeof BriefcaseFileNameImport
-      parentRoute: typeof rootRoute
-    }
-    '/iTwin_/$iTwinId': {
-      id: '/iTwin_/$iTwinId'
-      path: '/iTwin/$iTwinId'
-      fullPath: '/iTwin/$iTwinId'
-      preLoaderRoute: typeof ITwinITwinIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/local_/$fileName': {
-      id: '/local_/$fileName'
-      path: '/local/$fileName'
-      fullPath: '/local/$fileName'
-      preLoaderRoute: typeof LocalFileNameImport
-      parentRoute: typeof rootRoute
-    }
-    '/iTwin/$iTwinId/iModel/$iModelId': {
-      id: '/iTwin/$iTwinId/iModel/$iModelId'
-      path: '/iTwin/$iTwinId/iModel/$iModelId'
-      fullPath: '/iTwin/$iTwinId/iModel/$iModelId'
-      preLoaderRoute: typeof ITwinITwinIdIModelIModelIdImport
-      parentRoute: typeof rootRoute
-    }
-  }
-}
-
-// Create and export the route tree
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
@@ -184,7 +89,6 @@ export interface FileRoutesByFullPath {
   '/local/$fileName': typeof LocalFileNameRoute
   '/iTwin/$iTwinId/iModel/$iModelId': typeof ITwinITwinIdIModelIModelIdRoute
 }
-
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
@@ -197,9 +101,8 @@ export interface FileRoutesByTo {
   '/local/$fileName': typeof LocalFileNameRoute
   '/iTwin/$iTwinId/iModel/$iModelId': typeof ITwinITwinIdIModelIModelIdRoute
 }
-
 export interface FileRoutesById {
-  __root__: typeof rootRoute
+  __root__: typeof rootRouteImport
   '/': typeof IndexLazyRoute
   '/blank': typeof BlankRoute
   '/iTwins': typeof ITwinsRoute
@@ -211,7 +114,6 @@ export interface FileRoutesById {
   '/local_/$fileName': typeof LocalFileNameRoute
   '/iTwin/$iTwinId/iModel/$iModelId': typeof ITwinITwinIdIModelIModelIdRoute
 }
-
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
@@ -251,7 +153,6 @@ export interface FileRouteTypes {
     | '/iTwin/$iTwinId/iModel/$iModelId'
   fileRoutesById: FileRoutesById
 }
-
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   BlankRoute: typeof BlankRoute
@@ -263,6 +164,81 @@ export interface RootRouteChildren {
   ITwinITwinIdRoute: typeof ITwinITwinIdRoute
   LocalFileNameRoute: typeof LocalFileNameRoute
   ITwinITwinIdIModelIModelIdRoute: typeof ITwinITwinIdIModelIModelIdRoute
+}
+
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/signin-callback': {
+      id: '/signin-callback'
+      path: '/signin-callback'
+      fullPath: '/signin-callback'
+      preLoaderRoute: typeof SigninCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/local': {
+      id: '/local'
+      path: '/local'
+      fullPath: '/local'
+      preLoaderRoute: typeof LocalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iTwins': {
+      id: '/iTwins'
+      path: '/iTwins'
+      fullPath: '/iTwins'
+      preLoaderRoute: typeof ITwinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blank': {
+      id: '/blank'
+      path: '/blank'
+      fullPath: '/blank'
+      preLoaderRoute: typeof BlankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexLazyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/local_/$fileName': {
+      id: '/local_/$fileName'
+      path: '/local/$fileName'
+      fullPath: '/local/$fileName'
+      preLoaderRoute: typeof LocalFileNameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iTwin_/$iTwinId': {
+      id: '/iTwin_/$iTwinId'
+      path: '/iTwin/$iTwinId'
+      fullPath: '/iTwin/$iTwinId'
+      preLoaderRoute: typeof ITwinITwinIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/briefcase/$fileName': {
+      id: '/briefcase/$fileName'
+      path: '/briefcase/$fileName'
+      fullPath: '/briefcase/$fileName'
+      preLoaderRoute: typeof BriefcaseFileNameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/iTwin/$iTwinId/iModel/$iModelId': {
+      id: '/iTwin/$iTwinId/iModel/$iModelId'
+      path: '/iTwin/$iTwinId/iModel/$iModelId'
+      fullPath: '/iTwin/$iTwinId/iModel/$iModelId'
+      preLoaderRoute: typeof ITwinITwinIdIModelIModelIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -277,59 +253,6 @@ const rootRouteChildren: RootRouteChildren = {
   LocalFileNameRoute: LocalFileNameRoute,
   ITwinITwinIdIModelIModelIdRoute: ITwinITwinIdIModelIModelIdRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/",
-        "/blank",
-        "/iTwins",
-        "/local",
-        "/settings",
-        "/signin-callback",
-        "/briefcase/$fileName",
-        "/iTwin_/$iTwinId",
-        "/local_/$fileName",
-        "/iTwin/$iTwinId/iModel/$iModelId"
-      ]
-    },
-    "/": {
-      "filePath": "index.lazy.tsx"
-    },
-    "/blank": {
-      "filePath": "blank.tsx"
-    },
-    "/iTwins": {
-      "filePath": "iTwins.tsx"
-    },
-    "/local": {
-      "filePath": "local.tsx"
-    },
-    "/settings": {
-      "filePath": "settings.tsx"
-    },
-    "/signin-callback": {
-      "filePath": "signin-callback.tsx"
-    },
-    "/briefcase/$fileName": {
-      "filePath": "briefcase.$fileName.tsx"
-    },
-    "/iTwin_/$iTwinId": {
-      "filePath": "iTwin_.$iTwinId.tsx"
-    },
-    "/local_/$fileName": {
-      "filePath": "local_.$fileName.tsx"
-    },
-    "/iTwin/$iTwinId/iModel/$iModelId": {
-      "filePath": "iTwin.$iTwinId.iModel.$iModelId.tsx"
-    }
-  }
-}
-ROUTE_MANIFEST_END */
