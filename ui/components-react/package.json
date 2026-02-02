@@ -90,7 +90,6 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "rimraf": "catalog:",
-    "ts-node": "^10.8.2",
     "typemoq": "^2.1.0",
     "typescript": "~5.6.2",
     "upath": "^2.0.1",

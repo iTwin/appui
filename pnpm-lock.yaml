@@ -834,9 +834,6 @@ importers:
       rimraf:
         specifier: 'catalog:'
         version: 6.1.0
-      ts-node:
-        specifier: ^10.8.2
-        version: 10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@22.18.1)(typescript@5.6.3)
       typemoq:
         specifier: ^2.1.0
         version: 2.1.0
@@ -961,9 +958,6 @@ importers:
       rimraf:
         specifier: 'catalog:'
         version: 6.1.0
-      ts-node:
-        specifier: ^10.8.2
-        version: 10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@22.18.1)(typescript@5.6.3)
       typemoq:
         specifier: ^2.1.0
         version: 2.1.0
@@ -1079,9 +1073,6 @@ importers:
       rimraf:
         specifier: 'catalog:'
         version: 6.1.0
-      ts-node:
-        specifier: ^10.8.2
-        version: 10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@22.18.1)(typescript@5.6.3)
       typemoq:
         specifier: ^2.1.0
         version: 2.1.0
@@ -1206,9 +1197,6 @@ importers:
       rimraf:
         specifier: 'catalog:'
         version: 6.1.0
-      ts-node:
-        specifier: ^10.8.2
-        version: 10.9.2(@swc/core@1.13.5(@swc/helpers@0.5.17))(@types/node@22.18.1)(typescript@5.6.3)
       typemoq:
         specifier: ^2.1.0
         version: 2.1.0
