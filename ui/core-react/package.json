@@ -99,7 +99,7 @@
     "@itwin/itwinui-icons-react": "^2.8.0",
     "classnames": "2.5.1",
     "dompurify": "^3.2.4",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.23",
     "react-autosuggest": "^10.1.0",
     "ts-key-enum": "~2.0.12"
   }
