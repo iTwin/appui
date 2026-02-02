@@ -39,7 +39,7 @@
     "@itwin/build-tools": "catalog:",
     "@itwin/eslint-plugin": "catalog:",
     "@tanstack/router-plugin": "^1.87.6",
-    "@tanstack/router-devtools": "^1.87.6",
+    "@tanstack/router-devtools": "^1.157.18",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/parser": "catalog:",
