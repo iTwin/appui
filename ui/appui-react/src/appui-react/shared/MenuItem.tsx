@@ -138,7 +138,6 @@ export class MenuItem extends ItemDefBase {
         this._submenu.push(childItem);
       });
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         UiFramework.loggerCategory("MenuItem"),
         `Either 'item', 'execute' or 'submenu' must be specified for '${props.id}'.`

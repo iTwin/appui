@@ -6,8 +6,6 @@
  * @module Utilities
  */
 
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
 import { Icon, IconHelper } from "@itwin/core-react";
@@ -72,12 +70,12 @@ export class PropsHelper {
     return true;
   }
 
-  /** @deprecated in 4.0 These abstract props types are obsolete. */
+  /** @deprecated in 4.0.0. These abstract props types are obsolete. */
   public static getAbstractPropsForReactIcon(
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     iconSpec: IconSpec,
     internalData?: Map<string, any>
-    // eslint-disable-next-line @typescript-eslint/no-deprecated, @typescript-eslint/no-redundant-type-constituents
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
   ): Partial<UIA_AbstractWidgetProps> | Partial<UIA_CommonBackstageItem> {
     if (!iconSpec || !React.isValidElement(iconSpec)) return {};
 

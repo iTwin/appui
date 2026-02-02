@@ -63,7 +63,6 @@ export class StateManager {
     );
 
     // create the Redux Store.
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this._store = createStore(
       allReducers,
       (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
@@ -102,7 +101,6 @@ export class StateManager {
     if (StateManager.isInitialized()) {
       return StateManager._singletonStore!;
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       throw new UiError(
         StateManager._LOG_CATEGORY,
         `Redux Store has not been initialized`

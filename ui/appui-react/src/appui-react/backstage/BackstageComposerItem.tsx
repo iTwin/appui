@@ -124,7 +124,6 @@ export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
 }
 
 function ItemIcon({
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   icon,
   iconNode,
 }: {

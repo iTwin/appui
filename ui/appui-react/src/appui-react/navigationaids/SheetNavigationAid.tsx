@@ -192,7 +192,6 @@ export class SheetNavigationAid extends React.Component<
             {name}
           </div>
           <div className="sheet-container">
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <IconButton
               size="small"
               styleType="borderless"
@@ -206,7 +205,6 @@ export class SheetNavigationAid extends React.Component<
               {this.state.index + 1} {UiFramework.translate("general.of")}
               {this.state.sheetData.length}
             </div>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
             <IconButton
               size="small"
               styleType="borderless"

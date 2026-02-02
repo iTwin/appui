@@ -358,7 +358,6 @@ export class UiItemsManager {
     stageId: string,
     stageUsage: string,
     location: StagePanelLocation,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
     section?: StagePanelSection
   ): ReadonlyArray<ProviderItem<Widget>>;
   public static getWidgets(

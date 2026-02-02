@@ -135,7 +135,6 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
    */
   public static getIconClassName(
     severity: MessageSeverity,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
     hollow?: boolean
   ): string;
 

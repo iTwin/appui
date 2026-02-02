@@ -1001,7 +1001,6 @@ export class FrontstageDef {
   public addFloatingContentControl(contentControl?: ContentControl) {
     if (!contentControl) return;
     if (!this._floatingContentControls)
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this._floatingContentControls = new Array<ContentControl>();
 
     this._floatingContentControls.push(contentControl);
@@ -1041,12 +1040,10 @@ export class FrontstageDef {
    * @deprecated in 4.16.0. Use {@link FrameworkContent.setActiveId} instead.
    */
   public setActiveViewFromViewport(viewport: ScreenViewport): boolean {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     const contentControl = this.contentControls.find(
       (control) => control.viewport === viewport
     );
     if (contentControl) {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.content.setActive(contentControl.reactNode, true);
       return true;
     }

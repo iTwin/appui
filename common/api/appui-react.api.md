@@ -1745,8 +1745,7 @@ export class DrawingNavigationAidControl extends NavigationAidControl {
 }
 
 // @public
-export class ElementTooltip extends React_2.Component<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
-ElementTooltipState> {
+export class ElementTooltip extends React_2.Component<CommonProps, ElementTooltipState> {
     // (undocumented)
     static hideTooltip(): void;
     // (undocumented)

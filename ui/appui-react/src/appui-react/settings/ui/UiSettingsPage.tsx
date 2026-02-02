@@ -60,7 +60,6 @@ export function UiSettingsPage() {
     () => UiFramework.visibility.autoHideUi
   );
   const [useProximityOpacity, setUseProximityOpacity] = React.useState(
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     () => UiFramework.visibility.useProximityOpacity
   );
   const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(
@@ -105,9 +104,7 @@ export function UiSettingsPage() {
           setWidgetOpacity(UiFramework.getWidgetOpacity());
         if (UiFramework.visibility.autoHideUi !== autoHideUi)
           setAutoHideUi(UiFramework.visibility.autoHideUi);
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         if (UiFramework.visibility.useProximityOpacity !== useProximityOpacity)
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
           setUseProximityOpacity(UiFramework.visibility.useProximityOpacity);
         if (UiFramework.visibility.snapWidgetOpacity !== snapWidgetOpacity)
           setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity);
@@ -172,7 +169,6 @@ export function UiSettingsPage() {
   }, [autoHideUi]);
 
   const onUseProximityOpacityChange = React.useCallback(async () => {
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.visibility.useProximityOpacity = !useProximityOpacity;
   }, [useProximityOpacity]);
 

@@ -1,6 +1,6 @@
 const storybookPlugin = require("eslint-plugin-storybook");
 const reactHooksPlugin = require("eslint-plugin-react-hooks");
-const reactRefreshPlugin = require("eslint-plugin-react-refresh");
+const { reactRefresh } = require("eslint-plugin-react-refresh");
 const typescriptEslintPlugin = require("@typescript-eslint/eslint-plugin");
 
 const customLanguageOptions = {
@@ -40,7 +40,7 @@ module.exports = [
   {
     files: ["**/*.{ts,tsx}"],
     plugins: {
-      "react-refresh": reactRefreshPlugin,
+      "react-refresh": reactRefresh.plugin,
       "@typescript-eslint": typescriptEslintPlugin,
     },
     rules: {

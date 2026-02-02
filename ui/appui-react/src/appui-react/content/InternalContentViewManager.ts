@@ -47,8 +47,6 @@ export class InternalContentViewManager {
     new BeUiEvent<ActiveContentChangedEventArgs>(); // eslint-disable-line @typescript-eslint/no-deprecated
 
   /** Fires when floating contents are added or removed */
-
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public static readonly onAvailableContentChangedEvent = new BeUiEvent<{
     contentId: string;
   }>();
@@ -219,7 +217,6 @@ export class InternalContentViewManager {
 
   public static setActiveId(contentId?: string) {
     if (!contentId) {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.setActive(contentId);
       return;
     }
@@ -237,7 +234,6 @@ export class InternalContentViewManager {
 
     const contentProps = contentGroup.contentPropsList[contentIndex];
     if (contentProps.content) {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.setActive(contentProps.content);
       return;
     }
@@ -246,7 +242,6 @@ export class InternalContentViewManager {
     const control = contentGroup.getContentControl(contentProps, contentIndex);
     if (!control) return;
 
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this.setActive(control.reactNode);
   }
 
@@ -269,7 +264,6 @@ export class InternalContentViewManager {
   /** Refreshes the active [[ContentControl]]. */
   public static refreshActive(activeContent: React.ReactNode) {
     this.layouts.refreshActive();
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     this.setActive(activeContent, true);
   }
 
