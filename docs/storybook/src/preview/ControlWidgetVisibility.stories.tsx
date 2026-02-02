@@ -21,6 +21,7 @@ const meta = {
     controlWidgetVisibility: true,
     visibleWidgets: 1,
     dropdownThreshold: 0,
+    closeButtonOnTab: false,
   },
 } satisfies Meta<typeof PreviewStory>;
 
@@ -45,5 +46,11 @@ export const SpecifiedIds: Story = {
   args: {
     controlWidgetVisibility: ["w1", "w2"],
     visibleWidgets: 5,
+  },
+};
+
+export const CloseButtonOnTab: Story = {
+  args: {
+    closeButtonOnTab: true,
   },
 };
