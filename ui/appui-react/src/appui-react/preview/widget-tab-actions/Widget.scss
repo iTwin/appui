@@ -91,6 +91,7 @@
   .uifw-preview-widgetTabActions-widget_decoration {
     margin-inline-start: var(--iui-size-2xs);
     opacity: var(--_appui-decoration-opacity);
+    block-size: var(--_iui-field-height);
 
     &[data-_appui-action="true"] {
       anchor-name: --_appui-tab-action;
