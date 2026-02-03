@@ -10,7 +10,7 @@ import {
   ConditionalStringValue as _ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { ConditionalIconItem as _ConditionalIconItem } from "@itwin/core-react";
-import type { useConditionalValue } from "../hooks/useConditionalValue.js";
+import { useConditionalValue } from "../hooks/useConditionalValue.js";
 
 /** Interface used to track the conditional value of a generic type `T`. The `getValue` function should be called when sync event is emitted that matches one of specified `eventIds` values.
  * @note Use {@link useConditionalValue} hook to get the value.
@@ -38,3 +38,27 @@ export type ConditionalStringValue = _ConditionalStringValue;
 /** @public */
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ConditionalStringValue = _ConditionalStringValue;
+
+function isConditionalValue<T>(
+  value: T | ConditionalValue<T>
+): value is ConditionalValue<T> {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "eventIds" in value &&
+    "getValue" in value
+  );
+}
+
+/** @internal */
+export function useConditionalValueProp<T>(prop: T | ConditionalValue<T>): T {
+  return useConditionalValue(
+    () => {
+      if (isConditionalValue(prop)) {
+        return prop.getValue();
+      }
+      return prop;
+    },
+    isConditionalValue(prop) ? prop.eventIds : []
+  );
+}
