@@ -35,5 +35,10 @@
   "author": {
     "name": "Bentley Systems, Inc.",
     "url": "http://www.bentley.com"
+  },
+  "pnpm": {
+    "overrides": {
+      "mocha>diff@7.0.0": "^8.0.3"
+    }
   }
 }
