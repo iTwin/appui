@@ -183,7 +183,9 @@ function Tab() {
         setActionTabId(id);
       }}
     >
-      <Tabs.TabLabel>{label}</Tabs.TabLabel>
+      <Tabs.TabLabel className="uifw-preview-widgetTabActions-widget_label">
+        {label}
+      </Tabs.TabLabel>
       {closeAction && <CloseTabDecoration />}
       <TabTarget />
     </Tabs.Tab>

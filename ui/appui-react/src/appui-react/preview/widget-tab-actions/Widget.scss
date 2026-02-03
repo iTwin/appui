@@ -80,6 +80,16 @@
         --_appui-decoration-opacity: 0;
       }
     }
+
+    &:where(:hover, :focus-within) .uifw-preview-widgetTabActions-widget_label {
+      mask-image: linear-gradient(
+        270deg,
+        transparent 0%,
+        transparent 24px,
+        #000 32px,
+        #000 100%
+      );
+    }
   }
 
   .uifw-preview-widgetTabActions-widget_panel {
@@ -88,8 +98,13 @@
     display: flex;
   }
 
+  .uifw-preview-widgetTabActions-widget_label {
+    grid-area: label / icon;
+  }
+
   .uifw-preview-widgetTabActions-widget_decoration {
-    margin-inline-start: var(--iui-size-2xs);
+    grid-area: icon;
+    justify-self: end;
     opacity: var(--_appui-decoration-opacity);
     block-size: var(--_iui-field-height);
 
