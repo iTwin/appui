@@ -52,6 +52,8 @@
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
+    border: 1px solid var(--iui-color-border);
+    background-color: var(--iui-color-background-hover);
   }
 
   .uifw-preview-widgetTabActions-widget_tabList {
