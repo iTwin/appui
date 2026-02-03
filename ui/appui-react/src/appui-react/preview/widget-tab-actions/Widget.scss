@@ -60,9 +60,88 @@
   .uifw-preview-widgetTabActions-widget_tabList {
     grid-area: tabs;
     z-index: 1;
+    overscroll-behavior-x: none;
 
     // Let handle receive pointer events
     pointer-events: none;
+
+    @keyframes scroll-shadow-inset-horizontal {
+      from {
+        mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 0%,
+            #000 95%,
+            transparent 100%
+          ),
+          linear-gradient(
+            0deg,
+            transparent 0%,
+            transparent 1px,
+            #000 1px,
+            #000 calc(100% - 1px),
+            transparent calc(100% - 1px),
+            transparent 100%
+          );
+      }
+
+      5% {
+        mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 5%,
+            #000 95%,
+            transparent 100%
+          ),
+          linear-gradient(
+            0deg,
+            transparent 0%,
+            transparent 1px,
+            #000 1px,
+            #000 calc(100% - 1px),
+            transparent calc(100% - 1px),
+            transparent 100%
+          );
+      }
+
+      95% {
+        mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 5%,
+            #000 95%,
+            transparent 100%
+          ),
+          linear-gradient(
+            0deg,
+            transparent 0%,
+            transparent 1px,
+            #000 1px,
+            #000 calc(100% - 1px),
+            transparent calc(100% - 1px),
+            transparent 100%
+          );
+      }
+
+      to {
+        mask-image: linear-gradient(
+            90deg,
+            transparent 0%,
+            #000 5%,
+            #000 100%,
+            transparent 100%
+          ),
+          linear-gradient(
+            0deg,
+            transparent 0%,
+            transparent 1px,
+            #000 1px,
+            #000 calc(100% - 1px),
+            transparent calc(100% - 1px),
+            transparent 100%
+          );
+      }
+    }
 
     & > * {
       pointer-events: all;
