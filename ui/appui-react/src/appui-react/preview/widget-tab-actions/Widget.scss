@@ -130,6 +130,7 @@ $border-width: 1px;
   .uifw-preview-widgetTabActions-widget_label {
     grid-area: label / icon;
     -webkit-line-clamp: 1;
+    user-select: none;
   }
 
   .uifw-preview-widgetTabActions-widget_decoration {
