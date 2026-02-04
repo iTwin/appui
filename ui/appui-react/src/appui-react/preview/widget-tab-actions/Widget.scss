@@ -16,19 +16,19 @@
     $border-width: 1px;
     border: 0px solid var(--iui-color-border);
 
-    &.nz-border-top {
+    &:where(.nz-border-top) {
       border-block-start-width: $border-width;
     }
 
-    &.nz-border-bottom {
+    &:where(.nz-border-bottom) {
       border-block-end-width: $border-width;
     }
 
-    &.nz-border-left {
+    &:where(.nz-border-left) {
       border-inline-start-width: $border-width;
     }
 
-    &.nz-border-right {
+    &:where(.nz-border-right) {
       border-inline-end-width: $border-width;
     }
   }
@@ -136,7 +136,7 @@
     opacity: var(--_appui-decoration-opacity);
     block-size: var(--_iui-field-height);
 
-    &[data-_appui-action="true"] {
+    &:where([data-_appui-action="true"]) {
       anchor-name: --_appui-tab-action;
     }
   }
