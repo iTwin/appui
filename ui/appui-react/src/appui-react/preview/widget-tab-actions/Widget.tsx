@@ -41,6 +41,7 @@ import { WidgetTarget } from "../../layout/target/WidgetTarget.js";
 import { WidgetOutline } from "../../layout/outline/WidgetOutline.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
+import { useBorders } from "../../layout/widget/PanelWidget.js";
 
 const TabsContext = React.createContext<
   | {
@@ -52,6 +53,8 @@ const TabsContext = React.createContext<
       setAnchored: (anchored: boolean) => void;
       hideTab: (id: string) => void;
       setTabElement: (id: string, element: HTMLElement | undefined) => void;
+      masked: boolean;
+      setMasked: (masked: boolean) => void;
     }
   | undefined
 >(undefined);
@@ -72,6 +75,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
       undefined,
     );
     const [anchored, setAnchored] = React.useState(false);
+    const [masked, setMasked] = React.useState(false);
     const tabElementsRef = React.useRef(
       new Map<string, HTMLElement | undefined>(),
     );
@@ -113,6 +117,8 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
             setTabElement,
             anchored,
             setAnchored,
+            masked,
+            setMasked,
           }}
         >
           <Tabs.Wrapper
@@ -156,7 +162,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
 Widget.displayName = "Widget";
 
 function Tab() {
-  const { setActionTabId, hideTab, setTabElement } =
+  const { actionTabId, masked, setActionTabId, hideTab, setTabElement } =
     useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
@@ -182,6 +188,7 @@ function Tab() {
       onFocus={() => {
         setActionTabId(id);
       }}
+      data-_appui-mask={id === actionTabId && masked ? "true" : undefined}
     >
       <Tabs.TabLabel className="uifw-preview-widgetTabActions-widget_label">
         {label}
@@ -241,7 +248,7 @@ function CloseTabDecoration() {
  * The action is anchored to the respective decoration when decoration is visible.
  */
 function CloseTabAction() {
-  const { setActionTabId, hideTab, anchored, actionTabId } =
+  const { setActionTabId, hideTab, anchored, actionTabId, setMasked } =
     useSafeContext(TabsContext);
   assert(!!actionTabId);
   const label = useLayout((state) => state.tabs[actionTabId].label);
@@ -253,7 +260,11 @@ function CloseTabAction() {
       data-_appui-anchor={anchored ? "true" : undefined}
     >
       <IconButton
-        onBlur={() => setActionTabId(undefined)}
+        onFocus={() => setMasked(true)}
+        onBlur={() => {
+          setActionTabId(undefined);
+          setMasked(false);
+        }}
         label={`Close ${label}`}
         styleType="borderless"
         size="small"
@@ -309,8 +320,18 @@ function WidgetHandle() {
 
 /** @internal */
 export function PanelWidget() {
+  const widgetId = useSafeContext(WidgetIdContext);
   const widgetRef = useDragPanelWidget();
-  return <Widget ref={widgetRef} />;
+  const borders = useBorders(widgetId);
+  return (
+    <Widget
+      className={classnames(
+        "uifw-preview-widgetTabActions-widget_panelWidget",
+        borders,
+      )}
+      ref={widgetRef}
+    />
+  );
 }
 
 /** @internal */

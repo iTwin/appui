@@ -12,12 +12,34 @@
     grid-template-rows: min-content 1fr;
   }
 
+  .uifw-preview-widgetTabActions-widget_panelWidget {
+    $border-width: 1px;
+    border: 0px solid var(--iui-color-border);
+
+    &.nz-border-top {
+      border-block-start-width: $border-width;
+    }
+
+    &.nz-border-bottom {
+      border-block-end-width: $border-width;
+    }
+
+    &.nz-border-left {
+      border-inline-start-width: $border-width;
+    }
+
+    &.nz-border-right {
+      border-inline-end-width: $border-width;
+    }
+  }
+
   .uifw-preview-widgetTabActions-widget_floating {
     position: absolute;
     min-width: 200px;
     min-height: 120px;
     inline-size: auto;
     transition: opacity var(--iui-duration-2) ease;
+    border: 1px solid var(--iui-color-border);
 
     @include uicore-z-index(dragged-widget);
     @include nz-widget-opacity;
@@ -53,7 +75,6 @@
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
-    border: 1px solid var(--iui-color-border);
     background-color: var(--iui-color-background-hover);
   }
 
@@ -61,87 +82,11 @@
     grid-area: tabs;
     z-index: 1;
     overscroll-behavior-x: none;
+    margin-inline: -1px;
+    margin-block-start: -1px;
 
     // Let handle receive pointer events
     pointer-events: none;
-
-    @keyframes scroll-shadow-inset-horizontal {
-      from {
-        mask-image: linear-gradient(
-            90deg,
-            transparent 0%,
-            #000 0%,
-            #000 95%,
-            transparent 100%
-          ),
-          linear-gradient(
-            0deg,
-            transparent 0%,
-            transparent 1px,
-            #000 1px,
-            #000 calc(100% - 1px),
-            transparent calc(100% - 1px),
-            transparent 100%
-          );
-      }
-
-      5% {
-        mask-image: linear-gradient(
-            90deg,
-            transparent 0%,
-            #000 5%,
-            #000 95%,
-            transparent 100%
-          ),
-          linear-gradient(
-            0deg,
-            transparent 0%,
-            transparent 1px,
-            #000 1px,
-            #000 calc(100% - 1px),
-            transparent calc(100% - 1px),
-            transparent 100%
-          );
-      }
-
-      95% {
-        mask-image: linear-gradient(
-            90deg,
-            transparent 0%,
-            #000 5%,
-            #000 95%,
-            transparent 100%
-          ),
-          linear-gradient(
-            0deg,
-            transparent 0%,
-            transparent 1px,
-            #000 1px,
-            #000 calc(100% - 1px),
-            transparent calc(100% - 1px),
-            transparent 100%
-          );
-      }
-
-      to {
-        mask-image: linear-gradient(
-            90deg,
-            transparent 0%,
-            #000 5%,
-            #000 100%,
-            transparent 100%
-          ),
-          linear-gradient(
-            0deg,
-            transparent 0%,
-            transparent 1px,
-            #000 1px,
-            #000 calc(100% - 1px),
-            transparent calc(100% - 1px),
-            transparent 100%
-          );
-      }
-    }
 
     & > * {
       pointer-events: all;
@@ -160,7 +105,8 @@
       }
     }
 
-    &:where(:hover, :focus-within) .uifw-preview-widgetTabActions-widget_label {
+    &:where(:hover, [data-_appui-mask="true"])
+      .uifw-preview-widgetTabActions-widget_label {
       mask-image: linear-gradient(
         270deg,
         transparent 0%,
@@ -175,6 +121,8 @@
     padding: 0;
     position: relative;
     display: flex;
+    border-block-end: 0;
+    border-inline: 0;
   }
 
   .uifw-preview-widgetTabActions-widget_label {
