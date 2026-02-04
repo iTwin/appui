@@ -10,6 +10,7 @@
   .uifw-preview-widgetTabActions-widget_wrapper {
     flex: 1;
     grid-template-rows: min-content 1fr;
+    isolation: isolate;
   }
 
   .uifw-preview-widgetTabActions-widget_panelWidget {
