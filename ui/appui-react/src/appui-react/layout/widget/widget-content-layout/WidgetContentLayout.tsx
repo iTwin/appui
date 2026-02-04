@@ -9,7 +9,7 @@
 import "./WidgetContentLayout.scss";
 import classNames from "classnames";
 import type { ComponentPropsWithRef } from "react";
-import React from "react";
+import * as React from "react";
 
 import { Divider, ProgressLinear, ProgressRadial } from "@itwin/itwinui-react";
 import type { ToggleSwitch } from "@itwin/itwinui-react";
