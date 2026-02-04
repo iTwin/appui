@@ -127,6 +127,7 @@
 
   .uifw-preview-widgetTabActions-widget_label {
     grid-area: label / icon;
+    -webkit-line-clamp: 1;
   }
 
   .uifw-preview-widgetTabActions-widget_decoration {
