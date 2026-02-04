@@ -6,6 +6,8 @@
 @use "../../layout/widgetopacity" as *;
 @use "../../layout/widget/variables" as *;
 
+$border-width: 1px;
+
 @layer appui.preview {
   .uifw-preview-widgetTabActions-widget_wrapper {
     flex: 1;
@@ -14,7 +16,6 @@
   }
 
   .uifw-preview-widgetTabActions-widget_panelWidget {
-    $border-width: 1px;
     border: 0px solid var(--iui-color-border);
 
     &:where(.nz-border-top) {
@@ -40,7 +41,7 @@
     min-height: 120px;
     inline-size: auto;
     transition: opacity var(--iui-duration-2) ease;
-    border: 1px solid var(--iui-color-border);
+    border: $border-width solid var(--iui-color-border);
 
     @include uicore-z-index(dragged-widget);
     @include nz-widget-opacity;
@@ -83,8 +84,8 @@
     grid-area: tabs;
     z-index: 1;
     overscroll-behavior-x: none;
-    margin-inline: -1px;
-    margin-block-start: -1px;
+    margin-inline: -1px; // Don't use $border-width as this is accounting for iTwinUI's tab border
+    margin-block-start: -1px; // Don't use $border-width as this is accounting for iTwinUI's tab border
 
     // Let handle receive pointer events
     pointer-events: none;
