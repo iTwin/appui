@@ -9,7 +9,7 @@
 import "./WidgetContentLayout.scss";
 import classNames from "classnames";
 import type { ComponentPropsWithRef } from "react";
-import * as React from "react";
+import React from "react";
 
 import { Divider, ProgressLinear, ProgressRadial } from "@itwin/itwinui-react";
 import type { ToggleSwitch } from "@itwin/itwinui-react";
@@ -103,8 +103,9 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
           onSearch={onSearch}
           icons={icons}
           iconSize={iconSize}
-        />
+        >
         {children}
+        </HeaderLayout>
       </div>
     );
   }
@@ -232,12 +233,13 @@ const WidgetContentLayoutInner = React.forwardRef<
       className={classNames("nz-widget-widgetContentLayout", className)}
       {...divProps}
       ref={ref}
+      data-hide-dividers={hideDividers ? "true" : "false"}
     >
       {isLoading && <LoadingOverlay />}
       {widgetComponents.map((component, index) => (
         <React.Fragment key={index}>
           {component}
-          {index < widgetComponents.length - 1 && !hideDividers && (
+          {index < widgetComponents.length - 1 && !hideDividers &&  (
             <Divider className="nz-widget-widgetContentLayout-divider" />
           )}
         </React.Fragment>
