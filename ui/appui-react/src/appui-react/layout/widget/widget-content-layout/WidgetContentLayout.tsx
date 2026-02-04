@@ -104,7 +104,7 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
           icons={icons}
           iconSize={iconSize}
         >
-        {children}
+          {children}
         </HeaderLayout>
       </div>
     );
@@ -239,7 +239,7 @@ const WidgetContentLayoutInner = React.forwardRef<
       {widgetComponents.map((component, index) => (
         <React.Fragment key={index}>
           {component}
-          {index < widgetComponents.length - 1 && !hideDividers &&  (
+          {index < widgetComponents.length - 1 && !hideDividers && (
             <Divider className="nz-widget-widgetContentLayout-divider" />
           )}
         </React.Fragment>
