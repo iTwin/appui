@@ -233,7 +233,7 @@ const WidgetContentLayoutInner = React.forwardRef<
       className={classNames("nz-widget-widgetContentLayout", className)}
       {...divProps}
       ref={ref}
-      data-hide-dividers={hideDividers ? "true" : "false"}
+      data-_appui-hide-dividers={hideDividers ? "true" : "false"}
     >
       {isLoading && <LoadingOverlay />}
       {widgetComponents.map((component, index) => (
