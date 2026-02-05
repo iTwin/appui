@@ -7,7 +7,7 @@
     position: relative;
     overflow: hidden;
 
-    &[data-hide-dividers="true"] {
+    &[data-_appui-hide-dividers="true"] {
       .nz-widget-widgetContentLayout-header {
         padding-block-end: calc(var(--iui-size-s) / 2);
       }
