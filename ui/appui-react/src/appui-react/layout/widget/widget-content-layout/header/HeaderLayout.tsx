@@ -20,7 +20,14 @@ type WidgetContentLayoutHeaderProps = React.ComponentProps<
 
 type HeaderLayoutProps = Pick<
   WidgetContentLayoutHeaderProps,
-  "toggle" | "buttons" | "menu" | "title" | "onSearch" | "icons" | "iconSize"
+  | "toggle"
+  | "buttons"
+  | "menu"
+  | "title"
+  | "onSearch"
+  | "icons"
+  | "iconSize"
+  | "children"
 >;
 
 /**
@@ -74,6 +81,7 @@ export function HeaderLayout(props: HeaderLayoutProps) {
           {item}
         </div>
       ))}
+      {props.children}
     </div>
   );
 }
