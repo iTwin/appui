@@ -142,8 +142,8 @@ export const Toggle: Story = {
 
 export const CustomHeader: Story = {
   args: {
-      onSearch: action("Search performed"),
-      children: (
+    onSearch: action("Search performed"),
+    children: (
       <div
         style={{
           padding: "8px",
