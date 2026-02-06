@@ -125,6 +125,7 @@ $border-width: 1px;
     display: flex;
     border-block-end: 0;
     border-inline: 0;
+    min-block-size: 0;
   }
 
   .uifw-preview-widgetTabActions-widget_label {
