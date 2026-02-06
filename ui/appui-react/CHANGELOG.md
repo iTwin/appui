@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.24.2
+
+### Patch Changes
+
+- ceb155e: Fix spacing in WidgetContentLayout when some options are enabled
+  - @itwin/components-react@5.24.2
+  - @itwin/core-react@5.24.2
+  - @itwin/imodel-components-react@5.24.2
+
 ## 5.24.1
 
 ### Patch Changes
