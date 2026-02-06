@@ -107,7 +107,7 @@ $border-width: 1px;
       }
     }
 
-    &:where(:hover, [data-_appui-mask="true"])
+    &:where(:hover, :focus-visible, [data-_appui-mask="true"])
       .uifw-preview-widgetTabActions-widget_label {
       mask-image: linear-gradient(
         270deg,
