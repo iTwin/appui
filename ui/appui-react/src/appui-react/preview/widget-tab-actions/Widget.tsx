@@ -307,7 +307,7 @@ function PanelContent() {
   });
   return (
     <>
-      <div ref={ref} />
+      <div className="uifw-preview-widgetTabActions-widget_content" ref={ref} />
       {showTarget && <WidgetTarget />}
       <WidgetOutline />
     </>
