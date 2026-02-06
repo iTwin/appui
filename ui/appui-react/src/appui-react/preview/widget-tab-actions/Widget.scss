@@ -37,8 +37,8 @@ $border-width: 1px;
 
   .uifw-preview-widgetTabActions-widget_floating {
     position: absolute;
-    min-width: 200px;
-    min-height: 120px;
+    min-inline-size: 200px;
+    min-block-size: 120px;
     inline-size: auto;
     transition: opacity var(--iui-duration-2) ease;
     border: $border-width solid var(--iui-color-border);
@@ -60,14 +60,14 @@ $border-width: 1px;
 
     &:where([data-_appui-minimized="true"]) {
       .uifw-preview-widgetTabActions-widget_panel {
-        height: 0;
+        block-size: 0;
         border: 0;
         overflow: hidden;
       }
     }
 
     &:where([data-_appui-tool-settings="true"]) {
-      min-height: 60px;
+      min-block-size: 60px;
     }
   }
 
