@@ -35,7 +35,9 @@ export function CloseWidgetButton() {
 /** @internal */
 export function useCloseTab() {
   const id = useActiveTabId();
-  const { controlWidgetVisibility } = usePreviewFeatures();
+  const { controlWidgetVisibility, widgetTabActions } = usePreviewFeatures();
+  // Close tab button is displayed for each individual tab.
+  if (widgetTabActions) return false;
   if (Array.isArray(controlWidgetVisibility)) {
     return controlWidgetVisibility.includes(id);
   }
