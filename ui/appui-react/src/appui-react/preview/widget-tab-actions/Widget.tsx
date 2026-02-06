@@ -48,13 +48,14 @@ const TabsContext = React.createContext<
       // Last focused tab, used to expose decorative actions to screen readers.
       actionTabId: string | undefined;
       setActionTabId: (id: string | undefined) => void;
-      // Describes if the action should be anchored to the decorative action.
+      // Describes if the action should be anchored to the decorative tab action.
       anchored: boolean;
       setAnchored: (anchored: boolean) => void;
       hideTab: (id: string) => void;
       setTabElement: (id: string, element: HTMLElement | undefined) => void;
-      masked: boolean;
-      setMasked: (masked: boolean) => void;
+      // Describes if the tab action is focused.
+      actionFocused: boolean;
+      setActionFocused: (focused: boolean) => void;
     }
   | undefined
 >(undefined);
@@ -75,7 +76,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
       undefined,
     );
     const [anchored, setAnchored] = React.useState(false);
-    const [masked, setMasked] = React.useState(false);
+    const [actionFocused, setActionFocused] = React.useState(false);
     const tabElementsRef = React.useRef(
       new Map<string, HTMLElement | undefined>(),
     );
@@ -117,8 +118,8 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
             setTabElement,
             anchored,
             setAnchored,
-            masked,
-            setMasked,
+            actionFocused,
+            setActionFocused,
           }}
         >
           <Tabs.Wrapper
@@ -162,7 +163,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
 Widget.displayName = "Widget";
 
 function Tab() {
-  const { actionTabId, masked, setActionTabId, hideTab, setTabElement } =
+  const { actionTabId, actionFocused, setActionTabId, hideTab, setTabElement } =
     useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
@@ -188,7 +189,9 @@ function Tab() {
       onFocus={() => {
         setActionTabId(id);
       }}
-      data-_appui-mask={id === actionTabId && masked ? "true" : undefined}
+      data-_appui-mask={
+        id === actionTabId && actionFocused ? "true" : undefined
+      }
     >
       <Tabs.TabLabel className="uifw-preview-widgetTabActions-widget_label">
         {label}
@@ -248,7 +251,7 @@ function CloseTabDecoration() {
  * The action is anchored to the respective decoration when decoration is visible.
  */
 function CloseTabAction() {
-  const { setActionTabId, hideTab, anchored, actionTabId, setMasked } =
+  const { setActionTabId, hideTab, anchored, actionTabId, setActionFocused } =
     useSafeContext(TabsContext);
   assert(!!actionTabId);
   const label = useLayout((state) => state.tabs[actionTabId].label);
@@ -260,10 +263,10 @@ function CloseTabAction() {
       data-_appui-anchor={anchored ? "true" : undefined}
     >
       <IconButton
-        onFocus={() => setMasked(true)}
+        onFocus={() => setActionFocused(true)}
         onBlur={() => {
           setActionTabId(undefined);
-          setMasked(false);
+          setActionFocused(false);
         }}
         label={`Close ${label}`}
         styleType="borderless"
