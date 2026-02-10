@@ -1,5 +1,44 @@
 # Change Log - @itwin/appui-react
 
+## 5.24.2
+
+### Patch Changes
+
+- ceb155e: Fix spacing in WidgetContentLayout when some options are enabled
+  - @itwin/components-react@5.24.2
+  - @itwin/core-react@5.24.2
+  - @itwin/imodel-components-react@5.24.2
+
+## 5.24.1
+
+### Patch Changes
+
+- d75f766: Fix widget order when 2 widgets get hidden then open again in the same panel
+  - @itwin/components-react@5.24.1
+  - @itwin/core-react@5.24.1
+  - @itwin/imodel-components-react@5.24.1
+
+## 5.24.0
+
+### Minor Changes
+
+- 6d0c07d: Tooltip content for icons in HeaderIconToolbar of WidgetContentLayout
+
+### Patch Changes
+
+- @itwin/components-react@5.24.0
+- @itwin/core-react@5.24.0
+- @itwin/imodel-components-react@5.24.0
+
+## 5.23.1
+
+### Patch Changes
+
+- 589407a: Fix styling in WidgetContentLayout
+  - @itwin/components-react@5.23.1
+  - @itwin/core-react@5.23.1
+  - @itwin/imodel-components-react@5.23.1
+
 ## 5.23.0
 
 ### Minor Changes

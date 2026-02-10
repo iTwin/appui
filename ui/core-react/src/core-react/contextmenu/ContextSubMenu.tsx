@@ -97,7 +97,7 @@ export class ContextSubMenu extends React.Component<
       children,
       onClick,
       className,
-      badgeType, // eslint-disable-line @typescript-eslint/no-deprecated
+      badgeType,
       badgeKind,
       hideIconContainer,
       ...props

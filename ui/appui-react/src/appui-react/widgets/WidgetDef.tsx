@@ -571,7 +571,6 @@ export class WidgetDef {
 
       if (this._widgetControl) {
         if (this._widgetControl.getType() !== type) {
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
           throw new UiError(
             UiFramework.loggerCategory("WidgetDef"),
             `getWidgetControl: '${usedClassId}' is NOT a ${type}; it is a ${this._widgetControl.getType()}`

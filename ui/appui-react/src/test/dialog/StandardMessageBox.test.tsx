@@ -8,8 +8,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { StandardMessageBox } from "../../appui-react.js";
 import { childStructure, userEvent } from "../TestUtils.js";
 
-/* eslint-disable @typescript-eslint/no-deprecated */
-
 describe("StandardMessageBox", () => {
   let theUserTo: ReturnType<typeof userEvent.setup>;
   beforeEach(() => {

@@ -84,7 +84,6 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
   const { contentId, initialViewState, onContextMenu, viewportRef } = args;
   const [viewport, setViewport] = React.useState<ScreenViewport | undefined>();
   const contentControl = React.useRef<
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     FloatingViewportContentControl | undefined
   >(undefined);
 
@@ -116,18 +115,15 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
 
   React.useEffect(() => {
     if (!contentControl.current) {
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       contentControl.current = new FloatingViewportContentControl(
         contentId,
         contentId,
         null
       );
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.content.addFloatingContentControl(contentControl.current);
     }
     return () => {
       if (contentControl.current) {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         UiFramework.content.dropFloatingContentControl(contentControl.current);
         contentControl.current = undefined;
       }
@@ -146,7 +142,6 @@ export function useFloatingViewport(args: FloatingViewportContentProps) {
   React.useEffect(() => {
     return IModelApp.viewManager.onViewClose.addListener((vp) => {
       if (contentControl.current?.viewport === vp) {
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         UiFramework.content.dropFloatingContentControl(contentControl.current);
         contentControl.current = undefined;
       }

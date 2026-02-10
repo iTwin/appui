@@ -61,7 +61,7 @@ function createInitializer() {
         info: { title: "test-app", version: "v1.0" },
         uriPrefix: "http://localhost:3001",
       },
-      rpcInterfaces // eslint-disable-line @typescript-eslint/no-deprecated
+      rpcInterfaces
     );
 
     const origin = window.location.origin;

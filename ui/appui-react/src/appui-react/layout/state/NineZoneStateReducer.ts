@@ -1020,7 +1020,7 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
   if (!location) return state;
 
   const widgetId = location.widgetId;
-  const tabIndex = state.widgets[widgetId].tabs.indexOf(id);
+  const tabIndex = getSavedTabIndex({ state, widgetId, id });
 
   if (isFloatingTabLocation(location)) {
     const floatingWidget = state.floatingWidgets.byId[widgetId];
@@ -1071,4 +1071,51 @@ function addTabToPanelSection(
   const sectionIndex = Math.min(index, panel.widgets.length - 1);
   const existingSectionId = panel.widgets[sectionIndex];
   return addTabToWidget(state, tabId, existingSectionId);
+}
+
+function getSavedTabIndex({
+  state,
+  widgetId,
+  id,
+}: {
+  state: NineZoneState;
+  widgetId: string;
+  id: string;
+}) {
+  const allTabs = getAllTabsFromWidget(state, widgetId);
+  const index = allTabs.indexOf(id);
+  assert(index !== -1);
+  return index;
+}
+
+/** Returns all widget tabs, even those that are currently hidden. */
+function getAllTabsFromWidget(
+  state: NineZoneState,
+  widgetId: WidgetState["id"]
+) {
+  const allTabsId = [...state.widgets[widgetId].tabs];
+  const savedTabs = Object.values(state.savedTabs.byId);
+
+  for (const savedTab of savedTabs) {
+    if (!savedTab?.home) continue;
+
+    // Skip if this tab is already visible in the widget
+    if (allTabsId.includes(savedTab.id)) continue;
+
+    // Check if this saved tab belongs to the target widget
+    let belongsToWidget = savedTab.home.widgetId === widgetId;
+
+    // If no direct match, check if it belongs via panel position
+    if (!belongsToWidget && isPanelWidgetRestoreState(savedTab.home)) {
+      const tabWidgetId =
+        state.panels[savedTab.home.side].widgets[savedTab.home.widgetIndex];
+      belongsToWidget = tabWidgetId === widgetId;
+    }
+
+    if (belongsToWidget) {
+      allTabsId.splice(savedTab.home.tabIndex, 0, savedTab.id);
+    }
+  }
+
+  return allTabsId;
 }

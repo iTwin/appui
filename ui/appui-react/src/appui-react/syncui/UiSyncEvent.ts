@@ -40,7 +40,7 @@ export enum SyncUiEventId {
   /** A Content Layout has been activated. */
   ContentLayoutActivated = "contentlayoutactivated",
   /** A Content Control maintained by UiFramework.frontstages has been activated.
-   * @deprecated in 4.16.0. Use {@link SyncUiEventId.ActiveContentChanged} instead.
+   * @deprecated in 4.16.0. Use `SyncUiEventId.ActiveContentChanged instead.
    */
   ContentControlActivated = "contentcontrolactivated",
   /** A Frontstage is activating. */

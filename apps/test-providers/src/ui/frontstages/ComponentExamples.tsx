@@ -80,6 +80,7 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
   };
 
   const isLightTheme = (): boolean => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     return colorTheme === ColorTheme.Light;
   };
 
@@ -150,7 +151,6 @@ export const ComponentExamplesPage: React.FC<ComponentExamplesPageProps> = (
           }
         )}
       </div>
-      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
     </div>
   );
 };

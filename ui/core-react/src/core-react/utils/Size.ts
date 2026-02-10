@@ -6,8 +6,6 @@
  * @module Utilities
  */
 
-/* eslint-disable @typescript-eslint/no-deprecated */
-
 /** Describes 2d dimensions.
  * @public
  * @deprecated in 4.16.0. Use {@link @itwin/appui-react#SizeProps} instead.

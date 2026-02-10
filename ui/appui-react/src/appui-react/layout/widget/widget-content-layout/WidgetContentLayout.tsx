@@ -22,6 +22,7 @@ interface IconMenuButton {
   icon: React.ReactNode;
   onClick: () => void;
   label: string;
+  tooltipContent?: string;
   type?: "button";
   disabled?: boolean;
   isActive?: boolean;
@@ -102,8 +103,9 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
           onSearch={onSearch}
           icons={icons}
           iconSize={iconSize}
-        />
-        {children}
+        >
+          {children}
+        </HeaderLayout>
       </div>
     );
   }
@@ -231,6 +233,7 @@ const WidgetContentLayoutInner = React.forwardRef<
       className={classNames("nz-widget-widgetContentLayout", className)}
       {...divProps}
       ref={ref}
+      data-_appui-hide-dividers={hideDividers ? "true" : "false"}
     >
       {isLoading && <LoadingOverlay />}
       {widgetComponents.map((component, index) => (

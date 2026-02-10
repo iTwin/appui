@@ -39,7 +39,6 @@ export interface ContextMenuItemProps
   /** Badge to be overlaid on the item.
    * @deprecated in 4.16.0. Use `badgeKind` property instead.
    */
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   badgeType?: BadgeType;
   /** Specifies the kind of badge, if any, to be overlaid on the item. */
   badgeKind?: "technical-preview" | "new" | "deprecated" | (string & {});
@@ -80,7 +79,6 @@ export class ContextMenuItem extends React.PureComponent<
   }
   public override readonly state: Readonly<ContextMenuItemState> = {};
   public override render(): React.ReactElement {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const {
       onClick,
       className,
@@ -93,7 +91,7 @@ export class ContextMenuItem extends React.PureComponent<
       isSelected,
       parentMenu,
       onHotKeyParsed,
-      badgeType, // eslint-disable-line @typescript-eslint/no-deprecated
+      badgeType,
       badgeKind,
       iconRight,
       hideIconContainer,

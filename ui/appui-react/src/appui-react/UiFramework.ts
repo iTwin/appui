@@ -268,7 +268,6 @@ export class UiFramework {
   public static async initialize(
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     store: Store<any, AnyAction> | undefined,
-    // eslint-disable-next-line @typescript-eslint/unified-signatures
     frameworkStateKey?: string,
     args?: UiFrameworkInitializeArgs
   ): Promise<void>;
