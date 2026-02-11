@@ -42,6 +42,7 @@ $border-width: 1px;
     inline-size: auto;
     transition: opacity var(--iui-duration-2) ease;
     border: $border-width solid var(--iui-color-border);
+    contain: none;
 
     @include uicore-z-index(dragged-widget);
     @include nz-widget-opacity;
