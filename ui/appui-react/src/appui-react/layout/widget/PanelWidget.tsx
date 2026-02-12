@@ -53,7 +53,7 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
       "nz-widget-panelWidget",
       horizontal && "nz-horizontal",
       `nz-${mode}`,
-      borders,
+      borders
     );
     const content = React.useMemo(
       () => (
@@ -62,7 +62,7 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
           <WidgetOutline />
         </WidgetContentContainer>
       ),
-      [showTarget],
+      [showTarget]
     );
 
     const widgetTabActions = useWidgetTabActions();
@@ -80,7 +80,7 @@ export const PanelWidget = React.forwardRef<HTMLDivElement, PanelWidgetProps>(
         )}
       </WidgetProvider>
     );
-  },
+  }
 );
 
 function findFillWidget(state: NineZoneState, side: PanelSide) {

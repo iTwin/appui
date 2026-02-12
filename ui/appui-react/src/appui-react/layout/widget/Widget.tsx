@@ -73,7 +73,7 @@ export const Widget = React.forwardRef<HTMLDivElement, WidgetProps>(
         </div>
       </WidgetContext.Provider>
     );
-  },
+  }
 );
 
 /** @internal */
@@ -108,7 +108,7 @@ export function useDragPanelWidget() {
 
       const size = restrainInitialWidgetSize(
         bounds.getSize(),
-        nzBounds.getSize(),
+        nzBounds.getSize()
       );
       bounds = bounds.setSize(size);
 
@@ -149,7 +149,7 @@ export function useDragPanelWidget() {
       measureNz,
       preferredFloatingWidgetSize,
       userSized,
-    ],
+    ]
   );
   useDragWidget({
     widgetId,
@@ -170,7 +170,7 @@ export function useWidgetContextValue() {
     () => ({
       measure,
     }),
-    [measure],
+    [measure]
   );
   return [ref, value] as const;
 }
@@ -196,7 +196,7 @@ const minHeight = 200;
 /** @internal */
 export function restrainInitialWidgetSize(
   size: SizeProps,
-  nzSize: SizeProps,
+  nzSize: SizeProps
 ): SizeProps {
   const width = Math.max(Math.min(nzSize.width / 3, size.width), minWidth);
   const height = Math.max(Math.min(nzSize.height / 3, size.height), minHeight);

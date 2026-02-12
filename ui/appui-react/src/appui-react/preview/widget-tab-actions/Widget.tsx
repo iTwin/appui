@@ -73,12 +73,12 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
     const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
     const activeTabId = useActiveTabId();
     const [actionTabId, setActionTabId] = React.useState<string | undefined>(
-      undefined,
+      undefined
     );
     const [anchored, setAnchored] = React.useState(false);
     const [actionFocused, setActionFocused] = React.useState(false);
     const tabElementsRef = React.useRef(
-      new Map<string, HTMLElement | undefined>(),
+      new Map<string, HTMLElement | undefined>()
     );
     const hideTab = React.useCallback(
       (id: string) => {
@@ -97,13 +97,13 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
         const tabEl = tabElementsRef.current.get(nextTabId);
         tabEl?.focus();
       },
-      [dispatch, tabIds],
+      [dispatch, tabIds]
     );
     const setTabElement = React.useCallback(
       (id: string, element: HTMLElement | undefined) => {
         tabElementsRef.current.set(id, element);
       },
-      [],
+      []
     );
 
     const [widgetRef, value] = useWidgetContextValue();
@@ -126,7 +126,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
             {...rest}
             className={classnames(
               "uifw-preview-widgetTabActions-widget_wrapper",
-              props.className,
+              props.className
             )}
             value={minimized ? "" : activeTabId}
             focusActivationMode="manual"
@@ -158,7 +158,7 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
         </TabsContext.Provider>
       </WidgetContext.Provider>
     );
-  },
+  }
 );
 Widget.displayName = "Widget";
 
@@ -173,7 +173,7 @@ function Tab() {
     (el: HTMLElement | null) => {
       setTabElement(id, el ?? undefined);
     },
-    [id, setTabElement],
+    [id, setTabElement]
   );
   return (
     <Tabs.Tab
@@ -219,7 +219,7 @@ function CloseTabDecoration() {
         const entry = entries[0];
         setAnchored(entry.isIntersecting);
       },
-      { threshold: 1 },
+      { threshold: 1 }
     );
     observer.observe(ref.current);
     return () => {
@@ -330,7 +330,7 @@ export function PanelWidget() {
     <Widget
       className={classnames(
         "uifw-preview-widgetTabActions-widget_panelWidget",
-        borders,
+        borders
       )}
       ref={widgetRef}
     />
@@ -353,7 +353,7 @@ export function FloatingWidget() {
     <Widget
       className={classnames(
         "uifw-preview-widgetTabActions-widget_floating",
-        maximizedWidget.classNames,
+        maximizedWidget.classNames
       )}
       handles={resizable ? <ResizeHandles /> : undefined}
       minimized={minimized}
@@ -368,7 +368,7 @@ export function FloatingWidget() {
 }
 
 function ResizeHandle(
-  props: Pick<React.ComponentProps<typeof FloatingWidgetHandle>, "handle">,
+  props: Pick<React.ComponentProps<typeof FloatingWidgetHandle>, "handle">
 ) {
   return (
     <FloatingWidgetHandle

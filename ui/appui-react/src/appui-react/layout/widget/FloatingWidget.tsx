@@ -99,7 +99,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
         <WidgetOutline />
       </WidgetContentContainer>
     ),
-    [],
+    []
   );
   const handles = React.useMemo(
     () =>
@@ -115,7 +115,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
           <FloatingWidgetHandle handle="bottomRight" />
         </>
       ),
-    [resizable],
+    [resizable]
   );
   return (
     <Widget
@@ -125,7 +125,7 @@ export function FloatingWidget(props: FloatingWidgetProps) {
         isToolSettingsTab && "nz-floating-toolSettings",
         minimized && "nz-minimized",
         hidden && "nz-hidden",
-        maximizedWidget.classNames,
+        maximizedWidget.classNames
       )}
       style={style}
       ref={ref}
@@ -147,7 +147,7 @@ function useIsDraggedWidget() {
       id,
       type: "widget" as const,
     }),
-    [id],
+    [id]
   );
   return useIsDraggedItem(item);
 }
@@ -189,7 +189,7 @@ function useHandleAutoSize(dragged: boolean) {
   const id = useFloatingWidgetId();
   assert(!!id);
   const userSized = useLayout(
-    (state) => state.floatingWidgets.byId[id].userSized,
+    (state) => state.floatingWidgets.byId[id].userSized
   );
   const maximizedWidget = useIsMaximizedWidget();
 
@@ -280,7 +280,7 @@ export function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
         resizeBy,
       });
     },
-    [dispatch, handle, id],
+    [dispatch, handle, id]
   );
   const handleDragStart = useDragResizeHandle({
     handle,
@@ -304,7 +304,7 @@ export function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
         id,
       });
     },
-    [dispatch, handleDragStart, id],
+    [dispatch, handleDragStart, id]
   );
   const pointerCaptorRef = usePointerCaptor(handlePointerDown);
   const ref = React.useRef<HTMLDivElement>(null);
@@ -317,7 +317,7 @@ export function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
       className={classnames(
         "nz-widget-floatingWidget_handle",
         `nz-${handle}`,
-        props.className,
+        props.className
       )}
       ref={refs}
     />

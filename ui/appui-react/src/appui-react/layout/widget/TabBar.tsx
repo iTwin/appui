@@ -43,7 +43,7 @@ export function WidgetTabBar(props: WidgetTabBarProps) {
     <div
       className={classnames(
         "nz-widget-tabBar",
-        props.separator && "nz-separator",
+        props.separator && "nz-separator"
       )}
     >
       <div
@@ -79,7 +79,7 @@ export function useDragWidgetHandle() {
           floatingWidgetId,
         });
     },
-    [dispatch, floatingWidgetId],
+    [dispatch, floatingWidgetId]
   );
   const onDragEnd = React.useCallback<
     NonNullable<UseDragWidgetArgs["onDragEnd"]>
@@ -93,7 +93,7 @@ export function useDragWidgetHandle() {
           target,
         });
     },
-    [dispatch, floatingWidgetId, handleActionAreaClick],
+    [dispatch, floatingWidgetId, handleActionAreaClick]
   );
   const handleWidgetDragStart = useDragWidget({
     widgetId,
@@ -107,7 +107,7 @@ export function useDragWidgetHandle() {
         pointerPosition,
       });
     },
-    [handleWidgetDragStart],
+    [handleWidgetDragStart]
   );
   const handleTouchStart = React.useCallback(() => {
     floatingWidgetId &&
@@ -121,7 +121,7 @@ export function useDragWidgetHandle() {
     undefined,
     undefined,
     handleTouchStart,
-    handleDoubleClick,
+    handleDoubleClick
   );
   return ref;
 }
@@ -135,7 +135,7 @@ export function useDrag<T extends HTMLElement>(
   onDrag?: (position: Point) => void,
   onDragEnd?: () => void,
   onTouchStart?: () => void,
-  onDoubleClick?: () => void,
+  onDoubleClick?: () => void
 ) {
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
@@ -159,7 +159,7 @@ export function useDrag<T extends HTMLElement>(
       initialPointerPosition.current = new Point(args.clientX, args.clientY);
       e.type === "touchstart" && onTouchStart && onTouchStart();
     },
-    [onTouchStart],
+    [onTouchStart]
   );
   const handlePointerMove = React.useCallback(
     (args: PointerCaptorArgs) => {
@@ -167,14 +167,14 @@ export function useDrag<T extends HTMLElement>(
         onDragStart &&
           onDragStart(
             initialPointerPosition.current,
-            new Point(args.clientX, args.clientY),
+            new Point(args.clientX, args.clientY)
           );
         initialPointerPosition.current = undefined;
         return;
       }
       onDrag && onDrag(new Point(args.clientX, args.clientY));
     },
-    [onDragStart, onDrag],
+    [onDragStart, onDrag]
   );
   const handlePointerUp = React.useCallback(() => {
     clickCount.current++;
@@ -185,7 +185,7 @@ export function useDrag<T extends HTMLElement>(
   const ref = usePointerCaptor<T>(
     handlePointerDown,
     handlePointerMove,
-    handlePointerUp,
+    handlePointerUp
   );
   return ref;
 }
