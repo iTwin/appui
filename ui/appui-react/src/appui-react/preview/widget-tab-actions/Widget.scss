@@ -12,6 +12,7 @@ $border-width: 1px;
   .uifw-preview-widgetTabActions-widget_wrapper {
     flex: 1;
     grid-template-rows: min-content 1fr;
+    grid-template-columns: auto 1fr;
     isolation: isolate;
   }
 
@@ -75,6 +76,7 @@ $border-width: 1px;
   .uifw-preview-widgetTabActions-widget_handle {
     grid-column: tabs / tabs-actions;
     grid-row: tabs;
+    position: relative;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
@@ -87,13 +89,7 @@ $border-width: 1px;
     overscroll-behavior-x: none;
     margin-inline: -1px; // Don't use $border-width as this is accounting for iTwinUI's tab border
     margin-block-start: -1px; // Don't use $border-width as this is accounting for iTwinUI's tab border
-
-    // Let handle receive pointer events
-    pointer-events: none;
-
-    & > * {
-      pointer-events: all;
-    }
+    container-type: normal;
   }
 
   .uifw-preview-widgetTabActions-widget_tab {
@@ -148,6 +144,11 @@ $border-width: 1px;
     &:where([data-_appui-action="true"]) {
       anchor-name: --_appui-tab-action;
     }
+  }
+
+  .uifw-preview-widgetTabActions-widget_actionsWrapper {
+    margin-inline-start: auto;
+    padding-inline-start: var(--iui-size-s);
   }
 
   .uifw-preview-widgetTabActions-widget_actions {

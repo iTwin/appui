@@ -288,7 +288,12 @@ function TabsActions() {
   const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
   const actionTab = tabIds.find((id) => id === actionTabId);
   return (
-    <Tabs.Actions className="uifw-preview-widgetTabActions-widget_actions">
+    <Tabs.Actions
+      className="uifw-preview-widgetTabActions-widget_actions"
+      wrapperProps={{
+        className: "uifw-preview-widgetTabActions-widget_actionsWrapper",
+      }}
+    >
       {actionTab && <CloseTabAction />}
       {widgetActions ?? <WidgetActions />}
     </Tabs.Actions>
