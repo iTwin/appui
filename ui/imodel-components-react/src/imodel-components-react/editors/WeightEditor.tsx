@@ -160,7 +160,7 @@ export class WeightEditor
           disabled={this.state.isDisabled ? true : false}
           readonly={this.state.readonly}
           onLineWeightPick={this._onLineWeightPick}
-          data-testid="components-weight-editor"
+          data-testid={this.props.itemId ?? "components-weight-editor"}
         />
       </div>
     );

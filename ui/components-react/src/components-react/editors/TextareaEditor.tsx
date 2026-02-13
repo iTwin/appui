@@ -211,7 +211,7 @@ export class TextareaEditor
           <PopupContent>
             <Textarea
               {...textareaProps}
-              data-testid="components-textarea-editor"
+              data-testid={this.props.itemId ?? "components-textarea-editor"}
               ref={this._textAreaElement}
             />
             <PopupOkCancelButtons
