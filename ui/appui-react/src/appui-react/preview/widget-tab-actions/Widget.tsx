@@ -56,6 +56,9 @@ const TabsContext = React.createContext<
       // Describes if the tab action is focused.
       actionFocused: boolean;
       setActionFocused: (focused: boolean) => void;
+      // Track focused tab to focus the action (skips focus of active tab)
+      focusedTabId: string | undefined;
+      setFocusedTabId: (id: string | undefined) => void;
     }
   | undefined
 >(undefined);
@@ -73,6 +76,9 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
     const tabIds = useLayout((state) => getWidgetState(state, widgetId).tabs);
     const activeTabId = useActiveTabId();
     const [actionTabId, setActionTabId] = React.useState<string | undefined>(
+      undefined
+    );
+    const [focusedTabId, setFocusedTabId] = React.useState<string | undefined>(
       undefined
     );
     const [anchored, setAnchored] = React.useState(false);
@@ -120,6 +126,8 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
             setAnchored,
             actionFocused,
             setActionFocused,
+            focusedTabId,
+            setFocusedTabId,
           }}
         >
           <Tabs.Wrapper
@@ -162,8 +170,15 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
 Widget.displayName = "Widget";
 
 function Tab() {
-  const { actionTabId, actionFocused, setActionTabId, hideTab, setTabElement } =
-    useSafeContext(TabsContext);
+  const {
+    actionTabId,
+    actionFocused,
+    setActionTabId,
+    hideTab,
+    setTabElement,
+    focusedTabId,
+    setFocusedTabId,
+  } = useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
   const closeAction = useWidgetTabCloseAction(id);
@@ -187,11 +202,20 @@ function Tab() {
       }}
       onFocus={() => {
         setActionTabId(id);
+        setFocusedTabId(id);
+      }}
+      onBlur={() => {
+        setFocusedTabId(undefined);
       }}
       data-_appui-mask={
         id === actionTabId && actionFocused ? "true" : undefined
       }
       data-_appui-decoration={closeAction ? "true" : undefined}
+      {...(!!focusedTabId
+        ? {
+            tabIndex: -1,
+          }
+        : undefined)}
     >
       <Tabs.TabLabel className="uifw-preview-widgetTabActions-widget_label">
         {label}
