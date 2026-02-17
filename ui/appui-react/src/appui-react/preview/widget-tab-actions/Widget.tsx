@@ -141,7 +141,6 @@ const Widget = React.forwardRef<HTMLElement, WidgetProps>(
                   </TabIdContext.Provider>
                 );
               })}
-              <TitleBarTarget />
             </Tabs.TabList>
 
             <TabsActions />
@@ -294,6 +293,7 @@ function TabsActions() {
         className: "uifw-preview-widgetTabActions-widget_actionsWrapper",
       }}
     >
+      <TitleBarTarget className="uifw-preview-widgetTabActions-widget_titleBarTarget" />
       {actionTab && <CloseTabAction />}
       {widgetActions ?? <WidgetActions />}
     </Tabs.Actions>
