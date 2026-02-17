@@ -104,15 +104,17 @@ $border-width: 1px;
       }
     }
 
-    &:where(:hover, :focus-visible, [data-_appui-mask="true"])
-      .uifw-preview-widgetTabActions-widget_label {
-      mask-image: linear-gradient(
-        270deg,
-        transparent 0%,
-        transparent 24px,
-        #000 32px,
-        #000 100%
-      );
+    &:where([data-_appui-decoration]) {
+      &:where(:hover, :focus-visible, [data-_appui-mask="true"])
+        .uifw-preview-widgetTabActions-widget_label {
+        mask-image: linear-gradient(
+          270deg,
+          transparent 0%,
+          transparent 24px,
+          #000 32px,
+          #000 100%
+        );
+      }
     }
   }
 
@@ -184,6 +186,7 @@ $border-width: 1px;
         position-anchor: --_appui-tab-action;
         right: anchor(right);
         align-self: anchor-center;
+        z-index: 1;
       }
     }
   }

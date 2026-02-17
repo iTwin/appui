@@ -166,7 +166,7 @@ function Tab() {
     useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
-  const closeAction = useWidgetTabCloseAction();
+  const closeAction = useWidgetTabCloseAction(id);
   const interactionsRef = useTabInteractions({});
   const ref = React.useCallback(
     (el: HTMLElement | null) => {
@@ -191,6 +191,7 @@ function Tab() {
       data-_appui-mask={
         id === actionTabId && actionFocused ? "true" : undefined
       }
+      data-_appui-decoration={closeAction ? "true" : undefined}
     >
       <Tabs.TabLabel className="uifw-preview-widgetTabActions-widget_label">
         {label}
@@ -254,7 +255,8 @@ function CloseTabAction() {
     useSafeContext(TabsContext);
   assert(!!actionTabId);
   const label = useLayout((state) => state.tabs[actionTabId].label);
-
+  const closeAction = useWidgetTabCloseAction(actionTabId);
+  if (!closeAction) return null;
   return (
     <VisuallyHidden
       as="span"

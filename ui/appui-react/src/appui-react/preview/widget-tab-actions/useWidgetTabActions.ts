@@ -3,6 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
+import type { TabState } from "../../layout/state/TabState.js";
+import { useControlWidgetVisibility } from "../control-widget-visibility/CloseWidgetButton.js";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 
 /** @internal */
@@ -12,8 +14,8 @@ export function useWidgetTabActions() {
 }
 
 /** @internal */
-export function useWidgetTabCloseAction() {
+export function useWidgetTabCloseAction(tabId: TabState["id"]) {
   const { widgetTabActions } = usePreviewFeatures();
-  const { controlWidgetVisibility } = usePreviewFeatures();
-  return widgetTabActions && controlWidgetVisibility;
+  const controlWidgetVisibility = useControlWidgetVisibility(tabId);
+  return !!widgetTabActions && !!controlWidgetVisibility;
 }
