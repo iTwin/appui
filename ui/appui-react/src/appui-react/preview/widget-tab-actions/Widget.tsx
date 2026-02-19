@@ -42,6 +42,7 @@ import { WidgetOutline } from "../../layout/outline/WidgetOutline.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
 import { useBorders } from "../../layout/widget/PanelWidget.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
 
 const TabsContext = React.createContext<
   | {
@@ -233,6 +234,7 @@ function CloseTabDecoration() {
   const { actionTabId, hideTab, setAnchored } = useSafeContext(TabsContext);
   const id = useSafeContext(TabIdContext);
   const label = useLayout((state) => state.tabs[id].label);
+
   const ref = React.useRef<HTMLButtonElement | null>(null);
   const isActionTab = actionTabId === id;
   React.useEffect(() => {
@@ -251,13 +253,16 @@ function CloseTabDecoration() {
       observer.disconnect();
     };
   }, [isActionTab, setAnchored]);
+
+  const { translate } = useTranslation();
+  const closeLabel = translate("dialog.close");
   return (
     <IconButton
       as={Tabs.TabIcon}
       className="uifw-preview-widgetTabActions-widget_decoration"
       styleType="borderless"
       size="small"
-      label={`Close ${label}`}
+      label={`${closeLabel} ${label}`}
       aria-hidden="true"
       onClick={() => {
         hideTab(id);
@@ -280,6 +285,10 @@ function CloseTabAction() {
   assert(!!actionTabId);
   const label = useLayout((state) => state.tabs[actionTabId].label);
   const closeAction = useWidgetTabCloseAction(actionTabId);
+
+  const { translate } = useTranslation();
+  const closeLabel = translate("dialog.close");
+
   if (!closeAction) return null;
   return (
     <VisuallyHidden
@@ -293,7 +302,7 @@ function CloseTabAction() {
           setActionTabId(undefined);
           setActionFocused(false);
         }}
-        label={`Close ${label}`}
+        label={`${closeLabel} ${label}`}
         styleType="borderless"
         size="small"
         onClick={() => {
