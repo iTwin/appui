@@ -129,6 +129,8 @@ $border-width: 1px;
 
   .uifw-preview-widgetTabActions-widget_content {
     min-inline-size: 0;
+    display: flex;
+    inline-size: 100%;
   }
 
   .uifw-preview-widgetTabActions-widget_label {
