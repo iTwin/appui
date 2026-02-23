@@ -14,7 +14,10 @@ import type { HeaderIconToolbar } from "./HeaderIconToolbar.js";
 type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
 
 interface HeaderSearchProps
-  extends Pick<HeaderIconToolbarProps, "iconSize" | "onSearch" | "disableSearch" | "searchExpandedState"> {
+  extends Pick<
+    HeaderIconToolbarProps,
+    "iconSize" | "onSearch" | "disableSearch" | "searchExpandedState"
+  > {
   /** State tuple for the search text value and its setter function. */
   searchState: [string, React.Dispatch<React.SetStateAction<string>>];
 }

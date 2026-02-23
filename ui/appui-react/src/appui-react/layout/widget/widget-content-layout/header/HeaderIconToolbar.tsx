@@ -34,7 +34,10 @@ type SearchExpandedState = [
 ];
 
 interface HeaderIconToolbarProps
-  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch" | "disableSearch"> {
+  extends Pick<
+    WidgetContentLayoutHeaderProps,
+    "iconSize" | "onSearch" | "disableSearch"
+  > {
   /** Array of icon menu items to display, including regular icons, search, and dividers. */
   menuIcons: (IconMenu | IconMenuSearch)[];
   /** State tuple controlling whether the search box is expanded or collapsed. */
