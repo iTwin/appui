@@ -42,6 +42,8 @@
       }
     }
 
+    // when icon-size is small, the button width is 2px wider than the icon size due to a transparent border,
+    // so we need to remove the border to make it the same width as the icon
     .nz-header-overflow-button {
       border: 0px;
     }
