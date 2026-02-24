@@ -8,6 +8,7 @@ import {
   IModelApp,
   IModelConnection,
   SpatialViewState,
+  ViewState,
 } from "@itwin/core-frontend";
 import { Range3d } from "@itwin/core-geometry";
 
@@ -34,12 +35,7 @@ export function createBlankViewState(iModel: IModelConnection) {
   viewState.setAllow3dManipulations(true);
 
   viewState.displayStyle.backgroundColor = ColorDef.white;
-  const flags = viewState.viewFlags.copy({
-    grid: false,
-    renderMode: RenderMode.SmoothShade,
-    backgroundMap: false,
-  });
-  viewState.displayStyle.viewFlags = flags;
+  updateViewFlags(viewState);
 
   IModelApp.viewManager.onViewOpen.addOnce((vp) => {
     if (vp.view.hasSameCoordinates(viewState)) {
@@ -47,5 +43,13 @@ export function createBlankViewState(iModel: IModelConnection) {
     }
   });
 
+  return viewState;
+}
+
+export function updateViewFlags(viewState: ViewState): ViewState {
+  viewState.viewFlags = viewState.viewFlags.copy({
+    acsTriad: true,
+    grid: true,
+  });
   return viewState;
 }
