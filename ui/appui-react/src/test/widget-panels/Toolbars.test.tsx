@@ -13,11 +13,11 @@ describe("WidgetPanelsToolbars", () => {
     const frontstageDef = new FrontstageDef();
     const contentManipulationWidget = WidgetDef.create({
       id: "contentManipulationWidget",
-      content: <>tools</>,
+      content: <div>tools</div>,
     });
     const viewNavigationWidget = WidgetDef.create({
       id: "viewNavigationWidget",
-      content: <>navigation</>,
+      content: <div>navigation</div>,
     });
     vi.spyOn(
       UiFramework.frontstages,

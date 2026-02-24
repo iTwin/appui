@@ -681,6 +681,7 @@ public;interface;ToolAssistanceFieldProps
 beta;function;Toolbar
 public;const;TOOLBAR_OPACITY_DEFAULT
 public;interface;ToolbarActionItem
+public;type;ToolbarAdvancedUsage
 public;class;ToolbarButtonHelper
 public;function;ToolbarComposer
 public;interface;ToolbarCustomItem

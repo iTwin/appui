@@ -9,22 +9,21 @@
 import "./NavigationArea.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
 
-/** Properties of [[NavigationArea]] component.
- * @internal
- */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
+interface NavigationAreaProps {
   /**
    * Button displayed between horizontal and vertical toolbars.
    * I.e. [[AppButton]] in NavigationArea zone or navigation aid control in Navigation zone.
    */
   navigationAid?: React.ReactNode;
-  /** Horizontal toolbar. See [[Toolbar]] */
+  /** Horizontal toolbar. Positioned at the top-right. */
   horizontalToolbar?: React.ReactNode;
-  /** Vertical toolbar. See [[Toolbar]] */
+  /** Vertical toolbar. Positioned at the top-right. */
   verticalToolbar?: React.ReactNode;
+  /** Secondary horizontal toolbar. Positioned at the bottom-right. */
+  secondaryHorizontalToolbar?: React.ReactNode;
+  /** Secondary vertical toolbar. Positioned at the bottom-right. */
+  secondaryVerticalToolbar?: React.ReactNode;
   /** Handler for mouse enter */
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   /** Handler for mouse leave */
@@ -36,39 +35,52 @@ export interface NavigationAreaProps extends CommonProps, NoChildrenProps {
  * @internal
  */
 export function NavigationArea(props: NavigationAreaProps) {
-  const className = classnames(
-    "nz-widget-navigationArea",
-    props.hidden && "nz-hidden",
-    props.className
-  );
   return (
-    <div className={className} style={props.style}>
+    <div
+      className={classnames(
+        "nz-widget-navigationArea",
+        props.hidden && "nz-hidden"
+      )}
+    >
       <div
-        className="nz-horizontal-toolbar-container"
+        className={classnames(
+          "nz-widget-navigationArea_horizontalContainer",
+          !!props.navigationAid && "nz-navigation-aid"
+        )}
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
       >
         {props.horizontalToolbar}
+        {props.navigationAid && (
+          <div
+            className="nz-widget-navigationArea_navigationAid"
+            onMouseEnter={props.onMouseEnter}
+            onMouseLeave={props.onMouseLeave}
+          >
+            {props.navigationAid}
+          </div>
+        )}
       </div>
-      {props.navigationAid && (
-        <div
-          className="nz-navigation-aid-container"
-          onMouseEnter={props.onMouseEnter}
-          onMouseLeave={props.onMouseLeave}
-        >
-          {props.navigationAid}
-        </div>
-      )}
       <div
         className={classnames(
-          "nz-vertical-toolbar-container",
-          !props.navigationAid && "nz-span"
+          "nz-widget-navigationArea_verticalContainer",
+          !!props.navigationAid && "nz-navigation-aid"
         )}
         onMouseEnter={props.onMouseEnter}
         onMouseLeave={props.onMouseLeave}
       >
         {props.verticalToolbar}
+        {props.secondaryVerticalToolbar}
       </div>
+      {props.secondaryHorizontalToolbar && (
+        <div
+          className="nz-widget-navigationArea_secondaryContainer"
+          onMouseEnter={props.onMouseEnter}
+          onMouseLeave={props.onMouseLeave}
+        >
+          {props.secondaryHorizontalToolbar}
+        </div>
+      )}
     </div>
   );
 }

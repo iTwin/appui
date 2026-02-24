@@ -19,7 +19,8 @@ export function WidgetPanelsToolbars() {
   return (
     <div className="uifw-widgetPanels-toolbars">
       {tools}
-      <NavigationWidget>{navigation}</NavigationWidget>
+      {navigation}
+      <NavigationWidget />
     </div>
   );
 }

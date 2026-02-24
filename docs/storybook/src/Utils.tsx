@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { action } from "storybook/actions";
 import type { ArgTypes } from "@storybook/react-vite";
 import {
   ContentProps,
@@ -12,6 +13,11 @@ import {
   StageUsage,
   StandardContentLayouts,
   StandardFrontstageProps,
+  ToolbarActionItem,
+  ToolbarGroupItem,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   Widget,
 } from "@itwin/appui-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
@@ -115,5 +121,46 @@ export function createWidget(id: number, overrides?: Partial<Widget>): Widget {
       },
     },
     ...overrides,
+  };
+}
+
+export function createToolbarItemFactory() {
+  let i = 0;
+  function createActionItem(
+    overrides?: Omit<Partial<ToolbarActionItem>, "icon">
+  ) {
+    const id = `item${++i}`;
+    const label = `Item ${i}`;
+    return ToolbarItemUtilities.createActionItem({
+      id,
+      label,
+      icon: <SvgPlaceholder />,
+      execute: () => action(label)(),
+      layouts: {
+        standard: {
+          usage: ToolbarUsage.ContentManipulation,
+          orientation: ToolbarOrientation.Horizontal,
+        },
+      },
+      ...overrides,
+    });
+  }
+
+  function createGroupItem(
+    overrides?: Omit<Partial<ToolbarGroupItem>, "icon">
+  ) {
+    const id = `group${++i}`;
+    const label = `Group ${i}`;
+    return ToolbarItemUtilities.createGroupItem({
+      id,
+      label,
+      icon: <SvgPlaceholder />,
+      ...overrides,
+    });
+  }
+
+  return {
+    createActionItem,
+    createGroupItem,
   };
 }

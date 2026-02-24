@@ -5,65 +5,105 @@
 @use "./tools/button/variables" as *;
 @use "../widgetopacity" as *;
 
-.nz-widget-navigationArea {
-  transition: visibility var(--iui-duration-2) ease,
-    opacity var(--iui-duration-2) ease;
-  display: grid;
-  box-sizing: border-box;
-  height: 100%;
-  grid-gap: 6px;
-  grid-template-areas:
-    "htools button"
-    ". vtools";
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr;
-  justify-items: end;
+@layer appui.component {
+  $gap: 6px;
 
-  &.nz-hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
+  .nz-widget-navigationArea {
+    transition: visibility var(--iui-duration-2) ease,
+      opacity var(--iui-duration-2) ease;
+    display: grid;
+    box-sizing: border-box;
+    height: 100%;
+    grid-gap: $gap;
+    grid-template-columns: [horizontal-start] 1fr [horizontal-end aid-start] auto [aid-end];
+    grid-template-rows: [aid-start] auto [aid-end vertical-start] 1fr [vertical-end secondary-start] auto [secondary-end];
+    justify-items: end;
+    min-height: 0;
+    grid-column: 2;
 
-  > .nz-navigation-aid-container {
-    grid-area: button;
+    &.nz-hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
 
-    min-width: $mls-navigation-aid-width;
-    min-height: $mls-navigation-aid-height;
+    &:not(
+        :has(.nz-widget-navigationArea_verticalContainer .uifw-start button)
+      ) {
+      .nz-widget-navigationArea_horizontalContainer {
+        grid-column-end: aid-end;
+      }
 
-    margin-bottom: 6px;
-    pointer-events: auto;
+      .nz-widget-navigationArea_verticalContainer {
+        grid-row-start: aid-end;
+      }
+    }
 
-    @include nz-widget-opacity;
-  }
+    &:not(:has(.nz-widget-navigationArea_verticalContainer .uifw-end button)) {
+      .nz-widget-navigationArea_secondaryContainer {
+        grid-column-end: aid-end;
+      }
 
-  > .nz-vertical-toolbar-container {
-    grid-area: vtools;
-
-    height: calc(100% - 60px);
-    display: inline-flex;
-    flex-direction: column;
-    align-items: flex-end;
-    @include nz-widget-opacity;
-
-    &.nz-span {
-      grid-row: button / vtools;
+      .nz-widget-navigationArea_verticalContainer {
+        grid-row-end: vertical-end;
+      }
     }
   }
 
-  > .nz-horizontal-toolbar-container {
-    grid-area: htools;
+  .nz-widget-navigationArea_horizontalContainer {
+    grid-column: horizontal;
+    grid-row: aid;
 
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     min-width: 0;
+    gap: $gap;
 
     @include nz-widget-opacity;
+
+    &.nz-navigation-aid {
+      grid-column-end: aid-end;
+    }
 
     > .components-toolbar-overflow-sizer {
       display: flex;
       justify-content: flex-end;
     }
+  }
+
+  .nz-widget-navigationArea_verticalContainer {
+    grid-column: aid;
+    grid-row: aid-start / secondary-end;
+
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    grid-gap: $gap;
+
+    @include nz-widget-opacity;
+
+    &.nz-navigation-aid {
+      grid-row-start: aid-end;
+    }
+  }
+
+  .nz-widget-navigationArea_secondaryContainer {
+    grid-column: horizontal;
+    grid-row: secondary;
+
+    width: 100%;
+    min-width: 0;
+
+    @include nz-widget-opacity;
+  }
+
+  .nz-widget-navigationArea_navigationAid {
+    min-width: $mls-navigation-aid-width;
+    min-height: $mls-navigation-aid-height;
+
+    margin-bottom: $gap;
+    pointer-events: auto;
+    flex-shrink: 0;
   }
 }

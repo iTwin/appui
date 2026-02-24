@@ -5,9 +5,11 @@
 .uifw-toolbar-group-toolGroup_container {
   flex: 1 1 100%;
   min-width: 0;
+  min-height: 0;
 
   &.uifw-vertical {
     height: 100%;
+    flex-direction: column;
   }
 
   &.uifw-end {
