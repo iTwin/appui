@@ -29,6 +29,7 @@ import {
 } from "@itwin/appui-react";
 import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import {
+  Svg3D,
   SvgRefresh,
   SvgTextAlignCenter,
   SvgTextAlignJustify,
@@ -188,17 +189,8 @@ export function createWidgetApiFrontstageProvider() {
       }),
     ],
     getToolbarItems: () => [
-      {
-        ...createToggleCustomOverlayToolbarItem(),
-        itemPriority: 17,
-        groupPriority: 3000,
-        layouts: {
-          standard: {
-            orientation: ToolbarOrientation.Horizontal,
-            usage: ToolbarUsage.ContentManipulation,
-          },
-        },
-      },
+      createToggleCustomOverlayToolbarItem(),
+      createToggle3dManipulationsToolbarItem(),
     ],
   } satisfies UiItemsProvider;
 }
@@ -450,7 +442,7 @@ function createBottomPanelWidgets(): Widget[] {
 function CustomOverlayIcon() {
   const showCustomViewOverlay = useConditionalValue(
     () => store.state.showCustomViewOverlay,
-    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+    [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]
   );
   if (showCustomViewOverlay) return <SvgZoomOut />;
   return <SvgZoomIn />;
@@ -458,23 +450,61 @@ function CustomOverlayIcon() {
 
 function createToggleCustomOverlayToolbarItem() {
   return ToolbarItemUtilities.createActionItem({
-    id: createToggleCustomOverlayToolbarItem.id,
+    id: "toggle-overlay",
     icon: <CustomOverlayIcon />,
     label: new ConditionalStringValue(
       () =>
         store.state.showCustomViewOverlay ? "Hide overlay" : "Show overlay",
-      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+      [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]
     ),
     execute: () => {
       const showCustomViewOverlay = store.state.showCustomViewOverlay;
       store.setShowCustomViewOverlay(!showCustomViewOverlay);
       IModelApp.toolAdmin.dispatchUiSyncEvent(
-        AppUiTestProviders.syncEventIdHideCustomViewOverlay
+        AppUiTestProviders.syncUiEventId.hideCustomViewOverlay
       );
     },
     isActiveCondition: new ConditionalBooleanValue(() => {
       return store.state.showCustomViewOverlay;
-    }, [AppUiTestProviders.syncEventIdHideCustomViewOverlay]),
+    }, [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]),
+    itemPriority: 1,
+    groupPriority: 3000,
+    layouts: {
+      standard: {
+        orientation: ToolbarOrientation.Horizontal,
+        usage: ToolbarUsage.ContentManipulation,
+      },
+    },
   });
 }
-createToggleCustomOverlayToolbarItem.id = "testHideShowItems";
+
+function createToggle3dManipulationsToolbarItem() {
+  return ToolbarItemUtilities.createActionItem({
+    id: "toggle-3d-manipulations",
+    icon: <Svg3D />,
+    label: "Toggle 3d manipulations",
+    execute: () => {
+      const viewport = IModelApp.viewManager.selectedView;
+      if (!viewport) return;
+      if (!viewport.view.is3d()) return;
+
+      const allow3dManipulations = !viewport.view.allow3dManipulations();
+      viewport.view.setAllow3dManipulations(allow3dManipulations);
+      store.setAllow3dManipulations(allow3dManipulations);
+      IModelApp.toolAdmin.dispatchUiSyncEvent(
+        AppUiTestProviders.syncUiEventId.toggle3dManipulations
+      );
+    },
+    isActiveCondition: new ConditionalBooleanValue(() => {
+      return store.state.allow3dManipulations;
+    }, [AppUiTestProviders.syncUiEventId.toggle3dManipulations]),
+    itemPriority: 2,
+    groupPriority: 3000,
+    layouts: {
+      standard: {
+        orientation: ToolbarOrientation.Horizontal,
+        usage: ToolbarUsage.ContentManipulation,
+      },
+    },
+  });
+}
