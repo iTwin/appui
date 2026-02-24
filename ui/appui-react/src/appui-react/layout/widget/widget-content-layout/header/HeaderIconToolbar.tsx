@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import "./HeaderIconToolbar.scss";
-import * as React from "react";
+import React from "react";
 import {
   ButtonGroup,
   Divider,
@@ -34,7 +34,10 @@ type SearchExpandedState = [
 ];
 
 interface HeaderIconToolbarProps
-  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch"> {
+  extends Pick<
+    WidgetContentLayoutHeaderProps,
+    "iconSize" | "onSearch" | "disableSearch"
+  > {
   /** Array of icon menu items to display, including regular icons, search, and dividers. */
   menuIcons: (IconMenu | IconMenuSearch)[];
   /** State tuple controlling whether the search box is expanded or collapsed. */
@@ -86,6 +89,7 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
                           setSearchIsExpanded(true);
                         }}
                         startIcon={<SvgSearch />}
+                        disabled={props.disableSearch}
                       >
                         Search
                       </MenuItem>
@@ -128,6 +132,7 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
               size={props.iconSize}
               styleType="borderless"
               aria-label="More"
+              className="nz-header-overflow-button"
             >
               <SvgMore />
             </IconButton>
@@ -147,6 +152,7 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
               searchState={searchState}
               iconSize={props.iconSize}
               onSearch={props.onSearch}
+              disableSearch={props.disableSearch}
             />
           ) : (
             <IconButton

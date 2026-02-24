@@ -58,6 +58,10 @@ interface WidgetContentLayoutHeaderProps extends ComponentPropsWithRef<"div"> {
    */
   onSearch?: (value: string) => void;
   /**
+   * Whether to disable the search functionality.
+   */
+  disableSearch?: boolean;
+  /**
    * Array of icon menu items to display in the header.
    */
   icons?: IconMenu[];
@@ -81,6 +85,7 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
       menu,
       title,
       onSearch,
+      disableSearch,
       icons,
       iconSize,
       ...rest
@@ -101,6 +106,7 @@ const Header = React.forwardRef<HTMLDivElement, WidgetContentLayoutHeaderProps>(
           menu={menu}
           title={title}
           onSearch={onSearch}
+          disableSearch={disableSearch}
           icons={icons}
           iconSize={iconSize}
         >

@@ -1,16 +1,17 @@
 @layer appui.component {
   .nz-widget-widgetContentLayout-header-headerIconToolbar {
+    display: flex;
     --_appui-icon-size: var(--iui-component-height);
     --_appui-max-search-width: 200px;
     min-width: var(--_appui-icon-size);
     min-height: var(--_appui-icon-size);
 
     &[data-_appui-icon-size="small"] {
-      --icon-size: var(--iui-component-height-small);
+      --_appui-icon-size: var(--iui-component-height-small);
     }
 
     &[data-_appui-icon-size="large"] {
-      --icon-size: var(--iui-component-height-large);
+      --_appui-icon-size: var(--iui-component-height-large);
     }
 
     &[data-_appui-search-expanded="true"] {
@@ -39,6 +40,12 @@
       .nz-iconButton[data-iui-active="true"]:after {
         inset-block: unset;
       }
+    }
+
+    // when icon-size is small, the button width is 2px wider than the icon size due to a transparent border,
+    // so we need to remove the border to make it the same width as the icon
+    .nz-header-overflow-button {
+      border: 0px;
     }
   }
 }
