@@ -94,6 +94,7 @@ import { SnapMode } from '@itwin/core-frontend';
 import type { SolarDataProvider } from '@itwin/imodel-components-react';
 import { StandardViewId } from '@itwin/core-frontend';
 import type { Store } from 'redux';
+import { StoreApi } from 'zustand';
 import type { StringGetter } from '@itwin/appui-abstract';
 import type { ToggleSwitch } from '@itwin/itwinui-react';
 import { Tool } from '@itwin/core-frontend';
@@ -2351,6 +2352,8 @@ export class FrontstageDef {
     getFloatingWidgetContainerIdByWidgetId(widgetId: string): string | undefined;
     // (undocumented)
     getFloatingWidgetContainerIds(): string[];
+    // @internal (undocumented)
+    getPanelsStore(): ReturnType<typeof createPanelsStore> | undefined;
     // @beta
     getStagePanelDef(location: StagePanelLocation): StagePanelDef | undefined;
     // (undocumented)
@@ -2385,6 +2388,8 @@ export class FrontstageDef {
     openPopoutWidgetContainer(widgetContainerId: string, oldState: NineZoneState | undefined): boolean;
     // @beta
     get panelDefs(): StagePanelDef[];
+    // (undocumented)
+    get panels(): FrontstagePanels;
     // @beta
     popoutWidget(widgetId: string, position?: XAndY, size?: SizeProps): void;
     // @beta
@@ -2403,6 +2408,8 @@ export class FrontstageDef {
     setFloatingWidgetContainerBounds(floatingWidgetId: string, bounds: RectangleProps): boolean;
     // @internal (undocumented)
     setIsApplicationClosing(value: boolean): void;
+    // @internal (undocumented)
+    setPanelsStore(panelsStore: ReturnType<typeof createPanelsStore>): void;
     // (undocumented)
     get statusBar(): WidgetDef | undefined;
     // @internal (undocumented)
@@ -3448,6 +3455,9 @@ export class OpenMessageCenterEvent extends UiEvent<object> {
 export interface OverflowToolbarOptions {
     overflowExpandsTo?: Direction;
 }
+
+// @public
+export type Panel = CommonPanel | InformationPanel | DynamicPanel;
 
 // @public @deprecated
 export interface PanelPinnedChangedEventArgs {
@@ -5245,6 +5255,8 @@ export class UiItemsManager {
     // @internal
     static clearAllProviders(): void;
     static getBackstageItems(): ReadonlyArray<ProviderItem<BackstageItem>>;
+    // (undocumented)
+    static getPanels(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<Panel>>;
     static getStatusBarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<StatusBarItem>>;
     static getToolbarButtonItems(stageId: string, stageUsage: string, usage: ToolbarUsage, orientation: ToolbarOrientation): ReadonlyArray<ProviderItem<ToolbarItem>>;
     static getToolbarItems(stageId: string, stageUsage: string): ReadonlyArray<ProviderItem<ToolbarItem>>;
@@ -5263,6 +5275,7 @@ export class UiItemsManager {
 // @public
 export interface UiItemsProvider {
     readonly getBackstageItems?: () => ReadonlyArray<BackstageItem>;
+    readonly getPanels?: () => ReadonlyArray<Panel>;
     readonly getStatusBarItems?: () => ReadonlyArray<StatusBarItem>;
     readonly getToolbarItems?: () => ReadonlyArray<ToolbarItem>;
     readonly getWidgets?: () => ReadonlyArray<Widget>;
