@@ -29,7 +29,6 @@ import {
 } from "@itwin/appui-react";
 import { IModelApp, MeasureDistanceTool } from "@itwin/core-frontend";
 import {
-  Svg3D,
   SvgRefresh,
   SvgTextAlignCenter,
   SvgTextAlignJustify,
@@ -188,10 +187,7 @@ export function createWidgetApiFrontstageProvider() {
         label: "Exercise Widget Api",
       }),
     ],
-    getToolbarItems: () => [
-      createToggleCustomOverlayToolbarItem(),
-      createToggle3dManipulationsToolbarItem(),
-    ],
+    getToolbarItems: () => [createToggleCustomOverlayToolbarItem()],
   } satisfies UiItemsProvider;
 }
 
@@ -468,37 +464,6 @@ function createToggleCustomOverlayToolbarItem() {
       return store.state.showCustomViewOverlay;
     }, [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]),
     itemPriority: 1,
-    groupPriority: 3000,
-    layouts: {
-      standard: {
-        orientation: ToolbarOrientation.Horizontal,
-        usage: ToolbarUsage.ContentManipulation,
-      },
-    },
-  });
-}
-
-function createToggle3dManipulationsToolbarItem() {
-  return ToolbarItemUtilities.createActionItem({
-    id: "toggle-3d-manipulations",
-    icon: <Svg3D />,
-    label: "Toggle 3d manipulations",
-    execute: () => {
-      const viewport = IModelApp.viewManager.selectedView;
-      if (!viewport) return;
-      if (!viewport.view.is3d()) return;
-
-      const allow3dManipulations = !viewport.view.allow3dManipulations();
-      viewport.view.setAllow3dManipulations(allow3dManipulations);
-      store.setAllow3dManipulations(allow3dManipulations);
-      IModelApp.toolAdmin.dispatchUiSyncEvent(
-        AppUiTestProviders.syncUiEventId.toggle3dManipulations
-      );
-    },
-    isActiveCondition: new ConditionalBooleanValue(() => {
-      return store.state.allow3dManipulations;
-    }, [AppUiTestProviders.syncUiEventId.toggle3dManipulations]),
-    itemPriority: 2,
     groupPriority: 3000,
     layouts: {
       standard: {
