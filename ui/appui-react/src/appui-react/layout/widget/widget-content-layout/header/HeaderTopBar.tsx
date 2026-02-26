@@ -18,7 +18,7 @@ type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
 interface HeaderTopBarProps
   extends Pick<
     WidgetContentLayoutHeaderProps,
-    "icons" | "onSearch" | "iconSize"
+    "icons" | "onSearch" | "iconSize" | "disableSearch"
   > {
   primaryContent: React.JSX.Element[];
 }
@@ -66,6 +66,7 @@ export function HeaderTopBar(props: HeaderTopBarProps) {
           onSearch={props.onSearch}
           searchExpandedState={searchExpandedState}
           iconSize={props.iconSize}
+          disableSearch={props.disableSearch}
         />
       )}
     </div>
