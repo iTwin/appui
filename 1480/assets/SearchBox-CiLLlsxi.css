@@ -1,0 +1,40 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-searchbox {
+  font-family: var(--iui-font-sans);
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 28px;
+  width: 12em;
+  font-size: var(--iui-font-size-1);
+  color: var(--iui-color-text);
+}
+.core-searchbox input {
+  min-height: 28px;
+  padding: var(--iui-size-3xs) 2em var(--iui-size-3xs) 12px;
+  height: 100%;
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  box-sizing: border-box;
+}
+.core-searchbox .core-searchbox-button {
+  position: absolute;
+  height: 100%;
+  right: 0;
+  width: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+.core-searchbox .core-searchbox-button:hover span {
+  color: var(--iui-color-text-accent);
+}
+.core-searchbox .core-searchbox-button:focus {
+  outline: none;
+}

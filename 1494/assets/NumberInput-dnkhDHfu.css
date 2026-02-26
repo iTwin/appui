@@ -1,0 +1,105 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-number-input-container {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.core-number-input-container input {
+  margin: 0;
+  padding-right: 1.5em;
+}
+.core-number-input-container input.core-input {
+  padding: var(--iui-size-3xs) var(--iui-size-xs);
+}
+.core-number-input-container.core-number-buttons-for-touch input {
+  padding-right: 3.5em;
+}
+.core-number-input-container .core-number-input-buttons-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.core-number-input-container .core-number-input-buttons-container .core-number-input-button {
+  font-size: 8px;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.core-number-input-container .core-number-input-buttons-container .core-number-input-button:hover {
+  color: var(--iui-color-text-accent-hover);
+  transition-duration: 150ms;
+}
+.core-number-input-container .core-number-input-buttons-container .core-number-input-button.core-number-input-button-up {
+  padding-top: 1px;
+}
+.core-number-input-container .core-number-input-buttons-container .core-number-input-button.core-number-input-button-down {
+  padding-top: 1px;
+}
+.core-number-input-container .core-number-input-buttons-container.core-number-buttons-for-touch {
+  width: 3.5em;
+  flex-direction: row-reverse;
+}
+.core-number-input-container .core-number-input-buttons-container.core-number-buttons-for-touch .core-number-input-button {
+  font-size: 1em;
+}
+.core-number-input-container .core-number-input-buttons-container.core-number-buttons-for-touch .core-number-input-button:hover {
+  color: unset;
+  transition-duration: unset;
+}
+.core-number-input-container .core-number-input-buttons-container.core-number-buttons-for-touch .core-number-input-button.core-number-input-button-up {
+  padding-top: 2px;
+}
+.core-number-input-container .core-number-input-buttons-container.core-number-buttons-for-touch .core-number-input-button.core-number-input-button-down {
+  padding-top: 2px;
+}
+.core-number-input-container.core-number-input-disabled .core-number-input-button-up {
+  pointer-events: none;
+  color: var(--iui-color-text-disabled);
+}
+.core-number-input-container.core-number-input-disabled .core-number-input-button-down {
+  pointer-events: none;
+  color: var(--iui-color-text-disabled);
+}

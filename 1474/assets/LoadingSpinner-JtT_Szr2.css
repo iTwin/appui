@@ -1,0 +1,19 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-ls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.core-ls .ls-message, .core-ls .ls-message-bottom, .core-ls .ls-message-top {
+  color: var(--iui-color-text);
+}
+.core-ls .ls-message-top {
+  margin-bottom: var(--iui-size-s);
+}
+.core-ls .ls-message-bottom {
+  margin-top: var(--iui-size-s);
+}
