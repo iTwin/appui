@@ -1,5 +1,18 @@
 # Change Log - @itwin/appui-react
 
+## 5.25.0
+
+### Minor Changes
+
+- 488c5cd: Add option to disable search in WidgetContentLayout
+
+### Patch Changes
+
+- Updated dependencies [091fbdc]
+  - @itwin/imodel-components-react@5.25.0
+  - @itwin/components-react@5.25.0
+  - @itwin/core-react@5.25.0
+
 ## 5.24.2
 
 ### Patch Changes

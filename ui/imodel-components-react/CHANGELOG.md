@@ -1,5 +1,16 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.25.0
+
+### Minor Changes
+
+- 091fbdc: Updated `CubeNavigationAid` to respect the `allow3dManipulations` flag of its viewport, restricting rotation to the Z-axis when 3D manipulations are disabled.
+
+### Patch Changes
+
+- @itwin/components-react@5.25.0
+- @itwin/core-react@5.25.0
+
 ## 5.24.2
 
 ### Patch Changes
