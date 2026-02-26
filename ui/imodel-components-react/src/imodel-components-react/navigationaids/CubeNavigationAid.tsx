@@ -613,7 +613,7 @@ export class CubeNavigationAid extends React.Component<
     }
     const { newRotation, face } = this.getArrowRotationAndFace(arrow);
     const allow3dManipulations =
-      this.props.viewport?.view.allow3dManipulations();
+      this.props.viewport?.view.allow3dManipulations() ?? true;
     const rotMatrix = allow3dManipulations
       ? newRotation
       : to2dRotation(newRotation);
@@ -642,7 +642,7 @@ export class CubeNavigationAid extends React.Component<
         .multiplyMatrixMatrix(matZ);
 
       const allow3dManipulations =
-        this.props.viewport?.view.allow3dManipulations();
+        this.props.viewport?.view.allow3dManipulations() ?? true;
       const rotMatrix = allow3dManipulations ? mat : to2dRotation(mat);
 
       this._setRotation(rotMatrix, CubeNavigationAid._getMatrixFace(rotMatrix));
@@ -755,7 +755,7 @@ export class CubeNavigationAid extends React.Component<
       }
 
       const allow3dManipulations =
-        this.props.viewport?.view.allow3dManipulations();
+        this.props.viewport?.view.allow3dManipulations() ?? true;
       rotMatrix = allow3dManipulations ? rotMatrix : to2dRotation(rotMatrix);
       this._animateRotation(rotMatrix, face);
     }
