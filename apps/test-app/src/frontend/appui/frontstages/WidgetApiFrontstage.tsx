@@ -187,19 +187,7 @@ export function createWidgetApiFrontstageProvider() {
         label: "Exercise Widget Api",
       }),
     ],
-    getToolbarItems: () => [
-      {
-        ...createToggleCustomOverlayToolbarItem(),
-        itemPriority: 17,
-        groupPriority: 3000,
-        layouts: {
-          standard: {
-            orientation: ToolbarOrientation.Horizontal,
-            usage: ToolbarUsage.ContentManipulation,
-          },
-        },
-      },
-    ],
+    getToolbarItems: () => [createToggleCustomOverlayToolbarItem()],
   } satisfies UiItemsProvider;
 }
 
@@ -450,7 +438,7 @@ function createBottomPanelWidgets(): Widget[] {
 function CustomOverlayIcon() {
   const showCustomViewOverlay = useConditionalValue(
     () => store.state.showCustomViewOverlay,
-    [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+    [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]
   );
   if (showCustomViewOverlay) return <SvgZoomOut />;
   return <SvgZoomIn />;
@@ -458,23 +446,30 @@ function CustomOverlayIcon() {
 
 function createToggleCustomOverlayToolbarItem() {
   return ToolbarItemUtilities.createActionItem({
-    id: createToggleCustomOverlayToolbarItem.id,
+    id: "toggle-overlay",
     icon: <CustomOverlayIcon />,
     label: new ConditionalStringValue(
       () =>
         store.state.showCustomViewOverlay ? "Hide overlay" : "Show overlay",
-      [AppUiTestProviders.syncEventIdHideCustomViewOverlay]
+      [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]
     ),
     execute: () => {
       const showCustomViewOverlay = store.state.showCustomViewOverlay;
       store.setShowCustomViewOverlay(!showCustomViewOverlay);
       IModelApp.toolAdmin.dispatchUiSyncEvent(
-        AppUiTestProviders.syncEventIdHideCustomViewOverlay
+        AppUiTestProviders.syncUiEventId.hideCustomViewOverlay
       );
     },
     isActiveCondition: new ConditionalBooleanValue(() => {
       return store.state.showCustomViewOverlay;
-    }, [AppUiTestProviders.syncEventIdHideCustomViewOverlay]),
+    }, [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]),
+    itemPriority: 1,
+    groupPriority: 3000,
+    layouts: {
+      standard: {
+        orientation: ToolbarOrientation.Horizontal,
+        usage: ToolbarUsage.ContentManipulation,
+      },
+    },
   });
 }
-createToggleCustomOverlayToolbarItem.id = "testHideShowItems";
