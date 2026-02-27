@@ -139,7 +139,7 @@ export class BooleanEditor
           this.props.propertyRecord?.isDisabled ||
           this.props.propertyRecord?.isReadonly
         }
-        data-testid="components-checkbox-editor"
+        data-testid={this.props.itemId ?? "components-checkbox-editor"}
       ></Checkbox>
     );
   }

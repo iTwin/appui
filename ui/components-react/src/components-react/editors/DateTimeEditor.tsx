@@ -304,7 +304,10 @@ export class DateTimeEditor
             <>
               <div
                 className="components-date-picker-calendar-popup-panel"
-                data-testid="components-date-picker-calendar-popup-panel"
+                data-testid={
+                  this.props.itemId ??
+                  "components-date-picker-calendar-popup-panel"
+                }
               >
                 <DatePicker // eslint-disable-line @typescript-eslint/no-deprecated
                   selected={date}

@@ -165,7 +165,7 @@ export class ColorEditor
           disabled={this.state.isDisabled ? true : false}
           readonly={this.state.readonly}
           onColorPick={this._onColorPick}
-          data-testid="components-color-editor"
+          data-testid={this.props.itemId ?? "components-color-editor"}
         />
       </div>
     );

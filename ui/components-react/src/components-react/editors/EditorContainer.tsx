@@ -295,7 +295,7 @@ export function EditorContainer(props: EditorContainerProps) {
       onClick={handleClick}
       onContextMenu={handleContextMenu}
       title={title}
-      data-testid="editor-container"
+      data-testid={props.itemId ?? "editor-container"}
       role="presentation"
     >
       {clonedNode}
