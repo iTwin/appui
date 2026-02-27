@@ -62,6 +62,12 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/859
    */
   controlWidgetVisibility: boolean | WidgetDef["id"][];
+  /** If `true`, widget tab actions are displayed for individual tabs instead of the default behavior where only active tab actions are exposed.
+   * Note that this feature replaces the overflow dropdown menu with a scrollable container to display all tab actions.
+   *
+   * Close button will be shown in widget tab when `controlWidgetVisibility` preview feature is enabled.
+   */
+  widgetTabActions: boolean;
   /**
    * If `true`, the tool settings will be using the new editor API. The new system delivers same default editors as the old one.
    * However, in order to use custom editors they need to be provided using `EditorsRegistryProvider` component.
@@ -95,6 +101,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   allowBearingLettersInAccuDrawInputFields: undefined,
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
+  widgetTabActions: undefined,
   toolSettingsNewEditors: undefined,
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,

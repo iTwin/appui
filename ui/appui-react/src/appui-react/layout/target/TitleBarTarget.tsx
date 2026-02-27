@@ -22,7 +22,7 @@ import { useLayout } from "../base/LayoutStore.js";
 import { useSendBackHomeState } from "../widget/SendBack.js";
 
 /** @internal */
-export function TitleBarTarget() {
+export function TitleBarTarget(props: React.ComponentProps<"div">) {
   const cursorType = React.useContext(CursorTypeContext);
   const draggedWidgetId = React.useContext(DraggedWidgetIdContext);
   const widgetId = React.useContext(WidgetIdContext);
@@ -39,10 +39,11 @@ export function TitleBarTarget() {
   const className = classnames(
     "nz-target-titleBarTarget",
     hidden && "nz-hidden",
-    cursorType && getCursorClassName(cursorType)
+    cursorType && getCursorClassName(cursorType),
+    props.className
   );
   return (
-    <div className={className} ref={ref}>
+    <div {...props} className={className} ref={ref}>
       <TabOutline />
     </div>
   );

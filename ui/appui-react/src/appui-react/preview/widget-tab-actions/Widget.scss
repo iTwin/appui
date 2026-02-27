@@ -1,0 +1,195 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@use "~@itwin/core-react/lib/core-react/z-index" as *;
+@use "../../layout/widgetopacity" as *;
+@use "../../layout/widget/variables" as *;
+
+$border-width: 1px;
+
+@layer appui.preview {
+  .uifw-preview-widgetTabActions-widget_wrapper {
+    flex: 1;
+    grid-template-rows: min-content 1fr;
+    grid-template-columns: auto 1fr;
+    isolation: isolate;
+  }
+
+  .uifw-preview-widgetTabActions-widget_panelWidget {
+    border: 0px solid var(--iui-color-border);
+
+    &:where(.nz-border-top) {
+      border-block-start-width: $border-width;
+    }
+
+    &:where(.nz-border-bottom) {
+      border-block-end-width: $border-width;
+    }
+
+    &:where(.nz-border-left) {
+      border-inline-start-width: $border-width;
+    }
+
+    &:where(.nz-border-right) {
+      border-inline-end-width: $border-width;
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_floating {
+    position: absolute;
+    min-inline-size: 200px;
+    min-block-size: 120px;
+    inline-size: auto;
+    transition: opacity var(--iui-duration-2) ease;
+    border: $border-width solid var(--iui-color-border);
+    contain: none;
+
+    @include uicore-z-index(dragged-widget);
+    @include nz-widget-opacity;
+
+    &:where([data-_appui-dragged="true"]) {
+      pointer-events: none;
+      opacity: $nz-dragged-widget-opacity;
+
+      @include uicore-z-index(drag-preview);
+    }
+
+    &:where([data-_appui-hidden="true"]) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &:where([data-_appui-minimized="true"]) {
+      .uifw-preview-widgetTabActions-widget_panel {
+        block-size: 0;
+        border: 0;
+        overflow: hidden;
+      }
+    }
+
+    &:where([data-_appui-tool-settings="true"]) {
+      min-block-size: 60px;
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_handle {
+    grid-column: tabs / tabs-actions;
+    grid-row: tabs;
+    position: relative;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: var(--iui-color-background-hover);
+  }
+
+  .uifw-preview-widgetTabActions-widget_tabList {
+    grid-area: tabs;
+    z-index: 1;
+    overscroll-behavior-x: none;
+    margin-inline: -1px; // Don't use $border-width as this is accounting for iTwinUI's tab border
+    margin-block-start: -1px; // Don't use $border-width as this is accounting for iTwinUI's tab border
+    container-type: normal;
+  }
+
+  .uifw-preview-widgetTabActions-widget_tab {
+    grid-template:
+      "label icon"
+      "description icon" minmax(0, auto) / minmax(min-content, 1fr) auto;
+    min-inline-size: min-content;
+
+    @media (any-hover: hover) {
+      &:where(:not(:hover, :focus-visible)) {
+        --_appui-decoration-opacity: 0;
+      }
+    }
+
+    &:where([data-_appui-decoration]) {
+      &:where(:hover, :focus-visible, [data-_appui-mask="true"])
+        .uifw-preview-widgetTabActions-widget_label {
+        mask-image: linear-gradient(
+          270deg,
+          transparent 0%,
+          transparent 24px,
+          #000 32px,
+          #000 100%
+        );
+      }
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_panel {
+    padding: 0;
+    position: relative;
+    display: flex;
+    border-block-end: 0;
+    border-inline: 0;
+    min-block-size: 0;
+  }
+
+  .uifw-preview-widgetTabActions-widget_content {
+    min-inline-size: 0;
+    display: flex;
+    inline-size: 100%;
+  }
+
+  .uifw-preview-widgetTabActions-widget_label {
+    grid-area: label / icon;
+    -webkit-line-clamp: 1;
+    user-select: none;
+  }
+
+  .uifw-preview-widgetTabActions-widget_decoration {
+    grid-area: icon;
+    justify-self: end;
+    opacity: var(--_appui-decoration-opacity);
+    block-size: var(--_iui-field-height);
+
+    &:where([data-_appui-action="true"]) {
+      anchor-name: --_appui-tab-action;
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_actionsWrapper {
+    margin-inline-start: 0;
+    padding-inline-start: var(--iui-size-s);
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    &:has(
+        .uifw-preview-widgetTabActions-widget_titleBarTarget:not(.nz-hidden)
+      ) {
+      position: relative;
+    }
+  }
+
+  .uifw-preview-widgetTabActions-widget_titleBarTarget {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+
+  .uifw-preview-widgetTabActions-widget_actions {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .uifw-preview-widgetTabActions-widget_resizeHandle {
+    z-index: 1;
+  }
+
+  @supports (anchor-name: --_appui-tab-action) {
+    .uifw-preview-widgetTabActions-widget_action {
+      &:where([data-_appui-anchor="true"]) {
+        position: absolute;
+        position-anchor: --_appui-tab-action;
+        right: anchor(right);
+        align-self: anchor-center;
+        z-index: 1;
+      }
+    }
+  }
+}

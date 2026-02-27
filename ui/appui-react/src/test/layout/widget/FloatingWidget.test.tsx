@@ -130,6 +130,27 @@ describe("FloatingWidget", () => {
     );
     expect(handleList).toHaveLength(0);
   });
+
+  it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {
+    const dispatch = vi.fn<NineZoneDispatch>();
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addFloatingWidget(state, "w1", ["t1"]);
+    const { container } = render(
+      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
+        <FloatingWidgetProvider id="w1" />
+      </TestNineZoneProvider>
+    );
+
+    const widgetElement =
+      container.getElementsByClassName("nz-widget-widget")[0];
+    fireEvent.click(widgetElement);
+
+    expect(dispatch).toHaveBeenCalledWith({
+      type: "FLOATING_WIDGET_BRING_TO_FRONT",
+      id: "w1",
+    });
+  });
 });
 
 describe("getResizeBy", () => {
