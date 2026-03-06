@@ -6,6 +6,7 @@ import * as React from "react";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
+  ConditionalBooleanValue,
   FrontstageUtilities,
   RestoreFrontstageLayoutTool,
   SettingsModalFrontstage,
@@ -17,11 +18,14 @@ import {
   UiItemsProvider,
 } from "@itwin/appui-react";
 import {
+  AppUiTestProviders,
   ComponentExamplesModalFrontstage,
   getCustomViewSelectorPopupItem,
+  store,
   ViewportContent,
 } from "@itwin/appui-test-providers";
-import { SvgImodel } from "@itwin/itwinui-icons-react";
+import { Svg3D, SvgImodel } from "@itwin/itwinui-icons-react";
+import { IModelApp } from "@itwin/core-frontend";
 
 interface CreateMainFrontstageArgs {
   contentProps: React.ComponentProps<typeof ViewportContent>;
@@ -60,6 +64,7 @@ export function createMainFrontstageProvider() {
           },
         },
       }),
+      createToggle3dManipulationsToolbarItem(),
     ],
     getBackstageItems: () => [
       BackstageItemUtilities.createStageLauncher({
@@ -74,4 +79,35 @@ export function createMainFrontstageProvider() {
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
     ],
   } satisfies UiItemsProvider;
+}
+
+function createToggle3dManipulationsToolbarItem() {
+  return ToolbarItemUtilities.createActionItem({
+    id: "toggle-3d-manipulations",
+    icon: <Svg3D />,
+    label: "Toggle 3d manipulations",
+    execute: () => {
+      const viewport = IModelApp.viewManager.selectedView;
+      if (!viewport) return;
+      if (!viewport.view.is3d()) return;
+
+      const allow3dManipulations = !viewport.view.allow3dManipulations();
+      viewport.view.setAllow3dManipulations(allow3dManipulations);
+      store.setAllow3dManipulations(allow3dManipulations);
+      IModelApp.toolAdmin.dispatchUiSyncEvent(
+        AppUiTestProviders.syncUiEventId.toggle3dManipulations
+      );
+    },
+    isActiveCondition: new ConditionalBooleanValue(() => {
+      return store.state.allow3dManipulations;
+    }, [AppUiTestProviders.syncUiEventId.toggle3dManipulations]),
+    itemPriority: 2,
+    groupPriority: 3000,
+    layouts: {
+      standard: {
+        orientation: ToolbarOrientation.Horizontal,
+        usage: ToolbarUsage.ContentManipulation,
+      },
+    },
+  });
 }

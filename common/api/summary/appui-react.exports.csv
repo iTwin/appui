@@ -505,9 +505,10 @@ beta;function;PositionPopupContent
 beta;interface;PositionPopupProps
 public;interface;PresentationSelectionScope
 deprecated;interface;PresentationSelectionScope
-beta;interface;PreviewFeatures
-beta;function;PreviewFeaturesProvider
+public;interface;PreviewFeatures
+public;function;PreviewFeaturesProvider
 beta;interface;PreviewFeaturesProviderProps
+deprecated;interface;PreviewFeaturesProviderProps
 public;class;PropsHelper
 deprecated;class;PropsHelper
 public;type;ProviderItem

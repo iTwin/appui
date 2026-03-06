@@ -62,6 +62,12 @@ interface KnownPreviewFeatures {
    * Discuss or upvote this feature: https://github.com/iTwin/appui/discussions/859
    */
   controlWidgetVisibility: boolean | WidgetDef["id"][];
+  /** If `true`, widget tab actions are displayed for individual tabs instead of the default behavior where only active tab actions are exposed.
+   * Note that this feature replaces the overflow dropdown menu with a scrollable container to display all tab actions.
+   *
+   * Close button will be shown in widget tab when `controlWidgetVisibility` preview feature is enabled.
+   */
+  widgetTabActions: boolean;
   /**
    * If `true`, the tool settings will be using the new editor API. The new system delivers same default editors as the old one.
    * However, in order to use custom editors they need to be provided using `EditorsRegistryProvider` component.
@@ -95,6 +101,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   allowBearingLettersInAccuDrawInputFields: undefined,
   reparentPopoutWidgets: undefined,
   controlWidgetVisibility: undefined,
+  widgetTabActions: undefined,
   toolSettingsNewEditors: undefined,
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,
@@ -105,7 +112,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
  * This list is expected to change over time, the interface is made
  * so that new features can be added or removed without breaking existing code.
  * A console warning will simply appear if unknown features are passed.
- * @beta
+ * @public
  */
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
   [featureName: string]: any;
@@ -173,11 +180,15 @@ export function usePreviewFeatures() {
 
 /** Props for PreviewFeaturesProvider.
  * @beta
+ * @deprecated in 5.26.0. Use `React.ComponentProps<typeof PreviewFeaturesProvider>`
  */
 export interface PreviewFeaturesProviderProps {
   children?: React.ReactNode;
   features?: PreviewFeatures;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+type ProviderProps = PreviewFeaturesProviderProps;
 
 /** Set which preview features are enabled. These features are not yet ready for production use nor have
  * a proper API defined yet.
@@ -194,12 +205,10 @@ export interface PreviewFeaturesProviderProps {
  *   </Provider>
  * </PreviewFeaturesProvider>
  * ```
- * @beta
+ * @public
  */
-export function PreviewFeaturesProvider({
-  children,
-  features,
-}: PreviewFeaturesProviderProps) {
+export function PreviewFeaturesProvider(props: ProviderProps) {
+  const { children, features } = props;
   const setPreviewFeatures = usePreviewFeaturesStore(
     (state) => state.setPreviewFeatures
   );

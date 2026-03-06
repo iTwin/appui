@@ -4,14 +4,16 @@
  *--------------------------------------------------------------------------------------------*/
 @use "~@itwin/core-react/lib/core-react/z-index" as *;
 
-.nz-target-titleBarTarget {
-  flex: 1 1 0;
-  position: relative;
-  overflow: hidden;
+@layer appui.component {
+  .nz-target-titleBarTarget {
+    flex: 1 1 0;
+    position: relative;
+    overflow: hidden;
 
-  @include uicore-z-index(drop-target);
+    @include uicore-z-index(drop-target);
 
-  &.nz-hidden {
-    display: none;
+    &.nz-hidden {
+      display: none;
+    }
   }
 }

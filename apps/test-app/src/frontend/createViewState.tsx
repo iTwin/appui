@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { updateViewFlags } from "@itwin/appui-test-providers";
 import { Id64String } from "@itwin/core-bentley";
 import { IModelReadRpcInterface, ViewQueryParams } from "@itwin/core-common";
 import {
@@ -61,9 +62,9 @@ async function getDefaultViewId(
 export async function createViewState(iModelConnection: IModelConnection) {
   const viewId = await getDefaultViewId(iModelConnection);
   if (viewId) {
-    return iModelConnection.views.load(viewId);
+    return updateViewFlags(await iModelConnection.views.load(viewId));
   }
 
   const viewCreator = new ViewCreator3d(iModelConnection);
-  return viewCreator.createDefaultView();
+  return updateViewFlags(await viewCreator.createDefaultView());
 }

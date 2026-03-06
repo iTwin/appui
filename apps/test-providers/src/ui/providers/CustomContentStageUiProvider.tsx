@@ -74,19 +74,13 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
       }
     );
 
-    /** The following ConditionalBooleanValue is used to determine the display state of the OpenCustomDialog button
-     * provided by this UiItemsProvider.
-     */
-    const customDialogActionHiddenCondition =
-      new ConditionalBooleanValue((): boolean => {
-        return store.state.hideCustomDialogButton;
-      }, [AppUiTestProviders.syncEventIdHideCustomDialogButton]);
-
     const openCustomDialogActionButton = ToolbarItemUtilities.createForTool(
       OpenCustomDialogTool,
       {
         itemPriority: 1000,
-        isHidden: customDialogActionHiddenCondition,
+        isHidden: new ConditionalBooleanValue(() => {
+          return store.state.hideCustomDialogButton;
+        }, [AppUiTestProviders.syncUiEventId.hideCustomDialogButton]),
         layouts,
       }
     );
@@ -102,7 +96,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
 
         // tell the toolbar to reevaluate state of any item with this event Id
         SyncUiEventDispatcher.dispatchImmediateSyncUiEvent(
-          AppUiTestProviders.syncEventIdHideCustomDialogButton
+          AppUiTestProviders.syncUiEventId.hideCustomDialogButton
         );
       },
       layouts,

@@ -497,7 +497,7 @@ export interface BackstageActionItem extends CommonBackstageItem {
 }
 
 // @public
-export function BackstageAppButton({ icon: iconSpec, iconNode, label, execute, }: BackstageAppButtonProps): React_2.JSX.Element;
+export function BackstageAppButton(input: BackstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export interface BackstageAppButtonProps {
@@ -564,7 +564,7 @@ export namespace BackstageItemUtilities {
     icon?: IconSpec,
     overrides?: Partial<BackstageStageLauncher>
     ];
-        {};
+    export {};
 }
 
 // @public @deprecated
@@ -1233,7 +1233,7 @@ export interface ContentLayoutProps extends LayoutFragmentProps {
 }
 
 // @beta
-export function ContentOverlay({ className, children, active, ...other }: ContentOverlayProps): React_2.JSX.Element;
+export function ContentOverlay(input: ContentOverlayProps): React_2.JSX.Element;
 
 // @public
 export interface ContentProps {
@@ -1574,7 +1574,7 @@ export interface DefaultContentToolsAppData {
 }
 
 // @public
-export function DefaultDialogGridContainer({ componentGenerator, isToolSettings, }: {
+export function DefaultDialogGridContainer(input: {
     componentGenerator: ComponentGenerator;
     isToolSettings?: boolean;
 }): React_2.JSX.Element;
@@ -1711,7 +1711,7 @@ export interface DefaultStatusbarItems {
 }
 
 // @public
-export function DefaultViewOverlay({ viewport, onPlayPause, featureOptions, ...props }: DefaultViewOverlayProps): React_2.JSX.Element | null;
+export function DefaultViewOverlay(input: DefaultViewOverlayProps): React_2.JSX.Element | null;
 
 // @public @deprecated
 export class DialogChangedEvent extends UiEvent<DialogChangedEventArgs> {
@@ -1837,7 +1837,7 @@ export interface FloatingViewportContentProps {
 }
 
 // @public @deprecated (undocumented)
-export function FloatingViewportContentWrapper({ children, }: FloatingViewportContentWrapperProps): React_2.JSX.Element;
+export function FloatingViewportContentWrapper(input: FloatingViewportContentWrapperProps): React_2.JSX.Element;
 
 // @public @deprecated (undocumented)
 export interface FloatingViewportContentWrapperProps {
@@ -2966,7 +2966,7 @@ export enum KeyinFieldLocalization {
 }
 
 // @public
-export function KeyinPalettePopup({ el, id, keyins, onCancel, onItemExecuted, anchorEl, }: KeyinPalettePopupProps): React_2.JSX.Element;
+export function KeyinPalettePopup(input: KeyinPalettePopupProps): React_2.JSX.Element;
 
 // @public
 export interface KeyinPalettePopupProps {
@@ -3422,7 +3422,7 @@ export class NestedFrontstage {
 }
 
 // @public
-export function NestedFrontstageAppButton({ icon, label, onClick, }: NestedFrontstageAppButtonProps): React_2.JSX.Element;
+export function NestedFrontstageAppButton(input: NestedFrontstageAppButtonProps): React_2.JSX.Element;
 
 // @public
 export type NotifyMessageDetailsType = NotifyMessageDetails | ReactNotifyMessageDetails;
@@ -3655,16 +3655,16 @@ export interface PresentationSelectionScope {
     label: string;
 }
 
-// @beta
+// @public
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
     // (undocumented)
     [featureName: string]: any;
 }
 
-// @beta
-export function PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): React_2.JSX.Element;
+// @public
+export function PreviewFeaturesProvider(props: ProviderProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface PreviewFeaturesProviderProps {
     // (undocumented)
     children?: React_2.ReactNode;
@@ -3688,7 +3688,7 @@ export type ProviderItem<T> = T & {
 };
 
 // @beta
-export function QuantityFormatSettingsPage({ initialQuantityType, availableUnitSystems, }: QuantityFormatterSettingsOptions): React_2.JSX.Element;
+export function QuantityFormatSettingsPage(input: QuantityFormatterSettingsOptions): React_2.JSX.Element;
 
 // @beta
 export interface QuantityFormatterSettingsOptions {
@@ -4544,7 +4544,7 @@ export namespace StatusBarItemUtilities {
     labelSide?: StatusBarLabelSide,
     overrides?: Partial<StatusBarLabelItem>
     ];
-        {};
+    export {};
 }
 
 // @beta @deprecated
@@ -4576,7 +4576,7 @@ export enum StatusBarLabelSide {
 export function StatusBarLeftSection(props: CommonDivProps): React_2.JSX.Element;
 
 // @public
-export function StatusBarPopover({ content, middleware, ...other }: React_2.ComponentProps<typeof Popover>): React_2.JSX.Element;
+export function StatusBarPopover(input: React_2.ComponentProps<typeof Popover>): React_2.JSX.Element;
 
 // @public
 export namespace StatusBarPopover {
@@ -4696,7 +4696,7 @@ export const SYSTEM_PREFERRED_COLOR_THEME = "SYSTEM_PREFERRED";
 export type ThemeId = `${ColorTheme}` | (string & {});
 
 // @public
-export function ThemeManager({ children, ...props }: ThemeManagerProps): React_2.JSX.Element;
+export function ThemeManager(input: ThemeManagerProps): React_2.JSX.Element;
 
 // @public
 export class TileLoadingIndicator extends React_2.PureComponent<CommonProps, // eslint-disable-line @typescript-eslint/no-deprecated
@@ -4906,7 +4906,7 @@ export namespace ToolbarItemUtilities {
     items: ToolbarGroupItem["items"],
     overrides?: Partial<ToolbarGroupItem>
     ];
-        {};
+    export {};
 }
 
 // @public
@@ -5021,7 +5021,7 @@ export interface ToolSettingsEntry {
 }
 
 // @public
-export function ToolSettingsGridContainer({ componentGenerator, }: {
+export function ToolSettingsGridContainer(input: {
     componentGenerator: ComponentGenerator;
 }): React_2.JSX.Element;
 
@@ -5056,7 +5056,7 @@ export interface ToolWidgetComposerProps extends CommonProps {
 }
 
 // @public @deprecated
-export function UiDataProvidedDialog({ uiDataProvider, id, isModal, title, movable, resizable, minWidth, minHeight, maxWidth, maxHeight, width, height, style, }: UiDataProvidedDialogProps): React_2.JSX.Element;
+export function UiDataProvidedDialog(input: UiDataProvidedDialogProps): React_2.JSX.Element;
 
 // @public @deprecated
 export interface UiDataProvidedDialogProps {
@@ -5215,7 +5215,7 @@ export class UiFramework {
     static showComponent(...params: OptionalShowComponentParams): boolean;
     static showDimensionEditor(dimension: "height" | "length", initialValue: number, location: XAndY, onCommit: (value: number) => void, onCancel: () => void, anchorElement?: HTMLElement): boolean;
     // @internal
-    static showInputEditor({ anchorElement, initialValue, location, onCancel, onCommit, propertyDescription, }: ShowInputEditorOptions): boolean;
+    static showInputEditor(input: ShowInputEditorOptions): boolean;
     static showKeyinPalette(keyinEntries: KeyinEntry[], htmlElement?: HTMLElement): boolean;
     static showMenuButton(id: string, menuItemsProps: CursorMenuItemProps[], location: XAndY, anchorElement?: HTMLElement): boolean;
     static showToolbar(toolbarProps: ToolbarProps, location: XAndY, offset: XAndY, onItemExecuted: (item: any) => void, onCancel: () => void, placement?: Placement, anchorElement?: HTMLElement): boolean;
