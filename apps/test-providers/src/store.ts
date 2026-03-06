@@ -7,11 +7,13 @@ import { BeEvent } from "@itwin/core-bentley";
 export interface TestProviderState {
   hideCustomDialogButton: boolean;
   showCustomViewOverlay: boolean;
+  allow3dManipulations: boolean;
 }
 
 const initialState = {
   hideCustomDialogButton: false,
   showCustomViewOverlay: false,
+  allow3dManipulations: true,
 } as TestProviderState;
 
 // TODO: use `zustand` instead.
@@ -27,6 +29,10 @@ function createStore() {
     },
     setShowCustomViewOverlay: (show: boolean) => {
       state.showCustomViewOverlay = show;
+      onChanged.raiseEvent();
+    },
+    setAllow3dManipulations: (allow: boolean) => {
+      state.allow3dManipulations = allow;
       onChanged.raiseEvent();
     },
   };

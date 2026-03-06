@@ -19,6 +19,7 @@ import {
   Point2d,
   Vector2d,
   Vector3d,
+  YawPitchRollAngles,
 } from "@itwin/core-geometry";
 import type { IModelConnection, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
@@ -611,7 +612,12 @@ export class CubeNavigationAid extends React.Component<
       return;
     }
     const { newRotation, face } = this.getArrowRotationAndFace(arrow);
-    this._animateRotation(newRotation, face);
+    const allow3dManipulations =
+      this.props.viewport?.view.allow3dManipulations() ?? true;
+    const rotMatrix = allow3dManipulations
+      ? newRotation
+      : to2dRotation(newRotation);
+    this._animateRotation(rotMatrix, face);
   };
 
   private getArrowTitle(arrow: Pointer) {
@@ -634,7 +640,12 @@ export class CubeNavigationAid extends React.Component<
       const mat = matX
         .multiplyMatrixMatrix(this.state.startRotMatrix)
         .multiplyMatrixMatrix(matZ);
-      this._setRotation(mat, CubeNavigationAid._getMatrixFace(mat));
+
+      const allow3dManipulations =
+        this.props.viewport?.view.allow3dManipulations() ?? true;
+      const rotMatrix = allow3dManipulations ? mat : to2dRotation(mat);
+
+      this._setRotation(rotMatrix, CubeNavigationAid._getMatrixFace(rotMatrix));
       if (!this.state.dragging) this.setState({ dragging: true });
     }
     this._lastClientXY = mousePos;
@@ -742,6 +753,10 @@ export class CubeNavigationAid extends React.Component<
           rotMatrix = rot.multiplyMatrixMatrix(rotMatrix);
         }
       }
+
+      const allow3dManipulations =
+        this.props.viewport?.view.allow3dManipulations() ?? true;
+      rotMatrix = allow3dManipulations ? rotMatrix : to2dRotation(rotMatrix);
       this._animateRotation(rotMatrix, face);
     }
     window.removeEventListener("mousemove", this._onMouseMove);
@@ -1043,4 +1058,10 @@ class PointerButton extends React.Component<PointerProps> {
     event.preventDefault();
     this.props.onArrowClick(pointerType);
   };
+}
+
+function to2dRotation(matrix: Matrix3d) {
+  const angles = YawPitchRollAngles.createFromMatrix3d(matrix);
+  const yaw = angles ? angles.yaw : Angle.createDegrees(0);
+  return Matrix3d.createRotationAroundAxisIndex(AxisIndex.Z, yaw);
 }

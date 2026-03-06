@@ -1,5 +1,7 @@
 # Change Log - @itwin/core-react
 
+## 5.25.0
+
 ## 5.24.2
 
 ## 5.24.1

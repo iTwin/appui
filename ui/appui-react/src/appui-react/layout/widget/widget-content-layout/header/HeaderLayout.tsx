@@ -25,6 +25,7 @@ type HeaderLayoutProps = Pick<
   | "menu"
   | "title"
   | "onSearch"
+  | "disableSearch"
   | "icons"
   | "iconSize"
   | "children"
@@ -72,6 +73,7 @@ export function HeaderLayout(props: HeaderLayoutProps) {
         <HeaderTopBar
           primaryContent={topBarLeftItems}
           onSearch={props.onSearch}
+          disableSearch={props.disableSearch}
           icons={icons}
           iconSize={props.iconSize}
         />

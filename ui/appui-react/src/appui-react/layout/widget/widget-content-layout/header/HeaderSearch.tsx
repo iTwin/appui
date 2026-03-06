@@ -4,22 +4,20 @@
  *--------------------------------------------------------------------------------------------*/
 
 import "./HeaderSearch.scss";
-import * as React from "react";
+import React from "react";
 
 import { SearchBox } from "@itwin/itwinui-react";
 
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
-import type { WidgetContentLayout } from "../WidgetContentLayout.js";
 import type { HeaderIconToolbar } from "./HeaderIconToolbar.js";
 
-type WidgetContentLayoutHeaderProps = React.ComponentProps<
-  typeof WidgetContentLayout.Header
->;
 type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
 
 interface HeaderSearchProps
-  extends Pick<WidgetContentLayoutHeaderProps, "iconSize" | "onSearch">,
-    Pick<HeaderIconToolbarProps, "searchExpandedState"> {
+  extends Pick<
+    HeaderIconToolbarProps,
+    "iconSize" | "onSearch" | "disableSearch" | "searchExpandedState"
+  > {
   /** State tuple for the search text value and its setter function. */
   searchState: [string, React.Dispatch<React.SetStateAction<string>>];
 }
@@ -61,6 +59,7 @@ export function HeaderSearch(props: HeaderSearchProps) {
           labelProps={{ placement: "bottom" }}
           size={props.iconSize}
           styleType="borderless"
+          disabled={props.disableSearch}
         >
           <SvgSearch />
         </SearchBox.ExpandButton>

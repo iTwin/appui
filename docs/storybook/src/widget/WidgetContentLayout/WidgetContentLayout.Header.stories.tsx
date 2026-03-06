@@ -107,6 +107,7 @@ export const IconsAndSearch: Story = {
       },
     ],
     onSearch: action("Search performed"),
+    disableSearch: false,
   },
   argTypes: {
     iconSize: unionArgType(["small", undefined, "large"]),

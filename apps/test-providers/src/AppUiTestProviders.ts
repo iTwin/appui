@@ -10,10 +10,12 @@ import { IModelApp } from "@itwin/core-frontend";
 export class AppUiTestProviders {
   public static readonly localizationNamespace = "AppuiTestProviders";
 
-  public static syncEventIdHideCustomDialogButton =
-    "appui-test-providers:sync-custom-dialog-button";
-  public static syncEventIdHideCustomViewOverlay =
-    "appui-test-providers:sync-custom-view-overlay-button";
+  public static syncUiEventId = {
+    hideCustomDialogButton: "appui-test-providers:hide-custom-dialog-button",
+    hideCustomViewOverlay:
+      "appui-test-providers:hide-custom-view-overlay-button",
+    toggle3dManipulations: "appui-test-providers:toggle-3d-manipulations",
+  } as const;
 
   /** convenience method for getting localized strings from keys */
   public static translate(key: string) {
