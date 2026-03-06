@@ -173,6 +173,7 @@ export function usePreviewFeatures() {
 
 /** Props for PreviewFeaturesProvider.
  * @beta
+ * @deprecated in 5.26.0. Use `React.ComponentProps<typeof PreviewFeaturesProvider>`
  */
 export interface PreviewFeaturesProviderProps {
   children?: React.ReactNode;
@@ -196,10 +197,9 @@ export interface PreviewFeaturesProviderProps {
  * ```
  * @beta
  */
-export function PreviewFeaturesProvider({
-  children,
-  features,
-}: PreviewFeaturesProviderProps) {
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+export function PreviewFeaturesProvider(props: PreviewFeaturesProviderProps) {
+  const { children, features } = props;
   const setPreviewFeatures = usePreviewFeaturesStore(
     (state) => state.setPreviewFeatures
   );
