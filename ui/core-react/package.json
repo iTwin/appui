@@ -97,7 +97,7 @@
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.8.0",
     "classnames": "2.5.1",
-    "dompurify": "^3.2.4",
+    "dompurify": "^3.3.2",
     "lodash": "catalog:",
     "react-autosuggest": "^10.1.0",
     "ts-key-enum": "~2.0.12"
