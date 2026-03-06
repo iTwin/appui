@@ -39,7 +39,8 @@
   "pnpm": {
     "overrides": {
       "mocha>diff@7.0.0": "^8.0.3",
-      "mocha>serialize-javascript@^6.0.0": "^7.0.4"
+      "mocha>serialize-javascript@^6.0.0": "^7.0.4",
+      "@microsoft/api-extractor>minimatch@10.2.1": "^10.2.4"
     }
   }
 }

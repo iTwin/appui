@@ -142,6 +142,7 @@ catalogs:
 overrides:
   mocha>diff@7.0.0: ^8.0.3
   mocha>serialize-javascript@^6.0.0: ^7.0.4
+  '@microsoft/api-extractor>minimatch@10.2.1': ^10.2.4
 
 patchedDependencies:
   '@changesets/assemble-release-plan':
@@ -5917,10 +5918,6 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
 
-  minimatch@10.2.1:
-    resolution: {integrity: sha512-MClCe8IL5nRRmawL6ib/eT4oLyeKMGCghibcDWK+J0hh0Q8kqSdia6BvbRMVk6mPa6WqUa5uR2oxt6C5jd533A==}
-    engines: {node: 20 || >=22}
-
   minimatch@10.2.4:
     resolution: {integrity: sha512-oRjTw/97aTBN0RHbYCdtF1MQfvusSIBQM0IZEgzl6426+8jSC0nF1a/GmnVLpfB9yyr6g6FTqWqiZVbxrtaCIg==}
     engines: {node: 18 || 20 || >=22}
@@ -9724,7 +9721,7 @@ snapshots:
       '@rushstack/ts-command-line': 5.3.3(@types/node@22.18.1)
       diff: 8.0.3
       lodash: 4.17.23
-      minimatch: 10.2.1
+      minimatch: 10.2.4
       resolve: 1.22.10
       semver: 7.5.4
       source-map: 0.6.1
@@ -13261,10 +13258,6 @@ snapshots:
   mimic-response@3.1.0: {}
 
   min-indent@1.0.1: {}
-
-  minimatch@10.2.1:
-    dependencies:
-      brace-expansion: 5.0.4
 
   minimatch@10.2.4:
     dependencies:
