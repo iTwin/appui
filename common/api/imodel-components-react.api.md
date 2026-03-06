@@ -171,7 +171,7 @@ export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, Colo
 export const ColorPickerButton: (props: ColorPickerProps) => React_2.ReactNode;
 
 // @beta @deprecated
-export function ColorPickerDialog({ dialogTitle, color, onOkResult, onCancelResult, colorPresets, colorInputType, }: ColorPickerDialogProps): React_2.JSX.Element;
+export function ColorPickerDialog(input: ColorPickerDialogProps): React_2.JSX.Element;
 
 // @beta @deprecated
 export interface ColorPickerDialogProps {
@@ -488,7 +488,7 @@ export interface FormatUnitsProps extends CommonProps {
 }
 
 // @beta @deprecated
-export function HueSlider({ isHorizontal, onHueChange, hsv, className, style, }: HueSliderProps): React_2.JSX.Element;
+export function HueSlider(input: HueSliderProps): React_2.JSX.Element;
 
 // @beta @deprecated
 export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
@@ -498,7 +498,7 @@ export interface HueSliderProps extends React_2.HTMLAttributes<HTMLDivElement>, 
 }
 
 // @public
-export function IModelConnectionProvider({ iModelConnection, children, }: React_2.PropsWithChildren<{
+export function IModelConnectionProvider(input: React_2.PropsWithChildren<{
     iModelConnection?: IModelConnection;
 }>): React_2.JSX.Element;
 
@@ -574,7 +574,7 @@ export interface QuantityFormatPanelProps extends CommonProps {
 }
 
 // @beta
-export function QuantityInput({ initialValue, quantityType, readonly, className, style, onQuantityChange, ref, }: QuantityProps): React_2.JSX.Element;
+export function QuantityInput(input: QuantityProps): React_2.JSX.Element;
 
 // @beta
 export const QuantityNumberInput: (props: QuantityNumberInputProps) => React_2.ReactNode;
@@ -603,7 +603,7 @@ export interface QuantityProps extends CommonProps {
 }
 
 // @beta @deprecated
-export function SaturationPicker({ onSaturationChange, hsv, className, style, }: SaturationPickerProps): React_2.JSX.Element;
+export function SaturationPicker(input: SaturationPickerProps): React_2.JSX.Element;
 
 // @beta @deprecated
 export interface SaturationPickerProps extends React_2.HTMLAttributes<HTMLDivElement>, CommonProps {
