@@ -180,6 +180,9 @@ export interface PreviewFeaturesProviderProps {
   features?: PreviewFeatures;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+type ProviderProps = PreviewFeaturesProviderProps;
+
 /** Set which preview features are enabled. These features are not yet ready for production use nor have
  * a proper API defined yet.
  * The available set of features are defined in the [[PreviewFeatures]] interface.
@@ -197,8 +200,7 @@ export interface PreviewFeaturesProviderProps {
  * ```
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function PreviewFeaturesProvider(props: PreviewFeaturesProviderProps) {
+export function PreviewFeaturesProvider(props: ProviderProps) {
   const { children, features } = props;
   const setPreviewFeatures = usePreviewFeaturesStore(
     (state) => state.setPreviewFeatures

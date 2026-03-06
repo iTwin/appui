@@ -3655,16 +3655,16 @@ export interface PresentationSelectionScope {
     label: string;
 }
 
-// @beta
+// @public
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
     // (undocumented)
     [featureName: string]: any;
 }
 
-// @beta
-export function PreviewFeaturesProvider({ children, features, }: PreviewFeaturesProviderProps): React_2.JSX.Element;
+// @public
+export function PreviewFeaturesProvider(props: ProviderProps): React_2.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export interface PreviewFeaturesProviderProps {
     // (undocumented)
     children?: React_2.ReactNode;
