@@ -43,6 +43,9 @@ import {
   useIsMaximizedWidget,
   useMaximizedFloatingWidget,
 } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
+import { useWidgetTabActions } from "../../preview/widget-tab-actions/useWidgetTabActions.js";
+import { FloatingWidget as TabActionsFloatingWidget } from "../../preview/widget-tab-actions/Widget.js";
+import { useSafeContext } from "../../hooks/useSafeContext.js";
 
 type FloatingWidgetEdgeHandle = "left" | "right" | "top" | "bottom";
 type FloatingWidgetCornerHandle =
@@ -56,69 +59,38 @@ export type FloatingWidgetResizeHandle =
   | FloatingWidgetEdgeHandle
   | FloatingWidgetCornerHandle;
 
-/** @internal */
-export interface FloatingWidgetProviderProps {
+interface FloatingWidgetProviderProps {
   id: FloatingWidgetState["id"];
 }
 
 /** @internal */
 export function FloatingWidgetProvider(props: FloatingWidgetProviderProps) {
   const floatingWidget = React.useContext(FloatingWidgetNodeContext);
-  return <WidgetProvider id={props.id}>{floatingWidget}</WidgetProvider>;
+  const widgetTabActions = useWidgetTabActions();
+  return (
+    <WidgetProvider id={props.id}>
+      {widgetTabActions ? <TabActionsFloatingWidget /> : floatingWidget}
+    </WidgetProvider>
+  );
 }
 
-/** @internal */
-export interface FloatingWidgetProps {
+interface FloatingWidgetProps {
   onMouseEnter?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
 /** @internal */
 export function FloatingWidget(props: FloatingWidgetProps) {
-  const uiIsVisible = React.useContext(UiIsVisibleContext);
-  const id = useFloatingWidgetId();
-  assert(!!id);
   const {
-    autoSized,
-    bounds,
-    hideWithUiWhenFloating,
-    isToolSettingsTab,
+    ref,
+    style,
+    hidden,
     minimized,
     resizable,
-  } = useFloatingWidgetState();
-  const hideFloatingWidget = !uiIsVisible && hideWithUiWhenFloating;
-
-  const item = React.useMemo(
-    () => ({
-      id,
-      type: "widget" as const,
-    }),
-    [id]
-  );
-  const dragged = useIsDraggedItem(item);
-  const ref = useHandleAutoSize(dragged);
-  const maximizedWidget = useMaximizedFloatingWidget();
-
-  const className = classnames(
-    "nz-widget-floatingWidget",
-    dragged && "nz-dragged",
-    isToolSettingsTab && "nz-floating-toolSettings",
-    minimized && "nz-minimized",
-    hideFloatingWidget && "nz-hidden",
-    maximizedWidget.classNames
-  );
-  const style = React.useMemo(() => {
-    const boundsRect = Rectangle.create(bounds);
-    const { height, width } = boundsRect.getSize();
-    const position = boundsRect.topLeft();
-    return {
-      transform: `translate(${position.x}px, ${position.y}px)`,
-      height: minimized || autoSized ? undefined : height,
-      width: autoSized ? undefined : width,
-      maxHeight: autoSized ? "60%" : undefined,
-      maxWidth: autoSized ? "60%" : undefined,
-    };
-  }, [autoSized, bounds, minimized]);
+    dragged,
+    isToolSettingsTab,
+    maximizedWidget,
+  } = useFloatingWidget();
 
   const content = React.useMemo(
     () => (
@@ -147,12 +119,15 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
   return (
     <Widget
-      className={className}
-      widgetId={id}
-      style={{
-        ...style,
-        ...maximizedWidget.style,
-      }}
+      className={classnames(
+        "nz-widget-floatingWidget",
+        dragged && "nz-dragged",
+        isToolSettingsTab && "nz-floating-toolSettings",
+        minimized && "nz-minimized",
+        hidden && "nz-hidden",
+        maximizedWidget.classNames
+      )}
+      style={style}
       ref={ref}
       onMouseEnter={props.onMouseEnter}
       onMouseLeave={props.onMouseLeave}
@@ -164,31 +139,46 @@ export function FloatingWidget(props: FloatingWidgetProps) {
   );
 }
 
-function useFloatingWidgetState() {
+function useIsDraggedWidget() {
   const id = useFloatingWidgetId();
   assert(!!id);
-  return useLayout((state) => {
+  const item = React.useMemo(
+    () => ({
+      id,
+      type: "widget" as const,
+    }),
+    [id]
+  );
+  return useIsDraggedItem(item);
+}
+
+function useFloatingWidgetStyle() {
+  const id = useSafeContext(WidgetIdContext);
+  const autoSized = useLayout((state) => {
     const widget = getWidgetState(state, id);
     const floatingWidget = state.floatingWidgets.byId[id];
-    const tabs = widget.tabs;
-    const activeTabId = widget.activeTabId;
-    const activeTab = state.tabs[activeTabId];
-    const userSized = floatingWidget.userSized;
-    const singleTab = 1 === tabs.length;
-
-    const toolSettingsTabId = state.toolSettings?.tabId;
-    const isToolSettingsTab = widget.tabs[0] === toolSettingsTabId;
-    const resizable = !!floatingWidget.resizable && !isToolSettingsTab;
-    const autoSized = singleTab && !userSized;
+    const singleTab = 1 === widget.tabs.length;
+    return singleTab && !floatingWidget.userSized;
+  });
+  const bounds = useLayout((state) => state.floatingWidgets.byId[id].bounds);
+  const minimized = useLayout((state) => getWidgetState(state, id).minimized);
+  const style = React.useMemo(() => {
+    const boundsRect = Rectangle.create(bounds);
+    const { height, width } = boundsRect.getSize();
+    const position = boundsRect.topLeft();
     return {
-      autoSized,
-      bounds: floatingWidget.bounds,
-      hideWithUiWhenFloating: activeTab.hideWithUiWhenFloating,
-      isToolSettingsTab,
-      minimized: widget.minimized,
-      resizable,
+      transform: `translate(${position.x}px, ${position.y}px)`,
+      height: minimized || autoSized ? undefined : height,
+      width: autoSized ? undefined : width,
+      maxHeight: autoSized ? "60%" : undefined,
+      maxWidth: autoSized ? "60%" : undefined,
     };
-  }, true);
+  }, [autoSized, bounds, minimized]);
+  const maximizedWidget = useMaximizedFloatingWidget();
+  return {
+    ...style,
+    ...maximizedWidget.style,
+  };
 }
 
 // Re-adjust bounds so that widget is behind pointer when auto-sized.
@@ -263,11 +253,13 @@ function useHandleAutoSize(dragged: boolean) {
   return refs;
 }
 
-interface FloatingWidgetHandleProps {
+interface FloatingWidgetHandleProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   handle: FloatingWidgetResizeHandle;
 }
 
-function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
+/** @internal */
+export function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const id = useFloatingWidgetId();
   const { handle } = props;
@@ -318,12 +310,18 @@ function FloatingWidgetHandle(props: FloatingWidgetHandleProps) {
   const ref = React.useRef<HTMLDivElement>(null);
   const refs = useRefs(ref, pointerCaptorRef);
   const isMaximized = useIsMaximizedWidget();
-  const className = classnames(
-    "nz-widget-floatingWidget_handle",
-    `nz-${handle}`
-  );
   if (isMaximized) return null;
-  return <div className={className} ref={refs} />;
+  return (
+    <div
+      {...props}
+      className={classnames(
+        "nz-widget-floatingWidget_handle",
+        `nz-${handle}`,
+        props.className
+      )}
+      ref={refs}
+    />
+  );
 }
 
 /** @internal */
@@ -373,4 +371,64 @@ export function useWidgetAllowedToDock(): boolean {
     }
     return true;
   });
+}
+
+function useBringToFront() {
+  const dispatch = React.useContext(NineZoneDispatchContext);
+  const floatingWidgetId = useFloatingWidgetId();
+  const ref = React.useRef<HTMLDivElement>(null);
+  React.useEffect(() => {
+    const listener = () => {
+      floatingWidgetId &&
+        dispatch({
+          type: "FLOATING_WIDGET_BRING_TO_FRONT",
+          id: floatingWidgetId,
+        });
+    };
+    const element = ref.current;
+    element?.addEventListener("click", listener);
+    return () => {
+      element?.removeEventListener("click", listener);
+    };
+  }, [dispatch, floatingWidgetId]);
+  return ref;
+}
+
+/** @internal */
+export function useFloatingWidget() {
+  const id = useSafeContext(WidgetIdContext);
+  const uiIsVisible = React.useContext(UiIsVisibleContext);
+  const minimized = useLayout((state) => getWidgetState(state, id).minimized);
+  const hideWithUiWhenFloating = useLayout((state) => {
+    const widget = getWidgetState(state, id);
+    const activeTab = state.tabs[widget.activeTabId];
+    return activeTab.hideWithUiWhenFloating;
+  });
+  const isToolSettingsTab = useLayout((state) => {
+    const widget = getWidgetState(state, id);
+    const toolSettingsTabId = state.toolSettings?.tabId;
+    return widget.tabs[0] === toolSettingsTabId;
+  });
+  const resizable = useLayout((state) => {
+    const floatingWidget = state.floatingWidgets.byId[id];
+    return !!floatingWidget.resizable && !isToolSettingsTab;
+  });
+  const hidden = !uiIsVisible && hideWithUiWhenFloating;
+
+  const style = useFloatingWidgetStyle();
+  const dragged = useIsDraggedWidget();
+  const maximizedWidget = useMaximizedFloatingWidget();
+  const autoSizeRef = useHandleAutoSize(dragged);
+  const bringToFrontRef = useBringToFront();
+  const ref = useRefs(autoSizeRef, bringToFrontRef);
+  return {
+    ref,
+    maximizedWidget,
+    hidden,
+    minimized,
+    resizable,
+    dragged,
+    isToolSettingsTab,
+    style,
+  };
 }

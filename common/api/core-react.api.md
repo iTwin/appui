@@ -461,7 +461,7 @@ export const DivWithOutsideClick: {
 };
 
 // @public @deprecated
-export function ElementResizeObserver({ watchedElement, render, }: {
+export function ElementResizeObserver(input: {
     watchedElement: HTMLElement | null;
     render: (props: RenderPropsArgs) => React_2.ReactElement;
 }): React_2.ReactElement<unknown, string | React_2.JSXElementConstructor<any>>;
@@ -1149,7 +1149,7 @@ export interface RenderPropsArgs {
 }
 
 // @public @deprecated
-export function ResizableContainerObserver({ onResize, children, }: {
+export function ResizableContainerObserver(input: {
     onResize: (width: number, height: number) => void;
     children?: React_2.ReactNode;
 }): React_2.JSX.Element;
@@ -1189,7 +1189,7 @@ export interface SearchBoxProps extends CommonProps {
 }
 
 // @public @deprecated
-export const SettingsContainer: ({ tabs, onSettingsTabSelected, currentSettingsTab, settingsManager, showHeader, }: SettingsContainerProps) => React_2.JSX.Element;
+export const SettingsContainer: (input: SettingsContainerProps) => React_2.JSX.Element;
 
 // @public @deprecated
 export interface SettingsContainerProps {

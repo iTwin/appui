@@ -367,7 +367,7 @@ export namespace ConvertedPrimitives {
 }
 
 // @beta
-export function createEditorSpec<TMetadata extends ValueMetadata, TValue extends Value>({ Editor, isMetadataSupported, isValueSupported, }: {
+export function createEditorSpec<TMetadata extends ValueMetadata, TValue extends Value>(input: {
     isMetadataSupported: (metadata: ValueMetadata) => metadata is TMetadata;
     isValueSupported: (value: Value) => value is TValue;
     Editor: React.ComponentType<EditorProps<TMetadata, TValue>>;
@@ -441,7 +441,7 @@ export interface DateFormatOptions {
 export function DatePicker(props: DatePickerProps): React_3.JSX.Element;
 
 // @alpha @deprecated
-export function DatePickerPopupButton({ displayEditField, timeDisplay, selected, onDateChange, dateFormatter, buttonToolTip, fieldStyle, fieldClassName, style, }: DatePickerPopupButtonProps): React_3.JSX.Element;
+export function DatePickerPopupButton(input: DatePickerPopupButtonProps): React_3.JSX.Element;
 
 // @alpha @deprecated
 export interface DatePickerPopupButtonProps extends CommonProps {
@@ -595,7 +595,7 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
 }
 
 // @beta
-export function EditorRenderer({ statusMessage, ...editorProps }: EditorRendererProps): React_3.JSX.Element | null;
+export function EditorRenderer(input: EditorRendererProps): React_3.JSX.Element | null;
 
 // @beta
 export interface EditorSpec {
@@ -606,7 +606,7 @@ export interface EditorSpec {
 }
 
 // @beta
-export function EditorsRegistryProvider({ children, editors, }: {
+export function EditorsRegistryProvider(input: {
     children: React_3.ReactNode;
     editors: EditorSpec[] | ((editors: EditorSpec[]) => EditorSpec[]);
 }): React_3.JSX.Element;
@@ -841,7 +841,7 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
 }
 
 // @beta
-export function FormattedNumericInput({ onChange, value, parseValue, formatValue, disabled, size, ...props }: FormattedNumericInputProps): React_3.JSX.Element;
+export function FormattedNumericInput(input: FormattedNumericInputProps): React_3.JSX.Element;
 
 // @public
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
@@ -1255,7 +1255,7 @@ export interface ItemStyle {
 
 // @public
 export const ItemStyleProvider: {
-    createStyle: ({ colorOverrides, isBold, isItalic }: ItemStyle, isSelected?: boolean) => CSSProperties;
+    createStyle: (input: ItemStyle, isSelected?: boolean) => CSSProperties;
 };
 
 // @public
@@ -2104,7 +2104,7 @@ export interface PropertyFilterBuilderRuleRangeValue {
 
 // @beta (undocumented)
 export namespace PropertyFilterBuilderRuleRangeValue {
-    export function isRangeValid({ from, to, }: PropertyFilterBuilderRuleRangeValue): boolean;
+    export function isRangeValid(input: PropertyFilterBuilderRuleRangeValue): boolean;
     export function parse(val?: PropertyValue): PropertyFilterBuilderRuleRangeValue;
     export function serialize(val: PropertyFilterBuilderRuleRangeValue): PrimitiveValue;
 }
@@ -2295,7 +2295,7 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 }
 
 // @beta
-export function PropertyRecordEditor({ propertyRecord, onCommit, onCancel, onClick, setFocus, size, editorSystem, }: PropertyRecordEditorProps): React_3.JSX.Element;
+export function PropertyRecordEditor(input: PropertyRecordEditorProps): React_3.JSX.Element;
 
 // @public
 export const PropertyRenderer: {
@@ -2665,7 +2665,7 @@ export interface TableNonPrimitiveValueRendererProps extends SharedTableNonPrimi
 
 // @public
 export const TableRowStyleProvider: {
-    createStyle: ({ color, backgroundColor, }: ItemColorOverrides) => CSSProperties;
+    createStyle: (input: ItemColorOverrides) => CSSProperties;
 };
 
 // @public
@@ -2909,14 +2909,14 @@ export class TreeEventHandler implements TreeEvents, Disposable {
     dispose(): void;
     // (undocumented)
     get modelSource(): TreeModelSource;
-    onCheckboxStateChanged({ stateChanges, }: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
-    onDelayedNodeClick({ nodeId }: TreeNodeEventArgs): void;
-    onNodeCollapsed({ nodeId }: TreeNodeEventArgs): void;
+    onCheckboxStateChanged(input: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
+    onDelayedNodeClick(input: TreeNodeEventArgs): void;
+    onNodeCollapsed(input: TreeNodeEventArgs): void;
     onNodeDoubleClick(_: TreeNodeEventArgs): void;
-    onNodeEditorActivated({ nodeId }: TreeNodeEventArgs): void;
-    onNodeExpanded({ nodeId }: TreeNodeEventArgs): void;
-    onSelectionModified({ modifications, }: TreeSelectionModificationEventArgs): Subscription | undefined;
-    onSelectionReplaced({ replacements, }: TreeSelectionReplacementEventArgs): Subscription | undefined;
+    onNodeEditorActivated(input: TreeNodeEventArgs): void;
+    onNodeExpanded(input: TreeNodeEventArgs): void;
+    onSelectionModified(input: TreeSelectionModificationEventArgs): Subscription | undefined;
+    onSelectionReplaced(input: TreeSelectionReplacementEventArgs): Subscription | undefined;
 }
 
 // @public
@@ -3289,7 +3289,7 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @beta
-export function useCommittableValue({ initialValue, onCancel, onCommit, }: UseCommittableValueProps): {
+export function useCommittableValue(input: UseCommittableValueProps): {
     onChange: (newValue?: Value) => void;
     onKeydown: (e: React_3.KeyboardEvent) => void;
     commit: () => void;
