@@ -10,6 +10,7 @@ import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
+import { Icon } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react/internal";
 import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
@@ -43,6 +44,7 @@ import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
 import { useBorders } from "../../layout/widget/PanelWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { useWidgetDef } from "../../widget-panels/Content.js";
 
 const TabsContext = React.createContext<
   | {
@@ -218,6 +220,7 @@ function Tab() {
           }
         : undefined)}
     >
+      <TabIcon />
       <Tabs.TabLabel className="uifw-preview-widgetTabActions-widget_label">
         {label}
       </Tabs.TabLabel>
@@ -225,6 +228,19 @@ function Tab() {
       <TabTarget />
     </Tabs.Tab>
   );
+}
+
+function TabIcon() {
+  const widgetDef = useWidgetDef();
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  const iconSpec = widgetDef?.initialConfig?.icon;
+  const icon =
+    widgetDef?.initialConfig?.iconNode ??
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    (iconSpec ? <Icon iconSpec={iconSpec} /> : undefined);
+
+  if (!icon) return null;
+  return <Tabs.TabIcon>{icon}</Tabs.TabIcon>;
 }
 
 /**

@@ -93,9 +93,12 @@ $border-width: 1px;
   }
 
   .uifw-preview-widgetTabActions-widget_tab {
-    grid-template:
-      "label icon"
-      "description icon" minmax(0, auto) / minmax(min-content, 1fr) auto;
+    grid-template-areas:
+      "icon label decoration"
+      "icon description decoration";
+    grid-template-rows: auto minmax(0, auto);
+    grid-template-columns: auto minmax(min-content, 1fr) auto;
+
     min-inline-size: min-content;
 
     @media (any-hover: hover) {
@@ -134,13 +137,13 @@ $border-width: 1px;
   }
 
   .uifw-preview-widgetTabActions-widget_label {
-    grid-area: label / icon;
+    grid-area: label / decoration;
     -webkit-line-clamp: 1;
     user-select: none;
   }
 
   .uifw-preview-widgetTabActions-widget_decoration {
-    grid-area: icon;
+    grid-area: decoration;
     justify-self: end;
     opacity: var(--_appui-decoration-opacity);
     block-size: var(--_iui-field-height);
