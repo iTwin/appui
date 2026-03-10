@@ -9,6 +9,7 @@
     "build": "pnpm \"/^build:.*/\"",
     "build:storybook": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" storybook build",
     "prebuild:storybook": "cpx ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont",
+    "preview": "vite preview",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract"
   },
