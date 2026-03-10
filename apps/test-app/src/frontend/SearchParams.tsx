@@ -31,6 +31,7 @@ export function useSyncFrontstageParam() {
       (args) => {
         if (frontstageId === args.activatedFrontstageDef.id) return;
         void navigate({
+          to: ".",
           search: (prev) => ({
             ...prev,
             frontstageId: args.activatedFrontstageDef.id,
