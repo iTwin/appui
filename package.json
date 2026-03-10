@@ -4,10 +4,10 @@
   "description": "Monorepo for iTwin.js AppUI",
   "license": "MIT",
   "scripts": {
-    "dev": "run-p dev:*",
-    "dev:packages": "pnpm --recursive --parallel --filter=!test-app --filter=!appui-storybook dev",
-    "dev:storybook": "pnpm --filter=appui-storybook dev",
+    "dev": "run-p dev:packages storybook",
     "app": "pnpm --filter=test-app app",
+    "storybook": "pnpm --filter=appui-storybook dev",
+    "dev:packages": "pnpm --recursive --parallel --filter=!test-app --filter=!appui-storybook dev",
     "build": "pnpm --recursive build",
     "clean": "pnpm --recursive --parallel clean",
     "docs": "pnpm --recursive --parallel docs",
