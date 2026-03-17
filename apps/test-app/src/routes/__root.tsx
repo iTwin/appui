@@ -44,6 +44,7 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/router-devtools";
 import { Users } from "../frontend/Users";
 import { Auth, useAuth } from "../frontend/Auth";
 import { config } from "../frontend/config";
+import { ThemeBridgeContext } from "../frontend/ThemeBridgeContext";
 
 interface RouterContext {
   auth: Auth;
@@ -182,7 +183,9 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
           <ThemeProvider future={{ themeBridge, applyBackground }} {...props} />
         )}
       >
-        {children}
+        <ThemeBridgeContext.Provider value={true}>
+          {children}
+        </ThemeBridgeContext.Provider>
       </Root>
     );
   }

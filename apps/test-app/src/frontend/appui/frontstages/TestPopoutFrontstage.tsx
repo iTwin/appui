@@ -10,6 +10,8 @@ import { Button, Input, ProgressRadial } from "@itwin/itwinui-react";
 import { Logger } from "@itwin/core-bentley";
 import { loggerCategory } from "../../logger";
 import { WidgetContentThrowError } from "@itwin/appui-test-providers";
+import { ThemeBridgeContext } from "../../ThemeBridgeContext";
+import { DropdownMenu } from "@stratakit/structures";
 
 export const createTestPopoutFrontstage = () => {
   {
@@ -39,6 +41,14 @@ export const createTestPopoutFrontstage = () => {
                   <LinkTest />
                 </>
               ),
+            },
+          ],
+          end: [
+            {
+              id: "sk-widget",
+              label: "StrataKit widget",
+              canPopout: true,
+              content: <StrataKitWidget />,
             },
           ],
         },
@@ -175,5 +185,28 @@ function TestPopoutProviders({ children }: React.PropsWithChildren) {
     >
       {children}
     </CounterContext.Provider>
+  );
+}
+
+function StrataKitWidget() {
+  const themeBridge = React.useContext(ThemeBridgeContext);
+  if (!themeBridge)
+    return (
+      <>
+        Use <b>themeBridge=1</b> URL param to enable the theme bridge
+      </>
+    );
+  return (
+    <div>
+      <DropdownMenu.Provider>
+        <DropdownMenu.Button>Actions</DropdownMenu.Button>
+
+        <DropdownMenu.Content>
+          <DropdownMenu.Item label="Add" />
+          <DropdownMenu.Item label="Edit" />
+          <DropdownMenu.Item label="Delete" />
+        </DropdownMenu.Content>
+      </DropdownMenu.Provider>
+    </div>
   );
 }

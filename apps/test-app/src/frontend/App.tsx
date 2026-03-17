@@ -17,6 +17,7 @@ import {
 import { ThemeProvider as IUI2_ThemeProvider } from "@itwin/itwinui-react-v2";
 import { useEngagementTime } from "./appui/useEngagementTime";
 import { AppLocalizationProvider } from "./Localization";
+import { Root } from "@stratakit/foundations";
 
 interface AppProps {
   featureOverrides?: React.ComponentProps<
@@ -44,11 +45,27 @@ export function App({ featureOverrides }: AppProps) {
   );
 }
 
-// Load iTwinUI v2 styles in popout widgets.
+/**
+ * Loads iTwinUI v2 styles in popout widgets.
+ * Renders <Root> component to set-up StrataKit.
+ */
 function ChildWindow(props: React.PropsWithChildren<object>) {
+  const [rootNode, setRootNode] = React.useState<Document | undefined>(
+    undefined
+  );
   return (
     <IUI2_ThemeProvider style={{ height: "100%" }}>
-      {props.children}
+      <Root
+        colorScheme="light"
+        density="dense"
+        synchronizeColorScheme
+        rootNode={rootNode}
+        ref={(el) => {
+          setRootNode(el?.ownerDocument);
+        }}
+      >
+        {props.children}
+      </Root>
     </IUI2_ThemeProvider>
   );
 }
