@@ -102,6 +102,7 @@
     "@itwin/reality-data-client": "1.2.2",
     "@itwin/webgl-compatibility": "catalog:",
     "@stratakit/bricks": "catalog:",
+    "@stratakit/structures": "catalog:",
     "@stratakit/foundations": "catalog:",
     "@tanstack/react-router": "^1.157.18",
     "classnames": "2.5.1",
