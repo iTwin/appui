@@ -2,6 +2,10 @@
 
 name: Publish Storybook
 
+permissions:
+  contents: write # for pushing commits
+  statuses: write # for commit statuses
+
 on:
   workflow_dispatch:
   push:
