@@ -4,10 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build:storybook": "npm run copy:webfont && cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" storybook build",
-    "start": "npm run copy:webfont && storybook dev -p 3000",
+    "dev": "run-p dev:*",
+    "dev:storybook": "storybook dev -p 1801",
+    "build": "pnpm \"/^build:.*/\"",
+    "build:storybook": "cross-env NODE_OPTIONS=\"--max-old-space-size=8192\" storybook build",
+    "prebuild:storybook": "cpx ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont",
+    "preview": "vite preview",
     "lint": "eslint src --report-unused-disable-directives --max-warnings 0",
-    "copy:webfont": "cpx ./node_modules/@bentley/icons-generic-webfont/dist/**/* ./lib/webfont",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract"
   },
   "dependencies": {
