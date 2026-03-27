@@ -20,8 +20,21 @@ export default defineConfig({
   build: {
     outDir: "storybook-static",
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: "modern-compiler",
+      },
+    },
+  },
   plugins: [
-    react(),
+    react({
+      babel: {
+        generatorOpts: {
+          importAttributesKeyword: "with",
+        },
+      },
+    }),
     viteStaticCopy({
       targets: [
         ...localeDirs.map((dir) => ({
