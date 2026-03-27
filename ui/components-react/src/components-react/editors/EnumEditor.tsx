@@ -180,7 +180,7 @@ export class EnumEditor
           style={this.props.style ? this.props.style : minWidthStyle}
           value={selectValue}
           onChange={this._updateSelectValue}
-          data-testid="components-select-editor"
+          data-testid={this.props.itemId ?? "components-select-editor"}
           options={this.state.options}
           triggerProps={{
             ref: (el) => {

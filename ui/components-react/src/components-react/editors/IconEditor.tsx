@@ -170,7 +170,7 @@ export class IconEditor
           disabled={this.props.propertyRecord?.isDisabled}
           readonly={this.props.propertyRecord?.isReadonly}
           onIconChange={this._onIconChange}
-          data-testid="components-icon-editor"
+          data-testid={this.props.itemId ?? "components-icon-editor"}
         />
       </div>
     );
