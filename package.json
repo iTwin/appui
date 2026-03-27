@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "run-p dev:packages storybook",
     "dev:packages": "pnpm --recursive --parallel --filter=!test-app --filter=!appui-storybook dev",
-    "app": "pnpm --filter=test-app app",
+    "app": "pnpm --filter=test-app dev",
     "storybook": "pnpm --filter=appui-storybook dev",
     "build": "pnpm --recursive build",
     "clean": "pnpm --recursive --parallel clean",

@@ -12,8 +12,7 @@
     "dev:backend": "node --max-http-header-size=16000 lib/backend/main.js",
     "dev:tsc:backend": "pnpm build:backend -w --preserveWatchOutput",
     "dev:tsc": "pnpm build:tsc -w --preserveWatchOutput",
-    "app": "run-p dev:webserver start:backend",
-    "electron": "run-p dev:webserver start:electron",
+    "electron": "run-p dev:webserver electron:start",
     "build": "pnpm \"/^build:.*/\"",
     "build:backend": "tsc -p tsconfig.backend.json",
     "build:tsc": "tsc",
@@ -26,7 +25,7 @@
     "preview": "vite preview --port 3000",
     "clean": "rimraf -g lib build dist",
     "lint": "eslint \"./src/**/*.{ts,tsx}\"",
-    "start:electron": "cross-env NODE_ENV=development electron ./lib/backend/main.js",
+    "electron:start": "cross-env NODE_ENV=development electron ./lib/backend/main.js",
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../../generated-docs/extract"
   },
   "keywords": [
