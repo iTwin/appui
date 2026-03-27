@@ -112,7 +112,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
  * This list is expected to change over time, the interface is made
  * so that new features can be added or removed without breaking existing code.
  * A console warning will simply appear if unknown features are passed.
- * @beta
+ * @public
  */
 export interface PreviewFeatures extends Partial<KnownPreviewFeatures> {
   [featureName: string]: any;
@@ -180,11 +180,15 @@ export function usePreviewFeatures() {
 
 /** Props for PreviewFeaturesProvider.
  * @beta
+ * @deprecated in 5.26.0. Use `React.ComponentProps<typeof PreviewFeaturesProvider>`
  */
 export interface PreviewFeaturesProviderProps {
   children?: React.ReactNode;
   features?: PreviewFeatures;
 }
+
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+type ProviderProps = PreviewFeaturesProviderProps;
 
 /** Set which preview features are enabled. These features are not yet ready for production use nor have
  * a proper API defined yet.
@@ -201,12 +205,10 @@ export interface PreviewFeaturesProviderProps {
  *   </Provider>
  * </PreviewFeaturesProvider>
  * ```
- * @beta
+ * @public
  */
-export function PreviewFeaturesProvider({
-  children,
-  features,
-}: PreviewFeaturesProviderProps) {
+export function PreviewFeaturesProvider(props: ProviderProps) {
+  const { children, features } = props;
   const setPreviewFeatures = usePreviewFeaturesStore(
     (state) => state.setPreviewFeatures
   );
