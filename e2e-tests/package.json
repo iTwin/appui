@@ -10,8 +10,7 @@
   },
   "private": true,
   "scripts": {
-    "start": "tsx scripts/run-with-docker.ts",
-    "test:e2e": "npm start -- pnpm exec playwright -- test"
+    "test:e2e": "tsx scripts/run-with-docker.ts pnpm exec playwright test"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",

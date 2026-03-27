@@ -19,7 +19,7 @@
     "cspell": "pnpm exec cspell lint \"**\" --gitignore",
     "prettier": "pnpm exec prettier --check .",
     "prettier:fix": "pnpm exec prettier --write .",
-    "release": "npm run build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.6",
