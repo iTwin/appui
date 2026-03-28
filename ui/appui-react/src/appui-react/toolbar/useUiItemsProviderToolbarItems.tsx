@@ -27,7 +27,8 @@ export const useUiItemsProviderToolbarItems = (
 ): readonly ToolbarItem[] => {
   const providedItems = useActiveStageProvidedToolbarItems(
     toolbarUsage,
-    toolbarOrientation
+    toolbarOrientation,
+    undefined
   );
   const [items, setItems] = React.useState(providedItems);
   React.useEffect(() => {
