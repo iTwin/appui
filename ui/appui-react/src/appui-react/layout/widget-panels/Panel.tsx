@@ -31,6 +31,7 @@ import type {
 import { useAnimatePanel } from "./useAnimatePanel.js";
 import { useMaximizedPanel } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import type { RectangleProps } from "../../utils/RectangleProps.js";
+import { DynamicPanelRenderer } from "../../panel/DynamicPanel.js";
 
 /** Properties of [[WidgetPanelProvider]] component.
  * @internal
@@ -53,10 +54,10 @@ export function WidgetPanelProvider({ side }: WidgetPanelProviderProps) {
         <PanelTargets />
         <PanelOutline />
       </div>
+      <DynamicPanelRenderer />
     </PanelSideContext.Provider>
   );
 }
-
 /** @internal */
 export function WidgetPanel() {
   const side = React.useContext(PanelSideContext);
