@@ -394,6 +394,89 @@ export const Editable: Story = {
   },
 };
 
+export const MergedProperties: Story = {
+  args: {
+    data: {
+      label: PropertyRecord.fromString("Multi-selection"),
+      categories: [
+        { name: "Merged", label: "Merged Properties", expand: true },
+      ],
+      records: {
+        Merged: [
+          (() => {
+            const record = new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: 42,
+                displayValue: "-- ft",
+              },
+              {
+                name: "mergedQuantity",
+                displayLabel: "Length (quantity with unit)",
+                typename: StandardTypeNames.Double,
+                quantityType: "Length",
+              }
+            );
+            record.isMerged = true;
+            return record;
+          })(),
+          (() => {
+            const record = new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: "hello",
+                displayValue: "hello",
+              },
+              {
+                name: "mergedString",
+                displayLabel: "Name (no unit)",
+                typename: StandardTypeNames.String,
+              }
+            );
+            record.isMerged = true;
+            return record;
+          })(),
+          (() => {
+            const record = new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: 100,
+                displayValue: "-- m²",
+              },
+              {
+                name: "mergedArea",
+                displayLabel: "Area (quantity with unit)",
+                typename: StandardTypeNames.Double,
+                quantityType: "Area",
+              }
+            );
+            record.isMerged = true;
+            return record;
+          })(),
+          (() => {
+            const record = new PropertyRecord(
+              {
+                valueFormat: PropertyValueFormat.Primitive,
+                value: 14.23,
+                displayValue: "14.23 ft",
+              },
+              {
+                name: "mergedWithValue",
+                displayLabel: "Width (value without --)",
+                typename: StandardTypeNames.Double,
+                quantityType: "Length",
+              }
+            );
+            record.isMerged = true;
+            return record;
+          })(),
+        ],
+      },
+    },
+    onPropertyContextMenu: undefined,
+  },
+};
+
 export const AlwaysVisibleEditor: Story = {
   args: {
     data: {
