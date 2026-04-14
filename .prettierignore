@@ -13,6 +13,7 @@ CHANGELOG.md
 
 # pnpm specific
 pnpm-lock.yaml
+pnpm-workspace.yaml
 
 # codemod specific
 __testfixtures__

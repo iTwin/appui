@@ -31,7 +31,6 @@ import {
 } from "@itwin/core-common";
 import { IModelApp } from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
-import { IModelsClient } from "@itwin/imodels-client-authoring";
 import { ProgressLinear, ThemeProvider } from "@itwin/itwinui-react";
 import { createFrontstage } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
@@ -61,13 +60,11 @@ export function AppUiStory(props: AppUiStoryProps) {
       await IModelApp.startup({
         accuDraw: new FrameworkAccuDraw(),
         toolAdmin: new FrameworkToolAdmin(),
-        hubAccess: new FrontendIModelsAccess(
-          new IModelsClient({
-            api: {
-              baseUrl: "https://api.bentley.com/imodels",
-            },
-          })
-        ),
+        hubAccess: new FrontendIModelsAccess({
+          api: {
+            baseUrl: "https://api.bentley.com/imodels",
+          },
+        }),
         authorizationClient: new DemoAuthClient(),
         notifications: new AppNotificationManager(),
       });
