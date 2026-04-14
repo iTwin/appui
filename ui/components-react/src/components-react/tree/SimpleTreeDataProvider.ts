@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { PageOptions } from "../common/PageOptions.js";
 import type { ITreeDataProvider, TreeNodeItem } from "./TreeDataProvider.js";
 
@@ -14,6 +16,7 @@ import type { ITreeDataProvider, TreeNodeItem } from "./TreeDataProvider.js";
  * key - Parent id.
  * value - Child tree node items.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type SimpleTreeDataProviderHierarchy = Map<
   string | undefined,
@@ -23,6 +26,7 @@ export type SimpleTreeDataProviderHierarchy = Map<
 /**
  * A tree data provider using [[SimpleTreeDataProviderHierarchy]].
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class SimpleTreeDataProvider implements ITreeDataProvider {
   private _hierarchy: SimpleTreeDataProviderHierarchy;
