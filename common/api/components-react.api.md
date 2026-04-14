@@ -865,7 +865,7 @@ export interface GridCategoryItem extends FlatGridItemBase {
 // @public @deprecated
 export const hasChildren: (node: TreeNodeItem) => boolean;
 
-// @public
+// @public @deprecated
 export const hasSelectionModeFlag: (selectionMode: SelectionMode_2, flag: SelectionModeFlags) => boolean;
 
 // @public
@@ -1699,13 +1699,13 @@ export interface Observable<T> extends Subscribable<T> {
 // @public @deprecated
 export type Observer<T> = NextObserver<T> | ErrorObserver<T> | CompletionObserver<T>;
 
-// @public
+// @public @deprecated
 export type OnItemsDeselectedCallback<Item> = (items: Item[]) => void | boolean;
 
-// @public
+// @public @deprecated
 export type OnItemsSelectedCallback<TItem> = (items: TItem[], replace: boolean) => void | boolean;
 
-// @public
+// @public @deprecated
 export type OnSelectionChanged = (shiftDown?: boolean, ctrlDown?: boolean) => void;
 
 // @public
@@ -2428,7 +2428,7 @@ export interface SelectableContentProps {
     selectAriaLabel?: string;
 }
 
-// @public
+// @public @deprecated
 enum SelectionMode_2 {
     Extended = 12,
     Multiple = 6,
@@ -2438,7 +2438,7 @@ enum SelectionMode_2 {
 }
 export { SelectionMode_2 as SelectionMode }
 
-// @public
+// @public @deprecated
 export enum SelectionModeFlags {
     // (undocumented)
     DragEnabled = 2,

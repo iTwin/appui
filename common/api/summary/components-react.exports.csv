@@ -119,6 +119,7 @@ public;interface;GridCategoryItem
 public;const;hasChildren
 deprecated;const;hasChildren
 public;const;hasSelectionModeFlag
+deprecated;const;hasSelectionModeFlag
 public;class;HexadecimalTypeConverter
 public;const;HIGHLIGHT_ACTIVE_CLASS_NAME
 public;interface;HighlightableTreeNodeProps
@@ -234,8 +235,11 @@ deprecated;interface;Observable
 public;type;Observer
 deprecated;type;Observer
 public;type;OnItemsDeselectedCallback
+deprecated;type;OnItemsDeselectedCallback
 public;type;OnItemsSelectedCallback
+deprecated;type;OnItemsSelectedCallback
 public;type;OnSelectionChanged
+deprecated;type;OnSelectionChanged
 public;interface;OperatorProcessor
 public;type;Orientation
 public;const;Orientation
@@ -335,6 +339,7 @@ public;interface;SelectableContentDefinition
 public;interface;SelectableContentProps
 deprecated;interface;SelectableContentProps
 public;enum;SelectionModeFlags
+deprecated;enum;SelectionModeFlags
 public;interface;SharedRendererProps
 public;interface;SharedTableNonPrimitiveValueRendererProps
 public;class;ShortDateTypeConverter
