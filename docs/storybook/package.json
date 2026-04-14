@@ -52,7 +52,7 @@
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "eslint-plugin-storybook": "^10.3.5",
-    "inversify": "^7.5.2",
+    "inversify": "^7.11.0",
     "prop-types": "^15.8.1",
     "reflect-metadata": "^0.2.2",
     "storybook": "^10.3.5",
