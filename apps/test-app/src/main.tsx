@@ -52,10 +52,10 @@ function ConditionalStrictMode({ children }: { children: React.ReactNode }) {
 
 function App() {
   return (
-    <ConditionalStrictMode>
-      <AuthProvider>
+    <AuthProvider>
+      <ConditionalStrictMode>
         <InnerApp />
-      </AuthProvider>
-    </ConditionalStrictMode>
+      </ConditionalStrictMode>
+    </AuthProvider>
   );
 }
