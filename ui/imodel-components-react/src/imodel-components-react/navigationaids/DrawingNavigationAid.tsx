@@ -757,8 +757,8 @@ export class DrawingNavigationAid extends React.Component<
     paddingY: number = 0
   ): Vector3d => {
     return Vector3d.create(
-      window.innerWidth / 3 - 2 * (window.innerWidth - paddingX),
-      window.innerHeight / 3 - 2 * paddingY
+      Math.abs(window.innerWidth / 3 - 2 * (window.innerWidth - paddingX)),
+      Math.abs(window.innerHeight / 3 - 2 * paddingY)
     );
   };
 
