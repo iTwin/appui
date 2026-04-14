@@ -13,6 +13,8 @@ import {
   SelectionModeFlags,
 } from "./SelectionModes.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** Prototype for a Selection Changed handler
  * @public
  * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
