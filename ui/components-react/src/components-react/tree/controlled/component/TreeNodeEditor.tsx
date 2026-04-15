@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import * as React from "react";
 import type {
   PrimitiveValue,
@@ -19,6 +21,7 @@ import type { TreeModelNode } from "../TreeModel.js";
 /**
  * Properties for [[TreeNodeEditor]] component.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeNodeEditorProps {
   /** Tree node which is in editing mode. */
@@ -37,6 +40,7 @@ export interface TreeNodeEditorProps {
 /**
  * Type for tree node editor renderer.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeNodeEditorRenderer = (
   props: TreeNodeEditorProps
@@ -45,6 +49,7 @@ export type TreeNodeEditorRenderer = (
 /**
  * React component for displaying tree node editor.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function TreeNodeEditor(props: TreeNodeEditorProps) {
   const onCommit = (args: PropertyUpdatedArgs) => {

@@ -13,8 +13,11 @@ import {
   SelectionModeFlags,
 } from "./SelectionModes.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** Prototype for a Selection Changed handler
  * @public
+ * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
  */
 export declare type OnSelectionChanged = (
   shiftDown?: boolean,
@@ -86,6 +89,7 @@ export interface MultiSelectionHandler<TItem> {
  * @param items Items that were selected.
  * @param replace Should replace current selection.
  * @public
+ * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
  */
 export declare type OnItemsSelectedCallback<TItem> = (
   items: TItem[],
@@ -96,6 +100,7 @@ export declare type OnItemsSelectedCallback<TItem> = (
  * Called after items were deselected.
  * @param items Items that were deselected.
  * @public
+ * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
  */
 export declare type OnItemsDeselectedCallback<Item> = (
   items: Item[]

@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import "./ControlledTree.scss";
 import classnames from "classnames";
 import * as React from "react";
@@ -41,6 +43,7 @@ const NODE_LOAD_DELAY = 500;
 /**
  * Data structure that describes range of rendered items in the tree.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface RenderedItemsRange {
   overscanStartIndex: number;
@@ -52,6 +55,7 @@ export interface RenderedItemsRange {
 /**
  * Properties for [[TreeRenderer]] component.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeRendererProps {
   treeActions: TreeActions;
@@ -91,6 +95,7 @@ export interface TreeRendererProps {
 /**
  * Attributes found on TreeRenderer component
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeRendererAttributes {
   /**
@@ -142,6 +147,7 @@ const [
 /**
  * Default tree rendering component.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class TreeRenderer
   extends React.Component<TreeRendererProps>
@@ -180,7 +186,6 @@ const TreeRendererInner = React.forwardRef<
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const coreTreeRef = React.useRef<CoreTree>(null);
   const onLabelRendered = useScrollToActiveMatch(
     coreTreeRef,
@@ -262,7 +267,6 @@ const TreeRendererInner = React.forwardRef<
 
   return (
     <TreeRendererContextProvider value={rendererContext}>
-      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
       <CoreTree
         ref={coreTreeRef}
         className={classnames(
@@ -349,7 +353,6 @@ const Node = React.memo<React.FC<ListChildComponentProps>>(function Node(
           });
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         return <TreeNodePlaceholder level={node.depth} />;
       }, [
         node,
@@ -435,7 +438,6 @@ function getHighlightedNodeId(highlightableTreeProps?: HighlightableTreeProps) {
 }
 
 function useScrollToActiveMatch(
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   treeRef: React.RefObject<CoreTree | null>,
   highlightableTreeProps?: HighlightableTreeProps
 ) {
@@ -474,7 +476,6 @@ function useScrollToActiveMatch(
   return onLabelRendered;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 function setFocusToSelected(treeRef: React.RefObject<CoreTree | null>) {
   if (treeRef.current)
     treeRef.current.setFocusByClassName(".core-tree-node.is-selected");

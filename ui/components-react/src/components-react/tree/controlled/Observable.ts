@@ -6,11 +6,14 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { from as rxjsFrom, Observable as RxjsObservable } from "rxjs";
 
 /**
  * Helper method that creates an Observable from Iterable or Promise.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T> {
   return rxjsFrom(iterable);
@@ -30,6 +33,7 @@ export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T> {
  * ```
  *
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface Observable<T> extends Subscribable<T> {} // eslint-disable-line @typescript-eslint/no-empty-object-type
 
@@ -37,6 +41,7 @@ export interface Observable<T> extends Subscribable<T> {} // eslint-disable-line
  * Subscribable interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface Subscribable<T> {
   subscribe(observer?: Observer<T>): Subscription;
@@ -67,6 +72,7 @@ export interface Subscribable<T> {
  * Observer interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export declare type Observer<T> =
   | NextObserver<T>
@@ -77,6 +83,7 @@ export declare type Observer<T> =
  * Unsubscribable interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface Unsubscribable {
   unsubscribe(): void;
@@ -86,6 +93,7 @@ export interface Unsubscribable {
  * Subscription interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface Subscription extends Unsubscribable {
   readonly closed: boolean;
@@ -97,6 +105,7 @@ export interface Subscription extends Unsubscribable {
  * NextObserver interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface NextObserver<T> {
   closed?: boolean;
@@ -109,6 +118,7 @@ export interface NextObserver<T> {
  * ErrorObserver interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface ErrorObserver<T> {
   closed?: boolean;
@@ -121,6 +131,7 @@ export interface ErrorObserver<T> {
  * CompletionObserver interface compatible with [rxjs](https://github.com/ReactiveX/rxjs)
  * This interface ensures that consumers are not required to have rxjs as dependency.
  * @public
+ * @deprecated in 5.28.0. Use [rxjs](https://github.com/ReactiveX/rxjs) directly.
  */
 export interface CompletionObserver<T> {
   closed?: boolean;

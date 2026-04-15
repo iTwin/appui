@@ -6,8 +6,8 @@
  * @module Common
  */
 
+import "./HighlightedText.scss";
 import React, { useMemo } from "react";
-import { HighlightingEngine } from "../tree/HighlightingEngine.js";
 
 /**
  * Properties of [[HighlightedText]]
@@ -24,6 +24,12 @@ export interface HighlightedTextProps {
   /** Should search be case sensitive */
   caseSensitive?: boolean;
 }
+
+/**
+ * Class name used for marking actively highlighted text part by `HighlightedText` component.
+ * @public
+ */
+export const HIGHLIGHT_ACTIVE_CLASS_NAME = "components-activehighlight";
 
 /**
  * Highlighted text
@@ -92,9 +98,7 @@ function markChunks(
       <mark
         key={start}
         className={
-          i === newActiveIndex
-            ? HighlightingEngine.ACTIVE_CLASS_NAME
-            : undefined
+          i === newActiveIndex ? HIGHLIGHT_ACTIVE_CLASS_NAME : undefined
         }
       >
         {text.substring(start, end)}

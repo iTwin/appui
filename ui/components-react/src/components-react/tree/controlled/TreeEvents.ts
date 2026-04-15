@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { CheckBoxState } from "../../common/CheckBoxState.js";
 import type { TreeNodeItem } from "../TreeDataProvider.js";
 import type { Observable, Subscription } from "./Observable.js";
@@ -23,6 +25,7 @@ import type { Observable, Subscription } from "./Observable.js";
  * 'complete' callback if supplied.
  *
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeEvents {
   /** Called when tree node is expanded. */
@@ -62,6 +65,7 @@ export interface TreeEvents {
 /**
  * Data structure that describes tree node event payload.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeNodeEventArgs {
   /** Id of node that is affected by event. */
@@ -71,6 +75,7 @@ export interface TreeNodeEventArgs {
 /**
  * Data structure that describes tree selection modification event payload.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeSelectionModificationEventArgs {
   /**
@@ -83,6 +88,7 @@ export interface TreeSelectionModificationEventArgs {
 /**
  * Data structure that describes tree selection change.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeSelectionChange {
   /** Tree node items that where selected. */
@@ -94,6 +100,7 @@ export interface TreeSelectionChange {
 /**
  * Data structure that describes tree selection replacement event payload.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeSelectionReplacementEventArgs {
   /**
@@ -106,6 +113,7 @@ export interface TreeSelectionReplacementEventArgs {
 /**
  * Data structure that describes tree checkbox state change event payload.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeCheckboxStateChangeEventArgs {
   /**
@@ -118,6 +126,7 @@ export interface TreeCheckboxStateChangeEventArgs {
 /**
  * Data structure that describes checkbox state change.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface CheckboxStateChange {
   /** Tree node item that was affected by checkbox state change. */

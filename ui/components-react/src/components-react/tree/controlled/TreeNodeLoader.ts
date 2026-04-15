@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { Observable as RxjsObservable } from "rxjs";
 import {
   concatAll,
@@ -51,6 +53,7 @@ import type { TreeModelSource } from "./TreeModelSource.js";
 /**
  * Data structure that describes node load result
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeNodeLoadResult {
   loadedNodes: TreeNodeItem[];
@@ -59,6 +62,7 @@ export interface TreeNodeLoadResult {
 /**
  * Tree node loader which is used to load tree nodes.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface ITreeNodeLoader {
   /**
@@ -75,6 +79,7 @@ export interface ITreeNodeLoader {
 /**
  * Tree node loader which uses `TreeDataProvider` to load nodes.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface ITreeNodeLoaderWithProvider<
   TDataProvider extends TreeDataProvider
@@ -86,6 +91,7 @@ export interface ITreeNodeLoaderWithProvider<
 /**
  * Abstract node loader implementation which loads nodes into provided model source.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
   private _treeModelSource: TreeModelSource;
@@ -135,6 +141,7 @@ export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
 /**
  * Abstract node loader with tree data provider which loads nodes into provided model source.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export abstract class AbstractTreeNodeLoaderWithProvider<
     TDataProvider extends TreeDataProvider
@@ -160,6 +167,7 @@ export abstract class AbstractTreeNodeLoaderWithProvider<
 /**
  * Default tree node loader with `TreeDataProvider` implementation.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class TreeNodeLoader<
   TDataProvider extends TreeDataProvider
@@ -221,6 +229,7 @@ export class TreeNodeLoader<
 /**
  * Default paged tree node loader with `TreeDataProvider` implementation.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class PagedTreeNodeLoader<
   TDataProvider extends TreeDataProvider
@@ -307,6 +316,7 @@ export class PagedTreeNodeLoader<
 /**
  * Data structure that describes hierarchy loaded for parent node.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface LoadedNodeHierarchy {
   /** Node id of the parent node for loaded hierarchy. */
@@ -322,6 +332,7 @@ export interface LoadedNodeHierarchy {
 /**
  * Data structure that describes one loaded hierarchy item.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface LoadedNodeHierarchyItem {
   /** Loaded tree node item. */
@@ -589,7 +600,6 @@ export class TreeDataSource {
       this._dataProvider = await this._dataProvider;
       return this.getChildren(this._dataProvider, parent);
     }
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     throw new UiError(
       UiComponents.loggerCategory("TreeDataSource"),
       "Unsupported TreeDataProvider."

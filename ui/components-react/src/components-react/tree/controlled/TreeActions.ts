@@ -11,6 +11,7 @@ import type { CheckBoxState } from "../../common/CheckBoxState.js";
 /**
  * Tree actions that can be performed on tree.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeActions {
   onNodeCheckboxClicked: (nodeId: string, newState: CheckBoxState) => void;
