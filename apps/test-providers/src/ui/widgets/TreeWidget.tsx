@@ -17,6 +17,8 @@ import {
 } from "@itwin/components-react";
 import { PropertyRecord } from "@itwin/appui-abstract";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 const createTreeNodeItem = (
   id: string,
   parentId?: string

@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { Observable } from "rxjs";
 import { Subject } from "rxjs";
 import { BeUiEvent } from "@itwin/core-bentley";

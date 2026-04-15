@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { immerable } from "immer";
 import { assert, compareNumbers, lowerBound } from "@itwin/core-bentley";
 
@@ -198,6 +200,7 @@ export class SparseTree<T extends Node> {
  * this class does not need to check each index when iterating values that are
  * stored in the array.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class SparseArray<T> implements Iterable<T | undefined> {
   public [immerable]: boolean;

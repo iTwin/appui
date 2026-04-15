@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { EMPTY } from "rxjs";
 import type { TreeNodeItem } from "../../TreeDataProvider.js";
 import type { Observable } from "../Observable.js";
