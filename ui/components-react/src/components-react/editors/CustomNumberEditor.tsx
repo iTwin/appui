@@ -377,14 +377,10 @@ export class CustomNumberEditor
 
   public override render(): React.ReactNode {
     const { decoration } = this.props as InternalInputEditorProps;
-    const size = this.state.size
-      ? this.state.size
-      : this.state.inputValue.length + 1;
-
-    const inlineSizeStyle: React.CSSProperties = {
-      inlineSize: `${size}em`,
+    const minSize = this.state.size ? this.state.size : 8;
+    const minWidthStyle: React.CSSProperties = {
+      minWidth: `${minSize * 0.75}em`,
     };
-
     const record = this.props.propertyRecord as PropertyRecord;
     if (!record || !this._formatParams) return null;
 
@@ -399,7 +395,7 @@ export class CustomNumberEditor
 
     const inputProps: Omit<InputProps, "size"> = {
       className,
-      style: this.props.style ? this.props.style : inlineSizeStyle,
+      style: this.props.style ? this.props.style : minWidthStyle,
       readOnly,
       disabled,
       maxLength: this.state.maxLength,
