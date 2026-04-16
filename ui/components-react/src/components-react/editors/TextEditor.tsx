@@ -81,7 +81,10 @@ export class TextEditor
 
   private _onFocus = () => {
     if (this._isMounted && this.props.propertyRecord?.isMerged) {
-      this.setState((prevState) => ({ ...prevState, inputValue: prevState.originalValue}));
+      this.setState((prevState) => ({
+        ...prevState,
+        inputValue: prevState.originalValue,
+      }));
     }
   };
 
