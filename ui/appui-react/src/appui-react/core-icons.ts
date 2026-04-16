@@ -11,3 +11,10 @@ declare module "@itwin/core-frontend" {
     iconElement?: ReactElement;
   }
 }
+
+declare module "@itwin/appui-abstract" {
+  interface InputEditorSizeParams {
+    /** The max-width for an input editor. */
+    maxWidth?: number;
+  }
+}

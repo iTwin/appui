@@ -36,6 +36,7 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 interface TextEditorState {
   inputValue: string;
   size?: number;
+  maxWidth?: number;
   maxLength?: number;
   iconSpec?: string;
 }
@@ -129,6 +130,7 @@ export class TextEditor
     }
 
     let size: number | undefined;
+    let maxWidth: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
@@ -144,6 +146,7 @@ export class TextEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
+        if (editorSizeParams.maxWidth) maxWidth = editorSizeParams.maxWidth;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -160,6 +163,7 @@ export class TextEditor
       this.setState({
         inputValue: initialValue,
         size,
+        maxWidth,
         maxLength,
         iconSpec,
       });
@@ -173,13 +177,16 @@ export class TextEditor
       this.props.className
     );
     const minSize = this.state.size ? this.state.size : 8;
-    const minWidthStyle: React.CSSProperties = {
+    const style: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
+      maxWidth: this.state.maxWidth
+        ? `${this.state.maxWidth * 0.75}em`
+        : undefined,
     };
     const inputProps: InputProps = {
       type: "text",
       className,
-      style: this.props.style ? this.props.style : minWidthStyle,
+      style: this.props.style ? this.props.style : style,
       readOnly: this.props.propertyRecord?.isReadonly,
       disabled: this.props.propertyRecord?.isDisabled,
       maxLength: this.state.maxLength,
