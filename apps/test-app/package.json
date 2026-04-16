@@ -49,7 +49,7 @@
     "csstype": "^3.2.3",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
-    "electron": "^39.8.5",
+    "electron": "^39.8.7",
     "eslint": "catalog:",
     "eslint-config-prettier": "catalog:",
     "inversify": "^7.11.0",
