@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDisposable, useOptionalDisposable } from "@itwin/core-react";
 import type { TreeDataProvider } from "../TreeDataProvider.js";
@@ -20,6 +22,7 @@ import { PagedTreeNodeLoader, TreeNodeLoader } from "./TreeNodeLoader.js";
  * `TreeModelSource`.
  *
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function useTreeModel(modelSource: TreeModelSource): TreeModel {
   const [_, setState] = useState({});
@@ -38,6 +41,7 @@ export function useTreeModel(modelSource: TreeModelSource): TreeModel {
  * loader pulls nodes from the data provider and puts them into the model source.
  *
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(
   dataProvider: TDataProvider,
@@ -53,6 +57,7 @@ export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(
  * Custom hook which creates a paging nodes' loader using the supplied data provider and model source. The loader pulls
  * nodes from the data provider and puts them into the model source.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(
   dataProvider: TDataProvider,
@@ -72,6 +77,7 @@ export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(
  * source whenever the data provider changes - that's the reason the hook takes a data provider.
  *
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function useTreeModelSource(dataProvider: TreeDataProvider) {
   // need to create new model source every time data provider changes although it does not need data provider to be created.
@@ -95,7 +101,6 @@ export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
     if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return useDisposable(factory);
 }
 
@@ -108,6 +113,7 @@ export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(
  *
  * @returns `undefined` on first render and a valid [[TreeEventHandler]] on all subsequent renders.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function useControlledTreeEventsHandler<
   TEventsHandler extends TreeEventHandler
@@ -116,6 +122,5 @@ export function useControlledTreeEventsHandler<
     if (typeof factoryOrParams === "function") return factoryOrParams();
     return new TreeEventHandler(factoryOrParams);
   }, [factoryOrParams]);
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   return useOptionalDisposable(factory);
 }

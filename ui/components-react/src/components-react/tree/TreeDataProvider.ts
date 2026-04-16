@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { PageOptions } from "../common/PageOptions.js";
 import type { ItemStyle } from "../properties/ItemStyle.js";
@@ -14,6 +16,7 @@ import type { CheckBoxState } from "../common/CheckBoxState.js";
 /**
  * A node item which can be displayed in a tree.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeNodeItem {
   id: string;
@@ -37,6 +40,7 @@ export interface TreeNodeItem {
 
 /** A [[TreeNodeItem]] for immediately loaded trees
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface ImmediatelyLoadedTreeNodeItem extends TreeNodeItem {
   children?: TreeNodeItem[];
@@ -44,6 +48,7 @@ export interface ImmediatelyLoadedTreeNodeItem extends TreeNodeItem {
 
 /** A [[TreeNodeItem]] for delay-loaded trees
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface DelayLoadedTreeNodeItem extends TreeNodeItem {
   hasChildren?: boolean;
@@ -51,16 +56,19 @@ export interface DelayLoadedTreeNodeItem extends TreeNodeItem {
 
 /** Array of tree node data elements
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[];
 
 /** A Promise for TreeDataProviderRaw
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeDataProviderPromise = Promise<TreeDataProviderRaw>;
 
 /** Signature for a method that returns TreeDataProviderPromise for supplied parent node
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeDataProviderMethod = (
   node?: TreeNodeItem
@@ -68,6 +76,7 @@ export type TreeDataProviderMethod = (
 
 /** Interface for a tree data provider class
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface ITreeDataProvider {
   getNodesCount(parent?: TreeNodeItem): Promise<number>;
@@ -79,6 +88,7 @@ export interface ITreeDataProvider {
 
 /** Type definition for all Tree data providers
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeDataProvider =
   | TreeDataProviderRaw
@@ -88,6 +98,7 @@ export type TreeDataProvider =
 
 /** Checks if [[TreeDataProvider]] is a [[TreeDataProviderRaw]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export const isTreeDataProviderRaw = (
   provider: TreeDataProvider
@@ -96,6 +107,7 @@ export const isTreeDataProviderRaw = (
 };
 /** Checks if [[TreeDataProvider]] is a [[TreeDataProviderPromise]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export const isTreeDataProviderPromise = (
   provider: TreeDataProvider
@@ -104,6 +116,7 @@ export const isTreeDataProviderPromise = (
 };
 /** Checks if [[TreeDataProvider]] is a [[TreeDataProviderMethod]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export const isTreeDataProviderMethod = (
   provider: TreeDataProvider
@@ -112,6 +125,7 @@ export const isTreeDataProviderMethod = (
 };
 /** Checks if [[TreeDataProvider]] is an [[ITreeDataProvider]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export const isTreeDataProviderInterface = (
   provider: TreeDataProvider
@@ -126,6 +140,7 @@ export const isTreeDataProviderInterface = (
  * @param node node to check
  * @returns whether node has children
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export const hasChildren = (node: TreeNodeItem) => {
   const nodeAsImmediate = node as ImmediatelyLoadedTreeNodeItem;
@@ -143,6 +158,7 @@ export const hasChildren = (node: TreeNodeItem) => {
 /**
  * EditableTreeDataProvider provides cell editing processing for the Tree.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface EditableTreeDataProvider extends ITreeDataProvider {
   updateLabel(nodeItem: TreeNodeItem, newLabel: string): void;

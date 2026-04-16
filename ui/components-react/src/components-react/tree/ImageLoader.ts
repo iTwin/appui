@@ -6,11 +6,14 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { IImageLoader, LoadedImage } from "../common/IImageLoader.js";
 import type { TreeNodeItem } from "./TreeDataProvider.js";
 
 /** Interface for a tree image loader
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface ITreeImageLoader extends IImageLoader {
   load: (item: TreeNodeItem) => LoadedImage | undefined;
@@ -18,6 +21,7 @@ export interface ITreeImageLoader extends IImageLoader {
 
 /** Default image loader for the tree
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class TreeImageLoader implements ITreeImageLoader {
   /** Loads image data from either [[TreeNodeItem]] */

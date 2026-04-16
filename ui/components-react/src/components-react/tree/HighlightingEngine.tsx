@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import "./HighlightingEngine.scss";
 import * as React from "react";
 import { HighlightedText } from "../common/HighlightedText.js";
@@ -14,6 +16,7 @@ import { HighlightedText } from "../common/HighlightedText.js";
  * Properties for identifying an active highlight on a node in a tree.
  * @see [[HighlightableTreeProps.activeMatch]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface ActiveMatchInfo {
   nodeId: string;
@@ -24,6 +27,7 @@ export interface ActiveMatchInfo {
  * Properties for highlighting nodes in a tree.
  * @see [[ControlledTreeProps.nodeHighlightingProps]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface HighlightableTreeProps {
   searchText: string;
@@ -33,6 +37,7 @@ export interface HighlightableTreeProps {
 /**
  * Properties for a highlightable [[TreeNode]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface HighlightableTreeNodeProps {
   searchText: string;
@@ -42,10 +47,12 @@ export interface HighlightableTreeNodeProps {
 /**
  * Tree highlighting engine
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class HighlightingEngine {
   private _searchText: string;
   private _activeMatch?: ActiveMatchInfo;
+  /** @deprecated in 5.28.0. Use `HIGHLIGHT_ACTIVE_CLASS_NAME` instead. */
   public static readonly ACTIVE_CLASS_NAME = "components-activehighlight";
 
   constructor(props: HighlightableTreeProps) {

@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import * as React from "react";
 import type { CommonProps } from "@itwin/core-react";
 import { FillCentered } from "@itwin/core-react";
@@ -33,8 +35,8 @@ import { useTranslation } from "../../../l10n/useTranslation.js";
 /**
  * Properties for [[ControlledTree]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ControlledTreeProps extends CommonProps {
   /** Model of the tree to display. */
   model: TreeModel;
@@ -76,6 +78,7 @@ export interface ControlledTreeProps extends CommonProps {
 /**
  * React tree component which rendering is fully controlled from outside.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function ControlledTree(props: ControlledTreeProps) {
   const nodeHeight = useNodeHeight(!!props.descriptionsEnabled);
@@ -142,6 +145,7 @@ export function ControlledTree(props: ControlledTreeProps) {
  * Returns callbacks for persisting and restoring [[ControlledTree]] layout state.
  * Returned `ref` should be set on container containing ControlledTree.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function useControlledTreeLayoutStorage<T extends Element>() {
   return useElementsScrollStorage<T>("ReactWindow__VariableSizeList");
@@ -188,7 +192,6 @@ function Loader(props: LoaderProps) {
     return props.noDataRenderer ? (
       props.noDataRenderer()
     ) : (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <FillCentered>
         <p className="components-controlledTree-errorMessage">
           {translate("general.noData")}
