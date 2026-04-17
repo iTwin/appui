@@ -6,8 +6,11 @@
  * @module Common
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** Selection mode flags for Tree row selection
  * @public
+ * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
  */
 export enum SelectionModeFlags {
   SelectionLimitOne = 1 << 0,
@@ -19,6 +22,7 @@ export enum SelectionModeFlags {
 
 /** Selection modes for Tree row selection
  * @public
+ * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
  */
 export enum SelectionMode {
   /** Only one item selected at a time. */
@@ -36,6 +40,7 @@ export enum SelectionMode {
 
 /** Determines if a SelectionMode is active
  * @public
+ * @deprecated in 5.28.0. Used only deprecated `ControlledTree` component.
  */
 export const hasSelectionModeFlag = (
   selectionMode: SelectionMode,

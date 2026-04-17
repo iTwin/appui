@@ -1,5 +1,13 @@
 # Change Log - @itwin/core-react
 
+## 5.27.1
+
+### Patch Changes
+
+- 47cf43f: Fix usage of deprecated legacy SASS `if()` function.
+
+## 5.27.0
+
 ## 5.26.0
 
 ## 5.25.0

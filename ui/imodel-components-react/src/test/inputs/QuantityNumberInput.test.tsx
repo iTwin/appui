@@ -81,11 +81,11 @@ describe("<QuantityNumberInput />", () => {
 
   it("value should update with up/down buttons", () => {
     const initialLengthInMeters = 1;
-    const initialLengthInFeet = 3.2808;
+    const initialLengthInFeet = 3.28;
     const updatedLengthInMeters = 5;
-    const updatedLengthInFeet = 16.4042;
-    const incrementedLengthInMeters = 5.30480016;
-    const incrementedLengthFeet = 17.4042;
+    const updatedLengthInFeet = 16.4;
+    const incrementedLengthInMeters = 5.30352;
+    const incrementedLengthFeet = 17.4;
 
     const spy = vi.fn();
     let updatedValue: number | undefined = 5;
@@ -585,7 +585,7 @@ describe("<QuantityNumberInput />", () => {
     expect((input as HTMLInputElement).value).toEqual("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
     expect(spy).not.toBeCalled(); // value was invalid so previous value restore and no callback
-    expect((input as HTMLInputElement).value).toEqual("3.2808");
+    expect((input as HTMLInputElement).value).toEqual("3.28");
   });
 
   it("renders for touch correctly", () => {

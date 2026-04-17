@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import "../../common/DisposePolyfill.js";
 
 import { Subject, takeUntil } from "rxjs";
@@ -26,6 +28,7 @@ import type { ITreeNodeLoader } from "./TreeNodeLoader.js";
 /**
  * Params used for tree node editing.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeEditingParams {
   /** Callback that is called when node is updated. */
@@ -35,6 +38,7 @@ export interface TreeEditingParams {
 /**
  * Data structure that describes tree event handler params.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeEventHandlerParams {
   /** Model source used to modify tree model while handling events. */
@@ -50,6 +54,7 @@ export interface TreeEventHandlerParams {
 /**
  * Default tree event handler.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class TreeEventHandler implements TreeEvents, Disposable {
   private _modelMutator: TreeModelMutator;

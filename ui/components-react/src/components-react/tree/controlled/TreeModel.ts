@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import { immerable } from "immer";
 import cloneDeep from "lodash/cloneDeep.js";
 import { assert } from "@itwin/core-bentley";
@@ -22,6 +24,7 @@ import { CheckBoxState } from "../../common/CheckBoxState.js";
 /**
  * Immutable data structure that describes tree node.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModelNode {
   readonly id: string;
@@ -48,6 +51,7 @@ export interface TreeModelNode {
 /**
  * Immutable data structure that describes checkbox info.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface CheckBoxInfo {
   readonly state: CheckBoxState;
@@ -59,6 +63,7 @@ export interface CheckBoxInfo {
 /**
  * Mutable data structure that describes tree node.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface MutableTreeModelNode extends TreeModelNode {
   isLoading: boolean;
@@ -80,6 +85,7 @@ export interface MutableTreeModelNode extends TreeModelNode {
 /**
  * Data structure that holds callbacks used for tree node editing.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModelNodeEditingInfo {
   onCommit: (node: TreeModelNode, newValue: string) => void;
@@ -89,6 +95,7 @@ export interface TreeModelNodeEditingInfo {
 /**
  * Mutable data structure that describes checkbox info.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface MutableCheckBoxInfo extends CheckBoxInfo {
   state: CheckBoxState;
@@ -100,6 +107,7 @@ export interface MutableCheckBoxInfo extends CheckBoxInfo {
 /**
  * Data structure that describes tree node placeholder.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModelNodePlaceholder {
   readonly childIndex: number;
@@ -110,6 +118,7 @@ export interface TreeModelNodePlaceholder {
 /**
  * Data structure that describes tree root node.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModelRootNode {
   readonly depth: -1;
@@ -120,6 +129,7 @@ export interface TreeModelRootNode {
 /**
  * Data structure that describes input used to create tree node.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModelNodeInput {
   readonly description?: string;
@@ -135,6 +145,7 @@ export interface TreeModelNodeInput {
 /**
  * Type definition of all tree model nodes.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeModelNodeType =
   | TreeModelNode
@@ -144,6 +155,7 @@ export type TreeModelNodeType =
 /**
  * Checks if object is [[TreeModelNode]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function isTreeModelNode(
   obj: TreeModelNodeType | undefined
@@ -158,6 +170,7 @@ export function isTreeModelNode(
 /**
  * Checks if object is [[TreeModelNodePlaceholder]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function isTreeModelNodePlaceholder(
   obj: TreeModelNodeType | undefined
@@ -168,6 +181,7 @@ export function isTreeModelNodePlaceholder(
 /**
  * Checks if object is [[TreeModelRootNode]]
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function isTreeModelRootNode(
   obj: TreeModelNodeType | undefined
@@ -182,6 +196,7 @@ export function isTreeModelRootNode(
 /**
  * Type definition of tree node item data.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem &
   DelayLoadedTreeNodeItem;
@@ -189,6 +204,7 @@ export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem &
 /**
  * Data structure that describes set of visible tree nodes as a flat list.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface VisibleTreeNodes
   extends Iterable<TreeModelNode | TreeModelNodePlaceholder> {
@@ -204,6 +220,7 @@ export interface VisibleTreeNodes
 /**
  * Data structure that describes tree model.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModel {
   getRootNode(): TreeModelRootNode;
@@ -230,6 +247,7 @@ export interface TreeModel {
 /**
  * Mutable tree model which holds nodes and allows adding or removing them.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class MutableTreeModel implements TreeModel {
   public [immerable] = true;
@@ -595,6 +613,7 @@ export class MutableTreeModel implements TreeModel {
 /**
  * Generates flat list of visible nodes in the tree model.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes {
   const result = getVisibleDescendants(model, model.getRootNode());
@@ -619,6 +638,7 @@ export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes {
 /**
  * Traverses the tree and collects visible descendants.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export function getVisibleDescendants(
   model: TreeModel,

@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import "./NodeContent.scss";
 import classnames from "classnames";
 import * as React from "react";
@@ -25,9 +27,8 @@ import { TreeNodeEditor } from "./TreeNodeEditor.js";
 /**
  * Properties for [[TreeNodeContent]] component
  * @public
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof TreeNodeContent>`
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TreeNodeContentProps extends CommonProps {
   /** Tree node to render label for. */
   node: TreeModelNode;
@@ -44,8 +45,8 @@ export interface TreeNodeContentProps extends CommonProps {
 /**
  * React component for displaying [[TreeNode]] label
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function TreeNodeContent(props: TreeNodeContentProps) {
   const { node, onLabelRendered, highlightProps } = props;
   const label = React.useMemo(
@@ -118,7 +119,6 @@ function getLabel(
     style: getStyle(node.item.style, node.isSelected),
     textHighlighter: highlightCallback,
     defaultValue: (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <TreeNodePlaceholder level={0} data-testid={"node-label-placeholder"} />
     ),
   };

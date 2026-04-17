@@ -1,5 +1,26 @@
 # Change Log - @itwin/appui-react
 
+## 5.27.1
+
+### Patch Changes
+
+- Updated dependencies [47cf43f]
+  - @itwin/core-react@5.27.1
+  - @itwin/components-react@5.27.1
+  - @itwin/imodel-components-react@5.27.1
+
+## 5.27.0
+
+### Minor Changes
+
+- 86d3dd4: Restore fixed width behavior of `ToolAssistanceField` component.
+
+### Patch Changes
+
+- @itwin/components-react@5.27.0
+- @itwin/core-react@5.27.0
+- @itwin/imodel-components-react@5.27.0
+
 ## 5.26.0
 
 ### Minor Changes

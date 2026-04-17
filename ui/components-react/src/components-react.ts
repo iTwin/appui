@@ -479,6 +479,7 @@ export {
   OrthogonalDirection,
 } from "./components-react/toolbar/utilities/Direction.js";
 
+export { HIGHLIGHT_ACTIVE_CLASS_NAME } from "./components-react/common/HighlightedText.js";
 export {
   DelayLoadedTreeNodeItem,
   EditableTreeDataProvider,

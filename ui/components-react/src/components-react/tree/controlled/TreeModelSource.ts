@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import type { Patch } from "immer";
 import { produce } from "immer";
 import { BeUiEvent } from "@itwin/core-bentley";
@@ -15,6 +17,7 @@ import { MutableTreeModel } from "./TreeModel.js";
 /**
  * Data structure that describes changes which happened to the tree model
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export interface TreeModelChanges {
   addedNodeIds: string[];
@@ -26,6 +29,7 @@ export interface TreeModelChanges {
  * Controls tree model.
  * It is used to modify model and inform when tree model changes.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export class TreeModelSource {
   /** Event that is emitted every time tree model is changed. */
