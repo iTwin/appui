@@ -609,6 +609,7 @@ export {
   Node,
   SparseArray,
 } from "./components-react/tree/controlled/internal/SparseTree.js";
+export type {} from "./components-react/abstract-types.js";
 
 // #region "SideEffects"
 
