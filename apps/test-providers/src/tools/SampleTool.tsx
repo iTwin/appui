@@ -234,7 +234,7 @@ export class SampleTool extends PrimitiveTool {
           {
             type: PropertyEditorParamTypes.InputEditorSize,
             size: 1,
-            maxWidth: 6,
+            maxSize: 6,
             /* maxLength: 60,*/
           } as InputEditorSizeParams,
         ],

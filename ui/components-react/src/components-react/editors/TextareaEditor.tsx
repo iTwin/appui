@@ -37,7 +37,7 @@ type TextareaProps = React.ComponentPropsWithoutRef<typeof Textarea>;
 interface TextareaEditorState {
   inputValue: string;
   size?: number;
-  maxWidth?: number;
+  maxSize?: number;
   maxLength?: number;
   rows: number;
 }
@@ -122,7 +122,7 @@ export class TextareaEditor
     }
 
     let size: number | undefined;
-    let maxWidth: number | undefined;
+    let maxSize: number | undefined;
     let maxLength: number | undefined;
     let rows: number = DEFAULT_ROWS;
 
@@ -138,7 +138,7 @@ export class TextareaEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
-        if (editorSizeParams.maxWidth) maxWidth = editorSizeParams.maxWidth;
+        if (editorSizeParams.maxSize) maxSize = editorSizeParams.maxSize;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -155,7 +155,7 @@ export class TextareaEditor
       this.setState({
         inputValue: initialValue,
         size,
-        maxWidth,
+        maxSize,
         maxLength,
         rows,
       });
@@ -189,8 +189,8 @@ export class TextareaEditor
     const style: React.CSSProperties = {
       ...this.props.style,
       minWidth: `${minSize * 0.75}em`,
-      maxWidth: this.state.maxWidth
-        ? `${this.state.maxWidth * 0.75}em`
+      maxWidth: this.state.maxSize
+        ? `${this.state.maxSize * 0.75}em`
         : undefined,
     };
     const textareaProps: TextareaProps = {

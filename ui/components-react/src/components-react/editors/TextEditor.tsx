@@ -36,7 +36,7 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 interface TextEditorState {
   inputValue: string;
   size?: number;
-  maxWidth?: number;
+  maxSize?: number;
   maxLength?: number;
   iconSpec?: string;
 }
@@ -130,7 +130,7 @@ export class TextEditor
     }
 
     let size: number | undefined;
-    let maxWidth: number | undefined;
+    let maxSize: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
@@ -146,7 +146,7 @@ export class TextEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
-        if (editorSizeParams.maxWidth) maxWidth = editorSizeParams.maxWidth;
+        if (editorSizeParams.maxSize) maxSize = editorSizeParams.maxSize;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -163,7 +163,7 @@ export class TextEditor
       this.setState({
         inputValue: initialValue,
         size,
-        maxWidth,
+        maxSize,
         maxLength,
         iconSpec,
       });
@@ -179,8 +179,8 @@ export class TextEditor
     const minSize = this.state.size ? this.state.size : 8;
     const style: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
-      maxWidth: this.state.maxWidth
-        ? `${this.state.maxWidth * 0.75}em`
+      maxWidth: this.state.maxSize
+        ? `${this.state.maxSize * 0.75}em`
         : undefined,
     };
     const inputProps: InputProps = {

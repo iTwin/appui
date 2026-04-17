@@ -14,7 +14,7 @@ declare module "@itwin/core-frontend" {
 
 declare module "@itwin/appui-abstract" {
   interface InputEditorSizeParams {
-    /** The max-width for an input editor. */
-    maxWidth?: number;
+    /** The maxSize for an input editor. */
+    maxSize?: number;
   }
 }

@@ -32,7 +32,7 @@ import { InputWithDecorations } from "@itwin/itwinui-react";
 interface NumericInputEditorState {
   value: number;
   size?: number;
-  maxWidth?: number;
+  maxSize?: number;
   maxLength?: number;
 
   min?: number;
@@ -130,7 +130,7 @@ export class NumericInputEditor
     }
 
     let size: number | undefined;
-    let maxWidth: number | undefined;
+    let maxSize: number | undefined;
     let maxLength: number | undefined;
     let min: number | undefined;
     let max: number | undefined;
@@ -149,7 +149,7 @@ export class NumericInputEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
-        if (editorSizeParams.maxWidth) maxWidth = editorSizeParams.maxWidth;
+        if (editorSizeParams.maxSize) maxSize = editorSizeParams.maxSize;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -169,7 +169,7 @@ export class NumericInputEditor
       this.setState({
         value: initialValue,
         size,
-        maxWidth,
+        maxSize,
         maxLength,
         min,
         max,
@@ -189,8 +189,8 @@ export class NumericInputEditor
     const style: React.CSSProperties = {
       ...this.props.style,
       minWidth: `${minSize * 0.75}em`,
-      maxWidth: this.state.maxWidth
-        ? `${this.state.maxWidth * 0.75}em`
+      maxWidth: this.state.maxSize
+        ? `${this.state.maxSize * 0.75}em`
         : undefined,
     };
 
