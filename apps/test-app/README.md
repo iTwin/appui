@@ -6,24 +6,23 @@ The application contained within this directory provides a test environment for 
 
 ## Getting Started
 
-The application may be run as an Electron app or within a browser. The following steps outline the procedure for successfully building the application as part of a larger monorepo, and then starting the application via npm scripts.
+The application may be run as an Electron app or within a browser. The following steps outline the procedure for successfully building and running the application as part of a larger monorepo.
 
-1. To get started, follow the instructions to setup the entire repository, located [here](../../README.md#build-instructions).
+1. To get started, follow the instructions to setup the entire repository, located [here](../../CONTRIBUTING.md#getting-started).
 2. Optionally, set other environment variables to configure the application prior to startup. The full list of supported variables is [below](#environment-variables).
 3. There are two ways to start the application:
 
 - In a browser:
 
   ```cmd
-  cd apps/test-app
-  npm start
+  pnpm app
   ```
 
 - In Electron:
 
   ```cmd
   cd apps/test-app
-  npm run electron
+  pnpm electron
   ```
 
 ## Environment Variables

@@ -10,13 +10,17 @@
     ".": "./lib/appui-test-providers.js"
   },
   "scripts": {
-    "start": "run-p -l \"build -- -w\" \"copy:** -- -w\"",
-    "build": "npm run copy:css && npm run copy:locale && tsc",
-    "copy:css": "cpx \"./src/**/*.{*css,json,svg}\" ./lib",
-    "copy:locale": "cpx \"./public/**/*\" ./lib/public",
+    "dev": "pnpm \"/^dev:.*/\"",
+    "dev:locale": "pnpm build:locale -w",
+    "dev:css": "pnpm build:css -w",
+    "dev:tsc": "tsc -w --preserveWatchOutput",
+    "build": "pnpm \"/^build:.*/\"",
+    "build:locale": "cpx \"./public/**/*\" ./lib/public",
+    "build:css": "cpx \"./src/**/*.{*css,json,svg}\" ./lib",
+    "build:tsc": "tsc",
     "clean": "rimraf -g lib",
-    "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract",
-    "lint": "eslint \"./src/**/*.{ts,tsx}\""
+    "lint": "eslint \"./src/**/*.{ts,tsx}\"",
+    "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract"
   },
   "keywords": [
     "iModel",
