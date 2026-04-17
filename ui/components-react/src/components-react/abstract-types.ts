@@ -5,7 +5,7 @@
 
 declare module "@itwin/appui-abstract" {
   interface InputEditorSizeParams {
-    /** The maxSize for an input editor. */
+    /** The maxSize for an input editor in characters. */
     maxSize?: number;
   }
 }
