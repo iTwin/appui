@@ -1,5 +1,19 @@
 # Change Log - @itwin/components-react
 
+## 5.28.0
+
+### Minor Changes
+
+- 3585ac3: Deprecated `ControlledTree` component and all related tree APIs in favor of the `Tree` component from `@stratakit/structures`.
+
+  Added `HIGHLIGHT_ACTIVE_CLASS_NAME` constant in favor of now deprecated `HighlightingEngine.ACTIVE_CLASS_NAME`
+
+- 6962fcf: Added `maxSize` property to `InputEditorSizeParams` interface of `@itwin/appui-abstract` package (using TypeScript declaration merging) to allow setting the max size for input editors.
+
+### Patch Changes
+
+- @itwin/core-react@5.28.0
+
 ## 5.27.1
 
 ### Patch Changes
