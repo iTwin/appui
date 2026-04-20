@@ -4,6 +4,10 @@
   "description": "Monorepo for iTwin.js AppUI",
   "license": "MIT",
   "scripts": {
+    "dev": "run-p dev:packages storybook",
+    "dev:packages": "pnpm --recursive --parallel --filter=!test-app --filter=!appui-storybook dev",
+    "app": "pnpm --filter=test-app dev",
+    "storybook": "pnpm --filter=appui-storybook dev",
     "build": "pnpm --recursive build",
     "clean": "pnpm --recursive --parallel clean",
     "docs": "pnpm --recursive --parallel docs",
@@ -15,12 +19,13 @@
     "cspell": "pnpm exec cspell lint \"**\" --gitignore",
     "prettier": "pnpm exec prettier --check .",
     "prettier:fix": "pnpm exec prettier --write .",
-    "release": "npm run build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "2.29.6",
     "cspell": "^8.19.4",
     "fast-glob": "^3.3.3",
+    "npm-run-all": "^4.1.5",
     "prettier": "^2.8.8",
     "tsx": "^4.21.0"
   },
