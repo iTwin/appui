@@ -37,6 +37,7 @@ interface TextEditorState {
   inputValue: string;
   originalValue: string;
   size?: number;
+  maxSize?: number;
   maxLength?: number;
   iconSpec?: string;
 }
@@ -140,6 +141,7 @@ export class TextEditor
     }
 
     let size: number | undefined;
+    let maxSize: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
@@ -155,6 +157,7 @@ export class TextEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
+        if (editorSizeParams.maxSize) maxSize = editorSizeParams.maxSize;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -172,6 +175,7 @@ export class TextEditor
         inputValue: record?.isMerged && !this.hasFocus ? "--" : initialValue,
         originalValue: initialValue,
         size,
+        maxSize,
         maxLength,
         iconSpec,
       });
@@ -185,13 +189,16 @@ export class TextEditor
       this.props.className
     );
     const minSize = this.state.size ? this.state.size : 8;
-    const minWidthStyle: React.CSSProperties = {
+    const style: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
+      maxWidth: this.state.maxSize
+        ? `${this.state.maxSize * 0.75}em`
+        : undefined,
     };
     const inputProps: InputProps = {
       type: "text",
       className,
-      style: this.props.style ? this.props.style : minWidthStyle,
+      style: this.props.style ? this.props.style : style,
       readOnly: this.props.propertyRecord?.isReadonly,
       disabled: this.props.propertyRecord?.isDisabled,
       maxLength: this.state.maxLength,
