@@ -49,6 +49,10 @@ function NumericInputEditor({
     sizeParams?.size !== undefined
       ? {
           minWidth: `${sizeParams?.size * 0.75}em`,
+          maxWidth:
+            sizeParams?.maxSize !== undefined
+              ? `${sizeParams?.maxSize * 0.75}em`
+              : undefined,
         }
       : undefined;
 

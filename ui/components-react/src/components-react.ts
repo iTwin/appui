@@ -479,6 +479,7 @@ export {
   OrthogonalDirection,
 } from "./components-react/toolbar/utilities/Direction.js";
 
+export { HIGHLIGHT_ACTIVE_CLASS_NAME } from "./components-react/common/HighlightedText.js";
 export {
   DelayLoadedTreeNodeItem,
   EditableTreeDataProvider,
@@ -608,6 +609,7 @@ export {
   Node,
   SparseArray,
 } from "./components-react/tree/controlled/internal/SparseTree.js";
+export type {} from "./components-react/abstract-types.js";
 
 // #region "SideEffects"
 

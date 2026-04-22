@@ -100,7 +100,7 @@ const config: PlaywrightTestConfig = {
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "npm run --prefix ../apps/test-app preview",
+    command: "pnpm --filter=test-app preview",
     url: "http://localhost:3000/",
     reuseExistingServer: !process.env.CI,
   },

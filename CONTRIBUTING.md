@@ -13,9 +13,7 @@ We welcome contributions, large or small, including:
 - Sample data
 
 Have a question?
-Rather than opening an issue, first check [the Github discussions page](https://github.com/iTwin/itwinjs-core/discussions). Additionally, feel free to contribute via [GitHub issues](https://github.com/iTwin/itwinjs-core/labels/discussion) using the `discussion` label.
-
-Thank you for taking the time to contribute to open source and making great projects like iTwin.js possible!
+Rather than opening an issue, first check [the Github discussions page](https://github.com/iTwin/appui/discussions).
 
 ## Contributing guidelines
 
@@ -63,12 +61,23 @@ You can read more about [Contributor License Agreements](https://en.wikipedia.or
 
 > All submissions go through a review process from our developers using GitHub. Consult [GitHub Help](https://help.github.com/articles/about-pull-requests/) for more information on using pull requests.
 
+## Prerequisites
+
+- [Git](https://git-scm.com/)
+- [Node 24+](https://nodejs.org/)
+- [pnpm](https://pnpm.io/)
+
+> See [supported platforms](https://www.itwinjs.org/learning/supportedplatforms/) for further information.
+
 ## Getting started
 
-1. Install dependencies using `pnpm install`.
-2. Run build using `pnpm build`.
-3. While in the desired packages' folder, run `npm start` to enter build in watch mode for easy validation along the `test-app` or `storybook` (see [Testing options](#testing-options)).
-4. In a new terminal, `cd` into `apps/test-app` and run `npm run start:webserver`.
+1. [Clone the repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository).
+2. Go to the directory where you cloned the repo. e.g. `cd appui`.
+3. Install dependencies using `pnpm install`.
+4. Build the project using `pnpm build`.
+5. Run `pnpm dev` to start the storybook in the development environment. See [testing options](#testing-options) for alternative testing methods.
+
+> Note: It is a good idea to `pnpm install` after each `git pull` as dependencies may have changed.
 
 ## Commands
 
@@ -119,15 +128,17 @@ The repository is set up to allow 2 different ways of testing changes with manua
 
 ### Test app
 
-In the `apps/test-app` directory there is a test app that can be used to test changes to the packages in this repository. The `test-app` is an iTwin.js application that allows you to open both local `.bim` files and remote iModels from the iTwin Hub. [See README.md for more info](./apps/test-app/README.md)
+The `test-app` is an iTwin.js application that allows you to open both local `.bim` files and remote iModels from the iTwin Hub. [See README.md for more info](./apps/test-app/README.md)
 
-The `apps/test-providers` package currently used by the `test-app` should eventually be merged into the `test-app`.
+Run `pnpm app` to start the `test-app` development server. Once running, you can access it at `http://localhost:3000/`. Make sure that the regular `pnpm dev` development environment is running in another terminal.
 
 > Note: `test-app` is used by the [end-to-end tests](./e2e-tests/README.md).
 
 ### Storybook
 
-There is a [storybook](https://storybook.js.org/) that can be used to test changes to the packages in this repository. The storybook can be run with `npm start` from `docs/storybook` folder, and will be accessible at `http://localhost:3000/`.
+The `storybook` is a UI component explorer that uses [Storybook](https://storybook.js.org/).
+
+Run `pnpm dev` to start the development server of `storybook`. Once running, you can access it at `http://localhost:1801/`.
 
 Storybook is deployed with each PR build and can be accessed through the **Storybook preview** link in the PR checks. (Direct link: `https://itwin.github.io/appui/[PR_NUMBER]`) So adding stories for a feature facilitates PR reviews.
 

@@ -44,7 +44,6 @@ import { createKeyboardShortcuts } from "./appui/KeyboardShortcuts";
 import { TestAppLocalization } from "./useTranslation";
 import { ElectronApp } from "@itwin/core-electron/lib/cjs/ElectronFrontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
-import { IModelsClient } from "@itwin/imodels-client-management";
 import { CreateCircleTool } from "./tools/CreateCircleTool";
 
 function createInitializer() {
@@ -66,15 +65,14 @@ function createInitializer() {
 
     const origin = window.location.origin;
 
-    const iModelClient = new IModelsClient({
-      api: {
-        baseUrl: `https://${config.urlPrefix}api.bentley.com/imodels`,
-      },
-    });
     const options: IModelAppOptions = {
       accuDraw: new FrameworkAccuDraw(),
       accuSnap: new AppAccuSnap(),
-      hubAccess: new FrontendIModelsAccess(iModelClient),
+      hubAccess: new FrontendIModelsAccess({
+        api: {
+          baseUrl: `https://${config.urlPrefix}api.bentley.com/imodels`,
+        },
+      }),
       notifications: new AppNotificationManager(),
       uiAdmin: new FrameworkUiAdmin(),
       realityDataAccess: new RealityDataAccessClient({
