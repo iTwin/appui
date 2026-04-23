@@ -35,6 +35,7 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 /** @internal */
 interface TextEditorState {
   inputValue: string;
+  originalValue: string;
   size?: number;
   maxSize?: number;
   maxLength?: number;
@@ -53,6 +54,7 @@ export class TextEditor
 
   public override readonly state: Readonly<TextEditorState> = {
     inputValue: "",
+    originalValue: "",
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -77,6 +79,15 @@ export class TextEditor
   public get hasFocus(): boolean {
     return document.activeElement === this._inputElement.current;
   }
+
+  private _onFocus = () => {
+    if (this._isMounted && this.props.propertyRecord?.isMerged) {
+      this.setState((prevState) => ({
+        ...prevState,
+        inputValue: prevState.originalValue,
+      }));
+    }
+  };
 
   private _updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (this._isMounted)
@@ -161,7 +172,8 @@ export class TextEditor
 
     if (this._isMounted)
       this.setState({
-        inputValue: initialValue,
+        inputValue: record?.isMerged && !this.hasFocus ? "--" : initialValue,
+        originalValue: initialValue,
         size,
         maxSize,
         maxLength,
@@ -192,6 +204,7 @@ export class TextEditor
       maxLength: this.state.maxLength,
       value: this.state.inputValue,
       onBlur: this.props.onBlur,
+      onFocus: this._onFocus,
       onChange: this._updateInputValue,
       autoFocus: this.props.setFocus && !this.props.propertyRecord?.isDisabled,
       "aria-label": UiComponents.translate("editor.text"),

@@ -8,12 +8,36 @@ import TestUtils from "../../../TestUtils.js";
 
 describe("MergedPropertyValueRenderer", () => {
   describe("render", () => {
-    it("renders merged property as localized string '*** Varies ***'", async () => {
+    it("renders merged property as '--'", async () => {
       const renderer = new MergedPropertyValueRenderer();
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
       const { getByText } = render(renderer.render(property));
-      await waitFor(() => getByText("property.varies"));
+      await waitFor(() => getByText("--"));
+    });
+
+    it("renders '-- unit' when displayValue starts with '--'", async () => {
+      const renderer = new MergedPropertyValueRenderer();
+      const property = TestUtils.createPrimitiveStringProperty(
+        "Length",
+        "unused",
+        "-- ft"
+      );
+      property.isMerged = true;
+      const { getByText } = render(renderer.render(property));
+      await waitFor(() => getByText("-- ft"));
+    });
+
+    it("renders '--' when displayValue does not start with '--'", async () => {
+      const renderer = new MergedPropertyValueRenderer();
+      const property = TestUtils.createPrimitiveStringProperty(
+        "Length",
+        "unused",
+        "14.23 ft"
+      );
+      property.isMerged = true;
+      const { getByText } = render(renderer.render(property));
+      await waitFor(() => getByText("--"));
     });
   });
 

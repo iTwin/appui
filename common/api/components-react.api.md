@@ -1361,7 +1361,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
