@@ -1,5 +1,13 @@
 # Change Log - @itwin/components-react
 
+## 5.28.1
+
+### Patch Changes
+
+- 5976547: Changed `MergedPropertyValueRenderer` to render `--` instead of `*** varies ***`. If a merged property has a display value starting with `--` (e.g. `-- unit`), that value will be used instead of the default `--`. Text editor now also displays `--` for merged properties instead of showing an empty value.
+- Updated dependencies [2a864ed]
+  - @itwin/core-react@5.28.1
+
 ## 5.28.0
 
 ### Minor Changes
