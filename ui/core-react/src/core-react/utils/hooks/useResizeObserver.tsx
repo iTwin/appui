@@ -38,7 +38,7 @@ export function useResizeObserver<T extends Element>(
       if (rafRef.current && owningWindowRef.current)
         owningWindowRef.current.cancelAnimationFrame(rafRef.current);
       owningWindowRef.current?.removeEventListener(
-        "beforeunload",
+        "unload",
         resizeObserverCleanup
       );
     };
@@ -71,7 +71,7 @@ export function useResizeObserver<T extends Element>(
       const target = entries[0].target as HTMLElement;
       owningWindowRef.current &&
         owningWindowRef.current.removeEventListener(
-          "beforeunload",
+          "unload",
           resizeObserverCleanup
         );
 
@@ -174,7 +174,7 @@ export function useLayoutResizeObserver(
         owningWindowRef.current.cancelAnimationFrame(rafRef.current);
       owningWindowRef.current &&
         owningWindowRef.current.removeEventListener(
-          "beforeunload",
+          "unload",
           resizeObserverCleanup
         );
     };
@@ -206,7 +206,7 @@ export function useLayoutResizeObserver(
       const target = entries[0].target as HTMLElement;
       if (owningWindowRef.current)
         owningWindowRef.current.removeEventListener(
-          "beforeunload",
+          "unload",
           resizeObserverCleanup
         );
 
