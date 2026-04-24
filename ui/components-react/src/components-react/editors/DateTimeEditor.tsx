@@ -291,7 +291,7 @@ export class DateTimeEditor
     );
 
     return (
-      <div className={className} ref={this._divElement}>
+      <div className={className} ref={this._divElement} id={this.props.propertyRecord?.property.name}>
         <PopupButton
           label={this.state.displayValue}
           onClose={this._handleClose}
