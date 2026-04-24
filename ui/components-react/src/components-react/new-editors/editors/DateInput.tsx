@@ -15,6 +15,7 @@ interface DateInputProps {
   size?: "small" | "large";
   disabled?: boolean;
   showTimePicker?: boolean;
+  id?: string;
 }
 
 /**
@@ -27,6 +28,7 @@ export function DateInput({
   size,
   showTimePicker,
   disabled,
+  id,
 }: DateInputProps) {
   const currentValue = value ?? new Date();
   const dateStr = showTimePicker
@@ -50,7 +52,7 @@ export function DateInput({
         }
       }}
     >
-      <Button style={{ width: "100%" }} size={size} disabled={disabled}>
+      <Button id={id} style={{ width: "100%" }} size={size} disabled={disabled}>
         {dateStr}
       </Button>
     </Popover>
