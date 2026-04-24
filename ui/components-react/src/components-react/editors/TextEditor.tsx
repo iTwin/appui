@@ -35,7 +35,9 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 /** @internal */
 interface TextEditorState {
   inputValue: string;
+  originalValue: string;
   size?: number;
+  maxSize?: number;
   maxLength?: number;
   iconSpec?: string;
 }
@@ -52,6 +54,7 @@ export class TextEditor
 
   public override readonly state: Readonly<TextEditorState> = {
     inputValue: "",
+    originalValue: "",
   };
 
   public async getPropertyValue(): Promise<PropertyValue | undefined> {
@@ -76,6 +79,15 @@ export class TextEditor
   public get hasFocus(): boolean {
     return document.activeElement === this._inputElement.current;
   }
+
+  private _onFocus = () => {
+    if (this._isMounted && this.props.propertyRecord?.isMerged) {
+      this.setState((prevState) => ({
+        ...prevState,
+        inputValue: prevState.originalValue,
+      }));
+    }
+  };
 
   private _updateInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (this._isMounted)
@@ -129,6 +141,7 @@ export class TextEditor
     }
 
     let size: number | undefined;
+    let maxSize: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: string | undefined;
 
@@ -144,6 +157,7 @@ export class TextEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
+        if (editorSizeParams.maxSize) maxSize = editorSizeParams.maxSize;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -158,8 +172,10 @@ export class TextEditor
 
     if (this._isMounted)
       this.setState({
-        inputValue: initialValue,
+        inputValue: record?.isMerged && !this.hasFocus ? "--" : initialValue,
+        originalValue: initialValue,
         size,
+        maxSize,
         maxLength,
         iconSpec,
       });
@@ -173,18 +189,22 @@ export class TextEditor
       this.props.className
     );
     const minSize = this.state.size ? this.state.size : 8;
-    const minWidthStyle: React.CSSProperties = {
+    const style: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
+      maxWidth: this.state.maxSize
+        ? `${this.state.maxSize * 0.75}em`
+        : undefined,
     };
     const inputProps: InputProps = {
       type: "text",
       className,
-      style: this.props.style ? this.props.style : minWidthStyle,
+      style: this.props.style ? this.props.style : style,
       readOnly: this.props.propertyRecord?.isReadonly,
       disabled: this.props.propertyRecord?.isDisabled,
       maxLength: this.state.maxLength,
       value: this.state.inputValue,
       onBlur: this.props.onBlur,
+      onFocus: this._onFocus,
       onChange: this._updateInputValue,
       autoFocus: this.props.setFocus && !this.props.propertyRecord?.isDisabled,
       "aria-label": UiComponents.translate("editor.text"),

@@ -42,6 +42,7 @@ type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 interface CustomNumberEditorState {
   inputValue: string;
   size?: number;
+  maxSize?: number;
   maxLength?: number;
   iconSpec?: React.ReactNode;
 }
@@ -288,6 +289,7 @@ export class CustomNumberEditor
       displayValue: initialDisplayValue,
     };
     let size: number | undefined;
+    let maxSize: number | undefined;
     let maxLength: number | undefined;
     let iconSpec: React.ReactNode | undefined;
 
@@ -302,6 +304,7 @@ export class CustomNumberEditor
       ) as InputEditorSizeParams;
       if (editorSizeParams) {
         if (editorSizeParams.size) size = editorSizeParams.size;
+        if (editorSizeParams.maxSize) maxSize = editorSizeParams.maxSize;
         if (editorSizeParams.maxLength) maxLength = editorSizeParams.maxLength;
       }
 
@@ -339,6 +342,7 @@ export class CustomNumberEditor
       inputValue,
       size,
       maxLength,
+      maxSize,
       iconSpec,
     });
   }
@@ -378,8 +382,11 @@ export class CustomNumberEditor
   public override render(): React.ReactNode {
     const { decoration } = this.props as InternalInputEditorProps;
     const minSize = this.state.size ? this.state.size : 8;
-    const minWidthStyle: React.CSSProperties = {
+    const style: React.CSSProperties = {
       minWidth: `${minSize * 0.75}em`,
+      maxWidth: this.state.maxSize
+        ? `${this.state.maxSize * 0.75}em`
+        : undefined,
     };
     const record = this.props.propertyRecord as PropertyRecord;
     if (!record || !this._formatParams) return null;
@@ -395,7 +402,7 @@ export class CustomNumberEditor
 
     const inputProps: Omit<InputProps, "size"> = {
       className,
-      style: this.props.style ? this.props.style : minWidthStyle,
+      style: this.props.style ? this.props.style : style,
       readOnly,
       disabled,
       maxLength: this.state.maxLength,

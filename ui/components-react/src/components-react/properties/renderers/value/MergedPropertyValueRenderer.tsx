@@ -7,14 +7,13 @@
  */
 
 import * as React from "react";
-import type { PropertyRecord } from "@itwin/appui-abstract";
+import type { PrimitiveValue, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
   PropertyValueRendererContext,
 } from "../../ValueRendererManager.js";
 import { withContextStyle } from "./WithContextStyle.js";
-import { useTranslation } from "../../../l10n/useTranslation.js";
 
 /** Default Merged Property Renderer
  * @public
@@ -30,14 +29,11 @@ export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
 
   /** Method that returns a JSX representation of PropertyRecord */
   public render(
-    _record: PropertyRecord,
+    record: PropertyRecord,
     context?: PropertyValueRendererContext
   ): React.ReactNode {
-    return withContextStyle(<VariesRenderer />, context);
+    const displayValue = (record.value as PrimitiveValue).displayValue;
+    const text = displayValue?.startsWith("--") ? displayValue : "--";
+    return withContextStyle(<>{text}</>, context);
   }
-}
-
-function VariesRenderer() {
-  const { translate } = useTranslation();
-  return <>{translate("property.varies")}</>;
 }

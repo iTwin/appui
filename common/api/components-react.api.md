@@ -41,7 +41,7 @@ import type { SelectOption } from '@itwin/itwinui-react';
 import { TimeDisplay } from '@itwin/appui-abstract';
 import { TimeFormat as TimeFormat_2 } from '@itwin/core-react';
 
-// @public
+// @public @deprecated
 export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
     protected constructor(modelSource: TreeModelSource);
     protected abstract load(parent: TreeModelNode | TreeModelRootNode, childIndex: number): Observable<LoadedNodeHierarchy>;
@@ -51,7 +51,7 @@ export abstract class AbstractTreeNodeLoader implements ITreeNodeLoader {
     protected updateModel(loadedHierarchy: LoadedNodeHierarchy): void;
 }
 
-// @public
+// @public @deprecated
 export abstract class AbstractTreeNodeLoaderWithProvider<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoader implements ITreeNodeLoaderWithProvider<TDataProvider> {
     protected constructor(modelSource: TreeModelSource, dataProvider: TDataProvider);
     // (undocumented)
@@ -81,7 +81,7 @@ export interface ActionButtonRendererProps {
     property: PropertyRecord;
 }
 
-// @public
+// @public @deprecated
 export interface ActiveMatchInfo {
     // (undocumented)
     matchIndex: number;
@@ -226,7 +226,7 @@ export interface CategoryRecordsDict {
     [categoryName: string]: PropertyRecord[];
 }
 
-// @public
+// @public @deprecated
 export interface CheckBoxInfo {
     // (undocumented)
     readonly isDisabled: boolean;
@@ -244,7 +244,7 @@ export type CheckBoxState = CheckBoxState_2;
 // @public
 export const CheckBoxState: typeof CheckBoxState_2;
 
-// @public
+// @public @deprecated
 export interface CheckboxStateChange {
     newState: CheckBoxState;
     nodeItem: TreeNodeItem;
@@ -271,7 +271,7 @@ export interface CommonPropertyGridProps extends CommonProps {
     propertyValueRendererManager?: PropertyValueRendererManager;
 }
 
-// @public
+// @public @deprecated
 export interface CompletionObserver<T> {
     // (undocumented)
     closed?: boolean;
@@ -310,7 +310,7 @@ export class CompositeTypeConverter extends TypeConverter {
     sortCompare(valueA: Primitives.Composite, valueB: Primitives.Composite, ignoreCase?: boolean | undefined): number;
 }
 
-// @public
+// @public @deprecated
 export function computeVisibleNodes(model: TreeModel): VisibleTreeNodes;
 
 // @public
@@ -330,10 +330,10 @@ export interface ControlledSelectableContentProps {
     selectedContentId: string;
 }
 
-// @public
+// @public @deprecated
 export function ControlledTree(props: ControlledTreeProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface ControlledTreeProps extends CommonProps {
     descriptionsEnabled?: boolean;
     eventsHandler: TreeEvents;
@@ -519,7 +519,7 @@ export const DEFAULT_LINKS_HANDLER: LinkElementsInfo;
 // @beta @deprecated
 export function defaultPropertyFilterBuilderRuleValidator(item: PropertyFilterBuilderRule): string | undefined;
 
-// @public
+// @public @deprecated
 export interface DelayLoadedTreeNodeItem extends TreeNodeItem {
     // (undocumented)
     hasChildren?: boolean;
@@ -555,7 +555,7 @@ export class DoublePropertyValueRenderer implements IPropertyValueRenderer {
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface EditableTreeDataProvider extends ITreeDataProvider {
     // (undocumented)
     updateLabel(nodeItem: TreeNodeItem, newLabel: string): void;
@@ -697,7 +697,7 @@ export interface EnumValueMetadata extends ValueMetadata {
     type: "enum";
 }
 
-// @public
+// @public @deprecated
 export interface ErrorObserver<T> {
     // (undocumented)
     closed?: boolean;
@@ -843,13 +843,13 @@ export class FloatTypeConverter extends NumericTypeConverterBase {
 // @beta
 export function FormattedNumericInput(input: FormattedNumericInputProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export function from<T>(iterable: Iterable<T> | PromiseLike<T>): Observable<T>;
 
 // @beta
 export function getPropertyFilterBuilderOperators(property: PropertyDescription): PropertyFilterBuilderRuleOperator[];
 
-// @public
+// @public @deprecated
 export function getVisibleDescendants(model: TreeModel, parentNode: TreeModelNode | TreeModelRootNode, result?: Array<TreeModelNode | TreeModelNodePlaceholder>): Array<TreeModelNode | TreeModelNodePlaceholder>;
 
 // @public
@@ -862,10 +862,10 @@ export interface GridCategoryItem extends FlatGridItemBase {
     readonly type: FlatGridItemType.Category;
 }
 
-// @public
+// @public @deprecated
 export const hasChildren: (node: TreeNodeItem) => boolean;
 
-// @public
+// @public @deprecated
 export const hasSelectionModeFlag: (selectionMode: SelectionMode_2, flag: SelectionModeFlags) => boolean;
 
 // @public
@@ -879,6 +879,9 @@ export class HexadecimalTypeConverter extends TypeConverter {
 }
 
 // @public
+export const HIGHLIGHT_ACTIVE_CLASS_NAME = "components-activehighlight";
+
+// @public @deprecated
 export interface HighlightableTreeNodeProps {
     // (undocumented)
     activeMatchIndex?: number;
@@ -886,7 +889,7 @@ export interface HighlightableTreeNodeProps {
     searchText: string;
 }
 
-// @public
+// @public @deprecated
 export interface HighlightableTreeProps {
     // (undocumented)
     activeMatch?: ActiveMatchInfo;
@@ -924,10 +927,10 @@ export interface HighlightingComponentProps {
     highlightedText: string;
 }
 
-// @public
+// @public @deprecated
 export class HighlightingEngine {
     constructor(props: HighlightableTreeProps);
-    // (undocumented)
+    // @deprecated (undocumented)
     static readonly ACTIVE_CLASS_NAME = "components-activehighlight";
     // (undocumented)
     createRenderProps(node: {
@@ -1018,7 +1021,7 @@ export interface IMergingPropertyDataProvider {
     onDataChanged: PropertyDataChangeEvent;
 }
 
-// @public
+// @public @deprecated
 export interface ImmediatelyLoadedTreeNodeItem extends TreeNodeItem {
     // (undocumented)
     children?: TreeNodeItem[];
@@ -1211,25 +1214,25 @@ export function isPropertyFilterRuleGroup(filter: PropertyFilter): filter is Pro
 // @beta
 function isText(value: Value): value is TextValue;
 
-// @public
+// @public @deprecated
 export const isTreeDataProviderInterface: (provider: TreeDataProvider) => provider is ITreeDataProvider;
 
-// @public
+// @public @deprecated
 export const isTreeDataProviderMethod: (provider: TreeDataProvider) => provider is TreeDataProviderMethod;
 
-// @public
+// @public @deprecated
 export const isTreeDataProviderPromise: (provider: TreeDataProvider) => provider is TreeDataProviderPromise;
 
-// @public
+// @public @deprecated
 export const isTreeDataProviderRaw: (provider: TreeDataProvider) => provider is TreeDataProviderRaw;
 
-// @public
+// @public @deprecated
 export function isTreeModelNode(obj: TreeModelNodeType | undefined): obj is TreeModelNode;
 
-// @public
+// @public @deprecated
 export function isTreeModelNodePlaceholder(obj: TreeModelNodeType | undefined): obj is TreeModelNodePlaceholder;
 
-// @public
+// @public @deprecated
 export function isTreeModelRootNode(obj: TreeModelNodeType | undefined): obj is TreeModelRootNode;
 
 // @beta
@@ -1258,7 +1261,7 @@ export const ItemStyleProvider: {
     createStyle: (input: ItemStyle, isSelected?: boolean) => CSSProperties;
 };
 
-// @public
+// @public @deprecated
 export interface ITreeDataProvider {
     // (undocumented)
     getNodes(parent?: TreeNodeItem, page?: PageOptions): Promise<DelayLoadedTreeNodeItem[]>;
@@ -1266,18 +1269,18 @@ export interface ITreeDataProvider {
     getNodesCount(parent?: TreeNodeItem): Promise<number>;
 }
 
-// @public
+// @public @deprecated
 export interface ITreeImageLoader extends IImageLoader {
     // (undocumented)
     load: (item: TreeNodeItem) => LoadedImage | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface ITreeNodeLoader {
     loadNode(parentId: TreeModelNode | TreeModelRootNode, childIndex: number): Observable<TreeNodeLoadResult>;
 }
 
-// @public
+// @public @deprecated
 export interface ITreeNodeLoaderWithProvider<TDataProvider extends TreeDataProvider> extends ITreeNodeLoader {
     readonly dataProvider: TDataProvider;
 }
@@ -1329,7 +1332,7 @@ export interface LoadedImage {
     value: string;
 }
 
-// @public
+// @public @deprecated
 export interface LoadedNodeHierarchy {
     hierarchyItems: LoadedNodeHierarchyItem[];
     numChildren?: number;
@@ -1337,7 +1340,7 @@ export interface LoadedNodeHierarchy {
     parentId: string | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface LoadedNodeHierarchyItem {
     children?: LoadedNodeHierarchyItem[];
     item: TreeNodeItemData;
@@ -1358,7 +1361,7 @@ export const matchLinks: (text: string) => Array<{
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
-    render(_record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
+    render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
 // @public
@@ -1419,7 +1422,7 @@ export class MutableCategorizedStructProperty extends MutableCategorizedProperty
     get type(): FlatGridItemType.Struct;
 }
 
-// @public
+// @public @deprecated
 export interface MutableCheckBoxInfo extends CheckBoxInfo {
     // (undocumented)
     isDisabled: boolean;
@@ -1524,7 +1527,7 @@ export class MutablePropertyGridModel implements IPropertyGridModel, IMutablePro
     getVisibleFlatGrid(): IMutableFlatGridItem[];
 }
 
-// @public
+// @public @deprecated
 export class MutableTreeModel implements TreeModel {
     // (undocumented)
     [immerable]: boolean;
@@ -1545,7 +1548,7 @@ export class MutableTreeModel implements TreeModel {
     setNumChildren(parentId: string | undefined, numChildren: number | undefined): void;
 }
 
-// @public
+// @public @deprecated
 export interface MutableTreeModelNode extends TreeModelNode {
     // (undocumented)
     checkbox: MutableCheckBoxInfo;
@@ -1580,7 +1583,7 @@ export class NavigationPropertyValueRenderer implements IPropertyValueRenderer {
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.JSX.Element;
 }
 
-// @public
+// @public @deprecated
 export interface NextObserver<T> {
     // (undocumented)
     closed?: boolean;
@@ -1689,20 +1692,20 @@ export interface NumericValue {
     roundingError?: number;
 }
 
-// @public
+// @public @deprecated
 export interface Observable<T> extends Subscribable<T> {
 }
 
-// @public
+// @public @deprecated
 export type Observer<T> = NextObserver<T> | ErrorObserver<T> | CompletionObserver<T>;
 
-// @public
+// @public @deprecated
 export type OnItemsDeselectedCallback<Item> = (items: Item[]) => void | boolean;
 
-// @public
+// @public @deprecated
 export type OnItemsSelectedCallback<TItem> = (items: TItem[], replace: boolean) => void | boolean;
 
-// @public
+// @public @deprecated
 export type OnSelectionChanged = (shiftDown?: boolean, ctrlDown?: boolean) => void;
 
 // @public
@@ -1725,7 +1728,7 @@ export enum OrthogonalDirection {
     Vertical = 0
 }
 
-// @public
+// @public @deprecated
 export class PagedTreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource, pageSize: number);
     // (undocumented)
@@ -2368,7 +2371,7 @@ export interface PropertyViewProps extends SharedRendererProps {
     valueElementRenderer?: () => React_3.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface RenderedItemsRange {
     // (undocumented)
     overscanStartIndex: number;
@@ -2425,7 +2428,7 @@ export interface SelectableContentProps {
     selectAriaLabel?: string;
 }
 
-// @public
+// @public @deprecated
 enum SelectionMode_2 {
     Extended = 12,
     Multiple = 6,
@@ -2435,7 +2438,7 @@ enum SelectionMode_2 {
 }
 export { SelectionMode_2 as SelectionMode }
 
-// @public
+// @public @deprecated
 export enum SelectionModeFlags {
     // (undocumented)
     DragEnabled = 2,
@@ -2515,7 +2518,7 @@ export class SimplePropertyDataProvider implements IPropertyDataProvider, Proper
     replaceProperty(propertyRecord: PropertyRecord, categoryIdx: number, newRecord: PropertyRecord): boolean;
 }
 
-// @public
+// @public @deprecated
 export class SimpleTreeDataProvider implements ITreeDataProvider {
     constructor(hierarchy: SimpleTreeDataProviderHierarchy);
     // (undocumented)
@@ -2524,7 +2527,7 @@ export class SimpleTreeDataProvider implements ITreeDataProvider {
     getNodesCount(parent?: TreeNodeItem): Promise<number>;
 }
 
-// @public
+// @public @deprecated
 export type SimpleTreeDataProviderHierarchy = Map<string | undefined, TreeNodeItem[]>;
 
 // @public
@@ -2558,7 +2561,7 @@ export interface SortComparer {
     sortCompare(valueA: Primitives.Value, valueB: Primitives.Value, ignoreCase?: boolean): number;
 }
 
-// @public
+// @public @deprecated
 export class SparseArray<T> implements Iterable<T | undefined> {
     // (undocumented)
     [immerable]: boolean;
@@ -2620,7 +2623,7 @@ export class StructPropertyValueRenderer implements IPropertyValueRenderer {
     render(record: PropertyRecord, context?: PropertyValueRendererContext): React_3.ReactNode;
 }
 
-// @public
+// @public @deprecated
 export interface Subscribable<T> {
     // (undocumented)
     subscribe(observer?: Observer<T>): Subscription;
@@ -2634,7 +2637,7 @@ export interface Subscribable<T> {
     subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Subscription;
 }
 
-// @public
+// @public @deprecated
 export interface Subscription extends Unsubscribable {
     // (undocumented)
     add(tearDown: Unsubscribable | (() => void) | void): void;
@@ -2857,7 +2860,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
 // @public
 export const toTimeString: (date: Date, timeZoneOffset?: number, formatOptions?: DateFormatOptions) => string;
 
-// @public
+// @public @deprecated
 export interface TreeActions {
     // (undocumented)
     onNodeCheckboxClicked: (nodeId: string, newState: CheckBoxState) => void;
@@ -2879,29 +2882,29 @@ export interface TreeActions {
     onTreeKeyUp: (event: React.KeyboardEvent) => void;
 }
 
-// @public
+// @public @deprecated
 export interface TreeCheckboxStateChangeEventArgs {
     stateChanges: Observable<CheckboxStateChange[]>;
 }
 
-// @public
+// @public @deprecated
 export type TreeDataProvider = TreeDataProviderRaw | TreeDataProviderPromise | TreeDataProviderMethod | ITreeDataProvider;
 
-// @public
+// @public @deprecated
 export type TreeDataProviderMethod = (node?: TreeNodeItem) => Promise<DelayLoadedTreeNodeItem[]>;
 
-// @public
+// @public @deprecated
 export type TreeDataProviderPromise = Promise<TreeDataProviderRaw>;
 
-// @public
+// @public @deprecated
 export type TreeDataProviderRaw = ImmediatelyLoadedTreeNodeItem[];
 
-// @public
+// @public @deprecated
 export interface TreeEditingParams {
     onNodeUpdated: (node: TreeModelNode, newValue: string) => void;
 }
 
-// @public
+// @public @deprecated
 export class TreeEventHandler implements TreeEvents, Disposable {
     [Symbol.dispose](): void;
     constructor(params: TreeEventHandlerParams);
@@ -2919,7 +2922,7 @@ export class TreeEventHandler implements TreeEvents, Disposable {
     onSelectionReplaced(input: TreeSelectionReplacementEventArgs): Subscription | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface TreeEventHandlerParams {
     collapsedChildrenDisposalEnabled?: boolean;
     editingParams?: TreeEditingParams;
@@ -2927,7 +2930,7 @@ export interface TreeEventHandlerParams {
     nodeLoader: ITreeNodeLoader;
 }
 
-// @public
+// @public @deprecated
 export interface TreeEvents {
     onCheckboxStateChanged?(event: TreeCheckboxStateChangeEventArgs): Subscription | undefined;
     onDelayedNodeClick?(event: TreeNodeEventArgs): void;
@@ -2939,12 +2942,12 @@ export interface TreeEvents {
     onSelectionReplaced?(event: TreeSelectionReplacementEventArgs): Subscription | undefined;
 }
 
-// @public
+// @public @deprecated
 export class TreeImageLoader implements ITreeImageLoader {
     load(item: TreeNodeItem): LoadedImage | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface TreeModel {
     // (undocumented)
     getChildOffset(parentId: string | undefined, childId: string): number | undefined;
@@ -2962,7 +2965,7 @@ export interface TreeModel {
     iterateTreeModelNodes(parentId?: string): IterableIterator<TreeModelNode>;
 }
 
-// @public
+// @public @deprecated
 export interface TreeModelChanges {
     // (undocumented)
     addedNodeIds: string[];
@@ -2972,7 +2975,7 @@ export interface TreeModelChanges {
     removedNodeIds: string[];
 }
 
-// @public
+// @public @deprecated
 export interface TreeModelNode {
     // (undocumented)
     readonly checkbox: CheckBoxInfo;
@@ -3001,7 +3004,7 @@ export interface TreeModelNode {
     readonly parentId: string | undefined;
 }
 
-// @public
+// @public @deprecated
 export interface TreeModelNodeEditingInfo {
     // (undocumented)
     onCancel: () => void;
@@ -3009,7 +3012,7 @@ export interface TreeModelNodeEditingInfo {
     onCommit: (node: TreeModelNode, newValue: string) => void;
 }
 
-// @public
+// @public @deprecated
 export interface TreeModelNodeInput {
     // (undocumented)
     readonly description?: string;
@@ -3029,7 +3032,7 @@ export interface TreeModelNodeInput {
     readonly numChildren?: number;
 }
 
-// @public
+// @public @deprecated
 export interface TreeModelNodePlaceholder {
     // (undocumented)
     readonly childIndex: number;
@@ -3039,10 +3042,10 @@ export interface TreeModelNodePlaceholder {
     readonly parentId?: string;
 }
 
-// @public
+// @public @deprecated
 export type TreeModelNodeType = TreeModelNode | TreeModelNodePlaceholder | TreeModelRootNode;
 
-// @public
+// @public @deprecated
 export interface TreeModelRootNode {
     // (undocumented)
     readonly depth: -1;
@@ -3052,7 +3055,7 @@ export interface TreeModelRootNode {
     readonly numChildren: number | undefined;
 }
 
-// @public
+// @public @deprecated
 export class TreeModelSource {
     constructor(_model?: MutableTreeModel);
     getModel(): TreeModel;
@@ -3060,7 +3063,7 @@ export class TreeModelSource {
     onModelChanged: BeUiEvent<[TreeModel, TreeModelChanges]>;
 }
 
-// @public
+// @public @deprecated
 export function TreeNodeContent(props: TreeNodeContentProps): React_3.JSX.Element;
 
 // @public @deprecated
@@ -3072,10 +3075,10 @@ export interface TreeNodeContentProps extends CommonProps {
     showDescription?: boolean;
 }
 
-// @public
+// @public @deprecated
 export function TreeNodeEditor(props: TreeNodeEditorProps): React_3.JSX.Element;
 
-// @public
+// @public @deprecated
 export interface TreeNodeEditorProps {
     // @internal (undocumented)
     ignoreEditorBlur?: boolean;
@@ -3085,15 +3088,15 @@ export interface TreeNodeEditorProps {
     style?: React_3.CSSProperties;
 }
 
-// @public
+// @public @deprecated
 export type TreeNodeEditorRenderer = (props: TreeNodeEditorProps) => React_3.ReactNode;
 
-// @public
+// @public @deprecated
 export interface TreeNodeEventArgs {
     nodeId: string;
 }
 
-// @public
+// @public @deprecated
 export function TreeNodeIcon(props: TreeNodeIconProps): React_3.JSX.Element | null;
 
 // @public @deprecated
@@ -3102,7 +3105,7 @@ export interface TreeNodeIconProps {
     node: TreeModelNode;
 }
 
-// @public
+// @public @deprecated
 export interface TreeNodeItem {
     // (undocumented)
     autoExpand?: boolean;
@@ -3133,10 +3136,10 @@ export interface TreeNodeItem {
     style?: ItemStyle;
 }
 
-// @public
+// @public @deprecated
 export type TreeNodeItemData = ImmediatelyLoadedTreeNodeItem & DelayLoadedTreeNodeItem;
 
-// @public
+// @public @deprecated
 export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends AbstractTreeNodeLoaderWithProvider<TDataProvider> {
     constructor(dataProvider: TDataProvider, modelSource: TreeModelSource);
     // (undocumented)
@@ -3144,16 +3147,16 @@ export class TreeNodeLoader<TDataProvider extends TreeDataProvider> extends Abst
     loadNode(parent: TreeModelNode | TreeModelRootNode, _childIndex?: number): Observable<TreeNodeLoadResult>;
 }
 
-// @public
+// @public @deprecated
 export interface TreeNodeLoadResult {
     // (undocumented)
     loadedNodes: TreeNodeItem[];
 }
 
-// @public
+// @public @deprecated
 export const TreeNodeRenderer: React_3.NamedExoticComponent<TreeNodeRendererProps>;
 
-// @public
+// @public @deprecated
 export interface TreeNodeRendererProps extends CommonProps {
     checkboxRenderer?: (props: CheckboxRendererProps) => React_3.ReactNode;
     children?: React_3.ReactNode;
@@ -3168,7 +3171,7 @@ export interface TreeNodeRendererProps extends CommonProps {
     treeActions: TreeActions;
 }
 
-// @public
+// @public @deprecated
 export class TreeRenderer extends React_3.Component<TreeRendererProps> implements TreeRendererAttributes {
     // (undocumented)
     render(): React_3.JSX.Element;
@@ -3176,12 +3179,12 @@ export class TreeRenderer extends React_3.Component<TreeRendererProps> implement
     scrollToNode(nodeId: string, alignment?: Alignment): void;
 }
 
-// @public
+// @public @deprecated
 export interface TreeRendererAttributes {
     scrollToNode(nodeId: string, alignment?: Alignment): void;
 }
 
-// @public
+// @public @deprecated
 export interface TreeRendererProps {
     height: number;
     nodeHeight: (node: TreeModelNode | TreeModelNodePlaceholder, index: number) => number;
@@ -3198,18 +3201,18 @@ export interface TreeRendererProps {
     width: number;
 }
 
-// @public
+// @public @deprecated
 export interface TreeSelectionChange {
     deselectedNodeItems: TreeNodeItem[];
     selectedNodeItems: TreeNodeItem[];
 }
 
-// @public
+// @public @deprecated
 export interface TreeSelectionModificationEventArgs {
     modifications: Observable<TreeSelectionChange>;
 }
 
-// @public
+// @public @deprecated
 export interface TreeSelectionReplacementEventArgs {
     replacements: Observable<{
         selectedNodeItems: TreeNodeItem[];
@@ -3273,7 +3276,7 @@ export class UiComponents {
     static translate(key: string | string[]): string;
 }
 
-// @public
+// @public @deprecated
 export interface Unsubscribable {
     // (undocumented)
     unsubscribe(): void;
@@ -3297,10 +3300,10 @@ export function useCommittableValue(input: UseCommittableValueProps): {
     value: Value | undefined;
 };
 
-// @public
+// @public @deprecated
 export function useControlledTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler | undefined;
 
-// @public
+// @public @deprecated
 export function useControlledTreeLayoutStorage<T extends Element>(): {
     ref: React_3.Ref<T>;
     persist: () => void;
@@ -3316,7 +3319,7 @@ export function useDebouncedAsyncValue<TReturn>(valueToBeResolved: undefined | (
 // @beta
 export function useDefaultPropertyFilterBuilderRuleValidator(): (item: PropertyFilterBuilderRule) => string | undefined;
 
-// @public
+// @public @deprecated
 export function usePagedTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, pageSize: number, modelSource: TreeModelSource): PagedTreeNodeLoader<TDataProvider>;
 
 // @public
@@ -3375,13 +3378,13 @@ export function useTrackedPropertyGridModelSource(props: {
 // @public @deprecated
 export function useTreeEventsHandler<TEventsHandler extends TreeEventHandler>(factoryOrParams: (() => TEventsHandler) | TreeEventHandlerParams): TreeEventHandler;
 
-// @public
+// @public @deprecated
 export function useTreeModel(modelSource: TreeModelSource): TreeModel;
 
-// @public
+// @public @deprecated
 export function useTreeModelSource(dataProvider: TreeDataProvider): TreeModelSource;
 
-// @public
+// @public @deprecated
 export function useTreeNodeLoader<TDataProvider extends TreeDataProvider>(dataProvider: TDataProvider, modelSource: TreeModelSource): TreeNodeLoader<TDataProvider>;
 
 // @public
@@ -3517,7 +3520,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps extends CommonProp
     width: number;
 }
 
-// @public
+// @public @deprecated
 export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNodePlaceholder> {
     // (undocumented)
     getAtIndex(index: number): TreeModelNode | TreeModelNodePlaceholder | undefined;

@@ -6,6 +6,8 @@
  * @module Tree
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import * as React from "react";
 import type { CommonProps, NodeCheckboxProps } from "@itwin/core-react";
 import { TreeNode } from "@itwin/core-react";
@@ -29,8 +31,8 @@ type CheckboxRendererProps = Omit<CheckboxProps, "onChange" | "onClick"> & {
 /**
  * Properties for [[TreeNodeRenderer]].
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface TreeNodeRendererProps extends CommonProps {
   /** Tree node to render. */
   node: TreeModelNode;
@@ -69,6 +71,7 @@ export interface TreeNodeRendererProps extends CommonProps {
 /**
  * Default component for rendering tree node.
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
 export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   props: TreeNodeRendererProps
@@ -96,7 +99,6 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
 
   const createCheckboxProps = (
     checkboxInfo: CheckBoxInfo
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): NodeCheckboxProps => ({
     state: checkboxInfo.state,
     tooltip: checkboxInfo.tooltip,
@@ -106,7 +108,6 @@ export const TreeNodeRenderer = React.memo(function TreeNodeRenderer(
   });
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <TreeNode
       data-testid={TreeComponentTestId.Node}
       className={props.className}
@@ -154,8 +155,8 @@ export interface TreeNodeIconProps {
 /**
  * React component that renders icon for [[TreeNode]].
  * @public
+ * @deprecated in 5.28.0. Use Tree component from `@stratakit/structures` instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function TreeNodeIcon(props: TreeNodeIconProps) {
   const { imageLoader, node } = props;
   const image = imageLoader.load(node.item);

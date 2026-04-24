@@ -1,5 +1,21 @@
 # Change Log - @itwin/core-react
 
+## 5.28.1
+
+### Patch Changes
+
+- 2a864ed: Fix useResizeObserver unload/beforeunload event listener mismatch
+
+## 5.28.0
+
+## 5.27.1
+
+### Patch Changes
+
+- 47cf43f: Fix usage of deprecated legacy SASS `if()` function.
+
+## 5.27.0
+
 ## 5.26.0
 
 ## 5.25.0

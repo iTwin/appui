@@ -25,17 +25,17 @@
     "@types/jscodeshift": "^0.12.0",
     "glob": "^10.5.0",
     "jscodeshift": "^0.16.1",
-    "postcss": "~8.4.23",
-    "postcss-scss": "~4.0.6",
+    "postcss": "~8.4.49",
+    "postcss-scss": "~4.0.9",
     "postcss-value-parser": "~4.2.0",
-    "ts-node": "^10.8.2",
-    "typescript": "~5.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.6.3",
     "vitest": "catalog:",
-    "yargs": "^17.6.2"
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.1.6",
-    "@types/yargs": "^17.0.22"
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "@types/yargs": "^17.0.35"
   }
 }

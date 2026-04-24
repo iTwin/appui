@@ -147,7 +147,7 @@ describe("PropertyValueRendererManager", () => {
 
       render(<>{value}</>);
 
-      expect(screen.getByText("property.varies")).to.exist;
+      expect(screen.getByText("--")).to.exist;
     });
 
     it("renders merged properties before looking for custom renderer in property typename", () => {
@@ -163,7 +163,7 @@ describe("PropertyValueRendererManager", () => {
 
       const value = rendererManager.render(property);
       render(<>{value}</>);
-      expect(screen.getByText("property.varies")).to.exist;
+      expect(screen.getByText("--")).to.exist;
       expect(fakeRenderer.render).not.toBeCalled();
     });
   });
