@@ -97,13 +97,13 @@ function AllEditorsNew() {
         label="Description"
         propertyName="description"
         record={makeTextRecord("My value", "description", "Description")}
-        editorSystem="new"
+        // editorSystem="new"
       />
       <EditorRow
         label="Max Points"
         propertyName="maxPoints"
         record={makeNumericRecord(100, "maxPoints", "Max Points")}
-        editorSystem="new"
+        // editorSystem="new"
       />
       <EditorRow
         label="Arc Type"
@@ -113,13 +113,13 @@ function AllEditorsNew() {
           { label: "Counter-clockwise", value: 1 },
           { label: "Shortest", value: 2 },
         ])}
-        editorSystem="new"
+        // editorSystem="new"
       />
       <EditorRow
         label="Snap to Grid"
         propertyName="snapToGrid"
         record={makeBooleanRecord(false, "snapToGrid", "Snap to Grid")}
-        editorSystem="new"
+        // editorSystem="new"
       />
       <EditorRow
         label="Show Preview"
@@ -128,7 +128,7 @@ function AllEditorsNew() {
           { valueFormat: PropertyValueFormat.Primitive, value: true },
           { name: "showPreview", typename: "bool", displayLabel: "Show Preview" }
         )}
-        editorSystem="new"
+        // editorSystem="new"
       />
     </div>
   );
@@ -173,6 +173,127 @@ function ArcDrawingToolSettings() {
         record={makeNumericRecord(5.0, "radius", "Radius")}
         editorSystem="new"
       />
+    </div>
+  );
+}
+
+/**
+ * Shows all legacy editor types with annotated targeting strategies.
+ *
+ * Targeting summary:
+ *  - string  → `id` = property name   → use `#name` or `getByLabelText`
+ *  - number  → no `id` or `data-testid` on the input itself
+ *  - enum    → `data-testid="components-select-editor"` (fixed, not unique)
+ *  - boolean → `data-testid="components-checkbox-editor"` (fixed, not unique)
+ *  - toggle  → `data-testid="components-toggle-editor"` (fixed, not unique)
+ *  - wrapper → `data-testid="editor-container"` (also fixed for every editor)
+ */
+function LegacyEditorTargeting() {
+  const noop = () => {};
+
+  const rows: { label: string; record: PropertyRecord; strategy: string; selector: string }[] = [
+    {
+      label: "Name (string)",
+      record: makeTextRecord("Alice", "name", "Name"),
+      strategy: "id = property name",
+      selector: '#name  /  getByLabelText("Name")',
+    },
+    {
+      label: "Count (number)",
+      record: makeNumericRecord(42, "count", "Count"),
+      strategy: "⚠ no id / data-testid on <input>",
+      selector: "no unique selector available",
+    },
+    {
+      label: "Arc Type (enum)",
+      record: makeEnumRecord(0, "arcType", "Arc Type", [
+        { label: "Clockwise", value: 0 },
+        { label: "CCW", value: 1 },
+      ]),
+      strategy: 'data-testid (hardcoded default)',
+      selector: 'getByTestId("components-select-editor")',
+    },
+    {
+      label: "Snap (boolean)",
+      record: makeBooleanRecord(false, "snap", "Snap"),
+      strategy: 'data-testid (hardcoded default)',
+      selector: 'getByTestId("components-checkbox-editor")',
+    },
+    {
+      label: "Preview (toggle)",
+      record: new PropertyRecord(
+        { valueFormat: PropertyValueFormat.Primitive, value: true },
+        { name: "preview", typename: "bool", displayLabel: "Preview", editor: { name: "toggle" } }
+      ),
+      strategy: 'data-testid (hardcoded default)',
+      selector: 'getByTestId("components-toggle-editor")',
+    },
+  ];
+
+  return (
+    <div style={{ padding: 24, maxWidth: 680, fontFamily: "sans-serif" }}>
+      <h3 style={{ marginBottom: 4 }}>Legacy editor system — targeting strategies</h3>
+      <p style={{ fontSize: 13, color: "#888", marginBottom: 20 }}>
+        Inspect the DOM to verify the selectors. Note that enum/boolean/toggle
+        share the same <code>data-testid</code> — they are not unique when
+        multiple instances appear on the same page.
+      </p>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+        <thead>
+          <tr style={{ background: "#f4f4f4", textAlign: "left" }}>
+            <th style={{ padding: "8px 12px", border: "1px solid #ddd" }}>Editor</th>
+            <th style={{ padding: "8px 12px", border: "1px solid #ddd" }}>Rendered input</th>
+            <th style={{ padding: "8px 12px", border: "1px solid #ddd" }}>Strategy</th>
+            <th style={{ padding: "8px 12px", border: "1px solid #ddd" }}>Selector</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(({ label, record, strategy, selector }) => (
+            <tr key={record.property.name}>
+              <td style={{ padding: "8px 12px", border: "1px solid #ddd", fontWeight: 500 }}>
+                {label}
+              </td>
+              <td style={{ padding: "8px 12px", border: "1px solid #ddd", minWidth: 160 }}>
+                <PropertyRecordEditor
+                  propertyRecord={record}
+                  onCommit={noop as never}
+                  onCancel={noop}
+                />
+              </td>
+              <td style={{ padding: "8px 12px", border: "1px solid #ddd", color: strategy.startsWith("⚠") ? "#c00" : "#060" }}>
+                {strategy}
+              </td>
+              <td style={{ padding: "8px 12px", border: "1px solid #ddd" }}>
+                <code style={{ fontSize: 12 }}>{selector}</code>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <h4 style={{ marginTop: 28, marginBottom: 8 }}>
+        Problem: two enum editors — both have the same <code>data-testid</code>
+      </h4>
+      <div style={{ display: "flex", gap: 16, alignItems: "center", marginBottom: 4 }}>
+        <PropertyRecordEditor
+          propertyRecord={makeEnumRecord(0, "arcType", "Arc Type", [
+            { label: "Clockwise", value: 0 }, { label: "CCW", value: 1 },
+          ])}
+          onCommit={noop as never}
+          onCancel={noop}
+        />
+        <PropertyRecordEditor
+          propertyRecord={makeEnumRecord(0, "drawMethod", "Draw Method", [
+            { label: "3 Points", value: 0 }, { label: "Center+R", value: 1 },
+          ])}
+          onCommit={noop as never}
+          onCancel={noop}
+        />
+      </div>
+      <p style={{ fontSize: 12, color: "#888" }}>
+        Both selects have <code>data-testid="components-select-editor"</code>.{" "}
+        <code>getByTestId</code> would throw "Found multiple elements".
+      </p>
     </div>
   );
 }
@@ -251,4 +372,9 @@ export const ArcToolSettings: Story = {
 export const LegacyVsNewComparison: Story = {
   name: "Legacy vs New — label association",
   render: () => <LegacyVsNew />,
+};
+
+export const LegacyEditorIds: Story = {
+  name: "Legacy system — targeting strategies",
+  render: () => <LegacyEditorTargeting />,
 };
