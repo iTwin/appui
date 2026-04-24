@@ -41,6 +41,7 @@ function SliderEditor({
   onChange,
   commit,
   size,
+  id,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const sliderParams = useSliderEditorParams(metadata);
   if (!sliderParams) {
@@ -98,7 +99,7 @@ function SliderEditor({
       }}
       applyBackground={true}
     >
-      <Button style={{ width: "100%" }} size={size} disabled={disabled}>
+      <Button id={id} style={{ width: "100%" }} size={size} disabled={disabled}>
         {currentValue}
       </Button>
     </Popover>
