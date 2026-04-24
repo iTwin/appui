@@ -182,7 +182,7 @@ function ArcDrawingToolSettings() {
  *
  * Targeting summary:
  *  - string  → `id` = property name   → use `#name` or `getByLabelText`
- *  - number  → no `id` or `data-testid` on the input itself
+ *  - number  → `id` = property name (default falls back to TextEditor)
  *  - enum    → `data-testid="components-select-editor"` (fixed, not unique)
  *  - boolean → `data-testid="components-checkbox-editor"` (fixed, not unique)
  *  - toggle  → `data-testid="components-toggle-editor"` (fixed, not unique)
@@ -201,8 +201,8 @@ function LegacyEditorTargeting() {
     {
       label: "Count (number)",
       record: makeNumericRecord(42, "count", "Count"),
-      strategy: "⚠ no id / data-testid on <input>",
-      selector: "no unique selector available",
+      strategy: "id = property name (falls back to TextEditor)",
+      selector: '#count  /  getByLabelText("Count")',
     },
     {
       label: "Arc Type (enum)",
