@@ -22,6 +22,7 @@ export function EnumEditor({
   commit,
   size,
   disabled,
+  id,
 }: EditorProps<EnumValueMetadata, EnumValue>) {
   const choices = metadata.choices;
   const currentValue = getEnumValue(value, choices);
@@ -35,6 +36,7 @@ export function EnumEditor({
 
   return (
     <Select
+      id={id}
       size={size}
       value={currentValue.choice}
       onChange={handleChange}

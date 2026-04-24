@@ -40,6 +40,12 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
   cancel?: () => void;
   disabled?: boolean;
   size?: "small" | "large";
+  /**
+   * HTML `id` attribute forwarded to the interactive element. Used to associate
+   * the editor with a `<label htmlFor>` so that `getByLabelText` queries work and
+   * the UI meets accessibility requirements.
+   */
+  id?: string;
 }
 
 /**

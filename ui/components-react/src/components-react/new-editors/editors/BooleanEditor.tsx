@@ -20,6 +20,7 @@ export function BooleanEditor({
   onChange,
   commit,
   disabled,
+  id,
 }: EditorProps<ValueMetadata, BooleanValue>) {
   const currentValue = value?.value ?? false;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,7 @@ export function BooleanEditor({
 
   return (
     <Checkbox
+      id={id}
       checked={currentValue}
       onChange={handleChange}
       disabled={disabled}
