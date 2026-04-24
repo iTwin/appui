@@ -183,9 +183,9 @@ function ArcDrawingToolSettings() {
  * Targeting summary:
  *  - string  → `id` = property name   → use `#name` or `getByLabelText`
  *  - number  → `id` = property name (default falls back to TextEditor)
- *  - enum    → `data-testid="components-select-editor"` (fixed, not unique)
- *  - boolean → `data-testid="components-checkbox-editor"` (fixed, not unique)
- *  - toggle  → `data-testid="components-toggle-editor"` (fixed, not unique)
+ *  - enum    → `id` = property name (after fix)
+ *  - boolean → `id` = property name (after fix)
+ *  - toggle  → `id` = property name (after fix)
  *  - wrapper → `data-testid="editor-container"` (also fixed for every editor)
  */
 function LegacyEditorTargeting() {
@@ -210,14 +210,14 @@ function LegacyEditorTargeting() {
         { label: "Clockwise", value: 0 },
         { label: "CCW", value: 1 },
       ]),
-      strategy: 'data-testid (hardcoded default)',
-      selector: 'getByTestId("components-select-editor")',
+      strategy: "id = property name",
+      selector: '#arcType  /  getByLabelText("Arc Type")',
     },
     {
       label: "Snap (boolean)",
       record: makeBooleanRecord(false, "snap", "Snap"),
-      strategy: 'data-testid (hardcoded default)',
-      selector: 'getByTestId("components-checkbox-editor")',
+      strategy: "id = property name",
+      selector: '#snap  /  getByLabelText("Snap")',
     },
     {
       label: "Preview (toggle)",
@@ -225,8 +225,8 @@ function LegacyEditorTargeting() {
         { valueFormat: PropertyValueFormat.Primitive, value: true },
         { name: "preview", typename: "bool", displayLabel: "Preview", editor: { name: "toggle" } }
       ),
-      strategy: 'data-testid (hardcoded default)',
-      selector: 'getByTestId("components-toggle-editor")',
+      strategy: "id = property name",
+      selector: '#preview  /  getByLabelText("Preview")',
     },
   ];
 
@@ -272,7 +272,7 @@ function LegacyEditorTargeting() {
       </table>
 
       <h4 style={{ marginTop: 28, marginBottom: 8 }}>
-        Problem: two enum editors — both have the same <code>data-testid</code>
+        ✅ Two enum editors — now uniquely targetable by <code>id</code>
       </h4>
       <div style={{ display: "flex", gap: 16, alignItems: "center", marginBottom: 4 }}>
         <PropertyRecordEditor
@@ -291,8 +291,8 @@ function LegacyEditorTargeting() {
         />
       </div>
       <p style={{ fontSize: 12, color: "#888" }}>
-        Both selects have <code>data-testid="components-select-editor"</code>.{" "}
-        <code>getByTestId</code> would throw "Found multiple elements".
+        <code>#arcType</code> and <code>#drawMethod</code> are now distinct.{" "}
+        Previously both shared <code>data-testid="components-select-editor"</code>.
       </p>
     </div>
   );
