@@ -181,6 +181,7 @@ export class EnumEditor
           value={selectValue}
           onChange={this._updateSelectValue}
           data-testid={this.props.itemId ?? "components-select-editor"}
+          id={this.props.propertyRecord?.property.name}
           options={this.state.options}
           triggerProps={{
             ref: (el) => {
