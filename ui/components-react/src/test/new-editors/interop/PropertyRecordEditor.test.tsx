@@ -117,7 +117,9 @@ describe("PropertyRecordEditor", () => {
         />
       );
 
-      await waitFor(() => expect(container.querySelector("input")).not.toBeNull());
+      await waitFor(() =>
+        expect(container.querySelector("input")).not.toBeNull()
+      );
       // Legacy EditorContainer uses property.name as id too, but through a different path.
       // This test just guards that the new-editor id is not present on the container element.
       expect(

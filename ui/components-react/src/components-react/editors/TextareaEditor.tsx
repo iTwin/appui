@@ -208,7 +208,11 @@ export class TextareaEditor
     textareaProps["aria-label"] = UiComponents.translate("editor.textarea");
 
     return (
-      <div className={className} ref={this._divElement} id={this.props.propertyRecord?.property.name}>
+      <div
+        className={className}
+        ref={this._divElement}
+        id={this.props.propertyRecord?.property.name}
+      >
         <PopupButton
           label={this.state.inputValue}
           closeOnEnter={false}

@@ -68,7 +68,13 @@ function NumericInputEditor({
   });
 
   return (
-    <Input id={id} style={style} size={size} disabled={disabled} {...inputProps} />
+    <Input
+      id={id}
+      style={style}
+      size={size}
+      disabled={disabled}
+      {...inputProps}
+    />
   );
 }
 
