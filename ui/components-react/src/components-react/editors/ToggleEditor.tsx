@@ -143,7 +143,7 @@ export class ToggleEditor
         readOnly={this.props.propertyRecord?.isReadonly}
         disabled={this.props.propertyRecord?.isDisabled}
         onChange={this._updateToggleValue}
-        data-testid={this.props.itemId ?? "components-toggle-editor"}
+        data-testid="components-toggle-editor"
         id={this.props.propertyRecord?.property.name}
         autoFocus={this.props.setFocus} // eslint-disable-line jsx-a11y/no-autofocus
       />

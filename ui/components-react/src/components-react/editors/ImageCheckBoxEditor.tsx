@@ -161,7 +161,7 @@ export class ImageCheckBoxEditor
         checked={checked}
         disabled={isDisabled}
         onClick={this._handleClick}
-        data-testid={this.props.itemId ?? "components-imagecheckbox-editor"}
+        data-testid="components-imagecheckbox-editor"
         id={this.props.propertyRecord?.property.name}
       />
     );
