@@ -53,6 +53,7 @@ export const ConfigurableUiContext = React.createContext<
     contentElementRef?: React.RefObject<HTMLElement | null>;
     widgetActions?: StandardLayoutProps["widgetActions"];
     toolSettings?: StandardLayoutProps["toolSettings"];
+    contentOverlay?: StandardLayoutProps["contentOverlay"];
   }
 >({});
 
@@ -142,13 +143,24 @@ interface StandardLayoutProps {
      */
     defaultLocation?: ToolSettingsLocation;
   };
+  /** Content rendered in a reserved zone between the widget panels, overlaying the main content area.
+   * This area respects the widget panel boundaries, allowing a parent application to place its own components
+   * on top of the AppUI content while AppUI elements account for this space.
+   * @alpha
+   */
+  contentOverlay?: React.ReactNode;
 }
 
 /** The standard widget based layout used as a default layout for all frontstages.
  * @alpha
  */
 export function StandardLayout(props: StandardLayoutProps) {
-  const { widgetActions, visibleToolSettings = false, toolSettings } = props;
+  const {
+    widgetActions,
+    visibleToolSettings = false,
+    toolSettings,
+    contentOverlay,
+  } = props;
   const context = React.useContext(ConfigurableUiContext);
   const {
     appBackstage,
@@ -186,8 +198,9 @@ export function StandardLayout(props: StandardLayoutProps) {
           contentElementRef,
           widgetActions,
           toolSettings,
+          contentOverlay,
         }),
-        [context, widgetActions, toolSettings]
+        [context, widgetActions, toolSettings, contentOverlay]
       )}
     >
       <main

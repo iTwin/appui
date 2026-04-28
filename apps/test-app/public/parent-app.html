@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--
+  Parent App Example — Cross-Origin postMessage
+  ==============================================
+  Demonstrates how a parent application (e.g. portal.bentley.com) can iframe
+  an AppUI child app (e.g. app.bentley.com) and place its own components
+  into a reserved overlay zone using postMessage.
+
+  How it works:
+  1. The iframe loads the child app with `?overlayHeight=48` which tells the
+     child's ContentOverlay frontstage to reserve a 48px-tall transparent spacer
+     in the content overlay area (between widget panels).
+  2. The child's OverlaySpacer posts `{ type: "appui-overlay-rect", rect }` to
+     `window.parent` whenever the spacer's bounding rect changes.
+  3. This parent page listens for those messages, validates the origin, and
+     repositions its own absolutely-positioned toolbar over the iframe at the
+     reported coordinates.
+
+  This pattern works cross-origin — no shared DOM access needed.
+
+  Usage (local dev):
+    Serve the test-app normally, then open in a browser:
+      http://localhost:3000/parent-app.html
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parent App – Content Overlay Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        background: #1e1e1e;
+        color: #fff;
+      }
+
+      /* The iframe fills the page. */
+      #child-frame {
+        flex: 1;
+        width: 100%;
+        border: none;
+      }
+
+      /* ------------------------------------------------------------------ */
+      /* Overlay bar – absolutely positioned over the iframe.               */
+      /* Hidden until we receive the first rect message from the child.     */
+      /* ------------------------------------------------------------------ */
+      #overlay-bar {
+        position: absolute;
+        display: none; /* shown once rect is known */
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+        pointer-events: none; /* let clicks fall through gaps */
+        z-index: 10;
+      }
+
+      #overlay-bar > * {
+        pointer-events: auto; /* interactive children */
+      }
+
+      /* ---------- Project picker (left) ---------- */
+      .project-picker {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: #2d2d2d;
+        border-radius: 0 0 6px 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      }
+      .project-picker select {
+        background: #3a3a3a;
+        color: #e0e0e0;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 13px;
+        min-width: 180px;
+      }
+      .project-picker svg {
+        width: 16px;
+        height: 16px;
+        fill: #a0a0a0;
+        flex-shrink: 0;
+      }
+
+      /* ---------- User profile (right) ---------- */
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: #2d2d2d;
+        border-radius: 0 0 0 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+      }
+      .user-avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: #4a90d9;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .user-name {
+        font-size: 13px;
+        color: #e0e0e0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Overlay bar — the parent's own UI placed over the iframe -->
+    <div id="overlay-bar">
+      <!-- Project picker (left) -->
+      <div class="project-picker">
+        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 2h5l2 2h7v10H1V2zm1 1v10h12V5H7.586L5.586 3H2z" />
+        </svg>
+        <select id="project-select">
+          <option>Highway Bridge</option>
+          <option>Campus Building</option>
+          <option>Stadium Renovation</option>
+          <option>Rail Corridor</option>
+        </select>
+      </div>
+
+      <!-- User profile (right) -->
+      <div class="user-profile" id="user-btn">
+        <div class="user-avatar">JD</div>
+        <span class="user-name">Jane Doe</span>
+      </div>
+    </div>
+
+    <!-- Child app iframe — note overlayHeight=48 to reserve 48px of space,
+       frontstageId=content-overlay to activate the correct frontstage,
+       and menu=0 to hide the test-app's own side nav / header. -->
+    <iframe
+      id="child-frame"
+      src="/blank?menu=0&frontstageId=content-overlay&overlayHeight=48"
+    ></iframe>
+
+    <script>
+      const overlayBar = document.getElementById("overlay-bar");
+      const iframe = document.getElementById("child-frame");
+
+      // Allowed child origins. In production, list the actual child app origin
+      // e.g. ["https://app.bentley.com"]. Use "*" only for local development.
+      const ALLOWED_CHILD_ORIGINS = [window.location.origin];
+
+      // Listen for bounding-rect messages from the child app's OverlaySpacer.
+      window.addEventListener("message", (event) => {
+        if (!ALLOWED_CHILD_ORIGINS.includes(event.origin)) return;
+        if (!event.data || event.data.type !== "appui-overlay-rect") return;
+
+        const { top, left, width, height } = event.data.rect;
+
+        // The rect coordinates are relative to the iframe's viewport, so we
+        // offset by the iframe's position in the parent page.
+        const iframeRect = iframe.getBoundingClientRect();
+
+        overlayBar.style.display = "flex";
+        overlayBar.style.top = iframeRect.top + top + "px";
+        overlayBar.style.left = iframeRect.left + left + "px";
+        overlayBar.style.width = width + "px";
+        overlayBar.style.height = height + "px";
+      });
+
+      // Simple user button handler.
+      document.getElementById("user-btn").addEventListener("click", () => {
+        alert("User menu clicked – a real app would open a dropdown here.");
+      });
+
+      // Log project changes.
+      document
+        .getElementById("project-select")
+        .addEventListener("change", (e) => {
+          console.log("Project changed to:", e.target.value);
+        });
+    </script>
+  </body>
+</html>

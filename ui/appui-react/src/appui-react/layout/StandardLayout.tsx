@@ -25,6 +25,10 @@ interface StandardLayoutProps extends CommonProps {
   children?: React.ReactNode;
   /** Component that displays center content (i.e. toolbars). Content is always bound by widget panels. */
   centerContent?: React.ReactNode;
+  /** Content rendered in a reserved zone between the widget panels, overlaying the main content area.
+   * Occupies the same grid cell as center content but is rendered below toolbars and above the viewport.
+   */
+  contentOverlay?: React.ReactNode;
   toolSettings?: React.ReactNode;
   statusBar?: React.ReactNode;
   topPanel?: React.ReactNode;
@@ -51,7 +55,12 @@ export function StandardLayout(props: StandardLayoutProps) {
       >
         {props.children}
       </div>
-      <div className="nz-centerContent">{props.centerContent}</div>
+      <div className="nz-centerArea">
+        {props.contentOverlay && (
+          <div className="nz-contentOverlay">{props.contentOverlay}</div>
+        )}
+        <div className="nz-centerContent">{props.centerContent}</div>
+      </div>
       <Panel side="left">{props.leftPanel}</Panel>
       <Panel side="right">{props.rightPanel}</Panel>
       <Panel side="top">{props.topPanel}</Panel>

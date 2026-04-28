@@ -74,6 +74,7 @@ function WidgetPanelsFrontstageComponent() {
   const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
   const previewFeatures = usePreviewFeatures();
+  const { contentOverlay } = React.useContext(ConfigurableUiContext);
   useCursor();
 
   return (
@@ -90,6 +91,7 @@ function WidgetPanelsFrontstageComponent() {
                 <WidgetPanelExpanders />
               </>
             }
+            contentOverlay={contentOverlay}
             toolSettings={<WidgetPanelsToolSettings />}
             statusBar={<WidgetPanelsStatusBar />}
             topPanel={<WidgetPanelProvider side="top" />}
