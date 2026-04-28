@@ -655,6 +655,21 @@ export interface BasicToolWidgetProps {
     showCategoryAndModelsContextTools?: boolean;
 }
 
+// @public
+export function BottomContentToolWidgetComposer(): React_2.JSX.Element;
+
+// @public
+export function BottomToolWidgetComposer(props: BottomToolWidgetComposerProps): React_2.JSX.Element | null;
+
+// @public
+export interface BottomToolWidgetComposerProps {
+    horizontalToolbar?: React_2.ReactNode;
+    verticalToolbar?: React_2.ReactNode;
+}
+
+// @public
+export function BottomViewToolWidgetComposer(): React_2.JSX.Element;
+
 // @alpha
 export class BumpToolSetting extends Tool {
     // (undocumented)
@@ -2276,7 +2291,9 @@ export interface FrontstageActivatedEventArgs {
 
 // @public @deprecated
 export interface FrontstageConfig extends CommonProps {
+    readonly bottomContentManipulation?: WidgetConfig;
     readonly bottomPanel?: StagePanelConfig;
+    readonly bottomViewNavigation?: WidgetConfig;
     readonly contentGroup: ContentGroup | ContentGroupProvider;
     readonly contentManipulation?: WidgetConfig;
     readonly defaultTool?: string;
@@ -2317,7 +2334,11 @@ export class FrontstageDef {
     // @internal
     batch(fn: () => void): void;
     // (undocumented)
+    get bottomContentManipulation(): WidgetDef | undefined;
+    // (undocumented)
     get bottomPanel(): StagePanelDef | undefined;
+    // (undocumented)
+    get bottomViewNavigation(): WidgetDef | undefined;
     // @deprecated
     get contentControls(): ContentControl[];
     // (undocumented)
@@ -4958,6 +4979,8 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
 
 // @public
 export enum ToolbarUsage {
+    BottomContentManipulation = 2,
+    BottomViewNavigation = 3,
     ContentManipulation = 0,
     ViewNavigation = 1
 }
@@ -5427,7 +5450,7 @@ export function useUiStateStorageHandler(): UiStateStorage;
 // @public
 export function useWidget(): {
     state: WidgetState;
-    widgetLocation: "popout" | "docked" | "floating";
+    widgetLocation: "docked" | "floating" | "popout";
     setState: (widgetState: Omit<WidgetState, WidgetState.Floating>) => void;
 };
 
