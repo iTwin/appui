@@ -2,4 +2,4 @@
 "@itwin/components-react": minor
 ---
 
-Provide option to define data-testids for PropertyEditor components
+Associate PropertyEditor labels with editor controls using generated element ids
