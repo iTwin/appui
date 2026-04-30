@@ -59,6 +59,8 @@ export interface PopupButtonProps extends CommonProps {
   onClose?: () => void;
   /** Listens for Enter key in popup */
   onEnter?: () => void;
+  /** Identifier applied to the focusable button element so a `<label htmlFor>` can reference it. */
+  id?: string;
 }
 
 /** @internal */
@@ -149,6 +151,7 @@ export class PopupButton extends React.PureComponent<
           title={this.props.title}
           aria-disabled={this.props.disabled}
           role="button"
+          id={this.props.id}
         >
           <div className={valueClassNames}>
             {this.props.label || this.props.placeholder}
