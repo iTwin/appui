@@ -107,7 +107,7 @@ describe("PropertyRecordEditor", () => {
       );
     });
 
-    it("does not set id when using legacy editor system", async () => {
+    it("sets id={property.name} on the input when using legacy editor system", async () => {
       const record = PropertyRecord.fromString("hello", "arcLength");
       const { container } = render(
         <PropertyRecordEditor
@@ -120,11 +120,10 @@ describe("PropertyRecordEditor", () => {
       await waitFor(() =>
         expect(container.querySelector("input")).not.toBeNull()
       );
-      // Legacy EditorContainer uses property.name as id too, but through a different path.
-      // This test just guards that the new-editor id is not present on the container element.
       expect(
         container.querySelector(".components-editor-container")
       ).not.toBeNull();
+      expect(container.querySelector('input[id="arcLength"]')).not.toBeNull();
     });
   });
 });
