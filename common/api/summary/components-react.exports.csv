@@ -230,6 +230,7 @@ public;class;NumericInputEditor
 public;class;NumericInputPropertyEditor
 public;class;NumericTypeConverterBase
 beta;interface;NumericValue
+beta;interface;NumericValueMetadata
 public;interface;Observable
 deprecated;interface;Observable
 public;type;Observer

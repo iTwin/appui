@@ -587,7 +587,7 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
     // (undocumented)
     metadata: TMetadata;
     // (undocumented)
-    onChange: (value?: TValue) => void;
+    onChange: (value?: TValue, prepareForCommit?: () => TValue | undefined) => void;
     // (undocumented)
     size?: "small" | "large";
     // (undocumented)
@@ -1690,6 +1690,17 @@ export interface NumericValue {
     rawValue: number | undefined;
     // (undocumented)
     roundingError?: number;
+}
+
+// @beta
+export interface NumericValueMetadata extends ValueMetadata {
+    // (undocumented)
+    constraints?: {
+        minimumValue?: number;
+        maximumValue?: number;
+    };
+    // (undocumented)
+    type: "number";
 }
 
 // @public @deprecated
@@ -3292,12 +3303,8 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @beta
-export function useCommittableValue(input: UseCommittableValueProps): {
-    onChange: (newValue?: Value) => void;
+export function useCommittableValue(input: UseCommittableValueProps): Pick<EditorProps, "commit" | "value" | "onChange" | "cancel"> & {
     onKeydown: (e: React_3.KeyboardEvent) => void;
-    commit: () => void;
-    cancel: () => void;
-    value: Value | undefined;
 };
 
 // @public @deprecated
