@@ -109,11 +109,11 @@ describe("TextEditor (new-system)", () => {
     );
 
     fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "exceeds limit" },
+      target: { value: "test long name" },
     });
 
     const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ value: "excee" });
+    expect(prepareForCommit()).toEqual({ value: "test " });
   });
 
   it("prepareForCommit returns blank when value is shorter than minLength", () => {
