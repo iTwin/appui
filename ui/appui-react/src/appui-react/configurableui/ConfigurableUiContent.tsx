@@ -54,6 +54,7 @@ export const ConfigurableUiContext = React.createContext<
     widgetActions?: StandardLayoutProps["widgetActions"];
     toolSettings?: StandardLayoutProps["toolSettings"];
     contentOverlay?: StandardLayoutProps["contentOverlay"];
+    statusBarOverlay?: StandardLayoutProps["statusBarOverlay"];
   }
 >({});
 
@@ -149,6 +150,13 @@ interface StandardLayoutProps {
    * @alpha
    */
   contentOverlay?: React.ReactNode;
+  /** When `true`, the status bar renders at the bottom of the center area between
+   * the widget panels (overlaying the viewport) instead of in its own full-width
+   * grid row. This gives the status bar items a similar appearance to `contentOverlay`
+   * but anchored at the bottom.
+   * @alpha
+   */
+  statusBarOverlay?: boolean;
 }
 
 /** The standard widget based layout used as a default layout for all frontstages.
@@ -160,6 +168,7 @@ export function StandardLayout(props: StandardLayoutProps) {
     visibleToolSettings = false,
     toolSettings,
     contentOverlay,
+    statusBarOverlay,
   } = props;
   const context = React.useContext(ConfigurableUiContext);
   const {
@@ -199,8 +208,9 @@ export function StandardLayout(props: StandardLayoutProps) {
           widgetActions,
           toolSettings,
           contentOverlay,
+          statusBarOverlay,
         }),
-        [context, widgetActions, toolSettings, contentOverlay]
+        [context, widgetActions, toolSettings, contentOverlay, statusBarOverlay]
       )}
     >
       <main

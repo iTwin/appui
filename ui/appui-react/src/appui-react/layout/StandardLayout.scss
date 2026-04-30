@@ -50,6 +50,11 @@
         flex: 1;
         min-height: 0;
       }
+
+      > .nz-statusBarOverlay {
+        flex-shrink: 0;
+        pointer-events: auto;
+      }
     }
 
     > .nz-statusBar {
@@ -95,5 +100,38 @@
 
   .nz-standardLayout_bottomPanel {
     grid-area: bp;
+  }
+}
+
+// Outside @layer so these overrides beat unlayered StatusBar/DockedBar styles.
+.nz-statusBarOverlay {
+  margin-bottom: var(--iui-size-m);
+
+  .uifw-dockedBar {
+    background-color: transparent;
+    border: none;
+  }
+
+  .uifw-statusBar-docked {
+    background-color: transparent;
+
+    .uifw-statusBar-item-container {
+      background-color: var(--iui-color-background);
+      border-radius: var(--iui-border-radius-1);
+      padding: var(--iui-size-m) var(--iui-size-xs);
+      margin-left: var(--iui-size-xs);
+    }
+  }
+
+  .uifw-statusBar-left,
+  .uifw-statusBar-center,
+  .uifw-statusBar-right {
+    gap: var(--iui-size-xs);
+  }
+
+  .uifw-statusBar-space-between {
+    padding: var(--iui-size-s) var(--iui-size-s) var(--iui-size-s)
+      calc(var(--iui-size-xl) + var(--iui-size-s));
+    gap: var(--iui-size-xs);
   }
 }
