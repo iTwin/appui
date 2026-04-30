@@ -20,6 +20,7 @@ import { useCommittableValue } from "../UseCommittableValue.js";
 import { EditorRenderer } from "../EditorRenderer.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
+import type { WithConstraints } from "../ConstraintUtils.js";
 
 interface PropertyRecordEditorProps {
   propertyRecord: PropertyRecord;
@@ -78,7 +79,8 @@ export function PropertyRecordEditor({
   );
 }
 
-function CommittingEditor({
+/** @internal */
+export function CommittingEditor({
   metadata,
   initialValue,
   onCancel,
@@ -87,7 +89,7 @@ function CommittingEditor({
   disabled,
   size,
 }: {
-  metadata: ValueMetadata;
+  metadata: WithConstraints<ValueMetadata>;
   initialValue?: Value;
   onCommit: (value?: Value) => void;
   onCancel: () => void;

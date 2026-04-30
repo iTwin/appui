@@ -105,6 +105,7 @@ export * as ValueUtilities from "./components-react/new-editors/values/ValueUtil
 export {
   EnumChoice,
   EnumValueMetadata,
+  NumericValueMetadata,
   ValueMetadata,
   ValueType,
 } from "./components-react/new-editors/values/Metadata.js";

@@ -16,6 +16,8 @@ import {
 } from "./UseEditorParams.js";
 import { Input } from "@itwin/itwinui-react";
 import { isNumeric } from "../../values/ValueUtilities.js";
+import type { WithConstraints } from "../../ConstraintUtils.js";
+import { getNumericConstraints } from "../../ConstraintUtils.js";
 
 /* v8 ignore start */
 
@@ -35,14 +37,42 @@ function NumericInputEditor({
   onChange,
   size,
   disabled,
-}: EditorProps<OldEditorMetadata, NumericValue>) {
+}: EditorProps<WithConstraints<OldEditorMetadata>, NumericValue>) {
   const sizeParams = useInputEditorSizeParams(metadata);
   const rangeParams = useRangeEditorParams(metadata);
-  const handleChange = (newValue: string) => {
-    onChange({
-      displayValue: newValue,
-      rawValue: parseFloat(newValue),
-    });
+  const { min: constraintMin, max: constraintMax } = getNumericConstraints(
+    metadata.constraints
+  );
+
+  // Larger minimum value takes precedence
+  const effectiveMin =
+    rangeParams?.minimum !== undefined
+      ? constraintMin !== undefined
+        ? Math.max(rangeParams.minimum, constraintMin)
+        : rangeParams.minimum
+      : constraintMin;
+  // Smaller maximum value takes precedence
+  const effectiveMax =
+    rangeParams?.maximum !== undefined
+      ? constraintMax !== undefined
+        ? Math.min(rangeParams.maximum, constraintMax)
+        : rangeParams.maximum
+      : constraintMax;
+
+  const handleChange = (newValue: string, prepareForCommit?: () => string) => {
+    onChange(
+      {
+        displayValue: newValue,
+        rawValue: parseFloat(newValue),
+      },
+      () => {
+        const preparedValue = prepareForCommit ? prepareForCommit() : newValue;
+        return {
+          displayValue: preparedValue,
+          rawValue: parseFloat(preparedValue),
+        };
+      }
+    );
   };
 
   const style: React.CSSProperties | undefined =
@@ -57,8 +87,8 @@ function NumericInputEditor({
       : undefined;
 
   const inputProps = useNumericInput({
-    min: rangeParams?.minimum,
-    max: rangeParams?.maximum,
+    min: effectiveMin,
+    max: effectiveMax,
     precision: rangeParams?.precision,
     step: rangeParams?.step,
     maxLength: sizeParams?.maxLength,
@@ -78,7 +108,7 @@ interface UseNumericInputProps {
   precision?: number;
   maxLength?: number;
   value: string;
-  onChange: (newValue: string) => void;
+  onChange: (newValue: string, prepareForCommit?: () => string) => void;
 }
 
 function useNumericInput({
@@ -110,7 +140,7 @@ function useNumericInput({
       return;
     }
     setFormattedValue(currentValue);
-    onChange(currentValue);
+    onChange(currentValue, () => formatValue(Number(currentValue)));
   };
 
   const handleBlur = () => {
@@ -118,7 +148,7 @@ function useNumericInput({
       const newFormattedValue = formatValue(Number(formattedValue));
       if (newFormattedValue !== formattedValue) {
         setFormattedValue(newFormattedValue);
-        onChange(newFormattedValue);
+        onChange(newFormattedValue, () => newFormattedValue);
       }
     }
   };

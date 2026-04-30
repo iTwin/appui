@@ -9,6 +9,7 @@
 import * as React from "react";
 import type { Value } from "./values/Values.js";
 import { areEqual } from "./values/ValueUtilities.js";
+import type { EditorProps } from "./Types.js";
 
 interface UseCommittableValueProps {
   initialValue?: Value;
@@ -52,7 +53,10 @@ export function useCommittableValue({
   initialValue,
   onCancel,
   onCommit,
-}: UseCommittableValueProps) {
+}: UseCommittableValueProps): Pick<
+  EditorProps,
+  "commit" | "value" | "onChange" | "cancel"
+> & { onKeydown: (e: React.KeyboardEvent) => void } {
   const initialValueRef = React.useRef(initialValue);
   const [currentValue, setCurrentValue] = React.useState<Value | undefined>(
     initialValue
@@ -60,23 +64,33 @@ export function useCommittableValue({
   const currentValueRef = React.useRef<{
     state: "changed" | "cancelled" | "initial";
     value?: Value;
+    prepareForCommit?: () => Value | undefined;
   }>({
     state: "initial",
     value: initialValue,
   });
 
-  const handleChange = (newValue?: Value) => {
-    currentValueRef.current = { state: "changed", value: newValue };
+  const handleChange: EditorProps["onChange"] = (
+    newValue?: Value,
+    prepareForCommit?: () => Value | undefined
+  ) => {
+    currentValueRef.current = {
+      state: "changed",
+      value: newValue,
+      prepareForCommit,
+    };
     setCurrentValue(newValue);
   };
 
   const handleCommit = () => {
-    if (
-      currentValueRef.current.state === "changed" &&
-      !areEqual(currentValueRef.current.value, initialValueRef.current)
-    ) {
-      onCommit(currentValueRef.current.value);
-      return;
+    if (currentValueRef.current.state === "changed") {
+      const preparedValue = currentValueRef.current.prepareForCommit
+        ? currentValueRef.current.prepareForCommit()
+        : currentValueRef.current.value;
+      if (!areEqual(preparedValue, initialValueRef.current)) {
+        onCommit(preparedValue);
+        return;
+      }
     }
     if (currentValueRef.current.state === "cancelled") {
       return;

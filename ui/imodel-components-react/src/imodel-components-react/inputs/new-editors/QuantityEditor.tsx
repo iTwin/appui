@@ -14,7 +14,7 @@ import {
   type EditorProps,
   type EditorSpec,
   type NumericValue,
-  type ValueMetadata,
+  type NumericValueMetadata,
   ValueUtilities,
 } from "@itwin/components-react";
 import { QuantityInput } from "./QuantityInput.js";
@@ -38,8 +38,7 @@ export const QuantityEditorSpec: EditorSpec = createEditorSpec({
  * Metadata for quantity values.
  * @beta
  */
-export interface QuantityValueMetadata extends ValueMetadata {
-  type: "number";
+export interface QuantityValueMetadata extends NumericValueMetadata {
   quantityType: QuantityTypeArg;
 }
 
@@ -57,10 +56,35 @@ function QuantityEditor({
     ? value
     : { rawValue: undefined, displayValue: "" };
 
+  const { minimumValue, maximumValue } = metadata.constraints ?? {
+    minimumValue: undefined,
+    maximumValue: undefined,
+  };
+  const handleChange = (newValue?: NumericValue) => {
+    onChange(newValue, () => {
+      if (
+        newValue?.rawValue !== undefined &&
+        (minimumValue !== undefined || maximumValue !== undefined)
+      ) {
+        const clamped = applyConstraints(
+          newValue.rawValue,
+          minimumValue,
+          maximumValue
+        );
+        if (clamped !== newValue?.rawValue) {
+          const formatted =
+            defaultFormatter?.applyFormatting(clamped) ?? `${clamped}`;
+          return { ...newValue, rawValue: clamped, displayValue: formatted };
+        }
+      }
+      return newValue;
+    });
+  };
+
   return (
     <QuantityInput
       value={currentValue}
-      onChange={onChange}
+      onChange={handleChange}
       size={size}
       formatter={isEditing ? highPrecisionFormatter : defaultFormatter}
       parser={parser}
@@ -71,3 +95,18 @@ function QuantityEditor({
 }
 
 /* v8 ignore stop */
+
+function applyConstraints(
+  numberValue: number,
+  minimumValue?: number,
+  maximumValue?: number
+): number {
+  let clamped = numberValue;
+  if (minimumValue !== undefined) {
+    clamped = Math.max(clamped, minimumValue);
+  }
+  if (maximumValue !== undefined) {
+    clamped = Math.min(clamped, maximumValue);
+  }
+  return clamped;
+}

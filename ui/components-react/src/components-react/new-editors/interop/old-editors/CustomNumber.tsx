@@ -21,7 +21,11 @@ import {
 } from "./UseEditorParams.js";
 import { findIcon } from "../IconsRegistry.js";
 import { isNumeric } from "../../values/ValueUtilities.js";
-
+import type { WithConstraints } from "../../ConstraintUtils.js";
+import {
+  applyNumericConstraints,
+  getNumericConstraints,
+} from "../../ConstraintUtils.js";
 /* v8 ignore start */
 
 /** @internal */
@@ -39,7 +43,7 @@ export const CustomNumberEditorSpec = createEditorSpec({
 });
 
 interface CustomNumberEditorProps
-  extends EditorProps<OldEditorMetadata, NumericValue> {
+  extends EditorProps<WithConstraints<OldEditorMetadata>, NumericValue> {
   decoration?: React.ReactNode;
 }
 
@@ -89,10 +93,32 @@ export function CustomNumberEditor({
 
     setInputValue(currentValue);
 
-    onChange({
-      rawValue: parsedValue,
-      displayValue: currentValue,
-    });
+    onChange(
+      {
+        rawValue: parsedValue,
+        displayValue: currentValue,
+      },
+      () => {
+        // Apply constraints
+        if (parsedValue !== undefined) {
+          const { min, max } = getNumericConstraints(metadata.constraints);
+          const constrainedValue = applyNumericConstraints({
+            value: parsedValue,
+            min,
+            max,
+          });
+          if (constrainedValue !== parsedValue) {
+            const formattedValue =
+              formatParams.formatFunction(constrainedValue);
+            return {
+              rawValue: constrainedValue,
+              displayValue: formattedValue,
+            };
+          }
+        }
+        return { rawValue: parsedValue, displayValue: currentValue };
+      }
+    );
   };
 
   return (

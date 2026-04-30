@@ -25,7 +25,10 @@ export interface EditorSpec {
 export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
   metadata: TMetadata;
   value?: TValue;
-  onChange: (value?: TValue) => void;
+  onChange: (
+    value?: TValue,
+    prepareForCommit?: () => TValue | undefined
+  ) => void;
   /**
    * Callback that allows editor implementation to indicate that editing is finished. This is useful if editor
    * is rendered inside a container that waits for committing/cancelling action (like `ENTER` or `ESC` key press) but editor implementation

@@ -6,8 +6,12 @@
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { EditorProps } from "../Types.js";
-import type { ValueMetadata } from "../values/Metadata.js";
+import type { NumericValueMetadata } from "../values/Metadata.js";
 import type { NumericValue } from "../values/Values.js";
+import {
+  applyNumericConstraints,
+  getNumericConstraints,
+} from "../ConstraintUtils.js";
 
 /* v8 ignore start */
 
@@ -16,23 +20,41 @@ import type { NumericValue } from "../values/Values.js";
  * @internal
  */
 export function NumericEditor({
+  metadata,
   value,
   onChange,
   size,
   disabled,
-}: EditorProps<ValueMetadata, NumericValue>) {
+}: EditorProps<NumericValueMetadata, NumericValue>) {
   const currentValue = getNumericValue(value);
   return (
     <Input
       value={currentValue.displayValue}
       onChange={(e) => {
         const parsedValue = parseFloat(e.target.value);
-        onChange({
-          rawValue: Number.isNaN(parsedValue)
-            ? undefined
-            : parseFloat(e.target.value),
-          displayValue: e.target.value,
-        });
+        onChange(
+          {
+            rawValue: Number.isNaN(parsedValue) ? undefined : parsedValue,
+            displayValue: e.target.value,
+          },
+          () => {
+            const { min, max } = getNumericConstraints(metadata.constraints);
+            if (
+              !Number.isNaN(parsedValue) &&
+              (min !== undefined || max !== undefined)
+            ) {
+              const clamped = applyNumericConstraints({
+                value: parsedValue,
+                min,
+                max,
+              });
+              if (clamped !== parsedValue) {
+                return { rawValue: clamped, displayValue: `${clamped}` };
+              }
+            }
+            return { rawValue: parsedValue, displayValue: e.target.value };
+          }
+        );
       }}
       size={size}
       disabled={disabled}
