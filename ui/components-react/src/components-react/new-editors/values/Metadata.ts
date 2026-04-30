@@ -60,7 +60,7 @@ export interface NumericValueMetadata extends ValueMetadata {
 
 /**
  * Additional metadata that is used along side text value to determine applicable editor and constraints.
- * @beta
+ * @internal
  */
 export interface TextValueMetadata extends ValueMetadata {
   type: "string";
