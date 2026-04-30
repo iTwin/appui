@@ -1,25 +1,14 @@
 <!DOCTYPE html>
 <!--
-  Parent App Example — Cross-Origin postMessage
-  ==============================================
-  Demonstrates how a parent application (e.g. portal.bentley.com) can iframe
-  an AppUI child app (e.g. app.bentley.com) and place its own components
-  into a reserved overlay zone using postMessage.
-
-  How it works:
-  1. The iframe loads the child app with `?overlayHeight=48` which tells the
-     child's ContentOverlay frontstage to reserve a 48px-tall transparent spacer
-     in the content overlay area (between widget panels).
-  2. The child's OverlaySpacer posts `{ type: "appui-overlay-rect", rect }` to
-     `window.parent` whenever the spacer's bounding rect changes.
-  3. This parent page listens for those messages, validates the origin, and
-     repositions its own absolutely-positioned toolbar over the iframe at the
-     reported coordinates.
-
-  This pattern works cross-origin — no shared DOM access needed.
+  Parent App Example — Content Overlay Demo
+  ==========================================
+  Demonstrates a parent portal with its own header + left nav that iframes an
+  AppUI child app.  A "Full Screen" button transitions the iframe to fill the
+  viewport and activates content-overlay mode, repositioning the parent's own
+  toolbar over the reserved overlay spacer inside the child.
 
   Usage (local dev):
-    Serve the test-app normally, then open in a browser:
+    Serve the test-app normally, then open:
       http://localhost:3000/parent-app.html
 -->
 <html lang="en">
@@ -37,51 +26,44 @@
       body {
         height: 100%;
         font-family: system-ui, -apple-system, sans-serif;
+        background: #1e1e1e;
+        color: #e0e0e0;
       }
 
-      body {
+      /* ================================================================== */
+      /* Normal layout: header + body (left nav + content area with iframe)  */
+      /* ================================================================== */
+      #app-shell {
         display: flex;
         flex-direction: column;
-        background: #1e1e1e;
-        color: #fff;
+        height: 100%;
       }
 
-      /* The iframe fills the page. */
-      #child-frame {
-        flex: 1;
-        width: 100%;
-        border: none;
-      }
-
-      /* ------------------------------------------------------------------ */
-      /* Overlay bar – absolutely positioned over the iframe.               */
-      /* Hidden until we receive the first rect message from the child.     */
-      /* ------------------------------------------------------------------ */
-      #overlay-bar {
-        position: absolute;
-        display: none; /* shown once rect is known */
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 12px;
-        pointer-events: none; /* let clicks fall through gaps */
-        z-index: 10;
-      }
-
-      #overlay-bar > * {
-        pointer-events: auto; /* interactive children */
-      }
-
-      /* ---------- Project picker (left) ---------- */
-      .project-picker {
+      /* ---------- Header ---------- */
+      #app-header {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        background: #2d2d2d;
-        border-radius: 0 0 6px 0;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+        height: 48px;
+        padding: 0 16px;
+        background: #2b2b2b;
+        border-bottom: 1px solid #3a3a3a;
+        flex-shrink: 0;
+        gap: 16px;
+        z-index: 100;
       }
-      .project-picker select {
+      #app-header .logo {
+        font-size: 15px;
+        font-weight: 700;
+        color: #4a90d9;
+        white-space: nowrap;
+      }
+      #app-header .header-center {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #app-header select {
         background: #3a3a3a;
         color: #e0e0e0;
         border: 1px solid #555;
@@ -90,27 +72,14 @@
         font-size: 13px;
         min-width: 180px;
       }
-      .project-picker svg {
-        width: 16px;
-        height: 16px;
-        fill: #a0a0a0;
-        flex-shrink: 0;
-      }
-
-      /* ---------- User profile (right) ---------- */
-      .user-profile {
+      #app-header .header-right {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        background: #2d2d2d;
-        border-radius: 0 0 0 6px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-        cursor: pointer;
+        gap: 12px;
       }
       .user-avatar {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         background: #4a90d9;
         color: #fff;
@@ -119,61 +88,334 @@
         justify-content: center;
         font-size: 12px;
         font-weight: 600;
+        cursor: pointer;
       }
-      .user-name {
-        font-size: 13px;
+      .fullscreen-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background: transparent;
+        color: #a0a0a0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .fullscreen-btn:hover {
+        background: #3a3a3a;
+        color: #fff;
+      }
+      .fullscreen-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+      }
+
+      /* ---------- Body (nav + main) ---------- */
+      #app-body {
+        display: flex;
+        flex: 1;
+        overflow: hidden;
+      }
+
+      /* ---------- Left nav ---------- */
+      #left-nav {
+        display: flex;
+        flex-direction: column;
+        width: 56px;
+        background: #252525;
+        border-right: 1px solid #3a3a3a;
+        padding: 8px 0;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        z-index: 100;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #a0a0a0;
+        transition: background 0.15s, color 0.15s;
+      }
+      .nav-item:hover {
+        background: #3a3a3a;
+        color: #fff;
+      }
+      .nav-item.active {
+        background: #4a90d9;
+        color: #fff;
+      }
+      .nav-item svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+      }
+      .nav-spacer {
+        flex: 1;
+      }
+
+      /* ---------- Main content area ---------- */
+      #main-content {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* ---------- iframe ---------- */
+      #child-frame {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      /* ================================================================== */
+      /* Full-screen overlay mode                                            */
+      /* ================================================================== */
+      body.fullscreen #app-header,
+      body.fullscreen #left-nav {
+        display: none;
+      }
+      body.fullscreen #app-body {
+        flex: 1;
+      }
+      body.fullscreen #main-content {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+      }
+
+      /* Overlay bar — positioned over iframe in full-screen mode */
+      #overlay-bar {
+        position: absolute;
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+        pointer-events: none;
+        z-index: 300;
+      }
+      #overlay-bar > * {
+        pointer-events: auto;
+      }
+
+      .overlay-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: #2d2d2d;
+        border-radius: 0 0 6px 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      }
+      .overlay-section select {
+        background: #3a3a3a;
         color: #e0e0e0;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 13px;
+        min-width: 180px;
+      }
+      .overlay-section svg {
+        width: 16px;
+        height: 16px;
+        fill: #a0a0a0;
+        flex-shrink: 0;
+      }
+
+      .exit-fullscreen-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background: transparent;
+        color: #a0a0a0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .exit-fullscreen-btn:hover {
+        background: #3a3a3a;
+        color: #fff;
+      }
+      .exit-fullscreen-btn svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
       }
     </style>
   </head>
   <body>
-    <!-- Overlay bar — the parent's own UI placed over the iframe -->
-    <div id="overlay-bar">
-      <!-- Project picker (left) -->
-      <div class="project-picker">
-        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1 2h5l2 2h7v10H1V2zm1 1v10h12V5H7.586L5.586 3H2z" />
-        </svg>
-        <select id="project-select">
-          <option>Highway Bridge</option>
-          <option>Campus Building</option>
-          <option>Stadium Renovation</option>
-          <option>Rail Corridor</option>
-        </select>
-      </div>
+    <div id="app-shell">
+      <!-- ============ HEADER ============ -->
+      <header id="app-header">
+        <div class="logo">iTwin Platform</div>
+        <div class="header-center">
+          <select id="project-select">
+            <option>Highway Bridge</option>
+            <option>Campus Building</option>
+            <option>Stadium Renovation</option>
+            <option>Rail Corridor</option>
+          </select>
+        </div>
+        <div class="header-right">
+          <button
+            class="fullscreen-btn"
+            id="enter-fullscreen-btn"
+            title="Enter Full Screen"
+          >
+            <svg viewBox="0 0 16 16">
+              <path
+                d="M2 2h5v1.5H3.5V6H2V2zm7 0h5v4h-1.5V3.5H9V2zM2 10h1.5v2.5H6V14H2v-4zm10.5 2.5V10H14v4h-4v-1.5h2.5z"
+              />
+            </svg>
+          </button>
+          <div class="user-avatar" id="user-btn" title="Jane Doe">JD</div>
+        </div>
+      </header>
 
-      <!-- User profile (right) -->
-      <div class="user-profile" id="user-btn">
-        <div class="user-avatar">JD</div>
-        <span class="user-name">Jane Doe</span>
+      <!-- ============ BODY ============ -->
+      <div id="app-body">
+        <!-- Left navigation -->
+        <nav id="left-nav">
+          <!-- Home -->
+          <div class="nav-item active" title="Home">
+            <svg viewBox="0 0 16 16">
+              <path
+                d="M8 1L1 7h2v7h4v-4h2v4h4V7h2L8 1zm0 1.7L13 7.6V13h-2V9H5v4H3V7.6L8 2.7z"
+              />
+            </svg>
+          </div>
+          <!-- Projects -->
+          <div class="nav-item" title="Projects">
+            <svg viewBox="0 0 16 16">
+              <path d="M1 2h5l2 2h7v10H1V2zm1 1v10h12V5H7.586L5.586 3H2z" />
+            </svg>
+          </div>
+          <!-- Models -->
+          <div class="nav-item" title="Models">
+            <svg viewBox="0 0 16 16">
+              <path
+                d="M8 1l7 4v6l-7 4-7-4V5l7-4zm0 1.2L2.5 5.5v5l5.5 3.2 5.5-3.2v-5L8 2.2z"
+              />
+            </svg>
+          </div>
+          <!-- Issues -->
+          <div class="nav-item" title="Issues">
+            <svg viewBox="0 0 16 16">
+              <path
+                d="M8 1a7 7 0 100 14A7 7 0 008 1zm0 1.2a5.8 5.8 0 110 11.6A5.8 5.8 0 018 2.2zM7.25 5h1.5v4h-1.5V5zm0 5h1.5v1.5h-1.5V10z"
+              />
+            </svg>
+          </div>
+          <!-- Analytics -->
+          <div class="nav-item" title="Analytics">
+            <svg viewBox="0 0 16 16">
+              <path
+                d="M2 13h12v1H2v-1zm1-5h2v4H3V8zm3-3h2v7H6V5zm3-2h2v9H9V3zm3 4h2v6h-2V7z"
+              />
+            </svg>
+          </div>
+          <div class="nav-spacer"></div>
+          <!-- Settings -->
+          <div class="nav-item" title="Settings">
+            <svg viewBox="0 0 16 16">
+              <path
+                d="M8 5.5a2.5 2.5 0 100 5 2.5 2.5 0 000-5zM6.7 8a1.3 1.3 0 112.6 0 1.3 1.3 0 01-2.6 0zm.2-6.5l-.3 1.6a4.8 4.8 0 00-1.3.7L3.8 3 2.5 5.2l1.2 1.1a5 5 0 000 1.4l-1.2 1.1L3.8 11l1.5-.8c.4.3.8.5 1.3.7l.3 1.6h2.6l.3-1.6c.5-.2.9-.4 1.3-.7l1.5.8 1.3-2.2-1.2-1.1a5 5 0 000-1.4l1.2-1.1L11.5 3 10 3.8a4.8 4.8 0 00-1.3-.7L8.4 1.5H6.9z"
+              />
+            </svg>
+          </div>
+        </nav>
+
+        <!-- Main content with iframe -->
+        <div id="main-content">
+          <iframe
+            id="child-frame"
+            src="/blank?menu=0&frontstageId=content-overlay&overlayHeight=48&statusBarOverlay"
+          ></iframe>
+
+          <!-- Overlay bar — shown in full-screen mode over the iframe -->
+          <div id="overlay-bar">
+            <div class="overlay-section">
+              <svg viewBox="0 0 16 16">
+                <path d="M1 2h5l2 2h7v10H1V2zm1 1v10h12V5H7.586L5.586 3H2z" />
+              </svg>
+              <select id="overlay-project-select">
+                <option>Highway Bridge</option>
+                <option>Campus Building</option>
+                <option>Stadium Renovation</option>
+                <option>Rail Corridor</option>
+              </select>
+            </div>
+            <div class="overlay-section">
+              <button
+                class="exit-fullscreen-btn"
+                id="exit-fullscreen-btn"
+                title="Exit Full Screen"
+              >
+                <svg viewBox="0 0 16 16">
+                  <path
+                    d="M4 2v2.5H1.5V6H6V1.5H4.5V2H4zm8 0v.5H10V6h4.5V4.5H12V2h-.5zM4 14v-.5H1.5V12H6v4.5H4.5V14H4zm8 0v.5H10V10h4.5v1.5H12V14h.5z"
+                  />
+                </svg>
+              </button>
+              <div class="user-avatar" title="Jane Doe">JD</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <!-- Child app iframe — note overlayHeight=48 to reserve 48px of space,
-       frontstageId=content-overlay to activate the correct frontstage,
-       and menu=0 to hide the test-app's own side nav / header. -->
-    <iframe
-      id="child-frame"
-      src="/blank?menu=0&frontstageId=content-overlay&overlayHeight=48"
-    ></iframe>
 
     <script>
       const overlayBar = document.getElementById("overlay-bar");
       const iframe = document.getElementById("child-frame");
+      const enterBtn = document.getElementById("enter-fullscreen-btn");
+      const exitBtn = document.getElementById("exit-fullscreen-btn");
 
-      // Allowed child origins. In production, list the actual child app origin
-      // e.g. ["https://app.bentley.com"]. Use "*" only for local development.
       const ALLOWED_CHILD_ORIGINS = [window.location.origin];
+
+      let isFullScreen = false;
+
+      // ---- Enter full-screen overlay mode ----
+      enterBtn.addEventListener("click", () => {
+        isFullScreen = true;
+        document.body.classList.add("fullscreen");
+        // Tell the child to enable overlay mode
+        iframe.contentWindow.postMessage(
+          { type: "appui-set-overlay-mode", enabled: true },
+          "*"
+        );
+      });
+
+      // ---- Exit full-screen overlay mode ----
+      exitBtn.addEventListener("click", () => {
+        isFullScreen = false;
+        document.body.classList.remove("fullscreen");
+        overlayBar.style.display = "none";
+        // Tell the child to disable overlay mode
+        iframe.contentWindow.postMessage(
+          { type: "appui-set-overlay-mode", enabled: false },
+          "*"
+        );
+      });
 
       // Listen for bounding-rect messages from the child app's OverlaySpacer.
       window.addEventListener("message", (event) => {
         if (!ALLOWED_CHILD_ORIGINS.includes(event.origin)) return;
         if (!event.data || event.data.type !== "appui-overlay-rect") return;
+        if (!isFullScreen) return;
 
         const { top, left, width, height } = event.data.rect;
 
-        // The rect coordinates are relative to the iframe's viewport, so we
-        // offset by the iframe's position in the parent page.
         const iframeRect = iframe.getBoundingClientRect();
 
         overlayBar.style.display = "flex";
@@ -183,17 +425,20 @@
         overlayBar.style.height = height + "px";
       });
 
-      // Simple user button handler.
-      document.getElementById("user-btn").addEventListener("click", () => {
-        alert("User menu clicked – a real app would open a dropdown here.");
+      // Nav item active state
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          document
+            .querySelectorAll(".nav-item")
+            .forEach((i) => i.classList.remove("active"));
+          item.classList.add("active");
+        });
       });
 
-      // Log project changes.
-      document
-        .getElementById("project-select")
-        .addEventListener("change", (e) => {
-          console.log("Project changed to:", e.target.value);
-        });
+      // User button
+      document.getElementById("user-btn").addEventListener("click", () => {
+        alert("User menu – a real app would open a dropdown here.");
+      });
     </script>
   </body>
 </html>

@@ -14,6 +14,8 @@ import {
   StageUsage,
   StandardContentLayouts,
   StandardLayout,
+  StatusBarItemUtilities,
+  StatusBarSection,
   UiItemsProvider,
   Widget,
   WidgetState,
@@ -24,6 +26,9 @@ import {
   SvgTextAlignJustify,
   SvgTextAlignLeft,
   SvgTextAlignRight,
+  SvgFlag,
+  SvgInfo,
+  SvgNetwork,
 } from "@itwin/itwinui-icons-react";
 import {
   FloatingLayoutInfo,
@@ -46,6 +51,32 @@ function useOverlayHeight(): number {
   const raw = params.get("overlayHeight");
   const parsed = raw ? parseInt(raw, 10) : 0;
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+}
+
+/** Reads the `statusBarOverlay` search param. Returns true when present. */
+function useStatusBarOverlay(): boolean {
+  const params = new URLSearchParams(window.location.search);
+  return params.has("statusBarOverlay");
+}
+
+/**
+ * Listens for `{ type: "appui-set-overlay-mode", enabled }` messages from
+ * the parent window and returns the current enabled state.
+ * Starts disabled — the parent sends a message to activate overlay mode.
+ */
+function useOverlayMode(): boolean {
+  const [enabled, setEnabled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (!event.data || event.data.type !== "appui-set-overlay-mode") return;
+      setEnabled(!!event.data.enabled);
+    };
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
+  return enabled;
 }
 
 /**
@@ -181,16 +212,21 @@ createContentOverlayFrontstage.stageId = "content-overlay";
 
 /**
  * Wraps `StandardLayout` and conditionally enables the content overlay spacer
- * when the `overlayHeight` URL param is present.
+ * and status bar overlay based on parent postMessage or URL params.
  */
 function ContentOverlayLayout() {
   const overlayHeight = useOverlayHeight();
+  const statusBarOverlay = useStatusBarOverlay();
+  const overlayMode = useOverlayMode();
 
   return (
     <StandardLayout
       contentOverlay={
-        overlayHeight > 0 ? <OverlaySpacer height={overlayHeight} /> : undefined
+        overlayMode && overlayHeight > 0 ? (
+          <OverlaySpacer height={overlayHeight} />
+        ) : undefined
       }
+      statusBarOverlay={overlayMode && statusBarOverlay}
     />
   );
 }
@@ -346,6 +382,41 @@ export function createContentOverlayProvider(): UiItemsProvider {
         groupPriority: 200,
         itemPriority: 10,
         label: "Content Overlay",
+      }),
+    ],
+    getStatusBarItems: () => [
+      StatusBarItemUtilities.createCustomItem({
+        id: "co-status-coordinates",
+        section: StatusBarSection.Left,
+        itemPriority: 10,
+        content: (
+          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <SvgFlag style={{ width: 16, height: 16 }} />
+            <span>X: 1204.5 Y: 832.1</span>
+          </span>
+        ),
+      }),
+      StatusBarItemUtilities.createCustomItem({
+        id: "co-status-units",
+        section: StatusBarSection.Left,
+        itemPriority: 20,
+        content: (
+          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <SvgInfo style={{ width: 16, height: 16 }} />
+            <span>Meters</span>
+          </span>
+        ),
+      }),
+      StatusBarItemUtilities.createCustomItem({
+        id: "co-status-connection",
+        section: StatusBarSection.Left,
+        itemPriority: 30,
+        content: (
+          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <SvgNetwork style={{ width: 16, height: 16 }} />
+            <span>Connected</span>
+          </span>
+        ),
       }),
     ],
   };
