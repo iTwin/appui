@@ -61,6 +61,9 @@ export function StandardLayout(props: StandardLayoutProps) {
         {props.children}
       </div>
       <div className="nz-centerArea">
+        {props.statusBarOverlay && (
+          <div className="nz-toolSettingsOverlay">{props.toolSettings}</div>
+        )}
         {props.contentOverlay && (
           <div className="nz-contentOverlay">{props.contentOverlay}</div>
         )}
@@ -73,7 +76,9 @@ export function StandardLayout(props: StandardLayoutProps) {
       <Panel side="right">{props.rightPanel}</Panel>
       <Panel side="top">{props.topPanel}</Panel>
       <Panel side="bottom">{props.bottomPanel}</Panel>
-      <div className="nz-toolSettings">{props.toolSettings}</div>
+      {!props.statusBarOverlay && (
+        <div className="nz-toolSettings">{props.toolSettings}</div>
+      )}
       {!props.statusBarOverlay && (
         <div className="nz-statusBar">{props.statusBar}</div>
       )}

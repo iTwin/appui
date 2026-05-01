@@ -35,6 +35,7 @@
 
     > .nz-centerArea {
       grid-area: cc;
+      position: relative;
 
       display: flex;
       flex-direction: column;
@@ -44,6 +45,22 @@
       > .nz-contentOverlay {
         flex-shrink: 0;
         pointer-events: auto;
+      }
+
+      > .nz-toolSettingsOverlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+
+        > * {
+          pointer-events: auto;
+        }
       }
 
       > .nz-centerContent {
@@ -104,6 +121,63 @@
 }
 
 // Outside @layer so these overrides beat unlayered StatusBar/DockedBar styles.
+.nz-toolSettingsOverlay {
+  margin-top: var(--iui-size-s);
+
+  .uifw-overlay-toolSettings-container {
+    background-color: var(--iui-color-background);
+    border-radius: var(--iui-border-radius-1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: var(--iui-size-s);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .uifw-overlay-toolSettings-collapseHandle {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+
+    .uifw-overlay-toolSettings-grip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 16px;
+      background-color: var(--iui-color-background);
+      border: 1px solid var(--iui-color-border-foreground);
+      border-radius: 999px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      box-sizing: border-box;
+      opacity: 0.6;
+      transition: opacity 0.2s ease-out;
+
+      .uifw-overlay-toolSettings-grip-detail {
+        width: 70%;
+        border-top: 1px solid var(--iui-color-border-foreground);
+      }
+    }
+
+    &:hover .uifw-overlay-toolSettings-grip {
+      opacity: 1;
+    }
+  }
+
+  .uifw-overlay-toolSettings-expandButton {
+    background-color: var(--iui-color-background);
+    border-radius: var(--iui-border-radius-1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: var(--iui-size-3xs) var(--iui-size-2xs);
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
 .nz-statusBarOverlay {
   margin-bottom: var(--iui-size-m);
 

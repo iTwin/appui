@@ -91,6 +91,10 @@ export {
   StandardLayout,
 } from "./appui-react/configurableui/ConfigurableUiContent.js";
 export {
+  CondensedLayout,
+  CondensedLayoutProps,
+} from "./appui-react/configurableui/CondensedLayout.js";
+export {
   ConfigurableBase,
   ConfigurableCreateInfo,
   ConfigurableUiControl,

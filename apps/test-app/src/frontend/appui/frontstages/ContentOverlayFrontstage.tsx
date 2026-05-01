@@ -6,6 +6,9 @@ import * as React from "react";
 import {
   BackstageAppButton,
   BackstageItemUtilities,
+  BottomContentToolWidgetComposer,
+  BottomViewToolWidgetComposer,
+  CondensedLayout,
   Frontstage,
   FrontstageUtilities,
   StagePanelLocation,
@@ -16,6 +19,9 @@ import {
   StandardLayout,
   StatusBarItemUtilities,
   StatusBarSection,
+  ToolbarItemUtilities,
+  ToolbarOrientation,
+  ToolbarUsage,
   UiItemsProvider,
   Widget,
   WidgetState,
@@ -29,12 +35,18 @@ import {
   SvgFlag,
   SvgInfo,
   SvgNetwork,
+  SvgHome,
+  SvgCamera,
+  SvgZoomIn,
+  SvgZoomOut,
 } from "@itwin/itwinui-icons-react";
 import {
   FloatingLayoutInfo,
   LayoutControls,
   LayoutInfo,
   LogLifecycleWidget,
+  SampleTool,
+  ToolWithDynamicSettings,
   ViewportContent,
 } from "@itwin/appui-test-providers";
 
@@ -51,12 +63,6 @@ function useOverlayHeight(): number {
   const raw = params.get("overlayHeight");
   const parsed = raw ? parseInt(raw, 10) : 0;
   return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
-}
-
-/** Reads the `statusBarOverlay` search param. Returns true when present. */
-function useStatusBarOverlay(): boolean {
-  const params = new URLSearchParams(window.location.search);
-  return params.has("statusBarOverlay");
 }
 
 /**
@@ -205,28 +211,36 @@ export function createContentOverlayFrontstage(): Frontstage {
 
   return {
     ...config,
+    bottomContentManipulation: {
+      id: `${createContentOverlayFrontstage.stageId}-bottomContentManipulation`,
+      content: <BottomContentToolWidgetComposer />,
+    },
+    bottomViewNavigation: {
+      id: `${createContentOverlayFrontstage.stageId}-bottomViewNavigation`,
+      content: <BottomViewToolWidgetComposer />,
+    },
     layout: <ContentOverlayLayout />,
   };
 }
 createContentOverlayFrontstage.stageId = "content-overlay";
 
 /**
- * Wraps `StandardLayout` and conditionally enables the content overlay spacer
- * and status bar overlay based on parent postMessage or URL params.
+ * Wraps `CondensedLayout` and conditionally enables the content overlay spacer
+ * based on parent postMessage or URL params.
  */
 function ContentOverlayLayout() {
   const overlayHeight = useOverlayHeight();
-  const statusBarOverlay = useStatusBarOverlay();
   const overlayMode = useOverlayMode();
 
+  if (!overlayMode) {
+    return <StandardLayout />;
+  }
+
   return (
-    <StandardLayout
+    <CondensedLayout
       contentOverlay={
-        overlayMode && overlayHeight > 0 ? (
-          <OverlaySpacer height={overlayHeight} />
-        ) : undefined
+        overlayHeight > 0 ? <OverlaySpacer height={overlayHeight} /> : undefined
       }
-      statusBarOverlay={overlayMode && statusBarOverlay}
     />
   );
 }
@@ -238,6 +252,78 @@ function ContentOverlayLayout() {
 export function createContentOverlayProvider(): UiItemsProvider {
   return {
     id: "content-overlay-provider",
+    getToolbarItems: () => [
+      ToolbarItemUtilities.createForTool(SampleTool, {
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
+      }),
+      ToolbarItemUtilities.createForTool(ToolWithDynamicSettings, {
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
+      }),
+      // Bottom content manipulation toolbar items
+      {
+        id: "bottom-home-tool",
+        itemPriority: 10,
+        icon: <SvgHome />,
+        label: "Home",
+        execute: () => {},
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.BottomContentManipulation,
+          },
+        },
+      },
+      {
+        id: "bottom-zoom-in-tool",
+        itemPriority: 20,
+        icon: <SvgZoomIn />,
+        label: "Zoom In",
+        execute: () => {},
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Vertical,
+            usage: ToolbarUsage.BottomContentManipulation,
+          },
+        },
+      },
+      {
+        id: "bottom-zoom-out-tool",
+        itemPriority: 30,
+        icon: <SvgZoomOut />,
+        label: "Zoom Out",
+        execute: () => {},
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Vertical,
+            usage: ToolbarUsage.BottomContentManipulation,
+          },
+        },
+      },
+      // Bottom view navigation toolbar item
+      {
+        id: "bottom-camera-tool",
+        itemPriority: 10,
+        icon: <SvgCamera />,
+        label: "Camera",
+        execute: () => {},
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.BottomViewNavigation,
+          },
+        },
+      },
+    ],
     getWidgets: () => {
       const leftStart = {
         standard: {
