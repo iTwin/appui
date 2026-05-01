@@ -808,6 +808,12 @@ export {
   BasicToolWidget,
   BasicToolWidgetProps,
 } from "./appui-react/widgets/BasicToolWidget.js";
+export { BottomContentToolWidgetComposer } from "./appui-react/widgets/BottomContentToolWidgetComposer.js";
+export {
+  BottomToolWidgetComposer,
+  BottomToolWidgetComposerProps,
+} from "./appui-react/widgets/BottomToolWidgetComposer.js";
+export { BottomViewToolWidgetComposer } from "./appui-react/widgets/BottomViewToolWidgetComposer.js";
 export {
   ContentToolWidgetComposer,
   ContentToolWidgetComposerProps,
