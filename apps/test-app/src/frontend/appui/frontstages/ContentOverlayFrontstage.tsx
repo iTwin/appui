@@ -26,8 +26,9 @@ import {
   Widget,
   WidgetState,
 } from "@itwin/appui-react";
-import { MeasureDistanceTool } from "@itwin/core-frontend";
+import { MeasureDistanceTool, PrimitiveTool } from "@itwin/core-frontend";
 import {
+  SvgCursor,
   SvgTextAlignCenter,
   SvgTextAlignJustify,
   SvgTextAlignLeft,
@@ -51,19 +52,24 @@ import {
 } from "@itwin/appui-test-providers";
 
 // ---------------------------------------------------------------------------
-// Reserved overlay spacer — the child app renders this transparent div whose
-// height is driven by the `overlayHeight` URL search param. It reports its
-// bounding rect to the parent window via `postMessage` so the parent can
-// position its own components on top of the iframe.
+// Pointer tool — a simple tool with no tool settings
 // ---------------------------------------------------------------------------
 
-/** Reads the `overlayHeight` search param (pixels). Returns 0 when absent. */
-function useOverlayHeight(): number {
-  const params = new URLSearchParams(window.location.search);
-  const raw = params.get("overlayHeight");
-  const parsed = raw ? parseInt(raw, 10) : 0;
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : 0;
+class PointerTool extends PrimitiveTool {
+  public static override toolId = "content-overlay-PointerTool";
+  public static override iconSpec = "icon-cursor";
+
+  public override requireWriteableTarget(): boolean {
+    return false;
+  }
+  public override async onRestartTool(): Promise<void> {
+    return this.exitTool();
+  }
 }
+
+// ---------------------------------------------------------------------------
+// Overlay mode hook — listens for postMessage from parent window
+// ---------------------------------------------------------------------------
 
 /**
  * Listens for `{ type: "appui-set-overlay-mode", enabled }` messages from
@@ -85,91 +91,13 @@ function useOverlayMode(): boolean {
   return enabled;
 }
 
-/**
- * A transparent spacer that reserves vertical space in the content overlay zone.
- * On mount and whenever its rect changes (size or position), it posts
- * `{ type: "appui-overlay-rect", rect }` to `window.parent`.
- *
- * ResizeObserver catches size changes (panel collapse/expand), but internal
- * layout shifts (e.g. tool settings undocking) only change position — not size.
- * A lightweight rAF loop detects those position-only changes.
- */
-function OverlaySpacer({ height }: { height: number }) {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const lastRectRef = React.useRef({ top: 0, left: 0, width: 0, height: 0 });
-
-  const postRect = React.useCallback(() => {
-    if (!ref.current || window.parent === window) return;
-    const rect = ref.current.getBoundingClientRect();
-    const r = {
-      top: rect.top,
-      left: rect.left,
-      width: rect.width,
-      height: rect.height,
-    };
-
-    // Only post when the rect actually changed.
-    const prev = lastRectRef.current;
-    if (
-      prev.top === r.top &&
-      prev.left === r.left &&
-      prev.width === r.width &&
-      prev.height === r.height
-    )
-      return;
-
-    lastRectRef.current = r;
-    window.parent.postMessage({ type: "appui-overlay-rect", rect: r }, "*");
-  }, []);
-
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    // Report on mount.
-    postRect();
-
-    // ResizeObserver — catches size changes (width from panel resize, etc.).
-    const observer = new ResizeObserver(postRect);
-    observer.observe(el);
-
-    // Also observe the grid ancestor that resizes when tool settings or
-    // panels change — its size change shifts our position.
-    const centerArea = el.closest(".nz-centerArea");
-    if (centerArea) observer.observe(centerArea);
-
-    // rAF loop — catches position-only shifts that no observer detects
-    // (e.g. animated transitions, tool settings undocking).
-    let rafId = 0;
-    const tick = () => {
-      postRect();
-      rafId = requestAnimationFrame(tick);
-    };
-    rafId = requestAnimationFrame(tick);
-
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(rafId);
-    };
-  }, [postRect]);
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        width: "100%",
-        height,
-        pointerEvents: "none",
-      }}
-    />
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Frontstage definition
 // ---------------------------------------------------------------------------
 
 export function createContentOverlayFrontstage(): Frontstage {
+  PointerTool.register("ContentOverlay");
+
   const config = FrontstageUtilities.createStandardFrontstage({
     id: createContentOverlayFrontstage.stageId,
     contentGroupProps: {
@@ -225,24 +153,17 @@ export function createContentOverlayFrontstage(): Frontstage {
 createContentOverlayFrontstage.stageId = "content-overlay";
 
 /**
- * Wraps `CondensedLayout` and conditionally enables the content overlay spacer
- * based on parent postMessage or URL params.
+ * Switches between `StandardLayout` and `CondensedLayout` based on
+ * parent postMessage.
  */
 function ContentOverlayLayout() {
-  const overlayHeight = useOverlayHeight();
   const overlayMode = useOverlayMode();
 
   if (!overlayMode) {
     return <StandardLayout />;
   }
 
-  return (
-    <CondensedLayout
-      contentOverlay={
-        overlayHeight > 0 ? <OverlaySpacer height={overlayHeight} /> : undefined
-      }
-    />
-  );
+  return <CondensedLayout />;
 }
 
 // ---------------------------------------------------------------------------
@@ -253,6 +174,15 @@ export function createContentOverlayProvider(): UiItemsProvider {
   return {
     id: "content-overlay-provider",
     getToolbarItems: () => [
+      ToolbarItemUtilities.createForTool(PointerTool, {
+        icon: <SvgCursor />,
+        layouts: {
+          standard: {
+            orientation: ToolbarOrientation.Horizontal,
+            usage: ToolbarUsage.ContentManipulation,
+          },
+        },
+      }),
       ToolbarItemUtilities.createForTool(SampleTool, {
         layouts: {
           standard: {

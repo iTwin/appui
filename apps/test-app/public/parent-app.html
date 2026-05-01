@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!--
-  Parent App Example — Content Overlay Demo
-  ==========================================
+  Parent App Example — Condensed Layout Demo
+  ===========================================
   Demonstrates a parent portal with its own header + left nav that iframes an
-  AppUI child app.  A "Full Screen" button transitions the iframe to fill the
-  viewport and activates content-overlay mode, repositioning the parent's own
-  toolbar over the reserved overlay spacer inside the child.
+  AppUI child app.  A "Full Screen" button hides the side nav and tells the
+  child to switch to CondensedLayout.  "Exit Full Screen" restores the side
+  nav and switches back to StandardLayout.
 
   Usage (local dev):
     Serve the test-app normally, then open:
@@ -15,7 +15,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parent App – Content Overlay Demo</title>
+    <title>Parent App – Condensed Layout Demo</title>
     <style>
       * {
         margin: 0;
@@ -132,6 +132,9 @@
         gap: 4px;
         flex-shrink: 0;
         z-index: 100;
+        transition: width 0.2s ease-out, opacity 0.2s ease-out,
+          padding 0.2s ease-out;
+        overflow: hidden;
       }
       .nav-item {
         display: flex;
@@ -176,81 +179,13 @@
       }
 
       /* ================================================================== */
-      /* Full-screen overlay mode                                            */
+      /* Condensed mode — hide the left nav                                  */
       /* ================================================================== */
-      body.fullscreen #app-header,
-      body.fullscreen #left-nav {
-        display: none;
-      }
-      body.fullscreen #app-body {
-        flex: 1;
-      }
-      body.fullscreen #main-content {
-        position: fixed;
-        inset: 0;
-        z-index: 200;
-      }
-
-      /* Overlay bar — positioned over iframe in full-screen mode */
-      #overlay-bar {
-        position: absolute;
-        display: none;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 12px;
-        pointer-events: none;
-        z-index: 300;
-      }
-      #overlay-bar > * {
-        pointer-events: auto;
-      }
-
-      .overlay-section {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 12px;
-        background: #2d2d2d;
-        border-radius: 0 0 6px 6px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-      }
-      .overlay-section select {
-        background: #3a3a3a;
-        color: #e0e0e0;
-        border: 1px solid #555;
-        border-radius: 4px;
-        padding: 4px 8px;
-        font-size: 13px;
-        min-width: 180px;
-      }
-      .overlay-section svg {
-        width: 16px;
-        height: 16px;
-        fill: #a0a0a0;
-        flex-shrink: 0;
-      }
-
-      .exit-fullscreen-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
+      body.condensed #left-nav {
+        width: 0;
+        opacity: 0;
         padding: 0;
-        background: transparent;
-        color: #a0a0a0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-      }
-      .exit-fullscreen-btn:hover {
-        background: #3a3a3a;
-        color: #fff;
-      }
-      .exit-fullscreen-btn svg {
-        width: 18px;
-        height: 18px;
-        fill: currentColor;
+        border-right: none;
       }
     </style>
   </head>
@@ -270,12 +205,19 @@
         <div class="header-right">
           <button
             class="fullscreen-btn"
-            id="enter-fullscreen-btn"
+            id="toggle-fullscreen-btn"
             title="Enter Full Screen"
           >
-            <svg viewBox="0 0 16 16">
+            <!-- Expand icon -->
+            <svg id="expand-icon" viewBox="0 0 16 16">
               <path
                 d="M2 2h5v1.5H3.5V6H2V2zm7 0h5v4h-1.5V3.5H9V2zM2 10h1.5v2.5H6V14H2v-4zm10.5 2.5V10H14v4h-4v-1.5h2.5z"
+              />
+            </svg>
+            <!-- Collapse icon (hidden by default) -->
+            <svg id="collapse-icon" viewBox="0 0 16 16" style="display: none">
+              <path
+                d="M4 2v2.5H1.5V6H6V1.5H4.5V2H4zm8 0v.5H10V6h4.5V4.5H12V2h-.5zM4 14v-.5H1.5V12H6v4.5H4.5V14H4zm8 0v.5H10V10h4.5v1.5H12V14h.5z"
               />
             </svg>
           </button>
@@ -340,89 +282,40 @@
         <div id="main-content">
           <iframe
             id="child-frame"
-            src="/blank?menu=0&frontstageId=content-overlay&overlayHeight=48&statusBarOverlay"
+            src="/blank?menu=0&frontstageId=content-overlay"
           ></iframe>
-
-          <!-- Overlay bar — shown in full-screen mode over the iframe -->
-          <div id="overlay-bar">
-            <div class="overlay-section">
-              <svg viewBox="0 0 16 16">
-                <path d="M1 2h5l2 2h7v10H1V2zm1 1v10h12V5H7.586L5.586 3H2z" />
-              </svg>
-              <select id="overlay-project-select">
-                <option>Highway Bridge</option>
-                <option>Campus Building</option>
-                <option>Stadium Renovation</option>
-                <option>Rail Corridor</option>
-              </select>
-            </div>
-            <div class="overlay-section">
-              <button
-                class="exit-fullscreen-btn"
-                id="exit-fullscreen-btn"
-                title="Exit Full Screen"
-              >
-                <svg viewBox="0 0 16 16">
-                  <path
-                    d="M4 2v2.5H1.5V6H6V1.5H4.5V2H4zm8 0v.5H10V6h4.5V4.5H12V2h-.5zM4 14v-.5H1.5V12H6v4.5H4.5V14H4zm8 0v.5H10V10h4.5v1.5H12V14h.5z"
-                  />
-                </svg>
-              </button>
-              <div class="user-avatar" title="Jane Doe">JD</div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
     <script>
-      const overlayBar = document.getElementById("overlay-bar");
       const iframe = document.getElementById("child-frame");
-      const enterBtn = document.getElementById("enter-fullscreen-btn");
-      const exitBtn = document.getElementById("exit-fullscreen-btn");
+      const toggleBtn = document.getElementById("toggle-fullscreen-btn");
+      const expandIcon = document.getElementById("expand-icon");
+      const collapseIcon = document.getElementById("collapse-icon");
 
-      const ALLOWED_CHILD_ORIGINS = [window.location.origin];
+      let isCondensed = false;
 
-      let isFullScreen = false;
+      toggleBtn.addEventListener("click", () => {
+        isCondensed = !isCondensed;
 
-      // ---- Enter full-screen overlay mode ----
-      enterBtn.addEventListener("click", () => {
-        isFullScreen = true;
-        document.body.classList.add("fullscreen");
-        // Tell the child to enable overlay mode
+        if (isCondensed) {
+          document.body.classList.add("condensed");
+          toggleBtn.title = "Exit Full Screen";
+          expandIcon.style.display = "none";
+          collapseIcon.style.display = "";
+        } else {
+          document.body.classList.remove("condensed");
+          toggleBtn.title = "Enter Full Screen";
+          expandIcon.style.display = "";
+          collapseIcon.style.display = "none";
+        }
+
+        // Tell the child iframe to switch layouts
         iframe.contentWindow.postMessage(
-          { type: "appui-set-overlay-mode", enabled: true },
+          { type: "appui-set-overlay-mode", enabled: isCondensed },
           "*"
         );
-      });
-
-      // ---- Exit full-screen overlay mode ----
-      exitBtn.addEventListener("click", () => {
-        isFullScreen = false;
-        document.body.classList.remove("fullscreen");
-        overlayBar.style.display = "none";
-        // Tell the child to disable overlay mode
-        iframe.contentWindow.postMessage(
-          { type: "appui-set-overlay-mode", enabled: false },
-          "*"
-        );
-      });
-
-      // Listen for bounding-rect messages from the child app's OverlaySpacer.
-      window.addEventListener("message", (event) => {
-        if (!ALLOWED_CHILD_ORIGINS.includes(event.origin)) return;
-        if (!event.data || event.data.type !== "appui-overlay-rect") return;
-        if (!isFullScreen) return;
-
-        const { top, left, width, height } = event.data.rect;
-
-        const iframeRect = iframe.getBoundingClientRect();
-
-        overlayBar.style.display = "flex";
-        overlayBar.style.top = iframeRect.top + top + "px";
-        overlayBar.style.left = iframeRect.left + left + "px";
-        overlayBar.style.width = width + "px";
-        overlayBar.style.height = height + "px";
       });
 
       // Nav item active state
