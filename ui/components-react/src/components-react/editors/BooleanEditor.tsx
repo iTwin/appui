@@ -140,6 +140,7 @@ export class BooleanEditor
           this.props.propertyRecord?.isReadonly
         }
         data-testid="components-checkbox-editor"
+        id={this.props.propertyRecord?.property.name}
       ></Checkbox>
     );
   }

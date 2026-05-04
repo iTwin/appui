@@ -29,6 +29,7 @@ function TextAreaEditor({
   commit,
   size,
   disabled,
+  id,
 }: EditorProps<OldEditorMetadata, TextValue>) {
   const currentValue = value ?? { value: "" };
 
@@ -50,7 +51,7 @@ function TextAreaEditor({
         }
       }}
     >
-      <Button style={{ width: "100%" }} size={size} disabled={disabled}>
+      <Button id={id} style={{ width: "100%" }} size={size} disabled={disabled}>
         {currentValue.value}
       </Button>
     </Popover>

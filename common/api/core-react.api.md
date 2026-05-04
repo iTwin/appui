@@ -649,6 +649,7 @@ export interface ImageCheckBoxProps extends CommonProps {
     border?: boolean;
     checked?: boolean;
     disabled?: boolean;
+    id?: string;
     imageOff: string | React_2.ReactNode;
     imageOn: string | React_2.ReactNode;
     inputClassName?: string;

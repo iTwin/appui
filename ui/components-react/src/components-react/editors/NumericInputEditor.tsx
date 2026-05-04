@@ -197,6 +197,7 @@ export class NumericInputEditor
     return (
       <NumericEditor
         ref={this._inputElement}
+        id={this.props.propertyRecord?.property.name}
         className={className}
         style={style}
         value={this.state.value}

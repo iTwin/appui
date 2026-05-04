@@ -41,4 +41,17 @@ describe("EditorRenderer", () => {
     expect(queryByText("Multiline")).not.toBeNull();
     expect(queryByText("Test message")).not.toBeNull();
   });
+
+  it("forwards id prop to the rendered editor element", () => {
+    const { container } = render(
+      <EditorRenderer
+        metadata={{ type: "string" }}
+        value={{ value: "test" }}
+        onChange={() => {}}
+        id="my-editor-id"
+      />
+    );
+
+    expect(container.querySelector('[id="my-editor-id"]')).not.toBeNull();
+  });
 });

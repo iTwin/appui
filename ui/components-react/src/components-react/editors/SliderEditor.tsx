@@ -319,6 +319,7 @@ export class SliderEditor
     return (
       <div className={className} ref={this._divElement}>
         <PopupButton
+          id={this.props.propertyRecord?.property.name}
           label={this.state.value}
           onClose={this._handleClose}
           onEnter={this._handleEnter}

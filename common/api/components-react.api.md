@@ -584,6 +584,7 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
     commit?: () => void;
     // (undocumented)
     disabled?: boolean;
+    id?: string;
     // (undocumented)
     metadata: TMetadata;
     // (undocumented)

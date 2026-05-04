@@ -28,12 +28,14 @@ function TextEditor({
   onChange,
   size,
   disabled,
+  id,
 }: EditorProps<ValueMetadata, TextValue>) {
   const currentValue = value ? value : { value: "" };
 
   return (
     <InputWithDecorations size={size}>
       <InputWithDecorations.Input
+        id={id}
         value={currentValue.value}
         onChange={(e) => onChange({ value: e.target.value })}
         size={size}

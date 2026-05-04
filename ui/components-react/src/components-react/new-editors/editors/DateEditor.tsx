@@ -21,6 +21,7 @@ export function DateEditor({
   commit,
   size,
   disabled,
+  id,
 }: EditorProps<ValueMetadata, DateValue>) {
   return (
     <DateInput
@@ -31,6 +32,7 @@ export function DateEditor({
       onClose={commit}
       size={size}
       disabled={disabled}
+      id={id}
     />
   );
 }
