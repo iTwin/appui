@@ -588,7 +588,7 @@ export interface EditorProps<TMetadata = ValueMetadata, TValue = Value> {
     // (undocumented)
     metadata: TMetadata;
     // (undocumented)
-    onChange: (value?: TValue, prepareForCommit?: () => TValue | undefined) => void;
+    onChange: (value?: TValue) => void;
     // (undocumented)
     size?: "small" | "large";
     // (undocumented)
