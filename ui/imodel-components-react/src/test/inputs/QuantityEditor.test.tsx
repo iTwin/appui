@@ -8,10 +8,6 @@ import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { QuantityValueMetadata } from "../../imodel-components-react/inputs/new-editors/QuantityEditor.js";
-import {
-  EditorRenderer,
-  EditorsRegistryProvider,
-} from "@itwin/components-react";
 
 const METERS_PER_INCH = 0.0254;
 const convertMetersToInches = (meters: number) => meters / METERS_PER_INCH;
@@ -43,7 +39,7 @@ vi.mock(
 );
 
 // Import after mock setup
-const { QuantityEditorSpec } = await import(
+const { QuantityEditor } = await import(
   "../../imodel-components-react/inputs/new-editors/QuantityEditor.js"
 );
 
@@ -53,9 +49,7 @@ function renderQuantityEditor(
   onChange: (...args: any[]) => void
 ) {
   return render(
-    <EditorsRegistryProvider editors={[QuantityEditorSpec]}>
-      <EditorRenderer metadata={metadata} value={value} onChange={onChange} />
-    </EditorsRegistryProvider>
+    <QuantityEditor metadata={metadata} value={value} onChange={onChange} />
   );
 }
 
