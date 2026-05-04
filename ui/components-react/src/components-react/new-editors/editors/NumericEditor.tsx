@@ -32,29 +32,15 @@ export function NumericEditor({
       value={currentValue.displayValue}
       onChange={(e) => {
         const parsedValue = parseFloat(e.target.value);
-        onChange(
-          {
-            rawValue: Number.isNaN(parsedValue) ? undefined : parsedValue,
-            displayValue: e.target.value,
-          },
-          () => {
-            const { min, max } = getNumericConstraints(metadata.constraints);
-            if (
-              !Number.isNaN(parsedValue) &&
-              (min !== undefined || max !== undefined)
-            ) {
-              const clamped = applyNumericConstraints({
+        onChange({
+          rawValue: Number.isNaN(parsedValue)
+            ? undefined
+            : applyNumericConstraints({
+                ...getNumericConstraints(metadata.constraints),
                 value: parsedValue,
-                min,
-                max,
-              });
-              if (clamped !== parsedValue) {
-                return { rawValue: clamped, displayValue: `${clamped}` };
-              }
-            }
-            return { rawValue: parsedValue, displayValue: e.target.value };
-          }
-        );
+              }),
+          displayValue: e.target.value,
+        });
       }}
       size={size}
       disabled={disabled}

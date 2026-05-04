@@ -23,6 +23,12 @@ import { QuantityInput } from "./QuantityInput.js";
 
 /**
  * Editor specification for quantity values based on `IModelApp.quantityFormatter`.
+ *
+ * **Note:** value provided to `onChange` might have mismatching `displayValue` and `rawValue`.
+ * This can happen when input is invalid, some examples:
+ * - input is not numeric. input `abc` -> { `displayValue`: "abc", `rawValue`: undefined }
+ * - input is smaller than property constraints. input: `2 in`,  minimumValue is `1 m` -> { `displayValue`: `2 in`, `rawValue`: 1 }
+ * - input is larger than property constraints. input: `6 m`,  maximumValue is `5 m` -> { `displayValue`: `6 m`, `rawValue`: 5 }
  * @beta
  */
 export const QuantityEditorSpec: EditorSpec = createEditorSpec({
@@ -60,25 +66,16 @@ function QuantityEditor({
     minimumValue: undefined,
     maximumValue: undefined,
   };
-  const handleChange = (newValue?: NumericValue) => {
-    onChange(newValue, () => {
-      if (
-        newValue?.rawValue !== undefined &&
-        (minimumValue !== undefined || maximumValue !== undefined)
-      ) {
-        const clamped = applyConstraints(
-          newValue.rawValue,
-          minimumValue,
-          maximumValue
-        );
-        if (clamped !== newValue?.rawValue) {
-          const formatted =
-            defaultFormatter?.applyFormatting(clamped) ?? `${clamped}`;
-          return { ...newValue, rawValue: clamped, displayValue: formatted };
-        }
-      }
-      return newValue;
+  const handleChange = (newValue: NumericValue) => {
+    if (!newValue?.rawValue) {
+      onChange(newValue);
+      return;
+    }
+    onChange({
+      ...newValue,
+      rawValue: applyConstraints(newValue.rawValue, minimumValue, maximumValue),
     });
+    return;
   };
 
   return (

@@ -89,36 +89,19 @@ export function CustomNumberEditor({
     const currentValue = e.target.value;
     const result = formatParams.parseFunction(currentValue);
     const parsedValue =
-      typeof result.value === "number" ? result.value : undefined;
+      typeof result.value === "number"
+        ? applyNumericConstraints({
+            ...getNumericConstraints(metadata.constraints),
+            value: result.value,
+          })
+        : undefined;
 
     setInputValue(currentValue);
 
-    onChange(
-      {
-        rawValue: parsedValue,
-        displayValue: currentValue,
-      },
-      () => {
-        // Apply constraints
-        if (parsedValue !== undefined) {
-          const { min, max } = getNumericConstraints(metadata.constraints);
-          const constrainedValue = applyNumericConstraints({
-            value: parsedValue,
-            min,
-            max,
-          });
-          if (constrainedValue !== parsedValue) {
-            const formattedValue =
-              formatParams.formatFunction(constrainedValue);
-            return {
-              rawValue: constrainedValue,
-              displayValue: formattedValue,
-            };
-          }
-        }
-        return { rawValue: parsedValue, displayValue: currentValue };
-      }
-    );
+    onChange({
+      rawValue: parsedValue,
+      displayValue: currentValue,
+    });
   };
 
   return (

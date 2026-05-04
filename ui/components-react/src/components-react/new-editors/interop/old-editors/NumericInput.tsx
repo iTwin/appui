@@ -59,20 +59,11 @@ function NumericInputEditor({
         : rangeParams.maximum
       : constraintMax;
 
-  const handleChange = (newValue: string, prepareForCommit?: () => string) => {
-    onChange(
-      {
-        displayValue: newValue,
-        rawValue: parseFloat(newValue),
-      },
-      () => {
-        const preparedValue = prepareForCommit ? prepareForCommit() : newValue;
-        return {
-          displayValue: preparedValue,
-          rawValue: parseFloat(preparedValue),
-        };
-      }
-    );
+  const handleChange = (newValue: string) => {
+    onChange({
+      displayValue: newValue,
+      rawValue: parseFloat(newValue),
+    });
   };
 
   const style: React.CSSProperties | undefined =
@@ -108,7 +99,7 @@ interface UseNumericInputProps {
   precision?: number;
   maxLength?: number;
   value: string;
-  onChange: (newValue: string, prepareForCommit?: () => string) => void;
+  onChange: (newValue: string) => void;
 }
 
 function useNumericInput({
@@ -140,7 +131,7 @@ function useNumericInput({
       return;
     }
     setFormattedValue(currentValue);
-    onChange(currentValue, () => formatValue(Number(currentValue)));
+    onChange(currentValue);
   };
 
   const handleBlur = () => {
@@ -148,7 +139,7 @@ function useNumericInput({
       const newFormattedValue = formatValue(Number(formattedValue));
       if (newFormattedValue !== formattedValue) {
         setFormattedValue(newFormattedValue);
-        onChange(newFormattedValue, () => newFormattedValue);
+        onChange(newFormattedValue);
       }
     }
   };

@@ -64,33 +64,26 @@ export function useCommittableValue({
   const currentValueRef = React.useRef<{
     state: "changed" | "cancelled" | "initial";
     value?: Value;
-    prepareForCommit?: () => Value | undefined;
   }>({
     state: "initial",
     value: initialValue,
   });
 
-  const handleChange: EditorProps["onChange"] = (
-    newValue?: Value,
-    prepareForCommit?: () => Value | undefined
-  ) => {
+  const handleChange: EditorProps["onChange"] = (newValue?: Value) => {
     currentValueRef.current = {
       state: "changed",
       value: newValue,
-      prepareForCommit,
     };
     setCurrentValue(newValue);
   };
 
   const handleCommit = () => {
-    if (currentValueRef.current.state === "changed") {
-      const preparedValue = currentValueRef.current.prepareForCommit
-        ? currentValueRef.current.prepareForCommit()
-        : currentValueRef.current.value;
-      if (!areEqual(preparedValue, initialValueRef.current)) {
-        onCommit(preparedValue);
-        return;
-      }
+    if (
+      currentValueRef.current.state === "changed" &&
+      !areEqual(currentValueRef.current.value, initialValueRef.current)
+    ) {
+      onCommit(currentValueRef.current.value);
+      return;
     }
     if (currentValueRef.current.state === "cancelled") {
       return;

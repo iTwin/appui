@@ -29,18 +29,7 @@ export function TextEditor({
   return (
     <Input
       value={currentValue.value}
-      onChange={(e) => {
-        const inputValue = e.target.value;
-        onChange({ value: inputValue }, () => {
-          if (maxLength !== undefined && inputValue.length > maxLength) {
-            return { value: inputValue.slice(0, maxLength) };
-          }
-          if (minLength !== undefined && inputValue.length < minLength) {
-            return { value: "" };
-          }
-          return { value: inputValue };
-        });
-      }}
+      onChange={(e) => onChange({ value: e.target.value })}
       maxLength={maxLength}
       minLength={minLength}
       size={size}
