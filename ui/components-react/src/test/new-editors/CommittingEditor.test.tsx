@@ -3,7 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { CommittingEditor } from "../../components-react/new-editors/interop/PropertyRecordEditor.js";
@@ -15,7 +16,7 @@ describe("CommittingEditor", () => {
   const initialValue: TextValue = { value: "hello" };
 
   it("renders editor with initial value", () => {
-    render(
+    const { getByDisplayValue } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -24,14 +25,15 @@ describe("CommittingEditor", () => {
       />
     );
 
-    expect(screen.getByRole("textbox")).toHaveProperty("value", "hello");
+    getByDisplayValue("hello");
   });
 
-  it("commits changed value on Enter", () => {
+  it("commits changed value on Enter", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -40,19 +42,21 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "world" } });
-    fireEvent.keyDown(input, { key: "Enter" });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "world");
+    await user.keyboard("{Enter}");
 
     expect(onCommit).toHaveBeenCalledWith({ value: "world" });
     expect(onCancel).not.toHaveBeenCalled();
   });
 
-  it("commits changed value on Tab", () => {
+  it("commits changed value on Tab", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -61,19 +65,21 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "world" } });
-    fireEvent.keyDown(input, { key: "Tab" });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "world");
+    await user.keyboard("{Tab}");
 
     expect(onCommit).toHaveBeenCalledWith({ value: "world" });
     expect(onCancel).not.toHaveBeenCalled();
   });
 
-  it("commits changed value on blur", () => {
+  it("commits changed value on blur", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -82,19 +88,21 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "world" } });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "world");
     fireEvent.blur(input);
 
     expect(onCommit).toHaveBeenCalledWith({ value: "world" });
     expect(onCancel).not.toHaveBeenCalled();
   });
 
-  it("calls onCancel on Escape", () => {
+  it("calls onCancel on Escape", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -103,18 +111,20 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.keyDown(input, { key: "Escape" });
+    const input = getByRole("textbox");
+    await user.click(input);
+    await user.keyboard("{Escape}");
 
     expect(onCancel).toHaveBeenCalled();
     expect(onCommit).not.toHaveBeenCalled();
   });
 
-  it("calls onCancel when value is unchanged on Enter", () => {
+  it("calls onCancel when value is unchanged on Enter", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -123,18 +133,20 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.keyDown(input, { key: "Enter" });
+    const input = getByRole("textbox");
+    await user.click(input);
+    await user.keyboard("{Enter}");
 
     expect(onCancel).toHaveBeenCalled();
     expect(onCommit).not.toHaveBeenCalled();
   });
 
-  it("commits the value directly without transformation", () => {
+  it("commits the value directly without transformation", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={{ type: "string" }}
         initialValue={{ value: "" }}
@@ -143,18 +155,19 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "new value" } });
-    fireEvent.keyDown(input, { key: "Enter" });
+    const input = getByRole("textbox");
+    await user.type(input, "new value");
+    await user.keyboard("{Enter}");
 
     expect(onCommit).toHaveBeenCalledWith({ value: "new value" });
   });
 
-  it("does not commit after cancel", () => {
+  it("does not commit after cancel", async () => {
+    const user = userEvent.setup();
     const onCommit = vi.fn();
     const onCancel = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -163,9 +176,10 @@ describe("CommittingEditor", () => {
       />
     );
 
-    const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "changed" } });
-    fireEvent.keyDown(input, { key: "Escape" });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "changed");
+    await user.keyboard("{Escape}");
     fireEvent.blur(input);
 
     expect(onCancel).toHaveBeenCalledTimes(1);
@@ -173,7 +187,7 @@ describe("CommittingEditor", () => {
   });
 
   it("passes disabled prop to editor", () => {
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -183,13 +197,14 @@ describe("CommittingEditor", () => {
       />
     );
 
-    expect(screen.getByRole("textbox")).toHaveProperty("disabled", true);
+    expect(getByRole("textbox")).toHaveProperty("disabled", true);
   });
 
-  it("calls onClick when clicked", () => {
+  it("calls onClick when clicked", async () => {
+    const user = userEvent.setup();
     const onClick = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
         initialValue={initialValue}
@@ -199,7 +214,7 @@ describe("CommittingEditor", () => {
       />
     );
 
-    fireEvent.click(screen.getByRole("textbox"));
+    await user.click(getByRole("textbox"));
 
     expect(onClick).toHaveBeenCalled();
   });

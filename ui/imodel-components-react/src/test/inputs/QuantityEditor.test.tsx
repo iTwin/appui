@@ -3,26 +3,40 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { QuantityValueMetadata } from "../../imodel-components-react/inputs/new-editors/QuantityEditor.js";
 import {
   EditorRenderer,
   EditorsRegistryProvider,
 } from "@itwin/components-react";
 
+const METERS_PER_INCH = 0.0254;
+const convertMetersToInches = (meters: number) => meters / METERS_PER_INCH;
+const convertInchesToMeters = (inches: number) => inches * METERS_PER_INCH;
+
+const mockConfig = {
+  formatter: (v: number) => `${v} m`,
+  parser: (input: string) => {
+    const num = parseFloat(input);
+    return isNaN(num) ? { ok: false } : { ok: true, value: num };
+  },
+};
+
 vi.mock(
   "../../imodel-components-react/inputs/new-editors/UseQuantityInfo.js",
   () => ({
     useQuantityInfo: () => ({
-      defaultFormatter: { applyFormatting: (v: number) => `${v} m` },
-      highPrecisionFormatter: { applyFormatting: (v: number) => `${v} m` },
+      defaultFormatter: {
+        applyFormatting: (v: number) => mockConfig.formatter(v),
+      },
+      highPrecisionFormatter: {
+        applyFormatting: (v: number) => mockConfig.formatter(v),
+      },
       parser: {
-        parseToQuantityValue: (input: string) => {
-          const num = parseFloat(input);
-          return isNaN(num) ? { ok: false } : { ok: true, value: num };
-        },
+        parseToQuantityValue: (input: string) => mockConfig.parser(input),
       },
     }),
   })
@@ -46,126 +60,251 @@ function renderQuantityEditor(
 }
 
 describe("QuantityEditor", () => {
-  const metadata: QuantityValueMetadata = {
-    type: "number",
-    quantityType: 1, // any value, hook is mocked
-  };
-
-  it("renders input with formatted value", () => {
-    renderQuantityEditor(
-      metadata,
-      { rawValue: 5, displayValue: "5 m" },
-      () => {}
-    );
-
-    expect(screen.getByRole("textbox")).toHaveProperty("value", "5 m");
-  });
-
-  it("calls onChange when user types a value", () => {
-    const onChange = vi.fn();
-    renderQuantityEditor(
-      metadata,
-      { rawValue: 0, displayValue: "0 m" },
-      onChange
-    );
-    onChange.mockClear();
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "25" },
-    });
-
-    expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 25 })
-    );
-  });
-
-  it("clamps value below minimum at onChange", () => {
-    const onChange = vi.fn();
-    const constrainedMetadata: QuantityValueMetadata = {
+  describe("persistence unit matches display unit", () => {
+    const metadata: QuantityValueMetadata = {
       type: "number",
-      quantityType: 1,
-      constraints: { minimumValue: 0, maximumValue: 100 },
+      quantityType: 1, // any value, hook is mocked
     };
 
-    renderQuantityEditor(
-      constrainedMetadata,
-      { rawValue: 0, displayValue: "0 m" },
-      onChange
-    );
-    onChange.mockClear();
+    it("renders input with formatted value", () => {
+      const { getByDisplayValue } = renderQuantityEditor(
+        metadata,
+        { rawValue: 5, displayValue: "5 m" },
+        () => {}
+      );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "-10" },
+      getByDisplayValue("5 m");
     });
 
-    expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 0 })
-    );
+    it("calls onChange when user types a value", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const { getByRole } = renderQuantityEditor(
+        metadata,
+        { rawValue: 0, displayValue: "0 m" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      await user.type(input, "25");
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ rawValue: 25 })
+      );
+    });
+
+    it("clamps value below minimum at onChange", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const constrainedMetadata: QuantityValueMetadata = {
+        type: "number",
+        quantityType: 1,
+        constraints: { minimumValue: 0, maximumValue: 100 },
+      };
+
+      const { getByRole } = renderQuantityEditor(
+        constrainedMetadata,
+        { rawValue: 0, displayValue: "0 m" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      await user.type(input, "-10");
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ rawValue: 0 })
+      );
+    });
+
+    it("clamps value above maximum at onChange", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const constrainedMetadata: QuantityValueMetadata = {
+        type: "number",
+        quantityType: 1,
+        constraints: { minimumValue: 0, maximumValue: 100 },
+      };
+
+      const { getByRole } = renderQuantityEditor(
+        constrainedMetadata,
+        { rawValue: 0, displayValue: "0 m" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      await user.type(input, "200");
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ rawValue: 100 })
+      );
+    });
+
+    it("passes value unchanged when within constraints", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const constrainedMetadata: QuantityValueMetadata = {
+        type: "number",
+        quantityType: 1,
+        constraints: { minimumValue: 0, maximumValue: 100 },
+      };
+
+      const { getByRole } = renderQuantityEditor(
+        constrainedMetadata,
+        { rawValue: 0, displayValue: "0 m" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      await user.type(input, "50");
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ rawValue: 50 })
+      );
+    });
+
+    it("passes value unchanged when no constraints", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const { getByRole } = renderQuantityEditor(
+        metadata,
+        { rawValue: 0, displayValue: "0 m" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      await user.type(input, "999");
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ rawValue: 999 })
+      );
+    });
   });
 
-  it("clamps value above maximum at onChange", () => {
-    const onChange = vi.fn();
-    const constrainedMetadata: QuantityValueMetadata = {
+  describe("persistence unit is different from display unit", () => {
+    const metadata: QuantityValueMetadata = {
       type: "number",
       quantityType: 1,
-      constraints: { minimumValue: 0, maximumValue: 100 },
     };
 
-    renderQuantityEditor(
-      constrainedMetadata,
-      { rawValue: 0, displayValue: "0 m" },
-      onChange
-    );
-    onChange.mockClear();
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "200" },
+    beforeEach(() => {
+      // Display unit: inches, persistence unit: meters
+      mockConfig.formatter = (v: number) => `${+convertMetersToInches(v)} in`;
+      mockConfig.parser = (input: string) => {
+        const num = parseFloat(input);
+        // Parser converts display value (inches) to persistence value (meters)
+        return isNaN(num)
+          ? { ok: false }
+          : { ok: true, value: convertInchesToMeters(num) };
+      };
     });
 
-    expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 100 })
-    );
-  });
-
-  it("passes value unchanged when within constraints", () => {
-    const onChange = vi.fn();
-    const constrainedMetadata: QuantityValueMetadata = {
-      type: "number",
-      quantityType: 1,
-      constraints: { minimumValue: 0, maximumValue: 100 },
-    };
-
-    renderQuantityEditor(
-      constrainedMetadata,
-      { rawValue: 0, displayValue: "0 m" },
-      onChange
-    );
-    onChange.mockClear();
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "50" },
+    afterEach(() => {
+      mockConfig.formatter = (v: number) => `${v} m`;
+      mockConfig.parser = (input: string) => {
+        const num = parseFloat(input);
+        return isNaN(num) ? { ok: false } : { ok: true, value: num };
+      };
     });
 
-    expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 50 })
-    );
-  });
+    it("renders value converted from persistence to display unit", () => {
+      const meters = 1;
+      const { getByDisplayValue } = renderQuantityEditor(
+        metadata,
+        {
+          rawValue: meters,
+          displayValue: `${convertMetersToInches(meters)} in`,
+        },
+        () => {}
+      );
 
-  it("passes value unchanged when no constraints", () => {
-    const onChange = vi.fn();
-    renderQuantityEditor(
-      metadata,
-      { rawValue: 0, displayValue: "0 m" },
-      onChange
-    );
-    onChange.mockClear();
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "999" },
+      getByDisplayValue(`${convertMetersToInches(meters)} in`);
     });
 
-    expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 999 })
-    );
+    it("converts input in display units to persistence units via parser", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const meters = 0;
+      const { getByRole } = renderQuantityEditor(
+        metadata,
+        {
+          rawValue: meters,
+          displayValue: `${convertMetersToInches(meters)} in`,
+        },
+        onChange
+      );
+
+      const newValueInInches = 100;
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      await user.type(input, `${newValueInInches} in`);
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          rawValue: convertInchesToMeters(newValueInInches),
+        })
+      );
+    });
+
+    it("applies constraints in persistence units", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const constrainedMetadata: QuantityValueMetadata = {
+        type: "number",
+        quantityType: 1,
+        // Constraints are in persistence unit (meters): max 1 meter
+        constraints: { minimumValue: 0, maximumValue: 1 },
+      };
+
+      const { getByRole } = renderQuantityEditor(
+        constrainedMetadata,
+        { rawValue: 0, displayValue: "0 in" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      // Type 50 inches = 1.27 meters, exceeds maximumValue of 1 meter
+      const newValueInInches = 50;
+      await user.type(input, `${newValueInInches} in`);
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({ rawValue: 1 })
+      );
+    });
+
+    it("does not clamp value when within constraints in persistence units", async () => {
+      const user = userEvent.setup();
+      const onChange = vi.fn();
+      const constrainedMetadata: QuantityValueMetadata = {
+        type: "number",
+        quantityType: 1,
+        // Constraints in meters: max 5 meters
+        constraints: { minimumValue: 0, maximumValue: 5 },
+      };
+
+      const { getByRole } = renderQuantityEditor(
+        constrainedMetadata,
+        { rawValue: 0, displayValue: "0 in" },
+        onChange
+      );
+
+      const input = getByRole("textbox");
+      await user.clear(input);
+      // 10 inches = 0.254 meters, is within maximumValue of 5 meters
+      const newValueInInches = 10;
+      await user.type(input, `${newValueInInches} in`);
+
+      expect(onChange).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          rawValue: convertInchesToMeters(newValueInInches),
+        })
+      );
+    });
   });
 });

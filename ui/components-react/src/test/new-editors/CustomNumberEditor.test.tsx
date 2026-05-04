@@ -3,7 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import type { CustomFormattedNumberParams } from "@itwin/appui-abstract";
@@ -41,7 +42,7 @@ function createMetadata(constraints?: {
 
 describe("CustomNumberEditor", () => {
   it("renders input with formatted value", () => {
-    render(
+    const { getByDisplayValue } = render(
       <CustomNumberEditor
         metadata={createMetadata()}
         value={{ rawValue: 42, displayValue: "42" }}
@@ -49,13 +50,14 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    expect(screen.getByRole("textbox")).toHaveProperty("value", "42");
+    getByDisplayValue("42");
   });
 
-  it("calls onChange with value on input change", () => {
+  it("calls onChange with value on input change", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata()}
         value={{ rawValue: 0, displayValue: "0" }}
@@ -63,20 +65,21 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "25" },
-    });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "25");
 
-    expect(onChange).toHaveBeenCalledWith({
+    expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 25,
       displayValue: "25",
     });
   });
 
-  it("clamps value below minimum at onChange", () => {
+  it("clamps value below minimum at onChange", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
         value={{ rawValue: 0, displayValue: "0" }}
@@ -84,20 +87,21 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "-10" },
-    });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "-10");
 
-    expect(onChange).toHaveBeenCalledWith({
+    expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 0,
       displayValue: "-10",
     });
   });
 
-  it("clamps value above maximum at onChange", () => {
+  it("clamps value above maximum at onChange", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
         value={{ rawValue: 0, displayValue: "0" }}
@@ -105,20 +109,21 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "200" },
-    });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "200");
 
-    expect(onChange).toHaveBeenCalledWith({
+    expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 100,
       displayValue: "200",
     });
   });
 
-  it("passes value unchanged when within constraints", () => {
+  it("passes value unchanged when within constraints", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
         value={{ rawValue: 0, displayValue: "0" }}
@@ -126,20 +131,21 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "50" },
-    });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "50");
 
-    expect(onChange).toHaveBeenCalledWith({
+    expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 50,
       displayValue: "50",
     });
   });
 
-  it("passes value unchanged when no constraints", () => {
+  it("passes value unchanged when no constraints", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata()}
         value={{ rawValue: 0, displayValue: "0" }}
@@ -147,20 +153,21 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "999" },
-    });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "999");
 
-    expect(onChange).toHaveBeenCalledWith({
+    expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 999,
       displayValue: "999",
     });
   });
 
-  it("sets rawValue to undefined for non-numeric input", () => {
+  it("sets rawValue to undefined for non-numeric input", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
 
-    render(
+    const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
         value={{ rawValue: 0, displayValue: "0" }}
@@ -168,11 +175,11 @@ describe("CustomNumberEditor", () => {
       />
     );
 
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "abc" },
-    });
+    const input = getByRole("textbox");
+    await user.clear(input);
+    await user.type(input, "abc");
 
-    expect(onChange).toHaveBeenCalledWith({
+    expect(onChange).toHaveBeenLastCalledWith({
       rawValue: undefined,
       displayValue: "abc",
     });

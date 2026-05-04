@@ -17,6 +17,7 @@ import {
   type NumericValueMetadata,
   ValueUtilities,
 } from "@itwin/components-react";
+import { applyNumericConstraints } from "@itwin/components-react/internal";
 import { QuantityInput } from "./QuantityInput.js";
 
 /* v8 ignore start */
@@ -73,7 +74,11 @@ function QuantityEditor({
     }
     onChange({
       ...newValue,
-      rawValue: applyConstraints(newValue.rawValue, minimumValue, maximumValue),
+      rawValue: applyNumericConstraints({
+        value: newValue.rawValue,
+        min: minimumValue,
+        max: maximumValue,
+      }),
     });
     return;
   };
@@ -92,18 +97,3 @@ function QuantityEditor({
 }
 
 /* v8 ignore stop */
-
-function applyConstraints(
-  numberValue: number,
-  minimumValue?: number,
-  maximumValue?: number
-): number {
-  let clamped = numberValue;
-  if (minimumValue !== undefined) {
-    clamped = Math.max(clamped, minimumValue);
-  }
-  if (maximumValue !== undefined) {
-    clamped = Math.min(clamped, maximumValue);
-  }
-  return clamped;
-}

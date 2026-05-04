@@ -3,7 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { StandardEditorNames } from "@itwin/appui-abstract";
@@ -39,74 +40,77 @@ function renderNumericInput(
 
 describe("NumericInputEditor", () => {
   it("renders input with value", () => {
-    renderNumericInput(
+    const { getByDisplayValue } = renderNumericInput(
       createMetadata(),
       { rawValue: 42, displayValue: "42" },
       () => {}
     );
 
-    expect(screen.getByRole("spinbutton")).toHaveProperty("value", "42");
+    getByDisplayValue("42");
   });
 
-  it("calls onChange on input change", () => {
+  it("calls onChange on input change", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
-    renderNumericInput(
+    const { getByRole } = renderNumericInput(
       createMetadata(),
       { rawValue: 0, displayValue: "0" },
       onChange
     );
 
-    fireEvent.change(screen.getByRole("spinbutton"), {
-      target: { value: "25" },
-    });
+    const input = getByRole("spinbutton");
+    await user.clear(input);
+    await user.type(input, "25");
 
-    expect(onChange).toHaveBeenCalledWith(
+    expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({ rawValue: 25 })
     );
   });
 
   it("sets min and max attributes from constraints", () => {
-    renderNumericInput(
+    const { getByRole } = renderNumericInput(
       createMetadata({ minimumValue: 0, maximumValue: 100 }),
       { rawValue: 50, displayValue: "50" },
       () => {}
     );
 
-    const input = screen.getByRole("spinbutton");
+    const input = getByRole("spinbutton");
     expect(input).toHaveProperty("min", "0");
     expect(input).toHaveProperty("max", "100");
   });
 
-  it("passes value unchanged when within constraints", () => {
+  it("passes value unchanged when within constraints", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
-    renderNumericInput(
+    const { getByRole } = renderNumericInput(
       createMetadata({ minimumValue: 0, maximumValue: 100 }),
       { rawValue: 0, displayValue: "0" },
       onChange
     );
 
-    fireEvent.change(screen.getByRole("spinbutton"), {
-      target: { value: "50" },
-    });
+    const input = getByRole("spinbutton");
+    await user.clear(input);
+    await user.type(input, "50");
 
-    expect(onChange).toHaveBeenCalledWith(
+    expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({ rawValue: 50 })
     );
   });
 
-  it("passes value unchanged when no constraints", () => {
+  it("passes value unchanged when no constraints", async () => {
+    const user = userEvent.setup();
     const onChange = vi.fn();
-    renderNumericInput(
+    const { getByRole } = renderNumericInput(
       createMetadata(),
       { rawValue: 0, displayValue: "0" },
       onChange
     );
 
-    fireEvent.change(screen.getByRole("spinbutton"), {
-      target: { value: "999" },
-    });
+    const input = getByRole("spinbutton");
+    await user.clear(input);
+    await user.type(input, "999");
 
-    expect(onChange).toHaveBeenCalledWith(
+    expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({ rawValue: 999 })
     );
   });
