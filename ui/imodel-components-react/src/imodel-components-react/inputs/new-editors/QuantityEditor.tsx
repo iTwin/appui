@@ -49,7 +49,8 @@ export interface QuantityValueMetadata extends NumericValueMetadata {
   quantityType: QuantityTypeArg;
 }
 
-function QuantityEditor({
+/** @internal */
+export function QuantityEditor({
   metadata,
   value,
   onChange,

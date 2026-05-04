@@ -31,7 +31,8 @@ export const NumericInputEditorSpec: EditorSpec = createEditorSpec({
   Editor: NumericInputEditor,
 });
 
-function NumericInputEditor({
+/** @internal */
+export function NumericInputEditor({
   metadata,
   value,
   onChange,
