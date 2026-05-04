@@ -61,46 +61,23 @@ describe("NumericInputEditor", () => {
     });
 
     expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 25 }),
-      expect.any(Function)
+      expect.objectContaining({ rawValue: 25 })
     );
   });
 
-  it("prepareForCommit clamps value below minimum", () => {
-    const onChange = vi.fn();
+  it("sets min and max attributes from constraints", () => {
     renderNumericInput(
       createMetadata({ minimumValue: 0, maximumValue: 100 }),
-      { rawValue: 0, displayValue: "0" },
-      onChange
+      { rawValue: 50, displayValue: "50" },
+      () => {}
     );
 
-    fireEvent.change(screen.getByRole("spinbutton"), {
-      target: { value: "-10" },
-    });
-
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(0);
+    const input = screen.getByRole("spinbutton");
+    expect(input).toHaveProperty("min", "0");
+    expect(input).toHaveProperty("max", "100");
   });
 
-  it("prepareForCommit clamps value above maximum", () => {
-    const onChange = vi.fn();
-    renderNumericInput(
-      createMetadata({ minimumValue: 0, maximumValue: 100 }),
-      { rawValue: 0, displayValue: "0" },
-      onChange
-    );
-
-    fireEvent.change(screen.getByRole("spinbutton"), {
-      target: { value: "200" },
-    });
-
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(100);
-  });
-
-  it("prepareForCommit returns value unchanged when within constraints", () => {
+  it("passes value unchanged when within constraints", () => {
     const onChange = vi.fn();
     renderNumericInput(
       createMetadata({ minimumValue: 0, maximumValue: 100 }),
@@ -112,12 +89,12 @@ describe("NumericInputEditor", () => {
       target: { value: "50" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(50);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ rawValue: 50 })
+    );
   });
 
-  it("prepareForCommit returns value unchanged when no constraints", () => {
+  it("passes value unchanged when no constraints", () => {
     const onChange = vi.fn();
     renderNumericInput(
       createMetadata(),
@@ -129,8 +106,8 @@ describe("NumericInputEditor", () => {
       target: { value: "999" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(999);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ rawValue: 999 })
+    );
   });
 });

@@ -52,7 +52,7 @@ describe("CustomNumberEditor", () => {
     expect(screen.getByRole("textbox")).toHaveProperty("value", "42");
   });
 
-  it("calls onChange with prepareForCommit on input change", () => {
+  it("calls onChange with value on input change", () => {
     const onChange = vi.fn();
 
     render(
@@ -67,13 +67,13 @@ describe("CustomNumberEditor", () => {
       target: { value: "25" },
     });
 
-    expect(onChange).toHaveBeenCalledWith(
-      { rawValue: 25, displayValue: "25" },
-      expect.any(Function)
-    );
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 25,
+      displayValue: "25",
+    });
   });
 
-  it("prepareForCommit clamps value below minimum", () => {
+  it("clamps value below minimum at onChange", () => {
     const onChange = vi.fn();
 
     render(
@@ -88,11 +88,13 @@ describe("CustomNumberEditor", () => {
       target: { value: "-10" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ rawValue: 0, displayValue: "0" });
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 0,
+      displayValue: "-10",
+    });
   });
 
-  it("prepareForCommit clamps value above maximum", () => {
+  it("clamps value above maximum at onChange", () => {
     const onChange = vi.fn();
 
     render(
@@ -107,11 +109,13 @@ describe("CustomNumberEditor", () => {
       target: { value: "200" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ rawValue: 100, displayValue: "100" });
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 100,
+      displayValue: "200",
+    });
   });
 
-  it("prepareForCommit returns value unchanged when within constraints", () => {
+  it("passes value unchanged when within constraints", () => {
     const onChange = vi.fn();
 
     render(
@@ -126,11 +130,13 @@ describe("CustomNumberEditor", () => {
       target: { value: "50" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ rawValue: 50, displayValue: "50" });
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 50,
+      displayValue: "50",
+    });
   });
 
-  it("prepareForCommit returns value unchanged when no constraints", () => {
+  it("passes value unchanged when no constraints", () => {
     const onChange = vi.fn();
 
     render(
@@ -145,11 +151,13 @@ describe("CustomNumberEditor", () => {
       target: { value: "999" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ rawValue: 999, displayValue: "999" });
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 999,
+      displayValue: "999",
+    });
   });
 
-  it("prepareForCommit handles non-numeric input", () => {
+  it("sets rawValue to undefined for non-numeric input", () => {
     const onChange = vi.fn();
 
     render(
@@ -164,9 +172,7 @@ describe("CustomNumberEditor", () => {
       target: { value: "abc" },
     });
 
-    // parsedValue is undefined for non-numeric input, so no clamping
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({
+    expect(onChange).toHaveBeenCalledWith({
       rawValue: undefined,
       displayValue: "abc",
     });

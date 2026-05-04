@@ -82,7 +82,7 @@ describe("TextEditor (new-system)", () => {
     expect(input).toHaveProperty("maxLength", -1);
   });
 
-  it("calls onChange with prepareForCommit when user types", async () => {
+  it("calls onChange with value when user types", async () => {
     const onChange = vi.fn();
     render(
       <TextEditor
@@ -94,10 +94,10 @@ describe("TextEditor (new-system)", () => {
 
     await userEvent.type(screen.getByRole("textbox"), "a");
 
-    expect(onChange).toHaveBeenCalledWith({ value: "a" }, expect.any(Function));
+    expect(onChange).toHaveBeenCalledWith({ value: "a" });
   });
 
-  it("prepareForCommit truncates value exceeding maxLength", () => {
+  it("passes value through onChange without transformation", () => {
     const onChange = vi.fn();
 
     render(
@@ -109,71 +109,10 @@ describe("TextEditor (new-system)", () => {
     );
 
     fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "test long name" },
-    });
-
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ value: "test " });
-  });
-
-  it("prepareForCommit returns blank when value is shorter than minLength", () => {
-    const onChange = vi.fn();
-
-    render(
-      <TextEditor
-        metadata={{ type: "string", constraints: { minimumLength: 5 } }}
-        value={{ value: "" }}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "ab" },
-    });
-
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ value: "" });
-  });
-
-  it("prepareForCommit returns value unchanged when within constraints", () => {
-    const onChange = vi.fn();
-
-    render(
-      <TextEditor
-        metadata={{
-          type: "string",
-          constraints: { minimumLength: 2, maximumLength: 10 },
-        }}
-        value={{ value: "" }}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.change(screen.getByRole("textbox"), {
       target: { value: "hello" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ value: "hello" });
-  });
-
-  it("prepareForCommit returns value unchanged when no constraints", () => {
-    const onChange = vi.fn();
-
-    render(
-      <TextEditor
-        metadata={{ type: "string" }}
-        value={{ value: "" }}
-        onChange={onChange}
-      />
-    );
-
-    fireEvent.change(screen.getByRole("textbox"), {
-      target: { value: "anything" },
-    });
-
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ value: "anything" });
+    expect(onChange).toHaveBeenCalledWith({ value: "hello" });
   });
 
   it("renders disabled input when disabled prop is true", () => {

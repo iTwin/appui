@@ -34,7 +34,7 @@ describe("NumericEditor (new-system)", () => {
     expect(screen.getByRole("textbox")).toHaveProperty("value", "");
   });
 
-  it("calls onChange with prepareForCommit when user types", () => {
+  it("calls onChange with clamped value when user types", () => {
     const onChange = vi.fn();
     render(
       <NumericEditor
@@ -48,13 +48,10 @@ describe("NumericEditor (new-system)", () => {
       target: { value: "7" },
     });
 
-    expect(onChange).toHaveBeenCalledWith(
-      { rawValue: 7, displayValue: "7" },
-      expect.any(Function)
-    );
+    expect(onChange).toHaveBeenCalledWith({ rawValue: 7, displayValue: "7" });
   });
 
-  it("prepareForCommit clamps value below minimum to minimum", () => {
+  it("clamps value below minimum at onChange", () => {
     const onChange = vi.fn();
     const metadata: NumericValueMetadata = {
       type: "number",
@@ -73,11 +70,13 @@ describe("NumericEditor (new-system)", () => {
       target: { value: "-5" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ rawValue: 0, displayValue: "0" });
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 0,
+      displayValue: "-5",
+    });
   });
 
-  it("prepareForCommit clamps value above maximum to maximum", () => {
+  it("clamps value above maximum at onChange", () => {
     const onChange = vi.fn();
     const metadata: NumericValueMetadata = {
       type: "number",
@@ -96,11 +95,13 @@ describe("NumericEditor (new-system)", () => {
       target: { value: "150" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    expect(prepareForCommit()).toEqual({ rawValue: 100, displayValue: "100" });
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 100,
+      displayValue: "150",
+    });
   });
 
-  it("prepareForCommit returns value unchanged when within constraints", () => {
+  it("passes value unchanged when within constraints", () => {
     const onChange = vi.fn();
     const metadata: NumericValueMetadata = {
       type: "number",
@@ -119,12 +120,13 @@ describe("NumericEditor (new-system)", () => {
       target: { value: "50" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(50);
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 50,
+      displayValue: "50",
+    });
   });
 
-  it("prepareForCommit returns value unchanged when no constraints", () => {
+  it("passes value unchanged when no constraints", () => {
     const onChange = vi.fn();
 
     render(
@@ -139,12 +141,13 @@ describe("NumericEditor (new-system)", () => {
       target: { value: "999" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(999);
+    expect(onChange).toHaveBeenCalledWith({
+      rawValue: 999,
+      displayValue: "999",
+    });
   });
 
-  it("prepareForCommit handles NaN input without clamping", () => {
+  it("sets rawValue to undefined for NaN input", () => {
     const onChange = vi.fn();
     const metadata: NumericValueMetadata = {
       type: "number",
@@ -163,15 +166,9 @@ describe("NumericEditor (new-system)", () => {
       target: { value: "abc" },
     });
 
-    // onChange first arg has rawValue: undefined for NaN
-    expect(onChange.mock.calls[0][0]).toEqual({
+    expect(onChange).toHaveBeenCalledWith({
       rawValue: undefined,
       displayValue: "abc",
     });
-
-    // prepareForCommit returns NaN rawValue (no clamping for non-numeric)
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBeNaN();
   });
 });

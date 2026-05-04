@@ -75,12 +75,11 @@ describe("QuantityEditor", () => {
     });
 
     expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ rawValue: 25 }),
-      expect.any(Function)
+      expect.objectContaining({ rawValue: 25 })
     );
   });
 
-  it("prepareForCommit clamps value below minimum", () => {
+  it("clamps value below minimum at onChange", () => {
     const onChange = vi.fn();
     const constrainedMetadata: QuantityValueMetadata = {
       type: "number",
@@ -99,13 +98,12 @@ describe("QuantityEditor", () => {
       target: { value: "-10" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(0);
-    expect(result.displayValue).toBe("0 m");
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ rawValue: 0 })
+    );
   });
 
-  it("prepareForCommit clamps value above maximum", () => {
+  it("clamps value above maximum at onChange", () => {
     const onChange = vi.fn();
     const constrainedMetadata: QuantityValueMetadata = {
       type: "number",
@@ -124,13 +122,12 @@ describe("QuantityEditor", () => {
       target: { value: "200" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(100);
-    expect(result.displayValue).toBe("100 m");
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ rawValue: 100 })
+    );
   });
 
-  it("prepareForCommit returns value unchanged when within constraints", () => {
+  it("passes value unchanged when within constraints", () => {
     const onChange = vi.fn();
     const constrainedMetadata: QuantityValueMetadata = {
       type: "number",
@@ -149,12 +146,12 @@ describe("QuantityEditor", () => {
       target: { value: "50" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(50);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ rawValue: 50 })
+    );
   });
 
-  it("prepareForCommit returns value unchanged when no constraints", () => {
+  it("passes value unchanged when no constraints", () => {
     const onChange = vi.fn();
     renderQuantityEditor(
       metadata,
@@ -167,8 +164,8 @@ describe("QuantityEditor", () => {
       target: { value: "999" },
     });
 
-    const prepareForCommit = onChange.mock.calls[0][1];
-    const result = prepareForCommit();
-    expect(result.rawValue).toBe(999);
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ rawValue: 999 })
+    );
   });
 });

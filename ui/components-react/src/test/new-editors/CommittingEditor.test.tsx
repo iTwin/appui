@@ -130,17 +130,13 @@ describe("CommittingEditor", () => {
     expect(onCommit).not.toHaveBeenCalled();
   });
 
-  it("uses prepareForCommit to transform value before committing", () => {
+  it("commits the value directly without transformation", () => {
     const onCommit = vi.fn();
     const onCancel = vi.fn();
-    const metadataWithConstraints: TextValueMetadata = {
-      type: "string",
-      constraints: { maximumLength: 3 },
-    };
 
     render(
       <CommittingEditor
-        metadata={metadataWithConstraints}
+        metadata={{ type: "string" }}
         initialValue={{ value: "" }}
         onCommit={onCommit}
         onCancel={onCancel}
@@ -148,10 +144,10 @@ describe("CommittingEditor", () => {
     );
 
     const input = screen.getByRole("textbox");
-    fireEvent.change(input, { target: { value: "abcdef" } });
+    fireEvent.change(input, { target: { value: "new value" } });
     fireEvent.keyDown(input, { key: "Enter" });
 
-    expect(onCommit).toHaveBeenCalledWith({ value: "abc" });
+    expect(onCommit).toHaveBeenCalledWith({ value: "new value" });
   });
 
   it("does not commit after cancel", () => {
