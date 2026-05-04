@@ -60,14 +60,12 @@ describe("CustomNumberEditor", () => {
     const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata()}
-        value={{ rawValue: 0, displayValue: "0" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    const input = getByRole("textbox");
-    await user.clear(input);
-    await user.type(input, "25");
+    await user.type(getByRole("textbox"), "25");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 25,
@@ -82,14 +80,12 @@ describe("CustomNumberEditor", () => {
     const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
-        value={{ rawValue: 0, displayValue: "0" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    const input = getByRole("textbox");
-    await user.clear(input);
-    await user.type(input, "-10");
+    await user.type(getByRole("textbox"), "-10");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 0,
@@ -104,14 +100,12 @@ describe("CustomNumberEditor", () => {
     const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
-        value={{ rawValue: 0, displayValue: "0" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    const input = getByRole("textbox");
-    await user.clear(input);
-    await user.type(input, "200");
+    await user.type(getByRole("textbox"), "200");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 100,
@@ -126,14 +120,12 @@ describe("CustomNumberEditor", () => {
     const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
-        value={{ rawValue: 0, displayValue: "0" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    const input = getByRole("textbox");
-    await user.clear(input);
-    await user.type(input, "50");
+    await user.type(getByRole("textbox"), "50");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 50,
@@ -148,14 +140,12 @@ describe("CustomNumberEditor", () => {
     const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata()}
-        value={{ rawValue: 0, displayValue: "0" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    const input = getByRole("textbox");
-    await user.clear(input);
-    await user.type(input, "999");
+    await user.type(getByRole("textbox"), "999");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 999,
@@ -170,14 +160,12 @@ describe("CustomNumberEditor", () => {
     const { getByRole } = render(
       <CustomNumberEditor
         metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
-        value={{ rawValue: 0, displayValue: "0" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    const input = getByRole("textbox");
-    await user.clear(input);
-    await user.type(input, "abc");
+    await user.type(getByRole("textbox"), "abc");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: undefined,

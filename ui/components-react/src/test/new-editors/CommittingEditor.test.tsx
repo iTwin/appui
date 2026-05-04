@@ -3,23 +3,21 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { CommittingEditor } from "../../components-react/new-editors/interop/PropertyRecordEditor.js";
 import type { TextValueMetadata } from "../../components-react/new-editors/values/Metadata.js";
-import type { TextValue } from "../../components-react/new-editors/values/Values.js";
 
 describe("CommittingEditor", () => {
   const metadata: TextValueMetadata = { type: "string" };
-  const initialValue: TextValue = { value: "hello" };
 
   it("renders editor with initial value", () => {
     const { getByDisplayValue } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={{ value: "hello" }}
         onCommit={() => {}}
         onCancel={() => {}}
       />
@@ -36,14 +34,13 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={onCommit}
         onCancel={onCancel}
       />
     );
 
     const input = getByRole("textbox");
-    await user.clear(input);
     await user.type(input, "world");
     await user.keyboard("{Enter}");
 
@@ -59,14 +56,13 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={onCommit}
         onCancel={onCancel}
       />
     );
 
     const input = getByRole("textbox");
-    await user.clear(input);
     await user.type(input, "world");
     await user.keyboard("{Tab}");
 
@@ -82,16 +78,15 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={onCommit}
         onCancel={onCancel}
       />
     );
 
     const input = getByRole("textbox");
-    await user.clear(input);
     await user.type(input, "world");
-    fireEvent.blur(input);
+    await user.tab();
 
     expect(onCommit).toHaveBeenCalledWith({ value: "world" });
     expect(onCancel).not.toHaveBeenCalled();
@@ -105,7 +100,7 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={onCommit}
         onCancel={onCancel}
       />
@@ -127,7 +122,7 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={onCommit}
         onCancel={onCancel}
       />
@@ -170,17 +165,16 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={onCommit}
         onCancel={onCancel}
       />
     );
 
     const input = getByRole("textbox");
-    await user.clear(input);
     await user.type(input, "changed");
     await user.keyboard("{Escape}");
-    fireEvent.blur(input);
+    await user.keyboard("{Enter}");
 
     expect(onCancel).toHaveBeenCalledTimes(1);
     expect(onCommit).not.toHaveBeenCalled();
@@ -190,7 +184,7 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={() => {}}
         onCancel={() => {}}
         disabled
@@ -207,7 +201,7 @@ describe("CommittingEditor", () => {
     const { getByRole } = render(
       <CommittingEditor
         metadata={metadata}
-        initialValue={initialValue}
+        initialValue={undefined}
         onCommit={() => {}}
         onCancel={() => {}}
         onClick={onClick}

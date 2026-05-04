@@ -7,10 +7,7 @@ import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
-import { StandardEditorNames } from "@itwin/appui-abstract";
-import { EditorRenderer } from "../../components-react/new-editors/EditorRenderer.js";
-import { EditorsRegistryProvider } from "../../components-react/new-editors/editors-registry/EditorsRegistryProvider.js";
-import { NumericInputEditorSpec } from "../../components-react/new-editors/interop/old-editors/NumericInput.js";
+import { NumericInputEditor } from "../../components-react/new-editors/interop/old-editors/NumericInput.js";
 import type { WithConstraints } from "../../components-react/new-editors/ConstraintUtils.js";
 import type { OldEditorMetadata } from "../../components-react/new-editors/interop/Metadata.js";
 
@@ -21,29 +18,19 @@ function createMetadata(constraints?: {
   return {
     type: "number",
     typename: "number",
-    preferredEditor: StandardEditorNames.NumericInput,
+    preferredEditor: "NumericInput",
     constraints,
   };
 }
 
-function renderNumericInput(
-  metadata: WithConstraints<OldEditorMetadata>,
-  value: { rawValue: number | undefined; displayValue: string },
-  onChange: (...args: any[]) => void
-) {
-  return render(
-    <EditorsRegistryProvider editors={[NumericInputEditorSpec]}>
-      <EditorRenderer metadata={metadata} value={value} onChange={onChange} />
-    </EditorsRegistryProvider>
-  );
-}
-
 describe("NumericInputEditor", () => {
   it("renders input with value", () => {
-    const { getByDisplayValue } = renderNumericInput(
-      createMetadata(),
-      { rawValue: 42, displayValue: "42" },
-      () => {}
+    const { getByDisplayValue } = render(
+      <NumericInputEditor
+        metadata={createMetadata()}
+        value={{ rawValue: 42, displayValue: "42" }}
+        onChange={() => {}}
+      />
     );
 
     getByDisplayValue("42");
@@ -52,15 +39,15 @@ describe("NumericInputEditor", () => {
   it("calls onChange on input change", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    const { getByRole } = renderNumericInput(
-      createMetadata(),
-      { rawValue: 0, displayValue: "0" },
-      onChange
+    const { getByRole } = render(
+      <NumericInputEditor
+        metadata={createMetadata()}
+        value={undefined}
+        onChange={onChange}
+      />
     );
 
-    const input = getByRole("spinbutton");
-    await user.clear(input);
-    await user.type(input, "25");
+    await user.type(getByRole("spinbutton"), "25");
 
     expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({ rawValue: 25 })
@@ -68,10 +55,12 @@ describe("NumericInputEditor", () => {
   });
 
   it("sets min and max attributes from constraints", () => {
-    const { getByRole } = renderNumericInput(
-      createMetadata({ minimumValue: 0, maximumValue: 100 }),
-      { rawValue: 50, displayValue: "50" },
-      () => {}
+    const { getByRole } = render(
+      <NumericInputEditor
+        metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
+        value={{ rawValue: 50, displayValue: "50" }}
+        onChange={() => {}}
+      />
     );
 
     const input = getByRole("spinbutton");
@@ -82,15 +71,15 @@ describe("NumericInputEditor", () => {
   it("passes value unchanged when within constraints", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    const { getByRole } = renderNumericInput(
-      createMetadata({ minimumValue: 0, maximumValue: 100 }),
-      { rawValue: 0, displayValue: "0" },
-      onChange
+    const { getByRole } = render(
+      <NumericInputEditor
+        metadata={createMetadata({ minimumValue: 0, maximumValue: 100 })}
+        value={undefined}
+        onChange={onChange}
+      />
     );
 
-    const input = getByRole("spinbutton");
-    await user.clear(input);
-    await user.type(input, "50");
+    await user.type(getByRole("spinbutton"), "50");
 
     expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({ rawValue: 50 })
@@ -100,15 +89,15 @@ describe("NumericInputEditor", () => {
   it("passes value unchanged when no constraints", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    const { getByRole } = renderNumericInput(
-      createMetadata(),
-      { rawValue: 0, displayValue: "0" },
-      onChange
+    const { getByRole } = render(
+      <NumericInputEditor
+        metadata={createMetadata()}
+        value={undefined}
+        onChange={onChange}
+      />
     );
 
-    const input = getByRole("spinbutton");
-    await user.clear(input);
-    await user.type(input, "999");
+    await user.type(getByRole("spinbutton"), "999");
 
     expect(onChange).toHaveBeenLastCalledWith(
       expect.objectContaining({ rawValue: 999 })

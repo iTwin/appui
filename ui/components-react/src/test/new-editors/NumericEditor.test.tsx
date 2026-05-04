@@ -9,6 +9,29 @@ import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { NumericEditor } from "../../components-react/new-editors/editors/NumericEditor.js";
 import type { NumericValueMetadata } from "../../components-react/new-editors/values/Metadata.js";
+import type { NumericValue } from "../../components-react/new-editors/values/Values.js";
+
+function StatefulNumericEditor({
+  metadata,
+  value: initialValue,
+  onChange,
+}: {
+  metadata: NumericValueMetadata;
+  value: NumericValue | undefined;
+  onChange: (value: NumericValue) => void;
+}) {
+  const [value, setValue] = React.useState(initialValue);
+  return (
+    <NumericEditor
+      metadata={metadata}
+      value={value}
+      onChange={(v) => {
+        setValue(v);
+        onChange(v);
+      }}
+    />
+  );
+}
 
 describe("NumericEditor (new-system)", () => {
   it("renders input with display value", () => {
@@ -39,9 +62,9 @@ describe("NumericEditor (new-system)", () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
     const { getByRole } = render(
-      <NumericEditor
+      <StatefulNumericEditor
         metadata={{ type: "number" }}
-        value={{ rawValue: undefined, displayValue: "" }}
+        value={undefined}
         onChange={onChange}
       />
     );
@@ -60,15 +83,14 @@ describe("NumericEditor (new-system)", () => {
     };
 
     const { getByRole } = render(
-      <NumericEditor
+      <StatefulNumericEditor
         metadata={metadata}
-        value={{ rawValue: undefined, displayValue: "" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    await user.click(getByRole("textbox"));
-    await user.paste("-5");
+    await user.type(getByRole("textbox"), "-5");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 0,
@@ -85,15 +107,14 @@ describe("NumericEditor (new-system)", () => {
     };
 
     const { getByRole } = render(
-      <NumericEditor
+      <StatefulNumericEditor
         metadata={metadata}
-        value={{ rawValue: undefined, displayValue: "" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    await user.click(getByRole("textbox"));
-    await user.paste("150");
+    await user.type(getByRole("textbox"), "150");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 100,
@@ -110,15 +131,14 @@ describe("NumericEditor (new-system)", () => {
     };
 
     const { getByRole } = render(
-      <NumericEditor
+      <StatefulNumericEditor
         metadata={metadata}
-        value={{ rawValue: undefined, displayValue: "" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    await user.click(getByRole("textbox"));
-    await user.paste("50");
+    await user.type(getByRole("textbox"), "50");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 50,
@@ -131,15 +151,14 @@ describe("NumericEditor (new-system)", () => {
     const onChange = vi.fn();
 
     const { getByRole } = render(
-      <NumericEditor
+      <StatefulNumericEditor
         metadata={{ type: "number" }}
-        value={{ rawValue: undefined, displayValue: "" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    await user.click(getByRole("textbox"));
-    await user.paste("999");
+    await user.type(getByRole("textbox"), "999");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: 999,
@@ -156,15 +175,14 @@ describe("NumericEditor (new-system)", () => {
     };
 
     const { getByRole } = render(
-      <NumericEditor
+      <StatefulNumericEditor
         metadata={metadata}
-        value={{ rawValue: undefined, displayValue: "" }}
+        value={undefined}
         onChange={onChange}
       />
     );
 
-    await user.click(getByRole("textbox"));
-    await user.paste("abc");
+    await user.type(getByRole("textbox"), "abc");
 
     expect(onChange).toHaveBeenLastCalledWith({
       rawValue: undefined,
