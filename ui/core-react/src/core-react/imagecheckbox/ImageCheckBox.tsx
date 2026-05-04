@@ -39,6 +39,8 @@ export interface ImageCheckBoxProps extends CommonProps {
   border?: boolean;
   /** Provides ability to return reference to HTMLInputElement */
   inputRef?: React.Ref<HTMLInputElement>;
+  /** HTML id attribute for the checkbox input element */
+  id?: string;
 }
 
 /** ImageCheckBox React component shows a checked or unchecked image
@@ -85,6 +87,7 @@ export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
       >
         <input
           type="checkbox"
+          id={this.props.id}
           className={this.props.inputClassName}
           style={this.props.inputStyle}
           checked={this.props.checked}

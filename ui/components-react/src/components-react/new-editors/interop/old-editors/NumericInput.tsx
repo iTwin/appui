@@ -37,6 +37,7 @@ function NumericInputEditor({
   onChange,
   size,
   disabled,
+  id,
 }: EditorProps<WithConstraints<OldEditorMetadata>, NumericValue>) {
   const sizeParams = useInputEditorSizeParams(metadata);
   const rangeParams = useRangeEditorParams(metadata);
@@ -88,7 +89,13 @@ function NumericInputEditor({
   });
 
   return (
-    <Input style={style} size={size} disabled={disabled} {...inputProps} />
+    <Input
+      id={id}
+      style={style}
+      size={size}
+      disabled={disabled}
+      {...inputProps}
+    />
   );
 }
 

@@ -22,12 +22,14 @@ export function TextEditor({
   onChange,
   size,
   disabled,
+  id,
 }: EditorProps<TextValueMetadata, TextValue>) {
   const currentValue = value ? value : { value: "" };
   const { maxLength, minLength } = getStringConstraints(metadata.constraints);
 
   return (
     <Input
+      id={id}
       value={currentValue.value}
       onChange={(e) => onChange({ value: e.target.value })}
       maxLength={maxLength}

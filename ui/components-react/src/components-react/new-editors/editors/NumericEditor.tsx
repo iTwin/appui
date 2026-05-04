@@ -25,10 +25,12 @@ export function NumericEditor({
   onChange,
   size,
   disabled,
+  id,
 }: EditorProps<NumericValueMetadata, NumericValue>) {
   const currentValue = getNumericValue(value);
   return (
     <Input
+      id={id}
       value={currentValue.displayValue}
       onChange={(e) => {
         const parsedValue = parseFloat(e.target.value);

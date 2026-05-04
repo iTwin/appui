@@ -64,6 +64,7 @@ export function PropertyRecordEditor({
         onClick={onClick}
         disabled={propertyRecord.isDisabled || propertyRecord.isReadonly}
         size={size}
+        id={propertyRecord.property.name}
       />
     );
   }
@@ -88,6 +89,7 @@ export function CommittingEditor({
   onClick,
   disabled,
   size,
+  id,
 }: {
   metadata: WithConstraints<ValueMetadata>;
   initialValue?: Value;
@@ -96,6 +98,7 @@ export function CommittingEditor({
   onClick?: () => void;
   disabled?: boolean;
   size?: "small" | "large";
+  id?: string;
 }) {
   const { value, onChange, onKeydown, commit, cancel } = useCommittableValue({
     initialValue,
@@ -118,6 +121,7 @@ export function CommittingEditor({
         cancel={cancel}
         disabled={disabled}
         size={size}
+        id={id}
       />
     </div>
   );

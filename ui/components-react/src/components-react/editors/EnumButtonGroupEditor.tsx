@@ -221,6 +221,7 @@ export class EnumButtonGroupEditor
         )}
         style={this.props.style}
         ref={this._divElement}
+        id={this.props.propertyRecord?.property.name}
       >
         {this.state.choices &&
           this.state.enumIcons.length &&

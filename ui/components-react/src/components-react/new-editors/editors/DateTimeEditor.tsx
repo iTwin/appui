@@ -21,6 +21,7 @@ export function DateTimeEditor({
   commit,
   size,
   disabled,
+  id,
 }: EditorProps<ValueMetadata, DateValue>) {
   return (
     <DateInput
@@ -32,6 +33,7 @@ export function DateTimeEditor({
       size={size}
       disabled={disabled}
       showTimePicker={true}
+      id={id}
     />
   );
 }

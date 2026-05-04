@@ -48,6 +48,7 @@ function ColorEditor({
   onChange,
   commit,
   size,
+  id,
 }: EditorProps<OldEditorMetadata, NumericValue>) {
   const colorParams = useColorEditorParams(metadata);
   const colors = colorParams?.colorValues ?? [];
@@ -81,7 +82,7 @@ function ColorEditor({
         }
       }}
     >
-      <IconButton size={size}>
+      <IconButton id={id} size={size}>
         <ColorSwatch color={activeColor} />
       </IconButton>
     </Popover>

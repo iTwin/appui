@@ -55,6 +55,7 @@ export function CustomNumberEditor({
   size,
   disabled,
   decoration,
+  id,
 }: CustomNumberEditorProps) {
   const formatParams = useCustomFormattedNumberParams(metadata);
   const sizeParams = useInputEditorSizeParams(metadata);
@@ -110,6 +111,7 @@ export function CustomNumberEditor({
         <InputWithDecorations.Icon>{icon}</InputWithDecorations.Icon>
       ) : null}
       <InputWithDecorations.Input
+        id={id}
         ref={inputRef}
         style={style}
         disabled={disabled}

@@ -183,6 +183,7 @@ export class EnumEditor
           data-testid="components-select-editor"
           options={this.state.options}
           triggerProps={{
+            id: this.props.propertyRecord?.property.name,
             ref: (el) => {
               if (!this.props.setFocus) return;
               el?.focus();

@@ -22,8 +22,8 @@ import {
  * Fallback editor that renders readonly value if no editor is found.
  * @internal
  */
-export function FallbackEditor({ value, size }: EditorProps) {
-  return <Input readOnly value={getTextValue(value)} size={size} />;
+export function FallbackEditor({ value, size, id }: EditorProps) {
+  return <Input id={id} readOnly value={getTextValue(value)} size={size} />;
 }
 
 function getTextValue(value?: Value) {

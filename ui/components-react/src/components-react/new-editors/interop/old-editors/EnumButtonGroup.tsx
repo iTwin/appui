@@ -39,6 +39,7 @@ function EnumButtonGroupEditor({
   size,
   disabled,
   metadata,
+  id,
 }: EditorProps<OldEditorMetadata, EnumValue>) {
   const enumMetadata = useEnumMetadata(metadata);
   const buttonGroupParams = useButtonGroupEditorParams(metadata);
@@ -53,7 +54,7 @@ function EnumButtonGroupEditor({
   const currentValue = value ? value : { choice: firstChoice?.value ?? "" };
 
   return (
-    <ButtonGroup orientation="horizontal">
+    <ButtonGroup id={id} orientation="horizontal">
       {enumMetadata.choices.map((choice) => {
         const icon = findIcon(enumIcons?.get(choice.value));
         return (

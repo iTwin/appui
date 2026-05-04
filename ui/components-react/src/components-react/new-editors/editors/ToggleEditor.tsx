@@ -21,6 +21,7 @@ export function ToggleEditor({
   commit,
   disabled,
   size,
+  id,
 }: EditorProps<ValueMetadata, BooleanValue>) {
   const currentValue = value ?? { value: false };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +32,7 @@ export function ToggleEditor({
 
   return (
     <ToggleSwitch
+      id={id}
       checked={currentValue.value}
       onChange={handleChange}
       disabled={disabled}
