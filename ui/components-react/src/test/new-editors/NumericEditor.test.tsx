@@ -18,7 +18,7 @@ function StatefulNumericEditor({
 }: {
   metadata: NumericValueMetadata;
   value: NumericValue | undefined;
-  onChange: (value: NumericValue) => void;
+  onChange: (value?: NumericValue) => void;
 }) {
   const [value, setValue] = React.useState(initialValue);
   return (
