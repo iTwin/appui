@@ -45,7 +45,7 @@ const { QuantityEditor } = await import(
 
 function renderQuantityEditor(
   metadata: QuantityValueMetadata,
-  value: { rawValue: number | undefined; displayValue: string },
+  value: { rawValue: number | undefined; displayValue: string } | undefined,
   onChange: (...args: any[]) => void
 ) {
   return render(
@@ -73,14 +73,9 @@ describe("QuantityEditor", () => {
     it("calls onChange when user types a value", async () => {
       const user = userEvent.setup();
       const onChange = vi.fn();
-      const { getByRole } = renderQuantityEditor(
-        metadata,
-        { rawValue: 0, displayValue: "0 m" },
-        onChange
-      );
+      const { getByRole } = renderQuantityEditor(metadata, undefined, onChange);
 
       const input = getByRole("textbox");
-      await user.clear(input);
       await user.type(input, "25");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -99,12 +94,11 @@ describe("QuantityEditor", () => {
 
       const { getByRole } = renderQuantityEditor(
         constrainedMetadata,
-        { rawValue: 0, displayValue: "0 m" },
+        undefined,
         onChange
       );
 
       const input = getByRole("textbox");
-      await user.clear(input);
       await user.type(input, "-10");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -123,12 +117,11 @@ describe("QuantityEditor", () => {
 
       const { getByRole } = renderQuantityEditor(
         constrainedMetadata,
-        { rawValue: 0, displayValue: "0 m" },
+        undefined,
         onChange
       );
 
       const input = getByRole("textbox");
-      await user.clear(input);
       await user.type(input, "200");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -147,12 +140,11 @@ describe("QuantityEditor", () => {
 
       const { getByRole } = renderQuantityEditor(
         constrainedMetadata,
-        { rawValue: 0, displayValue: "0 m" },
+        undefined,
         onChange
       );
 
       const input = getByRole("textbox");
-      await user.clear(input);
       await user.type(input, "50");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -163,14 +155,9 @@ describe("QuantityEditor", () => {
     it("passes value unchanged when no constraints", async () => {
       const user = userEvent.setup();
       const onChange = vi.fn();
-      const { getByRole } = renderQuantityEditor(
-        metadata,
-        { rawValue: 0, displayValue: "0 m" },
-        onChange
-      );
+      const { getByRole } = renderQuantityEditor(metadata, undefined, onChange);
 
       const input = getByRole("textbox");
-      await user.clear(input);
       await user.type(input, "999");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -222,20 +209,11 @@ describe("QuantityEditor", () => {
     it("converts input in display units to persistence units via parser", async () => {
       const user = userEvent.setup();
       const onChange = vi.fn();
-      const meters = 0;
-      const { getByRole } = renderQuantityEditor(
-        metadata,
-        {
-          rawValue: meters,
-          displayValue: `${convertMetersToInches(meters)} in`,
-        },
-        onChange
-      );
+      const { getByRole } = renderQuantityEditor(metadata, undefined, onChange);
 
       const newValueInInches = 100;
 
       const input = getByRole("textbox");
-      await user.clear(input);
       await user.type(input, `${newValueInInches} in`);
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -257,12 +235,11 @@ describe("QuantityEditor", () => {
 
       const { getByRole } = renderQuantityEditor(
         constrainedMetadata,
-        { rawValue: 0, displayValue: "0 in" },
+        undefined,
         onChange
       );
 
       const input = getByRole("textbox");
-      await user.clear(input);
       // Type 50 inches = 1.27 meters, exceeds maximumValue of 1 meter
       const newValueInInches = 50;
       await user.type(input, `${newValueInInches} in`);
@@ -284,12 +261,11 @@ describe("QuantityEditor", () => {
 
       const { getByRole } = renderQuantityEditor(
         constrainedMetadata,
-        { rawValue: 0, displayValue: "0 in" },
+        undefined,
         onChange
       );
 
       const input = getByRole("textbox");
-      await user.clear(input);
       // 10 inches = 0.254 meters, is within maximumValue of 5 meters
       const newValueInInches = 10;
       await user.type(input, `${newValueInInches} in`);
