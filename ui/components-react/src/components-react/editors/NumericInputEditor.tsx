@@ -46,7 +46,7 @@ interface NumericInputEditorState {
 
 /** NumericInputEditor React component that is a property editor with numeric input & up/down buttons
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class NumericInputEditor
   extends React.PureComponent<PropertyEditorProps, NumericInputEditorState>
@@ -228,7 +228,7 @@ export class NumericInputEditor
 /** Numeric Input Property Editor registered for the "number" type name and "numeric-input" editor name.
  * It uses the [[NumericInputEditor]] React component.
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class NumericInputPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

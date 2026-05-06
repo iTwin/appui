@@ -52,7 +52,7 @@ interface CustomNumberEditorState {
 
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
  * @alpha
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class CustomNumberEditor
   extends React.PureComponent<PropertyEditorProps, CustomNumberEditorState>
@@ -437,7 +437,7 @@ export class CustomNumberEditor
 /** Custom Property Editor registered for the "number" type name and the "number-custom" editor name.
  * It uses the [[CustomNumberEditor]] React component.
  * @alpha
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class CustomNumberPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

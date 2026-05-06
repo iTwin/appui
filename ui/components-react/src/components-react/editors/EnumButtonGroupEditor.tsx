@@ -38,7 +38,7 @@ interface EnumButtonGroupEditorState {
 
 /** EnumButtonGroupEditor React component that is a property editor with select input
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class EnumButtonGroupEditor
   extends React.Component<PropertyEditorProps, EnumButtonGroupEditorState>
@@ -245,7 +245,7 @@ export class EnumButtonGroupEditor
 /** Enum Property Button Group Editor registered for the "enum" type name and the "enum-buttongroup" editor name.
  * It uses the [[EnumButtonGroupEditor]] React component.
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class EnumPropertyButtonGroupEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

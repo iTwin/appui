@@ -37,7 +37,7 @@ interface ColorEditorState {
 
 /** ColorEditor React component that is a property editor with text input
  * @beta
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use `EditorRenderer` from `@itwin/components-react` instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use `EditorRenderer` from `@itwin/components-react` instead.
  */
 export class ColorEditor
   extends React.PureComponent<PropertyEditorProps, ColorEditorState>

@@ -49,7 +49,7 @@ const DEFAULT_ROWS = 3;
 
 /** TextareaEditor React component that is a property editor with text input
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class TextareaEditor
   extends React.PureComponent<PropertyEditorProps, TextareaEditorState>
@@ -240,7 +240,7 @@ export class TextareaEditor
 /** Textarea Property Editor registered for the "text" and "string" type names and "multi-line" editor name.
  * It uses the [[TextareaEditor]] React component.
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class TextareaPropertyEditor extends PropertyEditorBase {
   public override get containerHandlesBlur(): boolean {

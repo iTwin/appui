@@ -39,7 +39,7 @@ export interface PropertyUpdatedArgs {
 
 /** Properties for a property editor component
  * @public
- * @deprecated in 5.29. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
+ * @deprecated in 5.30. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
 export interface PropertyEditorProps extends CommonProps {
   /** The property being updated. */
@@ -100,7 +100,7 @@ interface CloneProps extends PropertyEditorProps {
 /**
  * Interface implemented by React based type editors
  * @public
- * @deprecated in 5.29. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
+ * @deprecated in 5.30. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
 export interface TypeEditor {
   getPropertyValue: () => Promise<PropertyValue | undefined>;
@@ -110,7 +110,7 @@ export interface TypeEditor {
 
 /** EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
- * @deprecated in 5.29. This component is part of the old editor system. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This component is part of the old editor system. Use {@link EditorRenderer} instead.
  */
 export function EditorContainer(props: EditorContainerProps) {
   const {

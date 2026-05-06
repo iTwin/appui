@@ -25,7 +25,7 @@ interface BooleanEditorState {
 
 /** BooleanEditor React component that is a property editor with checkbox input
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class BooleanEditor
   extends React.PureComponent<PropertyEditorProps, BooleanEditorState>
@@ -153,7 +153,7 @@ export class BooleanEditor
 /** Boolean Property Editor registered for the "bool" and "boolean" type names.
  * It uses the [[BooleanEditor]] React component.
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class BooleanPropertyEditor extends PropertyEditorBase {
   public override get containerHandlesBlur(): boolean {

@@ -54,7 +54,7 @@ interface SliderEditorState {
 /**
  * SliderEditor React component that is a property editor with numeric input & up/down buttons
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class SliderEditor
   extends React.PureComponent<PropertyEditorProps, SliderEditorState>
@@ -346,7 +346,7 @@ export class SliderEditor
 /** Slider Property Editor registered for the "number" type name and "slider" editor name.
  * It uses the [[SliderEditor]] React component.
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class SliderPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

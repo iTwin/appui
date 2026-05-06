@@ -29,7 +29,7 @@ import type {
   TypeEditor,
 } from "./EditorContainer.js";
 import { UiComponents } from "../UiComponents.js";
-import { EditorRenderer } from "../new-editors/EditorRenderer.js"
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -47,7 +47,7 @@ interface TextEditorState {
 
 /** TextEditor React component that is a property editor with text input
  * @public
- * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class TextEditor
   extends React.PureComponent<PropertyEditorProps, TextEditorState>

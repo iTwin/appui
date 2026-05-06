@@ -41,7 +41,7 @@ interface VirtualizedPropertyGridWithDataProviderBaseProps
 
 /**
  * @public
- * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+ * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
  */
 interface VirtualizedPropertyGridWithDataProviderLegacyProps
   extends VirtualizedPropertyGridWithDataProviderBaseProps {
@@ -49,7 +49,7 @@ interface VirtualizedPropertyGridWithDataProviderLegacyProps
    * Specifies which editors system should be used: legacy or the new one.
    * @default "legacy"
    * @beta
-   * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
    */
   editorSystem?: "legacy";
 }
