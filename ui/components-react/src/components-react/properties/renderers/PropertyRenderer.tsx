@@ -70,10 +70,8 @@ export interface SharedRendererProps {
   alwaysShowEditor?: (property: PropertyRecord) => boolean;
 }
 
-/** Properties of [[PropertyRenderer]] React component
- * @public
- */
-export interface PropertyRendererProps extends SharedRendererProps {
+/** @public */
+interface PropertyRendererBaseProps extends SharedRendererProps {
   /** Custom value renderer */
   propertyValueRendererManager?: PropertyValueRendererManager;
   /** Multiplier of how much the property is indented to the right */
@@ -86,9 +84,36 @@ export interface PropertyRendererProps extends SharedRendererProps {
   onEditCancel?: () => void;
   /** Props used for highlighting. */
   highlight?: HighlightingComponentProps;
-  /** Specifies which editors system should be used: legacy or the new one. */
-  editorSystem?: "legacy" | "new";
 }
+
+/** @public */
+interface PropertyRendererLegacyProps extends PropertyRendererBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/**  @public */
+interface PropertyRendererNewProps extends PropertyRendererBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   */
+  editorSystem: "new";
+}
+
+/**
+ * Properties of [[PropertyRenderer]] React component
+ * @public
+ */
+export type PropertyRendererProps =
+  | PropertyRendererNewProps
+  | PropertyRendererLegacyProps;
 
 /**  A React component that renders properties
  * @public
@@ -111,6 +136,7 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     isPropertyEditingEnabled,
     onClick,
     uniqueKey,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     editorSystem,
     ...restProps
   } = props;

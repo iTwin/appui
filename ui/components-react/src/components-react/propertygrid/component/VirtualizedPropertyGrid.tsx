@@ -51,10 +51,10 @@ import { PropertyGridEventsRelatedPropsSupplier } from "./PropertyGridEventsRela
 import { useElementsScrollStorage } from "../../common/UseElementsScrollStorage.js";
 import { Orientation } from "../../common/Orientation.js";
 
-/** Properties for [[VirtualizedPropertyGrid]] React component
+/**
  * @public
  */
-export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
+interface VirtualizedPropertyGridBaseProps extends CommonPropertyGridProps {
   /** Property grid view model that defines what needs to be rendered */
   model: IPropertyGridModel;
   /** Handler of the events raised from the property grid */
@@ -69,13 +69,42 @@ export interface VirtualizedPropertyGridProps extends CommonPropertyGridProps {
   width: number;
   /** Height of the property grid component. */
   height: number;
+}
+
+/**
+ * @public
+ * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+ */
+interface VirtualizedPropertyGridLegacyProps
+  extends VirtualizedPropertyGridBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/**
+ * @public
+ */
+interface VirtualizedPropertyGridNewProps
+  extends VirtualizedPropertyGridBaseProps {
   /**
    * Specifies which editors system should be used: legacy or the new one.
    * @default "legacy"
    * @beta
    */
-  editorSystem?: "legacy" | "new";
+  editorSystem: "new";
 }
+
+/** Properties for [[VirtualizedPropertyGrid]] React component
+ * @public
+ */
+export type VirtualizedPropertyGridProps =
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  VirtualizedPropertyGridLegacyProps | VirtualizedPropertyGridNewProps;
 
 /** State of [[VirtualizedPropertyGrid]] React component
  * @internal
@@ -392,6 +421,7 @@ export class VirtualizedPropertyGrid extends React.Component<
                 editingPropertyKey: selectionContext.editingPropertyKey,
                 onEditCommit: selectionContext.onEditCommit,
                 onEditCancel: selectionContext.onEditCancel,
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
                 editorSystem: this.props.editorSystem ?? "legacy",
 
                 eventHandler: this.props.eventHandler,

@@ -17,33 +17,61 @@ import { useTranslation } from "../l10n/useTranslation.js";
 import { PropertyRecordEditor } from "../new-editors/interop/PropertyRecordEditor.js";
 
 /**
- * Props for [[PropertyFilterBuilderRuleValue]] component.
  * @beta
  */
-export interface PropertyFilterBuilderRuleValueProps {
+interface PropertyFilterBuilderRuleValueBaseProps {
   /** Currently entered value. */
   value?: PropertyValue;
   /** Property used in rule to which this value will be compared to. */
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
+}
+
+/**
+ * @beta
+ */
+interface PropertyFilterBuilderRuleValueLegacyProps
+  extends PropertyFilterBuilderRuleValueBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/**
+ * @beta
+ */
+interface PropertyFilterBuilderRuleValueNewProps
+  extends PropertyFilterBuilderRuleValueBaseProps {
   /**
    * Specifies which editors system should be used: legacy or the new one.
    * @default "legacy"
    * @beta
    */
-  editorSystem?: "legacy" | "new";
+  editorSystem: "new";
 }
+
+/**
+ * Props for [[PropertyFilterBuilderRuleValue]] component.
+ * @beta
+ */
+export type PropertyFilterBuilderRuleValueProps =
+  | PropertyFilterBuilderRuleValueLegacyProps
+  | PropertyFilterBuilderRuleValueNewProps;
 
 /**
  * Props for custom [[PropertyFilterBuilderRuleValue]] renderer.
  * @beta
  */
-export interface PropertyFilterBuilderRuleValueRendererProps
-  extends PropertyFilterBuilderRuleValueProps {
-  /** Current operator. */
-  operator: PropertyFilterBuilderRuleOperator;
-}
+export type PropertyFilterBuilderRuleValueRendererProps =
+  PropertyFilterBuilderRuleValueProps & {
+    /** Current operator. */
+    operator: PropertyFilterBuilderRuleOperator;
+  };
 
 /**
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
@@ -65,6 +93,7 @@ function FilterBuilderRulePrimitiveValueRenderer({
   property,
   value,
   onChange,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
 }: PropertyFilterBuilderRuleValueProps) {
   const propertyRecord = React.useMemo(() => {
@@ -96,6 +125,7 @@ function FilterBuilderRuleRangeValueRenderer({
   property,
   value,
   onChange,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
 }: PropertyFilterBuilderRuleValueProps) {
   const { translate } = useTranslation();

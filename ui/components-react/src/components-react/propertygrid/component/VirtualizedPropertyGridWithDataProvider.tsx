@@ -7,6 +7,7 @@
  * @module PropertyGrid
  */
 
+import type { JSX } from "react";
 import React, { useEffect, useState } from "react";
 import {
   usePropertyGridEventHandler,
@@ -22,11 +23,10 @@ import type {
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid.js";
 import { ProgressRadial } from "@itwin/itwinui-react";
 
-/** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
+/**
  * @public
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof VirtualizedPropertyGridWithDataProvider>`
  */
-export interface VirtualizedPropertyGridWithDataProviderProps
+interface VirtualizedPropertyGridWithDataProviderBaseProps
   extends CommonPropertyGridProps {
   /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
@@ -38,13 +38,45 @@ export interface VirtualizedPropertyGridWithDataProviderProps
   width: number;
   /** Height of the property grid component. */
   height: number;
+}
+
+/**
+ * @public
+ * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+ */
+interface VirtualizedPropertyGridWithDataProviderLegacyProps
+  extends VirtualizedPropertyGridWithDataProviderBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.29. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/**
+ * @public
+ */
+interface VirtualizedPropertyGridWithDataProviderNewProps
+  extends VirtualizedPropertyGridWithDataProviderBaseProps {
   /**
    * Specifies which editors system should be used: legacy or the new one.
    * @default "legacy"
    * @beta
    */
-  editorSystem?: "legacy" | "new";
+  editorSystem: "new";
 }
+
+/**
+ * Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
+ * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof VirtualizedPropertyGridWithDataProvider>`
+ */
+export type VirtualizedPropertyGridWithDataProviderProps =
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  | VirtualizedPropertyGridWithDataProviderLegacyProps
+  | VirtualizedPropertyGridWithDataProviderNewProps;
 
 /**
  * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
@@ -54,7 +86,7 @@ export interface VirtualizedPropertyGridWithDataProviderProps
 export function VirtualizedPropertyGridWithDataProvider(
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   props: VirtualizedPropertyGridWithDataProviderProps
-) {
+): JSX.Element {
   const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
     dataProvider: props.dataProvider,
   });
@@ -69,6 +101,7 @@ export function VirtualizedPropertyGridWithDataProvider(
           {...props}
           model={model}
           eventHandler={eventHandler}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           editorSystem={props.editorSystem ?? "legacy"}
         />
       )}
