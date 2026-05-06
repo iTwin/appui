@@ -6,8 +6,9 @@
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { EditorProps } from "../Types.js";
-import type { ValueMetadata } from "../values/Metadata.js";
+import type { TextValueMetadata } from "../values/Metadata.js";
 import type { TextValue } from "../values/Values.js";
+import { getStringConstraints } from "../ConstraintUtils.js";
 
 /* v8 ignore start */
 
@@ -16,19 +17,23 @@ import type { TextValue } from "../values/Values.js";
  * @internal
  */
 export function TextEditor({
+  metadata,
   value,
   onChange,
   size,
   disabled,
   id,
-}: EditorProps<ValueMetadata, TextValue>) {
+}: EditorProps<TextValueMetadata, TextValue>) {
   const currentValue = value ? value : { value: "" };
+  const { maxLength, minLength } = getStringConstraints(metadata.constraints);
 
   return (
     <Input
       id={id}
       value={currentValue.value}
       onChange={(e) => onChange({ value: e.target.value })}
+      maxLength={maxLength}
+      minLength={minLength}
       size={size}
       disabled={disabled}
     />

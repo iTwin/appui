@@ -19,7 +19,12 @@ import { SliderEditorSpec as InteropSliderEditorSpec } from "../interop/old-edit
 import { NumericInputEditorSpec as InteropNumericInputEditorSpec } from "../interop/old-editors/NumericInput.js";
 
 import { createEditorSpec, type EditorSpec } from "../Types.js";
-import type { EnumValueMetadata, ValueMetadata } from "../values/Metadata.js";
+import type {
+  EnumValueMetadata,
+  NumericValueMetadata,
+  TextValueMetadata,
+  ValueMetadata,
+} from "../values/Metadata.js";
 import { ToggleEditor } from "../editors/ToggleEditor.js";
 import { DateEditor } from "../editors/DateEditor.js";
 import {
@@ -37,7 +42,7 @@ import {
  * @internal
  */
 export const TextEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+  isMetadataSupported: (metadata): metadata is TextValueMetadata =>
     metadata.type === "string",
   isValueSupported: isText,
   Editor: TextEditor,
@@ -81,7 +86,7 @@ export const BoolEditorSpec: EditorSpec = createEditorSpec({
  * @internal
  */
 export const NumericEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is ValueMetadata =>
+  isMetadataSupported: (metadata): metadata is NumericValueMetadata =>
     metadata.type === "number",
   isValueSupported: isNumeric,
   Editor: NumericEditor,

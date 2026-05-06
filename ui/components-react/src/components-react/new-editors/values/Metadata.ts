@@ -48,3 +48,21 @@ export interface EnumValueMetadata extends ValueMetadata {
   choices: EnumChoice[];
   isStrict: boolean;
 }
+
+/**
+ * Additional metadata that is used along side numeric value to determine applicable editor and constraints.
+ * @beta
+ */
+export interface NumericValueMetadata extends ValueMetadata {
+  type: "number";
+  constraints?: { minimumValue?: number; maximumValue?: number };
+}
+
+/**
+ * Additional metadata that is used along side text value to determine applicable editor and constraints.
+ * @internal
+ */
+export interface TextValueMetadata extends ValueMetadata {
+  type: "string";
+  constraints?: { minimumLength?: number; maximumLength?: number };
+}

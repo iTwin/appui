@@ -16,6 +16,8 @@ import {
 } from "./UseEditorParams.js";
 import { Input } from "@itwin/itwinui-react";
 import { isNumeric } from "../../values/ValueUtilities.js";
+import type { WithConstraints } from "../../ConstraintUtils.js";
+import { getNumericConstraints } from "../../ConstraintUtils.js";
 
 /* v8 ignore start */
 
@@ -29,16 +31,36 @@ export const NumericInputEditorSpec: EditorSpec = createEditorSpec({
   Editor: NumericInputEditor,
 });
 
-function NumericInputEditor({
+/** @internal */
+export function NumericInputEditor({
   metadata,
   value,
   onChange,
   size,
   disabled,
   id,
-}: EditorProps<OldEditorMetadata, NumericValue>) {
+}: EditorProps<WithConstraints<OldEditorMetadata>, NumericValue>) {
   const sizeParams = useInputEditorSizeParams(metadata);
   const rangeParams = useRangeEditorParams(metadata);
+  const { min: constraintMin, max: constraintMax } = getNumericConstraints(
+    metadata.constraints
+  );
+
+  // Larger minimum value takes precedence
+  const effectiveMin =
+    rangeParams?.minimum !== undefined
+      ? constraintMin !== undefined
+        ? Math.max(rangeParams.minimum, constraintMin)
+        : rangeParams.minimum
+      : constraintMin;
+  // Smaller maximum value takes precedence
+  const effectiveMax =
+    rangeParams?.maximum !== undefined
+      ? constraintMax !== undefined
+        ? Math.min(rangeParams.maximum, constraintMax)
+        : rangeParams.maximum
+      : constraintMax;
+
   const handleChange = (newValue: string) => {
     onChange({
       displayValue: newValue,
@@ -58,8 +80,8 @@ function NumericInputEditor({
       : undefined;
 
   const inputProps = useNumericInput({
-    min: rangeParams?.minimum,
-    max: rangeParams?.maximum,
+    min: effectiveMin,
+    max: effectiveMax,
     precision: rangeParams?.precision,
     step: rangeParams?.step,
     maxLength: sizeParams?.maxLength,

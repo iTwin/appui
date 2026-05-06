@@ -3,11 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import type {
-  Primitives,
-  PrimitiveValue,
-  PropertyRecord,
-} from "@itwin/appui-abstract";
+import type { Primitives, PrimitiveValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type {
   BooleanValue,
@@ -26,6 +22,10 @@ import {
   isNumeric,
   isText,
 } from "../values/ValueUtilities.js";
+import type {
+  PropertyRecordWithConstraints,
+  WithConstraints,
+} from "../ConstraintUtils.js";
 
 /**
  * Interop utilities for converting between old and new editor values.
@@ -33,11 +33,13 @@ import {
  */
 export namespace EditorInterop {
   /** Attempts to convert `PropertyRecord` into `ValueMetadata` and `Value`. */
-  export function getMetadataAndValue(propertyRecord: PropertyRecord): {
-    metadata: OldEditorMetadata | undefined;
+  export function getMetadataAndValue(
+    propertyRecord: PropertyRecordWithConstraints
+  ): {
+    metadata: WithConstraints<OldEditorMetadata> | undefined;
     value: NewEditorValue | undefined;
   } {
-    const baseMetadata: Omit<OldEditorMetadata, "type"> = {
+    const baseMetadata: Omit<WithConstraints<OldEditorMetadata>, "type"> = {
       preferredEditor: propertyRecord.property.editor?.name,
       params: propertyRecord.property.editor?.params,
       extendedData: propertyRecord.extendedData,
@@ -45,6 +47,7 @@ export namespace EditorInterop {
       typename: propertyRecord.property.typename,
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       quantityType: propertyRecord.property.quantityType,
+      constraints: propertyRecord.property.constraints,
     };
 
     const primitiveValue = propertyRecord.value as PrimitiveValue;

@@ -12,6 +12,8 @@ export {
   CustomNumberEditorSpec,
 } from "./components-react/new-editors/interop/old-editors/CustomNumber.js";
 
+export { applyNumericConstraints } from "./components-react/new-editors/ConstraintUtils.js";
+
 export {
   OldEditorMetadata,
   isOldEditorMetadata,

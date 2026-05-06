@@ -9,6 +9,7 @@
 import * as React from "react";
 import type { Value } from "./values/Values.js";
 import { areEqual } from "./values/ValueUtilities.js";
+import type { EditorProps } from "./Types.js";
 
 interface UseCommittableValueProps {
   initialValue?: Value;
@@ -52,7 +53,10 @@ export function useCommittableValue({
   initialValue,
   onCancel,
   onCommit,
-}: UseCommittableValueProps) {
+}: UseCommittableValueProps): Pick<
+  EditorProps,
+  "commit" | "value" | "onChange" | "cancel"
+> & { onKeydown: (e: React.KeyboardEvent) => void } {
   const initialValueRef = React.useRef(initialValue);
   const [currentValue, setCurrentValue] = React.useState<Value | undefined>(
     initialValue
@@ -65,8 +69,11 @@ export function useCommittableValue({
     value: initialValue,
   });
 
-  const handleChange = (newValue?: Value) => {
-    currentValueRef.current = { state: "changed", value: newValue };
+  const handleChange: EditorProps["onChange"] = (newValue?: Value) => {
+    currentValueRef.current = {
+      state: "changed",
+      value: newValue,
+    };
     setCurrentValue(newValue);
   };
 

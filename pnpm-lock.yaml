@@ -146,6 +146,8 @@ overrides:
   '@google-cloud/storage>retry-request@7': '8'
   '@google-cloud/storage>teeny-request@9': '10'
   uuid@<14.0.0: ^14.0.0
+  postcss@<8.5.10: '>=8.5.10'
+  axios@>=1.0.0 <1.15.2: '>=1.15.2'
 
 patchedDependencies:
   '@changesets/assemble-release-plan':
@@ -664,11 +666,11 @@ importers:
         specifier: ^0.16.1
         version: 0.16.1(@babel/preset-env@7.29.2(@babel/core@7.29.0))
       postcss:
-        specifier: ~8.4.49
-        version: 8.4.49
+        specifier: '>=8.5.10'
+        version: 8.5.12
       postcss-scss:
         specifier: ~4.0.9
-        version: 4.0.9(postcss@8.4.49)
+        version: 4.0.9(postcss@8.5.12)
       postcss-value-parser:
         specifier: ~4.2.0
         version: 4.2.0
@@ -3988,8 +3990,8 @@ packages:
     resolution: {integrity: sha512-byD6KPdvo72y/wj2T/4zGEvvlis+PsZsn/yPS3pEO+sFpcrqRpX/TJCxvVaEsNeMrfQbCr7w163YqoD9IYwHXw==}
     engines: {node: '>=4'}
 
-  axios@1.15.0:
-    resolution: {integrity: sha512-wWyJDlAatxk30ZJer+GeCWS209sA42X+N5jU2jy6oHTp7ufw8uzUTVFBX9+wTfAlhiJXGS0Bq7X6efruWjuK9Q==}
+  axios@1.16.0:
+    resolution: {integrity: sha512-6hp5CwvTPlN2A31g5dxnwAX0orzM7pmCRDLnZSX772mv8WDqICwFjowHuPs04Mc8deIld1+ejhtaMn5vp6b+1w==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -6516,17 +6518,13 @@ packages:
     resolution: {integrity: sha512-AjKOeiwAitL/MXxQW2DliT28EKukvvbEWx3LBmJIRN8KfBGZbRTxNYW0kSqi1COiTZ57nZ9NW06S6ux//N1c9A==}
     engines: {node: '>=12.0'}
     peerDependencies:
-      postcss: ^8.4.29
+      postcss: '>=8.5.10'
 
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
-  postcss@8.4.49:
-    resolution: {integrity: sha512-OCVPnIObs4N29kxTjzLfUryOkvZEq+pf8jTF0lg8E7uETuWHA+v7j3c/xJmiqpX450191LlmZfUKkXxkTry7nA==}
-    engines: {node: ^10 || ^12 || >=14}
-
-  postcss@8.5.9:
-    resolution: {integrity: sha512-7a70Nsot+EMX9fFU3064K/kdHWZqGVY+BADLyXc8Dfv+mTLLVl6JzJpPaCZ2kQL9gIJvKXSLMHhqdRRjwQeFtw==}
+  postcss@8.5.12:
+    resolution: {integrity: sha512-W62t/Se6rA0Az3DfCL0AqJwXuKwBeYg6nOaIgzP+xZ7N5BFCI7DYi1qs6ygUYT6rvfi6t9k65UMLJC+PHZpDAA==}
     engines: {node: ^10 || ^12 || >=14}
 
   postinstall-build@5.0.3:
@@ -9640,7 +9638,7 @@ snapshots:
       '@itwin/object-storage-azure': 3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@itwin/object-storage-core': 3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@itwin/object-storage-google': 3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
-      axios: 1.15.0
+      axios: 1.16.0
     transitivePeerDependencies:
       - debug
       - encoding
@@ -9673,7 +9671,7 @@ snapshots:
 
   '@itwin/imodels-client-management@6.1.0':
     dependencies:
-      axios: 1.15.0
+      axios: 1.16.0
     transitivePeerDependencies:
       - debug
 
@@ -9735,7 +9733,7 @@ snapshots:
   '@itwin/object-storage-core@3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)':
     dependencies:
       '@itwin/cloud-agnostic-core': 3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
-      axios: 1.15.0
+      axios: 1.16.0
     optionalDependencies:
       inversify: 7.11.0(reflect-metadata@0.2.2)
       reflect-metadata: 0.2.2
@@ -9748,7 +9746,7 @@ snapshots:
       '@google-cloud/storage-control': 0.5.0
       '@itwin/cloud-agnostic-core': 3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
       '@itwin/object-storage-core': 3.0.5(inversify@7.11.0(reflect-metadata@0.2.2))(reflect-metadata@0.2.2)
-      axios: 1.15.0
+      axios: 1.16.0
       google-auth-library: 10.6.2
     optionalDependencies:
       inversify: 7.11.0(reflect-metadata@0.2.2)
@@ -9761,7 +9759,7 @@ snapshots:
   '@itwin/reality-data-client@1.4.0(@itwin/core-bentley@5.8.1)':
     dependencies:
       '@itwin/core-bentley': 5.8.1
-      axios: 1.15.0
+      axios: 1.16.0
     transitivePeerDependencies:
       - debug
 
@@ -11066,7 +11064,7 @@ snapshots:
 
   axe-core@4.11.2: {}
 
-  axios@1.15.0:
+  axios@1.16.0:
     dependencies:
       follow-redirects: 1.16.0
       form-data: 4.0.5
@@ -14055,19 +14053,13 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-scss@4.0.9(postcss@8.4.49):
+  postcss-scss@4.0.9(postcss@8.5.12):
     dependencies:
-      postcss: 8.4.49
+      postcss: 8.5.12
 
   postcss-value-parser@4.2.0: {}
 
-  postcss@8.4.49:
-    dependencies:
-      nanoid: 3.3.11
-      picocolors: 1.1.1
-      source-map-js: 1.2.1
-
-  postcss@8.5.9:
+  postcss@8.5.12:
     dependencies:
       nanoid: 3.3.11
       picocolors: 1.1.1
@@ -15315,7 +15307,7 @@ snapshots:
       esbuild: 0.27.7
       fdir: 6.5.0(picomatch@4.0.4)
       picomatch: 4.0.4
-      postcss: 8.5.9
+      postcss: 8.5.12
       rollup: 4.60.1
       tinyglobby: 0.2.16
     optionalDependencies:

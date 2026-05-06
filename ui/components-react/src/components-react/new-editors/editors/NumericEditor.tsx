@@ -6,8 +6,12 @@
 import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { EditorProps } from "../Types.js";
-import type { ValueMetadata } from "../values/Metadata.js";
+import type { NumericValueMetadata } from "../values/Metadata.js";
 import type { NumericValue } from "../values/Values.js";
+import {
+  applyNumericConstraints,
+  getNumericConstraints,
+} from "../ConstraintUtils.js";
 
 /* v8 ignore start */
 
@@ -16,12 +20,13 @@ import type { NumericValue } from "../values/Values.js";
  * @internal
  */
 export function NumericEditor({
+  metadata,
   value,
   onChange,
   size,
   disabled,
   id,
-}: EditorProps<ValueMetadata, NumericValue>) {
+}: EditorProps<NumericValueMetadata, NumericValue>) {
   const currentValue = getNumericValue(value);
   return (
     <Input
@@ -32,7 +37,10 @@ export function NumericEditor({
         onChange({
           rawValue: Number.isNaN(parsedValue)
             ? undefined
-            : parseFloat(e.target.value),
+            : applyNumericConstraints({
+                ...getNumericConstraints(metadata.constraints),
+                value: parsedValue,
+              }),
           displayValue: e.target.value,
         });
       }}

@@ -1693,6 +1693,17 @@ export interface NumericValue {
     roundingError?: number;
 }
 
+// @beta
+export interface NumericValueMetadata extends ValueMetadata {
+    // (undocumented)
+    constraints?: {
+        minimumValue?: number;
+        maximumValue?: number;
+    };
+    // (undocumented)
+    type: "number";
+}
+
 // @public @deprecated
 export interface Observable<T> extends Subscribable<T> {
 }
@@ -3293,12 +3304,8 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 export function useAsyncValue<T>(value: T | PromiseLike<T>): T | undefined;
 
 // @beta
-export function useCommittableValue(input: UseCommittableValueProps): {
-    onChange: (newValue?: Value) => void;
+export function useCommittableValue(input: UseCommittableValueProps): Pick<EditorProps, "commit" | "value" | "onChange" | "cancel"> & {
     onKeydown: (e: React_3.KeyboardEvent) => void;
-    commit: () => void;
-    cancel: () => void;
-    value: Value | undefined;
 };
 
 // @public @deprecated
