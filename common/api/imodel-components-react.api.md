@@ -149,7 +149,7 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
     protected _viewport: ScreenViewport | undefined;
 }
 
-// @beta
+// @beta @deprecated
 export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, ColorEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
@@ -880,7 +880,7 @@ export interface ViewRotationChangeEventArgs {
 // @public
 export type ViewStateProp = ViewState | (() => ViewState);
 
-// @public
+// @public @deprecated
 export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, WeightEditorState> implements TypeEditor {
     constructor(props: PropertyEditorProps);
     // (undocumented)

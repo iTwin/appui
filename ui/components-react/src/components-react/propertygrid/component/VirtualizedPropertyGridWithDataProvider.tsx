@@ -7,7 +7,6 @@
  * @module PropertyGrid
  */
 
-import type { JSX } from "react";
 import React, { useEffect, useState } from "react";
 import {
   usePropertyGridEventHandler,
@@ -86,7 +85,7 @@ export type VirtualizedPropertyGridWithDataProviderProps =
 export function VirtualizedPropertyGridWithDataProvider(
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
   props: VirtualizedPropertyGridWithDataProviderProps
-): JSX.Element {
+) {
   const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
     dataProvider: props.dataProvider,
   });

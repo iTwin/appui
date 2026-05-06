@@ -8,6 +8,7 @@ public;type;AnimationFractionChangeHandler
 alpha;class;BaseSolarDataProvider
 public;class;BaseTimelineDataProvider
 beta;class;ColorEditor
+deprecated;class;ColorEditor
 beta;const;ColorPickerButton
 deprecated;const;ColorPickerButton
 beta;function;ColorPickerDialog
@@ -122,6 +123,7 @@ public;interface;ViewRotationChangeEventArgs
 deprecated;interface;ViewRotationChangeEventArgs
 public;type;ViewStateProp
 public;class;WeightEditor
+deprecated;class;WeightEditor
 beta;const;WeightEditorSpec
 public;class;WeightPickerButton
 public;interface;WeightPickerProps

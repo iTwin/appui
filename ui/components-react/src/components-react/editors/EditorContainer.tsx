@@ -41,10 +41,6 @@ export interface PropertyUpdatedArgs {
  * @public
  * @deprecated in 5.29. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
-
-/**
- *
- */
 export interface PropertyEditorProps extends CommonProps {
   /** The property being updated. */
   propertyRecord?: PropertyRecord;
@@ -73,10 +69,6 @@ export interface InternalInputEditorProps {
 /** [[EditorContainer]] React component properties
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof EditorContainer>`
- */
-
-/**
- *
  */
 export interface EditorContainerProps extends CommonProps {
   /** The property being updated. */
