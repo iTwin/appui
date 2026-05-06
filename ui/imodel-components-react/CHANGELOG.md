@@ -1,5 +1,16 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.29.0
+
+### Patch Changes
+
+- 8202fee: New editor system now enforces numeric and string constraints. Numeric and quantity editors clamp rawValues to `minimumValue`/`maximumValue`. Text editors truncate to `maximumLength` and reject values shorter than `minimumLength`.
+- Updated dependencies [8202fee]
+- Updated dependencies [8202fee]
+- Updated dependencies [cdd7f5b]
+  - @itwin/components-react@5.29.0
+  - @itwin/core-react@5.29.0
+
 ## 5.28.1
 
 ### Patch Changes

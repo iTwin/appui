@@ -1,5 +1,16 @@
 # Change Log - @itwin/appui-react
 
+## 5.29.0
+
+### Patch Changes
+
+- Updated dependencies [8202fee]
+- Updated dependencies [8202fee]
+- Updated dependencies [cdd7f5b]
+  - @itwin/components-react@5.29.0
+  - @itwin/imodel-components-react@5.29.0
+  - @itwin/core-react@5.29.0
+
 ## 5.28.1
 
 ### Patch Changes
