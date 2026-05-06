@@ -1,5 +1,21 @@
 # Change Log - @itwin/components-react
 
+## 5.29.0
+
+### Minor Changes
+
+- 8202fee: Added constraint enforcement for new editor system:
+
+  - Added `NumericValueMetadata` interface with `minimumValue`/`maximumValue` constraints.
+  - Updated `useCommittableValue` return type to use `Pick<EditorProps, ...>` for consistency.
+
+- cdd7f5b: Associate PropertyEditor labels with editor controls using generated element ids
+
+### Patch Changes
+
+- 8202fee: New editor system now enforces numeric and string constraints. Numeric and quantity editors clamp rawValues to `minimumValue`/`maximumValue`. Text editors truncate to `maximumLength` and reject values shorter than `minimumLength`.
+  - @itwin/core-react@5.29.0
+
 ## 5.28.1
 
 ### Patch Changes
