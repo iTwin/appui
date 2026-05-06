@@ -70,6 +70,7 @@ export function PropertyRecordEditor({
   }
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <EditorContainer
       propertyRecord={propertyRecord}
       onCommit={onCommit}

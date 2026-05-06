@@ -29,6 +29,9 @@ import type {
   TypeEditor,
 } from "./EditorContainer.js";
 import { UiComponents } from "../UiComponents.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js"
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
@@ -44,6 +47,7 @@ interface TextEditorState {
 
 /** TextEditor React component that is a property editor with text input
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class TextEditor
   extends React.PureComponent<PropertyEditorProps, TextEditorState>
@@ -211,7 +215,6 @@ export class TextEditor
     };
 
     const icon = this.state.iconSpec ? (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Icon iconSpec={this.state.iconSpec} />
     ) : undefined;
     return (
@@ -255,7 +258,6 @@ const LockTextEditor = React.forwardRef<HTMLInputElement, LockTextEditorProps>(
 
     if (icon) {
       return (
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
         <IconInput
           {...rest}
           ref={forwardedRef}

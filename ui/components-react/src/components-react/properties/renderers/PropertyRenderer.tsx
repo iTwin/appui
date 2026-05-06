@@ -11,7 +11,6 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
-import { EditorContainer } from "../../editors/EditorContainer.js";
 import type { PropertyValueRendererManager } from "../ValueRendererManager.js";
 import type { ActionButtonRenderer } from "./ActionButtonRenderer.js";
 import { CommonPropertyRenderer } from "./CommonPropertyRenderer.js";
@@ -21,6 +20,7 @@ import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer.js";
 import type { PropertyGridColumnInfo } from "./PropertyGridColumns.js";
 import type { Orientation } from "../../common/Orientation.js";
 import { useTranslation } from "../../l10n/useTranslation.js";
+import { PropertyRecordEditor } from "../../new-editors/interop/PropertyRecordEditor.js";
 
 /** Properties shared by all renderers and PropertyView
  * @public
@@ -86,6 +86,8 @@ export interface PropertyRendererProps extends SharedRendererProps {
   onEditCancel?: () => void;
   /** Props used for highlighting. */
   highlight?: HighlightingComponentProps;
+  /** Specifies which editors system should be used: legacy or the new one. */
+  editorSystem?: "legacy" | "new";
 }
 
 /**  A React component that renders properties
@@ -109,6 +111,7 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     isPropertyEditingEnabled,
     onClick,
     uniqueKey,
+    editorSystem,
     ...restProps
   } = props;
 
@@ -130,12 +133,13 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
   React.useEffect(() => {
     if (isEditing || (alwaysShowsEditor && isPropertyEditingEnabled)) {
       setDisplayValue(
-        <EditorContainer
+        <PropertyRecordEditor
           propertyRecord={propertyRecord}
           onCommit={onCommit}
           onCancel={onCancel}
           setFocus={isEditing}
           onClick={() => onClick?.(propertyRecord, uniqueKey)}
+          editorSystem={editorSystem}
         />
       );
       return;
@@ -161,6 +165,7 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     isPropertyEditingEnabled,
     onClick,
     uniqueKey,
+    editorSystem,
   ]);
 
   const primitiveRendererProps: PrimitiveRendererProps = {

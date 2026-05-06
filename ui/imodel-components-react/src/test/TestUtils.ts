@@ -459,10 +459,12 @@ export class TestUtils {
 }
 
 /** @internal */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export class MineDataController extends DataControllerBase {
   public override async validateValue(
     _newValue: PropertyValue,
     _record: PropertyRecord
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
   ): Promise<AsyncValueProcessingResult> {
     return {
       encounteredError: true,

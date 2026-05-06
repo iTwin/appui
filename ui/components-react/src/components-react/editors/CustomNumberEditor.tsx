@@ -36,6 +36,9 @@ import type {
 } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import type { IconNodeEditorParams } from "../../internal.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 type InputProps = React.ComponentPropsWithoutRef<typeof Input>;
 
@@ -49,6 +52,7 @@ interface CustomNumberEditorState {
 
 /** CustomNumberEditor is a React component that is a property editor for numbers that specify custom formatting and parsing functions.
  * @alpha
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class CustomNumberEditor
   extends React.PureComponent<PropertyEditorProps, CustomNumberEditorState>
@@ -415,7 +419,6 @@ export class CustomNumberEditor
     };
 
     const icon = this.state.iconSpec ? (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <Icon iconSpec={this.state.iconSpec} />
     ) : undefined;
 
@@ -434,6 +437,7 @@ export class CustomNumberEditor
 /** Custom Property Editor registered for the "number" type name and the "number-custom" editor name.
  * It uses the [[CustomNumberEditor]] React component.
  * @alpha
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class CustomNumberPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {
@@ -475,7 +479,6 @@ const LockNumberEditor = React.forwardRef<
 
   if (icon) {
     return (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <IconInput
         {...rest}
         ref={forwardedRef}

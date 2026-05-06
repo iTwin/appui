@@ -6,6 +6,8 @@
  * @module UiProvider
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import * as React from "react";
 import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
 import { PropertyEditorBase } from "@itwin/components-react";

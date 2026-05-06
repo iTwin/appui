@@ -15,9 +15,15 @@ import type {
   PropertyRecord,
   PropertyValue,
 } from "@itwin/appui-abstract";
+import { createEditorSpec, EditorSpec } from "../new-editors/Types.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+import { EditorsRegistryProvider } from "../new-editors/editors-registry/EditorsRegistryProvider.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Asynchronous Error Message returned as part of [[AsyncValueProcessingResult]]
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and is not used anymore.
  */
 export interface AsyncErrorMessage {
   severity: MessageSeverity;
@@ -28,6 +34,7 @@ export interface AsyncErrorMessage {
 
 /** Asynchronous Value Process Result
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and is not used anymore.
  */
 export interface AsyncValueProcessingResult {
   encounteredError: boolean;
@@ -35,8 +42,10 @@ export interface AsyncValueProcessingResult {
   errorMessage?: AsyncErrorMessage;
 }
 
-/** DataControllers can be implemented per typename to validate and commit values.
+/**
+ * DataControllers can be implemented per typename to validate and commit values.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and is not used anymore.
  */
 export interface DataController {
   validateValue(
@@ -51,6 +60,7 @@ export interface DataController {
 
 /** PropertyEditor is the base class for all property editors.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
 export abstract class PropertyEditorBase implements DataController {
   public get containerHandlesBlur(): boolean {
@@ -99,8 +109,10 @@ export abstract class PropertyEditorBase implements DataController {
   }
 }
 
-/** DataControllerBase is the base class for all Data Controllers.
+/**
+ * DataControllerBase is the base class for all Data Controllers.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
 export abstract class DataControllerBase implements DataController {
   public async commitValue(
@@ -122,6 +134,7 @@ const editors: { [index: string]: new () => PropertyEditorBase } = {};
 
 /** Manages Property Editors. Property Editors are registered with and created by the manager.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and was used to register custom editors. Use {@link EditorsRegistryProvider} instead.
  */
 export class PropertyEditorManager {
   private static _dataControllers: {
@@ -203,6 +216,7 @@ export class PropertyEditorManager {
 /** Basic Property Editor registered for the "text" and "string" type names.
  * It uses the [[TextEditor]] React component.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class BasicPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

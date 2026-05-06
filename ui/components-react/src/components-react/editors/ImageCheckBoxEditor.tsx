@@ -21,6 +21,9 @@ import {
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { ImageCheckBox } from "@itwin/core-react";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js"
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 interface ImageCheckBoxEditorState {
@@ -33,6 +36,7 @@ interface ImageCheckBoxEditorState {
 /** [[ImageCheckBoxEditor]]
  * Boolean editor that renders with an image instead of checkbox
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class ImageCheckBoxEditor
   extends React.PureComponent<PropertyEditorProps, ImageCheckBoxEditorState>
@@ -150,7 +154,6 @@ export class ImageCheckBoxEditor
       this.props.propertyRecord?.isReadonly;
 
     return (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <ImageCheckBox
         inputRef={this._inputElement}
         imageOff={this.state.imageOff}
@@ -171,6 +174,7 @@ export class ImageCheckBoxEditor
 /** ImageCheckBox Property Editor registered for the "bool" and "boolean" type names.
  * It uses the [[ImageCheckBoxEditor]] React component.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class ImageCheckBoxPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

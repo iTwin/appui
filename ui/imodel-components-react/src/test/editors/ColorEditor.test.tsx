@@ -18,6 +18,8 @@ import "../../imodel-components-react.js";
 import { ColorEditor } from "../../imodel-components-react/editors/ColorEditor.js";
 import { MineDataController, TestUtils } from "../TestUtils.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 describe("<ColorEditor />", () => {
   it("should render", () => {
     const renderedComponent = render(<ColorEditor setFocus={true} />);

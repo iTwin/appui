@@ -10,7 +10,6 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer.js";
-import { EditorContainer } from "../editors/EditorContainer.js";
 import { Flex, Text } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue.js";
 import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
@@ -97,6 +96,7 @@ function FilterBuilderRuleRangeValueRenderer({
   property,
   value,
   onChange,
+  editorSystem,
 }: PropertyFilterBuilderRuleValueProps) {
   const { translate } = useTranslation();
   const { from, to } = React.useMemo(() => {
@@ -128,22 +128,20 @@ function FilterBuilderRuleRangeValueRenderer({
       flexDirection="row"
     >
       <Flex.Item>
-        <EditorContainer
+        <PropertyRecordEditor
           propertyRecord={from}
           onCancel={() => {}}
           onCommit={handleFromValue}
-          setFocus={false}
-          shouldCommitOnChange={false}
+          editorSystem={editorSystem}
         />
       </Flex.Item>
       <Text>{translate("filterBuilder.operators.and").toLowerCase()}</Text>
       <Flex.Item>
-        <EditorContainer
+        <PropertyRecordEditor
           propertyRecord={to}
           onCancel={() => {}}
           onCommit={handleToValue}
-          setFocus={false}
-          shouldCommitOnChange={false}
+          editorSystem={editorSystem}
         />
       </Flex.Item>
     </Flex>

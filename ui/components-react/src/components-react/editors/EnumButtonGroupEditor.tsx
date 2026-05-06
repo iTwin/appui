@@ -25,6 +25,9 @@ import { Icon } from "@itwin/core-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 interface EnumButtonGroupEditorState {
@@ -35,6 +38,7 @@ interface EnumButtonGroupEditorState {
 
 /** EnumButtonGroupEditor React component that is a property editor with select input
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class EnumButtonGroupEditor
   extends React.Component<PropertyEditorProps, EnumButtonGroupEditorState>
@@ -198,7 +202,7 @@ export class EnumButtonGroupEditor
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+        {}
         <Icon
           iconSpec={
             this.state.enumIcons[index].iconSpec === "" ? (
@@ -241,6 +245,7 @@ export class EnumButtonGroupEditor
 /** Enum Property Button Group Editor registered for the "enum" type name and the "enum-buttongroup" editor name.
  * It uses the [[EnumButtonGroupEditor]] React component.
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class EnumPropertyButtonGroupEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

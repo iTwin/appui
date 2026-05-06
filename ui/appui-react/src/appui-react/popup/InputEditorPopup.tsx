@@ -82,6 +82,7 @@ export class InputEditorPopup extends React.PureComponent<
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
           <PositionPopupContent>
+            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <EditorContainer
               propertyRecord={this.props.record}
               onCommit={this.props.commitHandler.handleCommit}

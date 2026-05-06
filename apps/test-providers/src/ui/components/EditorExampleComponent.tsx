@@ -268,6 +268,7 @@ function OldEditorRenderer({ record }: { record: PropertyRecord }) {
     <Flex flexDirection="row" flexWrap="nowrap" alignItems="flex-end">
       {availableSizes.map((localSize) => (
         <Flex.Item key={localSize}>
+          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
           <EditorContainer
             propertyRecord={record}
             onCommit={() => undefined}

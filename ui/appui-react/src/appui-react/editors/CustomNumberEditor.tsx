@@ -6,6 +6,8 @@
  * @module PropertyEditors
  */
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 import * as React from "react";
 import {
   CustomNumberEditor as BaseCustomNumberEditor,

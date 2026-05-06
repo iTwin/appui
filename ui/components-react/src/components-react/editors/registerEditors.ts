@@ -26,6 +26,8 @@ import { SliderPropertyEditor } from "./SliderEditor.js";
 import { TextareaPropertyEditor } from "./TextareaEditor.js";
 import { TogglePropertyEditor } from "./ToggleEditor.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** @internal */
 export function registerEditors() {
   registerDefaultPropertyEditor(StandardTypeNames.Bool, BooleanPropertyEditor);

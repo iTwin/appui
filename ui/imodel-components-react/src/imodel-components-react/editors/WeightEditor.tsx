@@ -15,6 +15,8 @@ import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
 import { PropertyEditorBase } from "@itwin/components-react";
 import { WeightPickerButton } from "../lineweight/WeightPickerButton.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** @internal */
 interface WeightEditorState {
   weightValue: number;
@@ -24,6 +26,7 @@ interface WeightEditorState {
 
 /** WeightEditor React component that is a property editor for picking a weight using a [[WeightPickerButton]] component
  * @public
+ * @deprecated in 5.29. This is part of the old editor system and should not be used directly. Use `EditorRenderer` from `@itwin/components-react` instead.
  */
 export class WeightEditor
   extends React.PureComponent<PropertyEditorProps, WeightEditorState>
