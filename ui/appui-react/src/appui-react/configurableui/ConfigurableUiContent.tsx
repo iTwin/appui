@@ -13,6 +13,7 @@ import { Point } from "@itwin/core-react/internal";
 import {
   IModelConnectionProvider,
   QuantityEditorSpec,
+  WeightEditorSpec,
 } from "@itwin/imodel-components-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { CursorInformation } from "../cursor/CursorInformation.js";
@@ -239,7 +240,7 @@ export function StandardLayout(props: StandardLayoutProps) {
   );
 }
 
-const defaultEditors = [QuantityEditorSpec];
+const defaultEditors = [QuantityEditorSpec, WeightEditorSpec];
 
 function useWidgetOpacity(
   /* eslint-disable-next-line @typescript-eslint/no-deprecated */
