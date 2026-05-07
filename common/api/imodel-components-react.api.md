@@ -220,7 +220,7 @@ export interface ColorPickerProps extends React_2.ButtonHTMLAttributes<HTMLButto
     showCaret?: boolean;
 }
 
-// @beta
+// @beta @deprecated
 export class ColorPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get reactNode(): React_2.ReactNode;
@@ -931,7 +931,7 @@ export interface WeightPickerProps extends React_2.ButtonHTMLAttributes<HTMLButt
     weights: number[];
 }
 
-// @public
+// @public @deprecated
 export class WeightPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get reactNode(): React_2.ReactNode;

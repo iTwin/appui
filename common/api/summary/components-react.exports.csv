@@ -179,6 +179,7 @@ public;interface;IPropertyGridModelSource
 public;interface;IPropertyValueRenderer
 beta;function;isPropertyFilterBuilderRuleGroup
 beta;function;isPropertyFilterRuleGroup
+beta;function;isPropertyRecordEditorMetadata
 public;const;isTreeDataProviderInterface
 deprecated;const;isTreeDataProviderInterface
 public;const;isTreeDataProviderMethod
@@ -325,6 +326,7 @@ beta;interface;PropertyFilterBuilderRuleRangeValue
 beta;namespace;PropertyFilterBuilderRuleRangeValue
 beta;function;PropertyFilterBuilderRuleValue
 beta;type;PropertyFilterBuilderRuleValueProps
+deprecated;type;PropertyFilterBuilderRuleValueProps
 beta;type;PropertyFilterBuilderRuleValueRendererProps
 beta;interface;PropertyFilterBuilderState
 beta;const;PropertyFilterBuilderToolbar
@@ -346,8 +348,10 @@ public;interface;PropertyListProps
 public;interface;PropertyPopupState
 public;class;PropertyRecordDataFiltererBase
 beta;function;PropertyRecordEditor
+beta;interface;PropertyRecordEditorMetadata
 public;const;PropertyRenderer
 public;type;PropertyRendererProps
+deprecated;type;PropertyRendererProps
 public;interface;PropertyUpdatedArgs
 public;interface;PropertyValueRendererContext
 public;class;PropertyValueRendererManager
@@ -551,6 +555,7 @@ beta;type;ValueType
 public;class;VirtualizedPropertyGrid
 public;interface;VirtualizedPropertyGridContext
 public;type;VirtualizedPropertyGridProps
+deprecated;type;VirtualizedPropertyGridProps
 public;function;VirtualizedPropertyGridWithDataProvider
 public;type;VirtualizedPropertyGridWithDataProviderProps
 deprecated;type;VirtualizedPropertyGridWithDataProviderProps

@@ -22,6 +22,7 @@ deprecated;interface;ColorPickerPopupProps
 beta;interface;ColorPickerProps
 deprecated;interface;ColorPickerProps
 beta;class;ColorPropertyEditor
+deprecated;class;ColorPropertyEditor
 beta;function;ColorSwatch
 deprecated;function;ColorSwatch
 beta;interface;ColorSwatchProps
@@ -128,3 +129,4 @@ beta;const;WeightEditorSpec
 public;class;WeightPickerButton
 public;interface;WeightPickerProps
 public;class;WeightPropertyEditor
+deprecated;class;WeightPropertyEditor

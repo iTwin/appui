@@ -17,6 +17,7 @@ import type { CustomButtonDefinition } from '@itwin/appui-abstract';
 import type { DateFormatter } from '@itwin/appui-abstract';
 import type { DisplayMessageType } from '@itwin/appui-abstract';
 import type { EnumerationChoice } from '@itwin/appui-abstract';
+import type { EnumerationChoicesInfo } from '@itwin/appui-abstract';
 import type { GroupButton } from '@itwin/appui-abstract';
 import type { IconDefinition } from '@itwin/appui-abstract';
 import type { Id64String } from '@itwin/core-bentley';
@@ -33,6 +34,7 @@ import type { ParseResults } from '@itwin/appui-abstract';
 import type { Primitives } from '@itwin/appui-abstract';
 import type { PrimitiveValue } from '@itwin/appui-abstract';
 import { PropertyDescription } from '@itwin/appui-abstract';
+import type { PropertyEditorParams } from '@itwin/appui-abstract';
 import { PropertyRecord } from '@itwin/appui-abstract';
 import type { PropertyValue } from '@itwin/appui-abstract';
 import { default as React_2 } from 'react';
@@ -1213,6 +1215,9 @@ export function isPropertyFilterBuilderRuleGroup(item: PropertyFilterBuilderRule
 export function isPropertyFilterRuleGroup(filter: PropertyFilter): filter is PropertyFilterRuleGroup;
 
 // @beta
+export function isPropertyRecordEditorMetadata(metadata: ValueMetadata): metadata is PropertyRecordEditorMetadata;
+
+// @beta
 function isText(value: Value): value is TextValue;
 
 // @public @deprecated
@@ -2127,7 +2132,7 @@ export namespace PropertyFilterBuilderRuleRangeValue {
 // @beta
 export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueRendererProps): React_3.JSX.Element;
 
-// @beta
+// @beta @deprecated
 export type PropertyFilterBuilderRuleValueProps = PropertyFilterBuilderRuleValueLegacyProps | PropertyFilterBuilderRuleValueNewProps;
 
 // @beta
@@ -2307,13 +2312,29 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 // @beta
 export function PropertyRecordEditor(input: PropertyRecordEditorProps): React_3.JSX.Element;
 
+// @beta
+export interface PropertyRecordEditorMetadata extends ValueMetadata {
+    // (undocumented)
+    enum?: EnumerationChoicesInfo;
+    // (undocumented)
+    extendedData?: {
+        [key: string]: unknown;
+    };
+    // (undocumented)
+    params?: PropertyEditorParams[];
+    // (undocumented)
+    quantityType?: string;
+    // (undocumented)
+    typename: string;
+}
+
 // @public
 export const PropertyRenderer: {
     (props: PropertyRendererProps): React_3.JSX.Element;
     getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
 };
 
-// @public
+// @public @deprecated
 export type PropertyRendererProps = PropertyRendererNewProps | PropertyRendererLegacyProps;
 
 // @public
@@ -3489,7 +3510,7 @@ export interface VirtualizedPropertyGridContext {
     selectedPropertyKey?: string;
 }
 
-// @public
+// @public @deprecated
 export type VirtualizedPropertyGridProps = VirtualizedPropertyGridLegacyProps | VirtualizedPropertyGridNewProps;
 
 // @public
