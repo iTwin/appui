@@ -3,4 +3,4 @@
 "@itwin/appui-react": minor
 ---
 
-Depreacted editors built using legacy editors system.
+Deprecated editors built using legacy editors system.

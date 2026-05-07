@@ -2,4 +2,4 @@
 "@itwin/components-react": minor
 ---
 
-Depreacted legacy editors system and editors implemented using that system.
+Deprecated legacy editors system and editors implemented using that system.
