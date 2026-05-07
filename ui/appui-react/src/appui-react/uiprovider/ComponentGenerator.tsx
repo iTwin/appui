@@ -215,6 +215,7 @@ function PropertyEditor(props: {
           setFocus={setFocus}
           onCommit={handleCommit}
           onCancel={onCancel ?? handleCancel}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           editorSystem={useNewEditors ? "new" : "legacy"}
           size="small"
         />

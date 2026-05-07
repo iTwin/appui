@@ -22,15 +22,31 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
 import type { WithConstraints } from "../ConstraintUtils.js";
 
-interface PropertyRecordEditorProps {
+interface PropertyRecordEditorBaseProps {
   propertyRecord: PropertyRecord;
   onCommit: (args: PropertyUpdatedArgs) => void;
   onCancel: () => void;
   onClick?: () => void;
   setFocus?: boolean;
   size?: "small" | "large";
-  editorSystem?: "legacy" | "new";
 }
+
+interface PropertyRecordEditorLegacyProps
+  extends PropertyRecordEditorBaseProps {
+  /**
+   * @deprecated in 5.30. Use `PropertyRecordEditor` with `editorSystem="new"` instead. This is provided only in case
+   * there is a need to switch back to the legacy editor system.
+   */
+  editorSystem?: "legacy";
+}
+
+interface PropertyRecordEditorNewProps extends PropertyRecordEditorBaseProps {
+  editorSystem: "new";
+}
+
+type PropertyRecordEditorProps =
+  | PropertyRecordEditorLegacyProps
+  | PropertyRecordEditorNewProps;
 
 /**
  * Editor component for editing property values represented by `PropertyRecord`.
@@ -43,6 +59,7 @@ export function PropertyRecordEditor({
   onClick,
   setFocus,
   size,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
 }: PropertyRecordEditorProps) {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);

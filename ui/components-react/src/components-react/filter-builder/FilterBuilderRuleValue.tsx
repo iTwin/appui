@@ -16,9 +16,7 @@ import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
 import { useTranslation } from "../l10n/useTranslation.js";
 import { PropertyRecordEditor } from "../new-editors/interop/PropertyRecordEditor.js";
 
-/**
- * @beta
- */
+/** @beta */
 interface PropertyFilterBuilderRuleValueBaseProps {
   /** Currently entered value. */
   value?: PropertyValue;
@@ -28,9 +26,7 @@ interface PropertyFilterBuilderRuleValueBaseProps {
   onChange: (value: PropertyValue) => void;
 }
 
-/**
- * @beta
- */
+/** @beta */
 interface PropertyFilterBuilderRuleValueLegacyProps
   extends PropertyFilterBuilderRuleValueBaseProps {
   /**
@@ -42,9 +38,7 @@ interface PropertyFilterBuilderRuleValueLegacyProps
   editorSystem?: "legacy";
 }
 
-/**
- * @beta
- */
+/** @beta */
 interface PropertyFilterBuilderRuleValueNewProps
   extends PropertyFilterBuilderRuleValueBaseProps {
   /**
@@ -58,6 +52,7 @@ interface PropertyFilterBuilderRuleValueNewProps
 /**
  * Props for [[PropertyFilterBuilderRuleValue]] component.
  * @beta
+ * @deprecated in 5.30.0. Use `React.ComponentProps<typeof PropertyFilterBuilderRuleValue>` instead.
  */
 export type PropertyFilterBuilderRuleValueProps =
   | PropertyFilterBuilderRuleValueLegacyProps
@@ -68,6 +63,7 @@ export type PropertyFilterBuilderRuleValueProps =
  * @beta
  */
 export type PropertyFilterBuilderRuleValueRendererProps =
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   PropertyFilterBuilderRuleValueProps & {
     /** Current operator. */
     operator: PropertyFilterBuilderRuleOperator;
@@ -95,7 +91,8 @@ function FilterBuilderRulePrimitiveValueRenderer({
   onChange,
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
-}: PropertyFilterBuilderRuleValueProps) {
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
+PropertyFilterBuilderRuleValueProps) {
   const propertyRecord = React.useMemo(() => {
     return new PropertyRecord(
       value ?? { valueFormat: PropertyValueFormat.Primitive },
@@ -116,6 +113,7 @@ function FilterBuilderRulePrimitiveValueRenderer({
       onCancel={() => {}}
       onCommit={onValueChange}
       size="small"
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       editorSystem={editorSystem}
     />
   );
@@ -127,7 +125,8 @@ function FilterBuilderRuleRangeValueRenderer({
   onChange,
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
-}: PropertyFilterBuilderRuleValueProps) {
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
+PropertyFilterBuilderRuleValueProps) {
   const { translate } = useTranslation();
   const { from, to } = React.useMemo(() => {
     const rangeValue = PropertyFilterBuilderRuleRangeValue.parse(value);
@@ -162,6 +161,7 @@ function FilterBuilderRuleRangeValueRenderer({
           propertyRecord={from}
           onCancel={() => {}}
           onCommit={handleFromValue}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           editorSystem={editorSystem}
         />
       </Flex.Item>
@@ -171,6 +171,7 @@ function FilterBuilderRuleRangeValueRenderer({
           propertyRecord={to}
           onCancel={() => {}}
           onCommit={handleToValue}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           editorSystem={editorSystem}
         />
       </Flex.Item>

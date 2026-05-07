@@ -39,10 +39,7 @@ interface VirtualizedPropertyGridWithDataProviderBaseProps
   height: number;
 }
 
-/**
- * @public
- * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
- */
+/** @public */
 interface VirtualizedPropertyGridWithDataProviderLegacyProps
   extends VirtualizedPropertyGridWithDataProviderBaseProps {
   /**
@@ -73,7 +70,6 @@ interface VirtualizedPropertyGridWithDataProviderNewProps
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof VirtualizedPropertyGridWithDataProvider>`
  */
 export type VirtualizedPropertyGridWithDataProviderProps =
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
   | VirtualizedPropertyGridWithDataProviderLegacyProps
   | VirtualizedPropertyGridWithDataProviderNewProps;
 

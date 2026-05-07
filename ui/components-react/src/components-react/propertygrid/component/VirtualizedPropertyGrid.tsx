@@ -71,10 +71,7 @@ interface VirtualizedPropertyGridBaseProps extends CommonPropertyGridProps {
   height: number;
 }
 
-/**
- * @public
- * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
- */
+/** @public */
 interface VirtualizedPropertyGridLegacyProps
   extends VirtualizedPropertyGridBaseProps {
   /**
@@ -101,10 +98,11 @@ interface VirtualizedPropertyGridNewProps
 
 /** Properties for [[VirtualizedPropertyGrid]] React component
  * @public
+ * @deprecated in 5.30.0. Use `React.ComponentProps<typeof VirtualizedPropertyGrid>` instead.
  */
 export type VirtualizedPropertyGridProps =
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  VirtualizedPropertyGridLegacyProps | VirtualizedPropertyGridNewProps;
+  | VirtualizedPropertyGridLegacyProps
+  | VirtualizedPropertyGridNewProps;
 
 /** State of [[VirtualizedPropertyGrid]] React component
  * @internal
@@ -200,11 +198,13 @@ const VERTICAL_CATEGORY_PROPERTY_HEIGHT = 48;
  * @public
  */
 export class VirtualizedPropertyGrid extends React.Component<
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   VirtualizedPropertyGridProps,
   VirtualizedPropertyGridState
 > {
   private _listRef = React.createRef<VariableSizeList>();
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   constructor(props: VirtualizedPropertyGridProps) {
     super(props);
     this.state = {
@@ -222,6 +222,7 @@ export class VirtualizedPropertyGrid extends React.Component<
   }
 
   /** @internal */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   public override componentDidUpdate(prevProps: VirtualizedPropertyGridProps) {
     if (
       this.props.orientation !== prevProps.orientation ||
@@ -265,6 +266,7 @@ export class VirtualizedPropertyGrid extends React.Component<
 
   /** @internal */
   public static getDerivedStateFromProps(
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     props: VirtualizedPropertyGridProps,
     state: VirtualizedPropertyGridState
   ): VirtualizedPropertyGridState | null {

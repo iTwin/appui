@@ -10,7 +10,7 @@ import * as React from "react";
 import type { Primitives, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { EditorContainer, PropertyRecordEditor } from "@itwin/components-react";
+import { PropertyRecordEditor } from "@itwin/components-react";
 import { DivWithOutsideClick } from "@itwin/core-react";
 import type { PopupPropsBase } from "./PopupManager.js";
 import { PopupManager } from "./PopupManager.js";
@@ -71,6 +71,7 @@ export function InputEditorPopup(props: InputEditorPopupProps) {
             onCommit={commitHandler.handleCommit}
             onCancel={onCancel}
             setFocus={true}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             editorSystem={newEditors ? "new" : "legacy"}
           />
         </PositionPopupContent>

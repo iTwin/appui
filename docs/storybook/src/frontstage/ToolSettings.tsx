@@ -12,8 +12,8 @@ import {
   StandardLayout,
   WidgetState,
 } from "@itwin/appui-react";
-import { EditorsRegistryProvider } from "@itwin/components-react-internal/src/components-react/new-editors/editors-registry/EditorsRegistryProvider";
 import { TagsEditorSpec } from "src/tools/TagEditorNew";
+import { EditorsRegistryProvider } from "@itwin/components-react";
 
 interface Props
   extends Pick<

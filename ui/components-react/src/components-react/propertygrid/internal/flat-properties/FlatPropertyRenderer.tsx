@@ -183,6 +183,7 @@ const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
         onCancel={props.onEditCancel ?? (() => {})}
         onClick={() => props.onClick?.(props.propertyRecord, props.uniqueKey)}
         setFocus={props.isEditing}
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
         editorSystem={props.editorSystem}
         size="small"
       />

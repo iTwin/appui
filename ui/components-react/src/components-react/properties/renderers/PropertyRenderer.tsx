@@ -110,6 +110,7 @@ interface PropertyRendererNewProps extends PropertyRendererBaseProps {
 /**
  * Properties of [[PropertyRenderer]] React component
  * @public
+ * @deprecated in 5.30.0. Use `React.ComponentProps<typeof PropertyRenderer>` instead.
  */
 export type PropertyRendererProps =
   | PropertyRendererNewProps
@@ -118,6 +119,7 @@ export type PropertyRendererProps =
 /**  A React component that renders properties
  * @public
  */
+// eslint-disable-next-line @typescript-eslint/no-deprecated
 export const PropertyRenderer = (props: PropertyRendererProps) => {
   const { translate } = useTranslation();
   const [displayValue, setDisplayValue] = React.useState<React.ReactNode>(() =>
@@ -165,6 +167,7 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
           onCancel={onCancel}
           setFocus={isEditing}
           onClick={() => onClick?.(propertyRecord, uniqueKey)}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           editorSystem={editorSystem}
         />
       );
