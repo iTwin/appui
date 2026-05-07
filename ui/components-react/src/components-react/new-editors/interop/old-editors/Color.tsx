@@ -18,8 +18,8 @@ import {
 } from "@itwin/itwinui-react";
 import type { EditorProps, EditorSpec } from "../../Types.js";
 import { createEditorSpec } from "../../Types.js";
-import type { OldEditorMetadata } from "../Metadata.js";
-import { isOldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
 import { useColorEditorParams } from "./UseEditorParams.js";
 import { isNumeric } from "../../values/ValueUtilities.js";
@@ -31,8 +31,8 @@ import { isNumeric } from "../../values/ValueUtilities.js";
  * @internal
  */
 export const ColorEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) &&
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) &&
     metadata.type === "number" &&
     !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.ColorData.valueOf()
@@ -49,7 +49,7 @@ function ColorEditor({
   commit,
   size,
   id,
-}: EditorProps<OldEditorMetadata, NumericValue>) {
+}: EditorProps<PropertyRecordEditorMetadata, NumericValue>) {
   const colorParams = useColorEditorParams(metadata);
   const colors = colorParams?.colorValues ?? [];
 

@@ -14,7 +14,7 @@ import type {
   TextValue,
 } from "../values/Values.js";
 import type { Value as NewEditorValue } from "../values/Values.js";
-import type { OldEditorMetadata } from "./Metadata.js";
+import type { PropertyRecordEditorMetadata } from "./Metadata.js";
 import {
   isBoolean,
   isDate,
@@ -36,10 +36,13 @@ export namespace EditorInterop {
   export function getMetadataAndValue(
     propertyRecord: PropertyRecordWithConstraints
   ): {
-    metadata: WithConstraints<OldEditorMetadata> | undefined;
+    metadata: WithConstraints<PropertyRecordEditorMetadata> | undefined;
     value: NewEditorValue | undefined;
   } {
-    const baseMetadata: Omit<WithConstraints<OldEditorMetadata>, "type"> = {
+    const baseMetadata: Omit<
+      WithConstraints<PropertyRecordEditorMetadata>,
+      "type"
+    > = {
       preferredEditor: propertyRecord.property.editor?.name,
       params: propertyRecord.property.editor?.params,
       extendedData: propertyRecord.extendedData,

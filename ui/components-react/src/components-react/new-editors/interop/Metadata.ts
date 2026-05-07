@@ -12,10 +12,10 @@ import type { ValueMetadata } from "../values/Metadata.js";
 /* v8 ignore start */
 
 /**
- * Metadata that is created by mapping `PropertyRecord` used to render old editor into the new editor metadata.
- * @internal
+ * Metadata that is created by mapping `PropertyRecord` into the editor metadata.
+ * @beta
  */
-export interface OldEditorMetadata extends ValueMetadata {
+export interface PropertyRecordEditorMetadata extends ValueMetadata {
   params?: PropertyEditorParams[];
   extendedData?: { [key: string]: unknown };
   enum?: EnumerationChoicesInfo;
@@ -24,13 +24,13 @@ export interface OldEditorMetadata extends ValueMetadata {
 }
 
 /**
- * Type guard for `OldEditorMetadata`.
- * @internal
+ * Type guard for `PropertyRecordEditorMetadata`.
+ * @beta
  */
-export function isOldEditorMetadata(
+export function isPropertyRecordEditorMetadata(
   metadata: ValueMetadata
-): metadata is OldEditorMetadata {
-  return (metadata as OldEditorMetadata).typename !== undefined;
+): metadata is PropertyRecordEditorMetadata {
+  return (metadata as PropertyRecordEditorMetadata).typename !== undefined;
 }
 
 /* v8 ignore stop */

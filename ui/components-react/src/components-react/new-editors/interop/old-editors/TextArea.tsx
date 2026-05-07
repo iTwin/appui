@@ -6,7 +6,8 @@
 import * as React from "react";
 import { Button, Popover, Textarea } from "@itwin/itwinui-react";
 import { createEditorSpec, type EditorProps } from "../../Types.js";
-import { isOldEditorMetadata, type OldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import { type TextValue } from "../../values/Values.js";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import { isText } from "../../values/ValueUtilities.js";
@@ -15,8 +16,8 @@ import { isText } from "../../values/ValueUtilities.js";
 
 /** @internal */
 export const MultilineEditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) &&
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) &&
     metadata.type === "string" &&
     metadata.preferredEditor === StandardEditorNames.MultiLine,
   isValueSupported: isText,
@@ -30,7 +31,7 @@ function TextAreaEditor({
   size,
   disabled,
   id,
-}: EditorProps<OldEditorMetadata, TextValue>) {
+}: EditorProps<PropertyRecordEditorMetadata, TextValue>) {
   const currentValue = value ?? { value: "" };
 
   return (

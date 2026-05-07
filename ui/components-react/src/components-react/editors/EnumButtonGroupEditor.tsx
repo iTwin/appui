@@ -202,7 +202,6 @@ export class EnumButtonGroupEditor
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
       >
-        {}
         <Icon
           iconSpec={
             this.state.enumIcons[index].iconSpec === "" ? (

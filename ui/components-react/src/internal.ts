@@ -15,11 +15,6 @@ export {
 export { applyNumericConstraints } from "./components-react/new-editors/ConstraintUtils.js";
 
 export {
-  OldEditorMetadata,
-  isOldEditorMetadata,
-} from "./components-react/new-editors/interop/Metadata.js";
-
-export {
   addIconNodeParam,
   IconNodeEditorParams,
 } from "./components-react/properties/IconNodeEditorParam.js";

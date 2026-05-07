@@ -7,8 +7,8 @@ import * as React from "react";
 import { StandardEditorNames } from "@itwin/appui-abstract";
 import type { EditorProps, EditorSpec } from "../../Types.js";
 import { createEditorSpec } from "../../Types.js";
-import type { OldEditorMetadata } from "../Metadata.js";
-import { isOldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
 import {
   useInputEditorSizeParams,
@@ -23,8 +23,8 @@ import { getNumericConstraints } from "../../ConstraintUtils.js";
 
 /** @internal */
 export const NumericInputEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) &&
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) &&
     metadata.type === "number" &&
     metadata.preferredEditor === StandardEditorNames.NumericInput,
   isValueSupported: isNumeric,
@@ -39,7 +39,7 @@ export function NumericInputEditor({
   size,
   disabled,
   id,
-}: EditorProps<WithConstraints<OldEditorMetadata>, NumericValue>) {
+}: EditorProps<WithConstraints<PropertyRecordEditorMetadata>, NumericValue>) {
   const sizeParams = useInputEditorSizeParams(metadata);
   const rangeParams = useRangeEditorParams(metadata);
   const { min: constraintMin, max: constraintMax } = getNumericConstraints(

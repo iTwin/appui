@@ -11,8 +11,8 @@ import {
 import { InputWithDecorations } from "@itwin/itwinui-react";
 import type { EditorProps } from "../../Types.js";
 import { createEditorSpec } from "../../Types.js";
-import type { OldEditorMetadata } from "../Metadata.js";
-import { isOldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
 import {
   useCustomFormattedNumberParams,
@@ -30,8 +30,8 @@ import {
 
 /** @internal */
 export const CustomNumberEditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) &&
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) &&
     metadata.type === "number" &&
     !!metadata.params?.find(
       (param) =>
@@ -43,7 +43,10 @@ export const CustomNumberEditorSpec = createEditorSpec({
 });
 
 interface CustomNumberEditorProps
-  extends EditorProps<WithConstraints<OldEditorMetadata>, NumericValue> {
+  extends EditorProps<
+    WithConstraints<PropertyRecordEditorMetadata>,
+    NumericValue
+  > {
   decoration?: React.ReactNode;
 }
 
