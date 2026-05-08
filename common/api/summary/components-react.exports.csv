@@ -347,7 +347,7 @@ public;class;PropertyList
 public;interface;PropertyListProps
 public;interface;PropertyPopupState
 public;class;PropertyRecordDataFiltererBase
-beta;function;PropertyRecordEditor
+beta;const;PropertyRecordEditor
 beta;interface;PropertyRecordEditorMetadata
 public;const;PropertyRenderer
 public;type;PropertyRendererProps

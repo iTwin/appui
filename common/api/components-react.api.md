@@ -2310,7 +2310,7 @@ export abstract class PropertyRecordDataFiltererBase extends PropertyDataFiltere
 }
 
 // @beta
-export function PropertyRecordEditor(input: PropertyRecordEditorProps): React_3.JSX.Element;
+export const PropertyRecordEditor: PropertyRecordEditorComponent;
 
 // @beta
 export interface PropertyRecordEditorMetadata extends ValueMetadata {
