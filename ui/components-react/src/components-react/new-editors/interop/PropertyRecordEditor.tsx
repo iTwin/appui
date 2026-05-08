@@ -48,11 +48,27 @@ type PropertyRecordEditorProps =
   | PropertyRecordEditorLegacyProps
   | PropertyRecordEditorNewProps;
 
+interface PropertyRecordEditorComponent {
+  /**
+   * Editor component for editing property values represented by `PropertyRecord`.
+   * @beta
+   */
+  (props: PropertyRecordEditorNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyRecordEditor` with `editorSystem="new"` instead. This is provided only in case
+   * there is a need to switch back to the legacy editor system.
+   * @beta
+   */
+  (props: PropertyRecordEditorLegacyProps): React.JSX.Element;
+  /** @beta */
+  (props: PropertyRecordEditorProps): React.JSX.Element;
+}
+
 /**
  * Editor component for editing property values represented by `PropertyRecord`.
  * @beta
  */
-export function PropertyRecordEditor({
+export const PropertyRecordEditor: PropertyRecordEditorComponent = ({
   propertyRecord,
   onCommit,
   onCancel,
@@ -61,7 +77,7 @@ export function PropertyRecordEditor({
   size,
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
-}: PropertyRecordEditorProps) {
+}: PropertyRecordEditorProps) => {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
   if (editorSystem === "new" && metadata && value) {
     return (
@@ -96,7 +112,7 @@ export function PropertyRecordEditor({
       setFocus={setFocus}
     />
   );
-}
+};
 
 /** @internal */
 export function CommittingEditor({

@@ -290,7 +290,6 @@ function NewEditorRenderer({ record }: { record: PropertyRecord }) {
             propertyRecord={record}
             onCommit={() => undefined}
             onCancel={() => undefined}
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
             editorSystem="new"
             size="small" // size={localSize}
           />
