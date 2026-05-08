@@ -78,6 +78,7 @@ export function PropertyGridWidgetComponent() {
       dataProvider={dataProvider}
       width={300}
       height={300}
+      editorSystem="new"
     />
   );
 }

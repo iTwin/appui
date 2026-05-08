@@ -2130,7 +2130,7 @@ export namespace PropertyFilterBuilderRuleRangeValue {
 }
 
 // @beta
-export function PropertyFilterBuilderRuleValue(props: PropertyFilterBuilderRuleValueRendererProps): React_3.JSX.Element;
+export const PropertyFilterBuilderRuleValue: PropertyFilterBuilderRuleValueComponent;
 
 // @beta @deprecated
 export type PropertyFilterBuilderRuleValueProps = PropertyFilterBuilderRuleValueLegacyProps | PropertyFilterBuilderRuleValueNewProps;
@@ -2244,53 +2244,10 @@ export interface PropertyLabelRendererProps {
 }
 
 // @public
-export class PropertyList extends React_3.Component<PropertyListProps> {
-    constructor(props: PropertyListProps);
-    // (undocumented)
-    render(): React_3.JSX.Element;
-}
+export const PropertyList: PropertyListComponent;
 
 // @public
-export interface PropertyListProps extends CommonProps {
-    actionButtonRenderers?: ActionButtonRenderer[];
-    // (undocumented)
-    category?: PropertyCategory;
-    columnInfo?: PropertyGridColumnInfo;
-    // (undocumented)
-    columnRatio?: number;
-    // (undocumented)
-    editingPropertyKey?: string;
-    isPropertyHoverEnabled?: boolean;
-    isPropertyRightClickSelectionEnabled?: boolean;
-    isPropertySelectionEnabled?: boolean;
-    isResizeHandleBeingDragged?: boolean;
-    isResizeHandleHovered?: boolean;
-    onColumnChanged?: (ratio: number) => void | {
-        ratio: number;
-    };
-    // (undocumented)
-    onEditCancel?: () => void;
-    // (undocumented)
-    onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void;
-    // (undocumented)
-    onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
-    // (undocumented)
-    onPropertyContextMenu?: (property: PropertyRecord, e: React_3.MouseEvent) => void;
-    // (undocumented)
-    onPropertyRightClicked?: (property: PropertyRecord, key?: string) => void;
-    onResizeHandleDragChanged?: (isDragStarted: boolean) => void;
-    onResizeHandleHoverChanged?: (isHovered: boolean) => void;
-    // (undocumented)
-    orientation: Orientation;
-    // (undocumented)
-    properties: PropertyRecord[];
-    // (undocumented)
-    propertyValueRendererManager?: PropertyValueRendererManager;
-    // (undocumented)
-    selectedPropertyKey?: string;
-    // (undocumented)
-    width: number;
-}
+export type PropertyListProps = PropertyListLegacyProps | PropertyListNewProps;
 
 // @public
 export interface PropertyPopupState {
@@ -2329,10 +2286,7 @@ export interface PropertyRecordEditorMetadata extends ValueMetadata {
 }
 
 // @public
-export const PropertyRenderer: {
-    (props: PropertyRendererProps): React_3.JSX.Element;
-    getLabelOffset(indentation?: number, orientation?: Orientation, width?: number, columnRatio?: number, minColumnLabelWidth?: number): number;
-};
+export const PropertyRenderer: PropertyRendererComponent;
 
 // @public @deprecated
 export type PropertyRendererProps = PropertyRendererNewProps | PropertyRendererLegacyProps;
@@ -3440,15 +3394,7 @@ declare namespace ValueUtilities {
 }
 
 // @public
-export class VirtualizedPropertyGrid extends React_3.Component<VirtualizedPropertyGridProps, VirtualizedPropertyGridState> {
-    constructor(props: VirtualizedPropertyGridProps);
-    // @internal (undocumented)
-    componentDidUpdate(prevProps: VirtualizedPropertyGridProps): void;
-    // @internal (undocumented)
-    static getDerivedStateFromProps(props: VirtualizedPropertyGridProps, state: VirtualizedPropertyGridState): VirtualizedPropertyGridState | null;
-    // (undocumented)
-    render(): React_3.JSX.Element;
-}
+export const VirtualizedPropertyGrid: VirtualizedPropertyGridComponent;
 
 // @public
 export interface VirtualizedPropertyGridContext {
@@ -3514,7 +3460,7 @@ export interface VirtualizedPropertyGridContext {
 export type VirtualizedPropertyGridProps = VirtualizedPropertyGridLegacyProps | VirtualizedPropertyGridNewProps;
 
 // @public
-export function VirtualizedPropertyGridWithDataProvider(props: VirtualizedPropertyGridWithDataProviderProps): React_2.JSX.Element;
+export const VirtualizedPropertyGridWithDataProvider: VirtualizedPropertyGridWithDataProviderComponent;
 
 // @public @deprecated
 export type VirtualizedPropertyGridWithDataProviderProps = VirtualizedPropertyGridWithDataProviderLegacyProps | VirtualizedPropertyGridWithDataProviderNewProps;

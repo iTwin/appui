@@ -107,6 +107,8 @@ export class NonPrimitivePropertyRenderer extends React.Component<
       : this.props.propertyRecord.property.name;
     const uniqueKey = `${prefix}_${item.property.name}`;
     return (
+      // does not use editing capabilities, so editorSystem is not needed --- IGNORE ---
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       <PropertyRenderer
         key={uniqueKey}
         uniqueKey={uniqueKey}

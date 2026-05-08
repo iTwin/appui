@@ -116,11 +116,38 @@ export type PropertyRendererProps =
   | PropertyRendererNewProps
   | PropertyRendererLegacyProps;
 
-/**  A React component that renders properties
+interface PropertyRendererComponent {
+  /**
+   * A React component that renders properties
+   * @public
+   */
+  (props: PropertyRendererNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyRenderer` with `editorSystem="new"` instead.
+   * @public
+   */
+  (props: PropertyRendererLegacyProps): React.JSX.Element;
+  /** @public */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  (props: PropertyRendererProps): React.JSX.Element;
+  /** @public */
+  getLabelOffset(
+    indentation?: number,
+    orientation?: Orientation,
+    width?: number,
+    columnRatio?: number,
+    minColumnLabelWidth?: number
+  ): number;
+}
+
+/**
+ * A React component that renders properties
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export const PropertyRenderer = (props: PropertyRendererProps) => {
+export const PropertyRenderer: PropertyRendererComponent = (
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  props: PropertyRendererProps
+) => {
   const { translate } = useTranslation();
   const [displayValue, setDisplayValue] = React.useState<React.ReactNode>(() =>
     translate("general.loading")

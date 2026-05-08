@@ -104,6 +104,23 @@ export type VirtualizedPropertyGridProps =
   | VirtualizedPropertyGridLegacyProps
   | VirtualizedPropertyGridNewProps;
 
+interface VirtualizedPropertyGridComponent {
+  /**
+   * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
+   * sets up default implementations for `IPropertyGridModelSource` and `IPropertyGridEventHandler`
+   * @public
+   */
+  (props: VirtualizedPropertyGridNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `VirtualizedPropertyGrid` with `editorSystem="new"` instead.
+   * @public
+   */
+  (props: VirtualizedPropertyGridLegacyProps): React.JSX.Element;
+  /** @public */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  (props: VirtualizedPropertyGridProps): React.JSX.Element;
+}
+
 /** State of [[VirtualizedPropertyGrid]] React component
  * @internal
  */
@@ -197,7 +214,13 @@ const VERTICAL_CATEGORY_PROPERTY_HEIGHT = 48;
  * VirtualizedPropertyGrid React component.
  * @public
  */
-export class VirtualizedPropertyGrid extends React.Component<
+export const VirtualizedPropertyGrid: VirtualizedPropertyGridComponent = (
+  props
+) => {
+  return <VirtualizedPropertyGridImpl {...props} />;
+};
+
+class VirtualizedPropertyGridImpl extends React.Component<
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   VirtualizedPropertyGridProps,
   VirtualizedPropertyGridState
@@ -221,7 +244,6 @@ export class VirtualizedPropertyGrid extends React.Component<
     };
   }
 
-  /** @internal */
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   public override componentDidUpdate(prevProps: VirtualizedPropertyGridProps) {
     if (
@@ -264,7 +286,6 @@ export class VirtualizedPropertyGrid extends React.Component<
     }
   }
 
-  /** @internal */
   public static getDerivedStateFromProps(
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     props: VirtualizedPropertyGridProps,

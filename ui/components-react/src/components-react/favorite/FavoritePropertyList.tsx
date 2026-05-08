@@ -40,6 +40,8 @@ export function FavoritePropertyList(props: FavoritePropertyListProps) {
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <ResizableContainerObserver onResize={onListResize} />
         {listWidth ? (
+          // does not use editing capabilities, so editorSystem is not needed --- IGNORE ---
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <PropertyList
             orientation={orientation}
             width={listWidth}

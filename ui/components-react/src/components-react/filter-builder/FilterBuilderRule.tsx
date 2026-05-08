@@ -37,6 +37,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
   onRuleAdded: () => void;
   /** Boolean to allow last rule to be removed */
   allowLastRuleDelete?: boolean;
+  editorSystem?: "legacy" | "new";
 }
 
 /**
@@ -46,7 +47,7 @@ export interface PropertyFilterBuilderRuleRendererProps {
 export function PropertyFilterBuilderRuleRenderer(
   props: PropertyFilterBuilderRuleRendererProps
 ) {
-  const { path, rule, onRuleAdded, allowLastRuleDelete } = props;
+  const { path, rule, onRuleAdded, allowLastRuleDelete, editorSystem } = props;
   const { properties, actions, onRulePropertySelected } = React.useContext(
     PropertyFilterBuilderContext
   );
@@ -126,10 +127,12 @@ export function PropertyFilterBuilderRuleRenderer(
           onChange={onRuleValueChange}
           value={value}
           operator={op}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          editorSystem={editorSystem}
         />
       );
     },
-    [value, ruleValueRenderer, onRuleValueChange]
+    [value, ruleValueRenderer, onRuleValueChange, editorSystem]
   );
 
   return (

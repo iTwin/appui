@@ -32,6 +32,7 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
   isGroupOperatorDisabled?: boolean;
   /** Controls whether the last rule remaining in a group is deletable */
   allowLastRuleDelete?: boolean;
+  editorSystem?: "legacy" | "new";
 }
 
 /**
@@ -41,7 +42,13 @@ export interface PropertyFilterBuilderRuleGroupRendererProps {
 export function PropertyFilterBuilderRuleGroupRenderer(
   props: PropertyFilterBuilderRuleGroupRendererProps
 ) {
-  const { path, group, isGroupOperatorDisabled, allowLastRuleDelete } = props;
+  const {
+    path,
+    group,
+    isGroupOperatorDisabled,
+    allowLastRuleDelete,
+    editorSystem,
+  } = props;
   const { actions } = React.useContext(PropertyFilterBuilderContext);
   const { onRuleAdded, groupRef } = useRulePropertyFocus(group.items.length);
 
@@ -72,6 +79,7 @@ export function PropertyFilterBuilderRuleGroupRenderer(
               item={item}
               onRuleAdded={onRuleAdded}
               allowLastRuleDelete={allowLastRuleDelete}
+              editorSystem={editorSystem}
             />
           </div>
         ))}
@@ -118,6 +126,7 @@ interface PropertyFilterBuilderGroupOrRuleProps {
   item: PropertyFilterBuilderRuleGroupItem;
   onRuleAdded: () => void;
   allowLastRuleDelete?: boolean;
+  editorSystem?: "legacy" | "new";
 }
 
 const PropertyFilterBuilderGroupOrRule = React.memo(
@@ -126,12 +135,17 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
     item,
     onRuleAdded,
     allowLastRuleDelete,
+    editorSystem,
   }: PropertyFilterBuilderGroupOrRuleProps) {
     const itemPath = [...path, item.id];
 
     if (isPropertyFilterBuilderRuleGroup(item))
       return (
-        <PropertyFilterBuilderRuleGroupRenderer path={itemPath} group={item} />
+        <PropertyFilterBuilderRuleGroupRenderer
+          path={itemPath}
+          group={item}
+          editorSystem={editorSystem}
+        />
       );
     return (
       <PropertyFilterBuilderRuleRenderer
@@ -139,6 +153,7 @@ const PropertyFilterBuilderGroupOrRule = React.memo(
         rule={item}
         onRuleAdded={onRuleAdded}
         allowLastRuleDelete={allowLastRuleDelete}
+        editorSystem={editorSystem}
       />
     );
   }

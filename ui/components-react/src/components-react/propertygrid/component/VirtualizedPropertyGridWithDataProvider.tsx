@@ -73,36 +73,56 @@ export type VirtualizedPropertyGridWithDataProviderProps =
   | VirtualizedPropertyGridWithDataProviderLegacyProps
   | VirtualizedPropertyGridWithDataProviderNewProps;
 
+interface VirtualizedPropertyGridWithDataProviderComponent {
+  /**
+   * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
+   * sets up default implementations for `IPropertyGridModelSource` and `IPropertyGridEventHandler`
+   * @public
+   */
+  (props: VirtualizedPropertyGridWithDataProviderNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `VirtualizedPropertyGridWithDataProvider` with `editorSystem="new"` instead.
+   * @public
+   */
+  (
+    props: VirtualizedPropertyGridWithDataProviderLegacyProps
+  ): React.JSX.Element;
+  /** @public */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  (props: VirtualizedPropertyGridWithDataProviderProps): React.JSX.Element;
+}
+
 /**
  * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
  * sets up default implementations for `IPropertyGridModelSource` and `IPropertyGridEventHandler`
  * @public
  */
-export function VirtualizedPropertyGridWithDataProvider(
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-  props: VirtualizedPropertyGridWithDataProviderProps
-) {
-  const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
-    dataProvider: props.dataProvider,
-  });
+export const VirtualizedPropertyGridWithDataProvider: VirtualizedPropertyGridWithDataProviderComponent =
+  (
+    /* eslint-disable-next-line @typescript-eslint/no-deprecated */
+    props: VirtualizedPropertyGridWithDataProviderProps
+  ) => {
+    const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
+      dataProvider: props.dataProvider,
+    });
 
-  const model = usePropertyGridModel({ modelSource });
-  const eventHandler = usePropertyGridEventHandler({ modelSource });
+    const model = usePropertyGridModel({ modelSource });
+    const eventHandler = usePropertyGridEventHandler({ modelSource });
 
-  return (
-    <DelayedLoaderRenderer shouldRenderLoader={inProgress || !model}>
-      {model && (
-        <VirtualizedPropertyGrid
-          {...props}
-          model={model}
-          eventHandler={eventHandler}
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          editorSystem={props.editorSystem ?? "legacy"}
-        />
-      )}
-    </DelayedLoaderRenderer>
-  );
-}
+    return (
+      <DelayedLoaderRenderer shouldRenderLoader={inProgress || !model}>
+        {model && (
+          <VirtualizedPropertyGrid
+            {...props}
+            model={model}
+            eventHandler={eventHandler}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            editorSystem={props.editorSystem ?? "legacy"}
+          />
+        )}
+      </DelayedLoaderRenderer>
+    );
+  };
 
 interface DelayedLoaderRendererProps {
   shouldRenderLoader: boolean;

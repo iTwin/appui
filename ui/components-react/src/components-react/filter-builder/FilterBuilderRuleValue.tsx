@@ -69,21 +69,45 @@ export type PropertyFilterBuilderRuleValueRendererProps =
     operator: PropertyFilterBuilderRuleOperator;
   };
 
+interface PropertyFilterBuilderRuleValueComponent {
+  /**
+   * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
+   * @beta
+   */
+  (
+    props: PropertyFilterBuilderRuleValueNewProps & {
+      /** Current operator. */
+      operator: PropertyFilterBuilderRuleOperator;
+    }
+  ): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyFilterBuilderRuleValue` with `editorSystem="new"` instead.
+   * @beta
+   */
+  (
+    props: PropertyFilterBuilderRuleValueLegacyProps & {
+      /** Current operator. */
+      operator: PropertyFilterBuilderRuleOperator;
+    }
+  ): React.JSX.Element;
+  /** @beta */
+  (props: PropertyFilterBuilderRuleValueRendererProps): React.JSX.Element;
+}
+
 /**
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
  * @beta
  */
-export function PropertyFilterBuilderRuleValue(
-  props: PropertyFilterBuilderRuleValueRendererProps
-) {
-  const { operator, ...restProps } = props;
+export const PropertyFilterBuilderRuleValue: PropertyFilterBuilderRuleValueComponent =
+  (props: PropertyFilterBuilderRuleValueRendererProps) => {
+    const { operator, ...restProps } = props;
 
-  return operator === "between" || operator === "not-between" ? (
-    <FilterBuilderRuleRangeValueRenderer {...restProps} />
-  ) : (
-    <FilterBuilderRulePrimitiveValueRenderer {...restProps} />
-  );
-}
+    return operator === "between" || operator === "not-between" ? (
+      <FilterBuilderRuleRangeValueRenderer {...restProps} />
+    ) : (
+      <FilterBuilderRulePrimitiveValueRenderer {...restProps} />
+    );
+  };
 
 function FilterBuilderRulePrimitiveValueRenderer({
   property,
