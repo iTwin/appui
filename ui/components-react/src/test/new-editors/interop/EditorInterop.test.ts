@@ -6,7 +6,7 @@
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import { describe, it } from "vitest";
 import { EditorInterop } from "../../../components-react/new-editors/interop/EditorInterop.js";
-import type { OldEditorMetadata } from "../../../components-react/new-editors/interop/Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../../../components-react/new-editors/interop/Metadata.js";
 import type {
   BooleanValue,
   DateValue,
@@ -35,7 +35,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "string",
         typename: "string",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         value: "test",
@@ -59,7 +59,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "string",
         typename: "text",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         value: "test",
@@ -85,7 +85,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "number",
         typename: "number",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         rawValue: 1,
@@ -112,7 +112,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "number",
         typename: "float",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         rawValue: 1.23,
@@ -138,7 +138,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "number",
         typename: "double",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         rawValue: 2.34,
@@ -164,7 +164,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "number",
         typename: "int",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         rawValue: 123,
@@ -190,7 +190,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "number",
         typename: "integer",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         rawValue: 456,
@@ -215,7 +215,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "bool",
         typename: "boolean",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         value: true,
@@ -239,7 +239,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "bool",
         typename: "bool",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         value: true,
@@ -264,7 +264,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "dateTime",
         typename: "dateTime",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         value: date,
@@ -289,7 +289,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "date",
         typename: "shortdate",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         value: date,
@@ -313,7 +313,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "enum",
         typename: "enum",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         choice: 1,
@@ -338,7 +338,7 @@ describe("EditorInterop", () => {
       expect(metadata).toMatchObject({
         type: "instanceKey",
         typename: "navigation",
-      } satisfies OldEditorMetadata);
+      } satisfies PropertyRecordEditorMetadata);
 
       expect(value).toMatchObject({
         key: { id: "1", className: "TestClass" },
@@ -386,7 +386,7 @@ describe("EditorInterop", () => {
         ],
       },
       extendedData: { customData: "test" },
-    } satisfies OldEditorMetadata);
+    } satisfies PropertyRecordEditorMetadata);
   });
 
   describe("convertToPrimitiveValue converts Value to PrimitiveValue for type", () => {

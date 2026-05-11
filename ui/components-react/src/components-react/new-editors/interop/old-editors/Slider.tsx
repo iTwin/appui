@@ -6,8 +6,8 @@
 import * as React from "react";
 import type { EditorProps } from "../../Types.js";
 import { createEditorSpec } from "../../Types.js";
-import type { OldEditorMetadata } from "../Metadata.js";
-import { isOldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import type { NumericValue } from "../../values/Values.js";
 import type { SliderEditorParams } from "@itwin/appui-abstract";
 import {
@@ -23,8 +23,8 @@ import { isNumeric } from "../../values/ValueUtilities.js";
 
 /** @internal */
 export const SliderEditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) &&
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) &&
     metadata.type === "number" &&
     !!metadata.params?.find(
       (param) => param.type === PropertyEditorParamTypes.Slider.valueOf()
@@ -42,7 +42,7 @@ function SliderEditor({
   commit,
   size,
   id,
-}: EditorProps<OldEditorMetadata, NumericValue>) {
+}: EditorProps<PropertyRecordEditorMetadata, NumericValue>) {
   const sliderParams = useSliderEditorParams(metadata);
   if (!sliderParams) {
     return null;

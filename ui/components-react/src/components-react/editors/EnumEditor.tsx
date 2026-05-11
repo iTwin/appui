@@ -16,6 +16,9 @@ import { Select } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { UiComponents } from "../UiComponents.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 interface EnumEditorState {
@@ -27,6 +30,7 @@ interface EnumEditorState {
 
 /** EnumEditor React component that is a property editor with select input
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class EnumEditor
   extends React.PureComponent<PropertyEditorProps, EnumEditorState>
@@ -205,6 +209,7 @@ export class EnumEditor
 /** Enum Property Button Group Editor registered for the "enum" type name.
  * It uses the [[EnumEditor]] React component.
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class EnumPropertyEditor extends PropertyEditorBase {
   public override get containerHandlesEnter(): boolean {

@@ -14,6 +14,9 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import { Checkbox } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 interface BooleanEditorState {
@@ -22,6 +25,7 @@ interface BooleanEditorState {
 
 /** BooleanEditor React component that is a property editor with checkbox input
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class BooleanEditor
   extends React.PureComponent<PropertyEditorProps, BooleanEditorState>
@@ -149,6 +153,7 @@ export class BooleanEditor
 /** Boolean Property Editor registered for the "bool" and "boolean" type names.
  * It uses the [[BooleanEditor]] React component.
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class BooleanPropertyEditor extends PropertyEditorBase {
   public override get containerHandlesBlur(): boolean {

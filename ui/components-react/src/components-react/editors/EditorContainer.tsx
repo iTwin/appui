@@ -22,6 +22,10 @@ import type {
   PropertyEditorBase,
 } from "./PropertyEditorManager.js";
 import { PropertyEditorManager } from "./PropertyEditorManager.js";
+import { createEditorSpec, EditorSpec } from "../new-editors/Types.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** Arguments for the Property Updated event callback
  * @public
@@ -35,8 +39,8 @@ export interface PropertyUpdatedArgs {
 
 /** Properties for a property editor component
  * @public
+ * @deprecated in 5.30. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface PropertyEditorProps extends CommonProps {
   /** The property being updated. */
   propertyRecord?: PropertyRecord;
@@ -66,7 +70,6 @@ export interface InternalInputEditorProps {
  * @public
  * @deprecated in 4.17.0. Use `React.ComponentProps<typeof EditorContainer>`
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface EditorContainerProps extends CommonProps {
   /** The property being updated. */
   propertyRecord: PropertyRecord;
@@ -94,8 +97,10 @@ interface CloneProps extends PropertyEditorProps {
   ref: (ref: TypeEditor | null) => void;
 }
 
-/** Interface implemented by React based type editors
+/**
+ * Interface implemented by React based type editors
  * @public
+ * @deprecated in 5.30. This interface is part of the old editor system and was used to defined custom editor. Use {@link EditorSpec} and {@link createEditorSpec} instead.
  */
 export interface TypeEditor {
   getPropertyValue: () => Promise<PropertyValue | undefined>;
@@ -105,8 +110,8 @@ export interface TypeEditor {
 
 /** EditorContainer React component used by the Tree and PropertyGrid for cell editing.
  * @public
+ * @deprecated in 5.30. This component is part of the old editor system. Use {@link EditorRenderer} instead.
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
 export function EditorContainer(props: EditorContainerProps) {
   const {
     ignoreEditorBlur,

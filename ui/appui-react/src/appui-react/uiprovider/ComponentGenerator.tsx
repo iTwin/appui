@@ -21,7 +21,7 @@ import {
   UiLayoutDataProvider,
 } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { EditorContainer, PropertyRecordEditor } from "@itwin/components-react";
+import { PropertyRecordEditor } from "@itwin/components-react";
 import { assert, Logger } from "@itwin/core-bentley";
 import { Label } from "@itwin/itwinui-react";
 import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolSettingsNewEditors.js";
@@ -209,25 +209,16 @@ function PropertyEditor(props: {
       lockPropertyName={lockPropertyName}
     >
       <div key={initialItem.property.name} className={className}>
-        {useNewEditors ? (
-          <PropertyRecordEditor
-            key={initialItem.property.name}
-            propertyRecord={propertyRecord}
-            setFocus={setFocus}
-            onCommit={handleCommit}
-            onCancel={onCancel ?? handleCancel}
-            editorSystem="new"
-            size="small"
-          />
-        ) : (
-          <EditorContainer
-            key={initialItem.property.name}
-            propertyRecord={propertyRecord}
-            setFocus={setFocus}
-            onCommit={handleCommit}
-            onCancel={onCancel ?? handleCancel}
-          />
-        )}
+        <PropertyRecordEditor
+          key={initialItem.property.name}
+          propertyRecord={propertyRecord}
+          setFocus={setFocus}
+          onCommit={handleCommit}
+          onCancel={onCancel ?? handleCancel}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          editorSystem={useNewEditors ? "new" : "legacy"}
+          size="small"
+        />
       </div>
     </PropertyEditorProvider>
   );

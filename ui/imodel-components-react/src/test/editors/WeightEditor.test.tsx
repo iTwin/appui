@@ -16,6 +16,8 @@ import "../../imodel-components-react.js";
 import { WeightEditor } from "../../imodel-components-react/editors/WeightEditor.js";
 import { MineDataController, TestUtils } from "../TestUtils.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 describe("<WeightEditor />", () => {
   it("should render", () => {
     const renderedComponent = render(<WeightEditor setFocus={true} />);

@@ -10,8 +10,8 @@ import {
   type EditorSpec,
 } from "../../Types.js";
 import { EnumEditor as NewEnumEditor } from "../../editors/EnumEditor.js";
-import type { OldEditorMetadata } from "../Metadata.js";
-import { isOldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import type { EnumValue } from "../../values/Values.js";
 import { useEnumMetadata } from "./UseEnumMetadata.js";
 import { isEnum } from "../../values/ValueUtilities.js";
@@ -20,13 +20,15 @@ import { isEnum } from "../../values/ValueUtilities.js";
 
 /** @internal */
 export const EnumEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) && metadata.type === "enum",
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) && metadata.type === "enum",
   isValueSupported: isEnum,
   Editor: EnumEditor,
 });
 
-function EnumEditor(props: EditorProps<OldEditorMetadata, EnumValue>) {
+function EnumEditor(
+  props: EditorProps<PropertyRecordEditorMetadata, EnumValue>
+) {
   const newMetadata = useEnumMetadata(props.metadata);
   return <NewEnumEditor {...props} metadata={newMetadata} />;
 }

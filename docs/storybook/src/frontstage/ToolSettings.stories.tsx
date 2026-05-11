@@ -11,11 +11,9 @@ import { removeProperty } from "../Utils";
 import { ToolSettingsStory } from "./ToolSettings";
 import { CustomTool } from "../tools/CustomTool";
 import { LockPropertyTool } from "../tools/LockPropertyTool";
-import {
-  CustomEditorTool,
-  CustomTagsPropertyEditor,
-} from "src/tools/CustomEditorTool";
+import { CustomEditorTool } from "src/tools/CustomEditorTool";
 import { PropertyEditorManager } from "@itwin/components-react";
+import { TagsPropertyEditorLegacy } from "src/tools/TagEditorLegacy";
 
 const meta = {
   title: "Frontstage/ToolSettings",
@@ -67,7 +65,7 @@ export const CustomEditor: Story = {
     onInitialize: async () => {
       PropertyEditorManager.registerEditor(
         "custom-tags",
-        CustomTagsPropertyEditor
+        TagsPropertyEditorLegacy
       );
       IModelApp.tools.register(
         CustomEditorTool,

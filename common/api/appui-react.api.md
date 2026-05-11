@@ -2696,17 +2696,7 @@ export class InputEditorCommitHandler {
 }
 
 // @alpha
-export class InputEditorPopup extends React_2.PureComponent<InputEditorPopupProps, InputEditorPopupState> {
-    // (undocumented)
-    render(): React_2.JSX.Element;
-    // (undocumented)
-    readonly state: {
-        size: {
-            width: number;
-            height: number;
-        };
-    };
-}
+export function InputEditorPopup(props: InputEditorPopupProps): React_2.JSX.Element;
 
 // @beta
 export interface InputEditorPopupProps extends PopupPropsBase {

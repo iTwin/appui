@@ -347,7 +347,7 @@ deprecated;interface;IModelViewportControlOptions
 public;interface;InitialAppUiSettings
 deprecated;interface;InitialAppUiSettings
 beta;class;InputEditorCommitHandler
-alpha;class;InputEditorPopup
+alpha;function;InputEditorPopup
 beta;interface;InputEditorPopupProps
 public;class;InputFieldMessage
 deprecated;class;InputFieldMessage

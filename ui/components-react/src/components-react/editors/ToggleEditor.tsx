@@ -14,6 +14,9 @@ import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { ToggleSwitch } from "@itwin/itwinui-react";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 interface ToggleEditorState {
@@ -23,6 +26,7 @@ interface ToggleEditorState {
 
 /** ToggleEditor React component that is a property editor with checkbox input
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class ToggleEditor
   extends React.PureComponent<PropertyEditorProps, ToggleEditorState>
@@ -154,6 +158,7 @@ export class ToggleEditor
 /** Toggle Property Editor registered for the "bool" and "boolean" type names and "toggle" editor name.
  * It uses the [[ToggleEditor]] React component.
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class TogglePropertyEditor extends PropertyEditorBase {
   public override get containerHandlesBlur(): boolean {

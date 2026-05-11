@@ -31,6 +31,8 @@ import { DateTimeTypeConverterBase } from "../converters/DateTimeTypeConverter.j
 import { Text } from "@itwin/itwinui-react";
 import { adjustDateToTimezone } from "../common/DateUtils.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** @internal */
 interface DateTimeEditorState {
   value: Date;
@@ -307,7 +309,7 @@ export class DateTimeEditor
                 className="components-date-picker-calendar-popup-panel"
                 data-testid="components-date-picker-calendar-popup-panel"
               >
-                <DatePicker // eslint-disable-line @typescript-eslint/no-deprecated
+                <DatePicker
                   selected={date}
                   onDateChange={this._handleChange}
                   showFocusOutline={false}

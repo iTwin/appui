@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type { OldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
 import type {
   ButtonGroupEditorParams,
   ColorEditorParams,
@@ -22,7 +22,7 @@ import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
  * @internal
  */
 export function useCustomFormattedNumberParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): CustomFormattedNumberParams | undefined {
   return React.useMemo(
     () =>
@@ -39,7 +39,7 @@ export function useCustomFormattedNumberParams(
  * @internal
  */
 export function useInputEditorSizeParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): InputEditorSizeParams | undefined {
   return React.useMemo(
     () =>
@@ -55,7 +55,7 @@ export function useInputEditorSizeParams(
  * @internal
  */
 export function useIconEditorParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): IconEditorParams | undefined {
   return React.useMemo(
     () =>
@@ -70,7 +70,7 @@ export function useIconEditorParams(
  * @internal
  */
 export function useButtonGroupEditorParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): ButtonGroupEditorParams | undefined {
   return React.useMemo(
     () =>
@@ -86,7 +86,7 @@ export function useButtonGroupEditorParams(
  * @internal
  */
 export function useColorEditorParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): ColorEditorParams | undefined {
   return React.useMemo(
     () =>
@@ -101,7 +101,7 @@ export function useColorEditorParams(
  * @internal
  */
 export function useRangeEditorParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): RangeEditorParams | undefined {
   return React.useMemo(
     () =>
@@ -116,7 +116,7 @@ export function useRangeEditorParams(
  * @internal
  */
 export function useSliderEditorParams(
-  metadata: OldEditorMetadata
+  metadata: PropertyRecordEditorMetadata
 ): SliderEditorParams | undefined {
   return React.useMemo(
     () =>

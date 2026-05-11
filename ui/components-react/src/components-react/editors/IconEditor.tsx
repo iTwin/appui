@@ -22,6 +22,9 @@ import {
 import { IconPickerButton } from "../iconpicker/IconPickerButton.js";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 /** @internal */
 interface IconEditorState {
@@ -32,6 +35,7 @@ interface IconEditorState {
 
 /** IconEditor React component that is a property editor with button and popup
  * @alpha
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class IconEditor
   extends React.PureComponent<PropertyEditorProps, IconEditorState>
@@ -181,6 +185,7 @@ export class IconEditor
 /** Icon Property Editor registered for the "text" and "string" type names and the "icon-picker" editor name.
  * It uses the [[IconEditor]] React component.
  * @alpha
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class IconPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

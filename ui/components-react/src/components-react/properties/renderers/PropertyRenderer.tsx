@@ -11,7 +11,6 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
-import { EditorContainer } from "../../editors/EditorContainer.js";
 import type { PropertyValueRendererManager } from "../ValueRendererManager.js";
 import type { ActionButtonRenderer } from "./ActionButtonRenderer.js";
 import { CommonPropertyRenderer } from "./CommonPropertyRenderer.js";
@@ -21,6 +20,7 @@ import { PrimitivePropertyRenderer } from "./PrimitivePropertyRenderer.js";
 import type { PropertyGridColumnInfo } from "./PropertyGridColumns.js";
 import type { Orientation } from "../../common/Orientation.js";
 import { useTranslation } from "../../l10n/useTranslation.js";
+import { PropertyRecordEditor } from "../../new-editors/interop/PropertyRecordEditor.js";
 
 /** Properties shared by all renderers and PropertyView
  * @public
@@ -70,10 +70,8 @@ export interface SharedRendererProps {
   alwaysShowEditor?: (property: PropertyRecord) => boolean;
 }
 
-/** Properties of [[PropertyRenderer]] React component
- * @public
- */
-export interface PropertyRendererProps extends SharedRendererProps {
+/** @public */
+interface PropertyRendererBaseProps extends SharedRendererProps {
   /** Custom value renderer */
   propertyValueRendererManager?: PropertyValueRendererManager;
   /** Multiplier of how much the property is indented to the right */
@@ -88,10 +86,68 @@ export interface PropertyRendererProps extends SharedRendererProps {
   highlight?: HighlightingComponentProps;
 }
 
-/**  A React component that renders properties
+/** @public */
+interface PropertyRendererLegacyProps extends PropertyRendererBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/**  @public */
+interface PropertyRendererNewProps extends PropertyRendererBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   */
+  editorSystem: "new";
+}
+
+/**
+ * Properties of [[PropertyRenderer]] React component
+ * @public
+ * @deprecated in 5.30.0. Use `React.ComponentProps<typeof PropertyRenderer>` instead.
+ */
+export type PropertyRendererProps =
+  | PropertyRendererNewProps
+  | PropertyRendererLegacyProps;
+
+interface PropertyRendererComponent {
+  /**
+   * A React component that renders properties
+   * @public
+   */
+  (props: PropertyRendererNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyRenderer` with `editorSystem="new"` instead.
+   * @public
+   */
+  (props: PropertyRendererLegacyProps): React.JSX.Element;
+  /** @public */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  (props: PropertyRendererProps): React.JSX.Element;
+  /** @public */
+  getLabelOffset(
+    indentation?: number,
+    orientation?: Orientation,
+    width?: number,
+    columnRatio?: number,
+    minColumnLabelWidth?: number
+  ): number;
+}
+
+/**
+ * A React component that renders properties
  * @public
  */
-export const PropertyRenderer = (props: PropertyRendererProps) => {
+export const PropertyRenderer: PropertyRendererComponent = (
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  props: PropertyRendererProps
+) => {
   const { translate } = useTranslation();
   const [displayValue, setDisplayValue] = React.useState<React.ReactNode>(() =>
     translate("general.loading")
@@ -109,6 +165,8 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     isPropertyEditingEnabled,
     onClick,
     uniqueKey,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    editorSystem,
     ...restProps
   } = props;
 
@@ -130,12 +188,14 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
   React.useEffect(() => {
     if (isEditing || (alwaysShowsEditor && isPropertyEditingEnabled)) {
       setDisplayValue(
-        <EditorContainer
+        <PropertyRecordEditor
           propertyRecord={propertyRecord}
           onCommit={onCommit}
           onCancel={onCancel}
           setFocus={isEditing}
           onClick={() => onClick?.(propertyRecord, uniqueKey)}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          editorSystem={editorSystem}
         />
       );
       return;
@@ -161,6 +221,7 @@ export const PropertyRenderer = (props: PropertyRendererProps) => {
     isPropertyEditingEnabled,
     onClick,
     uniqueKey,
+    editorSystem,
   ]);
 
   const primitiveRendererProps: PrimitiveRendererProps = {

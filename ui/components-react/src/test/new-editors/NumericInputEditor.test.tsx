@@ -9,12 +9,12 @@ import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { NumericInputEditor } from "../../components-react/new-editors/interop/old-editors/NumericInput.js";
 import type { WithConstraints } from "../../components-react/new-editors/ConstraintUtils.js";
-import type { OldEditorMetadata } from "../../components-react/new-editors/interop/Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../../components-react/new-editors/interop/Metadata.js";
 
 function createMetadata(constraints?: {
   minimumValue?: number;
   maximumValue?: number;
-}): WithConstraints<OldEditorMetadata> {
+}): WithConstraints<PropertyRecordEditorMetadata> {
   return {
     type: "number",
     typename: "number",

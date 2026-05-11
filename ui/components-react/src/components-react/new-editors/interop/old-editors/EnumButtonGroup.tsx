@@ -11,8 +11,8 @@ import {
 } from "@itwin/appui-abstract";
 import type { EditorProps, EditorSpec } from "../../Types.js";
 import { createEditorSpec } from "../../Types.js";
-import type { OldEditorMetadata } from "../Metadata.js";
-import { isOldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
+import { isPropertyRecordEditorMetadata } from "../Metadata.js";
 import type { EnumValue } from "../../values/Values.js";
 import { useEnumMetadata } from "./UseEnumMetadata.js";
 import { useButtonGroupEditorParams } from "./UseEditorParams.js";
@@ -24,8 +24,8 @@ import { isEnum } from "../../values/ValueUtilities.js";
 
 /** @internal */
 export const EnumButtonGroupEditorSpec: EditorSpec = createEditorSpec({
-  isMetadataSupported: (metadata): metadata is OldEditorMetadata =>
-    isOldEditorMetadata(metadata) &&
+  isMetadataSupported: (metadata): metadata is PropertyRecordEditorMetadata =>
+    isPropertyRecordEditorMetadata(metadata) &&
     metadata.type === "enum" &&
     metadata.preferredEditor === StandardEditorNames.EnumButtonGroup,
   isValueSupported: isEnum,
@@ -40,7 +40,7 @@ function EnumButtonGroupEditor({
   disabled,
   metadata,
   id,
-}: EditorProps<OldEditorMetadata, EnumValue>) {
+}: EditorProps<PropertyRecordEditorMetadata, EnumValue>) {
   const enumMetadata = useEnumMetadata(metadata);
   const buttonGroupParams = useButtonGroupEditorParams(metadata);
 

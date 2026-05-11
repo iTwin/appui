@@ -30,7 +30,7 @@ import {
   handleConditionalExpression,
   takeFirstArrayExpressionElement,
 } from "../utils/TransformUtils";
-import { isSpecifiedJSXElement } from "../utils/typeGuards";
+import { isSpecifiedJSXElement } from "../utils/TypeGuards";
 import { useImportDeclaration } from "../utils/ImportDeclaration";
 import { useImportSpecifier } from "../utils/ImportSpecifier";
 import {

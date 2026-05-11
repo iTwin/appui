@@ -149,7 +149,7 @@ export class BaseTimelineDataProvider implements TimelineDataProvider {
     protected _viewport: ScreenViewport | undefined;
 }
 
-// @beta
+// @beta @deprecated
 export class ColorEditor extends React_2.PureComponent<PropertyEditorProps, ColorEditorState> implements TypeEditor {
     // (undocumented)
     componentDidMount(): void;
@@ -220,7 +220,7 @@ export interface ColorPickerProps extends React_2.ButtonHTMLAttributes<HTMLButto
     showCaret?: boolean;
 }
 
-// @beta
+// @beta @deprecated
 export class ColorPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get reactNode(): React_2.ReactNode;
@@ -880,7 +880,7 @@ export interface ViewRotationChangeEventArgs {
 // @public
 export type ViewStateProp = ViewState | (() => ViewState);
 
-// @public
+// @public @deprecated
 export class WeightEditor extends React_2.PureComponent<PropertyEditorProps, WeightEditorState> implements TypeEditor {
     constructor(props: PropertyEditorProps);
     // (undocumented)
@@ -931,7 +931,7 @@ export interface WeightPickerProps extends React_2.ButtonHTMLAttributes<HTMLButt
     weights: number[];
 }
 
-// @public
+// @public @deprecated
 export class WeightPropertyEditor extends PropertyEditorBase {
     // (undocumented)
     get reactNode(): React_2.ReactNode;

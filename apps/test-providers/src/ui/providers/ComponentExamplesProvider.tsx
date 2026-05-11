@@ -106,6 +106,7 @@ import { Button, DropdownMenu, MenuItem } from "@itwin/itwinui-react";
 import { TreeWidgetComponent } from "../widgets/TreeWidget.js";
 import { TimelineComponent } from "@itwin/imodel-components-react";
 import { EditorExampleComponent } from "../components/EditorExampleComponent.js";
+import { PropertyGridWidgetComponent } from "../widgets/PropertyGridWidget.js";
 
 class TestContentControl extends ContentControl {
   constructor(info: ConfigurableCreateInfo, options: any) {
@@ -1472,6 +1473,19 @@ export class ComponentExamplesProvider {
     };
   }
 
+  private static get propertyGridSample(): ComponentExampleCategory {
+    return {
+      title: "Property Grid Widget",
+      examples: [
+        createComponentExample(
+          "Property Grid Widget",
+          undefined,
+          <PropertyGridWidgetComponent />
+        ),
+      ],
+    };
+  }
+
   private static get uiProviderSample(): ComponentExampleCategory {
     const testUiLayoutDataProvider = new TestUiDataProvider();
     const componentGenerator = new ComponentGenerator(testUiLayoutDataProvider);
@@ -1527,6 +1541,7 @@ export class ComponentExamplesProvider {
       ComponentExamplesProvider.timelineSample,
       ComponentExamplesProvider.toolbarSample,
       ComponentExamplesProvider.treeSample,
+      ComponentExamplesProvider.propertyGridSample,
       ComponentExamplesProvider.uiProviderSample,
       ComponentExamplesProvider.widgetSample,
     ];

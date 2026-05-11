@@ -28,6 +28,9 @@ import {
   PopupContent,
   PopupOkCancelButtons,
 } from "./PopupButton.js";
+import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+
+/* eslint-disable @typescript-eslint/no-deprecated */
 
 type TooltipProps = React.ComponentPropsWithoutRef<typeof Tooltip>;
 
@@ -48,8 +51,10 @@ interface SliderEditorState {
   tickLabels?: React.ReactNode;
 }
 
-/** SliderEditor React component that is a property editor with numeric input & up/down buttons
+/**
+ * SliderEditor React component that is a property editor with numeric input & up/down buttons
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class SliderEditor
   extends React.PureComponent<PropertyEditorProps, SliderEditorState>
@@ -176,13 +181,11 @@ export class SliderEditor
         minLabel = !sliderParams.showMinMax ? (
           ""
         ) : sliderParams.minIconSpec ? (
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <Icon iconSpec={sliderParams.minIconSpec} />
         ) : undefined;
         maxLabel = !sliderParams.showMinMax ? (
           ""
         ) : sliderParams.maxIconSpec ? (
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
           <Icon iconSpec={sliderParams.maxIconSpec} />
         ) : undefined;
 
@@ -343,6 +346,7 @@ export class SliderEditor
 /** Slider Property Editor registered for the "number" type name and "slider" editor name.
  * It uses the [[SliderEditor]] React component.
  * @public
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use {@link EditorRenderer} instead.
  */
 export class SliderPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

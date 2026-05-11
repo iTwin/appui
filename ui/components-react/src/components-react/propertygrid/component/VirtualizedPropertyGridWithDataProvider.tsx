@@ -22,11 +22,10 @@ import type {
 import { VirtualizedPropertyGrid } from "./VirtualizedPropertyGrid.js";
 import { ProgressRadial } from "@itwin/itwinui-react";
 
-/** Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
+/**
  * @public
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof VirtualizedPropertyGridWithDataProvider>`
  */
-export interface VirtualizedPropertyGridWithDataProviderProps
+interface VirtualizedPropertyGridWithDataProviderBaseProps
   extends CommonPropertyGridProps {
   /** Property data provider used by the property grid */
   dataProvider: IPropertyDataProvider;
@@ -38,12 +37,59 @@ export interface VirtualizedPropertyGridWithDataProviderProps
   width: number;
   /** Height of the property grid component. */
   height: number;
+}
+
+/** @public */
+interface VirtualizedPropertyGridWithDataProviderLegacyProps
+  extends VirtualizedPropertyGridWithDataProviderBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/**
+ * @public
+ */
+interface VirtualizedPropertyGridWithDataProviderNewProps
+  extends VirtualizedPropertyGridWithDataProviderBaseProps {
   /**
    * Specifies which editors system should be used: legacy or the new one.
    * @default "legacy"
    * @beta
    */
-  editorSystem?: "legacy" | "new";
+  editorSystem: "new";
+}
+
+/**
+ * Properties for [[VirtualizedPropertyGridWithDataProvider]] React component
+ * @public
+ * @deprecated in 4.17.0. Use `React.ComponentProps<typeof VirtualizedPropertyGridWithDataProvider>`
+ */
+export type VirtualizedPropertyGridWithDataProviderProps =
+  | VirtualizedPropertyGridWithDataProviderLegacyProps
+  | VirtualizedPropertyGridWithDataProviderNewProps;
+
+interface VirtualizedPropertyGridWithDataProviderComponent {
+  /**
+   * [[VirtualizedPropertyGrid]] React Component which takes a data provider and
+   * sets up default implementations for `IPropertyGridModelSource` and `IPropertyGridEventHandler`
+   * @public
+   */
+  (props: VirtualizedPropertyGridWithDataProviderNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `VirtualizedPropertyGridWithDataProvider` with `editorSystem="new"` instead.
+   * @public
+   */
+  (
+    props: VirtualizedPropertyGridWithDataProviderLegacyProps
+  ): React.JSX.Element;
+  /** @public */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  (props: VirtualizedPropertyGridWithDataProviderProps): React.JSX.Element;
 }
 
 /**
@@ -51,30 +97,32 @@ export interface VirtualizedPropertyGridWithDataProviderProps
  * sets up default implementations for `IPropertyGridModelSource` and `IPropertyGridEventHandler`
  * @public
  */
-export function VirtualizedPropertyGridWithDataProvider(
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-  props: VirtualizedPropertyGridWithDataProviderProps
-) {
-  const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
-    dataProvider: props.dataProvider,
-  });
+export const VirtualizedPropertyGridWithDataProvider: VirtualizedPropertyGridWithDataProviderComponent =
+  (
+    /* eslint-disable-next-line @typescript-eslint/no-deprecated */
+    props: VirtualizedPropertyGridWithDataProviderProps
+  ) => {
+    const { modelSource, inProgress } = useTrackedPropertyGridModelSource({
+      dataProvider: props.dataProvider,
+    });
 
-  const model = usePropertyGridModel({ modelSource });
-  const eventHandler = usePropertyGridEventHandler({ modelSource });
+    const model = usePropertyGridModel({ modelSource });
+    const eventHandler = usePropertyGridEventHandler({ modelSource });
 
-  return (
-    <DelayedLoaderRenderer shouldRenderLoader={inProgress || !model}>
-      {model && (
-        <VirtualizedPropertyGrid
-          {...props}
-          model={model}
-          eventHandler={eventHandler}
-          editorSystem={props.editorSystem ?? "legacy"}
-        />
-      )}
-    </DelayedLoaderRenderer>
-  );
-}
+    return (
+      <DelayedLoaderRenderer shouldRenderLoader={inProgress || !model}>
+        {model && (
+          <VirtualizedPropertyGrid
+            {...props}
+            model={model}
+            eventHandler={eventHandler}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            editorSystem={props.editorSystem ?? "legacy"}
+          />
+        )}
+      </DelayedLoaderRenderer>
+    );
+  };
 
 interface DelayedLoaderRendererProps {
   shouldRenderLoader: boolean;

@@ -24,6 +24,8 @@ import type { PropertyEditorProps, TypeEditor } from "@itwin/components-react";
 import { PropertyEditorBase } from "@itwin/components-react";
 import { ColorPickerButton } from "../color/ColorPickerButton.js";
 
+/* eslint-disable @typescript-eslint/no-deprecated */
+
 /** @internal */
 interface ColorEditorState {
   colorValue: number;
@@ -35,6 +37,7 @@ interface ColorEditorState {
 
 /** ColorEditor React component that is a property editor with text input
  * @beta
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use `EditorRenderer` from `@itwin/components-react` instead.
  */
 export class ColorEditor
   extends React.PureComponent<PropertyEditorProps, ColorEditorState>
@@ -153,7 +156,7 @@ export class ColorEditor
         className={classnames("components-color-editor", this.props.className)}
         style={this.props.style}
       >
-        <ColorPickerButton // eslint-disable-line @typescript-eslint/no-deprecated
+        <ColorPickerButton
           ref={this._buttonElement}
           initialColor={colorDef}
           colorDefs={
@@ -175,6 +178,7 @@ export class ColorEditor
 /** Color Property Editor registered for the "number" type name and "color-picker" editor name.
  * It uses the [[ColorEditor]] React component.
  * @beta
+ * @deprecated in 5.30. This is part of the old editor system and should not be used directly. Use `EditorRenderer` from `@itwin/components-react` instead.
  */
 export class ColorPropertyEditor extends PropertyEditorBase {
   public get reactNode(): React.ReactNode {

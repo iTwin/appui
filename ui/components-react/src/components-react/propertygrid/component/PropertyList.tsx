@@ -19,11 +19,8 @@ import type { PropertyValueRendererManager } from "../../properties/ValueRendere
 import type { PropertyCategory } from "../PropertyDataProvider.js";
 import { Orientation } from "../../common/Orientation.js";
 
-/** Properties of [[PropertyList]] React component
- * @public
- */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface PropertyListProps extends CommonProps {
+interface PropertyListBaseProps extends CommonProps {
   orientation: Orientation;
   width: number;
   category?: PropertyCategory;
@@ -67,6 +64,47 @@ export interface PropertyListProps extends CommonProps {
   columnInfo?: PropertyGridColumnInfo;
 }
 
+/** @public */
+interface PropertyListLegacyProps extends PropertyListBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/** @public */
+interface PropertyListNewProps extends PropertyListBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   */
+  editorSystem: "new";
+}
+
+/** Properties of [[PropertyList]] React component
+ * @public
+ */
+export type PropertyListProps = PropertyListLegacyProps | PropertyListNewProps;
+
+interface PropertyListComponent {
+  /**
+   * React Component that renders struct and array properties
+   * @public
+   */
+  (props: PropertyListNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyList` with `editorSystem="new"` instead.
+   * @public
+   */
+  (props: PropertyListLegacyProps): React.JSX.Element;
+  /** @public */
+  (props: PropertyListProps): React.JSX.Element;
+}
+
 /**
  * Get unique key for property record
  * @internal
@@ -81,7 +119,11 @@ export function getPropertyKey(
 /** A React component that renders multiple properties within a category as a list.
  * @public
  */
-export class PropertyList extends React.Component<PropertyListProps> {
+export const PropertyList: PropertyListComponent = (props) => {
+  return <PropertyListImpl {...props} />;
+};
+
+class PropertyListImpl extends React.Component<PropertyListProps> {
   constructor(props: PropertyListProps) {
     super(props);
   }
@@ -148,6 +190,8 @@ export class PropertyList extends React.Component<PropertyListProps> {
               isResizeHandleBeingDragged={this.props.isResizeHandleBeingDragged}
               onResizeHandleDragChanged={this.props.onResizeHandleDragChanged}
               columnInfo={this.props.columnInfo}
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              editorSystem={this.props.editorSystem}
             />
           );
         })}

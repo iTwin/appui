@@ -10,12 +10,14 @@ import * as React from "react";
 import type { Primitives, PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "@itwin/components-react";
-import { EditorContainer } from "@itwin/components-react";
+import { PropertyRecordEditor } from "@itwin/components-react";
 import { DivWithOutsideClick } from "@itwin/core-react";
 import type { PopupPropsBase } from "./PopupManager.js";
 import { PopupManager } from "./PopupManager.js";
 import { PositionPopup, PositionPopupContent } from "./PositionPopup.js";
 import type { SizeProps } from "../utils/SizeProps.js";
+import { useMemo } from "react";
+import { useToolSettingsNewEditors } from "../preview/tool-settings-new-editors/useToolSettingsNewEditors.js";
 
 /** @beta */
 export class InputEditorCommitHandler {
@@ -41,56 +43,39 @@ export interface InputEditorPopupProps extends PopupPropsBase {
   commitHandler: InputEditorCommitHandler;
 }
 
-interface InputEditorPopupState {
-  size: SizeProps;
-}
-
 /** Popup component for Input Editor
  * @alpha
  */
-export class InputEditorPopup extends React.PureComponent<
-  InputEditorPopupProps,
-  InputEditorPopupState
-> {
-  public override readonly state = {
-    size: { width: -1, height: -1 },
+export function InputEditorPopup(props: InputEditorPopupProps) {
+  const { id, el, pt, offset, record, commitHandler, onCancel } = props;
+  const [size, setSize] = React.useState<SizeProps>({ width: -1, height: -1 });
+  const newEditors = useToolSettingsNewEditors();
+
+  const _onSizeKnown = (newSize: SizeProps) => {
+    if (newSize.height === size.height && newSize.width === size.width) return;
+    setSize(newSize);
   };
 
-  private _onSizeKnown = (newSize: SizeProps) => {
-    if (
-      newSize.height === this.state.size.height &&
-      newSize.width === this.state.size.width
-    )
-      return;
-    this.setState({ size: newSize });
-  };
+  const point = useMemo(
+    () => PopupManager.getPopupPosition(el, pt, offset, size),
+    [el, pt, offset, size]
+  );
 
-  public override render() {
-    const point = PopupManager.getPopupPosition(
-      this.props.el,
-      this.props.pt,
-      this.props.offset,
-      this.state.size
-    );
-
-    return (
-      <PositionPopup
-        key={this.props.id}
-        point={point}
-        onSizeKnown={this._onSizeKnown}
-      >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <DivWithOutsideClick onOutsideClick={this.props.onCancel}>
-          <PositionPopupContent>
-            <EditorContainer
-              propertyRecord={this.props.record}
-              onCommit={this.props.commitHandler.handleCommit}
-              onCancel={this.props.onCancel}
-              setFocus={true}
-            />
-          </PositionPopupContent>
-        </DivWithOutsideClick>
-      </PositionPopup>
-    );
-  }
+  return (
+    <PositionPopup key={id} point={point} onSizeKnown={_onSizeKnown}>
+      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+      <DivWithOutsideClick onOutsideClick={onCancel}>
+        <PositionPopupContent>
+          <PropertyRecordEditor
+            propertyRecord={record}
+            onCommit={commitHandler.handleCommit}
+            onCancel={onCancel}
+            setFocus={true}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
+            editorSystem={newEditors ? "new" : "legacy"}
+          />
+        </PositionPopupContent>
+      </DivWithOutsideClick>
+    </PositionPopup>
+  );
 }

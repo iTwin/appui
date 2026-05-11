@@ -11,12 +11,12 @@ import type { CustomFormattedNumberParams } from "@itwin/appui-abstract";
 import { PropertyEditorParamTypes } from "@itwin/appui-abstract";
 import { CustomNumberEditor } from "../../components-react/new-editors/interop/old-editors/CustomNumber.js";
 import type { WithConstraints } from "../../components-react/new-editors/ConstraintUtils.js";
-import type { OldEditorMetadata } from "../../components-react/new-editors/interop/Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../../components-react/new-editors/interop/Metadata.js";
 
 function createMetadata(constraints?: {
   minimumValue?: number;
   maximumValue?: number;
-}): Omit<WithConstraints<OldEditorMetadata>, "params"> & {
+}): Omit<WithConstraints<PropertyRecordEditorMetadata>, "params"> & {
   params: CustomFormattedNumberParams[];
 } {
   return {

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as React from "react";
-import type { OldEditorMetadata } from "../Metadata.js";
+import type { PropertyRecordEditorMetadata } from "../Metadata.js";
 import type { EnumValueMetadata } from "../../values/Metadata.js";
 
 /* v8 ignore start */
@@ -14,7 +14,7 @@ import type { EnumValueMetadata } from "../../values/Metadata.js";
  * @internal
  */
 export function useEnumMetadata(
-  oldMetadata: OldEditorMetadata
+  oldMetadata: PropertyRecordEditorMetadata
 ): EnumValueMetadata {
   const [metadata, setMetadata] = React.useState<EnumValueMetadata>(() => ({
     type: "enum",

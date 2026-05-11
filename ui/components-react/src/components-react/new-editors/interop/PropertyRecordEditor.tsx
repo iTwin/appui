@@ -22,29 +22,62 @@ import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
 import type { WithConstraints } from "../ConstraintUtils.js";
 
-interface PropertyRecordEditorProps {
+interface PropertyRecordEditorBaseProps {
   propertyRecord: PropertyRecord;
   onCommit: (args: PropertyUpdatedArgs) => void;
   onCancel: () => void;
   onClick?: () => void;
   setFocus?: boolean;
   size?: "small" | "large";
-  editorSystem?: "legacy" | "new";
+}
+
+interface PropertyRecordEditorLegacyProps
+  extends PropertyRecordEditorBaseProps {
+  /**
+   * @deprecated in 5.30. Use `PropertyRecordEditor` with `editorSystem="new"` instead. This is provided only in case
+   * there is a need to switch back to the legacy editor system.
+   */
+  editorSystem?: "legacy";
+}
+
+interface PropertyRecordEditorNewProps extends PropertyRecordEditorBaseProps {
+  editorSystem: "new";
+}
+
+type PropertyRecordEditorProps =
+  | PropertyRecordEditorLegacyProps
+  | PropertyRecordEditorNewProps;
+
+interface PropertyRecordEditorComponent {
+  /**
+   * Editor component for editing property values represented by `PropertyRecord`.
+   * @beta
+   */
+  (props: PropertyRecordEditorNewProps): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyRecordEditor` with `editorSystem="new"` instead. This is provided only in case
+   * there is a need to switch back to the legacy editor system.
+   * @beta
+   */
+  (props: PropertyRecordEditorLegacyProps): React.JSX.Element;
+  /** @beta */
+  (props: PropertyRecordEditorProps): React.JSX.Element;
 }
 
 /**
  * Editor component for editing property values represented by `PropertyRecord`.
  * @beta
  */
-export function PropertyRecordEditor({
+export const PropertyRecordEditor: PropertyRecordEditorComponent = ({
   propertyRecord,
   onCommit,
   onCancel,
   onClick,
   setFocus,
   size,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
-}: PropertyRecordEditorProps) {
+}: PropertyRecordEditorProps) => {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
   if (editorSystem === "new" && metadata && value) {
     return (
@@ -70,6 +103,7 @@ export function PropertyRecordEditor({
   }
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     <EditorContainer
       propertyRecord={propertyRecord}
       onCommit={onCommit}
@@ -78,7 +112,7 @@ export function PropertyRecordEditor({
       setFocus={setFocus}
     />
   );
-}
+};
 
 /** @internal */
 export function CommittingEditor({

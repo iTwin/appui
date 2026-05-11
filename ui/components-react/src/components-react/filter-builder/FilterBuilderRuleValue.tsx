@@ -10,64 +10,113 @@ import * as React from "react";
 import type { PropertyDescription, PropertyValue } from "@itwin/appui-abstract";
 import { PropertyRecord, PropertyValueFormat } from "@itwin/appui-abstract";
 import type { PropertyUpdatedArgs } from "../editors/EditorContainer.js";
-import { EditorContainer } from "../editors/EditorContainer.js";
 import { Flex, Text } from "@itwin/itwinui-react";
 import { PropertyFilterBuilderRuleRangeValue } from "./FilterBuilderRangeValue.js";
 import type { PropertyFilterBuilderRuleOperator } from "./Operators.js";
 import { useTranslation } from "../l10n/useTranslation.js";
 import { PropertyRecordEditor } from "../new-editors/interop/PropertyRecordEditor.js";
 
-/**
- * Props for [[PropertyFilterBuilderRuleValue]] component.
- * @beta
- */
-export interface PropertyFilterBuilderRuleValueProps {
+/** @beta */
+interface PropertyFilterBuilderRuleValueBaseProps {
   /** Currently entered value. */
   value?: PropertyValue;
   /** Property used in rule to which this value will be compared to. */
   property: PropertyDescription;
   /** Callback that is invoked when value changes. */
   onChange: (value: PropertyValue) => void;
+}
+
+/** @beta */
+interface PropertyFilterBuilderRuleValueLegacyProps
+  extends PropertyFilterBuilderRuleValueBaseProps {
+  /**
+   * Specifies which editors system should be used: legacy or the new one.
+   * @default "legacy"
+   * @beta
+   * @deprecated in 5.30. Legacy editors system is deprecated. Use `editorSystem: "new"`.
+   */
+  editorSystem?: "legacy";
+}
+
+/** @beta */
+interface PropertyFilterBuilderRuleValueNewProps
+  extends PropertyFilterBuilderRuleValueBaseProps {
   /**
    * Specifies which editors system should be used: legacy or the new one.
    * @default "legacy"
    * @beta
    */
-  editorSystem?: "legacy" | "new";
+  editorSystem: "new";
 }
+
+/**
+ * Props for [[PropertyFilterBuilderRuleValue]] component.
+ * @beta
+ * @deprecated in 5.30.0. Use `React.ComponentProps<typeof PropertyFilterBuilderRuleValue>` instead.
+ */
+export type PropertyFilterBuilderRuleValueProps =
+  | PropertyFilterBuilderRuleValueLegacyProps
+  | PropertyFilterBuilderRuleValueNewProps;
 
 /**
  * Props for custom [[PropertyFilterBuilderRuleValue]] renderer.
  * @beta
  */
-export interface PropertyFilterBuilderRuleValueRendererProps
-  extends PropertyFilterBuilderRuleValueProps {
-  /** Current operator. */
-  operator: PropertyFilterBuilderRuleOperator;
+export type PropertyFilterBuilderRuleValueRendererProps =
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  PropertyFilterBuilderRuleValueProps & {
+    /** Current operator. */
+    operator: PropertyFilterBuilderRuleOperator;
+  };
+
+interface PropertyFilterBuilderRuleValueComponent {
+  /**
+   * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
+   * @beta
+   */
+  (
+    props: PropertyFilterBuilderRuleValueNewProps & {
+      /** Current operator. */
+      operator: PropertyFilterBuilderRuleOperator;
+    }
+  ): React.JSX.Element;
+  /**
+   * @deprecated in 5.30. Use `PropertyFilterBuilderRuleValue` with `editorSystem="new"` instead.
+   * @beta
+   */
+  (
+    props: PropertyFilterBuilderRuleValueLegacyProps & {
+      /** Current operator. */
+      operator: PropertyFilterBuilderRuleOperator;
+    }
+  ): React.JSX.Element;
+  /** @beta */
+  (props: PropertyFilterBuilderRuleValueRendererProps): React.JSX.Element;
 }
 
 /**
  * Component that renders [[PropertyFilterBuilderRuleRenderer]] value input.
  * @beta
  */
-export function PropertyFilterBuilderRuleValue(
-  props: PropertyFilterBuilderRuleValueRendererProps
-) {
-  const { operator, ...restProps } = props;
+export const PropertyFilterBuilderRuleValue: PropertyFilterBuilderRuleValueComponent =
+  (props: PropertyFilterBuilderRuleValueRendererProps) => {
+    const { operator, ...restProps } = props;
 
-  return operator === "between" || operator === "not-between" ? (
-    <FilterBuilderRuleRangeValueRenderer {...restProps} />
-  ) : (
-    <FilterBuilderRulePrimitiveValueRenderer {...restProps} />
-  );
-}
+    return operator === "between" || operator === "not-between" ? (
+      <FilterBuilderRuleRangeValueRenderer {...restProps} />
+    ) : (
+      <FilterBuilderRulePrimitiveValueRenderer {...restProps} />
+    );
+  };
 
 function FilterBuilderRulePrimitiveValueRenderer({
   property,
   value,
   onChange,
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   editorSystem,
-}: PropertyFilterBuilderRuleValueProps) {
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
+PropertyFilterBuilderRuleValueProps) {
   const propertyRecord = React.useMemo(() => {
     return new PropertyRecord(
       value ?? { valueFormat: PropertyValueFormat.Primitive },
@@ -88,6 +137,7 @@ function FilterBuilderRulePrimitiveValueRenderer({
       onCancel={() => {}}
       onCommit={onValueChange}
       size="small"
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       editorSystem={editorSystem}
     />
   );
@@ -97,7 +147,10 @@ function FilterBuilderRuleRangeValueRenderer({
   property,
   value,
   onChange,
-}: PropertyFilterBuilderRuleValueProps) {
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  editorSystem,
+}: // eslint-disable-next-line @typescript-eslint/no-deprecated
+PropertyFilterBuilderRuleValueProps) {
   const { translate } = useTranslation();
   const { from, to } = React.useMemo(() => {
     const rangeValue = PropertyFilterBuilderRuleRangeValue.parse(value);
@@ -128,22 +181,22 @@ function FilterBuilderRuleRangeValueRenderer({
       flexDirection="row"
     >
       <Flex.Item>
-        <EditorContainer
+        <PropertyRecordEditor
           propertyRecord={from}
           onCancel={() => {}}
           onCommit={handleFromValue}
-          setFocus={false}
-          shouldCommitOnChange={false}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          editorSystem={editorSystem}
         />
       </Flex.Item>
       <Text>{translate("filterBuilder.operators.and").toLowerCase()}</Text>
       <Flex.Item>
-        <EditorContainer
+        <PropertyRecordEditor
           propertyRecord={to}
           onCancel={() => {}}
           onCommit={handleToValue}
-          setFocus={false}
-          shouldCommitOnChange={false}
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          editorSystem={editorSystem}
         />
       </Flex.Item>
     </Flex>
