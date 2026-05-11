@@ -1,5 +1,22 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.30.0
+
+### Minor Changes
+
+- b6ca75b: Deprecated legacy editor components in `@itwin/imodel-components-react`:
+
+  - `ColorEditor`, `ColorPropertyEditor`
+  - `WeightEditor`, `WeightPropertyEditor`
+
+  Use `EditorRenderer` from `@itwin/components-react` instead of using these editor components directly.
+
+### Patch Changes
+
+- Updated dependencies [b6ca75b]
+  - @itwin/components-react@5.30.0
+  - @itwin/core-react@5.30.0
+
 ## 5.29.0
 
 ### Patch Changes
