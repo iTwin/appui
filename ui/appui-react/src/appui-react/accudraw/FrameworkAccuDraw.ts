@@ -26,7 +26,6 @@ import type { AccuDrawUiSettings } from "./AccuDrawUiSettings.js";
 import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
-import { useAccuDrawStore } from "./AccuDrawStore.js";
 
 const compassModeToKeyMap = new Map<CompassMode, string>([
   [CompassMode.Polar, "polar"],
@@ -325,9 +324,6 @@ export class FrameworkAccuDraw
   public override onMotion(ev: BeButtonEvent): void {
     if (!this.isEnabled || this.isDeactivated || UiFramework.isContextMenuOpen)
       return;
-
-    const is3d = ev.viewport?.view.is3d() ?? false;
-    useAccuDrawStore.setState({ is3d });
 
     this.fieldValuesChanged();
 
