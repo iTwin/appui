@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- b6ca75b: ## Deprecated legacy editors system
+- b6ca75b: Deprecated legacy editors system
 
   Deprecated the legacy editor system in favor of the new `EditorSpec`-based system. The following APIs are deprecated:
 
@@ -25,11 +25,11 @@
   - `IconEditor`, `IconPropertyEditor`
   - `CustomNumberEditor`, `CustomNumberPropertyEditor`
 
-  ## Added `PropertyRecordEditorMetadata` and `isPropertyRecordEditorMetadata`
+- b6ca75b: Added `PropertyRecordEditorMetadata` and `isPropertyRecordEditorMetadata`
 
   Promoted `PropertyRecordEditorMetadata` interface and `isPropertyRecordEditorMetadata` type guard to `@beta`. These allow custom editors to access legacy `PropertyRecord` metadata (e.g. `typename`, `params`, `enum`, `extendedData`) when used with the new editor system.
 
-  ## Migration
+  #### Migration
 
   Migrate from `EditorContainer` to the new system using `PropertyRecordEditor`:
 
