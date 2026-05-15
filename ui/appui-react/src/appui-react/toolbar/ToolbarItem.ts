@@ -22,6 +22,10 @@ export enum ToolbarUsage {
   ContentManipulation = 0,
   /** Manipulate view/camera - in AppUI this is in top right of content area. */
   ViewNavigation = 1,
+  /** Contains tools to create, update, and delete content - rendered in bottom left of content area. */
+  BottomContentManipulation = 2,
+  /** Manipulate view/camera - rendered in bottom right of content area. */
+  BottomViewNavigation = 3,
 }
 
 /** Used to specify the orientation of the toolbar.

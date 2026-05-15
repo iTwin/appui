@@ -55,6 +55,10 @@ import {
   createSpatialFrontstageProvider,
 } from "./appui/frontstages/SpatialFrontstage";
 import { createTestToolSettingsFrontstage } from "./appui/frontstages/TestToolSettingsFrontstage";
+import {
+  createContentOverlayFrontstage,
+  createContentOverlayProvider,
+} from "./appui/frontstages/ContentOverlayFrontstage";
 
 interface RegisterFrontstagesArgs {
   iModelConnection?: IModelConnection;
@@ -88,6 +92,7 @@ export function registerFrontstages({
     createPopoutWindowsFrontstage(),
     createITwinUIV2Frontstage(),
     createSpatialFrontstage(),
+    createContentOverlayFrontstage(),
   ];
   frontstages.forEach((frontstage) => {
     UiFramework.frontstages.addFrontstage(frontstage);
@@ -162,6 +167,9 @@ export function registerFrontstages({
   });
   UiItemsManager.register(createSpatialFrontstageProvider(), {
     stageIds: [createSpatialFrontstage.stageId],
+  });
+  UiItemsManager.register(createContentOverlayProvider(), {
+    stageIds: [createContentOverlayFrontstage.stageId],
   });
 
   if (IpcApp.isValid) {

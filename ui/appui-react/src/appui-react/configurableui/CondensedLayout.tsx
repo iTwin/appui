@@ -6,16 +6,11 @@
  * @module ConfigurableUi
  */
 
-import "./ConfigurableUiContent.scss";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
-import { Point } from "@itwin/core-react/internal";
-import {
-  IModelConnectionProvider,
-  QuantityEditorSpec,
-  WeightEditorSpec,
-} from "@itwin/imodel-components-react";
-import { ThemeProvider } from "@itwin/itwinui-react";
+import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
+import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
+import { ConfigurableUiContext } from "./ConfigurableUiContent.js";
+import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage.js";
 import { CursorInformation } from "../cursor/CursorInformation.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager.js";
@@ -26,7 +21,6 @@ import { KeyboardShortcutMenu } from "../keyboardshortcut/KeyboardShortcutMenu.j
 import { InputFieldMessage } from "../messages/InputField.js";
 import { PointerMessage } from "../messages/Pointer.js";
 import { PopupRenderer } from "../popup/PopupManager.js";
-import { WidgetPanelsFrontstage } from "../widget-panels/Frontstage.js";
 import { ContentDialogRenderer } from "../dialog/ContentDialogManager.js";
 import { appUi, UiFramework } from "../UiFramework.js";
 import { InternalConfigurableUiManager } from "./InternalConfigurableUiManager.js";
@@ -36,101 +30,31 @@ import {
   WIDGET_OPACITY_DEFAULT,
 } from "../theme/ThemeId.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
-import type { ContentProps } from "../content/ContentGroup.js";
 import { ChildWindowRenderer } from "../childwindow/ChildWindowRenderer.js";
-import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
-import type { WidgetActions } from "../layout/widget/WidgetActions.js";
-import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
-import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
-import type { Widget } from "../widgets/Widget.js";
-import type { WidgetState } from "../widgets/WidgetState.js";
 import { useActiveIModelConnection } from "../hooks/useActiveIModelConnection.js";
 import { EditorsRegistryProvider } from "@itwin/components-react";
-
-/** @internal */
-export const ConfigurableUiContext = React.createContext<
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-  ConfigurableUiContentProps & {
-    contentElementRef?: React.RefObject<HTMLElement | null>;
-    widgetActions?: StandardLayoutProps["widgetActions"];
-    toolSettings?: StandardLayoutProps["toolSettings"];
-    contentOverlay?: StandardLayoutProps["contentOverlay"];
-    statusBarOverlay?: StandardLayoutProps["statusBarOverlay"];
-  }
->({});
-
-/** Properties for [[ConfigurableUiContent]]
- * @public
- * @deprecated in 4.17.0. Use `React.ComponentProps<typeof ConfigurableUiContent>`
- */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export interface ConfigurableUiContentProps extends CommonProps {
-  /** React node of the Backstage */
-  appBackstage?: React.ReactNode;
-  /** Controls if the view overlay should be displayed. Uses redux store as a fallback. Defaults to `true`.
-   * @note Only used by configurable control APIs. See {@link ContentProps.classId}.
-   * @deprecated in 4.16.0. View overlay visibility should be controlled by the components used in {@link ContentProps.content}.
-   */
-  viewOverlay?: boolean;
-  /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
-  widgetOpacity?: number;
-  /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
-  widgetIcon?: boolean;
-  /** Controls if the active widget's label should always be displayed. Defaults to `false`. */
-  showActiveWidgetLabel?: boolean;
-  /** Controls if the unpinned panels should be collapsed automatically. Uses redux store as a fallback. Defaults to `false`. */
-  collapsePanels?: boolean;
-  /** Controls if the tool settings should be animated. Uses redux store as a fallback. Defaults to `false`. */
-  animateToolSettings?: boolean;
-  /** Controls if the tool settings label should be set based on activated tool. Uses redux store as a fallback. Defaults to `false`. */
-  toolAsToolSettingsLabel?: boolean;
-  /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
-  toolbarOpacity?: number;
-  /** Component to wrap all popout widgets and other child windows opened via {@link UiFramework.childWindows}. */
-  childWindow?: React.ComponentType;
-
-  /** @internal */
-  idleTimeout?: number;
-  /** @internal */
-  intervalTimeout?: number;
-}
-
-/**
- * Allows children to get the bounds or other properties of the wrapper element.
- * @internal
- */
-export const WrapperContext = React.createContext<HTMLElement>(document.body);
-
-/** The main component of `AppUI` that sets up the configurable UI.
- * @public
- */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
-  const frontstageDef = useActiveFrontstageDef();
-  const layout = frontstageDef?.initialConfig?.layout;
-  return (
-    <ConfigurableUiContext.Provider
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      value={React.useMemo(() => props, [...Object.values(props)])}
-    >
-      {layout ?? <StandardLayout />}
-    </ConfigurableUiContext.Provider>
-  );
-}
+import {
+  IModelConnectionProvider,
+  QuantityEditorSpec,
+} from "@itwin/imodel-components-react";
+import { ThemeProvider } from "@itwin/itwinui-react";
+import { Point } from "@itwin/core-react/internal";
+import { WrapperContext } from "./ConfigurableUiContent.js";
 
 interface ToolSettingsLocation {
   section: StagePanelSection;
   location: StagePanelLocation;
 }
 
-interface StandardLayoutProps {
+/** Properties for [[CondensedLayout]].
+ * @alpha
+ */
+export interface CondensedLayoutProps {
   /** Overrides widget specific actions displayed in the title bar area.
-   * Use {@link WidgetActions} component to customize widget actions.
    * @alpha
    */
   widgetActions?: React.ReactNode;
   /** When enabled keeps the tool settings visible to the end user.
-   * This is especially useful when the tool settings is undocked as a regular widget.
    * @alpha
    */
   visibleToolSettings?: boolean;
@@ -138,38 +62,40 @@ interface StandardLayoutProps {
    * @alpha
    */
   toolSettings?: {
-    /** The default location of the tool settings. Only used when initializing the layout and ignored when restoring a saved layout.
-     * When this is specified, the tool settings will be initialized as a widget, instead of the default docked state.
-     * @note Use {@link Widget} for further configuration. I.e. set {@link Widget.defaultState} to {@link WidgetState.Floating} to initialize the tool settings as a floating widget.
+    /** The default location of the tool settings.
      * @alpha
      */
     defaultLocation?: ToolSettingsLocation;
   };
   /** Content rendered in a reserved zone between the widget panels, overlaying the main content area.
-   * This area respects the widget panel boundaries, allowing a parent application to place its own components
-   * on top of the AppUI content while AppUI elements account for this space.
    * @alpha
    */
   contentOverlay?: React.ReactNode;
-  /** When `true`, the status bar renders at the bottom of the center area between
-   * the widget panels (overlaying the viewport) instead of in its own full-width
-   * grid row. This gives the status bar items a similar appearance to `contentOverlay`
-   * but anchored at the bottom.
-   * @alpha
-   */
-  statusBarOverlay?: boolean;
 }
 
-/** The standard widget based layout used as a default layout for all frontstages.
+const defaultEditors = [QuantityEditorSpec];
+
+/**
+ * A condensed layout variant that eliminates wasted whitespace by rendering the status bar as
+ * floating pills at the bottom of the center area and tool settings as a collapsible overlay
+ * at the top center. The `contentOverlay` prop allows an iframe parent to reserve space at the
+ * top of the content area.
+ *
+ * Use this as the `layout` prop on a frontstage configuration:
+ * ```tsx
+ * const frontstage = {
+ *   ...config,
+ *   layout: <CondensedLayout />,
+ * };
+ * ```
  * @alpha
  */
-export function StandardLayout(props: StandardLayoutProps) {
+export function CondensedLayout(props: CondensedLayoutProps) {
   const {
     widgetActions,
     visibleToolSettings = false,
     toolSettings,
     contentOverlay,
-    statusBarOverlay,
   } = props;
   const context = React.useContext(ConfigurableUiContext);
   const {
@@ -209,9 +135,9 @@ export function StandardLayout(props: StandardLayoutProps) {
           widgetActions,
           toolSettings,
           contentOverlay,
-          statusBarOverlay,
+          statusBarOverlay: true,
         }),
-        [context, widgetActions, toolSettings, contentOverlay, statusBarOverlay]
+        [context, widgetActions, toolSettings, contentOverlay]
       )}
     >
       <main
@@ -263,12 +189,17 @@ export function StandardLayout(props: StandardLayoutProps) {
   );
 }
 
-const defaultEditors = [QuantityEditorSpec, WeightEditorSpec];
+function IModelProvider({ children }: React.PropsWithChildren) {
+  const iModelConnection = useActiveIModelConnection();
+  if (!iModelConnection) return <>{children}</>;
+  return (
+    <IModelConnectionProvider iModelConnection={iModelConnection}>
+      {children}
+    </IModelConnectionProvider>
+  );
+}
 
-function useWidgetOpacity(
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-  widgetOpacity: ConfigurableUiContentProps["widgetOpacity"]
-) {
+function useWidgetOpacity(widgetOpacity: number | undefined) {
   const reduxWidgetOpacity = useReduxFrameworkState((state) => {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     return state?.configurableUiState.widgetOpacity;
@@ -289,18 +220,13 @@ function useWidgetOpacity(
   }, [opacity]);
 }
 
-function useToolbarOpacity(
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-  toolbarOpacity: ConfigurableUiContentProps["toolbarOpacity"]
-) {
+function useToolbarOpacity(toolbarOpacity: number | undefined) {
   const reduxToolbarOpacity = useReduxFrameworkState((state) => {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     return state?.configurableUiState.toolbarOpacity;
   });
-
   const opacity =
     toolbarOpacity ?? reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
-
   React.useEffect(() => {
     const currentToolbarOpacity =
       document.documentElement.style.getPropertyValue("--buic-toolbar-opacity");
@@ -315,24 +241,14 @@ function useToolbarOpacity(
   }, [opacity]);
 }
 
-function useVisibleToolSettings(enabled: boolean) {
+function useVisibleToolSettings(visibleToolSettings: boolean) {
   React.useEffect(() => {
-    if (!enabled) return;
+    if (!visibleToolSettings) return;
     return UiFramework.frontstages.onToolSettingsReloadEvent.addListener(() => {
       const frontstage = UiFramework.frontstages.activeFrontstageDef;
       const toolSettings = frontstage?.toolSettings;
       if (!toolSettings) return;
       toolSettings.show();
     });
-  }, [enabled]);
-}
-
-function IModelProvider({ children }: React.PropsWithChildren<object>) {
-  const imodel = useActiveIModelConnection();
-
-  return (
-    <IModelConnectionProvider iModelConnection={imodel}>
-      {children}
-    </IModelConnectionProvider>
-  );
+  }, [visibleToolSettings]);
 }

@@ -25,6 +25,15 @@ interface StandardLayoutProps extends CommonProps {
   children?: React.ReactNode;
   /** Component that displays center content (i.e. toolbars). Content is always bound by widget panels. */
   centerContent?: React.ReactNode;
+  /** Content rendered in a reserved zone between the widget panels, overlaying the main content area.
+   * Occupies the same grid cell as center content but is rendered below toolbars and above the viewport.
+   */
+  contentOverlay?: React.ReactNode;
+  /** When `true`, the status bar renders at the bottom of the center area between
+   * the widget panels (overlaying the viewport) instead of in its own full-width
+   * grid row. This mirrors the `contentOverlay` placement but at the bottom.
+   */
+  statusBarOverlay?: boolean;
   toolSettings?: React.ReactNode;
   statusBar?: React.ReactNode;
   topPanel?: React.ReactNode;
@@ -51,13 +60,28 @@ export function StandardLayout(props: StandardLayoutProps) {
       >
         {props.children}
       </div>
-      <div className="nz-centerContent">{props.centerContent}</div>
+      <div className="nz-centerArea">
+        {props.statusBarOverlay && (
+          <div className="nz-toolSettingsOverlay">{props.toolSettings}</div>
+        )}
+        {props.contentOverlay && (
+          <div className="nz-contentOverlay">{props.contentOverlay}</div>
+        )}
+        <div className="nz-centerContent">{props.centerContent}</div>
+        {props.statusBarOverlay && (
+          <div className="nz-statusBarOverlay">{props.statusBar}</div>
+        )}
+      </div>
       <Panel side="left">{props.leftPanel}</Panel>
       <Panel side="right">{props.rightPanel}</Panel>
       <Panel side="top">{props.topPanel}</Panel>
       <Panel side="bottom">{props.bottomPanel}</Panel>
-      <div className="nz-toolSettings">{props.toolSettings}</div>
-      <div className="nz-statusBar">{props.statusBar}</div>
+      {!props.statusBarOverlay && (
+        <div className="nz-toolSettings">{props.toolSettings}</div>
+      )}
+      {!props.statusBarOverlay && (
+        <div className="nz-statusBar">{props.statusBar}</div>
+      )}
     </div>
   );
 }
