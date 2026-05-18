@@ -12,6 +12,7 @@ import classnames from "classnames";
 import type { CommonProps } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { ModalFrontstageButton } from "./ModalFrontstageButton.js";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 
 /** Properties for the [[ModalFrontstage]] React component
  * @public
@@ -34,37 +35,48 @@ export interface ModalFrontstageProps extends CommonProps {
   children?: React.ReactNode;
 }
 
-/** ModalFrontstage React component
+/**
+ * The default layout used for modal frontstages.
+ * Use {@link ModalFrontstageInfo.layout} to override the modal frontstage layout.
  * @public
  */
 export function ModalFrontstage(props: ModalFrontstageProps) {
-  const classNames = classnames(
-    "uifw-modal-frontstage",
-    props.isOpen && "uifw-modal-open",
-    props.className
-  );
+  const {
+    isOpen,
+    navigateBack,
+    closeModal,
+    backButton,
+    title,
+    appBarRight,
+    ...rest
+  } = props;
 
-  const onGoBack = () => {
-    if (props.navigateBack) props.navigateBack();
-    props.closeModal();
+  const handleBack = () => {
+    if (navigateBack) navigateBack();
+    closeModal();
   };
 
   return (
     <>
-      <div className={classNames} style={props.style}>
+      <div
+        {...rest}
+        className={classnames(
+          "uifw-modal-frontstage",
+          isOpen && "uifw-modal-open",
+          props.className
+        )}
+      >
         <div className="uifw-modal-app-bar">
-          {props.backButton ? (
-            props.backButton
+          {backButton ? (
+            backButton
           ) : (
-            <ModalFrontstageButton onClick={onGoBack} />
+            <ModalFrontstageButton onClick={handleBack} />
           )}
           <Text variant="headline" className="uifw-headline">
-            {props.title}
+            {title}
           </Text>
-          {props.appBarRight && (
-            <span className="uifw-modal-app-bar-right">
-              {props.appBarRight}
-            </span>
+          {appBarRight && (
+            <span className="uifw-modal-app-bar-right">{appBarRight}</span>
           )}
         </div>
         <div className="uifw-modal-stage-content">{props.children}</div>
