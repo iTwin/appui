@@ -51,7 +51,7 @@ export function ModalFrontstageComposer({
     <ModalFrontstage
       isOpen={true}
       title={title}
-      closeModal={handleCloseModal}
+      navigateBack={handleCloseModal}
       appBarRight={appBarRight}
       backButton={backButton}
     >

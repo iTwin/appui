@@ -16,6 +16,7 @@ import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 
 /** Properties for the [[ModalFrontstage]] React component
  * @public
+ * @deprecated in 5.31.0. Use `React.ComponentProps<typeof ModalFrontstage>` instead.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ModalFrontstageProps extends CommonProps {
@@ -29,10 +30,19 @@ export interface ModalFrontstageProps extends CommonProps {
   closeModal: () => void;
   /** An optional React node displayed in the upper right of the modal Frontstage. */
   appBarRight?: React.ReactNode;
-  /** If specified overrides the default back button. */
+  /** If specified overrides the default {@link ModalFrontstageButton}. */
   backButton?: React.ReactNode;
-  /** Content */
+  /** Content of the modal frontstage. */
   children?: React.ReactNode;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+interface Props extends Omit<ModalFrontstageProps, "closeModal"> {
+  /**
+   * Callback for closing the modal Frontstage.
+   * @deprecated in 5.31.0. Use {@link navigateBack} instead.
+   */
+  closeModal?: () => void;
 }
 
 /**
@@ -40,10 +50,11 @@ export interface ModalFrontstageProps extends CommonProps {
  * Use {@link ModalFrontstageInfo.layout} to override the modal frontstage layout.
  * @public
  */
-export function ModalFrontstage(props: ModalFrontstageProps) {
+export function ModalFrontstage(props: Props) {
   const {
     isOpen,
     navigateBack,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     closeModal,
     backButton,
     title,
@@ -52,8 +63,8 @@ export function ModalFrontstage(props: ModalFrontstageProps) {
   } = props;
 
   const handleBack = () => {
-    if (navigateBack) navigateBack();
-    closeModal();
+    navigateBack?.();
+    closeModal?.();
   };
 
   return (
