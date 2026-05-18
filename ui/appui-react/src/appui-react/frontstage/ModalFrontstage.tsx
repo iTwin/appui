@@ -23,9 +23,9 @@ export interface ModalFrontstageProps extends CommonProps {
   /** Indicates whether the modal Frontstage is open */
   isOpen?: boolean;
   /** Callback for navigating back from the modal Frontstage. */
-  navigateBack?: () => any;
+  navigateBack?: () => void;
   /** Callback for closing the modal Frontstage. */
-  closeModal: () => any;
+  closeModal: () => void;
   /** An optional React node displayed in the upper right of the modal Frontstage. */
   appBarRight?: React.ReactNode;
   /** If specified overrides the default back button. */
