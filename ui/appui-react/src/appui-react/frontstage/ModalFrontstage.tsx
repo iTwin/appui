@@ -37,45 +37,39 @@ export interface ModalFrontstageProps extends CommonProps {
 /** ModalFrontstage React component
  * @public
  */
-export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
-  constructor(props: ModalFrontstageProps) {
-    super(props);
-  }
+export function ModalFrontstage(props: ModalFrontstageProps) {
+  const classNames = classnames(
+    "uifw-modal-frontstage",
+    props.isOpen && "uifw-modal-open",
+    props.className
+  );
 
-  private _onGoBack = () => {
-    if (this.props.navigateBack) this.props.navigateBack();
-    this.props.closeModal();
+  const onGoBack = () => {
+    if (props.navigateBack) props.navigateBack();
+    props.closeModal();
   };
 
-  public override render() {
-    const classNames = classnames(
-      "uifw-modal-frontstage",
-      this.props.isOpen && "uifw-modal-open",
-      this.props.className
-    );
-
-    return (
-      <>
-        <div className={classNames} style={this.props.style}>
-          <div className="uifw-modal-app-bar">
-            {this.props.backButton ? (
-              this.props.backButton
-            ) : (
-              <ModalFrontstageButton onClick={this._onGoBack} />
-            )}
-            <Text variant="headline" className="uifw-headline">
-              {this.props.title}
-            </Text>
-            {this.props.appBarRight && (
-              <span className="uifw-modal-app-bar-right">
-                {this.props.appBarRight}
-              </span>
-            )}
-          </div>
-          <div className="uifw-modal-stage-content">{this.props.children}</div>
+  return (
+    <>
+      <div className={classNames} style={props.style}>
+        <div className="uifw-modal-app-bar">
+          {props.backButton ? (
+            props.backButton
+          ) : (
+            <ModalFrontstageButton onClick={onGoBack} />
+          )}
+          <Text variant="headline" className="uifw-headline">
+            {props.title}
+          </Text>
+          {props.appBarRight && (
+            <span className="uifw-modal-app-bar-right">
+              {props.appBarRight}
+            </span>
+          )}
         </div>
-        <div className="uifw-modal-frontstage-overlay" />
-      </>
-    );
-  }
+        <div className="uifw-modal-stage-content">{props.children}</div>
+      </div>
+      <div className="uifw-modal-frontstage-overlay" />
+    </>
+  );
 }
