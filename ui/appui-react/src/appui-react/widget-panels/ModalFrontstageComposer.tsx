@@ -38,9 +38,14 @@ export function ModalFrontstageComposer({
     () => UiFramework.frontstages.closeModalFrontstage(),
     []
   );
+
   if (!stageInfo) return null;
 
   const { title, content, appBarRight, backButton } = stageInfo;
+
+  if (stageInfo.layout) {
+    return <>{stageInfo.layout}</>;
+  }
 
   return (
     <ModalFrontstage

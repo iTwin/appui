@@ -6,7 +6,11 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { ModalFrontstageStory } from "./Modal";
-import { ModalFrontstageButton, UiFramework } from "@itwin/appui-react";
+import {
+  ModalFrontstage,
+  ModalFrontstageButton,
+  UiFramework,
+} from "@itwin/appui-react";
 
 const meta = {
   title: "Frontstage/ModalFrontstage",
@@ -52,5 +56,19 @@ export const AppBarRight: Story = {
 export const NotifyCloseRequest: Story = {
   args: {
     notifyCloseRequest: true,
+  },
+};
+
+export const CustomLayout: Story = {
+  args: {
+    layout: (
+      <ModalFrontstage
+        isOpen
+        title="Custom layout"
+        closeModal={() => {
+          UiFramework.frontstages.closeModalFrontstage();
+        }}
+      />
+    ),
   },
 };
