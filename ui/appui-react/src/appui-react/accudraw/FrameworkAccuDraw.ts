@@ -321,7 +321,7 @@ export class FrameworkAccuDraw
    * Should also choose active x or y input field in rectangular mode based on cursor position when
    * axis isn't locked to support "smart lock".
    */
-  public override onMotion(ev: BeButtonEvent): void {
+  public override onMotion(_ev: BeButtonEvent): void {
     if (!this.isEnabled || this.isDeactivated || UiFramework.isContextMenuOpen)
       return;
 
