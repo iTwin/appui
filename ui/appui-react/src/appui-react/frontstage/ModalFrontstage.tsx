@@ -68,31 +68,28 @@ export function ModalFrontstage(props: Props) {
   };
 
   return (
-    <>
-      <div
-        {...rest}
-        className={classnames(
-          "uifw-modal-frontstage",
-          isOpen && "uifw-modal-open",
-          props.className
+    <div
+      {...rest}
+      className={classnames(
+        "uifw-modal-frontstage",
+        isOpen && "uifw-modal-open",
+        props.className
+      )}
+    >
+      <div className="uifw-modal-app-bar">
+        {backButton ? (
+          backButton
+        ) : (
+          <ModalFrontstageButton onClick={handleBack} />
         )}
-      >
-        <div className="uifw-modal-app-bar">
-          {backButton ? (
-            backButton
-          ) : (
-            <ModalFrontstageButton onClick={handleBack} />
-          )}
-          <Text variant="headline" className="uifw-headline">
-            {title}
-          </Text>
-          {appBarRight && (
-            <span className="uifw-modal-app-bar-right">{appBarRight}</span>
-          )}
-        </div>
-        <div className="uifw-modal-stage-content">{props.children}</div>
+        <Text variant="headline" className="uifw-headline">
+          {title}
+        </Text>
+        {appBarRight && (
+          <span className="uifw-modal-app-bar-right">{appBarRight}</span>
+        )}
       </div>
-      <div className="uifw-modal-frontstage-overlay" />
-    </>
+      <div className="uifw-modal-stage-content">{props.children}</div>
+    </div>
   );
 }

@@ -65,10 +65,12 @@ export const CustomLayout: Story = {
       <ModalFrontstage
         isOpen
         title="Custom layout"
-        closeModal={() => {
+        navigateBack={() => {
           UiFramework.frontstages.closeModalFrontstage();
         }}
-      />
+      >
+        Content of a modal frontstage.
+      </ModalFrontstage>
     ),
   },
 };
