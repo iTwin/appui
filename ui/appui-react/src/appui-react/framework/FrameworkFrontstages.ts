@@ -27,6 +27,7 @@ import type { Frontstage } from "../frontstage/Frontstage.js";
 import { FrameworkContent } from "./FrameworkContent.js";
 import type { ModalFrontstageButton } from "../frontstage/ModalFrontstageButton.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
+import type { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 
 /** Frontstage Activated Event Args interface.
  * @public
@@ -193,6 +194,14 @@ export interface ModalFrontstageInfo {
   notifyCloseRequest?: boolean;
   /** If specified overrides the default back button. See {@link ModalFrontstageButton}. */
   backButton?: React.ReactNode;
+  /**
+   * Overrides the default modal frontstage layout.
+   * Use the {@link ModalFrontstage} component to customize the default layout and behavior.
+   *
+   * @note When set, `content`, `appBarRight`, and `backButton` properties are ignored.
+   * @alpha
+   */
+  layout?: React.ReactNode;
 }
 
 /** Modal Frontstage array item interface.
