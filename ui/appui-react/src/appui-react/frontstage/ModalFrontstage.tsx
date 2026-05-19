@@ -20,15 +20,15 @@ import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ModalFrontstageProps extends CommonProps {
-  /** Title displayed at the top of the modal Frontstage */
+  /** Title displayed at the top of the modal frontstage. */
   title: string;
-  /** Indicates whether the modal Frontstage is open */
+  /** Indicates whether the modal frontstage is open. */
   isOpen?: boolean;
-  /** Callback for navigating back from the modal Frontstage. */
+  /** Callback for navigating back from the modal frontstage. */
   navigateBack?: () => void;
-  /** Callback for closing the modal Frontstage. */
+  /** Callback for closing the modal frontstage. */
   closeModal: () => void;
-  /** An optional React node displayed in the upper right of the modal Frontstage. */
+  /** Optional content displayed in the upper right of the modal frontstage. */
   appBarRight?: React.ReactNode;
   /** If specified overrides the default {@link ModalFrontstageButton}. */
   backButton?: React.ReactNode;
