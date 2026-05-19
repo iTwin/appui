@@ -9,32 +9,33 @@ import * as React from "react";
 import { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 import { UiFramework } from "../UiFramework.js";
 import { useActiveModalFrontstage } from "../hooks/useActiveModalFrontstage.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 
 /** @internal */
 export function ModalFrontstageComposer() {
-  const stageInfo = useActiveModalFrontstage();
+  const { renderModalFrontstage } = React.useContext(ConfigurableUiContext);
+  const info = useActiveModalFrontstage();
   const handleCloseModal = React.useCallback(
     () => UiFramework.frontstages.closeModalFrontstage(),
     []
   );
 
-  if (!stageInfo) return null;
-
-  const { title, content, appBarRight, backButton } = stageInfo;
-
-  if (stageInfo.layout) {
-    return <>{stageInfo.layout}</>;
-  }
-
+  if (!info) return null;
   return (
-    <ModalFrontstage
-      isOpen={true}
-      title={title}
-      navigateBack={handleCloseModal}
-      appBarRight={appBarRight}
-      backButton={backButton}
-    >
-      {content}
-    </ModalFrontstage>
+    <>
+      {renderModalFrontstage ? (
+        renderModalFrontstage({ info, isOpen: true })
+      ) : (
+        <ModalFrontstage
+          isOpen={true}
+          title={info.title}
+          navigateBack={handleCloseModal}
+          appBarRight={info.appBarRight}
+          backButton={info.backButton}
+        >
+          {info.content}
+        </ModalFrontstage>
+      )}
+    </>
   );
 }

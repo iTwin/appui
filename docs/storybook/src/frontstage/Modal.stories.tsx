@@ -61,15 +61,18 @@ export const NotifyCloseRequest: Story = {
 
 export const CustomLayout: Story = {
   args: {
-    layout: (
+    renderModalFrontstage: ({ info, isOpen }) => (
       <ModalFrontstage
-        isOpen
-        title="Custom layout"
+        isOpen={isOpen}
+        title={info.title}
         navigateBack={() => {
           UiFramework.frontstages.closeModalFrontstage();
         }}
+        style={{
+          backgroundColor: "var(--background-3)",
+        }}
       >
-        Content of a modal frontstage.
+        {info.content} (custom layout)
       </ModalFrontstage>
     ),
   },
