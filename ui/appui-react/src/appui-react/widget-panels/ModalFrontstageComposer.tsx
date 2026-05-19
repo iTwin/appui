@@ -11,24 +11,6 @@ import { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 import { UiFramework } from "../UiFramework.js";
 
 /** @internal */
-export function useActiveModalFrontstageInfo() {
-  const [activeModalFrontstageInfo, setActiveModalFrontstageInfo] =
-    React.useState(UiFramework.frontstages.activeModalFrontstage);
-  React.useEffect(() => {
-    return UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
-      (args) => {
-        setActiveModalFrontstageInfo(
-          args.modalFrontstageCount === 0
-            ? undefined
-            : UiFramework.frontstages.activeModalFrontstage
-        );
-      }
-    );
-  }, [setActiveModalFrontstageInfo]);
-  return activeModalFrontstageInfo;
-}
-
-/** @internal */
 export function ModalFrontstageComposer({
   stageInfo,
 }: {
