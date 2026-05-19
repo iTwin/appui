@@ -284,11 +284,11 @@ describe("Frontstage local storage wrapper", () => {
 
   describe("ModalFrontstageComposer", () => {
     it("should render modal stage content when mounted", () => {
-      const modalStageInfo = {
+      UiFramework.frontstages.openModalFrontstage({
         title: "TestModalStage",
         content: <div>Hello World!</div>,
-      };
-      render(<ModalFrontstageComposer stageInfo={modalStageInfo} />);
+      });
+      render(<ModalFrontstageComposer />);
       expect(
         screen.getByText("Hello World!", {
           selector:

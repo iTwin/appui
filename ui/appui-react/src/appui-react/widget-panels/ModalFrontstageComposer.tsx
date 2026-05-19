@@ -6,16 +6,13 @@
  * @module Frontstage
  */
 import * as React from "react";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 import { UiFramework } from "../UiFramework.js";
+import { useActiveModalFrontstage } from "../hooks/useActiveModalFrontstage.js";
 
 /** @internal */
-export function ModalFrontstageComposer({
-  stageInfo,
-}: {
-  stageInfo: ModalFrontstageInfo | undefined;
-}) {
+export function ModalFrontstageComposer() {
+  const stageInfo = useActiveModalFrontstage();
   const handleCloseModal = React.useCallback(
     () => UiFramework.frontstages.closeModalFrontstage(),
     []

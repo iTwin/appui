@@ -44,10 +44,7 @@ import { WidgetContent } from "./Content.js";
 import { FloatingWidget } from "./FloatingWidget.js";
 import "./Frontstage.scss";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent.js";
-import {
-  ModalFrontstageComposer,
-  useActiveModalFrontstageInfo,
-} from "./ModalFrontstageComposer.js";
+import { ModalFrontstageComposer } from "./ModalFrontstageComposer.js";
 import { WidgetPanelsStatusBar } from "./StatusBar.js";
 import { WidgetPanelsTab } from "./Tab.js";
 import { WidgetPanelsToolbars } from "./Toolbars.js";
@@ -71,7 +68,6 @@ import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { useLatestRef } from "../hooks/useLatestRef.js";
 
 function WidgetPanelsFrontstageComponent() {
-  const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
   const uiIsVisible = useUiVisibility();
   const previewFeatures = usePreviewFeatures();
   useCursor();
@@ -82,7 +78,7 @@ function WidgetPanelsFrontstageComponent() {
         enabled={previewFeatures.horizontalPanelAlignment}
       >
         <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+          <ModalFrontstageComposer />
           <StandardLayout
             centerContent={
               <>
