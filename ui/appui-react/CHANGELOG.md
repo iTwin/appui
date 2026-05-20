@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.30.1
+
+### Patch Changes
+
+- 4af6f74: Moved the logic that determines whether to use 2d or 3d AccuDraw mode from `FrameworkAccuDraw` class to the root `ConfigurableUiContent` component.
+  - @itwin/components-react@5.30.1
+  - @itwin/core-react@5.30.1
+  - @itwin/imodel-components-react@5.30.1
+
 ## 5.30.0
 
 ### Minor Changes
