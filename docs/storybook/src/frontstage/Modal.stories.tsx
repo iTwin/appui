@@ -61,7 +61,7 @@ export const NotifyCloseRequest: Story = {
 
 export const CustomLayout: Story = {
   args: {
-    renderModalFrontstage: ({ info, isOpen }) => (
+    renderModalFrontstage: ({ info, isOpen }, storyProps) => (
       <ModalFrontstage
         isOpen={isOpen}
         title={info.title}
@@ -71,9 +71,11 @@ export const CustomLayout: Story = {
         style={{
           backgroundColor: "var(--background-3)",
         }}
+        hideHeader={storyProps.hideHeader}
       >
         {info.content} (custom layout)
       </ModalFrontstage>
     ),
+    hideHeader: false,
   },
 };
