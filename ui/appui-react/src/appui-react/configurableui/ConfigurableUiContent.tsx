@@ -46,6 +46,7 @@ import type { Widget } from "../widgets/Widget.js";
 import type { WidgetState } from "../widgets/WidgetState.js";
 import { useActiveIModelConnection } from "../hooks/useActiveIModelConnection.js";
 import { EditorsRegistryProvider } from "@itwin/components-react";
+import { AccuDrawStoreProvider } from "../accudraw/AccuDrawStoreProvider.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -111,7 +112,9 @@ export function ConfigurableUiContent(props: ConfigurableUiContentProps) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       value={React.useMemo(() => props, [...Object.values(props)])}
     >
-      {layout ?? <StandardLayout />}
+      <AccuDrawStoreProvider>
+        {layout ?? <StandardLayout />}
+      </AccuDrawStoreProvider>
     </ConfigurableUiContext.Provider>
   );
 }
