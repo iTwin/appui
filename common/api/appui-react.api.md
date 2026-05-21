@@ -1884,7 +1884,7 @@ export class FrameworkAccuDraw extends AccuDraw implements UserSettingsProvider 
     onFieldLockChange(index: ItemField): void;
     // (undocumented)
     onFieldValueChange(index: ItemField): void;
-    onMotion(ev: BeButtonEvent): void;
+    onMotion(_ev: BeButtonEvent): void;
     // (undocumented)
     onRotationModeChange(): void;
     // (undocumented)

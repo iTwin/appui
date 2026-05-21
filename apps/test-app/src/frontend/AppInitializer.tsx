@@ -64,9 +64,12 @@ function createInitializer() {
     );
 
     const origin = window.location.origin;
+    const urlParams = new URLSearchParams(window.location.search);
+    const frameworkAccuDraw =
+      urlParams.get("frameworkAccuDraw") === "0" ? false : true;
 
     const options: IModelAppOptions = {
-      accuDraw: new FrameworkAccuDraw(),
+      accuDraw: frameworkAccuDraw ? new FrameworkAccuDraw() : undefined,
       accuSnap: new AppAccuSnap(),
       hubAccess: new FrontendIModelsAccess({
         api: {
@@ -165,7 +168,6 @@ function createInitializer() {
       })
     );
 
-    const urlParams = new URLSearchParams(window.location.search);
     const useDefaultPopoutUrl =
       urlParams.get("useDefaultPopoutUrl") === "0" ? false : true;
     UiFramework.useDefaultPopoutUrl = useDefaultPopoutUrl;
