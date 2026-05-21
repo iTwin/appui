@@ -12,7 +12,7 @@ import classnames from "classnames";
 import type { CommonProps } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { ModalFrontstageButton } from "./ModalFrontstageButton.js";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
+import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent.js";
 
 /** Properties for the [[ModalFrontstage]] React component
  * @public
@@ -47,7 +47,7 @@ interface Props extends Omit<ModalFrontstageProps, "closeModal"> {
 
 /**
  * The default layout used for modal frontstages.
- * Use {@link ModalFrontstageInfo.layout} to override the modal frontstage layout.
+ * Use `renderModalFrontstage` prop of {@link ConfigurableUiContent} to override the modal frontstage layout.
  * @public
  */
 export function ModalFrontstage(props: Props) {
