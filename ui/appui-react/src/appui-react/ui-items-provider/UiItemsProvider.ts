@@ -7,6 +7,7 @@
  */
 
 import type { BackstageItem } from "../backstage/BackstageItem.js";
+import type { Panel } from "../panel/Panel.js";
 import type { StagePanelLocation } from "../stagepanels/StagePanelLocation.js";
 import type { StagePanelSection } from "../stagepanels/StagePanelSection.js";
 import type { StatusBarItem } from "../statusbar/StatusBarItem.js";
@@ -37,6 +38,8 @@ export interface UiItemsProvider {
    * @note Use {@link Widget.layouts} to map item to location previously specified by `provideWidgets` arguments.
    */
   readonly getWidgets?: () => ReadonlyArray<Widget>;
+  /** Provides panels. */
+  readonly getPanels?: () => ReadonlyArray<Panel>;
 
   /** Provides toolbar items.
    * @deprecated in 4.15.0. Use {@link UiItemsProvider.getToolbarItems} instead. To map item to location previously specified by arguments use {@link CommonToolbarItem.layouts}.

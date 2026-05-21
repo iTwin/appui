@@ -7,6 +7,7 @@
  */
 
 import { UiError } from "@itwin/appui-abstract";
+import { BeEvent } from "@itwin/core-bentley";
 import { BentleyStatus } from "@itwin/core-bentley";
 import type { ScreenViewport } from "@itwin/core-frontend";
 import {
@@ -55,7 +56,7 @@ import type { FrontstageProvider } from "./FrontstageProvider.js";
 import { InternalFrontstageManager } from "./InternalFrontstageManager.js";
 import { StageUsage } from "./StageUsage.js";
 import type { Frontstage } from "./Frontstage.js";
-import { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
+import type { UiItemsProvider } from "../ui-items-provider/UiItemsProvider.js";
 import { FrameworkContent } from "../framework/FrameworkContent.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { RectangleProps } from "../utils/RectangleProps.js";
@@ -63,6 +64,13 @@ import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
 } from "../widget-panels/Frontstage.js";
+import {
+  type createPanelsStore,
+  dynamicPanelPlacements,
+  type PanelsState,
+} from "../panel/PanelsState.js";
+import type { Panel } from "../panel/Panel.js";
+import { shallow } from "zustand/shallow";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
@@ -96,6 +104,8 @@ export class FrontstageDef {
   private _toolAdminDefaultToolId?: string;
   private _dispatch?: NineZoneDispatch;
   private _batching = false;
+  private _panelsStore?: ReturnType<typeof createPanelsStore>;
+  private _panels?: FrontstagePanels;
 
   public get id(): string {
     return this._id;
@@ -149,6 +159,13 @@ export class FrontstageDef {
   }
   public get contentGroup(): ContentGroup | undefined {
     return this._contentGroup;
+  }
+
+  public get panels(): FrontstagePanels {
+    if (!this._panels) {
+      this._panels = createFrontstagePanels(this);
+    }
+    return this._panels;
   }
 
   /** @internal */
@@ -296,6 +313,16 @@ export class FrontstageDef {
   }
   public set dispatch(dispatch: NineZoneDispatch) {
     this._dispatch = dispatch;
+  }
+
+  /** @internal */
+  public setPanelsStore(panelsStore: ReturnType<typeof createPanelsStore>) {
+    this._panelsStore = panelsStore;
+  }
+
+  /** @internal */
+  public getPanelsStore(): ReturnType<typeof createPanelsStore> | undefined {
+    return this._panelsStore;
   }
 
   /** Dispatch multiple actions inside `fn`, but trigger events once.
@@ -1135,4 +1162,53 @@ export function useSpecificWidgetDef(widgetId: string) {
     );
   }, [frontstageDef, widgetId]);
   return widgetDef;
+}
+
+interface FrontstagePanels {
+  open: PanelsState["open"];
+  close: PanelsState["close"];
+  getOpenPanels: () => Panel["id"][];
+  onPanelOpenChanged: BeEvent<
+    (args: { id: Panel["id"]; open: boolean }) => void
+  >;
+}
+
+function createFrontstagePanels(
+  frontstageDef: FrontstageDef
+): FrontstagePanels {
+  let prevOpenPanels: Panel["id"][] = [];
+  return {
+    open: (args) => {
+      const panelsStore = frontstageDef.getPanelsStore();
+      if (!panelsStore) return;
+      const state = panelsStore.getState();
+      state.open(args);
+    },
+    close: (args) => {
+      const panelsStore = frontstageDef.getPanelsStore();
+      if (!panelsStore) return;
+      const state = panelsStore.getState();
+      state.close(args);
+    },
+    getOpenPanels: () => {
+      const openPanels = (() => {
+        const panelsStore = frontstageDef.getPanelsStore();
+        if (!panelsStore) return [];
+        const state = panelsStore.getState();
+        const panels: Panel["id"][] = [];
+        for (const placement of dynamicPanelPlacements) {
+          const slice = state.dynamic[placement];
+          const panel = slice.active;
+          if (!panel) continue;
+          panels.push(panel.id);
+        }
+        return panels;
+      })();
+      if (shallow(openPanels, prevOpenPanels)) return prevOpenPanels;
+
+      prevOpenPanels = openPanels;
+      return openPanels;
+    },
+    onPanelOpenChanged: new BeEvent(),
+  };
 }
