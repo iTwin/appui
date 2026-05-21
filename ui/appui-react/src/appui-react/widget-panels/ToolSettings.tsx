@@ -8,7 +8,8 @@
 
 import * as React from "react";
 import { IModelApp } from "@itwin/core-frontend";
-import { Text } from "@itwin/itwinui-react";
+import { IconButton, Text } from "@itwin/itwinui-react";
+import { SvgSettings } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
 import { InternalFrontstageManager } from "../frontstage/InternalFrontstageManager.js";
 import { useLayout } from "../layout/base/LayoutStore.js";
@@ -23,6 +24,7 @@ import { useActiveFrontstageDef } from "../frontstage/FrontstageDef.js";
 import { LockProvider } from "../editors/LockProvider.js";
 import { ToolSettingsEditorsProvider } from "../preview/tool-settings-lock-button/useToolSettingsLockButton.js";
 import { ToolSettingsContext } from "../preview/tool-settings-key-press-commit/useToolSettingsKeyPressCommit.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 
 /** Defines a ToolSettings property entry.
  * @public
@@ -60,8 +62,14 @@ export function useShouldRenderDockedToolSettings() {
 
 /** @internal */
 export function WidgetPanelsToolSettings() {
-  if (!useShouldRenderDockedToolSettings()) return null;
-  return <ToolSettingsDockedContent />;
+  const { statusBarOverlay } = React.useContext(ConfigurableUiContext);
+  const shouldRenderDocked = useShouldRenderDockedToolSettings();
+  // In overlay mode, render tool settings vertically (like floating mode).
+  // Keys force React to unmount/remount cleanly when switching modes.
+  if (statusBarOverlay)
+    return <ToolSettingsOverlayContent key="overlay-content" />;
+  if (!shouldRenderDocked) return null;
+  return <ToolSettingsDockedContent key="docked-content" />;
 }
 
 /** @internal */
@@ -170,6 +178,76 @@ export function useToolSettingsNode(): React.ReactNode {
     });
   }, [setSettings]);
   return settings;
+}
+
+/** Tracks collapsed state per tool id for overlay tool settings. */
+const overlayCollapsedState = new Map<string, boolean>();
+
+/** Renders tool settings vertically in overlay mode (like floating/widget mode). */
+function ToolSettingsOverlayContent() {
+  const node = useToolSettingsNode();
+  const activeToolId = useActiveToolId();
+  const forceRefreshKey = useRefreshKey(node);
+
+  const toolKey = activeToolId ?? "unknown";
+  const [collapsed, setCollapsed] = React.useState(
+    () => overlayCollapsedState.get(toolKey) ?? false
+  );
+
+  // Sync collapsed state when active tool changes.
+  React.useEffect(() => {
+    setCollapsed(overlayCollapsedState.get(toolKey) ?? false);
+  }, [toolKey]);
+
+  const handleToggle = React.useCallback(() => {
+    setCollapsed((prev) => {
+      const next = !prev;
+      overlayCollapsedState.set(toolKey, next);
+      return next;
+    });
+  }, [toolKey]);
+
+  if (!node) return null;
+
+  const providerId =
+    InternalFrontstageManager.activeToolSettingsProvider?.uniqueId ?? "none";
+
+  if (collapsed) {
+    return (
+      <IconButton
+        className="uifw-overlay-toolSettings-expandButton"
+        styleType="default"
+        size="small"
+        onClick={handleToggle}
+        title="Show tool settings"
+      >
+        <SvgSettings />
+      </IconButton>
+    );
+  }
+
+  return (
+    <>
+      <div
+        data-toolsettings-provider={providerId}
+        className="uifw-overlay-toolSettings-container"
+        key={forceRefreshKey}
+      >
+        <ToolSettingsContext.Provider value={true}>
+          <ToolSettingsEditorsProvider>{node}</ToolSettingsEditorsProvider>
+        </ToolSettingsContext.Provider>
+      </div>
+      <div
+        className="uifw-overlay-toolSettings-collapseHandle"
+        onClick={handleToggle}
+        title="Hide tool settings"
+      >
+        <div className="uifw-overlay-toolSettings-grip">
+          <div className="uifw-overlay-toolSettings-grip-detail" />
+        </div>
+      </div>
+    </>
+  );
 }
 
 /** @internal */
