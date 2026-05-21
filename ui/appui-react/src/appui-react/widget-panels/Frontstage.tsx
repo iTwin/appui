@@ -59,6 +59,7 @@ import { WidgetContentRenderers } from "../layout/widget/ContentRenderer.js";
 import { useCursor } from "../layout/widget-panels/CursorOverlay.js";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander.js";
 import { useTranslation } from "../hooks/useTranslation.js";
+import { useActiveModalFrontstage } from "../hooks/useActiveModalFrontstage.js";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
@@ -68,6 +69,7 @@ import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { useLatestRef } from "../hooks/useLatestRef.js";
 
 function WidgetPanelsFrontstageComponent() {
+  const modalFrontstage = useActiveModalFrontstage();
   const uiIsVisible = useUiVisibility();
   const previewFeatures = usePreviewFeatures();
   useCursor();
@@ -80,6 +82,7 @@ function WidgetPanelsFrontstageComponent() {
         <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
           <ModalFrontstageComposer />
           <StandardLayout
+            inert={!!modalFrontstage}
             centerContent={
               <>
                 <WidgetPanelsToolbars />
