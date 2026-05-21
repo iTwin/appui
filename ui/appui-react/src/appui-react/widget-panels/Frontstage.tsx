@@ -82,7 +82,8 @@ function WidgetPanelsFrontstageComponent() {
         <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
           <ModalFrontstageComposer />
           <StandardLayout
-            inert={!!modalFrontstage}
+            // @ts-expect-error - Supporting React 19 and 18
+            inert={!!modalFrontstage ? "true" : undefined}
             centerContent={
               <>
                 <WidgetPanelsToolbars />
