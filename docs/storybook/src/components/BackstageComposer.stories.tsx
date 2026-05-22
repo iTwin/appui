@@ -117,3 +117,35 @@ export const Subtitle: Story = {
     }),
   ],
 };
+
+export const Badges: Story = {
+  args: {},
+  decorators: [
+    createOpenBackstage({
+      id: "p1",
+      getBackstageItems: () => [
+        BackstageItemUtilities.createActionItem({
+          id: "new",
+          execute: action("new"),
+          label: "New",
+          icon: <SvgPlaceholder />,
+          badgeKind: "new",
+        }),
+        BackstageItemUtilities.createActionItem({
+          id: "deprecated",
+          execute: action("deprecated"),
+          label: "Deprecated",
+          icon: <SvgPlaceholder />,
+          badgeKind: "deprecated",
+        }),
+        BackstageItemUtilities.createActionItem({
+          id: "technical-preview",
+          execute: action("technical-preview"),
+          label: "Technical Preview",
+          icon: <SvgPlaceholder />,
+          badgeKind: "technical-preview",
+        }),
+      ],
+    }),
+  ],
+};
