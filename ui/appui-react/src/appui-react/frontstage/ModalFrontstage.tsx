@@ -34,6 +34,11 @@ export interface ModalFrontstageProps extends CommonProps {
   backButton?: React.ReactNode;
   /** Content of the modal frontstage. */
   children?: React.ReactNode;
+  /**
+   * If `true`, hides the header of the modal frontstage and renders the `children` prop in the root element.
+   * @note When set to `true`, the `title`, `navigateBack`, `closeModal`, `appBarRight`, and `backButton` props are ignored.
+   */
+  hideHeader?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -59,6 +64,7 @@ export function ModalFrontstage(props: Props) {
     backButton,
     title,
     appBarRight,
+    hideHeader,
     ...rest
   } = props;
 
@@ -73,23 +79,30 @@ export function ModalFrontstage(props: Props) {
       className={classnames(
         "uifw-modal-frontstage",
         isOpen && "uifw-modal-open",
+        hideHeader && "uifw-no-header",
         props.className
       )}
     >
-      <div className="uifw-modal-app-bar">
-        {backButton ? (
-          backButton
-        ) : (
-          <ModalFrontstageButton onClick={handleBack} />
-        )}
-        <Text variant="headline" className="uifw-headline">
-          {title}
-        </Text>
-        {appBarRight && (
-          <span className="uifw-modal-app-bar-right">{appBarRight}</span>
-        )}
-      </div>
-      <div className="uifw-modal-stage-content">{props.children}</div>
+      {hideHeader ? (
+        props.children
+      ) : (
+        <>
+          <div className="uifw-modal-app-bar">
+            {backButton ? (
+              backButton
+            ) : (
+              <ModalFrontstageButton onClick={handleBack} />
+            )}
+            <Text variant="headline" className="uifw-headline">
+              {title}
+            </Text>
+            {appBarRight && (
+              <span className="uifw-modal-app-bar-right">{appBarRight}</span>
+            )}
+          </div>
+          <div className="uifw-modal-stage-content">{props.children}</div>
+        </>
+      )}
     </div>
   );
 }
