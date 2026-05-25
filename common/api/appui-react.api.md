@@ -3300,6 +3300,7 @@ export interface ModalFrontstageProps extends CommonProps {
     backButton?: React_2.ReactNode;
     children?: React_2.ReactNode;
     closeModal: () => void;
+    hideHeader?: boolean;
     isOpen?: boolean;
     navigateBack?: () => void;
     title: string;

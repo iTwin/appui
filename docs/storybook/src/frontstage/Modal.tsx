@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import {
+  ModalFrontstage,
   ModalFrontstageInfo,
   ToolbarItemUtilities,
   ToolbarOrientation,
@@ -16,16 +17,26 @@ import { createFrontstage } from "../Utils";
 import { action } from "storybook/actions";
 
 type AppUiStoryProps = React.ComponentProps<typeof AppUiStory>;
+type ModalFrontstageProps = React.ComponentProps<typeof ModalFrontstage>;
+type RenderModalFrontstageArgs = Parameters<
+  NonNullable<AppUiStoryProps["renderModalFrontstage"]>
+>[0];
 
-type ModalFrontstageStoryProps = Pick<
-  ModalFrontstageInfo,
-  "backButton" | "notifyCloseRequest" | "appBarRight"
-> &
-  Pick<AppUiStoryProps, "renderModalFrontstage">;
+interface ModalFrontstageStoryProps
+  extends Pick<
+      ModalFrontstageInfo,
+      "backButton" | "notifyCloseRequest" | "appBarRight"
+    >,
+    Pick<ModalFrontstageProps, "hideHeader"> {
+  renderModalFrontstage?: (
+    args: RenderModalFrontstageArgs,
+    storyProps: ModalFrontstageStoryProps
+  ) => React.ReactNode;
+}
 
 /** [openModalFrontstage](https://www.itwinjs.org/reference/appui-react/frontstage/frameworkfrontstages/#openmodalfrontstage) can be used to open a modal frontstage. */
 export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
-  const { renderModalFrontstage, ...rest } = props;
+  const { renderModalFrontstage, hideHeader, ...rest } = props;
   return (
     <AppUiStory
       layout="fullscreen"
@@ -59,7 +70,13 @@ export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
           ],
         },
       ]}
-      renderModalFrontstage={renderModalFrontstage}
+      renderModalFrontstage={
+        renderModalFrontstage
+          ? (args) => {
+              return renderModalFrontstage(args, props);
+            }
+          : undefined
+      }
     >
       <ModalFrontstageEvents />
     </AppUiStory>
