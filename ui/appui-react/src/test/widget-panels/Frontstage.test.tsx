@@ -62,10 +62,7 @@ import {
   useUpdateNineZoneSize,
   WidgetPanelsFrontstage,
 } from "../../appui-react/widget-panels/Frontstage.js";
-import {
-  ModalFrontstageComposer,
-  useActiveModalFrontstageInfo,
-} from "../../appui-react/widget-panels/ModalFrontstageComposer.js";
+import { ModalFrontstageComposer } from "../../appui-react/widget-panels/ModalFrontstageComposer.js";
 
 function createFrontstageState(
   nineZone = createNineZoneState()
@@ -287,65 +284,17 @@ describe("Frontstage local storage wrapper", () => {
 
   describe("ModalFrontstageComposer", () => {
     it("should render modal stage content when mounted", () => {
-      const modalStageInfo = {
+      UiFramework.frontstages.openModalFrontstage({
         title: "TestModalStage",
         content: <div>Hello World!</div>,
-      };
-      render(<ModalFrontstageComposer stageInfo={modalStageInfo} />);
+      });
+      render(<ModalFrontstageComposer />);
       expect(
         screen.getByText("Hello World!", {
           selector:
             ".uifw-modal-frontstage.uifw-modal-open .uifw-modal-stage-content > div",
         })
       ).to.exist;
-    });
-
-    it("should add tool activated event listener", () => {
-      const addListenerSpy = vi.spyOn(
-        UiFramework.frontstages.onModalFrontstageChangedEvent,
-        "addListener"
-      );
-      const removeListenerSpy = vi.spyOn(
-        UiFramework.frontstages.onModalFrontstageChangedEvent,
-        "removeListener"
-      );
-      const sut = renderHook(() => useActiveModalFrontstageInfo());
-      sut.unmount();
-      expect(addListenerSpy).toHaveBeenCalledOnce();
-      expect(removeListenerSpy).toHaveBeenCalledOnce();
-    });
-
-    it("should update active modal info", () => {
-      const modalStageInfo = {
-        title: "TestModalStage",
-        content: <div>Hello World!</div>,
-      };
-
-      vi.spyOn(
-        UiFramework.frontstages,
-        "activeModalFrontstage",
-        "get"
-      ).mockImplementation(() => undefined);
-      renderHook(() => useActiveModalFrontstageInfo());
-      act(() => {
-        vi.spyOn(
-          UiFramework.frontstages,
-          "activeModalFrontstage",
-          "get"
-        ).mockImplementation(() => undefined);
-        UiFramework.frontstages.onModalFrontstageChangedEvent.emit({
-          modalFrontstageCount: 0,
-        });
-
-        vi.spyOn(
-          UiFramework.frontstages,
-          "activeModalFrontstage",
-          "get"
-        ).mockImplementation(() => modalStageInfo);
-        UiFramework.frontstages.onModalFrontstageChangedEvent.emit({
-          modalFrontstageCount: 1,
-        });
-      });
     });
 
     describe("ActiveFrontstageDefProvider", () => {

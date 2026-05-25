@@ -6,51 +6,36 @@
  * @module Frontstage
  */
 import * as React from "react";
-import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 import { UiFramework } from "../UiFramework.js";
+import { useActiveModalFrontstage } from "../hooks/useActiveModalFrontstage.js";
+import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 
 /** @internal */
-export function useActiveModalFrontstageInfo() {
-  const [activeModalFrontstageInfo, setActiveModalFrontstageInfo] =
-    React.useState(UiFramework.frontstages.activeModalFrontstage);
-  React.useEffect(() => {
-    return UiFramework.frontstages.onModalFrontstageChangedEvent.addListener(
-      (args) => {
-        setActiveModalFrontstageInfo(
-          args.modalFrontstageCount === 0
-            ? undefined
-            : UiFramework.frontstages.activeModalFrontstage
-        );
-      }
-    );
-  }, [setActiveModalFrontstageInfo]);
-  return activeModalFrontstageInfo;
-}
-
-/** @internal */
-export function ModalFrontstageComposer({
-  stageInfo,
-}: {
-  stageInfo: ModalFrontstageInfo | undefined;
-}) {
+export function ModalFrontstageComposer() {
+  const { renderModalFrontstage } = React.useContext(ConfigurableUiContext);
+  const info = useActiveModalFrontstage();
   const handleCloseModal = React.useCallback(
     () => UiFramework.frontstages.closeModalFrontstage(),
     []
   );
-  if (!stageInfo) return null;
 
-  const { title, content, appBarRight, backButton } = stageInfo;
-
+  if (!info) return null;
   return (
-    <ModalFrontstage
-      isOpen={true}
-      title={title}
-      closeModal={handleCloseModal}
-      appBarRight={appBarRight}
-      backButton={backButton}
-    >
-      {content}
-    </ModalFrontstage>
+    <>
+      {renderModalFrontstage ? (
+        renderModalFrontstage({ info, isOpen: true })
+      ) : (
+        <ModalFrontstage
+          isOpen={true}
+          title={info.title}
+          navigateBack={handleCloseModal}
+          appBarRight={info.appBarRight}
+          backButton={info.backButton}
+        >
+          {info.content}
+        </ModalFrontstage>
+      )}
+    </>
   );
 }

@@ -12,70 +12,84 @@ import classnames from "classnames";
 import type { CommonProps } from "@itwin/core-react";
 import { Text } from "@itwin/itwinui-react";
 import { ModalFrontstageButton } from "./ModalFrontstageButton.js";
+import type { ConfigurableUiContent } from "../configurableui/ConfigurableUiContent.js";
 
 /** Properties for the [[ModalFrontstage]] React component
  * @public
+ * @deprecated in 5.31.0. Use `React.ComponentProps<typeof ModalFrontstage>` instead.
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export interface ModalFrontstageProps extends CommonProps {
-  /** Title displayed at the top of the modal Frontstage */
+  /** Title displayed at the top of the modal frontstage. */
   title: string;
-  /** Indicates whether the modal Frontstage is open */
+  /** Indicates whether the modal frontstage is open. */
   isOpen?: boolean;
-  /** Callback for navigating back from the modal Frontstage. */
-  navigateBack?: () => any;
-  /** Callback for closing the modal Frontstage. */
-  closeModal: () => any;
-  /** An optional React node displayed in the upper right of the modal Frontstage. */
+  /** Callback for navigating back from the modal frontstage. */
+  navigateBack?: () => void;
+  /** Callback for closing the modal frontstage. */
+  closeModal: () => void;
+  /** Optional content displayed in the upper right of the modal frontstage. */
   appBarRight?: React.ReactNode;
-  /** If specified overrides the default back button. */
+  /** If specified overrides the default {@link ModalFrontstageButton}. */
   backButton?: React.ReactNode;
-  /** Content */
+  /** Content of the modal frontstage. */
   children?: React.ReactNode;
 }
 
-/** ModalFrontstage React component
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+interface Props extends Omit<ModalFrontstageProps, "closeModal"> {
+  /**
+   * Callback for closing the modal Frontstage.
+   * @deprecated in 5.31.0. Use {@link navigateBack} instead.
+   */
+  closeModal?: () => void;
+}
+
+/**
+ * The default layout used for modal frontstages.
+ * Use `renderModalFrontstage` prop of {@link ConfigurableUiContent} to override the modal frontstage layout.
  * @public
  */
-export class ModalFrontstage extends React.Component<ModalFrontstageProps> {
-  constructor(props: ModalFrontstageProps) {
-    super(props);
-  }
+export function ModalFrontstage(props: Props) {
+  const {
+    isOpen,
+    navigateBack,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    closeModal,
+    backButton,
+    title,
+    appBarRight,
+    ...rest
+  } = props;
 
-  private _onGoBack = () => {
-    if (this.props.navigateBack) this.props.navigateBack();
-    this.props.closeModal();
+  const handleBack = () => {
+    navigateBack?.();
+    closeModal?.();
   };
 
-  public override render() {
-    const classNames = classnames(
-      "uifw-modal-frontstage",
-      this.props.isOpen && "uifw-modal-open",
-      this.props.className
-    );
-
-    return (
-      <>
-        <div className={classNames} style={this.props.style}>
-          <div className="uifw-modal-app-bar">
-            {this.props.backButton ? (
-              this.props.backButton
-            ) : (
-              <ModalFrontstageButton onClick={this._onGoBack} />
-            )}
-            <Text variant="headline" className="uifw-headline">
-              {this.props.title}
-            </Text>
-            {this.props.appBarRight && (
-              <span className="uifw-modal-app-bar-right">
-                {this.props.appBarRight}
-              </span>
-            )}
-          </div>
-          <div className="uifw-modal-stage-content">{this.props.children}</div>
-        </div>
-        <div className="uifw-modal-frontstage-overlay" />
-      </>
-    );
-  }
+  return (
+    <div
+      {...rest}
+      className={classnames(
+        "uifw-modal-frontstage",
+        isOpen && "uifw-modal-open",
+        props.className
+      )}
+    >
+      <div className="uifw-modal-app-bar">
+        {backButton ? (
+          backButton
+        ) : (
+          <ModalFrontstageButton onClick={handleBack} />
+        )}
+        <Text variant="headline" className="uifw-headline">
+          {title}
+        </Text>
+        {appBarRight && (
+          <span className="uifw-modal-app-bar-right">{appBarRight}</span>
+        )}
+      </div>
+      <div className="uifw-modal-stage-content">{props.children}</div>
+    </div>
+  );
 }
