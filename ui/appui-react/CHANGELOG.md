@@ -1,5 +1,21 @@
 # Change Log - @itwin/appui-react
 
+## 5.31.0
+
+### Minor Changes
+
+- 43196cd: Added [`inert`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/inert) attribute to the active frontstage when a modal frontstage is open. This prevents interaction and hides content of the underlying frontstage from assistive technologies.
+- 4961d98: Added `hideHeader` prop to `ModalFrontstage` component to allow hiding the header of the modal frontstage. This is useful when implementing custom layouts.
+- 2442634: Added `renderModalFrontstage` prop to `ConfigurableUiContent` component. This prop allows you to override the default modal frontstage with a custom implementation. Use the `ModalFrontstage` component to customize the default layout and behavior of the modal frontstage.
+- 2442634: Deprecated `closeModal` prop of `ModalFrontstage` component. Use `navigateBack` prop instead to close the modal frontstage. This prop is now optional when using the `ModalFrontstage` component.
+- 2442634: Deprecated `ModalFrontstageProps` interface. Use `React.ComponentProps<typeof ModalFrontstage>` instead.
+
+### Patch Changes
+
+- @itwin/components-react@5.31.0
+- @itwin/core-react@5.31.0
+- @itwin/imodel-components-react@5.31.0
+
 ## 5.30.1
 
 ### Patch Changes
