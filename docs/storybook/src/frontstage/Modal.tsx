@@ -40,6 +40,9 @@ export function ModalFrontstageStory(props: ModalFrontstageStoryProps) {
   return (
     <AppUiStory
       layout="fullscreen"
+      onInitialize={async () => {
+        UiFramework.visibility.autoHideUi = false;
+      }}
       frontstages={() => [createFrontstage()]}
       itemProviders={[
         {
