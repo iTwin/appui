@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { renderHook, waitFor } from "@testing-library/react";
-import { getActionItem } from "./BackstageComposerItem.test.js";
+import { getActionItem } from "./Backstage.test.js";
 import { BackstageItemsManager } from "../../appui-react/backstage/BackstageItemsManager.js";
 import { useDefaultBackstageItems } from "../../appui-react/backstage/useDefaultBackstageItems.js";
 

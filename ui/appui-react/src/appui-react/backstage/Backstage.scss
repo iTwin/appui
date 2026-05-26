@@ -3,7 +3,19 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-.uifw-backstage-backstageComposerItem_button {
+.uifw-backstage-backstage {
+  transform: none;
+  inset-block-start: 0;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  border-radius: 0;
+}
+
+.uifw-backstage-backstage_content {
+  padding: 0;
+}
+
+.uifw-backstage-backstage_button {
   appearance: none;
   background-color: unset;
   border: unset;
@@ -28,7 +40,7 @@
   }
 }
 
-.uifw-backstage-backstageComposerItem_badge {
+.uifw-backstage-backstage_badge {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;

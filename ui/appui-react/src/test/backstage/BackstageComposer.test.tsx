@@ -12,10 +12,7 @@ import {
   UiItemsManager,
 } from "../../appui-react.js";
 import { selectorMatches, userEvent } from "../TestUtils.js";
-import {
-  getActionItem,
-  getStageLauncherItem,
-} from "./BackstageComposerItem.test.js";
+import { getActionItem, getStageLauncherItem } from "./Backstage.test.js";
 import { act, render, renderHook, screen } from "@testing-library/react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { useGroupedItems } from "../../appui-react/backstage/BackstageComposer.js";

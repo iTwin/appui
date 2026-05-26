@@ -6,8 +6,9 @@
  * @module Backstage
  */
 
-import "./BackstageComposerItem.scss";
+import "./Backstage.scss";
 import * as React from "react";
+import classnames from "classnames";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
@@ -15,85 +16,43 @@ import {
 import { Logger } from "@itwin/core-bentley";
 import { Icon as CoreIcon } from "@itwin/core-react";
 import { Badge } from "@itwin/core-react/internal";
-import { Icon, ListItem } from "@itwin/itwinui-react";
+import { Icon, ListItem, Modal, ModalContent } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";
 import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
-import { isBackstageStageLauncher } from "./BackstageItem.js";
 import { useBackstageManager } from "./BackstageManager.js";
 
 import type {
-  BackstageActionItem,
-  BackstageItem,
-  BackstageStageLauncher,
+  BackstageActionItem as BackstageActionItemDef,
+  BackstageItem as BackstageItemDef,
+  BackstageStageLauncher as BackstageStageLauncherDef,
   CommonBackstageItem,
 } from "./BackstageItem.js";
 
-/** @internal */
-export interface BackstageComposerActionItemProps {
-  readonly item: BackstageActionItem;
+interface BackstageProps extends React.ComponentProps<"div"> {
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 /** @internal */
-export function BackstageComposerActionItem({
-  item,
-}: BackstageComposerActionItemProps) {
-  const manager = useBackstageManager();
-  const handleClick = React.useCallback(() => {
-    manager.close();
-    item.execute();
-  }, [manager, item]);
-  return <BackstageComposerCommonItem item={item} onClick={handleClick} />;
-}
+export function Backstage(props: BackstageProps) {
+  const { isOpen, onClose, ...rest } = props;
 
-/** @internal */
-export interface BackstageComposerStageLauncherProps {
-  readonly item: BackstageStageLauncher;
-}
-
-/** @internal */
-export function BackstageComposerStageLauncher({
-  item,
-}: BackstageComposerStageLauncherProps) {
-  const manager = useBackstageManager();
-  const handleClick = React.useCallback(() => {
-    manager.close();
-    if (!UiFramework.frontstages.hasFrontstage(item.stageId))
-      return Logger.logError(
-        "BackstageComposerStageLauncher",
-        `Frontstage with id '${item.stageId}' not found`
-      );
-    void UiFramework.frontstages.setActiveFrontstage(item.stageId);
-  }, [manager, item.stageId]);
-  const activeFrontstageId = useActiveFrontstageId();
-  const isActive = ConditionalBooleanValue.getValue(
-    item.isActive ?? item.stageId === activeFrontstageId
-  );
   return (
-    <BackstageComposerCommonItem
-      item={item}
-      isActive={isActive}
-      onClick={handleClick}
-    />
+    <Modal
+      title="Backstage"
+      isOpen={isOpen}
+      onClose={onClose}
+      {...rest}
+      className={classnames("uifw-backstage-backstage", props.className)}
+      // header={props.header}
+      // showOverlay={props.showOverlay}
+    >
+      <ModalContent className="uifw-backstage-backstage_content">
+        {props.children}
+      </ModalContent>
+    </Modal>
   );
-}
-
-/** Props of [[BackstageComposerItem]] component.
- * @internal
- */
-export interface BackstageComposerItemProps {
-  /** Backstage item to render */
-  readonly item: BackstageItem;
-}
-
-/** Item of [[BackstageComposer]].
- * @internal
- */
-export function BackstageComposerItem({ item }: BackstageComposerItemProps) {
-  if (isBackstageStageLauncher(item)) {
-    return <BackstageComposerStageLauncher item={item} />;
-  }
-  return <BackstageComposerActionItem item={item} />;
 }
 
 function ItemIcon({
@@ -111,13 +70,13 @@ function ItemIcon({
   return <CoreIcon iconSpec={icon} />;
 }
 
-interface BackstageComposerCommonItemProps {
-  item: BackstageItem;
+interface BackstageItemProps {
+  item: BackstageItemDef;
   isActive?: boolean;
   onClick?: () => void;
 }
 
-function BackstageComposerCommonItem(props: BackstageComposerCommonItemProps) {
+function BackstageItem(props: BackstageItemProps) {
   const { item, isActive, onClick, ...rest } = props;
 
   const descriptionId = React.useId();
@@ -136,10 +95,9 @@ function BackstageComposerCommonItem(props: BackstageComposerCommonItemProps) {
       size="large"
       active={isActive}
       actionable
-      className="uifw-backstage-backstageComposerItem"
       {...rest}
     >
-      <div className="uifw-backstage-backstageComposerItem_badge">
+      <div className="uifw-backstage-backstage_badge">
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <Badge type={item.badgeKind || item.badge} />
       </div>
@@ -149,7 +107,7 @@ function BackstageComposerCommonItem(props: BackstageComposerCommonItemProps) {
       </ListItem.Icon>
       <ListItem.Content>
         <button
-          className="uifw-backstage-backstageComposerItem_button"
+          className="uifw-backstage-backstage_button"
           onClick={onClick}
           aria-describedby={descriptionId}
         >
@@ -160,5 +118,44 @@ function BackstageComposerCommonItem(props: BackstageComposerCommonItemProps) {
         </ListItem.Description>
       </ListItem.Content>
     </ListItem>
+  );
+}
+
+interface BackstageActionItemProps {
+  readonly item: BackstageActionItemDef;
+}
+
+/** @internal */
+export function BackstageActionItem({ item }: BackstageActionItemProps) {
+  const manager = useBackstageManager();
+  const handleClick = React.useCallback(() => {
+    manager.close();
+    item.execute();
+  }, [manager, item]);
+  return <BackstageItem item={item} onClick={handleClick} />;
+}
+
+interface BackstageStageLauncherProps {
+  readonly item: BackstageStageLauncherDef;
+}
+
+/** @internal */
+export function BackstageStageLauncher({ item }: BackstageStageLauncherProps) {
+  const manager = useBackstageManager();
+  const handleClick = React.useCallback(() => {
+    manager.close();
+    if (!UiFramework.frontstages.hasFrontstage(item.stageId))
+      return Logger.logError(
+        "BackstageStageLauncher",
+        `Frontstage with id '${item.stageId}' not found`
+      );
+    void UiFramework.frontstages.setActiveFrontstage(item.stageId);
+  }, [manager, item.stageId]);
+  const activeFrontstageId = useActiveFrontstageId();
+  const isActive = ConditionalBooleanValue.getValue(
+    item.isActive ?? item.stageId === activeFrontstageId
+  );
+  return (
+    <BackstageItem item={item} isActive={isActive} onClick={handleClick} />
   );
 }

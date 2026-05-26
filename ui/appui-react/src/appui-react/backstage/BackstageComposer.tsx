@@ -6,13 +6,15 @@
  * @module Backstage
  */
 
-import "./BackstageComposer.scss";
 import * as React from "react";
-import classnames from "classnames";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { Divider, List, Modal, ModalContent } from "@itwin/itwinui-react";
+import { Divider, List } from "@itwin/itwinui-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
-import { BackstageComposerItem } from "./BackstageComposerItem.js";
+import {
+  Backstage,
+  BackstageActionItem,
+  BackstageStageLauncher,
+} from "./Backstage.js";
 import { isBackstageStageLauncher } from "./BackstageItem.js";
 import { BackstageItemsManager } from "./BackstageItemsManager.js";
 import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager.js";
@@ -89,8 +91,7 @@ function combineItems(
   return items;
 }
 
-/** @internal */
-export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
+type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
 
 /** @internal */
 export const useGroupedItems = (
@@ -143,17 +144,20 @@ export interface BackstageComposerProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function BackstageComposer(props: BackstageComposerProps) {
+  const { header, showOverlay, items, hideSoloStageEntry, itemId, ...rest } =
+    props;
+
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
-    new BackstageItemsManager(props.items)
+    new BackstageItemsManager(items)
   );
-  const initialItems = React.useRef(props.items);
+  const initialItems = React.useRef(items);
 
   React.useEffect(() => {
-    if (initialItems.current !== props.items) {
-      initialItems.current = props.items;
-      setDefaultItemsManager(new BackstageItemsManager(props.items));
+    if (initialItems.current !== items) {
+      initialItems.current = items;
+      setDefaultItemsManager(new BackstageItemsManager(items));
     }
-  }, [props.items]);
+  }, [items]);
 
   const manager = useBackstageManager();
   const isOpen = useIsBackstageOpen(manager);
@@ -178,37 +182,33 @@ export function BackstageComposer(props: BackstageComposerProps) {
   useBackstageItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
   const combinedBackstageItems = React.useMemo(
-    () => combineItems(defaultItems, addonItems, !!props.hideSoloStageEntry),
-    [defaultItems, addonItems, props.hideSoloStageEntry]
+    () => combineItems(defaultItems, addonItems, !!hideSoloStageEntry),
+    [defaultItems, addonItems, hideSoloStageEntry]
   );
   const groups = useGroupedItems(combinedBackstageItems);
   return (
-    <Modal
-      className={classnames(
-        "uifw-backstage-backstageComposer",
-        props.className
-      )}
+    <Backstage
       isOpen={isOpen}
-      title="Backstage"
       onClose={handleClose}
-      style={props.style}
+      {...rest}
       // header={props.header}
       // showOverlay={props.showOverlay}
     >
-      <ModalContent className="uifw-backstage-backstageComposer_content">
-        {groups.map((group, groupIndex) => {
-          return (
-            <>
-              {groupIndex > 0 ? <Divider /> : null}
-              <List key={groupIndex}>
-                {group.map((item) => {
-                  return <BackstageComposerItem item={item} key={item.id} />;
-                })}
-              </List>
-            </>
-          );
-        })}
-      </ModalContent>
-    </Modal>
+      {groups.map((group, groupIndex) => {
+        return (
+          <>
+            {groupIndex > 0 ? <Divider /> : null}
+            <List key={groupIndex}>
+              {group.map((item) => {
+                if (isBackstageStageLauncher(item)) {
+                  return <BackstageStageLauncher key={item.id} item={item} />;
+                }
+                return <BackstageActionItem key={item.id} item={item} />;
+              })}
+            </List>
+          </>
+        );
+      })}
+    </Backstage>
   );
 }
