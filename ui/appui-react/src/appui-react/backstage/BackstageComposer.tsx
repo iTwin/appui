@@ -8,11 +8,12 @@
 
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { Divider, List } from "@itwin/itwinui-react";
+import { List } from "@itwin/itwinui-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import {
   Backstage,
   BackstageActionItem,
+  BackstageDivider,
   BackstageStageLauncher,
 } from "./Backstage.js";
 import { isBackstageStageLauncher } from "./BackstageItem.js";
@@ -203,7 +204,7 @@ export function BackstageComposer(props: BackstageComposerProps) {
       {groups.map((group, groupIndex) => {
         return (
           <React.Fragment key={groupIndex}>
-            {groupIndex > 0 ? <Divider /> : null}
+            {groupIndex > 0 ? <BackstageDivider /> : null}
             <List>
               {group.map((item) => {
                 if (isBackstageStageLauncher(item)) {

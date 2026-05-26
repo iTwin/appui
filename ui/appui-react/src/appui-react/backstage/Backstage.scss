@@ -26,6 +26,10 @@
   padding: 0;
 }
 
+.uifw-backstage-backstage_divider {
+  margin-block: var(--iui-size-2xs);
+}
+
 .uifw-backstage-backstage_button {
   appearance: none;
   background-color: unset;
