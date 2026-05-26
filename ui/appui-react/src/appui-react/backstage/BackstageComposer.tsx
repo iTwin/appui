@@ -6,11 +6,11 @@
  * @module Backstage
  */
 
-import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import "./BackstageComposer.scss";
 import * as React from "react";
-import { Backstage as NZ_Backstage } from "../layout/backstage/Backstage.js";
-import { BackstageSeparator } from "../layout/backstage/Separator.js";
-import { SafeAreaContext } from "../safearea/SafeAreaContext.js";
+import classnames from "classnames";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
+import { Divider, List, Modal, ModalContent } from "@itwin/itwinui-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import { BackstageComposerItem } from "./BackstageComposerItem.js";
 import { isBackstageStageLauncher } from "./BackstageItem.js";
@@ -157,7 +157,6 @@ export function BackstageComposer(props: BackstageComposerProps) {
 
   const manager = useBackstageManager();
   const isOpen = useIsBackstageOpen(manager);
-  const safeAreaInsets = React.useContext(SafeAreaContext);
   const handleClose = React.useCallback(() => {
     manager.close();
   }, [manager]);
@@ -184,30 +183,32 @@ export function BackstageComposer(props: BackstageComposerProps) {
   );
   const groups = useGroupedItems(combinedBackstageItems);
   return (
-    <NZ_Backstage
-      className={props.className}
-      header={props.header}
-      isOpen={isOpen}
-      onClose={handleClose}
-      safeAreaInsets={safeAreaInsets}
-      showOverlay={props.showOverlay}
-      style={props.style}
-    >
-      {groups.map((group, groupIndex) =>
-        group.map((item, itemIndex) => {
-          const composerItem = (
-            <BackstageComposerItem item={item} key={item.id} />
-          );
-          return itemIndex === 0 && groupIndex > 0 ? (
-            <React.Fragment key={groupIndex}>
-              <BackstageSeparator />
-              {composerItem}
-            </React.Fragment>
-          ) : (
-            composerItem
-          );
-        })
+    <Modal
+      className={classnames(
+        "uifw-backstage-backstageComposer",
+        props.className
       )}
-    </NZ_Backstage>
+      isOpen={isOpen}
+      title="Backstage"
+      onClose={handleClose}
+      style={props.style}
+      // header={props.header}
+      // showOverlay={props.showOverlay}
+    >
+      <ModalContent className="uifw-backstage-backstageComposer_content">
+        {groups.map((group, groupIndex) => {
+          return (
+            <>
+              {groupIndex > 0 ? <Divider /> : null}
+              <List key={groupIndex}>
+                {group.map((item) => {
+                  return <BackstageComposerItem item={item} key={item.id} />;
+                })}
+              </List>
+            </>
+          );
+        })}
+      </ModalContent>
+    </Modal>
   );
 }

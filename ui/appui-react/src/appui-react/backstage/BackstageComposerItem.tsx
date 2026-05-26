@@ -6,6 +6,8 @@
  * @module Backstage
  */
 
+import "./BackstageComposerItem.scss";
+import * as React from "react";
 import {
   ConditionalBooleanValue,
   ConditionalStringValue,
@@ -13,20 +15,19 @@ import {
 import { Logger } from "@itwin/core-bentley";
 import { Icon as CoreIcon } from "@itwin/core-react";
 import { Badge } from "@itwin/core-react/internal";
-import * as React from "react";
+import { Icon, ListItem } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";
-import { BackstageItem as NZ_BackstageItem } from "../layout/backstage/Item.js";
 import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
+import { isBackstageStageLauncher } from "./BackstageItem.js";
+import { useBackstageManager } from "./BackstageManager.js";
+
 import type {
   BackstageActionItem,
   BackstageItem,
   BackstageStageLauncher,
   CommonBackstageItem,
 } from "./BackstageItem.js";
-import { isBackstageStageLauncher } from "./BackstageItem.js";
-import { useBackstageManager } from "./BackstageManager.js";
-import { Icon } from "@itwin/itwinui-react";
 
 /** @internal */
 export interface BackstageComposerActionItemProps {
@@ -42,24 +43,7 @@ export function BackstageComposerActionItem({
     manager.close();
     item.execute();
   }, [manager, item]);
-  return (
-    <NZ_BackstageItem
-      itemId={item.id}
-      providerId={isProviderItem(item) ? item.providerId : undefined}
-      itemPriority={item.itemPriority}
-      groupPriority={item.groupPriority}
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      icon={<ItemIcon iconNode={item.iconNode} icon={item.icon} />}
-      isActive={ConditionalBooleanValue.getValue(item.isActive)}
-      isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
-      onClick={handleClick}
-      subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      badge={<Badge type={item.badgeKind || item.badge} />}
-    >
-      {ConditionalStringValue.getValue(item.label)}
-    </NZ_BackstageItem>
-  );
+  return <BackstageComposerCommonItem item={item} onClick={handleClick} />;
 }
 
 /** @internal */
@@ -86,22 +70,11 @@ export function BackstageComposerStageLauncher({
     item.isActive ?? item.stageId === activeFrontstageId
   );
   return (
-    <NZ_BackstageItem
-      itemId={item.id}
-      providerId={isProviderItem(item) ? item.providerId : undefined}
-      itemPriority={item.itemPriority}
-      groupPriority={item.groupPriority}
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      icon={<ItemIcon iconNode={item.iconNode} icon={item.icon} />}
+    <BackstageComposerCommonItem
+      item={item}
       isActive={isActive}
-      isDisabled={ConditionalBooleanValue.getValue(item.isDisabled)}
       onClick={handleClick}
-      subtitle={ConditionalStringValue.getValue(item.subtitle)}
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      badge={<Badge type={item.badgeKind || item.badge} />}
-    >
-      {ConditionalStringValue.getValue(item.label)}
-    </NZ_BackstageItem>
+    />
   );
 }
 
@@ -131,9 +104,61 @@ function ItemIcon({
   iconNode: CommonBackstageItem["iconNode"];
 }) {
   if (iconNode) {
-    return <Icon>{iconNode}</Icon>;
+    return <Icon aria-hidden="true">{iconNode}</Icon>;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   return <CoreIcon iconSpec={icon} />;
+}
+
+interface BackstageComposerCommonItemProps {
+  item: BackstageItem;
+  isActive?: boolean;
+  onClick?: () => void;
+}
+
+function BackstageComposerCommonItem(props: BackstageComposerCommonItemProps) {
+  const { item, isActive, onClick, ...rest } = props;
+
+  const descriptionId = React.useId();
+
+  const description = ConditionalStringValue.getValue(item.subtitle);
+  const label = ConditionalStringValue.getValue(item.label);
+  const disabled = ConditionalBooleanValue.getValue(item.isDisabled);
+  return (
+    <ListItem
+      data-item-id={item.id}
+      data-item-type="backstage-item"
+      data-item-group-priority={item.groupPriority}
+      data-item-priority={item.itemPriority}
+      data-item-provider-id={isProviderItem(item) ? item.providerId : undefined}
+      disabled={disabled}
+      size="large"
+      active={isActive}
+      actionable
+      className="uifw-backstage-backstageComposerItem"
+      {...rest}
+    >
+      <div className="uifw-backstage-backstageComposerItem_badge">
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+        <Badge type={item.badgeKind || item.badge} />
+      </div>
+      <ListItem.Icon>
+        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
+        <ItemIcon iconNode={item.iconNode} icon={item.icon} />
+      </ListItem.Icon>
+      <ListItem.Content>
+        <button
+          className="uifw-backstage-backstageComposerItem_button"
+          onClick={onClick}
+          aria-describedby={descriptionId}
+        >
+          {label}
+        </button>
+        <ListItem.Description id={descriptionId}>
+          {description}
+        </ListItem.Description>
+      </ListItem.Content>
+    </ListItem>
+  );
 }

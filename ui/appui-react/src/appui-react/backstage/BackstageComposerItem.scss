@@ -1,0 +1,35 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+
+.uifw-backstage-backstageComposerItem_button {
+  appearance: none;
+  background-color: unset;
+  border: unset;
+  cursor: pointer;
+  text-align: unset;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+  outline: 0;
+
+  &:focus-visible {
+    &::before {
+      outline: 2px solid var(--iui-color-border-accent);
+      outline-offset: -2px;
+    }
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    inset: 0;
+  }
+}
+
+.uifw-backstage-backstageComposerItem_badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
