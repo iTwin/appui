@@ -16,11 +16,12 @@ import {
 import { Logger } from "@itwin/core-bentley";
 import { Icon as CoreIcon } from "@itwin/core-react";
 import { Badge } from "@itwin/core-react/internal";
-import { Icon, ListItem, Modal, ModalContent } from "@itwin/itwinui-react";
+import { Dialog, Icon, ListItem } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";
 import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
 import { useBackstageManager } from "./BackstageManager.js";
+import { useTranslation } from "../hooks/useTranslation.js";
 
 import type {
   BackstageActionItem as BackstageActionItemDef,
@@ -32,26 +33,40 @@ import type {
 interface BackstageProps extends React.ComponentProps<"div"> {
   isOpen: boolean;
   onClose: () => void;
+  showOverlay: boolean;
 }
 
 /** @internal */
 export function Backstage(props: BackstageProps) {
-  const { isOpen, onClose, ...rest } = props;
+  const { isOpen, onClose, showOverlay, ...rest } = props;
+
+  const { translate } = useTranslation();
 
   return (
-    <Modal
-      title="Backstage"
+    <Dialog
+      className="uifw-backstage-backstage_wrapper"
       isOpen={isOpen}
       onClose={onClose}
-      {...rest}
-      className={classnames("uifw-backstage-backstage", props.className)}
-      // header={props.header}
-      // showOverlay={props.showOverlay}
+      closeOnExternalClick
+      preventDocumentScroll
+      trapFocus
     >
-      <ModalContent className="uifw-backstage-backstage_content">
-        {props.children}
-      </ModalContent>
-    </Modal>
+      <Dialog.Backdrop
+        className={classnames(
+          "uifw-backstage-backstage_backdrop",
+          !showOverlay && "uifw-transparent"
+        )}
+      />
+      <Dialog.Main
+        {...rest}
+        className={classnames("uifw-backstage-backstage", props.className)}
+      >
+        <Dialog.TitleBar titleText={translate("backstage.label")} />
+        <Dialog.Content className="uifw-backstage-backstage_content">
+          {props.children}
+        </Dialog.Content>
+      </Dialog.Main>
+    </Dialog>
   );
 }
 
@@ -94,6 +109,7 @@ function BackstageItem(props: BackstageItemProps) {
       disabled={disabled}
       size="large"
       active={isActive}
+      aria-current={isActive ? "true" : undefined}
       actionable
       {...rest}
     >

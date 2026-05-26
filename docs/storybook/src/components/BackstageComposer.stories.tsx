@@ -31,6 +31,10 @@ const meta = {
   title: "Components/BackstageComposer",
   component: BackstageComposer,
   tags: ["autodocs"],
+  args: {
+    header: undefined,
+    showOverlay: true,
+  },
 } satisfies Meta<typeof BackstageComposer>;
 
 export default meta;

@@ -1,4 +1,7 @@
 {
+  "backstage": {
+    "label": "Backstage"
+  },
   "iModelPanelHeader": {
     "projects": "Projects"
   },
@@ -124,7 +127,7 @@
     "yes": "Yes",
     "no": "No",
     "clearSelection": "Clear Selection",
-    "openBackstageMenu": "Open backstage menu"
+    "openBackstageMenu": "Open backstage"
   },
   "navigationAid": {
     "sheetsModalFrontstage": "Sheet Views"

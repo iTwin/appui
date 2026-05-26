@@ -144,8 +144,14 @@ export interface BackstageComposerProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function BackstageComposer(props: BackstageComposerProps) {
-  const { header, showOverlay, items, hideSoloStageEntry, itemId, ...rest } =
-    props;
+  const {
+    header,
+    showOverlay = true,
+    items,
+    hideSoloStageEntry,
+    itemId,
+    ...rest
+  } = props;
 
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
     new BackstageItemsManager(items)
@@ -190,15 +196,15 @@ export function BackstageComposer(props: BackstageComposerProps) {
     <Backstage
       isOpen={isOpen}
       onClose={handleClose}
+      showOverlay={showOverlay}
       {...rest}
-      // header={props.header}
-      // showOverlay={props.showOverlay}
     >
+      {header}
       {groups.map((group, groupIndex) => {
         return (
-          <>
+          <React.Fragment key={groupIndex}>
             {groupIndex > 0 ? <Divider /> : null}
-            <List key={groupIndex}>
+            <List>
               {group.map((item) => {
                 if (isBackstageStageLauncher(item)) {
                   return <BackstageStageLauncher key={item.id} item={item} />;
@@ -206,7 +212,7 @@ export function BackstageComposer(props: BackstageComposerProps) {
                 return <BackstageActionItem key={item.id} item={item} />;
               })}
             </List>
-          </>
+          </React.Fragment>
         );
       })}
     </Backstage>
