@@ -58,10 +58,10 @@ export function Backstage(props: BackstageProps) {
         )}
       />
       <Dialog.Main
+        aria-label={translate("backstage.label")}
         {...rest}
         className={classnames("uifw-backstage-backstage", props.className)}
       >
-        <Dialog.TitleBar titleText={translate("backstage.label")} />
         <Dialog.Content className="uifw-backstage-backstage_content">
           {props.children}
         </Dialog.Content>
