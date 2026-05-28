@@ -1069,6 +1069,8 @@ export class UiFramework {
     keyinEntries: KeyinEntry[],
     htmlElement?: HTMLElement
   ): boolean {
+    if (this.backstage.isOpen) return false;
+
     return PopupManager.showKeyinPalette(
       keyinEntries,
       UiFramework.resolveHtmlElement(htmlElement)
