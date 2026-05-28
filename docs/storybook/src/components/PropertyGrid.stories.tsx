@@ -15,24 +15,16 @@ import {
   StructValue,
 } from "@itwin/appui-abstract";
 import { action } from "storybook/actions";
-import { PropertyValueRendererManager } from "@itwin/components-react";
+import {
+  Orientation,
+  PropertyValueRendererManager,
+} from "@itwin/components-react";
 import { MultilineTextPropertyValueRenderer } from "@itwin/components-react-internal/src/components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
 
 import { AppUiDecorator } from "../Decorators";
-import { Orientation } from "@itwin/core-react";
 import { PropertyGridStory } from "./PropertyGrid";
-
-const structMembers = {
-  member1: PropertyRecord.fromString("Value 1", "Member 1"),
-  member2: PropertyRecord.fromString("Value 2", "Member 2"),
-  member3: PropertyRecord.fromString("Value 3", "Member 3"),
-};
-
-const arrayMembers = [
-  PropertyRecord.fromString("Value 1", "Item 1"),
-  PropertyRecord.fromString("Value 2", "Item 2"),
-  PropertyRecord.fromString("Value 3", "Item 3"),
-];
+import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
+import { SvgCopy, SvgSelection } from "@itwin/itwinui-icons-react";
 
 const multilineString =
   // cspell:disable-next-line
@@ -46,6 +38,54 @@ const PaddingDecorator: Decorator = (Story) => {
   );
 };
 
+const createStructRecord = (
+  property: Partial<PropertyDescription> & { displayLabel: string },
+  value: {
+    count: number;
+    createMember: (name: string) => PropertyRecord;
+  }
+): PropertyRecord => {
+  return new PropertyRecord(
+    {
+      valueFormat: PropertyValueFormat.Struct,
+      members: new Array(value.count).fill(0).reduce((members, _, index) => {
+        const name = `member${index + 1}`;
+        members[name] = value.createMember(`Member ${index + 1}`);
+        return members;
+      }, {} as { [name: string]: PropertyRecord }),
+    },
+    {
+      typename: "struct",
+      name: property.displayLabel,
+      ...property,
+    }
+  );
+};
+
+const createArrayRecord = (
+  property: Partial<PropertyDescription> & { displayLabel: string },
+  value: {
+    count: number;
+    type: string;
+    createItem: (index: number) => PropertyRecord;
+  }
+): PropertyRecord => {
+  return new PropertyRecord(
+    {
+      valueFormat: PropertyValueFormat.Array,
+      items: Array.from({ length: value.count }, (_, index) =>
+        value.createItem(index)
+      ),
+      itemsTypeName: value.type,
+    },
+    {
+      typename: "struct",
+      name: property.displayLabel,
+      ...property,
+    }
+  );
+};
+
 const rendererManager = new PropertyValueRendererManager();
 
 const meta = {
@@ -54,8 +94,8 @@ const meta = {
   tags: ["autodocs"],
   decorators: [PaddingDecorator, AppUiDecorator],
   args: {
-    height: 600,
-    width: 1300,
+    height: 900,
+    width: 500,
   },
 } satisfies Meta<typeof PropertyGridStory>;
 
@@ -82,6 +122,137 @@ export const Basic: Story = {
       },
     },
     onPropertyContextMenu: undefined,
+  },
+};
+
+export const ComplexProperties: Story = {
+  args: {
+    data: {
+      label: PropertyRecord.fromString("Record 1"),
+      categories: [{ name: "all", label: "All", expand: true }],
+      records: {
+        all: [
+          new PropertyRecord(
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: multilineString,
+            },
+            {
+              name: "multilineProperty",
+              displayLabel: "Multiline property",
+              typename: "string",
+              renderer: { name: "multiline" },
+            }
+          ),
+          createArrayRecord(
+            {
+              displayLabel: "Array property",
+            },
+            {
+              count: 2,
+              type: "string",
+              createItem: (index) =>
+                PropertyRecord.fromString(`Item ${index}`, `Item ${index}`),
+            }
+          ),
+          createStructRecord(
+            {
+              displayLabel: "Struct property",
+            },
+            {
+              count: 3,
+              createMember: (name) =>
+                PropertyRecord.fromString(`Value for ${name}`, name),
+            }
+          ),
+          createArrayRecord(
+            {
+              displayLabel: "Array of Structs property",
+            },
+            {
+              count: 2,
+              type: "struct",
+              createItem: (index) =>
+                createStructRecord(
+                  {
+                    displayLabel: `Struct in array ${index}`,
+                  },
+                  {
+                    count: 3,
+                    createMember: (name) =>
+                      PropertyRecord.fromString(`Value for ${name}`, name),
+                  }
+                ),
+            }
+          ),
+          createStructRecord(
+            {
+              displayLabel: "Struct with Arrays property",
+            },
+            {
+              count: 2,
+              createMember: (name) =>
+                createArrayRecord(
+                  {
+                    displayLabel: `Array in struct ${name}`,
+                  },
+                  {
+                    count: 2,
+                    type: "string",
+                    createItem: (index) =>
+                      PropertyRecord.fromString(
+                        `Value for ${name} item ${index}`,
+                        `Item ${index}`
+                      ),
+                  }
+                ),
+            }
+          ),
+        ],
+      },
+    },
+  },
+};
+
+export const SimpleCategorization: Story = {
+  args: {
+    orientation: Orientation.Vertical,
+    data: {
+      label: PropertyRecord.fromString("Record 1"),
+      categories: [
+        {
+          name: "item",
+          label: "Item",
+          expand: true,
+          childCategories: [
+            {
+              name: "relatedSameItem",
+              label: "Categorized Properties",
+              expand: true,
+            },
+          ],
+        },
+        { name: "relatedItem", label: "Related Item", expand: true },
+      ],
+      records: {
+        item: [
+          PropertyRecord.fromString("Item name", "Name"),
+          PropertyRecord.fromString("20m", "Height"),
+        ],
+        relatedSameItem: [
+          PropertyRecord.fromString("Name of related direct item", "Name"),
+          PropertyRecord.fromString("35m", "Height"),
+          PropertyRecord.fromString("Tower", "Type"),
+        ],
+        relatedItem: [
+          PropertyRecord.fromString(
+            "Name of non directly related item",
+            "Name"
+          ),
+          PropertyRecord.fromString("50m", "Width"),
+        ],
+      },
+    },
   },
 };
 
@@ -114,18 +285,6 @@ export const StructRendering: Story = {
           new PropertyRecord(
             {
               valueFormat: PropertyValueFormat.Primitive,
-              value: multilineString,
-            },
-            {
-              name: "multilineProperty",
-              displayLabel: "Multiline property",
-              typename: "string",
-              renderer: { name: "multiline" },
-            }
-          ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Primitive,
               value: undefined,
             },
             {
@@ -134,39 +293,39 @@ export const StructRendering: Story = {
               typename: "struct",
             }
           ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Struct,
-              members: structMembers,
-            },
+          createStructRecord(
             {
               name: "noRendererStructProperty",
               displayLabel: "Struct property (no renderer)",
-              typename: "struct",
+            },
+            {
+              count: 3,
+              createMember: (name) =>
+                PropertyRecord.fromString(`Value for ${name}`, name),
             }
           ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Struct,
-              members: structMembers,
-            },
+          createStructRecord(
             {
               name: "defaultRendererStructProperty",
               displayLabel: "Struct property (default renderer)",
-              typename: "struct",
               renderer: { name: "defaultRendererPropertyRenderer" },
+            },
+            {
+              count: 3,
+              createMember: (name) =>
+                PropertyRecord.fromString(`Value for ${name}`, name),
             }
           ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Struct,
-              members: structMembers,
-            },
+          createStructRecord(
             {
               name: "customRendererStructProperty",
               displayLabel: "Struct property (custom renderer)",
-              typename: "struct",
               renderer: { name: "customRendererStructPropertyRenderer" },
+            },
+            {
+              count: 3,
+              createMember: (name) =>
+                PropertyRecord.fromString(`Value for ${name}`, name),
             }
           ),
         ],
@@ -203,18 +362,6 @@ export const ArrayRendering: Story = {
           ),
           new PropertyRecord(
             {
-              valueFormat: PropertyValueFormat.Primitive,
-              value: multilineString,
-            },
-            {
-              name: "multilineProperty",
-              displayLabel: "Multiline property",
-              typename: "string",
-              renderer: { name: "multiline" },
-            }
-          ),
-          new PropertyRecord(
-            {
               valueFormat: PropertyValueFormat.Array,
               items: [],
               itemsTypeName: "array",
@@ -225,42 +372,54 @@ export const ArrayRendering: Story = {
               typename: "array",
             }
           ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Array,
-              items: arrayMembers,
-              itemsTypeName: "array",
-            },
+          createArrayRecord(
             {
               name: "noRendererStructProperty",
               displayLabel: "Array property (no renderer)",
               typename: "array",
+            },
+            {
+              count: 3,
+              type: "array",
+              createItem: (index) =>
+                PropertyRecord.fromString(
+                  `Value ${index + 1}`,
+                  `Item ${index + 1}`
+                ),
             }
           ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Array,
-              items: arrayMembers,
-              itemsTypeName: "array",
-            },
+          createArrayRecord(
             {
               name: "defaultRendererArrayProperty",
               displayLabel: "Array property (default renderer)",
               typename: "array",
               renderer: { name: "defaultRendererPropertyRenderer" },
+            },
+            {
+              count: 3,
+              type: "array",
+              createItem: (index) =>
+                PropertyRecord.fromString(
+                  `Value ${index + 1}`,
+                  `Item ${index + 1}`
+                ),
             }
           ),
-          new PropertyRecord(
-            {
-              valueFormat: PropertyValueFormat.Array,
-              items: arrayMembers,
-              itemsTypeName: "array",
-            },
+          createArrayRecord(
             {
               name: "customRendererArrayPropertyRenderer",
               displayLabel: "Array property (custom renderer)",
-              typename: "struct",
+              typename: "array",
               renderer: { name: "customRendererArrayPropertyRenderer" },
+            },
+            {
+              count: 3,
+              type: "array",
+              createItem: (index) =>
+                PropertyRecord.fromString(
+                  `Value ${index + 1}`,
+                  `Item ${index + 1}`
+                ),
             }
           ),
         ],
@@ -366,9 +525,44 @@ export const Links: Story = {
   },
 };
 
+export const PropertyActions: Story = {
+  args: {
+    data: {
+      label: PropertyRecord.fromString("Record 1"),
+      categories: [{ name: "item", label: "Item", expand: true }],
+      records: {
+        item: [
+          PropertyRecord.fromString("Some value", "Property with actions"),
+          PropertyRecord.fromString("Other value", "Property without actions"),
+        ],
+      },
+    },
+    onPropertyContextMenu: undefined,
+    isPropertyHoverEnabled: true,
+    actionButtonRenderers: [
+      ({ property, isPropertyHovered }) => {
+        if (
+          property.property.displayLabel === "Property with actions" &&
+          isPropertyHovered
+        ) {
+          return (
+            <ButtonGroup>
+              <IconButton label="Copy" styleType="borderless" size="small">
+                <SvgCopy />
+              </IconButton>
+              <IconButton label="Focus" styleType="borderless" size="small">
+                <SvgSelection />
+              </IconButton>
+            </ButtonGroup>
+          );
+        }
+      },
+    ],
+  },
+};
+
 export const Editable: Story = {
   args: {
-    height: 1000,
     isPropertyEditingEnabled: true,
     onPropertyUpdated: async ({ propertyRecord, newValue }) => {
       action("onPropertyUpdated")(
