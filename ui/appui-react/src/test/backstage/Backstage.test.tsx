@@ -9,8 +9,8 @@ import type {
   BackstageStageLauncher as BackstageStageLauncherDef,
 } from "../../appui-react.js";
 import { UiFramework } from "../../appui-react.js";
-import { childStructure, selectorMatches, userEvent } from "../TestUtils.js";
-import { render, screen } from "@testing-library/react";
+import { childStructure, userEvent } from "../TestUtils.js";
+import { render, screen, within } from "@testing-library/react";
 import {
   BackstageActionItem,
   BackstageStageLauncher,
@@ -48,10 +48,7 @@ describe("BackstageActionItem", () => {
 
   it("should render", () => {
     render(<BackstageActionItem item={getActionItem()} />);
-
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(
-      selectorMatches("li.nz-backstage-item")
-    );
+    screen.getByRole("button", { name: "Custom Label" });
   });
 
   it("should invoke execute", async () => {
@@ -59,40 +56,40 @@ describe("BackstageActionItem", () => {
     const actionItem = getActionItem({ execute: spy });
     render(<BackstageActionItem item={actionItem} />);
 
-    await theUserTo.click(screen.getByRole("menuitem"));
+    await theUserTo.click(screen.getByRole("button"));
 
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  it("should render with TechnicalPreview badgeType (old)", async () => {
+  it("should render with TechnicalPreview badgeType (old)", () => {
     render(
       <BackstageActionItem
         item={getActionItem({ badge: BadgeType.TechnicalPreview })}
       />
     );
 
-    expect(screen.getByRole("menuitem")).to.satisfy(
-      childStructure(".nz-badge .core-badge-technicalPreviewBadge")
+    expect(screen.getByRole("listitem")).to.satisfy(
+      childStructure(".core-badge-technicalPreviewBadge")
     );
   });
 
-  it("should render with New badgeType (old)", async () => {
+  it("should render with New badgeType (old)", () => {
     render(
       <BackstageActionItem item={getActionItem({ badge: BadgeType.New })} />
     );
 
-    expect(screen.getByRole("menuitem")).to.satisfy(
-      childStructure(".nz-badge .core-badge-newBadge")
+    expect(screen.getByRole("listitem")).to.satisfy(
+      childStructure(".core-badge-newBadge")
     );
   });
 
-  it("should render with Deprecated badgeKind (new)", async () => {
+  it("should render with Deprecated badgeKind (new)", () => {
     render(
       <BackstageActionItem item={getActionItem({ badgeKind: "deprecated" })} />
     );
 
-    expect(screen.getByRole("menuitem")).to.satisfy(
-      childStructure(".nz-badge .core-badge-deprecatedBadge")
+    expect(screen.getByRole("listitem")).to.satisfy(
+      childStructure(".core-badge-deprecatedBadge")
     );
   });
 });
@@ -103,12 +100,9 @@ describe("BackstageStageLauncher", () => {
     theUserTo = userEvent.setup();
   });
 
-  it("should render", async () => {
+  it("should render", () => {
     render(<BackstageStageLauncher item={getStageLauncherItem()} />);
-
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(
-      selectorMatches("li.nz-backstage-item")
-    );
+    screen.getByRole("button", { name: "Custom Label" });
   });
 
   it("should activate frontstage", async () => {
@@ -125,7 +119,7 @@ describe("BackstageStageLauncher", () => {
       />
     );
 
-    await theUserTo.click(screen.getByRole("menuitem"));
+    await theUserTo.click(screen.getByRole("button"));
     expect(spy).toHaveBeenCalledWith("Frontstage-1");
   });
 
@@ -133,7 +127,7 @@ describe("BackstageStageLauncher", () => {
     const spy = vi.spyOn(UiFramework.frontstages, "setActiveFrontstage");
 
     render(<BackstageStageLauncher item={getStageLauncherItem()} />);
-    await theUserTo.click(screen.getByRole("menuitem"));
+    await theUserTo.click(screen.getByRole("button"));
 
     expect(spy).not.toBeCalled();
   });
@@ -143,8 +137,13 @@ describe("BackstageStageLauncher", () => {
       <BackstageStageLauncher item={getStageLauncherItem({ isActive: true })} />
     );
 
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(
-      selectorMatches("li.nz-backstage-item.nz-active")
+    const listItems = screen.queryAllByRole("listitem");
+    const stageItem = listItems.find((listItem) =>
+      within(listItem).queryByRole("button", {
+        name: "Custom Label",
+      })
     );
+
+    expect(stageItem?.getAttribute("aria-current")).toEqual("true");
   });
 });

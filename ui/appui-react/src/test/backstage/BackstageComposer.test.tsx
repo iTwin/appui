@@ -11,7 +11,7 @@ import {
   UiFramework,
   UiItemsManager,
 } from "../../appui-react.js";
-import { selectorMatches, userEvent } from "../TestUtils.js";
+import { userEvent } from "../TestUtils.js";
 import { getActionItem, getStageLauncherItem } from "./Backstage.test.js";
 import { act, render, renderHook, screen } from "@testing-library/react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
@@ -89,44 +89,37 @@ class TestUiItemsProvider implements UiItemsProvider {
 describe("BackstageComposer", () => {
   beforeEach(() => {
     TestUiItemsProvider.sampleStatusVisible = true;
+    UiFramework.backstage.open();
   });
 
-  it("should render", async () => {
+  it("should render", () => {
     render(<BackstageComposer items={[]} />);
-
-    expect(screen.getByRole("menu"))
-      .to.satisfy(selectorMatches(".nz-backstage-backstage ul"))
-      .and.not.satisfy(selectorMatches(".nz-open ul"));
-    expect(screen.getByRole("presentation"))
-      .to.satisfy(selectorMatches(".nz-backstage-backstage_overlay"))
-      .and.not.satisfy(selectorMatches(".nz-open"));
+    expect(screen.queryByRole("button")).toEqual(null);
   });
 
   it("should close the backstage", async () => {
     const theUserTo = userEvent.setup();
     const spy = vi.spyOn(UiFramework.backstage, "close");
-    render(<BackstageComposer items={[]} />);
-    UiFramework.backstage.open();
+    const { container } = render(<BackstageComposer items={[]} />);
 
-    await theUserTo.click(screen.getByRole("presentation"));
+    const backdrop = container.getElementsByClassName(
+      "uifw-backstage-backstage_backdrop"
+    )[0];
+    await theUserTo.click(backdrop);
 
     expect(spy).toHaveBeenCalledOnce();
   });
 
-  it("should render backstage separators", async () => {
+  it("should render backstage separators", () => {
     const items: BackstageItem[] = [
       getActionItem({ groupPriority: 200 }),
       getStageLauncherItem(),
     ];
     render(<BackstageComposer items={items} />);
-    expect(screen.getByRole("separator")).to.satisfy(
-      selectorMatches(
-        "li:nth-of-type(2):nth-last-of-type(2).nz-backstage-separator"
-      )
-    );
+    screen.getByRole("separator");
   });
 
-  it("should hide single stage entry item with hideSoloStageEntry set", async () => {
+  it("should hide single stage entry item with hideSoloStageEntry set", () => {
     const items: BackstageItem[] = [
       getActionItem({ groupPriority: 200 }),
       getStageLauncherItem({ label: "Stage Label" }),
@@ -134,30 +127,27 @@ describe("BackstageComposer", () => {
     const { rerender } = render(
       <BackstageComposer hideSoloStageEntry items={items} />
     );
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.satisfy(
-      selectorMatches(":only-child")
-    );
-    expect(screen.queryByRole("menuitem", { name: "Stage Label" })).toEqual(
-      null
-    );
+    screen.getByRole("button", { name: "Custom Label" });
+    expect(screen.queryByRole("button", { name: "Stage Label" })).toEqual(null);
+
     rerender(<BackstageComposer items={items} />);
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Stage Label" })).to.exist;
+    screen.getByRole("button", { name: "Custom Label" });
+    screen.getByRole("button", { name: "Stage Label" });
   });
 
-  it("should show multiple stage entry item with hideSoloStageEntry set", async () => {
+  it("should show multiple stage entry item with hideSoloStageEntry set", () => {
     const items: BackstageItem[] = [
       getActionItem({ groupPriority: 200 }),
       getStageLauncherItem({ id: "s1", stageId: "s1", label: "First Stage" }),
       getStageLauncherItem({ id: "s2", stageId: "s2", label: "Second Stage" }),
     ];
     render(<BackstageComposer hideSoloStageEntry items={items} />);
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "First Stage" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Second Stage" })).to.exist;
+    screen.getByRole("button", { name: "Custom Label" });
+    screen.getByRole("button", { name: "First Stage" });
+    screen.getByRole("button", { name: "Second Stage" });
   });
 
-  it("should honor prop updates", async () => {
+  it("should honor prop updates", () => {
     const items: BackstageItem[] = [
       getActionItem({ groupPriority: 200 }),
       getStageLauncherItem({ label: "Stage Label" }),
@@ -167,22 +157,21 @@ describe("BackstageComposer", () => {
     ];
 
     const { rerender } = render(<BackstageComposer items={items} />);
-    expect(screen.getByRole("menuitem", { name: "Custom Label" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Stage Label" })).to.exist;
+    expect(screen.queryByRole("button", { name: "Updated Label" })).toEqual(
+      null
+    );
+    screen.getByRole("button", { name: "Custom Label" });
+    screen.getByRole("button", { name: "Stage Label" });
 
     rerender(<BackstageComposer items={updatedItems} />);
-    expect(screen.getByRole("menuitem", { name: "Updated Label" })).to.satisfy(
-      selectorMatches(":only-child")
-    );
-    expect(screen.queryByRole("menuitem", { name: "Custom Label" })).toEqual(
+    screen.getByRole("button", { name: "Updated Label" });
+    expect(screen.queryByRole("button", { name: "Custom Label" })).toEqual(
       null
     );
-    expect(screen.queryByRole("menuitem", { name: "Stage Label" })).toEqual(
-      null
-    );
+    expect(screen.queryByRole("button", { name: "Stage Label" })).toEqual(null);
   });
 
-  it("should honor addon items", async () => {
+  it("should honor addon items", () => {
     const items: BackstageItem[] = [
       getActionItem({ label: "Action", groupPriority: 200 }),
       getStageLauncherItem({ label: "Stage" }),
@@ -192,39 +181,36 @@ describe("BackstageComposer", () => {
     const uiProvider = new TestUiItemsProvider();
     act(() => UiItemsManager.register(uiProvider));
 
-    // await TestUtils.flushAsyncOperations();
-    expect(screen.getByRole("menuitem", { name: "Action" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Stage" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 1" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 2" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 3" })).to.exist;
+    screen.getByRole("button", { name: "Action" });
+    screen.getByRole("button", { name: "Stage" });
+    screen.getByRole("button", { name: "Dynamic Action 1" });
+    screen.getByRole("button", { name: "Dynamic Action 2" });
+    screen.getByRole("button", { name: "Dynamic Action 3" });
 
     act(() => triggerSyncRefresh());
-    // await TestUtils.flushAsyncOperations();
-    expect(screen.getByRole("menuitem", { name: "Action" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Stage" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 1" })).to.exist;
-    expect(
-      screen.queryByRole("menuitem", { name: "Dynamic Action 2" })
-    ).toEqual(null);
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 3" })).to.exist;
+    screen.getByRole("button", { name: "Action" });
+    screen.getByRole("button", { name: "Stage" });
+    screen.getByRole("button", { name: "Dynamic Action 1" });
+    expect(screen.queryByRole("button", { name: "Dynamic Action 2" })).toEqual(
+      null
+    );
+    screen.getByRole("button", { name: "Dynamic Action 3" });
 
     act(() => UiItemsManager.unregister(uiProvider.id));
-    // await TestUtils.flushAsyncOperations();
-    expect(screen.getByRole("menuitem", { name: "Action" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Stage" })).to.exist;
-    expect(
-      screen.queryByRole("menuitem", { name: "Dynamic Action 1" })
-    ).toEqual(null);
-    expect(
-      screen.queryByRole("menuitem", { name: "Dynamic Action 2" })
-    ).toEqual(null);
-    expect(
-      screen.queryByRole("menuitem", { name: "Dynamic Action 3" })
-    ).toEqual(null);
+    screen.getByRole("button", { name: "Action" });
+    screen.getByRole("button", { name: "Stage" });
+    expect(screen.queryByRole("button", { name: "Dynamic Action 1" })).toEqual(
+      null
+    );
+    expect(screen.queryByRole("button", { name: "Dynamic Action 2" })).toEqual(
+      null
+    );
+    expect(screen.queryByRole("button", { name: "Dynamic Action 3" })).toEqual(
+      null
+    );
   });
 
-  it("should filter out duplicate items", async () => {
+  it("should filter out duplicate items", () => {
     const items: BackstageItem[] = [
       getActionItem({ label: "Action", groupPriority: 200 }),
       getStageLauncherItem({ label: "Stage" }),
@@ -233,21 +219,21 @@ describe("BackstageComposer", () => {
 
     const uiProvider = new TestUiItemsProvider(true);
     render(<BackstageComposer items={items} />);
-    expect(screen.getByRole("menuitem", { name: "Stage" })).to.be.ok;
+    screen.getByRole("button", { name: "Stage" });
 
     act(() => UiItemsManager.register(uiProvider));
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 3" })).to.be.ok;
+    screen.getByRole("button", { name: "Dynamic Action 3" });
     act(() => UiItemsManager.unregister(uiProvider.id));
   });
 
-  it("should honor items from addons loaded before component", async () => {
+  it("should honor items from addons loaded before component", () => {
     const uiProvider = new TestUiItemsProvider();
     UiItemsManager.register(uiProvider);
 
     render(<BackstageComposer />);
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 1" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 2" })).to.exist;
-    expect(screen.getByRole("menuitem", { name: "Dynamic Action 3" })).to.exist;
+    screen.getByRole("button", { name: "Dynamic Action 1" });
+    screen.getByRole("button", { name: "Dynamic Action 2" });
+    screen.getByRole("button", { name: "Dynamic Action 3" });
 
     act(() => UiItemsManager.unregister(uiProvider.id));
   });
