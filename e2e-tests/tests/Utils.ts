@@ -254,8 +254,8 @@ export async function openComponentExamples(
   baseURL: string | undefined
 ) {
   await page.goto(`${baseURL}/blank?frontstageId=widget-api&menu=0`);
-  await page.getByRole("button", { name: "Open backstage menu" }).click();
-  await page.getByRole("menuitem", { name: "Component Examples" }).click();
+  await page.getByRole("button", { name: "Open backstage" }).click();
+  await page.getByRole("button", { name: "Component Examples" }).click();
 }
 
 export function trackConsole<T = string>(
