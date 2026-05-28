@@ -23,11 +23,12 @@
 }
 
 .uifw-backstage-backstage_content {
-  padding: 0;
+  padding-inline: var(--iui-size-xs);
 }
 
 .uifw-backstage-backstage_divider {
   margin-block: var(--iui-size-2xs);
+  margin-inline: calc(-1 * var(--iui-size-xs));
 }
 
 .uifw-backstage-backstage_button {
