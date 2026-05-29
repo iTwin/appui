@@ -10,7 +10,8 @@ import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 
 /* v8 ignore start */
 
-interface QuantityInputProps extends Pick<
+interface QuantityInputProps
+  extends Pick<
     React.ComponentPropsWithoutRef<typeof Input>,
     "onBlur" | "onFocus" | "size"
   > {
