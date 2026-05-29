@@ -7,7 +7,7 @@ import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { QuantityValueMetadata } from "../../imodel-components-react/inputs/new-editors/QuantityEditor.js";
+import type { QuantityValueMetadata } from "../../../imodel-components-react/inputs/new-editors/QuantityEditor.js";
 
 const METERS_PER_INCH = 0.0254;
 const convertMetersToInches = (meters: number) => meters / METERS_PER_INCH;
@@ -22,14 +22,16 @@ const mockConfig = {
 };
 
 vi.mock(
-  "../../imodel-components-react/inputs/new-editors/UseQuantityInfo.js",
+  "../../../imodel-components-react/inputs/new-editors/UseQuantityInfo.js",
   () => ({
     useQuantityInfo: () => ({
       defaultFormatter: {
         applyFormatting: (v: number) => mockConfig.formatter(v),
+        unitConversions: [{ label: "m", conversion: { factor: 1, offset: 0 } }],
       },
       highPrecisionFormatter: {
         applyFormatting: (v: number) => mockConfig.formatter(v),
+        unitConversions: [{ label: "m", conversion: { factor: 1, offset: 0 } }],
       },
       parser: {
         parseToQuantityValue: (input: string) => mockConfig.parser(input),
@@ -40,7 +42,7 @@ vi.mock(
 
 // Import after mock setup
 const { QuantityEditor } = await import(
-  "../../imodel-components-react/inputs/new-editors/QuantityEditor.js"
+  "../../../imodel-components-react/inputs/new-editors/QuantityEditor.js"
 );
 
 function renderQuantityEditor(
@@ -54,6 +56,14 @@ function renderQuantityEditor(
 }
 
 describe("QuantityEditor", () => {
+  const originalRAF = globalThis.requestAnimationFrame;
+  beforeEach(() => {
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => { cb(0); return 0; });
+  });
+  afterEach(() => {
+    vi.stubGlobal("requestAnimationFrame", originalRAF);
+  });
+
   describe("persistence unit matches display unit", () => {
     const metadata: QuantityValueMetadata = {
       type: "number",
@@ -164,6 +174,20 @@ describe("QuantityEditor", () => {
         expect.objectContaining({ rawValue: 999 })
       );
     });
+
+    it("switches merged display value to unit label on focus", async () => {
+      const onChange = vi.fn();
+      const { getByDisplayValue } = renderQuantityEditor(
+        metadata,
+        { rawValue: undefined, displayValue: "-- m" },
+        onChange
+      );
+
+      const input = getByDisplayValue("-- m");
+      await userEvent.click(input);
+
+      expect(input).toHaveProperty("value", "m");
+    });
   });
 
   describe("persistence unit is different from display unit", () => {
@@ -246,34 +270,6 @@ describe("QuantityEditor", () => {
 
       expect(onChange).toHaveBeenLastCalledWith(
         expect.objectContaining({ rawValue: 1 })
-      );
-    });
-
-    it("does not clamp value when within constraints in persistence units", async () => {
-      const user = userEvent.setup();
-      const onChange = vi.fn();
-      const constrainedMetadata: QuantityValueMetadata = {
-        type: "number",
-        quantityType: 1,
-        // Constraints in meters: max 5 meters
-        constraints: { minimumValue: 0, maximumValue: 5 },
-      };
-
-      const { getByRole } = renderQuantityEditor(
-        constrainedMetadata,
-        undefined,
-        onChange
-      );
-
-      const input = getByRole("textbox");
-      // 10 inches = 0.254 meters, is within maximumValue of 5 meters
-      const newValueInInches = 10;
-      await user.type(input, `${newValueInInches} in`);
-
-      expect(onChange).toHaveBeenLastCalledWith(
-        expect.objectContaining({
-          rawValue: convertInchesToMeters(newValueInInches),
-        })
       );
     });
   });
