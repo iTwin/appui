@@ -18,7 +18,7 @@ interface PropertyGridStoryProps
 }
 
 export function PropertyGridStory(props: PropertyGridStoryProps) {
-  const { data, ...rest } = props;
+  const { data, height, width, ...rest } = props;
 
   const provider = useMemo(
     () => ({
@@ -29,9 +29,20 @@ export function PropertyGridStory(props: PropertyGridStoryProps) {
   );
 
   return (
-    <VirtualizedPropertyGridWithDataProvider
-      {...rest}
-      dataProvider={provider}
-    />
+    <div
+      style={{
+        height,
+        width,
+        padding: "8px",
+        backgroundColor: "var(--iui-color-background)",
+      }}
+    >
+      <VirtualizedPropertyGridWithDataProvider
+        {...rest}
+        height={height - 16}
+        width={width - 16}
+        dataProvider={provider}
+      />
+    </div>
   );
 }
