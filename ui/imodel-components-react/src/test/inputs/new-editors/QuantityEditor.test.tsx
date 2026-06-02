@@ -56,16 +56,6 @@ function renderQuantityEditor(
 }
 
 describe("QuantityEditor", () => {
-  const originalRAF = globalThis.requestAnimationFrame;
-  beforeEach(() => {
-    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
-      cb(0);
-      return 0;
-    });
-  });
-  afterEach(() => {
-    vi.stubGlobal("requestAnimationFrame", originalRAF);
-  });
 
   describe("persistence unit matches display unit", () => {
     const metadata: QuantityValueMetadata = {
@@ -89,6 +79,7 @@ describe("QuantityEditor", () => {
       const { getByRole } = renderQuantityEditor(metadata, undefined, onChange);
 
       const input = getByRole("textbox");
+      await user.clear(input);
       await user.type(input, "25");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -112,6 +103,7 @@ describe("QuantityEditor", () => {
       );
 
       const input = getByRole("textbox");
+      await user.clear(input);
       await user.type(input, "-10");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -135,6 +127,7 @@ describe("QuantityEditor", () => {
       );
 
       const input = getByRole("textbox");
+      await user.clear(input);
       await user.type(input, "200");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -158,6 +151,7 @@ describe("QuantityEditor", () => {
       );
 
       const input = getByRole("textbox");
+      await user.clear(input);
       await user.type(input, "50");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -171,6 +165,7 @@ describe("QuantityEditor", () => {
       const { getByRole } = renderQuantityEditor(metadata, undefined, onChange);
 
       const input = getByRole("textbox");
+      await user.clear(input);
       await user.type(input, "999");
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -241,6 +236,7 @@ describe("QuantityEditor", () => {
       const newValueInInches = 100;
 
       const input = getByRole("textbox");
+      await user.clear(input);
       await user.type(input, `${newValueInInches} in`);
 
       expect(onChange).toHaveBeenLastCalledWith(
@@ -269,6 +265,7 @@ describe("QuantityEditor", () => {
       const input = getByRole("textbox");
       // Type 50 inches = 1.27 meters, exceeds maximumValue of 1 meter
       const newValueInInches = 50;
+      await user.clear(input);
       await user.type(input, `${newValueInInches} in`);
 
       expect(onChange).toHaveBeenLastCalledWith(

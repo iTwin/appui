@@ -69,6 +69,11 @@ function useQuantityInput({
           ? prev
           : { ...prev, displayValue };
       }
+
+      if (prev.displayValue !== "") {
+        return prev;
+      }
+
       return {
         ...prev,
         displayValue: formatter.unitConversions?.[0]?.label ?? "",
