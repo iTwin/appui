@@ -81,16 +81,13 @@ function useQuantityInput({
     });
   }, [formatter]);
 
-  const onChangeRef = React.useRef(onChange);
-  onChangeRef.current = onChange;
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = e.target.value;
     const unit = formatter?.unitConversions?.[0]?.label;
     const rawValue = parseInput(inputText, parser, unit);
     const newValue: NumericValue = { rawValue, displayValue: inputText };
     setState(newValue);
-    onChangeRef.current(newValue);
+    onChange(newValue);
   };
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
