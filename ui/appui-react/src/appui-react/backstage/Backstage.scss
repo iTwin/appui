@@ -27,8 +27,13 @@
 }
 
 .uifw-backstage-backstage_divider {
-  margin-block: var(--iui-size-2xs);
-  margin-inline: calc(-1 * var(--iui-size-xs));
+  $margin-block: var(--iui-size-2xs);
+  $margin-inline: calc(-1 * var(--iui-size-xs));
+
+  margin-block-start: $margin-block;
+  margin-block-end: $margin-block;
+  margin-inline-start: $margin-inline;
+  margin-inline-end: $margin-inline;
 }
 
 .uifw-backstage-backstage_button {
