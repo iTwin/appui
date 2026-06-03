@@ -8,12 +8,11 @@
 
 import * as React from "react";
 import { ConditionalBooleanValue } from "@itwin/appui-abstract";
-import { List } from "@itwin/itwinui-react";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
 import {
   Backstage,
   BackstageActionItem,
-  BackstageDivider,
+  BackstageGroup,
   BackstageStageLauncher,
 } from "./Backstage.js";
 import { isBackstageStageLauncher } from "./BackstageItem.js";
@@ -201,34 +200,31 @@ export function BackstageComposer(props: BackstageComposerProps) {
       {...rest}
     >
       {header}
-      {groups.map((group, groupIndex) => {
+      {groups.map((groupItems, groupIndex) => {
         return (
-          <React.Fragment key={groupIndex}>
-            {groupIndex > 0 ? <BackstageDivider /> : null}
-            <List>
-              {group.map((item, itemIndex) => {
-                const autoFocus = groupIndex === 0 && itemIndex === 0;
-                if (isBackstageStageLauncher(item)) {
-                  return (
-                    <BackstageStageLauncher
-                      key={item.id}
-                      item={item}
-                      // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
-                      autoFocus={autoFocus}
-                    />
-                  );
-                }
+          <BackstageGroup key={groupIndex} index={groupIndex}>
+            {groupItems.map((item, itemIndex) => {
+              const autoFocus = groupIndex === 0 && itemIndex === 0;
+              if (isBackstageStageLauncher(item)) {
                 return (
-                  <BackstageActionItem
+                  <BackstageStageLauncher
                     key={item.id}
                     item={item}
                     // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
                     autoFocus={autoFocus}
                   />
                 );
-              })}
-            </List>
-          </React.Fragment>
+              }
+              return (
+                <BackstageActionItem
+                  key={item.id}
+                  item={item}
+                  // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
+                  autoFocus={autoFocus}
+                />
+              );
+            })}
+          </BackstageGroup>
         );
       })}
     </Backstage>

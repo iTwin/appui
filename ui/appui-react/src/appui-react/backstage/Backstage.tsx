@@ -16,7 +16,7 @@ import {
 import { Logger } from "@itwin/core-bentley";
 import { Icon as CoreIcon } from "@itwin/core-react";
 import { Badge } from "@itwin/core-react/internal";
-import { Dialog, Divider, Icon, ListItem } from "@itwin/itwinui-react";
+import { Dialog, Divider, Icon, List, ListItem } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
 import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";
 import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
@@ -71,9 +71,24 @@ export function Backstage(props: BackstageProps) {
   );
 }
 
-/** @internal */
-export function BackstageDivider() {
+function BackstageDivider() {
   return <Divider className="uifw-backstage-backstage_divider" />;
+}
+
+interface BackstageGroupProps {
+  children?: React.ReactNode;
+  index: number;
+}
+
+/** @internal */
+export function BackstageGroup(props: BackstageGroupProps) {
+  const { index, ...rest } = props;
+  return (
+    <>
+      {index > 0 ? <BackstageDivider /> : null}
+      <List {...rest}>{props.children}</List>
+    </>
+  );
 }
 
 function ItemIcon({
