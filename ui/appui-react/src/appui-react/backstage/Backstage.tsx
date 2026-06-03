@@ -45,6 +45,7 @@ export function Backstage(props: BackstageProps) {
   return (
     <Dialog
       className="uifw-backstage-backstage_wrapper"
+      placement="top-left"
       isOpen={isOpen}
       onClose={onClose}
       closeOnExternalClick

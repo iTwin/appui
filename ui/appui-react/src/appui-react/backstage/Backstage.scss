@@ -9,11 +9,10 @@
 }
 
 .uifw-backstage-backstage {
-  transform: none;
-  inset-block-start: 0;
   inset-block-end: 0;
-  inset-inline-start: 0;
   border-radius: 0;
+  margin-block-start: 0;
+  margin-inline-start: 0;
 }
 
 .uifw-backstage-backstage_backdrop {
