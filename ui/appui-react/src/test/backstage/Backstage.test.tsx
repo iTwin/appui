@@ -137,13 +137,7 @@ describe("BackstageStageLauncher", () => {
       <BackstageStageLauncher item={getStageLauncherItem({ isActive: true })} />
     );
 
-    const listItems = screen.queryAllByRole("listitem");
-    const stageItem = listItems.find((listItem) =>
-      within(listItem).queryByRole("button", {
-        name: "Custom Label",
-      })
-    );
-
+    const stageItem = screen.getByRole("button", { name: "Custom Label" });
     expect(stageItem?.getAttribute("aria-current")).toEqual("true");
   });
 });
