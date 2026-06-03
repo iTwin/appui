@@ -50,6 +50,7 @@ export function Backstage(props: BackstageProps) {
       closeOnExternalClick
       preventDocumentScroll
       trapFocus
+      setFocus={false}
     >
       <Dialog.Backdrop
         className={classnames(
@@ -90,14 +91,16 @@ function ItemIcon({
   return <CoreIcon iconSpec={icon} />;
 }
 
-interface BackstageItemProps {
+type ListItemProps = React.ComponentProps<typeof ListItem>;
+
+interface BackstageItemProps
+  extends Pick<ListItemProps, "active" | "onClick" | "autoFocus"> {
   item: BackstageItemDef;
-  isActive?: boolean;
   onClick?: () => void;
 }
 
 function BackstageItem(props: BackstageItemProps) {
-  const { item, isActive, onClick, ...rest } = props;
+  const { item, active, onClick, autoFocus, ...rest } = props;
 
   const descriptionId = React.useId();
 
@@ -113,8 +116,8 @@ function BackstageItem(props: BackstageItemProps) {
       data-item-provider-id={isProviderItem(item) ? item.providerId : undefined}
       disabled={disabled}
       size="large"
-      active={isActive}
-      aria-current={isActive ? "true" : undefined}
+      active={active}
+      aria-current={active ? "true" : undefined}
       actionable
       {...rest}
     >
@@ -127,7 +130,12 @@ function BackstageItem(props: BackstageItemProps) {
         <ItemIcon iconNode={item.iconNode} icon={item.icon} />
       </ListItem.Icon>
       <ListItem.Content>
-        <ListItem.Action onClick={onClick} aria-describedby={descriptionId}>
+        <ListItem.Action
+          onClick={onClick}
+          aria-describedby={descriptionId}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus={autoFocus}
+        >
           {label}
         </ListItem.Action>
         <ListItem.Description id={descriptionId}>
@@ -138,26 +146,30 @@ function BackstageItem(props: BackstageItemProps) {
   );
 }
 
-interface BackstageActionItemProps {
+interface BackstageActionItemProps extends Pick<ListItemProps, "autoFocus"> {
   readonly item: BackstageActionItemDef;
 }
 
 /** @internal */
-export function BackstageActionItem({ item }: BackstageActionItemProps) {
+export function BackstageActionItem(props: BackstageActionItemProps) {
+  const { item, ...rest } = props;
+
   const manager = useBackstageManager();
   const handleClick = React.useCallback(() => {
     manager.close();
     item.execute();
   }, [manager, item]);
-  return <BackstageItem item={item} onClick={handleClick} />;
+  return <BackstageItem item={item} onClick={handleClick} {...rest} />;
 }
 
-interface BackstageStageLauncherProps {
+interface BackstageStageLauncherProps extends Pick<ListItemProps, "autoFocus"> {
   readonly item: BackstageStageLauncherDef;
 }
 
 /** @internal */
-export function BackstageStageLauncher({ item }: BackstageStageLauncherProps) {
+export function BackstageStageLauncher(props: BackstageStageLauncherProps) {
+  const { item, ...rest } = props;
+
   const manager = useBackstageManager();
   const handleClick = React.useCallback(() => {
     manager.close();
@@ -173,6 +185,11 @@ export function BackstageStageLauncher({ item }: BackstageStageLauncherProps) {
     item.isActive ?? item.stageId === activeFrontstageId
   );
   return (
-    <BackstageItem item={item} isActive={isActive} onClick={handleClick} />
+    <BackstageItem
+      item={item}
+      active={isActive}
+      onClick={handleClick}
+      {...rest}
+    />
   );
 }

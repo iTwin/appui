@@ -206,11 +206,26 @@ export function BackstageComposer(props: BackstageComposerProps) {
           <React.Fragment key={groupIndex}>
             {groupIndex > 0 ? <BackstageDivider /> : null}
             <List>
-              {group.map((item) => {
+              {group.map((item, itemIndex) => {
+                const autoFocus = groupIndex === 0 && itemIndex === 0;
                 if (isBackstageStageLauncher(item)) {
-                  return <BackstageStageLauncher key={item.id} item={item} />;
+                  return (
+                    <BackstageStageLauncher
+                      key={item.id}
+                      item={item}
+                      // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
+                      autoFocus={autoFocus}
+                    />
+                  );
                 }
-                return <BackstageActionItem key={item.id} item={item} />;
+                return (
+                  <BackstageActionItem
+                    key={item.id}
+                    item={item}
+                    // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
+                    autoFocus={autoFocus}
+                  />
+                );
               })}
             </List>
           </React.Fragment>
