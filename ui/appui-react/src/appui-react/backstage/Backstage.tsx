@@ -127,13 +127,9 @@ function BackstageItem(props: BackstageItemProps) {
         <ItemIcon iconNode={item.iconNode} icon={item.icon} />
       </ListItem.Icon>
       <ListItem.Content>
-        <button
-          className="uifw-backstage-backstage_button"
-          onClick={onClick}
-          aria-describedby={descriptionId}
-        >
+        <ListItem.Action onClick={onClick} aria-describedby={descriptionId}>
           {label}
-        </button>
+        </ListItem.Action>
         <ListItem.Description id={descriptionId}>
           {description}
         </ListItem.Description>
