@@ -133,7 +133,6 @@ function BackstageItem(props: BackstageItemProps) {
       disabled={disabled}
       size="large"
       active={active}
-      aria-current={active ? "true" : undefined}
       actionable
       {...rest}
     >
@@ -151,6 +150,7 @@ function BackstageItem(props: BackstageItemProps) {
           aria-describedby={descriptionId}
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
+          aria-current={active ? "true" : undefined}
         >
           {label}
         </ListItem.Action>
