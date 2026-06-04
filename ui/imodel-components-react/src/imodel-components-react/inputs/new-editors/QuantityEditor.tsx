@@ -69,7 +69,7 @@ export function QuantityEditor({
     maximumValue: undefined,
   };
   const handleChange = (newValue: NumericValue) => {
-    if (!newValue?.rawValue) {
+    if (newValue?.rawValue === undefined) {
       onChange(newValue);
       return;
     }
