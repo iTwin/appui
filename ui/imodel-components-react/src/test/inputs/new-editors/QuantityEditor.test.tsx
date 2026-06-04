@@ -56,7 +56,6 @@ function renderQuantityEditor(
 }
 
 describe("QuantityEditor", () => {
-
   describe("persistence unit matches display unit", () => {
     const metadata: QuantityValueMetadata = {
       type: "number",
