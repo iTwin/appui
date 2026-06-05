@@ -1,7 +1,10 @@
 {
   "version": "0.2",
   "language": "en",
-  "ignorePaths": ["**/pnpm-lock.yaml", "**/pnpm-workspace.yaml"],
+  "ignorePaths": [
+    "**/pnpm-lock.yaml",
+    "**/pnpm-workspace.yaml"
+  ],
   "words": [
     "accu",
     "accudraw",
@@ -273,6 +276,7 @@
     "unobserve",
     "unregisters",
     "unrotate",
+    "unstub",
     "unsubscribable",
     "unsubscription",
     "upath",
