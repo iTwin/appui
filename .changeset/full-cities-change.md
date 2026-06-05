@@ -3,4 +3,4 @@
 "@itwin/components-react": patch
 ---
 
-`Text` and `Numerical` editors now select the input value on focus. Merged values (`--`) are no longer cleared on focus.
+`Text` and `Numerical` editors now select the input value on focus. `Quantity` editor no longer clear merged values (`-- unit`) on focus.
