@@ -29,7 +29,7 @@ export function NumericEditor({
 }: EditorProps<NumericValueMetadata, NumericValue>) {
   const currentValue = getNumericValue(value);
 
-   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.target.select();
   };
 

@@ -67,8 +67,8 @@ export namespace EditorInterop {
               primitiveValue.value !== undefined
                 ? (primitiveValue.value as string)
                 : primitiveValue.displayValue === "--"
-                  ? primitiveValue.displayValue
-                  : "",
+                ? primitiveValue.displayValue
+                : "",
           } satisfies TextValue,
         };
       case "dateTime":
