@@ -6,13 +6,15 @@
  * @module Backstage
  */
 
-import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import * as React from "react";
-import { Backstage as NZ_Backstage } from "../layout/backstage/Backstage.js";
-import { BackstageSeparator } from "../layout/backstage/Separator.js";
-import { SafeAreaContext } from "../safearea/SafeAreaContext.js";
+import { ConditionalBooleanValue } from "@itwin/appui-abstract";
 import { SyncUiEventDispatcher } from "../syncui/SyncUiEventDispatcher.js";
-import { BackstageComposerItem } from "./BackstageComposerItem.js";
+import {
+  Backstage,
+  BackstageActionItem,
+  BackstageGroup,
+  BackstageStageLauncher,
+} from "./Backstage.js";
 import { isBackstageStageLauncher } from "./BackstageItem.js";
 import { BackstageItemsManager } from "./BackstageItemsManager.js";
 import { useBackstageManager, useIsBackstageOpen } from "./BackstageManager.js";
@@ -89,8 +91,7 @@ function combineItems(
   return items;
 }
 
-/** @internal */
-export type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
+type GroupedItems = ReadonlyArray<ReadonlyArray<BackstageItem>>;
 
 /** @internal */
 export const useGroupedItems = (
@@ -143,21 +144,29 @@ export interface BackstageComposerProps extends CommonProps {
  */
 // eslint-disable-next-line @typescript-eslint/no-deprecated
 export function BackstageComposer(props: BackstageComposerProps) {
+  const {
+    header,
+    showOverlay = true,
+    items,
+    hideSoloStageEntry,
+    itemId,
+    ...rest
+  } = props;
+
   const [defaultItemsManager, setDefaultItemsManager] = React.useState(
-    new BackstageItemsManager(props.items)
+    new BackstageItemsManager(items)
   );
-  const initialItems = React.useRef(props.items);
+  const initialItems = React.useRef(items);
 
   React.useEffect(() => {
-    if (initialItems.current !== props.items) {
-      initialItems.current = props.items;
-      setDefaultItemsManager(new BackstageItemsManager(props.items));
+    if (initialItems.current !== items) {
+      initialItems.current = items;
+      setDefaultItemsManager(new BackstageItemsManager(items));
     }
-  }, [props.items]);
+  }, [items]);
 
   const manager = useBackstageManager();
   const isOpen = useIsBackstageOpen(manager);
-  const safeAreaInsets = React.useContext(SafeAreaContext);
   const handleClose = React.useCallback(() => {
     manager.close();
   }, [manager]);
@@ -179,35 +188,45 @@ export function BackstageComposer(props: BackstageComposerProps) {
   useBackstageItemSyncEffect(addonItemsManager, addonSyncIdsOfInterest);
 
   const combinedBackstageItems = React.useMemo(
-    () => combineItems(defaultItems, addonItems, !!props.hideSoloStageEntry),
-    [defaultItems, addonItems, props.hideSoloStageEntry]
+    () => combineItems(defaultItems, addonItems, !!hideSoloStageEntry),
+    [defaultItems, addonItems, hideSoloStageEntry]
   );
   const groups = useGroupedItems(combinedBackstageItems);
   return (
-    <NZ_Backstage
-      className={props.className}
-      header={props.header}
+    <Backstage
       isOpen={isOpen}
       onClose={handleClose}
-      safeAreaInsets={safeAreaInsets}
-      showOverlay={props.showOverlay}
-      style={props.style}
+      showOverlay={showOverlay}
+      {...rest}
     >
-      {groups.map((group, groupIndex) =>
-        group.map((item, itemIndex) => {
-          const composerItem = (
-            <BackstageComposerItem item={item} key={item.id} />
-          );
-          return itemIndex === 0 && groupIndex > 0 ? (
-            <React.Fragment key={groupIndex}>
-              <BackstageSeparator />
-              {composerItem}
-            </React.Fragment>
-          ) : (
-            composerItem
-          );
-        })
-      )}
-    </NZ_Backstage>
+      {header}
+      {groups.map((groupItems, groupIndex) => {
+        return (
+          <BackstageGroup key={groupIndex} index={groupIndex}>
+            {groupItems.map((item, itemIndex) => {
+              const autoFocus = groupIndex === 0 && itemIndex === 0;
+              if (isBackstageStageLauncher(item)) {
+                return (
+                  <BackstageStageLauncher
+                    key={item.id}
+                    item={item}
+                    // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
+                    autoFocus={autoFocus}
+                  />
+                );
+              }
+              return (
+                <BackstageActionItem
+                  key={item.id}
+                  item={item}
+                  // eslint-disable-next-line jsx-a11y/no-autofocus -- autoFocus first item in the dialog
+                  autoFocus={autoFocus}
+                />
+              );
+            })}
+          </BackstageGroup>
+        );
+      })}
+    </Backstage>
   );
 }

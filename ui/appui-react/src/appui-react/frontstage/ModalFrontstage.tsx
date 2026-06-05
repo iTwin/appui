@@ -45,7 +45,7 @@ export interface ModalFrontstageProps extends CommonProps {
 interface Props extends Omit<ModalFrontstageProps, "closeModal"> {
   /**
    * Callback for closing the modal Frontstage.
-   * @deprecated in 5.31.0. Use {@link navigateBack} instead.
+   * @deprecated in 5.31.0. Use `navigateBack` prop instead.
    */
   closeModal?: () => void;
 }
