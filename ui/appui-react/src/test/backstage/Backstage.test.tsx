@@ -10,7 +10,7 @@ import type {
 } from "../../appui-react.js";
 import { UiFramework } from "../../appui-react.js";
 import { childStructure, userEvent } from "../TestUtils.js";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import {
   BackstageActionItem,
   BackstageStageLauncher,
