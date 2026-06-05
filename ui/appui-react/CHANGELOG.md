@@ -1,5 +1,21 @@
 # Change Log - @itwin/appui-react
 
+## 5.32.0
+
+### Minor Changes
+
+- 2003fc8: Updated the `BackstageComposer` component to use iTwinUI components instead of a custom implementation. This change improves backstage accessibility and usability:
+
+  - The backstage is displayed as a modal dialog, preventing interaction with the rest of the UI while it is open
+  - Backstage items are now interactive buttons that can be navigated using the keyboard
+
+### Patch Changes
+
+- Updated dependencies [ff39843]
+  - @itwin/imodel-components-react@5.32.0
+  - @itwin/components-react@5.32.0
+  - @itwin/core-react@5.32.0
+
 ## 5.31.0
 
 ### Minor Changes

@@ -1,5 +1,16 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.32.0
+
+### Minor Changes
+
+- ff39843: Improved `QuantityEditor` empty and merged value handling. Empty values display the unit label as a placeholder, and focusing a merged value (`-- unit`) replaces it with the unit label for immediate editing.
+
+### Patch Changes
+
+- @itwin/components-react@5.32.0
+- @itwin/core-react@5.32.0
+
 ## 5.31.0
 
 ### Patch Changes
