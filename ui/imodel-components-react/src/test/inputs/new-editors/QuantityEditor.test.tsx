@@ -6,7 +6,16 @@
 import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
-import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import type { QuantityValueMetadata } from "../../../imodel-components-react/inputs/new-editors/QuantityEditor.js";
 
 const METERS_PER_INCH = 0.0254;
