@@ -27,11 +27,20 @@ export function TextEditor({
   const currentValue = value ? value : { value: "" };
   const { maxLength, minLength } = getStringConstraints(metadata.constraints);
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange({ value: e.target.value });
+  };
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  };
+
   return (
     <Input
       id={id}
       value={currentValue.value}
-      onChange={(e) => onChange({ value: e.target.value })}
+      onChange={handleChange}
+      onFocus={handleFocus}
       maxLength={maxLength}
       minLength={minLength}
       size={size}

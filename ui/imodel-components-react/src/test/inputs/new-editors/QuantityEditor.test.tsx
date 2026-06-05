@@ -171,20 +171,6 @@ describe("QuantityEditor", () => {
         expect.objectContaining({ rawValue: 999 })
       );
     });
-
-    it("switches merged display value to unit label on focus", async () => {
-      const onChange = vi.fn();
-      const { getByDisplayValue } = renderQuantityEditor(
-        metadata,
-        { rawValue: undefined, displayValue: "-- m" },
-        onChange
-      );
-
-      const input = getByDisplayValue("-- m");
-      await userEvent.click(input);
-
-      expect(input).toHaveProperty("value", "m");
-    });
   });
 
   describe("persistence unit is different from display unit", () => {

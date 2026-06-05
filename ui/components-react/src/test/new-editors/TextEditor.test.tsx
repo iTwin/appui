@@ -127,4 +127,23 @@ describe("TextEditor (new-system)", () => {
 
     expect(getByRole("textbox")).toHaveProperty("disabled", true);
   });
+
+  it("selects all text on focus", async () => {
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <TextEditor
+        metadata={{ type: "string" }}
+        value={{ value: "test" }}
+        onChange={() => {}}
+      />
+    );
+
+    const input = getByRole("textbox") as HTMLInputElement;
+    await user.click(input);
+
+    await vi.waitFor(() => {
+      expect(input.selectionStart).toBe(0);
+      expect(input.selectionEnd).toBe(4);
+    });
+  });
 });

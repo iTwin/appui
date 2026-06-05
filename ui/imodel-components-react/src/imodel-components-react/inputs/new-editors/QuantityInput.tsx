@@ -96,21 +96,16 @@ function useQuantityInput({
     const input = e.currentTarget;
     const unit = formatter?.unitConversions?.[0]?.label ?? "";
 
-    if (state.rawValue === undefined) {
-      if (state.displayValue.startsWith("--")) {
-        setState({ rawValue: undefined, displayValue: unit });
-        requestAnimationFrame(() => {
-          input.setSelectionRange(0, 0);
-        });
-      }
+    if (state.rawValue === undefined && state.displayValue === unit) {
+      requestAnimationFrame(() => {
+        input.setSelectionRange(0, 0);
+      });
       return;
     }
 
-    if (state.displayValue) {
-      requestAnimationFrame(() => {
-        input.select();
-      });
-    }
+    requestAnimationFrame(() => {
+      input.select();
+    });
   };
 
   return {
