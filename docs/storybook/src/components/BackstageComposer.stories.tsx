@@ -31,6 +31,10 @@ const meta = {
   title: "Components/BackstageComposer",
   component: BackstageComposer,
   tags: ["autodocs"],
+  args: {
+    header: undefined,
+    showOverlay: true,
+  },
 } satisfies Meta<typeof BackstageComposer>;
 
 export default meta;
@@ -112,6 +116,38 @@ export const Subtitle: Story = {
           execute: action("item2"),
           label: "Item 2",
           subtitle: "Item 2 subtitle",
+        }),
+      ],
+    }),
+  ],
+};
+
+export const Badges: Story = {
+  args: {},
+  decorators: [
+    createOpenBackstage({
+      id: "p1",
+      getBackstageItems: () => [
+        BackstageItemUtilities.createActionItem({
+          id: "new",
+          execute: action("new"),
+          label: "New",
+          icon: <SvgPlaceholder />,
+          badgeKind: "new",
+        }),
+        BackstageItemUtilities.createActionItem({
+          id: "deprecated",
+          execute: action("deprecated"),
+          label: "Deprecated",
+          icon: <SvgPlaceholder />,
+          badgeKind: "deprecated",
+        }),
+        BackstageItemUtilities.createActionItem({
+          id: "technical-preview",
+          execute: action("technical-preview"),
+          label: "Technical Preview",
+          icon: <SvgPlaceholder />,
+          badgeKind: "technical-preview",
         }),
       ],
     }),

@@ -12,7 +12,7 @@ test("backstage app button test", async ({ page, baseURL }) => {
 
   const backstageAppButton = page
     .getByRole("button", {
-      name: "Open backstage menu",
+      name: "Open backstage",
     })
     .first();
   await expect(backstageAppButton).toHaveScreenshot();

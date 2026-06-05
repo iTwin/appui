@@ -75,7 +75,17 @@ test.describe("UiItemsProvider v2", () => {
 
   test("should provide backstage items", async ({ page }) => {
     const locator = backstageItemLocator(page, "Updated backstage item");
-    await expectProviderItem(locator);
+    await expect(locator).not.toBeVisible();
+
+    await runKeyin(page, registerKeyin);
+    await page.getByRole("button", { name: "Open backstage" }).click();
+
+    await expect(locator).toBeVisible();
+    await page.keyboard.press("Escape");
+
+    await runKeyin(page, unregisterKeyin);
+    await page.getByRole("button", { name: "Open backstage" }).click();
+    await expect(locator).not.toBeVisible();
   });
 
   test("should provide widgets", async ({ page }) => {

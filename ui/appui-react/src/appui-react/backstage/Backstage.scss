@@ -1,0 +1,42 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@use "~@itwin/core-react/lib/core-react/z-index" as zIndex;
+
+.uifw-backstage-backstage_wrapper {
+  @include zIndex.uicore-z-index(backstage);
+}
+
+.uifw-backstage-backstage {
+  inset-block-end: 0;
+  border-radius: 0;
+  margin-block-start: 0;
+  margin-inline-start: 0;
+}
+
+.uifw-backstage-backstage_backdrop {
+  &:where(.uifw-transparent) {
+    background-color: transparent;
+  }
+}
+
+.uifw-backstage-backstage_content {
+  padding-inline: var(--iui-size-xs);
+}
+
+.uifw-backstage-backstage_divider {
+  $margin-block: var(--iui-size-2xs);
+  $margin-inline: calc(-1 * var(--iui-size-xs));
+
+  margin-block-start: $margin-block;
+  margin-block-end: $margin-block;
+  margin-inline-start: $margin-inline;
+  margin-inline-end: $margin-inline;
+}
+
+.uifw-backstage-backstage_badge {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
