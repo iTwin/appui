@@ -47,6 +47,8 @@ import type { WidgetState } from "../widgets/WidgetState.js";
 import { useActiveIModelConnection } from "../hooks/useActiveIModelConnection.js";
 import { EditorsRegistryProvider } from "@itwin/components-react";
 import { AccuDrawStoreProvider } from "../accudraw/AccuDrawStoreProvider.js";
+import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
+import type { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -87,6 +89,17 @@ export interface ConfigurableUiContentProps extends CommonProps {
   toolbarOpacity?: number;
   /** Component to wrap all popout widgets and other child windows opened via {@link UiFramework.childWindows}. */
   childWindow?: React.ComponentType;
+  /**
+   * Overrides the default modal frontstage.
+   * Use the {@link ModalFrontstage} component to customize the default layout and behavior.
+   * @alpha
+   */
+  renderModalFrontstage?: (args: {
+    /** Information about the modal frontstage to be rendered. */
+    info: ModalFrontstageInfo;
+    /** Might be used for open/close animations in the future. */
+    isOpen: boolean;
+  }) => React.ReactNode;
 
   /** @internal */
   idleTimeout?: number;

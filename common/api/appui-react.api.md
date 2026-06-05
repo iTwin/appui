@@ -987,6 +987,11 @@ export interface ConfigurableUiContentProps extends CommonProps {
     idleTimeout?: number;
     // @internal (undocumented)
     intervalTimeout?: number;
+    // @alpha
+    renderModalFrontstage?: (args: {
+        info: ModalFrontstageInfo;
+        isOpen: boolean;
+    }) => React_2.ReactNode;
     showActiveWidgetLabel?: boolean;
     toolAsToolSettingsLabel?: boolean;
     toolbarOpacity?: number;
@@ -3252,11 +3257,7 @@ export class ModalDialogRenderer extends React_2.PureComponent<CommonProps> {
 }
 
 // @public
-export class ModalFrontstage extends React_2.Component<ModalFrontstageProps> {
-    constructor(props: ModalFrontstageProps);
-    // (undocumented)
-    render(): React_2.JSX.Element;
-}
+export function ModalFrontstage(props: Props): React_2.JSX.Element;
 
 // @public
 export function ModalFrontstageButton(props: ModalFrontstageButtonProps): React_2.JSX.Element;
@@ -3293,14 +3294,15 @@ export interface ModalFrontstageInfo {
     title: string;
 }
 
-// @public
+// @public @deprecated
 export interface ModalFrontstageProps extends CommonProps {
     appBarRight?: React_2.ReactNode;
     backButton?: React_2.ReactNode;
     children?: React_2.ReactNode;
-    closeModal: () => any;
+    closeModal: () => void;
+    hideHeader?: boolean;
     isOpen?: boolean;
-    navigateBack?: () => any;
+    navigateBack?: () => void;
     title: string;
 }
 
@@ -4719,7 +4721,7 @@ export interface ToolAssistanceChangedEventArgs {
 }
 
 // @public
-export function ToolAssistanceField(props: Props): React_2.JSX.Element;
+export function ToolAssistanceField(props: Props_2): React_2.JSX.Element;
 
 // @public
 export interface ToolAssistanceFieldProps extends CommonProps {

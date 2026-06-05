@@ -44,10 +44,7 @@ import { WidgetContent } from "./Content.js";
 import { FloatingWidget } from "./FloatingWidget.js";
 import "./Frontstage.scss";
 import { WidgetPanelsFrontstageContent } from "./FrontstageContent.js";
-import {
-  ModalFrontstageComposer,
-  useActiveModalFrontstageInfo,
-} from "./ModalFrontstageComposer.js";
+import { ModalFrontstageComposer } from "./ModalFrontstageComposer.js";
 import { WidgetPanelsStatusBar } from "./StatusBar.js";
 import { WidgetPanelsTab } from "./Tab.js";
 import { WidgetPanelsToolbars } from "./Toolbars.js";
@@ -62,6 +59,7 @@ import { WidgetContentRenderers } from "../layout/widget/ContentRenderer.js";
 import { useCursor } from "../layout/widget-panels/CursorOverlay.js";
 import { WidgetPanelExpanders } from "../layout/widget-panels/Expander.js";
 import { useTranslation } from "../hooks/useTranslation.js";
+import { useActiveModalFrontstage } from "../hooks/useActiveModalFrontstage.js";
 import { PopoutWidgets } from "../preview/reparent-popout-widgets/PopoutWidgets.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
@@ -71,7 +69,7 @@ import { UiStateStorageStatus } from "../uistate/UiStateStorage.js";
 import { useLatestRef } from "../hooks/useLatestRef.js";
 
 function WidgetPanelsFrontstageComponent() {
-  const activeModalFrontstageInfo = useActiveModalFrontstageInfo();
+  const modalFrontstage = useActiveModalFrontstage();
   const uiIsVisible = useUiVisibility();
   const previewFeatures = usePreviewFeatures();
   useCursor();
@@ -82,8 +80,10 @@ function WidgetPanelsFrontstageComponent() {
         enabled={previewFeatures.horizontalPanelAlignment}
       >
         <ToolbarPopupAutoHideContext.Provider value={!uiIsVisible}>
-          <ModalFrontstageComposer stageInfo={activeModalFrontstageInfo} />
+          <ModalFrontstageComposer />
           <StandardLayout
+            // @ts-expect-error - Supporting React 19 and 18
+            inert={!!modalFrontstage ? "true" : undefined}
             centerContent={
               <>
                 <WidgetPanelsToolbars />

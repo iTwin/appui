@@ -427,7 +427,7 @@ deprecated;class;MessagesUpdatedEvent
 public;class;ModalDialogChangedEvent
 deprecated;class;ModalDialogChangedEvent
 public;class;ModalDialogRenderer
-public;class;ModalFrontstage
+public;function;ModalFrontstage
 public;function;ModalFrontstageButton
 public;class;ModalFrontstageChangedEvent
 deprecated;class;ModalFrontstageChangedEvent
@@ -439,6 +439,7 @@ public;interface;ModalFrontstageClosedEventArgs
 deprecated;interface;ModalFrontstageClosedEventArgs
 public;interface;ModalFrontstageInfo
 public;interface;ModalFrontstageProps
+deprecated;interface;ModalFrontstageProps
 alpha;class;ModalFrontstageRequestedCloseEvent
 deprecated;class;ModalFrontstageRequestedCloseEvent
 alpha;interface;ModalFrontstageRequestedCloseEventArgs

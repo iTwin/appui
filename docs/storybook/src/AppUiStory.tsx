@@ -36,8 +36,15 @@ import { createFrontstage } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 import { openDemoIModel } from "./openDemoIModel";
 
-export interface AppUiStoryProps {
-  appBackstage?: React.ReactNode;
+type ConfigurableUiContentProps = React.ComponentProps<
+  typeof ConfigurableUiContent
+>;
+
+export interface AppUiStoryProps
+  extends Pick<
+    ConfigurableUiContentProps,
+    "appBackstage" | "renderModalFrontstage"
+  > {
   children?: React.ReactNode;
   demoIModel?: boolean | { default: DemoIModel };
   frontstages?: Frontstage[] | (() => Frontstage[]);
@@ -156,6 +163,7 @@ function Initialized(props: AppUiStoryProps) {
               }}
               appBackstage={props.appBackstage}
               widgetIcon={true}
+              renderModalFrontstage={props.renderModalFrontstage}
             />
           )}
         </ThemeManager>

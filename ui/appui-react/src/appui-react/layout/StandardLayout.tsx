@@ -9,7 +9,6 @@
 import "./StandardLayout.scss";
 import classnames from "classnames";
 import * as React from "react";
-import type { CommonProps } from "@itwin/core-react";
 import { useLayout } from "./base/LayoutStore.js";
 import { useContentAlwaysMaxSize } from "../preview/content-always-max-size/useContentAlwaysMaxSize.js";
 import { useMaximizedPanelLayout } from "../preview/enable-maximized-widget/useMaximizedWidget.js";
@@ -19,8 +18,7 @@ import type { PanelSide } from "./widget-panels/PanelTypes.js";
 import { ConfigurableUiContext } from "../configurableui/ConfigurableUiContent.js";
 import { useRefs } from "@itwin/core-react/internal";
 
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-interface StandardLayoutProps extends CommonProps {
+interface StandardLayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Main content area of the application (i.e. viewport) that will change bounds based on panel pinned state. */
   children?: React.ReactNode;
   /** Component that displays center content (i.e. toolbars). Content is always bound by widget panels. */
@@ -37,27 +35,40 @@ interface StandardLayoutProps extends CommonProps {
  * @internal
  */
 export function StandardLayout(props: StandardLayoutProps) {
+  const {
+    centerContent,
+    leftPanel,
+    rightPanel,
+    topPanel,
+    bottomPanel,
+    toolSettings,
+    statusBar,
+    ...rest
+  } = props;
+
   const { contentElementRef } = React.useContext(ConfigurableUiContext);
   const pinned = usePinnedPanels();
   const appContentRef = usePanelsAutoCollapse<HTMLDivElement>();
   const refs = useRefs(contentElementRef, appContentRef);
-  const className = classnames("nz-standardLayout", pinned, props.className);
   const contentAlwaysMaxSize = useContentAlwaysMaxSize();
   return (
-    <div className={className} style={props.style}>
+    <div
+      {...rest}
+      className={classnames("nz-standardLayout", pinned, props.className)}
+    >
       <div
         className={classnames("nz-appContent", contentAlwaysMaxSize)}
         ref={refs}
       >
         {props.children}
       </div>
-      <div className="nz-centerContent">{props.centerContent}</div>
-      <Panel side="left">{props.leftPanel}</Panel>
-      <Panel side="right">{props.rightPanel}</Panel>
-      <Panel side="top">{props.topPanel}</Panel>
-      <Panel side="bottom">{props.bottomPanel}</Panel>
-      <div className="nz-toolSettings">{props.toolSettings}</div>
-      <div className="nz-statusBar">{props.statusBar}</div>
+      <div className="nz-centerContent">{centerContent}</div>
+      <Panel side="left">{leftPanel}</Panel>
+      <Panel side="right">{rightPanel}</Panel>
+      <Panel side="top">{topPanel}</Panel>
+      <Panel side="bottom">{bottomPanel}</Panel>
+      <div className="nz-toolSettings">{toolSettings}</div>
+      <div className="nz-statusBar">{statusBar}</div>
     </div>
   );
 }
