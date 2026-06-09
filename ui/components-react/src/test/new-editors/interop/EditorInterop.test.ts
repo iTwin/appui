@@ -66,6 +66,45 @@ describe("EditorInterop", () => {
       } satisfies TextValue);
     });
 
+    it("string with undefined value and '--' displayValue", () => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: undefined,
+          displayValue: "--",
+        },
+        {
+          name: "TestProp",
+          typename: "string",
+          displayLabel: "Test Property",
+        }
+      );
+
+      const { value } = EditorInterop.getMetadataAndValue(record);
+      expect(value).toMatchObject({
+        value: "--",
+      } satisfies TextValue);
+    });
+
+    it("string with undefined value and no displayValue", () => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: undefined,
+        },
+        {
+          name: "TestProp",
+          typename: "string",
+          displayLabel: "Test Property",
+        }
+      );
+
+      const { value } = EditorInterop.getMetadataAndValue(record);
+      expect(value).toMatchObject({
+        value: "",
+      } satisfies TextValue);
+    });
+
     it("number", () => {
       const record = new PropertyRecord(
         {

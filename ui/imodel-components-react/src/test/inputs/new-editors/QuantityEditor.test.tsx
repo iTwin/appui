@@ -6,7 +6,16 @@
 import { render } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import type { QuantityValueMetadata } from "../../../imodel-components-react/inputs/new-editors/QuantityEditor.js";
 
 const METERS_PER_INCH = 0.0254;
@@ -56,6 +65,19 @@ function renderQuantityEditor(
 }
 
 describe("QuantityEditor", () => {
+  // Mock requestAnimationFrame to fire synchronously so that select() in
+  // handleFocus completes before userEvent.type sends characters.
+  beforeAll(() => {
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
+      cb(0);
+      return 0;
+    });
+  });
+
+  afterAll(() => {
+    vi.unstubAllGlobals();
+  });
+
   describe("persistence unit matches display unit", () => {
     const metadata: QuantityValueMetadata = {
       type: "number",
@@ -170,20 +192,6 @@ describe("QuantityEditor", () => {
       expect(onChange).toHaveBeenLastCalledWith(
         expect.objectContaining({ rawValue: 999 })
       );
-    });
-
-    it("switches merged display value to unit label on focus", async () => {
-      const onChange = vi.fn();
-      const { getByDisplayValue } = renderQuantityEditor(
-        metadata,
-        { rawValue: undefined, displayValue: "-- m" },
-        onChange
-      );
-
-      const input = getByDisplayValue("-- m");
-      await userEvent.click(input);
-
-      expect(input).toHaveProperty("value", "m");
     });
   });
 

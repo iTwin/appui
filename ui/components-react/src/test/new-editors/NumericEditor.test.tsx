@@ -189,4 +189,35 @@ describe("NumericEditor (new-system)", () => {
       displayValue: "abc",
     });
   });
+
+  it("renders merged value '--' as displayValue", () => {
+    const { getByDisplayValue } = render(
+      <NumericEditor
+        metadata={{ type: "number" }}
+        value={{ rawValue: undefined, displayValue: "--" }}
+        onChange={() => {}}
+      />
+    );
+
+    getByDisplayValue("--");
+  });
+
+  it("selects all text on focus", async () => {
+    const user = userEvent.setup();
+    const { getByRole } = render(
+      <NumericEditor
+        metadata={{ type: "number" }}
+        value={{ rawValue: 42, displayValue: "42" }}
+        onChange={() => {}}
+      />
+    );
+
+    const input = getByRole("textbox") as HTMLInputElement;
+    await user.click(input);
+
+    await vi.waitFor(() => {
+      expect(input.selectionStart).toBe(0);
+      expect(input.selectionEnd).toBe(2);
+    });
+  });
 });

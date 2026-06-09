@@ -273,6 +273,7 @@
     "unobserve",
     "unregisters",
     "unrotate",
+    "unstub",
     "unsubscribable",
     "unsubscription",
     "upath",

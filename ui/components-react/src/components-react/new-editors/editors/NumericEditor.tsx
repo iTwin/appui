@@ -28,6 +28,11 @@ export function NumericEditor({
   id,
 }: EditorProps<NumericValueMetadata, NumericValue>) {
   const currentValue = getNumericValue(value);
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    e.target.select();
+  };
+
   return (
     <Input
       id={id}
@@ -44,6 +49,7 @@ export function NumericEditor({
           displayValue: e.target.value,
         });
       }}
+      onFocus={handleFocus}
       size={size}
       disabled={disabled}
     />

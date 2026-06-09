@@ -63,7 +63,12 @@ export namespace EditorInterop {
             type: "string",
           },
           value: {
-            value: (primitiveValue.value as string) ?? "",
+            value:
+              primitiveValue.value !== undefined
+                ? (primitiveValue.value as string)
+                : primitiveValue.displayValue === "--"
+                ? primitiveValue.displayValue
+                : "",
           } satisfies TextValue,
         };
       case "dateTime":
