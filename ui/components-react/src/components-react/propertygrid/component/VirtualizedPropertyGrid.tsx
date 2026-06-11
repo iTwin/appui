@@ -169,6 +169,7 @@ export interface VirtualizedPropertyGridContext {
     e: React.MouseEvent
   ) => void;
 
+  editKey?: number;
   editingPropertyKey?: string;
   onEditCommit?: (
     args: PropertyUpdatedArgs,
@@ -441,6 +442,7 @@ class VirtualizedPropertyGridImpl extends React.Component<
                 onPropertyRightClicked: selectionContext.onPropertyRightClicked,
                 onPropertyContextMenu: selectionContext.onPropertyContextMenu,
 
+                editKey: selectionContext.editKey,
                 editingPropertyKey: selectionContext.editingPropertyKey,
                 onEditCommit: selectionContext.onEditCommit,
                 onEditCancel: selectionContext.onEditCancel,
@@ -665,6 +667,7 @@ const FlatGridItemNode = React.memo(
                 onRightClick={gridContext.onPropertyRightClicked}
                 onContextMenu={gridContext.onPropertyContextMenu}
                 category={parentCategoryItem.derivedCategory}
+                editKey={gridContext.editKey}
                 isEditing={selectionKey === gridContext.editingPropertyKey}
                 isPropertyEditingEnabled={gridContext.isPropertyEditingEnabled}
                 alwaysShowEditor={gridContext.alwaysShowEditor}

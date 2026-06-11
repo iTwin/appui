@@ -1216,6 +1216,91 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
             .be.empty
       );
     });
+
+    it("resets always-shown editor when value update fails", async () => {
+      const { container } = render(
+        <VirtualizedPropertyGridWithDataProvider
+          {...defaultProps}
+          isPropertyEditingEnabled={true}
+          alwaysShowEditor={() => true}
+          onPropertyUpdated={async () => {
+            return false;
+          }}
+        />
+      );
+
+      await waitFor(() =>
+        expect(
+          container.querySelectorAll("input.components-cell-editor").length
+        ).to.be.greaterThan(0)
+      );
+
+      const editor = container.querySelector<HTMLInputElement>(
+        "input.components-cell-editor"
+      )!;
+      const initialValue = editor.value;
+
+      // Start editing the always-shown editor and ensure it is focused.
+      fireEvent.click(editor);
+      const editingEditor = container.querySelector<HTMLInputElement>(
+        "input.components-cell-editor"
+      )!;
+      editingEditor.focus();
+      expect(document.activeElement).toEqual(editingEditor);
+
+      fireEvent.change(editingEditor, { target: { value: "changed value" } });
+      fireEvent.keyDown(editingEditor, { key: "Enter" });
+
+      // Cancel remounts the editor: value resets to initial and focus is dropped.
+      await waitFor(() => {
+        const resetEditor = container.querySelector<HTMLInputElement>(
+          "input.components-cell-editor"
+        )!;
+        expect(resetEditor.value).toEqual(initialValue);
+        expect(document.activeElement).to.not.equal(resetEditor);
+      });
+    });
+
+    it("resets always-shown editor and removes focus on cancel", async () => {
+      const { container } = render(
+        <VirtualizedPropertyGridWithDataProvider
+          {...defaultProps}
+          isPropertyEditingEnabled={true}
+          alwaysShowEditor={() => true}
+        />
+      );
+
+      await waitFor(() =>
+        expect(
+          container.querySelectorAll("input.components-cell-editor").length
+        ).to.be.greaterThan(0)
+      );
+
+      const editor = container.querySelector<HTMLInputElement>(
+        "input.components-cell-editor"
+      )!;
+      const initialValue = editor.value;
+
+      // Start editing the always-shown editor and ensure it is focused.
+      fireEvent.click(editor);
+      const editingEditor = container.querySelector<HTMLInputElement>(
+        "input.components-cell-editor"
+      )!;
+      editingEditor.focus();
+      expect(document.activeElement).toEqual(editingEditor);
+
+      fireEvent.change(editingEditor, { target: { value: "changed value" } });
+      fireEvent.keyDown(editingEditor, { key: "Escape" });
+
+      // Cancel remounts the editor: value resets to initial and focus is dropped.
+      await waitFor(() => {
+        const resetEditor = container.querySelector<HTMLInputElement>(
+          "input.components-cell-editor"
+        )!;
+        expect(resetEditor.value).toEqual(initialValue);
+        expect(document.activeElement).to.not.equal(resetEditor);
+      });
+    });
   });
 
   describe("context menu", () => {

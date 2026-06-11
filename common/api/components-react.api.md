@@ -3411,6 +3411,8 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     editingPropertyKey?: string;
     // (undocumented)
+    editKey?: number;
+    // (undocumented)
     editorSystem: "legacy" | "new";
     // (undocumented)
     eventHandler: IPropertyGridEventHandler;

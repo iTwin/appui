@@ -34,7 +34,9 @@ export type PropertyGridEventsRelatedProps = Pick<
       CommonPropertyGridProps,
       "isPropertyHoverEnabled" | "isPropertySelectionEnabled"
     >
-  >;
+  > & {
+    editKey?: number;
+  };
 
 /** Properties for [[PropertyGridEventsRelatedPropsSupplier]] React component
  * @internal
@@ -64,6 +66,10 @@ interface PropertyGridEventsRelatedPropsSupplierState {
   selectedPropertyKey?: string;
   /** Unique key of currently edited property */
   editingPropertyKey?: string;
+  /** Indicates if a property edit is currently being committed */
+  isCommitting: boolean;
+  /** Key used to force re-rendering of the editor */
+  editKey: number;
 }
 
 /** PropertyGridEventsRelatedPropsSupplier React component.
@@ -75,7 +81,7 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
 > {
   constructor(props: PropertyGridEventsRelatedPropsSupplierProps) {
     super(props);
-    this.state = {};
+    this.state = { isCommitting: false, editKey: 0 };
   }
 
   private _isClickSupported() {
@@ -116,13 +122,28 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
     category: PropertyCategory
   ) => {
     if (this.props.onPropertyUpdated) {
-      await this.props.onPropertyUpdated(args, category);
-      this.setState({ editingPropertyKey: undefined });
+      this.setState({ isCommitting: true });
+      const result = await this.props.onPropertyUpdated(args, category);
+      this.setState((prev) => ({
+        editingPropertyKey: undefined,
+        isCommitting: false,
+        // if update failed, change editKey to force editor to re-render with initial value
+        editKey: result === false ? prev.editKey + 1 : prev.editKey,
+      }));
     }
   };
 
   private _onEditCancel = () => {
-    this.setState({ editingPropertyKey: undefined });
+    this.setState((prev) =>
+      // do not reset editingPropertyKey if currently committing an edit, to prevent editor from being closed before commit finishes
+      prev.isCommitting
+        ? prev
+        : {
+            editingPropertyKey: undefined,
+            isCommitting: false,
+            editKey: prev.editKey,
+          }
+    );
   };
 
   private onEnabledPropertyRightClicked(
@@ -180,6 +201,7 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
       isPropertyEditingEnabled: this.props.isPropertyEditingEnabled,
       selectedPropertyKey: this.state.selectedPropertyKey,
       editingPropertyKey: this.state.editingPropertyKey,
+      editKey: this.state.editKey,
       onEditCommit: this._onEditCommit,
       onEditCancel: this._onEditCancel,
       onPropertyClicked: this._isClickSupported()
