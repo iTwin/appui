@@ -173,7 +173,7 @@ export interface VirtualizedPropertyGridContext {
   onEditCommit?: (
     args: PropertyUpdatedArgs,
     category: PropertyCategory
-  ) => void;
+  ) => void | Promise<{ status: "success" | "cancel" }>;
   onEditCancel?: () => void;
   editorSystem: "legacy" | "new";
 

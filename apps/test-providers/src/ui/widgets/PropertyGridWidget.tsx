@@ -8,6 +8,7 @@ import {
   IPropertyDataProvider,
   PropertyData,
   PropertyDataChangeEvent,
+  PropertyUpdatedArgs,
   VirtualizedPropertyGridWithDataProvider,
 } from "@itwin/components-react";
 
@@ -68,10 +69,53 @@ class PropertyDataProvider implements IPropertyDataProvider {
   public async getData(): Promise<PropertyData> {
     return this._data;
   }
+
+  /** Updates the value of the record matching the given name and raises `onDataChanged`. */
+  public updateRecordValue(name: string, args: PropertyUpdatedArgs): boolean {
+    if (
+      args.newValue.valueFormat === PropertyValueFormat.Primitive &&
+      args.newValue.value === 100
+    ) {
+      return false; // Simulate a failed update for value 100 to test error handling.
+    }
+
+    for (const categoryName of Object.keys(this._data.records)) {
+      const records = this._data.records[categoryName];
+      const index = records.findIndex(
+        (record) => record.property.name === name
+      );
+      if (index === -1) continue;
+
+      const newRecords = [...records];
+      newRecords[index] = records[index].copyWithNewValue(args.newValue);
+
+      // Return a new data object with new references so React detects the change.
+      this._data = {
+        ...this._data,
+        records: {
+          ...this._data.records,
+          [categoryName]: newRecords,
+        },
+      };
+      this.onDataChanged.raiseEvent();
+      return true;
+    }
+    return false;
+  }
 }
 
 export function PropertyGridWidgetComponent() {
   const [dataProvider] = React.useState(() => new PropertyDataProvider());
+
+  const onPropertyUpdated = React.useCallback(
+    async (args: PropertyUpdatedArgs) => {
+      return dataProvider.updateRecordValue(
+        args.propertyRecord.property.name,
+        args
+      );
+    },
+    [dataProvider]
+  );
 
   return (
     <VirtualizedPropertyGridWithDataProvider
@@ -79,6 +123,9 @@ export function PropertyGridWidgetComponent() {
       width={300}
       height={300}
       editorSystem="new"
+      isPropertyEditingEnabled={true}
+      onPropertyUpdated={onPropertyUpdated}
+      alwaysShowEditor={() => true}
     />
   );
 }

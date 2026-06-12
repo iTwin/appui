@@ -3435,7 +3435,9 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     onEditCancel?: () => void;
     // (undocumented)
-    onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void;
+    onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void | Promise<{
+        status: "success" | "cancel";
+    }>;
     // (undocumented)
     onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
     // (undocumented)

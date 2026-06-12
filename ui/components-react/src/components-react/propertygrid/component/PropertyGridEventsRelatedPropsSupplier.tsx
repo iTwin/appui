@@ -20,7 +20,6 @@ export type PropertyGridEventsRelatedProps = Pick<
   | "onPropertyClicked"
   | "onPropertyRightClicked"
   | "onPropertyContextMenu"
-  | "onEditCommit"
   | "onEditCancel"
   | "selectedPropertyKey"
   | "editingPropertyKey"
@@ -34,7 +33,12 @@ export type PropertyGridEventsRelatedProps = Pick<
       CommonPropertyGridProps,
       "isPropertyHoverEnabled" | "isPropertySelectionEnabled"
     >
-  >;
+  > & {
+    onEditCommit: (
+      args: PropertyUpdatedArgs,
+      category: PropertyCategory
+    ) => void | Promise<{ status: "success" | "cancel" }>;
+  };
 
 /** Properties for [[PropertyGridEventsRelatedPropsSupplier]] React component
  * @internal
@@ -64,6 +68,8 @@ interface PropertyGridEventsRelatedPropsSupplierState {
   selectedPropertyKey?: string;
   /** Unique key of currently edited property */
   editingPropertyKey?: string;
+  /** Indicates if a property edit is currently being committed */
+  isCommitting: boolean;
 }
 
 /** PropertyGridEventsRelatedPropsSupplier React component.
@@ -75,7 +81,7 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
 > {
   constructor(props: PropertyGridEventsRelatedPropsSupplierProps) {
     super(props);
-    this.state = {};
+    this.state = { isCommitting: false };
   }
 
   private _isClickSupported() {
@@ -114,15 +120,29 @@ export class PropertyGridEventsRelatedPropsSupplier extends React.Component<
   private _onEditCommit = async (
     args: PropertyUpdatedArgs,
     category: PropertyCategory
-  ) => {
+  ): Promise<{ status: "success" | "cancel" }> => {
     if (this.props.onPropertyUpdated) {
-      await this.props.onPropertyUpdated(args, category);
-      this.setState({ editingPropertyKey: undefined });
+      this.setState({ isCommitting: true });
+      const result = await this.props.onPropertyUpdated(args, category);
+      this.setState({
+        editingPropertyKey: undefined,
+        isCommitting: false,
+      });
+      return { status: result === false ? "cancel" : "success" };
     }
+    return { status: "success" };
   };
 
   private _onEditCancel = () => {
-    this.setState({ editingPropertyKey: undefined });
+    this.setState((prev) =>
+      // do not reset editingPropertyKey if currently committing an edit, to prevent editor from being closed before commit finishes
+      prev.isCommitting
+        ? prev
+        : {
+            editingPropertyKey: undefined,
+            isCommitting: false,
+          }
+    );
   };
 
   private onEnabledPropertyRightClicked(

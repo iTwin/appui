@@ -38,7 +38,7 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   onEditCommit?: (
     args: PropertyUpdatedArgs,
     category: PropertyCategory
-  ) => void;
+  ) => void | Promise<{ status: "success" | "cancel" }>;
   /** Called when property edit is cancelled. */
   onEditCancel?: () => void;
   /** Used to switch between new and legacy editing system. */
@@ -149,7 +149,7 @@ interface DisplayValueProps {
   onEditCommit?: (
     args: PropertyUpdatedArgs,
     category: PropertyCategory
-  ) => void;
+  ) => void | Promise<{ status: "success" | "cancel" }>;
 
   highlight?: HighlightingComponentProps & {
     applyOnLabel: boolean;
@@ -168,19 +168,33 @@ const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
     ? props.alwaysShowEditor(props.propertyRecord)
     : false;
 
+  const { editorKey, onCancel } = useEditorKey({
+    propertyRecord: props.propertyRecord,
+  });
+
   if (
     props.isEditing ||
     (alwaysShowsEditor && props.isPropertyEditingEnabled)
   ) {
-    const _onEditCommit = (args: PropertyUpdatedArgs) => {
-      if (props.category) props.onEditCommit?.(args, props.category);
+    const _onEditCommit = async (args: PropertyUpdatedArgs) => {
+      if (!props.category) {
+        return;
+      }
+      const result = await props.onEditCommit?.(args, props.category);
+      if (result?.status === "cancel") {
+        onCancel();
+      }
     };
 
     return (
       <PropertyRecordEditor
+        key={editorKey}
         propertyRecord={props.propertyRecord}
         onCommit={_onEditCommit}
-        onCancel={props.onEditCancel ?? (() => {})}
+        onCancel={() => {
+          props.onEditCancel?.();
+          onCancel();
+        }}
         onClick={() => props.onClick?.(props.propertyRecord, props.uniqueKey)}
         setFocus={props.isEditing}
         // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -201,6 +215,31 @@ const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
     props.highlight
   );
 };
+
+/**
+ * Created key for editor component. Different key is produced to reset editor when:
+ * - property value changes
+ * - edit is cancelled (to reset editor internal state to initial value)
+ */
+function useEditorKey({
+  propertyRecord,
+}: Pick<DisplayValueProps, "propertyRecord">) {
+  const [internalKey, setInternalKey] = React.useState(1);
+
+  const onCancel = () => {
+    setInternalKey((prev) => prev + 1);
+  };
+
+  const key = React.useMemo(() => {
+    const serializedValue =
+      propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
+        ? JSON.stringify(propertyRecord.value.value)
+        : "";
+    return `${serializedValue}-${internalKey}`;
+  }, [internalKey, propertyRecord]);
+
+  return { editorKey: key, onCancel };
+}
 
 function useResetHeightOnEdit(
   orientation: Orientation,
