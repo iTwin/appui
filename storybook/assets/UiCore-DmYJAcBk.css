@@ -1,0 +1,718 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/** @note: This file should only be imported by UiCore.ts.
+ *  It should NOT be imported by any *.scss or other ui-core files.
+ *//*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/** @note: This file should only be imported by UiCore.ts.
+ *  It should NOT be imported by any *.scss or other ui-core files.
+ */
+[data-root-container=appui-root-id] {
+  --buic-accessory-hollow: rgb(255, 255, 255);
+  --buic-accessory-primary: rgb(000, 139, 225);
+  --buic-accessory-success: rgb(083, 162, 026);
+  --buic-accessory-alert: rgb(211, 010, 010);
+  --buic-accessory-warning: rgb(241, 139, 018);
+  --buic-accessory-primary-tint: rgb(165, 215, 245);
+  --buic-accessory-success-tint: rgb(195, 225, 175);
+  --buic-accessory-alert-tint: rgb(239, 169, 169);
+  --buic-accessory-warning-tint: rgb(249, 215, 171);
+  --buic-background-1: var(--iui-color-background);
+  --buic-background-2: var(--iui-color-background-hover);
+  --buic-background-3: var(--iui-color-background-backdrop);
+  --buic-background-4: var(--iui-color-background-backdrop-hover);
+  --buic-background-5: var(--iui-color-background-disabled);
+  --buic-background-editable: var(--iui-color-background);
+  --buic-background-primary: var(--iui-color-background-accent);
+  --buic-background-tooltip: hsl(var(--iui-color-background-hsl) / 0.9);
+  --buic-background-scrollbar: hsl(
+    var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+  );
+  --buic-background-scrollbar-hover: hsl(
+    var(--iui-color-foreground-hsl) / var(--iui-opacity-3)
+  );
+  --buic-foreground-body-rgb: var(--iui-color-foreground-hsl);
+  --buic-foreground-body: var(--iui-color-text);
+  --buic-foreground-body-reverse-rgb: var(--iui-color-foreground-hsl);
+  --buic-foreground-body-reverse: hsl(
+    var(--iui-color-background-hsl) / var(--iui-opacity-2)
+  );
+  --buic-foreground-muted: var(--iui-color-text-muted);
+  --buic-foreground-disabled: var(--iui-color-text-disabled);
+  --buic-foreground-activehover: var(--iui-color-text);
+  --buic-inputs-border: hsl(
+    var(--iui-color-foreground-hsl) / var(--iui-opacity-4)
+  );
+  --buic-inputs-boxshadow: var(--iui-focus-box-shadow);
+  --buic-popup-boxshadow: var(--buic-inputs-boxshadow);
+  --buic-foreground-primary: var(--iui-color-icon-accent);
+  --buic-foreground-primary-tone: var(--iui-color-text-accent-hover);
+  --buic-foreground-focus: var(--iui-color-text-accent-hover);
+  --buic-foreground-focus-border: var(--buic-inputs-border);
+  --buic-focus-boxshadow: hsl(
+    var(--iui-color-accent-hsl) / var(--iui-opacity-4)
+  );
+  --buic-focus-boxshadow-gradient1: hsl(
+    var(--buic-foreground-primary-tone-rgb) / 0
+  );
+  --buic-focus-boxshadow-gradient2: hsl(
+    var(--buic-foreground-primary-rgb) / 0.65
+  );
+  --buic-foreground-accessory: var(--iui-color-white);
+  --buic-foreground-success: var(--iui-color-text-positive);
+  --buic-foreground-positive: var(--iui-color-text-positive);
+  --buic-foreground-positive-rgb: var(--iui-color-positive-hsl);
+  --buic-foreground-alert: var(--iui-color-text-negative);
+  --buic-foreground-negative: var(--iui-color-text-negative);
+  --buic-foreground-negative-rgb: var(--iui-color-negative-hsl);
+  --buic-foreground-warning: var(--iui-color-text-warning);
+  --buic-foreground-warning-rgb: var(--iui-color-warning-hsl);
+  --buic-background-focus-overlay: hsl(var(--iui-opacity-6));
+  --buic-background-hover-overlay: hsl(
+    var(--iui-color-accent-hsl) / var(--iui-opacity-5)
+  );
+  --buic-background-active-overlay: hsl(
+    var(--iui-color-accent-hsl) / var(--iui-opacity-5)
+  );
+  --buic-background-pressed-overlay: hsl(var(--iui-color-accent-hsl) / 0.3);
+  --buic-background-card: var(--buic-background-tooltip);
+  --buic-background-striped_row: hsl(var(--iui-color-foreground-hsl) / 0.03);
+  /** background.5 */
+  --buic-background-titlebar: var(--buic-background-5);
+  --buic-background-dialog-stroke: var(--buic-background-5);
+  --buic-background-widget-stroke: var(--buic-background-5);
+  --buic-background-control-stroke: var(--buic-background-5);
+  --buic-background-panel-stroke: var(--buic-background-5);
+  --buic-background-toolbutton-stroke: var(--buic-background-5);
+  /** background.4 */
+  --buic-background-titlebar-outoffocus: var(--buic-background-4);
+  --buic-background-divider: var(--buic-background-4);
+  --buic-background-widget-element-stroke: var(--buic-background-4);
+  --buic-background-statusbar: var(--buic-background-4);
+  --buic-background-table-header: var(--buic-background-4);
+  --buic-background-control-stroke-disabled: var(--buic-background-4);
+  /** background.3 */
+  --buic-background-tab-inactive: var(--buic-background-3);
+  --buic-background-toolbutton-inactive: var(--buic-background-3);
+  --buic-background-context-menu: var(--buic-background-3);
+  --buic-background-widget-panel: var(--buic-background-3);
+  --buic-background-placeholder: var(--buic-background-3);
+  --buic-background-control-disabled: var(--buic-background-3);
+  /** background.2 */
+  --buic-background-tab-active: var(--buic-background-2);
+  --buic-background-dialog: var(--buic-background-2);
+  --buic-background-widget: var(--buic-background-2);
+  --buic-background-window: var(--buic-background-2);
+  --buic-background-toolbar: var(--buic-background-2);
+  --buic-background-panel: var(--buic-background-2);
+  /** background.1 */
+  --buic-background-control: var(--buic-background-1);
+  --buic-row-selection: var(--iui-color-background-accent-muted);
+  --buic-row-hover: var(--iui-color-background-hover);
+  /* Unused gradient variables, left for backwards compatibility */
+  --buic-button-gradient1: rgba(var(--iui-color-foreground-body-invert-rgb), 0);
+  --buic-button-gradient2: rgba(
+    var(--iui-color-foreground-body-invert-rgb),
+    0.25
+  );
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+:root {
+  /** Default Widget Opacity */
+  --buic-widget-opacity: 0.9;
+  /** Default Toolbar Opacity */
+  --buic-toolbar-opacity: 0.5;
+  /** CSS variables for each z-index layer */
+  --uicore-z-index-view-overlay: 1000;
+  --uicore-z-index-view-content-dialog: 2000;
+  --uicore-z-index-content-card-popup: 3000;
+  --uicore-z-index-widget-grip: 4000;
+  --uicore-z-index-drop-target: 5000;
+  --uicore-z-index-dragged-widget: 6000;
+  --uicore-z-index-zone-target: 7000;
+  --uicore-z-index-zone-outline: 8000;
+  --uicore-z-index-toolbar-panels: 9000;
+  --uicore-z-index-tool-settings-popup: 10000;
+  --uicore-z-index-status-overflow-popup: 11000;
+  --uicore-z-index-status-popup: 12000;
+  --uicore-z-index-modal-frontstage-overlay: 13000;
+  --uicore-z-index-modal-frontstage: 14000;
+  --uicore-z-index-dialog: 15000;
+  --uicore-z-index-dialog-popup: 16000;
+  --uicore-z-index-status-message: 17000;
+  --uicore-z-index-tooltip: 18000;
+  --uicore-z-index-context-menu-z: 19000;
+  --uicore-z-index-dragdrop: 20000;
+  --uicore-z-index-cursor-overlay: 21000;
+  --uicore-z-index-drag-target: 22000;
+  --uicore-z-index-drag-preview: 23000;
+  --uicore-z-index-backstage-overlay: 24000;
+  --uicore-z-index-backstage: 25000;
+  --uicore-z-index-keyin-palette-overlay: 26000;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uicore-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.uicore-full-height {
+  height: 100%;
+}
+
+.uicore-full-width {
+  width: 100%;
+}
+
+.uicore-full-size {
+  height: 100%;
+  width: 100%;
+}
+
+.uicore-fill-centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.uicore-scrollview {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+@supports (-webkit-overflow-scrolling: touch) {
+  .uicore-scrollview {
+    overflow-y: scroll; /* overflow-y has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.uicore-scrollview::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.uicore-scrollview::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: hsl(var(--iui-color-foreground-hsl)/var(--iui-opacity-4));
+  background-clip: content-box;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 2px;
+}
+.uicore-scrollview::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--iui-color-foreground-hsl)/var(--iui-opacity-3));
+}
+.uicore-scrollview::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.uicore-scrollview::-webkit-scrollbar-track-piece:corner-present {
+  margin-bottom: -4px;
+  margin-right: -4px;
+}
+
+.uicore-flex-wrap-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uicore-icons-large {
+  width: 48px;
+  height: 48px;
+}
+
+.uicore-icons-medium {
+  width: 32px;
+  height: 32px;
+}
+
+.uicore-icons-small {
+  width: 16px;
+  height: 16px;
+}
+
+.uicore-icons-x-large {
+  width: 64px;
+  height: 64px;
+}
+
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Breakpoints */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uicore-inputs-input {
+  display: block;
+  width: 100%;
+  padding: var(--iui-size-3xs) var(--iui-size-xs);
+  margin: calc((calc(var(--iui-size-s) * 1.4) * 2 - 22px) * 0.5) 0;
+  font-family: var(--iui-font-sans);
+  font-size: var(--iui-font-size-1);
+  line-height: normal;
+  color: var(--iui-color-text);
+  background-color: var(--iui-color-background);
+  background-image: none;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-radius: var(--iui-border-radius-1);
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
+  box-sizing: border-box;
+  transition: border-color var(--iui-duration-1) ease-in-out, box-shadow var(--iui-duration-1) ease-in-out;
+}
+.uicore-inputs-input:-ms-input-placeholder {
+  color: var(--iui-color-text-disabled);
+}
+.uicore-inputs-input::-webkit-input-placeholder {
+  color: var(--iui-color-text-disabled);
+}
+.uicore-inputs-input::placeholder {
+  color: var(--iui-color-text-disabled);
+}
+.uicore-inputs-input[disabled] {
+  background-color: var(--iui-color-background-backdrop);
+  border-color: var(--iui-color-text-disabled);
+  color: var(--iui-color-text-disabled);
+  cursor: not-allowed;
+  opacity: var(--iui-opacity-4);
+}
+.uicore-inputs-input[readonly] {
+  color: var(--iui-color-text-muted);
+  cursor: default;
+}
+.uicore-inputs-input:focus {
+  outline: 0px;
+  border-color: hsl(var(--iui-color-foreground-hsl)/var(--iui-opacity-4));
+  box-shadow: hsl(var(--iui-color-accent-hsl)/var(--iui-opacity-4)) 0px 0px 0px 2px;
+}
+
+.uicore-inputs-labeled-input {
+  display: block;
+  padding: 0;
+  margin: 0 0 var(--iui-size-s);
+  text-align: left;
+  font-size: var(--iui-font-size-1);
+  font-weight: var(--iui-font-weight-normal);
+  cursor: pointer;
+}
+.uicore-inputs-labeled-input > .uicore-label {
+  padding: 0;
+  margin: 0;
+  border: 0 none transparent;
+  display: block;
+  font-size: var(--iui-font-size-1);
+  font-weight: var(--iui-font-weight-semibold);
+  line-height: var(--iui-size-l);
+  text-align: left;
+  color: var(--iui-color-text);
+}
+.uicore-inputs-labeled-input > .input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.uicore-inputs-labeled-input > .input.with-icon > input {
+  padding-right: calc(calc(var(--iui-size-s) - 1px) + var(--iui-size-l));
+  margin-right: calc(calc(var(--iui-size-s) - 1px) + var(--iui-size-l));
+}
+.uicore-inputs-labeled-input > .input > .icon {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: calc(var(--iui-size-s) - 1px);
+  font-size: var(--iui-font-size-1);
+  font-weight: normal;
+}
+.uicore-inputs-labeled-input > .uicore-message {
+  display: block;
+  font-size: var(--iui-font-size-0);
+  line-height: var(--iui-size-l);
+  color: var(--iui-color-text-muted);
+}
+.uicore-inputs-labeled-input.success, .uicore-inputs-labeled-input.success > .uicore-message {
+  color: rgb(var(--iui-color-positive-hsl));
+}
+.uicore-inputs-labeled-input.success > .input > input,
+.uicore-inputs-labeled-input.success > .input > .uicore-inputs-input {
+  border-color: rgb(var(--iui-color-positive-hsl));
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
+}
+.uicore-inputs-labeled-input.success > .input > input:focus,
+.uicore-inputs-labeled-input.success > .input > .uicore-inputs-input:focus {
+  border-color: rgb(var(--iui-color-positive-hsl));
+  box-shadow: rgba(var(--iui-color-positive-hsl), var(--iui-opacity-4)) 0px 0px 0px 2px;
+}
+.uicore-inputs-labeled-input.warning, .uicore-inputs-labeled-input.warning > .uicore-message {
+  color: rgb(var(--iui-color-warning-hsl));
+}
+.uicore-inputs-labeled-input.warning > .input > input,
+.uicore-inputs-labeled-input.warning > .input > .uicore-inputs-input {
+  border-color: rgb(var(--iui-color-warning-hsl));
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
+}
+.uicore-inputs-labeled-input.warning > .input > input:focus,
+.uicore-inputs-labeled-input.warning > .input > .uicore-inputs-input:focus {
+  border-color: rgb(var(--iui-color-warning-hsl));
+  box-shadow: rgba(var(--iui-color-warning-hsl), var(--iui-opacity-4)) 0px 0px 0px 2px;
+}
+.uicore-inputs-labeled-input.error, .uicore-inputs-labeled-input.error > .uicore-message {
+  color: rgb(var(--iui-color-negative-hsl));
+}
+.uicore-inputs-labeled-input.error > .input > input,
+.uicore-inputs-labeled-input.error > .input > .uicore-inputs-input {
+  border-color: rgb(var(--iui-color-negative-hsl));
+  box-shadow: var(--iui-focus-box-shadow) 0px 1px 1px inset;
+}
+.uicore-inputs-labeled-input.error > .input > input:focus,
+.uicore-inputs-labeled-input.error > .input > .uicore-inputs-input:focus {
+  border-color: rgb(var(--iui-color-negative-hsl));
+  box-shadow: rgba(var(--iui-color-negative-hsl), var(--iui-opacity-4)) 0px 0px 0px 2px;
+}
+
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uicore-tabs-vertical {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+.uicore-tabs-vertical > li {
+  display: block;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+.uicore-tabs-vertical > li.core-tab-item-disabled {
+  pointer-events: none;
+}
+.uicore-tabs-vertical > li > a {
+  display: block;
+  position: relative;
+  padding: calc(var(--iui-size-s) - 1px) calc(var(--iui-font-size-1) - 1px) var(--iui-size-s);
+  margin: 0;
+  line-height: var(--iui-size-l);
+  color: var(--iui-color-text);
+  cursor: pointer;
+}
+.uicore-tabs-vertical > li > a .uicore-tabs-inline-label.core-tab-item-disabled {
+  color: var(--iui-color-text-disabled);
+}
+.uicore-tabs-vertical > li > a .uicore-tabs-inline-label.core-tab-item-disabled .uicore-tabs-subLabel {
+  color: var(--iui-color-text-disabled);
+}
+.uicore-tabs-vertical > li > a .uicore-tabs-inline-label .uicore-tabs-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+.uicore-tabs-vertical > li > a::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  transition: all var(--iui-duration-1);
+  top: 0;
+  right: 0;
+  background: var(--iui-color-border-accent);
+  opacity: 0;
+}
+.uicore-tabs-vertical > li > a:hover {
+  text-decoration: none;
+  background-color: var(--iui-color-background-hover);
+  color: var(--iui-color-text-hover);
+}
+.uicore-tabs-vertical > li.core-active a::after {
+  opacity: 1;
+}
+.uicore-tabs-vertical > li .uicore-tabs-label-subLabel-container {
+  display: flex;
+  flex-direction: column;
+}
+.uicore-tabs-vertical > li .uicore-tabs-label-subLabel-container .uicore-tabs-subLabel {
+  font-size: var(--iui-font-size-0);
+}
+.uicore-tabs-vertical > li:not(.core-active) .uicore-tabs-label-subLabel-container .uicore-tabs-subLabel {
+  color: var(--iui-color-text-muted);
+  font-weight: var(--iui-font-weight-light);
+}
+.uicore-tabs-vertical.uicore-tabs-green > li > a::after {
+  background-color: var(--iui-color-text-positive);
+}
+.uicore-tabs-vertical > li {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.uicore-tabs-vertical > li > a {
+  line-height: var(--iui-size-l);
+  padding: 14px 20px;
+  border-width: 0;
+}
+.uicore-tabs-vertical > li > a .uicore-tabs-inline-label {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+.uicore-tabs-vertical > li > a::after {
+  height: 100%;
+  width: 2px;
+  left: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background-clip: content-box;
+  box-sizing: border-box;
+}
+.uicore-tabs-vertical > li > a:focus-visible {
+  outline: 1px solid var(--iui-color-border-accent);
+  outline-offset: -1px;
+}
+.uicore-tabs-vertical > li.core-active a {
+  color: var(--iui-color-text-accent);
+  background-color: var(--iui-color-background-accent-muted);
+}
+
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uicore-text-body {
+  margin: 0;
+  padding: 0;
+  border: none;
+  vertical-align: baseline;
+  font-size: var(--iui-font-size-1);
+  font-weight: var(--iui-font-weight-normal);
+  line-height: var(--iui-size-l);
+}
+
+.uicore-text-block {
+  margin: 0;
+  padding: 0;
+  border: none;
+  vertical-align: baseline;
+  font-size: var(--iui-font-size-1);
+  font-weight: var(--iui-font-weight-normal);
+  line-height: var(--iui-size-l);
+  margin: 0 0 var(--iui-size-l);
+}
+
+.uicore-text-disabled {
+  color: var(--iui-color-text-disabled);
+}
+
+.uicore-text-muted {
+  color: var(--iui-color-text-muted);
+}
