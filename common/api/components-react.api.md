@@ -3411,8 +3411,6 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     editingPropertyKey?: string;
     // (undocumented)
-    editKey?: number;
-    // (undocumented)
     editorSystem: "legacy" | "new";
     // (undocumented)
     eventHandler: IPropertyGridEventHandler;
@@ -3437,7 +3435,9 @@ export interface VirtualizedPropertyGridContext {
     // (undocumented)
     onEditCancel?: () => void;
     // (undocumented)
-    onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void;
+    onEditCommit?: (args: PropertyUpdatedArgs, category: PropertyCategory) => void | Promise<{
+        status: "success" | "cancel";
+    }>;
     // (undocumented)
     onPropertyClicked?: (property: PropertyRecord, key?: string) => void;
     // (undocumented)

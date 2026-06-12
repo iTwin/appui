@@ -32,14 +32,13 @@ export interface FlatPropertyRendererProps extends SharedRendererProps {
   indentation?: number;
   /** Indicates property is being edited */
   isEditing?: boolean;
-  editKey?: number;
   /** Callback to determine which editors should be always visible */
   alwaysShowEditor?: (property: PropertyRecord) => boolean;
   /** Called when property edit is committed. */
   onEditCommit?: (
     args: PropertyUpdatedArgs,
     category: PropertyCategory
-  ) => void;
+  ) => void | Promise<{ status: "success" | "cancel" }>;
   /** Called when property edit is cancelled. */
   onEditCancel?: () => void;
   /** Used to switch between new and legacy editing system. */
@@ -129,7 +128,6 @@ export const FlatPropertyRenderer: React.FC<FlatPropertyRendererProps> = (
 
 interface DisplayValueProps {
   isEditing?: boolean;
-  editKey?: number;
   isPropertyEditingEnabled?: boolean;
   alwaysShowEditor?: (property: PropertyRecord) => boolean;
   propertyRecord: PropertyRecord;
@@ -151,7 +149,7 @@ interface DisplayValueProps {
   onEditCommit?: (
     args: PropertyUpdatedArgs,
     category: PropertyCategory
-  ) => void;
+  ) => void | Promise<{ status: "success" | "cancel" }>;
 
   highlight?: HighlightingComponentProps & {
     applyOnLabel: boolean;
@@ -172,15 +170,20 @@ const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
 
   const { editorKey, onCancel } = useEditorKey({
     propertyRecord: props.propertyRecord,
-    editKey: props.editKey,
   });
 
   if (
     props.isEditing ||
     (alwaysShowsEditor && props.isPropertyEditingEnabled)
   ) {
-    const _onEditCommit = (args: PropertyUpdatedArgs) => {
-      if (props.category) props.onEditCommit?.(args, props.category);
+    const _onEditCommit = async (args: PropertyUpdatedArgs) => {
+      if (!props.category) {
+        return;
+      }
+      const result = await props.onEditCommit?.(args, props.category);
+      if (result?.status === "cancel") {
+        onCancel();
+      }
     };
 
     return (
@@ -216,13 +219,11 @@ const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
 /**
  * Created key for editor component. Different key is produced to reset editor when:
  * - property value changes
- * - editKey changes (editor is forced to rerender)
  * - edit is cancelled (to reset editor internal state to initial value)
  */
 function useEditorKey({
   propertyRecord,
-  editKey,
-}: Pick<DisplayValueProps, "propertyRecord" | "editKey">) {
+}: Pick<DisplayValueProps, "propertyRecord">) {
   const [internalKey, setInternalKey] = React.useState(1);
 
   const onCancel = () => {
@@ -234,8 +235,8 @@ function useEditorKey({
       propertyRecord.value.valueFormat === PropertyValueFormat.Primitive
         ? JSON.stringify(propertyRecord.value.value)
         : "";
-    return `${serializedValue}-${(editKey ?? 0) + internalKey}`;
-  }, [editKey, internalKey, propertyRecord]);
+    return `${serializedValue}-${internalKey}`;
+  }, [internalKey, propertyRecord]);
 
   return { editorKey: key, onCancel };
 }
