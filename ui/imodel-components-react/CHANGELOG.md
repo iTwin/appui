@@ -1,5 +1,15 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.32.1
+
+### Patch Changes
+
+- 8579336: `Text` and `Numerical` editors now select the input value on focus. `Quantity` editor no longer clear merged values (`-- unit`) on focus.
+- Updated dependencies [8579336]
+- Updated dependencies [6a8e093]
+  - @itwin/components-react@5.32.1
+  - @itwin/core-react@5.32.1
+
 ## 5.32.0
 
 ### Minor Changes

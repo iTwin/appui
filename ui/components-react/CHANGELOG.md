@@ -1,5 +1,13 @@
 # Change Log - @itwin/components-react
 
+## 5.32.1
+
+### Patch Changes
+
+- 8579336: `Text` and `Numerical` editors now select the input value on focus. `Quantity` editor no longer clear merged values (`-- unit`) on focus.
+- 6a8e093: `VirtualizedPropertyGrid` now resets the active editor back to its initial value when a commit is aborted by the consumer (`onPropertyUpdated` returns `false`). Cancelling an edit now also resets editor.
+  - @itwin/core-react@5.32.1
+
 ## 5.32.0
 
 ### Patch Changes
