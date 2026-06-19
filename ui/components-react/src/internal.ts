@@ -26,3 +26,6 @@ export { Panel } from "./components-react/toolbar/groupPanel/Panel.js";
 export { Title } from "./components-react/toolbar/groupPanel/Title.js";
 
 export { CommonToolbarItemWithBadgeKind } from "./components-react/toolbar/InternalToolbarComponent.js";
+
+export { convertRecordToString } from "./components-react/properties/renderers/value/Common.js";
+export { PrimitivePropertyValueRendererImpl } from "./components-react/properties/renderers/value/PrimitivePropertyValueRenderer.js";
