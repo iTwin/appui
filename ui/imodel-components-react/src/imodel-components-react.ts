@@ -163,6 +163,8 @@ export { ToolUtilities } from "./imodel-components-react/ToolUtilities.js";
 
 export { IModelConnectionProvider } from "./imodel-components-react/IModelConnectionContext.js";
 
+export { KOQ_RENDERER_NAME } from "./imodel-components-react/properties/KoqPropertyRenderer.js";
+
 // #region "SideEffects"
 
 import { StandardEditorNames, StandardTypeNames } from "@itwin/appui-abstract";
@@ -173,6 +175,7 @@ import {
 import { ColorPropertyEditor } from "./imodel-components-react/editors/ColorEditor.js";
 import { WeightPropertyEditor } from "./imodel-components-react/editors/WeightEditor.js";
 import { KoqPropertyValueRenderer } from "./imodel-components-react/properties/KoqPropertyRenderer.js";
+import { KOQ_RENDERER_NAME } from "./imodel-components-react/properties/KoqPropertyRenderer.js";
 
 PropertyEditorManager.registerEditor(
   StandardTypeNames.Number,
@@ -186,7 +189,7 @@ PropertyEditorManager.registerEditor(
 );
 
 PropertyValueRendererManager.defaultManager.registerRenderer(
-  StandardTypeNames.Double,
+  KOQ_RENDERER_NAME,
   new KoqPropertyValueRenderer()
 );
 

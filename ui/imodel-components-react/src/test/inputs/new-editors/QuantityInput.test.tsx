@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
@@ -87,7 +87,7 @@ describe("QuantityInput (new-editors)", () => {
     expect(getByRole("textbox").getAttribute("placeholder")).toBe("m");
   });
 
-  it("is disabled when formatter is not provided", () => {
+  it("is disabled when formatter is not provided", async () => {
     const parser = createMockParser();
     const value: NumericValue = { rawValue: 5, displayValue: "5 m" };
 
@@ -95,10 +95,12 @@ describe("QuantityInput (new-editors)", () => {
       <QuantityInput parser={parser} value={value} onChange={() => {}} />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("disabled", true);
+    await waitFor(() =>
+      expect(getByRole("textbox")).toHaveProperty("disabled", true)
+    );
   });
 
-  it("is disabled when parser is not provided", () => {
+  it("is disabled when parser is not provided", async () => {
     const formatter = createMockFormatter("m");
     const value: NumericValue = { rawValue: 5, displayValue: "5 m" };
 
@@ -106,7 +108,27 @@ describe("QuantityInput (new-editors)", () => {
       <QuantityInput formatter={formatter} value={value} onChange={() => {}} />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("disabled", true);
+    await waitFor(() =>
+      expect(getByRole("textbox")).toHaveProperty("disabled", true)
+    );
+  });
+
+  it("renders the merged placeholder with the unit label for a merged value", async () => {
+    const formatter = createMockFormatter("m");
+    const parser = createMockParser();
+    const value: NumericValue = { rawValue: undefined, displayValue: "" };
+
+    const { findByDisplayValue } = render(
+      <QuantityInput
+        formatter={formatter}
+        parser={parser}
+        value={value}
+        onChange={() => {}}
+        isMerged={true}
+      />
+    );
+
+    await findByDisplayValue("-- m");
   });
 
   it("calls onChange when user types a valid value", async () => {

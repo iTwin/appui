@@ -24,8 +24,8 @@ export function TextEditor({
   disabled,
   id,
 }: EditorProps<TextValueMetadata, TextValue>) {
-  const currentValue = value ? value : { value: "" };
   const { maxLength, minLength } = getStringConstraints(metadata.constraints);
+  const displayValue = value ? value.value : metadata.isMerged ? "--" : "";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ value: e.target.value });
@@ -38,7 +38,7 @@ export function TextEditor({
   return (
     <Input
       id={id}
-      value={currentValue.value}
+      value={displayValue}
       onChange={handleChange}
       onFocus={handleFocus}
       maxLength={maxLength}

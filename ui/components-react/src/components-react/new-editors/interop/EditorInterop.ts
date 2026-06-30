@@ -43,6 +43,7 @@ export namespace EditorInterop {
       WithConstraints<PropertyRecordEditorMetadata>,
       "type"
     > = {
+      isMerged: propertyRecord.isMerged,
       preferredEditor: propertyRecord.property.editor?.name,
       params: propertyRecord.property.editor?.params,
       extendedData: propertyRecord.extendedData,
@@ -62,14 +63,16 @@ export namespace EditorInterop {
             ...baseMetadata,
             type: "string",
           },
-          value: {
-            value:
-              primitiveValue.value !== undefined
-                ? (primitiveValue.value as string)
-                : primitiveValue.displayValue === "--"
-                ? primitiveValue.displayValue
-                : "",
-          } satisfies TextValue,
+          value:
+            primitiveValue.value === undefined &&
+            primitiveValue.displayValue === undefined
+              ? undefined
+              : ({
+                  value:
+                    (primitiveValue.value as string) ??
+                    primitiveValue.displayValue ??
+                    "",
+                } satisfies TextValue),
         };
       case "dateTime":
       case "shortdate":
@@ -81,9 +84,12 @@ export namespace EditorInterop {
                 ? "date"
                 : "dateTime",
           },
-          value: {
-            value: (primitiveValue.value as Date) ?? new Date(),
-          } satisfies DateValue,
+          value:
+            primitiveValue.value !== undefined
+              ? ({
+                  value: primitiveValue.value as Date,
+                } satisfies DateValue)
+              : undefined,
         };
       case "boolean":
       case "bool":
@@ -92,9 +98,12 @@ export namespace EditorInterop {
             ...baseMetadata,
             type: "bool",
           },
-          value: {
-            value: (primitiveValue.value as boolean) ?? false,
-          } satisfies BooleanValue,
+          value:
+            primitiveValue.value !== undefined
+              ? ({
+                  value: primitiveValue.value as boolean,
+                } satisfies BooleanValue)
+              : undefined,
         };
       case "float":
       case "double":
@@ -106,15 +115,17 @@ export namespace EditorInterop {
             ...baseMetadata,
             type: "number",
           },
-          value: {
-            rawValue: primitiveValue.value as number,
-            displayValue: primitiveValue.displayValue
-              ? primitiveValue.displayValue
-              : primitiveValue.value !== undefined
-              ? `${primitiveValue.value as number}`
-              : "",
-            roundingError: primitiveValue.roundingError,
-          } satisfies NumericValue,
+          value:
+            primitiveValue.value === undefined &&
+            primitiveValue.displayValue === undefined
+              ? undefined
+              : ({
+                  rawValue: primitiveValue.value as number,
+                  displayValue:
+                    primitiveValue.displayValue ??
+                    `${(primitiveValue.value as number) ?? ""}`,
+                  roundingError: primitiveValue.roundingError,
+                } satisfies NumericValue),
         };
       case "enum":
         return {
@@ -122,9 +133,12 @@ export namespace EditorInterop {
             ...baseMetadata,
             type: "enum",
           },
-          value: {
-            choice: primitiveValue.value as number | string,
-          } satisfies EnumValue,
+          value:
+            primitiveValue.value !== undefined
+              ? ({
+                  choice: primitiveValue.value as number | string,
+                } satisfies EnumValue)
+              : undefined,
         };
       case "navigation":
         return {
@@ -132,10 +146,13 @@ export namespace EditorInterop {
             ...baseMetadata,
             type: "instanceKey",
           },
-          value: {
-            key: primitiveValue.value as Primitives.InstanceKey,
-            label: primitiveValue.displayValue ?? "",
-          } satisfies InstanceKeyValue,
+          value:
+            primitiveValue.value !== undefined
+              ? ({
+                  key: primitiveValue.value as Primitives.InstanceKey,
+                  label: primitiveValue.displayValue ?? "",
+                } satisfies InstanceKeyValue)
+              : undefined,
         };
     }
 

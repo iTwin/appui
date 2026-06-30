@@ -35,6 +35,18 @@ describe("TextEditor (new-system)", () => {
     expect(getByRole("textbox")).toHaveProperty("value", "");
   });
 
+  it("renders the merged placeholder when value is undefined and metadata is merged", () => {
+    const { getByRole } = render(
+      <TextEditor
+        metadata={{ type: "string", isMerged: true }}
+        value={undefined}
+        onChange={() => {}}
+      />
+    );
+
+    expect(getByRole("textbox")).toHaveProperty("value", "--");
+  });
+
   it("sets maxLength from metadata constraints", () => {
     const metadata: TextValueMetadata = {
       type: "string",

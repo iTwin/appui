@@ -43,6 +43,36 @@ describe("PropertyRecordEditor", () => {
     ).toBeNull();
   });
 
+  it("should render new editor when record has metadata but no value", async () => {
+    const record = new PropertyRecord(
+      {
+        valueFormat: PropertyValueFormat.Primitive,
+        value: undefined,
+      },
+      {
+        name: "mergedProp",
+        typename: "string",
+        displayLabel: "Merged Property",
+      }
+    );
+
+    const rendered = render(
+      <PropertyRecordEditor
+        propertyRecord={record}
+        onCommit={() => {}}
+        onCancel={() => {}}
+        editorSystem="new"
+      />
+    );
+
+    await waitFor(() =>
+      expect(rendered.container.querySelector("input")).not.toBeNull()
+    );
+    expect(
+      rendered.container.querySelector(".components-editor-container")
+    ).toBeNull();
+  });
+
   describe("id / label association (a11y)", () => {
     it("sets id={property.name} on the input when using new editor system", async () => {
       const record = PropertyRecord.fromString("hello", "arcLength");

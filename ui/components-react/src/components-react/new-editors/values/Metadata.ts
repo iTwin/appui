@@ -28,6 +28,7 @@ export interface ValueMetadata {
   type: ValueType;
   preferredEditor?: string;
   isNullable?: boolean;
+  isMerged?: boolean;
 }
 
 /**

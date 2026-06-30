@@ -93,6 +93,7 @@ export function QuantityEditor({
       parser={parser}
       onBlur={() => setEditing(false)}
       onFocus={() => setEditing(true)}
+      isMerged={metadata.isMerged}
     />
   );
 }

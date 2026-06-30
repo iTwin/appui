@@ -19,6 +19,7 @@ interface QuantityInputProps
   onChange: (value: NumericValue) => void;
   formatter?: FormatterSpec;
   parser?: ParserSpec;
+  isMerged?: boolean;
 }
 
 /**
@@ -29,16 +30,37 @@ export function QuantityInput(props: QuantityInputProps) {
   const { formatter, parser, size, onBlur } = props;
   const { inputProps } = useQuantityInput(props);
   const placeholder = formatter?.unitConversions?.[0]?.label;
+  const delayedDisabled = useDelayed({
+    initial: false,
+    current: !formatter || !parser,
+  });
 
   return (
     <Input
       {...inputProps}
       placeholder={placeholder}
-      disabled={!formatter || !parser}
+      disabled={delayedDisabled}
       size={size}
       onBlur={onBlur}
     />
   );
+}
+
+function useDelayed<T>({ initial, current }: { initial: T; current: T }) {
+  const [value, setValue] = React.useState(initial);
+
+  React.useEffect(() => {
+    if (current === initial) {
+      setValue(current);
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      setValue(current);
+    }, 200);
+    return () => clearTimeout(timeoutId);
+  }, [current, initial]);
+
+  return value;
 }
 
 function useQuantityInput({
@@ -47,6 +69,7 @@ function useQuantityInput({
   formatter,
   parser,
   onFocus,
+  isMerged,
 }: QuantityInputProps) {
   const [state, setState] = React.useState<NumericValue>(() => {
     if (value.rawValue !== undefined && formatter) {
@@ -74,12 +97,19 @@ function useQuantityInput({
         return prev;
       }
 
+      if (isMerged) {
+        return {
+          ...prev,
+          displayValue: `-- ${formatter.unitConversions?.[0]?.label ?? ""}`,
+        };
+      }
+
       return {
         ...prev,
         displayValue: formatter.unitConversions?.[0]?.label ?? "",
       };
     });
-  }, [formatter]);
+  }, [formatter, isMerged]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputText = e.target.value;

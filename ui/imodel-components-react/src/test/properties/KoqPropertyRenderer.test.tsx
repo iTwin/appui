@@ -177,5 +177,53 @@ describe("KoqPropertyValueRenderer", () => {
       expect(mockGetFormatterParserSpec).toHaveBeenCalled();
       expect(formatSpy).not.toHaveBeenCalled();
     });
+
+    it("renders the merged placeholder with the unit label for a merged record", async () => {
+      const formatterSpec = {
+        unitConversions: [{ label: "m" }],
+      } as unknown as FormatterSpec;
+      mockGetFormatterParserSpec.mockResolvedValue({
+        formatterSpec,
+        highPrecisionFormatterSpec: formatterSpec,
+        parserSpec: {} as ParserSpec,
+      });
+      const formatSpy = vi.spyOn(IModelApp.quantityFormatter, "formatQuantity");
+
+      const renderer = new KoqPropertyValueRenderer();
+      const property = createKoqProperty({ value: 10, displayValue: "raw" });
+      property.isMerged = true;
+
+      const { findByText } = render(
+        <IModelConnectionProvider iModelConnection={{} as IModelConnection}>
+          {renderer.render(property)}
+        </IModelConnectionProvider>
+      );
+
+      await findByText("-- m");
+      expect(formatSpy).not.toHaveBeenCalled();
+    });
+
+    it("renders the merged placeholder without a unit label when none is available", async () => {
+      const formatterSpec = {
+        unitConversions: [],
+      } as unknown as FormatterSpec;
+      mockGetFormatterParserSpec.mockResolvedValue({
+        formatterSpec,
+        highPrecisionFormatterSpec: formatterSpec,
+        parserSpec: {} as ParserSpec,
+      });
+
+      const renderer = new KoqPropertyValueRenderer();
+      const property = createKoqProperty({ value: 10, displayValue: "raw" });
+      property.isMerged = true;
+
+      const { findByText } = render(
+        <IModelConnectionProvider iModelConnection={{} as IModelConnection}>
+          {renderer.render(property)}
+        </IModelConnectionProvider>
+      );
+
+      await findByText("--");
+    });
   });
 });

@@ -20,6 +20,12 @@ import {
 import { getFormatterParserSpec } from "../KoqUtilities.js";
 
 /**
+ * Name of the renderer for properties with kind of quantity.
+ * @public
+ */
+export const KOQ_RENDERER_NAME = "KoqPropertyValueRenderer";
+
+/**
  * Renderer for properties with kind of quantity.
  * @internal
  */
@@ -101,6 +107,10 @@ async function formatKoqValue(
 
   if (!formatterSpec) {
     return convertRecordToString(record);
+  }
+
+  if (record.isMerged) {
+    return `-- ${formatterSpec.unitConversions?.[0]?.label ?? ""}`;
   }
 
   return IModelApp.quantityFormatter.formatQuantity(

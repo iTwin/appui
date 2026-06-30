@@ -27,7 +27,7 @@ export function NumericEditor({
   disabled,
   id,
 }: EditorProps<NumericValueMetadata, NumericValue>) {
-  const currentValue = getNumericValue(value);
+  const currentValue = getNumericValue(value, metadata.isMerged);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.target.select();
@@ -56,8 +56,13 @@ export function NumericEditor({
   );
 }
 
-function getNumericValue(value: NumericValue | undefined): NumericValue {
-  return value ? value : { rawValue: undefined, displayValue: "" };
+function getNumericValue(
+  value: NumericValue | undefined,
+  isMerged?: boolean
+): NumericValue {
+  return value
+    ? value
+    : { rawValue: undefined, displayValue: isMerged ? "--" : "" };
 }
 
 /* v8 ignore stop */

@@ -58,6 +58,18 @@ describe("NumericEditor (new-system)", () => {
     expect(getByRole("textbox")).toHaveProperty("value", "");
   });
 
+  it("renders the merged placeholder when value is undefined and metadata is merged", () => {
+    const { getByRole } = render(
+      <NumericEditor
+        metadata={{ type: "number", isMerged: true }}
+        value={undefined}
+        onChange={() => {}}
+      />
+    );
+
+    expect(getByRole("textbox")).toHaveProperty("value", "--");
+  });
+
   it("calls onChange with clamped value when user types", async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
