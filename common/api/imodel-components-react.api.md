@@ -503,6 +503,9 @@ export function IModelConnectionProvider(input: React_2.PropsWithChildren<{
 }>): React_2.JSX.Element;
 
 // @public
+export const KOQ_RENDERER_NAME = "KoqPropertyValueRenderer";
+
+// @public
 export class LineWeightSwatch extends React_2.PureComponent<LineWeightSwatchProps> {
     constructor(props: LineWeightSwatchProps);
     // (undocumented)

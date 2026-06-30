@@ -3371,6 +3371,8 @@ export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue |
 // @beta
 export interface ValueMetadata {
     // (undocumented)
+    isMerged?: boolean;
+    // (undocumented)
     isNullable?: boolean;
     // (undocumented)
     preferredEditor?: string;

@@ -68,6 +68,7 @@ deprecated;function;HueSlider
 beta;interface;HueSliderProps
 deprecated;interface;HueSliderProps
 public;function;IModelConnectionProvider
+public;const;KOQ_RENDERER_NAME
 public;class;LineWeightSwatch
 public;interface;LineWeightSwatchProps
 alpha;function;MiscFormatOptions
