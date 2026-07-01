@@ -22,7 +22,7 @@ import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import { IModelConnectionProvider } from "../../imodel-components-react/IModelConnectionContext.js";
 import { KoqPropertyValueRenderer } from "../../imodel-components-react/properties/KoqPropertyRenderer.js";
 import { getFormatterParserSpec } from "../../imodel-components-react/KoqUtilities.js";
-import { MERGED_VALUE } from "@itwin/components-react/internal";
+import { ValueUtilities } from "@itwin/components-react";
 
 vi.mock("../../imodel-components-react/KoqUtilities.js", () => ({
   getFormatterParserSpec: vi.fn(),
@@ -200,7 +200,7 @@ describe("KoqPropertyValueRenderer", () => {
         </IModelConnectionProvider>
       );
 
-      await findByText(`${MERGED_VALUE} m`);
+      await findByText(`${ValueUtilities.MERGED_VALUE} m`);
       expect(formatSpy).not.toHaveBeenCalled();
     });
 
@@ -224,7 +224,7 @@ describe("KoqPropertyValueRenderer", () => {
         </IModelConnectionProvider>
       );
 
-      await findByText(MERGED_VALUE);
+      await findByText(ValueUtilities.MERGED_VALUE);
     });
   });
 });

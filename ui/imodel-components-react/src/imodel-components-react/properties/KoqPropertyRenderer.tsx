@@ -15,9 +15,9 @@ import { useIModelConnection } from "../IModelConnectionContext.js";
 import { IModelApp, type IModelConnection } from "@itwin/core-frontend";
 import {
   convertRecordToString,
-  MERGED_VALUE,
   PrimitivePropertyValueRendererImpl,
 } from "@itwin/components-react/internal";
+import { ValueUtilities } from "@itwin/components-react";
 import { getFormatterParserSpec } from "../KoqUtilities.js";
 
 /**
@@ -95,7 +95,9 @@ async function formatKoqValue(
   }
 
   if (record.isMerged) {
-    return `${MERGED_VALUE} ${formatterSpec.unitConversions?.[0]?.label ?? ""}`;
+    return `${ValueUtilities.MERGED_VALUE} ${
+      formatterSpec.unitConversions?.[0]?.label ?? ""
+    }`;
   }
 
   return IModelApp.quantityFormatter.formatQuantity(
