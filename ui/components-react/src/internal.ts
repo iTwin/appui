@@ -29,3 +29,4 @@ export { CommonToolbarItemWithBadgeKind } from "./components-react/toolbar/Inter
 
 export { convertRecordToString } from "./components-react/properties/renderers/value/Common.js";
 export { PrimitivePropertyValueRendererImpl } from "./components-react/properties/renderers/value/PrimitivePropertyValueRenderer.js";
+export { MERGED_VALUE } from "./components-react/new-editors/values/ValueUtilities.js";

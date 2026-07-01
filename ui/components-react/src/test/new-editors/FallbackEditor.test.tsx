@@ -7,6 +7,7 @@ import { render } from "@testing-library/react";
 import * as React from "react";
 import { describe, expect, it } from "vitest";
 import { FallbackEditor } from "../../components-react/new-editors/editors/FallbackEditor.js";
+import { MERGED_VALUE } from "../../components-react/new-editors/values/ValueUtilities.js";
 
 describe("FallbackEditor", () => {
   it("renders the text value when one is available", () => {
@@ -42,6 +43,6 @@ describe("FallbackEditor", () => {
       />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("value", "--");
+    expect(getByRole("textbox")).toHaveProperty("value", MERGED_VALUE);
   });
 });

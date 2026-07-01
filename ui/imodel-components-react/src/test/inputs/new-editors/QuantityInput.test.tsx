@@ -10,6 +10,7 @@ import { describe, expect, it, vi } from "vitest";
 import { QuantityInput } from "../../../imodel-components-react/inputs/new-editors/QuantityInput.js";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import type { NumericValue } from "@itwin/components-react";
+import { MERGED_VALUE } from "@itwin/components-react/internal";
 
 function createMockFormatter(unitLabel: string): FormatterSpec {
   return {
@@ -55,7 +56,7 @@ describe("QuantityInput (new-editors)", () => {
     const parser = createMockParser();
     const value: NumericValue = {
       rawValue: undefined,
-      displayValue: "-- m",
+      displayValue: "CustomMerged m",
     };
 
     const { getByDisplayValue } = render(
@@ -67,7 +68,7 @@ describe("QuantityInput (new-editors)", () => {
       />
     );
 
-    getByDisplayValue("-- m");
+    getByDisplayValue("CustomMerged m");
   });
 
   it("renders placeholder when formatter is provided", () => {
@@ -128,7 +129,7 @@ describe("QuantityInput (new-editors)", () => {
       />
     );
 
-    await findByDisplayValue("-- m");
+    await findByDisplayValue(`${MERGED_VALUE} m`);
   });
 
   it("calls onChange when user types a valid value", async () => {

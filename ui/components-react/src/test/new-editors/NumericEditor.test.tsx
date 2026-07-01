@@ -10,6 +10,7 @@ import { describe, expect, it, vi } from "vitest";
 import { NumericEditor } from "../../components-react/new-editors/editors/NumericEditor.js";
 import type { NumericValueMetadata } from "../../components-react/new-editors/values/Metadata.js";
 import type { NumericValue } from "../../components-react/new-editors/values/Values.js";
+import { MERGED_VALUE } from "../../components-react/new-editors/values/ValueUtilities.js";
 
 function StatefulNumericEditor({
   metadata,
@@ -67,7 +68,7 @@ describe("NumericEditor (new-system)", () => {
       />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("value", "--");
+    expect(getByRole("textbox")).toHaveProperty("value", MERGED_VALUE);
   });
 
   it("calls onChange with clamped value when user types", async () => {
@@ -206,12 +207,12 @@ describe("NumericEditor (new-system)", () => {
     const { getByDisplayValue } = render(
       <NumericEditor
         metadata={{ type: "number" }}
-        value={{ rawValue: undefined, displayValue: "--" }}
+        value={{ rawValue: undefined, displayValue: MERGED_VALUE }}
         onChange={() => {}}
       />
     );
 
-    getByDisplayValue("--");
+    getByDisplayValue(MERGED_VALUE);
   });
 
   it("selects all text on focus", async () => {

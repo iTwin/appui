@@ -14,6 +14,7 @@ import {
   isInstanceKey,
   isNumeric,
   isText,
+  MERGED_VALUE,
 } from "../values/ValueUtilities.js";
 
 /* v8 ignore start */
@@ -25,7 +26,7 @@ import {
 export function FallbackEditor({ value, size, id, metadata }: EditorProps) {
   const textValue = getTextValue(value);
   const displayValue =
-    textValue !== undefined ? textValue : metadata.isMerged ? "--" : "";
+    textValue !== undefined ? textValue : metadata.isMerged ? MERGED_VALUE : "";
   return <Input id={id} readOnly value={displayValue} size={size} />;
 }
 

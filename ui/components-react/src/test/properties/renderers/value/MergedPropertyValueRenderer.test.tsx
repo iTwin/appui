@@ -5,6 +5,7 @@
 import { render, waitFor } from "@testing-library/react";
 import { MergedPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/MergedPropertyValueRenderer.js";
 import TestUtils from "../../../TestUtils.js";
+import { MERGED_VALUE } from "../../../../components-react/new-editors/values/ValueUtilities.js";
 
 describe("MergedPropertyValueRenderer", () => {
   describe("render", () => {
@@ -13,7 +14,7 @@ describe("MergedPropertyValueRenderer", () => {
       const property = TestUtils.createPrimitiveStringProperty("a", "b");
       property.isMerged = true;
       const { getByText } = render(renderer.render(property));
-      await waitFor(() => getByText("--"));
+      await waitFor(() => getByText(MERGED_VALUE));
     });
 
     it("renders '-- unit' when displayValue starts with '--'", async () => {
@@ -21,11 +22,11 @@ describe("MergedPropertyValueRenderer", () => {
       const property = TestUtils.createPrimitiveStringProperty(
         "Length",
         "unused",
-        "-- ft"
+        `${MERGED_VALUE} ft`
       );
       property.isMerged = true;
       const { getByText } = render(renderer.render(property));
-      await waitFor(() => getByText("-- ft"));
+      await waitFor(() => getByText(`${MERGED_VALUE} ft`));
     });
 
     it("renders '--' when displayValue does not start with '--'", async () => {
@@ -37,7 +38,7 @@ describe("MergedPropertyValueRenderer", () => {
       );
       property.isMerged = true;
       const { getByText } = render(renderer.render(property));
-      await waitFor(() => getByText("--"));
+      await waitFor(() => getByText(MERGED_VALUE));
     });
   });
 

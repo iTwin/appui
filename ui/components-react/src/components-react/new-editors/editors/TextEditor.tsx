@@ -9,6 +9,7 @@ import type { EditorProps } from "../Types.js";
 import type { TextValueMetadata } from "../values/Metadata.js";
 import type { TextValue } from "../values/Values.js";
 import { getStringConstraints } from "../ConstraintUtils.js";
+import { MERGED_VALUE } from "../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -25,7 +26,11 @@ export function TextEditor({
   id,
 }: EditorProps<TextValueMetadata, TextValue>) {
   const { maxLength, minLength } = getStringConstraints(metadata.constraints);
-  const displayValue = value ? value.value : metadata.isMerged ? "--" : "";
+  const displayValue = value
+    ? value.value
+    : metadata.isMerged
+    ? MERGED_VALUE
+    : "";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange({ value: e.target.value });

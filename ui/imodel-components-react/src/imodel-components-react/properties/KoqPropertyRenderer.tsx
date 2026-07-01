@@ -15,6 +15,7 @@ import { useIModelConnection } from "../IModelConnectionContext.js";
 import { IModelApp, type IModelConnection } from "@itwin/core-frontend";
 import {
   convertRecordToString,
+  MERGED_VALUE,
   PrimitivePropertyValueRendererImpl,
 } from "@itwin/components-react/internal";
 import { getFormatterParserSpec } from "../KoqUtilities.js";
@@ -55,27 +56,11 @@ function KoqRenderer(props: {
 }) {
   const { record, context } = props;
   const imodel = useIModelConnection();
-  if (!imodel) {
-    return (
-      <PrimitivePropertyValueRendererImpl
-        record={record}
-        context={context}
-        stringValueCalculator={convertRecordToString}
-      />
-    );
-  }
-  return <KoqRendererImpl imodel={imodel} {...props} />;
-}
-
-function KoqRendererImpl(props: {
-  record: PropertyRecord;
-  context?: PropertyValueRendererContext;
-  imodel: IModelConnection;
-}) {
-  const { record, context, imodel } = props;
   const stringValueCalculator = React.useCallback(
     async (recordToFormat: PropertyRecord) => {
-      return formatKoqValue(recordToFormat, imodel);
+      return imodel
+        ? formatKoqValue(recordToFormat, imodel)
+        : convertRecordToString(recordToFormat);
     },
     [imodel]
   );
@@ -110,7 +95,7 @@ async function formatKoqValue(
   }
 
   if (record.isMerged) {
-    return `-- ${formatterSpec.unitConversions?.[0]?.label ?? ""}`;
+    return `${MERGED_VALUE} ${formatterSpec.unitConversions?.[0]?.label ?? ""}`;
   }
 
   return IModelApp.quantityFormatter.formatQuantity(

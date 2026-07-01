@@ -14,6 +14,7 @@ import type {
   PropertyValueRendererContext,
 } from "../../ValueRendererManager.js";
 import { withContextStyle } from "./WithContextStyle.js";
+import { MERGED_VALUE } from "../../../new-editors/values/ValueUtilities.js";
 
 /** Default Merged Property Renderer
  * @public
@@ -33,7 +34,9 @@ export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     context?: PropertyValueRendererContext
   ): React.ReactNode {
     const displayValue = (record.value as PrimitiveValue).displayValue;
-    const text = displayValue?.startsWith("--") ? displayValue : "--";
+    const text = displayValue?.startsWith(MERGED_VALUE)
+      ? displayValue
+      : MERGED_VALUE;
     return withContextStyle(<>{text}</>, context);
   }
 }

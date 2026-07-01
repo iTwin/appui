@@ -12,6 +12,7 @@ import {
   applyNumericConstraints,
   getNumericConstraints,
 } from "../ConstraintUtils.js";
+import { MERGED_VALUE } from "../values/ValueUtilities.js";
 
 /* v8 ignore start */
 
@@ -62,7 +63,7 @@ function getNumericValue(
 ): NumericValue {
   return value
     ? value
-    : { rawValue: undefined, displayValue: isMerged ? "--" : "" };
+    : { rawValue: undefined, displayValue: isMerged ? MERGED_VALUE : "" };
 }
 
 /* v8 ignore stop */

@@ -66,12 +66,12 @@ describe("EditorInterop", () => {
       } satisfies TextValue);
     });
 
-    it("string with undefined value and '--' displayValue", () => {
+    it("string with undefined value and defined displayValue", () => {
       const record = new PropertyRecord(
         {
           valueFormat: PropertyValueFormat.Primitive,
           value: undefined,
-          displayValue: "--",
+          displayValue: "DisplayVal",
         },
         {
           name: "TestProp",
@@ -82,7 +82,7 @@ describe("EditorInterop", () => {
 
       const { value } = EditorInterop.getMetadataAndValue(record);
       expect(value).toMatchObject({
-        value: "--",
+        value: "DisplayVal",
       } satisfies TextValue);
     });
 

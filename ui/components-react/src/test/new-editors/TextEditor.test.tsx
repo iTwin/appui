@@ -9,6 +9,7 @@ import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { TextEditor } from "../../components-react/new-editors/editors/TextEditor.js";
 import type { TextValueMetadata } from "../../components-react/new-editors/values/Metadata.js";
+import { MERGED_VALUE } from "../../components-react/new-editors/values/ValueUtilities.js";
 
 describe("TextEditor (new-system)", () => {
   it("renders input with value", () => {
@@ -44,7 +45,7 @@ describe("TextEditor (new-system)", () => {
       />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("value", "--");
+    expect(getByRole("textbox")).toHaveProperty("value", MERGED_VALUE);
   });
 
   it("sets maxLength from metadata constraints", () => {

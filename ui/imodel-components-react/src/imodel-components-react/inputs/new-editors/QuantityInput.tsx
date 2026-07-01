@@ -7,6 +7,7 @@ import * as React from "react";
 import { Input } from "@itwin/itwinui-react";
 import type { NumericValue } from "@itwin/components-react";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
+import { MERGED_VALUE } from "@itwin/components-react/internal";
 
 /* v8 ignore start */
 
@@ -100,7 +101,9 @@ function useQuantityInput({
       if (isMerged) {
         return {
           ...prev,
-          displayValue: `-- ${formatter.unitConversions?.[0]?.label ?? ""}`,
+          displayValue: `${MERGED_VALUE} ${
+            formatter.unitConversions?.[0]?.label ?? ""
+          }`,
         };
       }
 
