@@ -1,5 +1,18 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.33.0
+
+### Minor Changes
+
+- be761cc: Added support for merged values in the new quantity editor. When a value is merged and has no explicit value, it now renders `-- <unit>`.
+- be761cc: Introduced a property value renderer for properties with a kind of quantity. A new `KOQ_RENDERER_NAME` constant is exported; set it on `PropertyRecord.property.renderer.name` to render a property using this renderer.
+
+### Patch Changes
+
+- Updated dependencies [be761cc]
+  - @itwin/components-react@5.33.0
+  - @itwin/core-react@5.33.0
+
 ## 5.32.1
 
 ### Patch Changes
