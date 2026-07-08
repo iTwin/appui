@@ -66,12 +66,12 @@ describe("EditorInterop", () => {
       } satisfies TextValue);
     });
 
-    it("string with undefined value and '--' displayValue", () => {
+    it("string with undefined value and defined displayValue", () => {
       const record = new PropertyRecord(
         {
           valueFormat: PropertyValueFormat.Primitive,
           value: undefined,
-          displayValue: "--",
+          displayValue: "DisplayVal",
         },
         {
           name: "TestProp",
@@ -82,7 +82,7 @@ describe("EditorInterop", () => {
 
       const { value } = EditorInterop.getMetadataAndValue(record);
       expect(value).toMatchObject({
-        value: "--",
+        value: "DisplayVal",
       } satisfies TextValue);
     });
 
@@ -100,9 +100,47 @@ describe("EditorInterop", () => {
       );
 
       const { value } = EditorInterop.getMetadataAndValue(record);
+      expect(value).toBeUndefined();
+    });
+
+    it("string falls back to displayValue when raw value is undefined", () => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: undefined,
+          displayValue: "display only",
+        },
+        {
+          name: "TestProp",
+          typename: "string",
+          displayLabel: "Test Property",
+        }
+      );
+
+      const { value } = EditorInterop.getMetadataAndValue(record);
       expect(value).toMatchObject({
-        value: "",
+        value: "display only",
       } satisfies TextValue);
+    });
+
+    it("number derives displayValue from raw value when displayValue is missing", () => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: 1.5,
+        },
+        {
+          name: "TestProp",
+          typename: "double",
+          displayLabel: "Test Property",
+        }
+      );
+
+      const { value } = EditorInterop.getMetadataAndValue(record);
+      expect(value).toMatchObject({
+        rawValue: 1.5,
+        displayValue: "1.5",
+      } satisfies NumericValue);
     });
 
     it("number", () => {
@@ -383,6 +421,74 @@ describe("EditorInterop", () => {
         key: { id: "1", className: "TestClass" },
         label: "Test Navigation",
       } satisfies InstanceKeyValue);
+    });
+  });
+
+  describe("returns `undefined` value when the record has no value", () => {
+    it.each([
+      "string",
+      "dateTime",
+      "shortdate",
+      "boolean",
+      "bool",
+      "double",
+      "enum",
+      "navigation",
+    ])("for type `%s`", (typename) => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: undefined,
+        },
+        {
+          name: "TestProp",
+          typename,
+          displayLabel: "Test Property",
+        }
+      );
+
+      const { metadata, value } = EditorInterop.getMetadataAndValue(record);
+      expect(metadata).toBeDefined();
+      expect(value).toBeUndefined();
+    });
+  });
+
+  describe("propagates `isMerged` to the metadata", () => {
+    it("when the record is merged", () => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: 1,
+          displayValue: "1",
+        },
+        {
+          name: "TestProp",
+          typename: "int",
+          displayLabel: "Test Property",
+        }
+      );
+      record.isMerged = true;
+
+      const { metadata } = EditorInterop.getMetadataAndValue(record);
+      expect(metadata?.isMerged).toEqual(true);
+    });
+
+    it("when the record is not merged", () => {
+      const record = new PropertyRecord(
+        {
+          valueFormat: PropertyValueFormat.Primitive,
+          value: 1,
+          displayValue: "1",
+        },
+        {
+          name: "TestProp",
+          typename: "int",
+          displayLabel: "Test Property",
+        }
+      );
+
+      const { metadata } = EditorInterop.getMetadataAndValue(record);
+      expect(metadata?.isMerged).toBeFalsy();
     });
   });
 

@@ -8,6 +8,7 @@ import * as React from "react";
 import type { IPropertyValueRenderer } from "../../components-react/properties/ValueRendererManager.js";
 import { PropertyValueRendererManager } from "../../components-react/properties/ValueRendererManager.js";
 import TestUtils from "../TestUtils.js";
+import { MERGED_VALUE } from "../../components-react/new-editors/values/ValueUtilities.js";
 
 describe("PropertyValueRendererManager", () => {
   let fakeRenderer: IPropertyValueRenderer;
@@ -147,7 +148,7 @@ describe("PropertyValueRendererManager", () => {
 
       render(<>{value}</>);
 
-      expect(screen.getByText("--")).to.exist;
+      expect(screen.getByText(MERGED_VALUE)).to.exist;
     });
 
     it("renders merged properties before looking for custom renderer in property typename", () => {
@@ -163,7 +164,7 @@ describe("PropertyValueRendererManager", () => {
 
       const value = rendererManager.render(property);
       render(<>{value}</>);
-      expect(screen.getByText("--")).to.exist;
+      expect(screen.getByText(MERGED_VALUE)).to.exist;
       expect(fakeRenderer.render).not.toBeCalled();
     });
   });

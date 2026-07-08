@@ -79,7 +79,7 @@ export const PropertyRecordEditor: PropertyRecordEditorComponent = ({
   editorSystem,
 }: PropertyRecordEditorProps) => {
   const { metadata, value } = EditorInterop.getMetadataAndValue(propertyRecord);
-  if (editorSystem === "new" && metadata && value) {
+  if (editorSystem === "new" && metadata) {
     return (
       <CommittingEditor
         metadata={metadata}

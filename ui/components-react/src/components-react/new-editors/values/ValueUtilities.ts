@@ -17,6 +17,12 @@ import type {
 } from "./Values.js";
 
 /**
+ * Display value for merged properties. This value is used when multiple properties are selected and their values are different.
+ * @beta
+ */
+export const MERGED_VALUE = "--";
+
+/**
  * Type guard for text value.
  * @beta
  */

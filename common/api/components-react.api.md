@@ -1364,6 +1364,9 @@ export const matchLinks: (text: string) => Array<{
     url: string;
 }>;
 
+// @beta
+const MERGED_VALUE = "--";
+
 // @public
 export class MergedPropertyValueRenderer implements IPropertyValueRenderer {
     canRender(record: PropertyRecord): boolean;
@@ -3371,6 +3374,8 @@ export type Value = NumericValue | InstanceKeyValue | TextValue | BooleanValue |
 // @beta
 export interface ValueMetadata {
     // (undocumented)
+    isMerged?: boolean;
+    // (undocumented)
     isNullable?: boolean;
     // (undocumented)
     preferredEditor?: string;
@@ -3389,7 +3394,8 @@ declare namespace ValueUtilities {
         isDate,
         isEnum,
         isInstanceKey,
-        areEqual
+        areEqual,
+        MERGED_VALUE
     }
 }
 

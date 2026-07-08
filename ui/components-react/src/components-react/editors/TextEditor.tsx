@@ -30,6 +30,7 @@ import type {
 } from "./EditorContainer.js";
 import { UiComponents } from "../UiComponents.js";
 import { EditorRenderer } from "../new-editors/EditorRenderer.js";
+import { MERGED_VALUE } from "../new-editors/values/ValueUtilities.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -176,7 +177,8 @@ export class TextEditor
 
     if (this._isMounted)
       this.setState({
-        inputValue: record?.isMerged && !this.hasFocus ? "--" : initialValue,
+        inputValue:
+          record?.isMerged && !this.hasFocus ? MERGED_VALUE : initialValue,
         originalValue: initialValue,
         size,
         maxSize,

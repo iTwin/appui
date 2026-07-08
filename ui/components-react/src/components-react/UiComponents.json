@@ -1,7 +1,7 @@
 {
   "general": {
-    "true": "true",
-    "false": "false",
+    "true": "True",
+    "false": "False",
     "loading": "loading",
     "noData": "The data required for this tree layout is not available in this iModel.",
     "length": "Length",

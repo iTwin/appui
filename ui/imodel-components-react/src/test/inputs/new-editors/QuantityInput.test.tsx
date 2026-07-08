@@ -3,13 +3,14 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { QuantityInput } from "../../../imodel-components-react/inputs/new-editors/QuantityInput.js";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
 import type { NumericValue } from "@itwin/components-react";
+import { ValueUtilities } from "@itwin/components-react";
 
 function createMockFormatter(unitLabel: string): FormatterSpec {
   return {
@@ -55,7 +56,7 @@ describe("QuantityInput (new-editors)", () => {
     const parser = createMockParser();
     const value: NumericValue = {
       rawValue: undefined,
-      displayValue: "-- m",
+      displayValue: "CustomMerged m",
     };
 
     const { getByDisplayValue } = render(
@@ -67,7 +68,7 @@ describe("QuantityInput (new-editors)", () => {
       />
     );
 
-    getByDisplayValue("-- m");
+    getByDisplayValue("CustomMerged m");
   });
 
   it("renders placeholder when formatter is provided", () => {
@@ -87,7 +88,7 @@ describe("QuantityInput (new-editors)", () => {
     expect(getByRole("textbox").getAttribute("placeholder")).toBe("m");
   });
 
-  it("is disabled when formatter is not provided", () => {
+  it("is disabled when formatter is not provided", async () => {
     const parser = createMockParser();
     const value: NumericValue = { rawValue: 5, displayValue: "5 m" };
 
@@ -95,10 +96,12 @@ describe("QuantityInput (new-editors)", () => {
       <QuantityInput parser={parser} value={value} onChange={() => {}} />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("disabled", true);
+    await waitFor(() =>
+      expect(getByRole("textbox")).toHaveProperty("disabled", true)
+    );
   });
 
-  it("is disabled when parser is not provided", () => {
+  it("is disabled when parser is not provided", async () => {
     const formatter = createMockFormatter("m");
     const value: NumericValue = { rawValue: 5, displayValue: "5 m" };
 
@@ -106,7 +109,27 @@ describe("QuantityInput (new-editors)", () => {
       <QuantityInput formatter={formatter} value={value} onChange={() => {}} />
     );
 
-    expect(getByRole("textbox")).toHaveProperty("disabled", true);
+    await waitFor(() =>
+      expect(getByRole("textbox")).toHaveProperty("disabled", true)
+    );
+  });
+
+  it("renders the merged placeholder with the unit label for a merged value", async () => {
+    const formatter = createMockFormatter("m");
+    const parser = createMockParser();
+    const value: NumericValue = { rawValue: undefined, displayValue: "" };
+
+    const { findByDisplayValue } = render(
+      <QuantityInput
+        formatter={formatter}
+        parser={parser}
+        value={value}
+        onChange={() => {}}
+        isMerged={true}
+      />
+    );
+
+    await findByDisplayValue(`${ValueUtilities.MERGED_VALUE} m`);
   });
 
   it("calls onChange when user types a valid value", async () => {

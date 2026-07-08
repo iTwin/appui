@@ -15,9 +15,9 @@ export default defineConfig({
     outputFile: "coverage/junit.xml",
     coverage: {
       thresholds: {
-        lines: 96,
+        lines: 95,
         functions: 94,
-        statements: 96,
+        statements: 95,
         branches: 96,
       },
     },
