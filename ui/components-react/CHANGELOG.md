@@ -1,5 +1,15 @@
 # Change Log - @itwin/components-react
 
+## 5.33.0
+
+### Minor Changes
+
+- be761cc: Added support for merged values in the new editors. A new `isMerged` flag was introduced on `ValueMetadata`, and the text, numeric, and fallback editors now render `--` when the value is merged.
+
+### Patch Changes
+
+- @itwin/core-react@5.33.0
+
 ## 5.32.1
 
 ### Patch Changes
