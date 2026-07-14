@@ -88,8 +88,8 @@ catalogs:
       specifier: ^0.5.0
       version: 0.5.0
     '@stratakit/icons':
-      specifier: ^0.2.2
-      version: 0.2.2
+      specifier: ^0.4.3
+      version: 0.4.3
     '@types/lodash':
       specifier: ^4.17.24
       version: 4.17.24
@@ -296,6 +296,9 @@ importers:
       '@stratakit/foundations':
         specifier: 'catalog:'
         version: 0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/icons':
+        specifier: 'catalog:'
+        version: 0.4.3
       '@tanstack/react-router':
         specifier: ^1.168.19
         version: 1.168.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -558,7 +561,7 @@ importers:
         version: 0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/icons':
         specifier: 'catalog:'
-        version: 0.2.2
+        version: 0.4.3
       react:
         specifier: 'catalog:'
         version: 19.2.5
@@ -3773,11 +3776,11 @@ packages:
       react-dom:
         optional: true
 
-  '@stratakit/icons@0.2.2':
-    resolution: {integrity: sha512-CXv2z0PhC+KU1dqZ//1gxZe2LTToO5WbhFmI65H1+VNDeZ+WH9GnaWHhOnmY54s0jQjOwut7jjSKkYXJbL8llg==}
-
   '@stratakit/icons@0.4.0':
     resolution: {integrity: sha512-iEgwn7NUQj36Pisz1Bc2wtZGlityUFzBvgoE4hevoKC5fUdcgyJRMoMgS1gSeg+8s3EOQEBCWZ6TTM2amLJ5LA==}
+
+  '@stratakit/icons@0.4.3':
+    resolution: {integrity: sha512-WiCRYKBuIOJ0te/bpIjpDsvF47C/wgwRIqxNktcLXm2nh+b4Xi43VAUoR86pnK+1P5ygAAhFihEtTqWd3x4zvw==}
 
   '@stratakit/internal-utils@0.1.0':
     resolution: {integrity: sha512-x14/ZHm88vTj0ZgThG+bbujclhFnsq+PewwPhrSD4L52u1lj8TabgCTggwmtkJsl+6V2BMYNgI/Z3+ZPEl0PAg==}
@@ -11336,9 +11339,9 @@ snapshots:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
 
-  '@stratakit/icons@0.2.2': {}
-
   '@stratakit/icons@0.4.0': {}
+
+  '@stratakit/icons@0.4.3': {}
 
   '@stratakit/internal-utils@0.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:

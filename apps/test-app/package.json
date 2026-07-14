@@ -102,6 +102,7 @@
     "@itwin/webgl-compatibility": "catalog:",
     "@stratakit/bricks": "catalog:",
     "@stratakit/foundations": "catalog:",
+    "@stratakit/icons": "catalog:",
     "@tanstack/react-router": "^1.168.19",
     "classnames": "2.5.1",
     "react": "catalog:",
