@@ -31,9 +31,9 @@ catalog:
   '@itwin/hypermodeling-frontend': ^5.8.1
   '@itwin/itwinui-react': ^3.20.2
   '@itwin/webgl-compatibility': ^5.8.1
-  '@stratakit/bricks': ^0.4.5
-  '@stratakit/foundations': ^0.3.5
-  '@stratakit/icons': ^0.2.2
+  '@stratakit/bricks': ^0.5.5
+  '@stratakit/foundations': ^0.4.9
+  '@stratakit/icons': ^0.4.0
   '@types/lodash': ^4.17.24
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
