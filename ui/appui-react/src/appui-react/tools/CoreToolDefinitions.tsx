@@ -33,10 +33,6 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
-import {
-  SvgCameraAnimation,
-  SvgCameraAnimationDisabled,
-} from "@itwin/itwinui-icons-react";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef.js";
 import { CommandItemDef } from "../shared/CommandItemDef.js";
 import { ToolItemDef } from "../shared/ToolItemDef.js";
@@ -48,6 +44,8 @@ import { SvgGyroscope } from "../icons/SvgGyroscope.js";
 import { SvgSectionTool } from "../icons/SvgSectionTool.js";
 import { SvgSelectionClear } from "../icons/SvgSelectionClear.js";
 import {
+  SvgCameraAnimation,
+  SvgCameraAnimationDisabled,
   SvgMeasure,
   SvgProcess,
   SvgRotateLeft,
