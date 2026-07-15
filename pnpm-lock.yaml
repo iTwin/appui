@@ -706,8 +706,8 @@ importers:
         specifier: ^0.4.9
         version: 0.4.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/icons':
-        specifier: ^0.4.0
-        version: 0.4.0
+        specifier: ^0.4.3
+        version: 0.4.3
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -3775,9 +3775,6 @@ packages:
         optional: true
       react-dom:
         optional: true
-
-  '@stratakit/icons@0.4.0':
-    resolution: {integrity: sha512-iEgwn7NUQj36Pisz1Bc2wtZGlityUFzBvgoE4hevoKC5fUdcgyJRMoMgS1gSeg+8s3EOQEBCWZ6TTM2amLJ5LA==}
 
   '@stratakit/icons@0.4.3':
     resolution: {integrity: sha512-WiCRYKBuIOJ0te/bpIjpDsvF47C/wgwRIqxNktcLXm2nh+b4Xi43VAUoR86pnK+1P5ygAAhFihEtTqWd3x4zvw==}
@@ -11338,8 +11335,6 @@ snapshots:
     optionalDependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
-
-  '@stratakit/icons@0.4.0': {}
 
   '@stratakit/icons@0.4.3': {}
 
