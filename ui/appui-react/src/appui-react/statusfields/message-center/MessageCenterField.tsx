@@ -25,6 +25,8 @@ import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessage
 import "./MessageCenterField.scss";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useDefaultExport } from "../../hooks/useDefaultExport.js";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -152,7 +154,7 @@ export function MessageCenterField(props: CommonProps) {
         styleType="borderless"
         startIcon={
           <NotificationMarker status={status} enabled={notify}>
-            <SvgChat />
+            <FieldIcon />
           </NotificationMarker>
         }
         className={props.className}
@@ -163,6 +165,13 @@ export function MessageCenterField(props: CommonProps) {
       </Button>
     </StatusBarPopover>
   );
+}
+
+function FieldIcon() {
+  const svgChat = useDefaultExport(
+    async () => import("@stratakit/icons/chat.svg")
+  );
+  return <StrataKitIcon href={svgChat} iconNode={<SvgChat />} />;
 }
 
 interface MessageIconProps {
