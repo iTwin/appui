@@ -10,7 +10,7 @@ import { useOptionalModule } from "./useOptionalModule.js";
  * Useful for optional dependencies that may not be installed in the project.
  */
 export function useDefaultExport<T extends { default: unknown }>(
-  importFunc: () => Promise<T>
+  importFunc?: () => Promise<T>
 ): T["default"] | undefined {
   const module = useOptionalModule(importFunc);
   return module?.default;

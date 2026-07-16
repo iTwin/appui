@@ -8,9 +8,11 @@ import * as React from "react";
 /** Dynamically imports a module. Useful for optional dependencies that may not be installed in the project.
  * @internal
  */
-export function useOptionalModule<T>(importFunc: () => Promise<T>) {
+export function useOptionalModule<T>(importFunc?: () => Promise<T>) {
   const [module, setModule] = React.useState<T | undefined>(undefined);
   React.useEffect(() => {
+    if (!importFunc) return;
+
     let disposed = false;
     void (async () => {
       try {

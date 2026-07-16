@@ -26,7 +26,8 @@ import "./MessageCenterField.scss";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-import { useDefaultExport } from "../../hooks/useDefaultExport.js";
+
+const svgChat = async () => import("@stratakit/icons/chat.svg");
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -168,9 +169,6 @@ export function MessageCenterField(props: CommonProps) {
 }
 
 function FieldIcon() {
-  const svgChat = useDefaultExport(
-    async () => import("@stratakit/icons/chat.svg")
-  );
   return <StrataKitIcon href={svgChat} iconNode={<SvgChat />} />;
 }
 
