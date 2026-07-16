@@ -11,7 +11,9 @@ import { Icon } from "@stratakit/foundations";
 import type { IconSpec } from "@itwin/core-react";
 import { useDefaultExport } from "../../hooks/useDefaultExport.js";
 
-interface StrataKitIconProps {
+type IconProps = React.ComponentProps<typeof Icon>;
+
+interface StrataKitIconProps extends Pick<IconProps, "size"> {
   href?: string | (() => Promise<{ default: string }>);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
@@ -26,17 +28,22 @@ interface StrataKitIconProps {
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { href: hrefProp, iconSpec, iconNode } = props;
+  const { href: hrefProp, iconSpec, iconNode, size } = props;
   const { useStrataKit } = usePreviewFeatures();
 
   const loadHref = typeof hrefProp === "function" && useStrataKit;
-  const hrefExport = useDefaultExport(loadHref ? hrefProp : undefined);
+  const [hrefExport, isLoading] = useDefaultExport(
+    loadHref ? hrefProp : undefined
+  );
 
   const href = typeof hrefProp === "string" ? hrefProp : hrefExport;
 
   if (useStrataKit && href) {
-    return <Icon href={href} />;
+    return <Icon size={size} href={href} />;
   }
+
+  // Avoid rendering legacy icon, while the StrataKit icon is still loading, to avoid flicker.
+  if (loadHref && isLoading) return undefined;
 
   if (iconNode) return iconNode;
 

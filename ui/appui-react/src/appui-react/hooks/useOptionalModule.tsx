@@ -5,21 +5,52 @@
 
 import * as React from "react";
 
+// Cache of resolved modules
+const moduleCache = new WeakMap<object, unknown>();
+
 /** Dynamically imports a module. Useful for optional dependencies that may not be installed in the project.
  * @internal
  */
 export function useOptionalModule<T>(importFunc?: () => Promise<T>) {
-  const [module, setModule] = React.useState<T | undefined>(undefined);
+  const [module, setModule] = React.useState<T | undefined>(() => {
+    if (!importFunc) return undefined;
+    return moduleCache.get(importFunc) as T | undefined;
+  });
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(
+    importFunc !== undefined && !module
+  );
+
   React.useEffect(() => {
-    if (!importFunc) return;
+    if (!importFunc) {
+      setModule(undefined);
+      setIsLoading(false);
+      return;
+    }
+
+    const cachedModule = moduleCache.get(importFunc);
+    if (cachedModule) {
+      setModule(cachedModule as T);
+      setIsLoading(false);
+      return;
+    }
 
     let disposed = false;
+    setIsLoading(true);
     void (async () => {
       try {
         const imported = await importFunc();
-        if (!disposed) setModule(imported);
+        moduleCache.set(importFunc, imported);
+
+        if (!disposed) {
+          setModule(imported);
+          setIsLoading(false);
+        }
       } catch {
-        if (!disposed) setModule(undefined);
+        if (!disposed) {
+          setModule(undefined);
+          setIsLoading(false);
+        }
       }
     })();
     return () => {
@@ -27,5 +58,5 @@ export function useOptionalModule<T>(importFunc?: () => Promise<T>) {
     };
   }, [importFunc]);
 
-  return module;
+  return [module, isLoading] as const;
 }
