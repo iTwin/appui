@@ -9,9 +9,10 @@ import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { Icon } from "@stratakit/foundations";
 
 import type { IconSpec } from "@itwin/core-react";
+import { useDefaultExport } from "../../hooks/useDefaultExport.js";
 
 interface StrataKitIconProps {
-  href?: string;
+  href?: string | (() => Promise<{ default: string }>);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
   iconNode?: React.ReactNode;
@@ -25,9 +26,15 @@ interface StrataKitIconProps {
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { href, iconSpec, iconNode } = props;
+  const { href: hrefProp, iconSpec, iconNode } = props;
   const { useStrataKit } = usePreviewFeatures();
-  if (useStrataKit) {
+
+  const loadHref = typeof hrefProp === "function" && useStrataKit;
+  const hrefExport = useDefaultExport(loadHref ? hrefProp : undefined);
+
+  const href = typeof hrefProp === "string" ? hrefProp : hrefExport;
+
+  if (useStrataKit && href) {
     return <Icon href={href} />;
   }
 
