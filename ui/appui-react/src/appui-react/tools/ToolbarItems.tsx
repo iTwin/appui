@@ -26,27 +26,34 @@ import {
   type ToolbarGroupItem,
 } from "../toolbar/ToolbarItem.js";
 
-import svgCursor from "@stratakit/icons/cursor.svg";
-import svgFitToView from "@stratakit/icons/fit-to-view.svg";
-import svgKeyboard from "@stratakit/icons/keyboard.svg";
-import svgWindowArea from "@stratakit/icons/window-area.svg";
-import svgSearch from "@stratakit/icons/search.svg";
-import svgHand from "@stratakit/icons/hand.svg";
-import svgRotateLeft from "@stratakit/icons/rotate-left.svg";
-import svgRotatePoint from "@stratakit/icons/rotate-point.svg";
-import svgWalk from "@stratakit/icons/walk.svg";
-import svgCameraVideo from "@stratakit/icons/camera-video.svg";
-import svgCameraVideoDisabled from "@stratakit/icons/camera-video-disabled.svg";
-import svgAirplane from "@stratakit/icons/airplane.svg";
-import svgWindowBack from "@stratakit/icons/window-back.svg";
-import svgWindowForward from "@stratakit/icons/window-forward.svg";
-import svgMeasureDistance from "@stratakit/icons/measure-distance.svg";
-import svgMeasureLocation from "@stratakit/icons/measure-location.svg";
-import svgMeasure from "@stratakit/icons/measure.svg";
-import svgSelectionClear from "@stratakit/icons/selection-clear.svg";
-import svgVisibilityDisabled from "@stratakit/icons/visibility-disabled.svg";
-import svgVisibilityEmphasis from "@stratakit/icons/visibility-emphasis.svg";
-import svgIsolate from "@stratakit/icons/isolate.svg";
+const svgKeyboard = async () => import("@stratakit/icons/keyboard.svg");
+const svgCursor = async () => import("@stratakit/icons/cursor.svg");
+const svgFitToView = async () => import("@stratakit/icons/fit-to-view.svg");
+const svgWindowArea = async () => import("@stratakit/icons/window-area.svg");
+const svgSearch = async () => import("@stratakit/icons/search.svg");
+const svgHand = async () => import("@stratakit/icons/hand.svg");
+const svgWalk = async () => import("@stratakit/icons/walk.svg");
+const svgCameraVideo = async () => import("@stratakit/icons/camera-video.svg");
+const svgCameraVideoDisabled = async () =>
+  import("@stratakit/icons/camera-video-disabled.svg");
+const svgAirplane = async () => import("@stratakit/icons/airplane.svg");
+const svgWindowBack = async () => import("@stratakit/icons/window-back.svg");
+const svgWindowForward = async () =>
+  import("@stratakit/icons/window-forward.svg");
+const svgMeasureDistance = async () =>
+  import("@stratakit/icons/measure-distance.svg");
+const svgMeasureLocation = async () =>
+  import("@stratakit/icons/measure-location.svg");
+const svgMeasure = async () => import("@stratakit/icons/measure.svg");
+const svgSelectionClear = async () =>
+  import("@stratakit/icons/selection-clear.svg");
+const svgVisibilityDisabled = async () =>
+  import("@stratakit/icons/visibility-disabled.svg");
+const svgVisibilityEmphasis = async () =>
+  import("@stratakit/icons/visibility-emphasis.svg");
+const svgIsolate = async () => import("@stratakit/icons/isolate.svg");
+const svgRotateLeft = async () => import("@stratakit/icons/rotate-left.svg");
+const svgRotatePoint = async () => import("@stratakit/icons/rotate-point.svg");
 
 import type { GroupItemDef } from "../toolbar/GroupItem.js";
 import type { Draft } from "immer";
@@ -440,7 +447,7 @@ function initializer(icons: IconMap) {
   return {
     add: (
       itemDef: ToolItemDef | CommandItemDef | GroupItemDef,
-      icon: string
+      icon: () => Promise<{ default: string }>
     ) => {
       icons[itemDef.id] = (
         <StrataKitIcon href={icon} iconSpec={itemDef.iconSpec} />
