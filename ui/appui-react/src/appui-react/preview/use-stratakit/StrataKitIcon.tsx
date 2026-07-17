@@ -6,10 +6,13 @@
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
-import { Icon } from "@stratakit/foundations";
+import { useDefaultExport } from "../../hooks/useDefaultExport.js";
+import { useOptionalModule } from "../../hooks/useOptionalModule.js";
 
 import type { IconSpec } from "@itwin/core-react";
-import { useDefaultExport } from "../../hooks/useDefaultExport.js";
+import type { Icon } from "@stratakit/foundations";
+
+const foundations = async () => import("@stratakit/foundations");
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
@@ -31,14 +34,26 @@ export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
   const { href: hrefProp, iconSpec, iconNode, size } = props;
   const { useStrataKit } = usePreviewFeatures();
 
+  const [foundationsModule] = useOptionalModule(foundations);
+  const Icon = foundationsModule?.Icon;
+
   const loadHref = typeof hrefProp === "function" && useStrataKit;
   const [hrefExport, isLoading] = useDefaultExport(
     loadHref ? hrefProp : undefined
   );
 
-  const href = typeof hrefProp === "string" ? hrefProp : hrefExport;
+  const href = React.useMemo(() => {
+    if (typeof hrefProp === "string") return hrefProp;
 
-  if (useStrataKit && href) {
+    if (hrefExport) {
+      if (size === "large") return `${hrefExport}#icon-large`;
+      return hrefExport;
+    }
+
+    return undefined;
+  }, [hrefProp, hrefExport, size]);
+
+  if (useStrataKit && href && Icon) {
     return <Icon size={size} href={href} />;
   }
 
