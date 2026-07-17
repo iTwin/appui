@@ -232,14 +232,12 @@ const ForwardRefAccuDrawInput = React.forwardRef<
         onKeyDown={handleKeyDown}
         size="small"
       />
-      <span className="uifw-accudraw-lock">{isLocked && <LockIcon />}</span>
+      <span className="uifw-accudraw-lock">
+        {isLocked && <StrataKitIcon href={svgLock} iconNode={<SvgLock />} />}
+      </span>
     </>
   );
 });
-
-function LockIcon() {
-  return <StrataKitIcon href={svgLock} iconNode={<SvgLock />} />;
-}
 
 /** Input field for AccuDraw UI.
  * @public

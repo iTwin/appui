@@ -167,8 +167,13 @@ export class Calculator extends React.PureComponent<
             styleType="cta"
             onClick={this._handleOk}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={<CheckmarkIcon />} />
+            <StrataKitIcon
+              href={svgCheckmark}
+              iconNode={
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
+                <Icon iconSpec={<SvgCheckmark />} />
+              }
+            />
           </Button>
           <Button
             className={classnames(
@@ -177,7 +182,13 @@ export class Calculator extends React.PureComponent<
             )}
             onClick={this._handleCancel}
           >
-            <RemoveIcon />
+            <StrataKitIcon
+              href={svgDismiss}
+              iconNode={
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
+                <Icon iconSpec={<SvgRemove />} />
+              }
+            />
           </Button>
         </div>
       </div>
@@ -409,28 +420,4 @@ class OperatorButton extends React.PureComponent<OperatorButtonProps> {
       </SquareButton>
     );
   }
-}
-
-function CheckmarkIcon() {
-  return (
-    <StrataKitIcon
-      href={svgCheckmark}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgCheckmark />} />
-      }
-    />
-  );
-}
-
-function RemoveIcon() {
-  return (
-    <StrataKitIcon
-      href={svgDismiss}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgRemove />} />
-      }
-    />
-  );
 }
