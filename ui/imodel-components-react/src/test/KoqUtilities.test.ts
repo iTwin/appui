@@ -293,7 +293,8 @@ describe("getFormatterParserSpec", () => {
       const formatProps = {
         type: "Decimal",
         precision: 4,
-        formatTraits: "trailZeroes;keepDecimalPoint|keepSingleZero,showUnitLabel",
+        formatTraits:
+          "trailZeroes;keepDecimalPoint|keepSingleZero,showUnitLabel",
       };
       imodelMock.schemaContext.getSchemaItem.mockResolvedValue({
         persistenceUnit: Promise.resolve({ fullName: "Units.M" }),
