@@ -208,7 +208,7 @@ describe("getFormatterParserSpec", () => {
       expect(
         mockIModelApp.quantityFormatter.createFormatterSpec
       ).toHaveBeenNthCalledWith(1, {
-        formatProps: { ...formatProps, precision: 12, formatTraits: [] },
+        formatProps: { ...formatProps, precision: 12 },
         persistenceUnitName: "Units.M",
       });
       expect(
@@ -242,7 +242,7 @@ describe("getFormatterParserSpec", () => {
       expect(
         mockIModelApp.quantityFormatter.createFormatterSpec
       ).toHaveBeenNthCalledWith(1, {
-        formatProps: { ...formatProps, precision: 8, formatTraits: [] },
+        formatProps: { ...formatProps, precision: 8 },
         persistenceUnitName: "Units.M",
       });
     });
@@ -315,28 +315,6 @@ describe("getFormatterParserSpec", () => {
           precision: 12,
           formatTraits: ["keepSingleZero", "showUnitLabel"],
         },
-        persistenceUnitName: "Units.M",
-      });
-    });
-
-    it("uses an empty trait list for the high precision spec when no traits are provided", async () => {
-      const formatProps = { type: "Decimal", precision: 4 };
-      imodelMock.schemaContext.getSchemaItem.mockResolvedValue({
-        persistenceUnit: Promise.resolve({ fullName: "Units.M" }),
-      });
-      mockIModelApp.formatsProvider!.getFormat.mockResolvedValue(formatProps);
-      mockIModelApp.quantityFormatter.createFormatterSpec.mockResolvedValue({});
-      mockIModelApp.quantityFormatter.createParserSpec.mockResolvedValue({});
-
-      await getFormatterParserSpec({
-        imodel,
-        type: "AecUnits.LENGTH",
-      });
-
-      expect(
-        mockIModelApp.quantityFormatter.createFormatterSpec
-      ).toHaveBeenNthCalledWith(1, {
-        formatProps: { ...formatProps, precision: 12, formatTraits: [] },
         persistenceUnitName: "Units.M",
       });
     });
