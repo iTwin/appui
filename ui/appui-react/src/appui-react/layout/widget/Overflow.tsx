@@ -16,6 +16,10 @@ import { DropdownMenu } from "@itwin/itwinui-react";
 import { SvgChevronRightSmall } from "@itwin/itwinui-icons-react";
 import { TabBarButton } from "./Button.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+
+const svgChevronRight = async () =>
+  import("@stratakit/icons/chevron-right.svg");
 
 interface WidgetOverflowProps {
   items: React.ReactElement[];
@@ -56,7 +60,10 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
           )}
           ref={resizeObserverRef}
         >
-          <SvgChevronRightSmall />
+          <StrataKitIcon
+            href={svgChevronRight}
+            iconNode={<SvgChevronRightSmall />}
+          />
         </TabBarButton>
       </DropdownMenu>
     </WidgetOverflowContext.Provider>

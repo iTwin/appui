@@ -29,6 +29,11 @@ import {
 } from "./SheetsModalFrontstage.js";
 import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgChevronLeft = async () => import("@stratakit/icons/chevron-left.svg");
+const svgChevronRight = async () =>
+  import("@stratakit/icons/chevron-right.svg");
 
 /** A Sheet Navigation Aid control.
  * @public
@@ -199,10 +204,13 @@ export class SheetNavigationAid extends React.Component<
               tabIndex={-1}
               label={leftTitle}
             >
-              <SvgChevronLeft />
+              <StrataKitIcon
+                href={svgChevronLeft}
+                iconNode={<SvgChevronLeft />}
+              />
             </IconButton>
             <div>
-              {this.state.index + 1} {UiFramework.translate("general.of")}
+              {this.state.index + 1} {UiFramework.translate("general.of")}{" "}
               {this.state.sheetData.length}
             </div>
             <IconButton
@@ -213,7 +221,10 @@ export class SheetNavigationAid extends React.Component<
               tabIndex={-1}
               label={rightTitle}
             >
-              <SvgChevronRight />
+              <StrataKitIcon
+                href={svgChevronRight}
+                iconNode={<SvgChevronRight />}
+              />
             </IconButton>
           </div>
         </>

@@ -17,6 +17,9 @@ import { WidgetOverflowContext } from "./Overflow.js";
 import { ShowWidgetIconContext } from "../base/NineZone.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { TabIdContext } from "./ContentRenderer.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+
+const svgCheckmark = async () => import("@stratakit/icons/checkmark.svg");
 
 interface WidgetMenuTabProps {
   badge?: React.ReactNode;
@@ -51,7 +54,13 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
       ref={ref}
       title={label}
       startIcon={showWidgetIcon ? props.icon : undefined}
-      endIcon={active ? <SvgCheckmark /> : <></>}
+      endIcon={
+        active ? (
+          <StrataKitIcon href={svgCheckmark} iconNode={<SvgCheckmark />} />
+        ) : (
+          <></>
+        )
+      }
       aria-checked={active}
       isSelected={active}
       aria-selected={undefined} // Keep styling provided by isSelected, but handle checked state via aria-checked

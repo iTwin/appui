@@ -26,6 +26,12 @@ import {
   SvgList,
 } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgChevronDown = async () => import("@stratakit/icons/chevron-down.svg");
+const svgChevronRight = async () =>
+  import("@stratakit/icons/chevron-right.svg");
+const svgList = async () => import("@stratakit/icons/list.svg");
 
 /** Enum for the list picker item type
  * @beta
@@ -164,11 +170,21 @@ export class ExpandableSection extends React.PureComponent<
     );
 
     const icon = this.state.expanded ? (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <Icon iconSpec={<SvgChevronDown />} />
+      <StrataKitIcon
+        href={svgChevronDown}
+        iconNode={
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <Icon iconSpec={<SvgChevronDown />} />
+        }
+      />
     ) : (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <Icon iconSpec={<SvgChevronRight />} />
+      <StrataKitIcon
+        href={svgChevronRight}
+        iconNode={
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <Icon iconSpec={<SvgChevronRight />} />
+        }
+      />
     );
 
     return (
@@ -297,8 +313,13 @@ function ListPickerPopupItem(props: ListPickerProps) {
         <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
       )
     ) : (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <Icon iconSpec={<SvgList />} />
+      <StrataKitIcon
+        href={svgList}
+        iconNode={
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <Icon iconSpec={<SvgList />} />
+        }
+      />
     ));
 
   return (

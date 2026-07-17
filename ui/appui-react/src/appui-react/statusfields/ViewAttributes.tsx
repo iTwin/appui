@@ -17,6 +17,10 @@ import type { CommonProps } from "@itwin/core-react";
 import { StatusBarDialog } from "../statusbar/dialog/Dialog.js";
 import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
 import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgWindowSettings = async () =>
+  import("@stratakit/icons/window-settings.svg");
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -182,7 +186,10 @@ export class ViewAttributesStatusField extends React.Component<
         }
       >
         <IconButton styleType="borderless" label={title}>
-          <SvgWindowSettings />
+          <StrataKitIcon
+            href={svgWindowSettings}
+            iconNode={<SvgWindowSettings />}
+          />
           <StatusBarPopover.ExpandIndicator />
         </IconButton>
       </StatusBarPopover>

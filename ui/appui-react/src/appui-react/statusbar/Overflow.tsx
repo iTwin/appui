@@ -14,6 +14,10 @@ import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { StatusBarPopover } from "./popup/StatusBarPopover.js";
 import "./Overflow.scss";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgMoreHorizontal = async () =>
+  import("@stratakit/icons/more-horizontal.svg");
 
 /** Properties of [[StatusBarOverflow]] component.
  * @internal
@@ -52,7 +56,7 @@ export function StatusBarOverflow(props: StatusBarOverflowProps) {
         label={translate("statusBar.overflow")}
         styleType="borderless"
       >
-        <SvgMore />
+        <StrataKitIcon href={svgMoreHorizontal} iconNode={<SvgMore />} />
       </IconButton>
     </StatusBarPopover>
   );

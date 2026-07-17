@@ -14,6 +14,9 @@ import { SvgCursor } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import { StatusBarCornerComponentContext } from "../statusbar/StatusBarCornerComponentContext.js";
 import "./SelectionCount.scss";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgCursor = async () => import("@stratakit/icons/cursor.svg");
 
 /** Properties for the [[SelectionCountField]] component.
  * @beta
@@ -37,8 +40,13 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
   );
   return (
     <div className={className} style={props.style}>
-      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-      <Icon iconSpec={<SvgCursor />} />
+      <StrataKitIcon
+        href={svgCursor}
+        iconNode={
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
+          <Icon iconSpec={<SvgCursor />} />
+        }
+      />
       {props.count}
     </div>
   );

@@ -10,6 +10,9 @@ import { clearKeyinPaletteHistory } from "../popup/KeyinPalettePanel.js";
 import { Tool } from "@itwin/core-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgRemove } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
 
 class ClearKeyinPaletteHistoryCoreTool extends Tool {
   public static override toolId = "ClearKeyinPaletteHistory";
@@ -35,5 +38,5 @@ class ClearKeyinPaletteHistoryCoreTool extends Tool {
  */
 export const ClearKeyinPaletteHistoryTool = ToolUtilities.defineIcon(
   ClearKeyinPaletteHistoryCoreTool,
-  <SvgRemove />
+  <StrataKitIcon href={svgDismiss} iconNode={<SvgRemove />} />
 );

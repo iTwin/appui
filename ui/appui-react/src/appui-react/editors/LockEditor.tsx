@@ -15,6 +15,11 @@ import { IconButton } from "@itwin/itwinui-react";
 import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 import type { PropertyValue } from "@itwin/appui-abstract";
 import { PropertyValueFormat } from "@itwin/appui-abstract";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgLock = async () => import("@stratakit/icons/lock.svg");
+const svgLockUnlocked = async () =>
+  import("@stratakit/icons/lock-unlocked.svg");
 
 const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
   function LockEditor(props, forwardedRef) {
@@ -77,7 +82,14 @@ const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
           });
         }}
       >
-        {currentValue ? <SvgLock /> : <SvgLockUnlocked />}
+        {currentValue ? (
+          <StrataKitIcon href={svgLock} iconNode={<SvgLock />} />
+        ) : (
+          <StrataKitIcon
+            href={svgLockUnlocked}
+            iconNode={<SvgLockUnlocked />}
+          />
+        )}
       </IconButton>
     );
   }

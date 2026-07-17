@@ -16,13 +16,15 @@ import { UiFramework } from "../UiFramework.js";
 import { SvgModelIsolate } from "../icons/SvgModelIsolate.js";
 import { SvgLayersIsolate } from "../icons/SvgLayersIsolate.js";
 import { SvgAssetIsolate } from "../icons/SvgAssetIsolate.js";
-import { SvgIsolate } from "@itwin/itwinui-icons-react";
+import {
+  SvgIsolate,
+  SvgVisibilityHalf,
+  SvgVisibilityHide,
+  SvgVisibilityShow,
+} from "@itwin/itwinui-icons-react";
 import { SvgModelHide } from "../icons/SvgModelHide.js";
 import { SvgLayersHide } from "../icons/SvgLayersHide.js";
 import { SvgAssetClassificationHide } from "../icons/SvgAssetClassificationHide.js";
-import { SvgVisibilityHalf } from "@itwin/itwinui-icons-react";
-import { SvgVisibilityHide } from "@itwin/itwinui-icons-react";
-import { SvgVisibilityShow } from "@itwin/itwinui-icons-react";
 import type { ToolbarItems } from "../tools/ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 import * as React from "react";

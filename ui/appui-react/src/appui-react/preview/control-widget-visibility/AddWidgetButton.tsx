@@ -16,6 +16,9 @@ import { SvgAdd } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { WidgetIdContext } from "../../layout/widget/Widget.js";
 import { WidgetActionDropdownContext } from "../widget-action-dropdown/MoreButton.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
+
+const svgAdd = async () => import("@stratakit/icons/add.svg");
 
 /** @internal */
 export const label = "Add widget";
@@ -52,7 +55,7 @@ export function AddWidgetButton() {
       );
     });
 
-  const icon = <SvgAdd />;
+  const icon = <StrataKitIcon href={svgAdd} iconNode={<SvgAdd />} />;
   if (dropdownContext !== undefined) {
     return (
       <MenuItem

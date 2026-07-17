@@ -14,6 +14,10 @@ import { SquareButton } from "./SquareButton.js";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { Button } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgMoreHorizontal = async () =>
+  import("@stratakit/icons/more-horizontal.svg");
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
@@ -66,8 +70,13 @@ export class MenuButton extends React.PureComponent<
           style={style}
           onClick={this._handleClick}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={<SvgMore />} />
+          <StrataKitIcon
+            href={svgMoreHorizontal}
+            iconNode={
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              <Icon iconSpec={<SvgMore />} />
+            }
+          />
         </SquareButton>
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <ContextMenu

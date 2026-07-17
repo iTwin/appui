@@ -15,6 +15,10 @@ import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { useLayout } from "../../layout/base/LayoutStore.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import type { WidgetActionId } from "../../layout/widget/WidgetActions.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
+
+const svgMoreVertical = async () =>
+  import("@stratakit/icons/more-vertical.svg");
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<object>) {
@@ -31,7 +35,10 @@ export function MoreButton(props: React.PropsWithChildren<object>) {
       {/* TODO: offset is not available for DropdownMenu */}
       <div style={{ height: "100%", display: "flex", marginInline: "0.25em" }}>
         <TabBarButton label="More actions">
-          <SvgMoreVertical />
+          <StrataKitIcon
+            href={svgMoreVertical}
+            iconNode={<SvgMoreVertical />}
+          />
         </TabBarButton>
       </div>
     </DropdownMenu>
