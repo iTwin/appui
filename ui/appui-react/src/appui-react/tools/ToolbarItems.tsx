@@ -6,58 +6,17 @@
  * @module Tools
  */
 
-import * as React from "react";
-import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 import { SelectionContextToolDefinitions } from "../selection/SelectionContextItemDef.js";
 import {
   itemDefToToolbarActionItem,
   itemDefToToolbarGroupItem,
 } from "../toolbar/ToolbarHelper.js";
 import { CoreTools } from "./CoreToolDefinitions.js";
-import { useConditionalValue } from "../hooks/useConditionalValue.js";
-import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
-import { getActiveViewport } from "../utils/getActiveViewport.js";
 
-import type { CommandItemDef } from "../shared/CommandItemDef.js";
-import type { ToolItemDef } from "../shared/ToolItemDef.js";
 import {
-  isToolbarGroupItem,
   type ToolbarActionItem,
   type ToolbarGroupItem,
 } from "../toolbar/ToolbarItem.js";
-
-const svgKeyboard = async () => import("@stratakit/icons/keyboard.svg");
-const svgCursor = async () => import("@stratakit/icons/cursor.svg");
-const svgFitToView = async () => import("@stratakit/icons/fit-to-view.svg");
-const svgWindowArea = async () => import("@stratakit/icons/window-area.svg");
-const svgSearch = async () => import("@stratakit/icons/search.svg");
-const svgHand = async () => import("@stratakit/icons/hand.svg");
-const svgWalk = async () => import("@stratakit/icons/walk.svg");
-const svgCameraVideo = async () => import("@stratakit/icons/camera-video.svg");
-const svgCameraVideoDisabled = async () =>
-  import("@stratakit/icons/camera-video-disabled.svg");
-const svgAirplane = async () => import("@stratakit/icons/airplane.svg");
-const svgWindowBack = async () => import("@stratakit/icons/window-back.svg");
-const svgWindowForward = async () =>
-  import("@stratakit/icons/window-forward.svg");
-const svgMeasureDistance = async () =>
-  import("@stratakit/icons/measure-distance.svg");
-const svgMeasureLocation = async () =>
-  import("@stratakit/icons/measure-location.svg");
-const svgMeasure = async () => import("@stratakit/icons/measure.svg");
-const svgSelectionClear = async () =>
-  import("@stratakit/icons/selection-clear.svg");
-const svgVisibilityDisabled = async () =>
-  import("@stratakit/icons/visibility-disabled.svg");
-const svgVisibilityEmphasis = async () =>
-  import("@stratakit/icons/visibility-emphasis.svg");
-const svgIsolate = async () => import("@stratakit/icons/isolate.svg");
-const svgRotateLeft = async () => import("@stratakit/icons/rotate-left.svg");
-const svgRotatePoint = async () => import("@stratakit/icons/rotate-point.svg");
-
-import type { GroupItemDef } from "../toolbar/GroupItem.js";
-import type { Draft } from "immer";
-import { castDraft, produce } from "immer";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -69,76 +28,85 @@ export namespace ToolbarItems {
   export function createShowKeyinPalette(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(CoreTools.keyinPaletteButtonItemDef, overrides);
+    return itemDefToToolbarActionItem(
+      CoreTools.keyinPaletteButtonItemDef,
+      overrides
+    );
   }
 
   /** Creates an action item that runs a `FitViewTool`. */
   export function createFitView(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.fitViewCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.fitViewCommand, overrides);
   }
 
   /** Creates an action item that runs a `WindowAreaTool`. */
   export function createWindowArea(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.windowAreaCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.windowAreaCommand, overrides);
   }
 
   /** Creates an action item that runs a `ZoomViewTool`. */
   export function createZoomView(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.zoomViewCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.zoomViewCommand, overrides);
   }
 
   /** Creates an action item that runs a `PanViewTool`. */
   export function createPanView(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.panViewCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.panViewCommand, overrides);
   }
 
   /** Creates an action item that runs a `RotateViewTool`. */
   export function createRotateView(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.rotateViewCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.rotateViewCommand, overrides);
   }
 
   /** Creates an action item that runs a `WalkViewTool`. */
   export function createWalkView(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.walkViewCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.walkViewCommand, overrides);
   }
 
   /** Creates an action item that runs a `SelectionTool`. */
   export function createSelectElement(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.selectElementCommand, overrides);
+    return itemDefToToolbarActionItem(
+      CoreTools.selectElementCommand,
+      overrides
+    );
   }
 
   /** Creates an action item that runs a `SetupWalkCameraTool`. */
   export function createSetupWalkCamera(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(CoreTools.setupCameraWalkTool, overrides);
+    return itemDefToToolbarActionItem(CoreTools.setupCameraWalkTool, overrides);
   }
 
   /** Creates an action item that runs a `ViewToggleCameraTool`. */
   export function createToggleCameraView(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(CoreTools.toggleCameraViewCommand, overrides);
+    return itemDefToToolbarActionItem(
+      CoreTools.toggleCameraViewCommand,
+      overrides
+    );
   }
 
   /** Creates an action item that runs a `FlyViewTool`. */
   export function createFlyView(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.flyViewCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.flyViewCommand, overrides);
   }
 
   /** Creates an action item that runs a `ViewUndoTool`. */
   export function createViewUndo(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.viewUndoCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.viewUndoCommand, overrides);
   }
 
   /** Creates an action item that runs a `ViewRedoTool`. */
   export function createViewRedo(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.viewRedoCommand, overrides);
+    return itemDefToToolbarActionItem(CoreTools.viewRedoCommand, overrides);
   }
 
   /** Creates an action item that runs a `ViewClipByPlaneTool`. */
   export function createSectionByPlane(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       CoreTools.sectionByPlaneCommandItemDef,
       overrides
     );
@@ -148,7 +116,7 @@ export namespace ToolbarItems {
   export function createSectionByElement(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       CoreTools.sectionByElementCommandItemDef,
       overrides
     );
@@ -156,7 +124,7 @@ export namespace ToolbarItems {
 
   /** Creates an action item that runs a `ViewClipByRangeTool`. */
   export function createSectionByRange(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       CoreTools.sectionByRangeCommandItemDef,
       overrides
     );
@@ -164,7 +132,7 @@ export namespace ToolbarItems {
 
   /** Creates an action item that runs a `ViewClipByShapeTool`. */
   export function createSectionByShape(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       CoreTools.sectionByShapeCommandItemDef,
       overrides
     );
@@ -172,38 +140,47 @@ export namespace ToolbarItems {
 
   /** Creates a group item with all sectioning tools. */
   export function createSectionGroup(overrides?: Partial<ToolbarGroupItem>) {
-    return toToolbarGroupItem(CoreTools.sectionToolGroup, overrides);
+    return itemDefToToolbarGroupItem(CoreTools.sectionToolGroup, overrides);
   }
 
   /** Creates an action item that runs a `MeasureDistanceTool`. */
   export function createMeasureDistance(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(CoreTools.measureDistanceToolItemDef, overrides);
+    return itemDefToToolbarActionItem(
+      CoreTools.measureDistanceToolItemDef,
+      overrides
+    );
   }
 
   /** Creates an action item that runs a `MeasureLocationTool`. */
   export function createMeasureLocation(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(CoreTools.measureLocationToolItemDef, overrides);
+    return itemDefToToolbarActionItem(
+      CoreTools.measureLocationToolItemDef,
+      overrides
+    );
   }
 
   /** Creates a group item with all measurement tools. */
   export function createMeasureGroup(overrides?: Partial<ToolbarGroupItem>) {
-    return toToolbarGroupItem(CoreTools.measureToolGroup, overrides);
+    return itemDefToToolbarGroupItem(CoreTools.measureToolGroup, overrides);
   }
 
   /** Creates an action item that clears a selection set. */
   export function createClearSelection(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(CoreTools.clearSelectionItemDef, overrides);
+    return itemDefToToolbarActionItem(
+      CoreTools.clearSelectionItemDef,
+      overrides
+    );
   }
 
   /** Creates an action item that runs a `RestoreFrontstageLayoutTool`. */
   export function createRestoreFrontstageLayout(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       CoreTools.restoreFrontstageLayoutCommandItemDef,
       overrides
     );
@@ -213,7 +190,7 @@ export namespace ToolbarItems {
   export function createIsolateModelsInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.isolateModelsInSelectionItemDef,
       overrides
     );
@@ -223,7 +200,7 @@ export namespace ToolbarItems {
   export function createIsolateCategoriesInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.isolateCategoriesInSelectionItemDef,
       overrides
     );
@@ -233,7 +210,7 @@ export namespace ToolbarItems {
   export function createIsolateElements(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.isolateElementsItemDef,
       overrides
     );
@@ -243,7 +220,7 @@ export namespace ToolbarItems {
   export function createIsolateSelectionGroup(
     overrides?: Partial<ToolbarGroupItem>
   ) {
-    return toToolbarGroupItem(
+    return itemDefToToolbarGroupItem(
       SelectionContextToolDefinitions.isolateSelectionToolGroup,
       overrides
     );
@@ -253,7 +230,7 @@ export namespace ToolbarItems {
   export function createHideModelsInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.hideModelsInSelectionItemDef,
       overrides
     );
@@ -263,7 +240,7 @@ export namespace ToolbarItems {
   export function createHideCategoriesInSelection(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.hideCategoriesInSelectionItemDef,
       overrides
     );
@@ -271,7 +248,7 @@ export namespace ToolbarItems {
 
   /** Creates an action item that hides selected elements. */
   export function createHideElements(overrides?: Partial<ToolbarActionItem>) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.hideElementsItemDef,
       overrides
     );
@@ -281,7 +258,7 @@ export namespace ToolbarItems {
   export function createHideSectionGroup(
     overrides?: Partial<ToolbarGroupItem>
   ) {
-    return toToolbarGroupItem(
+    return itemDefToToolbarGroupItem(
       SelectionContextToolDefinitions.hideSectionToolGroup,
       overrides
     );
@@ -291,7 +268,7 @@ export namespace ToolbarItems {
   export function createEmphasizeElements(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.emphasizeElementsItemDef,
       overrides
     );
@@ -301,163 +278,9 @@ export namespace ToolbarItems {
   export function createClearHideIsolateEmphasizeElements(
     overrides?: Partial<ToolbarActionItem>
   ) {
-    return toToolbarActionItem(
+    return itemDefToToolbarActionItem(
       SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef,
       overrides
     );
   }
-}
-
-function toToolbarActionItem(
-  itemDef: ToolItemDef | CommandItemDef,
-  overrides?: Partial<ToolbarActionItem>
-) {
-  const item = itemDefToToolbarActionItem(itemDef);
-  const iconNode = getIconNode(itemDef.id);
-  return {
-    ...item,
-    ...(iconNode ? { iconNode } : {}),
-    ...overrides,
-  };
-}
-
-function toToolbarGroupItem(
-  itemDef: GroupItemDef,
-  overrides?: Partial<ToolbarGroupItem>
-) {
-  let item = itemDefToToolbarGroupItem(itemDef);
-  const iconNode = getIconNode(itemDef.id);
-  item = produce(item, (draft) => {
-    overrideIcons(draft.items);
-  });
-  return {
-    ...item,
-    ...(iconNode ? { iconNode } : {}),
-    ...overrides,
-  };
-}
-
-function overrideIcons(items: Draft<ToolbarGroupItem["items"]>) {
-  for (const item of items) {
-    const icon = getIconNode(item.id);
-    if (icon) {
-      item.iconNode = icon;
-    }
-
-    if (isToolbarGroupItem(item)) {
-      overrideIcons(castDraft(item.items));
-    }
-  }
-}
-
-function RotateViewIcon() {
-  const viewport = useConditionalValue(getActiveViewport, [
-    SyncUiEventId.ActiveContentChanged,
-    SyncUiEventId.ActiveViewportChanged,
-    SyncUiEventId.ViewStateChanged,
-  ]);
-  const is2d = viewport?.view.is2d() ?? false;
-  const icon = is2d ? svgRotateLeft : svgRotatePoint;
-  return (
-    <StrataKitIcon
-      href={icon}
-      iconSpec={CoreTools.rotateViewCommand.iconSpec}
-    />
-  );
-}
-
-function ToggleCameraViewIcon() {
-  const viewport = useConditionalValue(getActiveViewport, [
-    SyncUiEventId.ActiveContentChanged,
-    SyncUiEventId.ActiveViewportChanged,
-    SyncUiEventId.ViewStateChanged,
-  ]);
-
-  const cameraEnabled = viewport?.view.is3d() && viewport?.isCameraOn;
-  const icon = cameraEnabled ? svgCameraVideo : svgCameraVideoDisabled;
-  return (
-    <StrataKitIcon
-      href={icon}
-      iconSpec={CoreTools.toggleCameraViewCommand.iconSpec}
-    />
-  );
-}
-
-interface IconMap {
-  [key: string]: React.ReactNode;
-}
-
-// Define once to avoid re-definitions in group items.
-let iconNodes: IconMap | undefined;
-function getIconNodes() {
-  if (!iconNodes) {
-    iconNodes = {};
-    const { add, addNode } = initializer(iconNodes);
-
-    add(CoreTools.keyinPaletteButtonItemDef, svgKeyboard);
-    add(CoreTools.fitViewCommand, svgFitToView);
-    add(CoreTools.windowAreaCommand, svgWindowArea);
-    add(CoreTools.zoomViewCommand, svgSearch);
-    add(CoreTools.panViewCommand, svgHand);
-    addNode(CoreTools.rotateViewCommand, <RotateViewIcon />);
-    add(CoreTools.walkViewCommand, svgWalk);
-    add(CoreTools.selectElementCommand, svgCursor);
-    // add(CoreTools.setupCameraWalkTool, "icon-camera-location");
-    addNode(CoreTools.toggleCameraViewCommand, <ToggleCameraViewIcon />);
-    add(CoreTools.flyViewCommand, svgAirplane);
-    add(CoreTools.viewUndoCommand, svgWindowBack);
-    add(CoreTools.viewRedoCommand, svgWindowForward);
-    // add(CoreTools.sectionByPlaneCommandItemDef, "icon-section-plane");
-    // add(CoreTools.sectionByElementCommandItemDef, "icon-section-element");
-    // add(CoreTools.sectionByRangeCommandItemDef, "icon-section-range");
-    // add(CoreTools.sectionByShapeCommandItemDef, "icon-section-shape");
-    // add(CoreTools.sectionToolGroup, <SvgSectionTool />);
-    add(CoreTools.measureDistanceToolItemDef, svgMeasureDistance);
-    add(CoreTools.measureLocationToolItemDef, svgMeasureLocation);
-    add(CoreTools.measureToolGroup, svgMeasure);
-    add(CoreTools.clearSelectionItemDef, svgSelectionClear);
-    // add(CoreTools.restoreFrontstageLayoutCommandItemDef, <SvgViewLayouts />);
-    // add(SelectionContextToolDefinitions.isolateModelsInSelectionItemDef, <SvgModelIsolate />);
-    // add(SelectionContextToolDefinitions.isolateCategoriesInSelectionItemDef, <SvgLayersIsolate />);
-    // add(SelectionContextToolDefinitions.isolateElementsItemDef, <SvgAssetIsolate />);
-    add(SelectionContextToolDefinitions.isolateSelectionToolGroup, svgIsolate);
-    // add(SelectionContextToolDefinitions.hideModelsInSelectionItemDef, <SvgModelHide />);
-    // add(SelectionContextToolDefinitions.hideCategoriesInSelectionItemDef, <SvgLayersHide />);
-    // add(SelectionContextToolDefinitions.hideElementsItemDef, <SvgAssetClassificationHide />);
-    add(
-      SelectionContextToolDefinitions.hideSectionToolGroup,
-      svgVisibilityDisabled
-    );
-    add(
-      SelectionContextToolDefinitions.emphasizeElementsItemDef,
-      svgVisibilityEmphasis
-    );
-    // add(SelectionContextToolDefinitions.clearHideIsolateEmphasizeElementsItemDef, <SvgVisibilityShow />);
-  }
-
-  return iconNodes;
-}
-
-function getIconNode(id: string): React.ReactNode | undefined {
-  const icons = getIconNodes();
-  return icons[id];
-}
-
-function initializer(icons: IconMap) {
-  return {
-    add: (
-      itemDef: ToolItemDef | CommandItemDef | GroupItemDef,
-      icon: () => Promise<{ default: string }>
-    ) => {
-      icons[itemDef.id] = (
-        <StrataKitIcon href={icon} iconSpec={itemDef.iconSpec} />
-      );
-    },
-    addNode: (
-      itemDef: ToolItemDef | CommandItemDef | GroupItemDef,
-      icon: React.ReactNode
-    ) => {
-      icons[itemDef.id] = icon;
-    },
-  };
 }
