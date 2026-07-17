@@ -13,6 +13,10 @@ import { useActiveTabId } from "./Widget.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { WidgetAction } from "./WidgetAction.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+
+const svgWindowPopout = async () =>
+  import("@stratakit/icons/window-popout.svg");
 
 /** @internal */
 export function PopoutToggle() {
@@ -23,7 +27,9 @@ export function PopoutToggle() {
 
   return (
     <WidgetAction
-      icon={<SvgWindowPopout />}
+      icon={
+        <StrataKitIcon href={svgWindowPopout} iconNode={<SvgWindowPopout />} />
+      }
       label={label}
       onClick={() => {
         dispatch({

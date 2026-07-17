@@ -36,6 +36,9 @@ import { Button, Dialog } from "@itwin/itwinui-react";
 import { SvgMeasure } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import type { SettingsTabEntry } from "../SettingsManager.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+
+const svgMeasure = async () => import("@stratakit/icons/measure.svg");
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -76,7 +79,7 @@ export function getQuantityFormatsSettingsManagerEntry(
       />
     ),
     isDisabled: false,
-    icon: <SvgMeasure />,
+    icon: <StrataKitIcon href={svgMeasure} iconNode={<SvgMeasure />} />,
     tooltip: UiFramework.translate("settings.quantity-formatting.tooltip"),
     pageWillHandleCloseRequest: true,
   };
