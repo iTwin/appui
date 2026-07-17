@@ -857,6 +857,7 @@ import { UiFramework } from "./appui-react/UiFramework.js";
 import { DefaultToolSettingsProvider } from "./appui-react/toolsettings/DefaultToolSettingsProvider.js";
 import { IModelViewportControl } from "./appui-react/content/IModelViewport.js";
 import { registerEditors } from "./appui-react/editors/registerEditors.js";
+import { defineToolIcons } from "./appui-react/tools/defineToolIcons.js";
 
 UiFramework.controls.register(
   "DefaultToolSettings",
@@ -865,6 +866,7 @@ UiFramework.controls.register(
 UiFramework.controls.register(IModelViewportControl.id, IModelViewportControl);
 
 registerEditors();
+defineToolIcons();
 
 // #endregion "SideEffects"
 
