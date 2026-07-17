@@ -13,15 +13,4 @@ Added `useStrataKit` preview feature to enable usage of [StrataKit](https://www.
 >
   <App />
 </PreviewFeaturesProvider>
-
-// Enable StrataKit components for specific areas of the UI
-<PreviewFeaturesProvider
-  features={{
-    useStrataKit: {
-      toolbars: true,
-    }
-  }}
->
-  <App />
-</PreviewFeaturesProvider>
 ```
