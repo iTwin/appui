@@ -1,5 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.33.1
+
+### Patch Changes
+
+- b98b9c3: Quantity editor now strips the `TrailZeroes` and `KeepDecimalPoint` format traits while editing, so the editable value is no longer padded with trailing zeros or a dangling decimal point.
+  - @itwin/components-react@5.33.1
+  - @itwin/core-react@5.33.1
+
 ## 5.33.0
 
 ### Minor Changes
