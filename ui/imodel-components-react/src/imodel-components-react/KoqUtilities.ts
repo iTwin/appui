@@ -6,6 +6,7 @@
 import type { IModelConnection, QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
+import type { FormatProps } from "@itwin/core-quantity";
 import { FormatType, parseFormatType } from "@itwin/core-quantity";
 import type { KindOfQuantity } from "@itwin/ecschema-metadata";
 
@@ -68,6 +69,7 @@ export async function getFormatterParserSpec({
           parseFormatType(formatProps.type, "") === FormatType.Decimal
             ? 12
             : formatProps.precision,
+        formatTraits: getHighPrecisionFormatTraits(formatProps.formatTraits),
       },
       persistenceUnitName,
     });
@@ -84,4 +86,24 @@ export async function getFormatterParserSpec({
     formatterSpec,
     parserSpec,
   };
+}
+
+/**
+ * Returns the format traits to use for the high precision formatter, removing
+ * `TrailZeroes` and `KeepDecimalPoint` so that the editable value is not padded
+ * with trailing zeros or a dangling decimal point.
+ */
+function getHighPrecisionFormatTraits(
+  formatTraits: FormatProps["formatTraits"]
+): string[] | undefined {
+  if (!formatTraits) {
+    return undefined;
+  }
+  const traits = Array.isArray(formatTraits)
+    ? formatTraits
+    : formatTraits.split(/,|;|\|/);
+  const excluded = ["trailzeroes", "keepdecimalpoint"];
+  return traits.filter(
+    (trait) => !excluded.includes(trait.trim().toLowerCase())
+  );
 }
