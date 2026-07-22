@@ -6,6 +6,7 @@
   "types": "./lib/appui-react.d.ts",
   "exports": {
     ".": "./lib/appui-react.js",
+    "./useStrataKit": "./lib/useStrataKit.js",
     "./package.json": "./package.json",
     "./lib/cjs/*": {
       "sass": "./lib/*"

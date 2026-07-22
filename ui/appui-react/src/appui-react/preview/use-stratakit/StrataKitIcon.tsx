@@ -5,7 +5,7 @@
 
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
-import { usePreviewFeatures } from "../PreviewFeatures.js";
+import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
 import { useOptionalModule } from "../../hooks/useOptionalModule.js";
 
 import type { IconSpec } from "@itwin/core-react";
@@ -33,8 +33,8 @@ export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
   const { href: hrefProp, iconSpec, iconNode, size } = props;
   const { useStrataKit } = usePreviewFeatures();
 
-  const [foundationsModule] = useOptionalModule(foundations);
-  const Icon = foundationsModule?.Icon;
+  const modules = useStrataKit?.[StrataKitSymbol];
+  const Icon = modules?.foundations?.Icon;
 
   const loadHref = typeof hrefProp === "function" && useStrataKit;
   const [hrefModule, isLoading] = useOptionalModule(
