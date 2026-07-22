@@ -14,13 +14,14 @@ import { useActiveTabId } from "../../layout/widget/Widget.js";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import type { TabState } from "../../layout/state/TabState.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-
-const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function CloseWidgetButton() {
   const id = useActiveTabId();
   const dispatch = React.useContext(NineZoneDispatchContext);
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
 
   return (
     <WidgetAction

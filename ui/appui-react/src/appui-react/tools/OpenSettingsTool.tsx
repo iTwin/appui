@@ -11,8 +11,7 @@ import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgSettings } from "@itwin/itwinui-icons-react";
 import { SettingsModalFrontstage } from "../frontstage/ModalSettingsStage.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgSettings = async () => import("@stratakit/icons/settings.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 class OpenSettingsCoreTool extends Tool {
   public static override toolId = "OpenSettings";
@@ -41,5 +40,11 @@ class OpenSettingsCoreTool extends Tool {
  */
 export const OpenSettingsTool = ToolUtilities.defineIcon(
   OpenSettingsCoreTool,
-  <StrataKitIcon href={svgSettings} iconNode={<SvgSettings />} />
+  <OpenSettingsToolIcon />
 );
+
+function OpenSettingsToolIcon() {
+  const svgSettings = useStrataKitIcon("@stratakit/icons/settings.svg");
+
+  return <StrataKitIcon href={svgSettings} iconNode={<SvgSettings />} />;
+}

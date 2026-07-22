@@ -11,9 +11,7 @@ import { SearchBox } from "@itwin/itwinui-react";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 import type { HeaderIconToolbar } from "./HeaderIconToolbar.js";
 import { StrataKitIcon } from "../../../../preview/use-stratakit/StrataKitIcon.js";
-
-const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
-const svgSearch = async () => import("@stratakit/icons/search.svg");
+import { useStrataKitIcon } from "../../../../preview/use-stratakit/useStrataKitIcon.js";
 
 type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
 
@@ -48,6 +46,9 @@ export function HeaderSearch(props: HeaderSearchProps) {
     });
     return () => cancelAnimationFrame(id);
   }, [isExpanded]);
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
+  const svgSearch = useStrataKitIcon("@stratakit/icons/search.svg");
 
   return (
     <SearchBox

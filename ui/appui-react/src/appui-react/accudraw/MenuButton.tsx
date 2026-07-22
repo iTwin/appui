@@ -15,9 +15,7 @@ import { SvgMore } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps.js";
 import type { Button } from "@itwin/itwinui-react";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgMoreHorizontal = async () =>
-  import("@stratakit/icons/more-horizontal.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 type ButtonProps = React.ComponentPropsWithoutRef<typeof Button>;
 
@@ -70,13 +68,7 @@ export class MenuButton extends React.PureComponent<
           style={style}
           onClick={this._handleClick}
         >
-          <StrataKitIcon
-            href={svgMoreHorizontal}
-            iconNode={
-              // eslint-disable-next-line @typescript-eslint/no-deprecated
-              <Icon iconSpec={<SvgMore />} />
-            }
-          />
+          <MoreIcon />
         </SquareButton>
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
         <ContextMenu
@@ -121,4 +113,20 @@ export class MenuButton extends React.PureComponent<
   private _handleClose = () => {
     this.setState({ expanded: false });
   };
+}
+
+function MoreIcon() {
+  const svgMoreHorizontal = useStrataKitIcon(
+    "@stratakit/icons/more-horizontal.svg"
+  );
+
+  return (
+    <StrataKitIcon
+      href={svgMoreHorizontal}
+      iconNode={
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <Icon iconSpec={<SvgMore />} />
+      }
+    />
+  );
 }

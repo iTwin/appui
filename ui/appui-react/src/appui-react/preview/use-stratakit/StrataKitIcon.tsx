@@ -5,18 +5,15 @@
 
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
-import { usePreviewFeatures } from "../PreviewFeatures.js";
-import { useOptionalModule } from "../../hooks/useOptionalModule.js";
+import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
 
 import type { IconSpec } from "@itwin/core-react";
 import type { Icon } from "@stratakit/foundations";
 
-const foundations = async () => import("@stratakit/foundations");
-
 type IconProps = React.ComponentProps<typeof Icon>;
 
 interface StrataKitIconProps extends Pick<IconProps, "size"> {
-  href?: string | (() => Promise<{ default: string }>);
+  href?: string;
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
   iconNode?: React.ReactNode;
@@ -30,35 +27,15 @@ interface StrataKitIconProps extends Pick<IconProps, "size"> {
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { href: hrefProp, iconSpec, iconNode, size } = props;
+  const { href, iconSpec, iconNode, size } = props;
   const { useStrataKit } = usePreviewFeatures();
 
-  const [foundationsModule] = useOptionalModule(foundations);
-  const Icon = foundationsModule?.Icon;
+  const modules = useStrataKit?.[StrataKitSymbol]?.modules;
+  const { Icon } = modules?.["@stratakit/mui"] ?? {};
 
-  const loadHref = typeof hrefProp === "function" && useStrataKit;
-  const [hrefModule, isLoading] = useOptionalModule(
-    loadHref ? hrefProp : undefined
-  );
-  const hrefExport = hrefModule?.default;
-
-  const href = React.useMemo(() => {
-    if (typeof hrefProp === "string") return hrefProp;
-
-    if (hrefExport) {
-      if (size === "large") return `${hrefExport}#icon-large`;
-      return hrefExport;
-    }
-
-    return undefined;
-  }, [hrefProp, hrefExport, size]);
-
-  if (useStrataKit && href && Icon) {
+  if (href && Icon) {
     return <Icon size={size} href={href} />;
   }
-
-  // Avoid rendering legacy icon, while the StrataKit icon is still loading, to avoid flicker.
-  if (loadHref && isLoading) return undefined;
 
   if (iconNode) return iconNode;
 

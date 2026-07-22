@@ -16,12 +16,14 @@ import { useLayout } from "../../layout/base/LayoutStore.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import type { WidgetActionId } from "../../layout/widget/WidgetActions.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-
-const svgMoreVertical = async () =>
-  import("@stratakit/icons/more-vertical.svg");
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<object>) {
+  const svgMoreVertical = useStrataKitIcon(
+    "@stratakit/icons/more-vertical.svg"
+  );
+
   return (
     <DropdownMenu
       placement="bottom-end"

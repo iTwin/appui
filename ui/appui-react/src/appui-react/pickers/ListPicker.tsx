@@ -27,11 +27,7 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgChevronDown = async () => import("@stratakit/icons/chevron-down.svg");
-const svgChevronRight = async () =>
-  import("@stratakit/icons/chevron-right.svg");
-const svgList = async () => import("@stratakit/icons/list.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Enum for the list picker item type
  * @beta
@@ -170,21 +166,9 @@ export class ExpandableSection extends React.PureComponent<
     );
 
     const icon = this.state.expanded ? (
-      <StrataKitIcon
-        href={svgChevronDown}
-        iconNode={
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <Icon iconSpec={<SvgChevronDown />} />
-        }
-      />
+      <ChevronDownIcon />
     ) : (
-      <StrataKitIcon
-        href={svgChevronRight}
-        iconNode={
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <Icon iconSpec={<SvgChevronRight />} />
-        }
-      />
+      <ChevronRightIcon />
     );
 
     return (
@@ -220,6 +204,36 @@ export class ExpandableSection extends React.PureComponent<
       </Panel>
     );
   }
+}
+
+function ChevronDownIcon() {
+  const svgChevronDown = useStrataKitIcon("@stratakit/icons/chevron-down.svg");
+
+  return (
+    <StrataKitIcon
+      href={svgChevronDown}
+      iconNode={
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <Icon iconSpec={<SvgChevronDown />} />
+      }
+    />
+  );
+}
+
+function ChevronRightIcon() {
+  const svgChevronRight = useStrataKitIcon(
+    "@stratakit/icons/chevron-right.svg"
+  );
+
+  return (
+    <StrataKitIcon
+      href={svgChevronRight}
+      iconNode={
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <Icon iconSpec={<SvgChevronRight />} />
+      }
+    />
+  );
 }
 
 /** @beta */
@@ -300,6 +314,8 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  * @beta
  */
 function ListPickerPopupItem(props: ListPickerProps) {
+  const svgList = useStrataKitIcon("@stratakit/icons/list.svg");
+
   const icon =
     props.icon ??
     // eslint-disable-next-line @typescript-eslint/no-deprecated

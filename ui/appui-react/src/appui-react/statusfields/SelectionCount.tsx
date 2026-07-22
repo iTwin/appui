@@ -6,6 +6,7 @@
  * @module StatusBar
  */
 
+import "./SelectionCount.scss";
 import * as React from "react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
@@ -13,10 +14,8 @@ import { Icon } from "@itwin/core-react";
 import { SvgCursor } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import { StatusBarCornerComponentContext } from "../statusbar/StatusBarCornerComponentContext.js";
-import "./SelectionCount.scss";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgCursor = async () => import("@stratakit/icons/cursor.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties for the [[SelectionCountField]] component.
  * @beta
@@ -38,6 +37,9 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
     cornerContext === "right-corner" && "uifw-right-corner",
     props.className
   );
+
+  const svgCursor = useStrataKitIcon("@stratakit/icons/cursor.svg");
+
   return (
     <div className={className} style={props.style}>
       <StrataKitIcon

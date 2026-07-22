@@ -46,8 +46,7 @@ import { useBorders } from "../../layout/widget/PanelWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useWidgetDef } from "../../widget-panels/Content.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-
-const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 const TabsContext = React.createContext<
   | {
@@ -275,6 +274,9 @@ function CloseTabDecoration() {
 
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
+
   return (
     <IconButton
       as={Tabs.TabIcon}
@@ -307,6 +309,8 @@ function CloseTabAction() {
 
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
 
   if (!closeAction) return null;
   return (

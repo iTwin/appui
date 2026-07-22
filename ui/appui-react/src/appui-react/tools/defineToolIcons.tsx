@@ -32,63 +32,59 @@ import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { SvgGyroscope } from "../icons/SvgGyroscope.js";
 
 import type { ToolType } from "@itwin/core-frontend";
-
-const svgFitToView = async () => import("@stratakit/icons/fit-to-view.svg");
-const svgWindowArea = async () => import("@stratakit/icons/window-area.svg");
-const svgSearch = async () => import("@stratakit/icons/search.svg");
-const svgHand = async () => import("@stratakit/icons/hand.svg");
-const svgWalk = async () => import("@stratakit/icons/walk.svg");
-const svgCursor = async () => import("@stratakit/icons/cursor.svg");
-const svgAirplane = async () => import("@stratakit/icons/airplane.svg");
-const svgWindowBack = async () => import("@stratakit/icons/window-back.svg");
-const svgWindowForward = async () =>
-  import("@stratakit/icons/window-forward.svg");
-const svgMeasureDistance = async () =>
-  import("@stratakit/icons/measure-distance.svg");
-const svgMeasureLocation = async () =>
-  import("@stratakit/icons/measure-location.svg");
-const svgRotateLeft = async () => import("@stratakit/icons/rotate-left.svg");
-const svgRotatePoint = async () => import("@stratakit/icons/rotate-point.svg");
-const svgCameraVideo = async () => import("@stratakit/icons/camera-video.svg");
-const svgCameraVideoDisabled = async () =>
-  import("@stratakit/icons/camera-video-disabled.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function defineToolIcons() {
-  defineIcon(FitViewTool, svgFitToView);
-  defineIcon(WindowAreaTool, svgWindowArea);
-  defineIcon(ZoomViewTool, svgSearch);
-  defineIcon(PanViewTool, svgHand);
-  defineIconElement(RotateViewTool, <RotateViewIcon />);
-  defineIcon(WalkViewTool, svgWalk);
-  defineIcon(SelectionTool, svgCursor);
+  defineIcon(FitViewTool, <FitViewToolIcon />);
+  defineIcon(WindowAreaTool, <WindowAreaToolIcon />);
+  defineIcon(ZoomViewTool, <ZoomViewToolIcon />);
+  defineIcon(PanViewTool, <PanViewToolIcon />);
+  defineIcon(RotateViewTool, <RotateViewIcon />);
+  defineIcon(WalkViewTool, <WalkViewToolIcon />);
+  defineIcon(SelectionTool, <SelectionToolIcon />);
   // defineIcon(SetupWalkCameraTool, "icon-camera-location");
-  defineIconElement(ViewToggleCameraTool, <ToggleCameraViewIcon />);
-  defineIcon(FlyViewTool, svgAirplane);
-  defineIcon(ViewUndoTool, svgWindowBack);
-  defineIcon(ViewRedoTool, svgWindowForward);
+  defineIcon(ViewToggleCameraTool, <ToggleCameraViewIcon />);
+  defineIcon(FlyViewTool, <FlyViewToolIcon />);
+  defineIcon(ViewUndoTool, <ViewUndoToolIcon />);
+  defineIcon(ViewRedoTool, <ViewRedoToolIcon />);
   // defineIcon(ViewClipByPlaneTool, "icon-section-plane");
   // defineIcon(ViewClipByElementTool, "icon-section-element");
   // defineIcon(ViewClipByRangeTool, "icon-section-range");
   // defineIcon(ViewClipByShapeTool, "icon-section-shape");
-  defineIcon(MeasureDistanceTool, svgMeasureDistance);
-  defineIcon(MeasureLocationTool, svgMeasureLocation);
+  defineIcon(MeasureDistanceTool, <MeasureDistanceToolIcon />);
+  defineIcon(MeasureLocationTool, <MeasureLocationToolIcon />);
 }
 
-function defineIcon(
-  toolType: ToolType,
-  icon: () => Promise<{ default: string }>
-) {
+function defineIcon(toolType: ToolType, icon: React.ReactElement) {
   if (ToolUtilities.isWithIcon(toolType)) return;
-  ToolUtilities.defineIcon(
-    toolType,
-    <StrataKitIcon href={icon} iconSpec={toolType.iconSpec} />
+  ToolUtilities.defineIcon(toolType, icon);
+}
+
+function FitViewToolIcon() {
+  const svgFitToView = useStrataKitIcon("@stratakit/icons/fit-to-view.svg");
+
+  return <StrataKitIcon href={svgFitToView} iconSpec={FitViewTool.iconSpec} />;
+}
+
+function WindowAreaToolIcon() {
+  const svgWindowArea = useStrataKitIcon("@stratakit/icons/window-area.svg");
+
+  return (
+    <StrataKitIcon href={svgWindowArea} iconSpec={WindowAreaTool.iconSpec} />
   );
 }
 
-function defineIconElement(toolType: ToolType, icon: React.ReactElement) {
-  if (ToolUtilities.isWithIcon(toolType)) return;
-  ToolUtilities.defineIcon(toolType, icon);
+function ZoomViewToolIcon() {
+  const svgSearch = useStrataKitIcon("@stratakit/icons/search.svg");
+
+  return <StrataKitIcon href={svgSearch} iconSpec={ZoomViewTool.iconSpec} />;
+}
+
+function PanViewToolIcon() {
+  const svgHand = useStrataKitIcon("@stratakit/icons/hand.svg");
+
+  return <StrataKitIcon href={svgHand} iconSpec={PanViewTool.iconSpec} />;
 }
 
 function RotateViewIcon() {
@@ -97,6 +93,10 @@ function RotateViewIcon() {
     SyncUiEventId.ActiveViewportChanged,
     SyncUiEventId.ViewStateChanged,
   ]);
+
+  const svgRotateLeft = useStrataKitIcon("@stratakit/icons/rotate-left.svg");
+  const svgRotatePoint = useStrataKitIcon("@stratakit/icons/rotate-point.svg");
+
   const is2d = viewport?.view.is2d() ?? false;
   const icon = is2d ? svgRotateLeft : svgRotatePoint;
   const iconNode = is2d ? <SvgRotateLeft /> : <SvgGyroscope />;
@@ -109,12 +109,29 @@ function RotateViewIcon() {
   );
 }
 
+function WalkViewToolIcon() {
+  const svgWalk = useStrataKitIcon("@stratakit/icons/walk.svg");
+
+  return <StrataKitIcon href={svgWalk} iconSpec={WalkViewTool.iconSpec} />;
+}
+
+function SelectionToolIcon() {
+  const svgCursor = useStrataKitIcon("@stratakit/icons/cursor.svg");
+
+  return <StrataKitIcon href={svgCursor} iconSpec={SelectionTool.iconSpec} />;
+}
+
 function ToggleCameraViewIcon() {
   const viewport = useConditionalValue(getActiveViewport, [
     SyncUiEventId.ActiveContentChanged,
     SyncUiEventId.ActiveViewportChanged,
     SyncUiEventId.ViewStateChanged,
   ]);
+
+  const svgCameraVideo = useStrataKitIcon("@stratakit/icons/camera-video.svg");
+  const svgCameraVideoDisabled = useStrataKitIcon(
+    "@stratakit/icons/camera-video-disabled.svg"
+  );
 
   const cameraEnabled = viewport?.view.is3d() && viewport?.isCameraOn;
   const icon = cameraEnabled ? svgCameraVideo : svgCameraVideoDisabled;
@@ -128,6 +145,56 @@ function ToggleCameraViewIcon() {
       href={icon}
       iconNode={iconNode}
       iconSpec={ViewToggleCameraTool.iconSpec}
+    />
+  );
+}
+
+function FlyViewToolIcon() {
+  const svgAirplane = useStrataKitIcon("@stratakit/icons/airplane.svg");
+
+  return <StrataKitIcon href={svgAirplane} iconSpec={FlyViewTool.iconSpec} />;
+}
+
+function ViewUndoToolIcon() {
+  const svgWindowBack = useStrataKitIcon("@stratakit/icons/window-back.svg");
+
+  return (
+    <StrataKitIcon href={svgWindowBack} iconSpec={ViewUndoTool.iconSpec} />
+  );
+}
+
+function ViewRedoToolIcon() {
+  const svgWindowForward = useStrataKitIcon(
+    "@stratakit/icons/window-forward.svg"
+  );
+
+  return (
+    <StrataKitIcon href={svgWindowForward} iconSpec={ViewRedoTool.iconSpec} />
+  );
+}
+
+function MeasureDistanceToolIcon() {
+  const svgMeasureDistance = useStrataKitIcon(
+    "@stratakit/icons/measure-distance.svg"
+  );
+
+  return (
+    <StrataKitIcon
+      href={svgMeasureDistance}
+      iconSpec={MeasureDistanceTool.iconSpec}
+    />
+  );
+}
+
+function MeasureLocationToolIcon() {
+  const svgMeasureLocation = useStrataKitIcon(
+    "@stratakit/icons/measure-location.svg"
+  );
+
+  return (
+    <StrataKitIcon
+      href={svgMeasureLocation}
+      iconSpec={MeasureLocationTool.iconSpec}
     />
   );
 }

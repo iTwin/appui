@@ -18,17 +18,20 @@ import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { useFloatingWidgetId } from "../../layout/widget/FloatingWidget.js";
 import { usePanelWidgetId } from "../../layout/widget/usePanelWidgetId.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-
-const svgWindowMaximize = async () =>
-  import("@stratakit/icons/window-maximize.svg");
-const svgWindowMinimize = async () =>
-  import("@stratakit/icons/window-minimize.svg");
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function MaximizeToggle() {
   const widgetId = React.useContext(WidgetIdContext);
   const { maximizedWidget, setMaximizedWidget } = React.useContext(
     MaximizedWidgetContext
+  );
+
+  const svgWindowMaximize = useStrataKitIcon(
+    "@stratakit/icons/window-maximize.svg"
+  );
+  const svgWindowMinimize = useStrataKitIcon(
+    "@stratakit/icons/window-minimize.svg"
   );
 
   const { id, label, iconSpec } =

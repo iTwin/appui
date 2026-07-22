@@ -18,10 +18,7 @@ import {
   useLockProperty,
 } from "../editors/LockProvider.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgLock = async () => import("@stratakit/icons/lock.svg");
-const svgLockUnlocked = async () =>
-  import("@stratakit/icons/lock-unlocked.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export const LockEditorSpec = createEditorSpec({
@@ -53,6 +50,11 @@ function LockEditor({
   );
   const displayLabel = property?.property.displayLabel;
   const label = displayLabel ? displayLabel : "Toggle lock";
+
+  const svgLock = useStrataKitIcon("@stratakit/icons/lock.svg");
+  const svgLockUnlocked = useStrataKitIcon(
+    "@stratakit/icons/lock-unlocked.svg"
+  );
 
   const currentValue = value?.value ?? false;
   return (

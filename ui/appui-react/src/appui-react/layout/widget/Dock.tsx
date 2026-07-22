@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 import { SvgDockTop } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../base/NineZone.js";
 import { WidgetAction } from "./WidgetAction.js";
@@ -15,13 +16,12 @@ import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useM
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
-const svgDockTop = async () => import("@stratakit/icons/dock-top.svg");
-
 /** @internal */
 export function Dock() {
   const dispatch = React.useContext(NineZoneDispatchContext);
   const { translate } = useTranslation();
   const label = translate("widget.tooltips.dockToolSettings");
+  const svgDockTop = useStrataKitIcon("@stratakit/icons/dock-top.svg");
   return (
     <WidgetAction
       icon={<StrataKitIcon href={svgDockTop} iconNode={<SvgDockTop />} />}

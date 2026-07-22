@@ -19,9 +19,7 @@ import { SquareButton } from "./SquareButton.js";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 import { SvgBackspace } from "../icons/SvgBackspace.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgCheckmark = async () => import("@stratakit/icons/checkmark.svg");
-const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 type SquareButtonProps = React.ComponentProps<typeof SquareButton>;
 
@@ -167,13 +165,7 @@ export class Calculator extends React.PureComponent<
             styleType="cta"
             onClick={this._handleOk}
           >
-            <StrataKitIcon
-              href={svgCheckmark}
-              iconNode={
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
-                <Icon iconSpec={<SvgCheckmark />} />
-              }
-            />
+            <CheckmarkIcon />
           </Button>
           <Button
             className={classnames(
@@ -182,13 +174,7 @@ export class Calculator extends React.PureComponent<
             )}
             onClick={this._handleCancel}
           >
-            <StrataKitIcon
-              href={svgDismiss}
-              iconNode={
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
-                <Icon iconSpec={<SvgRemove />} />
-              }
-            />
+            <DismissIcon />
           </Button>
         </div>
       </div>
@@ -420,4 +406,30 @@ class OperatorButton extends React.PureComponent<OperatorButtonProps> {
       </SquareButton>
     );
   }
+}
+
+function CheckmarkIcon() {
+  const svgCheckmark = useStrataKitIcon("@stratakit/icons/checkmark.svg");
+  return (
+    <StrataKitIcon
+      href={svgCheckmark}
+      iconNode={
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <Icon iconSpec={<SvgCheckmark />} />
+      }
+    />
+  );
+}
+
+function DismissIcon() {
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
+  return (
+    <StrataKitIcon
+      href={svgDismiss}
+      iconNode={
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <Icon iconSpec={<SvgRemove />} />
+      }
+    />
+  );
 }

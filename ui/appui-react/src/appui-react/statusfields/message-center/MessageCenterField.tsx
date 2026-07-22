@@ -23,17 +23,10 @@ import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import "./MessageCenterField.scss";
-
-const svgChat = async () => import("@stratakit/icons/chat.svg");
-const svgInfo = async () => import("@stratakit/icons/info.svg");
-const svgStatusError = async () => import("@stratakit/icons/status-error.svg");
-const svgStatusSuccess = async () =>
-  import("@stratakit/icons/status-success.svg");
-const svgStatusWarning = async () =>
-  import("@stratakit/icons/status-warning.svg");
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -101,6 +94,8 @@ export function MessageCenterField(props: CommonProps) {
       }
     });
   }, []);
+
+  const svgChat = useStrataKitIcon("@stratakit/icons/chat.svg");
 
   return (
     <StatusBarPopover
@@ -179,6 +174,15 @@ interface MessageIconProps {
 }
 
 function MessageIcon({ priority }: MessageIconProps) {
+  const svgInfo = useStrataKitIcon("@stratakit/icons/info.svg");
+  const svgStatusError = useStrataKitIcon("@stratakit/icons/status-error.svg");
+  const svgStatusSuccess = useStrataKitIcon(
+    "@stratakit/icons/status-success.svg"
+  );
+  const svgStatusWarning = useStrataKitIcon(
+    "@stratakit/icons/status-warning.svg"
+  );
+
   switch (priority) {
     case OutputMessagePriority.Error:
     case OutputMessagePriority.Fatal:

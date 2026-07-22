@@ -14,9 +14,7 @@ import { useLayout } from "../base/LayoutStore.js";
 import { WidgetAction } from "./WidgetAction.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-
-const svgWindowPopout = async () =>
-  import("@stratakit/icons/window-popout.svg");
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function PopoutToggle() {
@@ -24,6 +22,10 @@ export function PopoutToggle() {
   const activeTabId = useActiveTabId();
   const { translate } = useTranslation();
   const label = translate("widget.tooltips.popoutActiveTab");
+
+  const svgWindowPopout = useStrataKitIcon(
+    "@stratakit/icons/window-popout.svg"
+  );
 
   return (
     <WidgetAction

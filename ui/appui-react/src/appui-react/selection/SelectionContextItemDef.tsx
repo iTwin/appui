@@ -29,14 +29,7 @@ import type { ToolbarItems } from "../tools/ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 import * as React from "react";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgIsolate = async () => import("@stratakit/icons/isolate.svg");
-const svgVisibilityPartial = async () =>
-  import("@stratakit/icons/visibility-partial.svg");
-const svgVisibilityHide = async () =>
-  import("@stratakit/icons/visibility-hide.svg");
-const svgVisibilityShow = async () =>
-  import("@stratakit/icons/visibility-show.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -204,7 +197,7 @@ export class SelectionContextToolDefinitions {
     return new GroupItemDef({
       groupId: "UiFramework.IsolateSelectionGroup",
       labelKey: "UiFramework:tools.isolate",
-      iconSpec: <StrataKitIcon href={svgIsolate} iconNode={<SvgIsolate />} />,
+      iconSpec: <IsolateIcon />,
       isHidden: getIsHiddenIfSelectionNotActive(),
       items: [
         this.isolateElementsItemDef,
@@ -250,12 +243,7 @@ export class SelectionContextToolDefinitions {
     return new GroupItemDef({
       groupId: "UiFramework.HideSelectionGroup",
       labelKey: "UiFramework:tools.hide",
-      iconSpec: (
-        <StrataKitIcon
-          href={svgVisibilityHide}
-          iconNode={<SvgVisibilityHide />}
-        />
-      ),
+      iconSpec: <HideSectionToolGroupIcon />,
       isHidden: getIsHiddenIfSelectionNotActive(),
       items: [
         this.hideElementsItemDef,
@@ -269,12 +257,7 @@ export class SelectionContextToolDefinitions {
   public static get emphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.EmphasizeSelected",
-      iconSpec: (
-        <StrataKitIcon
-          href={svgVisibilityPartial}
-          iconNode={<SvgVisibilityHalf />}
-        />
-      ),
+      iconSpec: <EmphasizeElementsIcon />,
       labelKey: "UiFramework:tools.emphasizeSelected",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () =>
@@ -285,12 +268,7 @@ export class SelectionContextToolDefinitions {
   public static get clearHideIsolateEmphasizeElementsItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearHideIsolateEmphasize",
-      iconSpec: (
-        <StrataKitIcon
-          href={svgVisibilityShow}
-          iconNode={<SvgVisibilityShow />}
-        />
-      ),
+      iconSpec: <ClearHideIsolateEmphasizeElementsIcon />,
       labelKey: "UiFramework:tools.clearVisibility",
       isHidden: getIsHiddenIfFeatureOverridesActive(),
       execute: async () => {
@@ -300,4 +278,43 @@ export class SelectionContextToolDefinitions {
       },
     });
   }
+}
+
+function IsolateIcon() {
+  const svgIsolate = useStrataKitIcon("@stratakit/icons/isolate.svg");
+
+  return <StrataKitIcon href={svgIsolate} iconNode={<SvgIsolate />} />;
+}
+
+function EmphasizeElementsIcon() {
+  const svgVisibilityPartial = useStrataKitIcon(
+    "@stratakit/icons/visibility-partial.svg"
+  );
+
+  return (
+    <StrataKitIcon
+      href={svgVisibilityPartial}
+      iconNode={<SvgVisibilityHalf />}
+    />
+  );
+}
+
+function HideSectionToolGroupIcon() {
+  const svgVisibilityHide = useStrataKitIcon(
+    "@stratakit/icons/visibility-hide.svg"
+  );
+
+  return (
+    <StrataKitIcon href={svgVisibilityHide} iconNode={<SvgVisibilityHide />} />
+  );
+}
+
+function ClearHideIsolateEmphasizeElementsIcon() {
+  const svgVisibilityShow = useStrataKitIcon(
+    "@stratakit/icons/visibility-show.svg"
+  );
+
+  return (
+    <StrataKitIcon href={svgVisibilityShow} iconNode={<SvgVisibilityShow />} />
+  );
 }

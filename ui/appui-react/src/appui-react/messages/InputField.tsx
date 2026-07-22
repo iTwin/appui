@@ -23,14 +23,7 @@ import { Icon } from "@itwin/itwinui-react";
 import { MessageManager } from "../messages/MessageManager.js";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
-const svgInfo = async () => import("@stratakit/icons/info.svg");
-const svgStatusError = async () => import("@stratakit/icons/status-error.svg");
-const svgStatusSuccess = async () =>
-  import("@stratakit/icons/status-success.svg");
-const svgStatusWarning = async () =>
-  import("@stratakit/icons/status-warning.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -116,13 +109,7 @@ export class InputFieldMessage extends React.PureComponent<
               role="button"
               tabIndex={-1}
             >
-              <StrataKitIcon
-                href={svgDismiss}
-                iconNode={
-                  // eslint-disable-next-line @typescript-eslint/no-deprecated
-                  <CoreIcon iconSpec={<SvgClose />} />
-                }
-              />
+              <DismissIcon />
             </div>
           )}
         </div>
@@ -171,7 +158,30 @@ export class InputFieldMessage extends React.PureComponent<
   };
 }
 
+function DismissIcon() {
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
+
+  return (
+    <StrataKitIcon
+      href={svgDismiss}
+      iconNode={
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        <CoreIcon iconSpec={<SvgClose />} />
+      }
+    />
+  );
+}
+
 function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
+  const svgInfo = useStrataKitIcon("@stratakit/icons/info.svg");
+  const svgStatusError = useStrataKitIcon("@stratakit/icons/status-error.svg");
+  const svgStatusSuccess = useStrataKitIcon(
+    "@stratakit/icons/status-success.svg"
+  );
+  const svgStatusWarning = useStrataKitIcon(
+    "@stratakit/icons/status-warning.svg"
+  );
+
   switch (priority) {
     case OutputMessagePriority.Success:
       return (

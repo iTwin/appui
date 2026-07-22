@@ -25,9 +25,7 @@ import type { SheetData } from "./SheetNavigationAid.js";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgDocument = async () => import("@stratakit/icons/document.svg");
-const svgPlaceholder = async () => import("@stratakit/icons/placeholder.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Data about a sheet card
  * @alpha
@@ -93,9 +91,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
       this._cards.push({
         index,
         label: sheet.name,
-        iconSpec: (
-          <StrataKitIcon href={svgDocument} iconNode={<SvgDocument />} />
-        ),
+        iconSpec: <DocumentIcon />,
         viewId: sheet.viewId,
         isActive: index === this._currentIndex,
       });
@@ -130,6 +126,12 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     this._searchValue = value;
     UiFramework.frontstages.updateModalFrontstage();
   };
+}
+
+function DocumentIcon() {
+  const svgDocument = useStrataKitIcon("@stratakit/icons/document.svg");
+
+  return <StrataKitIcon href={svgDocument} iconNode={<SvgDocument />} />;
 }
 
 /** Properties for [[CardContainer]]
@@ -283,7 +285,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Icon iconSpec={this.props.iconSpec} />
       ) : (
-        <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
+        <PlaceholderIcon />
       );
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -303,4 +305,10 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       </div>
     );
   }
+}
+
+function PlaceholderIcon() {
+  const svgPlaceholder = useStrataKitIcon("@stratakit/icons/placeholder.svg");
+
+  return <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />;
 }

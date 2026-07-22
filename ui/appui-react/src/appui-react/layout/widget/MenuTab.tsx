@@ -18,8 +18,7 @@ import { ShowWidgetIconContext } from "../base/NineZone.js";
 import { useLayout } from "../base/LayoutStore.js";
 import { TabIdContext } from "./ContentRenderer.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-
-const svgCheckmark = async () => import("@stratakit/icons/checkmark.svg");
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 interface WidgetMenuTabProps {
   badge?: React.ReactNode;
@@ -48,6 +47,7 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
   });
   const activeTabId = useActiveTabId();
   const active = activeTabId === id;
+  const svgCheckmark = useStrataKitIcon("@stratakit/icons/checkmark.svg");
   return (
     <MenuItem
       role="menuitemcheckbox"

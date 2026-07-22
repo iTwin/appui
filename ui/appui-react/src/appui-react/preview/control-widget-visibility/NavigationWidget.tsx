@@ -15,8 +15,7 @@ import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import { useLayout } from "../../layout/base/LayoutStore.js";
 import { panelSides } from "../../layout/widget-panels/Panel.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-
-const svgAdd = async () => import("@stratakit/icons/add.svg");
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 /** Displays a dropdown button to un-hide widgets in the bottom-right corner of the navigation widget area.
  * @internal
@@ -28,6 +27,9 @@ export function NavigationWidget({
   const tabs = useUserControlledHiddenTabs();
   const hasWidgets = useHasWidgets();
   const showAdd = tabs.length > 0 && !hasWidgets;
+
+  const svgAdd = useStrataKitIcon("@stratakit/icons/add.svg");
+
   return (
     <div className="uifw-preview-navigationWidget">
       {children}

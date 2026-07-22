@@ -62,31 +62,9 @@ import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
 import { useControlledState } from "../../hooks/useControlledState.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 type StrataKitIconProps = React.ComponentProps<typeof StrataKitIcon>;
-
-const svgAdd = async () => import("@stratakit/icons/add.svg");
-const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
-const svgCursorClick = async () => import("@stratakit/icons/cursor-click.svg");
-const svgGestureOneFingerDrag = async () =>
-  import("@stratakit/icons/gesture-one-finger-drag.svg");
-const svgGestureOneFingerTap = async () =>
-  import("@stratakit/icons/gesture-one-finger-tap.svg");
-const svgGestureOneFingerDoubleTap = async () =>
-  import("@stratakit/icons/gesture-one-finger-double-tap.svg");
-const svgGesturePinch = async () =>
-  import("@stratakit/icons/gesture-pinch.svg");
-const svgGestureTwoFingerDrag = async () =>
-  import("@stratakit/icons/gesture-two-finger-drag.svg");
-const svgGestureTwoFingerTap = async () =>
-  import("@stratakit/icons/gesture-two-finger-tap.svg");
-const svgMouseClickLeft = async () =>
-  import("@stratakit/icons/mouse-click-left.svg");
-const svgMouseClickRight = async () =>
-  import("@stratakit/icons/mouse-click-right.svg");
-const svgMouseClickMiddle = async () =>
-  import("@stratakit/icons/mouse-click-middle.svg");
-const svgPin = async () => import("@stratakit/icons/pin.svg");
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -328,6 +306,10 @@ export function ToolAssistanceField(props: Props) {
     pinnedProp,
     onPinnedChange as React.Dispatch<React.SetStateAction<boolean>>
   );
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
+  const svgPin = useStrataKitIcon("@stratakit/icons/pin.svg");
+
   return (
     <StatusBarPopover
       visible={visible}
@@ -582,6 +564,36 @@ function InstructionSvgImage({
   instruction: ToolAssistanceInstruction;
   mediumSize: boolean;
 }): React.ReactNode {
+  const svgAdd = useStrataKitIcon("@stratakit/icons/add.svg");
+  const svgCursorClick = useStrataKitIcon("@stratakit/icons/cursor-click.svg");
+  const svgGestureOneFingerDrag = useStrataKitIcon(
+    "@stratakit/icons/gesture-one-finger-drag.svg"
+  );
+  const svgGestureOneFingerTap = useStrataKitIcon(
+    "@stratakit/icons/gesture-one-finger-tap.svg"
+  );
+  const svgGestureOneFingerDoubleTap = useStrataKitIcon(
+    "@stratakit/icons/gesture-one-finger-double-tap.svg"
+  );
+  const svgGesturePinch = useStrataKitIcon(
+    "@stratakit/icons/gesture-pinch.svg"
+  );
+  const svgGestureTwoFingerDrag = useStrataKitIcon(
+    "@stratakit/icons/gesture-two-finger-drag.svg"
+  );
+  const svgGestureTwoFingerTap = useStrataKitIcon(
+    "@stratakit/icons/gesture-two-finger-tap.svg"
+  );
+  const svgMouseClickLeft = useStrataKitIcon(
+    "@stratakit/icons/mouse-click-left.svg"
+  );
+  const svgMouseClickRight = useStrataKitIcon(
+    "@stratakit/icons/mouse-click-right.svg"
+  );
+  const svgMouseClickMiddle = useStrataKitIcon(
+    "@stratakit/icons/mouse-click-middle.svg"
+  );
+
   let image: React.ReactNode;
   let className = mediumSize
     ? "uifw-toolassistance-svg-medium"

@@ -20,8 +20,7 @@ import { UiFramework } from "../UiFramework.js";
 import { SvgLock } from "@itwin/itwinui-icons-react";
 import { useAllowBearingLettersInAccuDrawInputFields } from "../preview/allow-bearing-letters-in-accudraw-input-fields/useAllowBearingLettersInAccuDrawInputFields.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-
-const svgLock = async () => import("@stratakit/icons/lock.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
@@ -213,6 +212,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     labelClassName
   );
 
+  const svgLock = useStrataKitIcon("@stratakit/icons/lock.svg");
   return (
     <>
       <label htmlFor={id} className={labelClassNames} style={labelStyle}>

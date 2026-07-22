@@ -52,11 +52,7 @@ import { getActiveViewport } from "../utils/getActiveViewport.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 import type { ToolItemProps } from "../shared/ItemProps.js";
 import { ToolUtilities } from "@itwin/imodel-components-react";
-
-const svgMeasure = async () => import("@stratakit/icons/measure.svg");
-const svgKeyboard = async () => import("@stratakit/icons/keyboard.svg");
-const svgSelectionClear = async () =>
-  import("@stratakit/icons/selection-clear.svg");
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -68,7 +64,7 @@ export class CoreTools {
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({
       toolId: "uif:keyinpalette",
-      icon: <StrataKitIcon href={svgKeyboard} iconNode={<SvgProcess />} />,
+      icon: <KeyinPaletteButtonIcon />,
       labelKey: "UiFramework:keyinbrowser.label",
       execute: () => {
         UiFramework.showKeyinPalette(
@@ -394,7 +390,7 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "measureTools-group",
       labelKey: "UiFramework:tools.measureTools",
-      icon: <StrataKitIcon href={svgMeasure} iconNode={<SvgMeasure />} />,
+      icon: <MeasureToolGroupIcon />,
       items: [this.measureDistanceToolItemDef, this.measureLocationToolItemDef],
       itemsInColumn: 2,
     });
@@ -403,12 +399,7 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      icon: (
-        <StrataKitIcon
-          href={svgSelectionClear}
-          iconNode={<SvgSelectionClear />}
-        />
-      ),
+      icon: <ClearSelectionIcon />,
       labelKey: "UiFramework:buttons.clearSelection",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {
@@ -447,4 +438,26 @@ function createForTool(toolType: ToolType, overrides?: Partial<ToolItemProps>) {
     ...(icon ? { icon } : {}),
     ...overrides,
   });
+}
+
+function MeasureToolGroupIcon() {
+  const svgMeasure = useStrataKitIcon("@stratakit/icons/measure.svg");
+
+  return <StrataKitIcon href={svgMeasure} iconNode={<SvgMeasure />} />;
+}
+
+function KeyinPaletteButtonIcon() {
+  const svgKeyboard = useStrataKitIcon("@stratakit/icons/keyboard.svg");
+
+  return <StrataKitIcon href={svgKeyboard} iconNode={<SvgProcess />} />;
+}
+
+function ClearSelectionIcon() {
+  const svgSelectionClear = useStrataKitIcon(
+    "@stratakit/icons/selection-clear.svg"
+  );
+
+  return (
+    <StrataKitIcon href={svgSelectionClear} iconNode={<SvgSelectionClear />} />
+  );
 }
