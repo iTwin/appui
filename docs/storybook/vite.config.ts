@@ -26,10 +26,12 @@ export default defineConfig({
         ...localeDirs.map((dir) => ({
           src: dir,
           dest: ".",
+          rename: { stripBase: 5 },
         })),
         ...localeDirs.map((dir) => ({
           src: `${dir}/en/**`,
           dest: "./locales/en-US",
+          rename: { stripBase: 7 },
         })),
       ],
     }),

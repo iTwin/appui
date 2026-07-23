@@ -52,10 +52,13 @@ export default defineConfig(({ mode }) => {
             // copy localization files
             src: "./lib/locales",
             dest: ".",
+            rename: { stripBase: 1 },
           },
           {
+            // copy localization files for en-US
             src: "./lib/locales/en/**",
             dest: "./locales/en-US",
+            rename: { stripBase: 3 },
           },
         ],
       }),
