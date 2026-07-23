@@ -5,7 +5,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 const localeDirs = [
   "./node_modules/@itwin/appui-react/lib/public/locales",
@@ -34,9 +33,9 @@ export default defineConfig({
         })),
       ],
     }),
-    tsconfigPaths(),
   ],
   resolve: {
+    tsconfigPaths: true,
     alias: [
       {
         // Resolve SASS tilde imports.
