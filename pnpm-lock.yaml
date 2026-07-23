@@ -869,7 +869,7 @@ importers:
         specifier: ^10.2.0
         version: 10.2.0
       linkify-it:
-        specifier: ~5.0.1
+        specifier: ^5.0.2
         version: 5.0.2
       lodash:
         specifier: 'catalog:'
@@ -918,8 +918,8 @@ importers:
         specifier: ^14.6.1
         version: 14.6.1(@testing-library/dom@10.4.1)
       '@types/linkify-it':
-        specifier: ~2.1.0
-        version: 2.1.0
+        specifier: ^5.0.0
+        version: 5.0.0
       '@types/lodash':
         specifier: 'catalog:'
         version: 4.17.24
@@ -3622,8 +3622,8 @@ packages:
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
 
-  '@types/linkify-it@2.1.0':
-    resolution: {integrity: sha512-Q7DYAOi9O/+cLLhdaSvKdaumWyHbm7HAk/bFwwyTuU0arR5yyCeW5GOoqt4tJTpDRxhpx9Q8kQL6vMpuw9hDSw==}
+  '@types/linkify-it@5.0.0':
+    resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
 
   '@types/lodash@4.17.24':
     resolution: {integrity: sha512-gIW7lQLZbue7lRSWEFql49QJJWThrTFFeIMJdp3eH4tKoxm1OvEPg02rm4wCCSHS0cL3/Fizimb35b7k8atwsQ==}
@@ -10642,7 +10642,7 @@ snapshots:
     dependencies:
       '@types/node': 25.6.0
 
-  '@types/linkify-it@2.1.0': {}
+  '@types/linkify-it@5.0.0': {}
 
   '@types/lodash@4.17.24': {}
 
