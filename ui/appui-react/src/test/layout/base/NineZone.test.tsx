@@ -83,7 +83,7 @@ describe("<NineZone />", () => {
       createRect(0, 0, 10, 20)
     );
 
-    const resizeObserver = observe.mock.instances[0] as unknown as InstanceType<
+    const resizeObserver = observe.mock.instances[0] as InstanceType<
       typeof ResizeObserver
     >;
     resizeObserver.callback(
@@ -125,7 +125,7 @@ describe("<NineZone />", () => {
     await flushAsyncOperations();
 
     const measurer = observe.mock.calls[0][0];
-    const resizeObserver = observe.mock.instances[0] as unknown as InstanceType<
+    const resizeObserver = observe.mock.instances[0] as InstanceType<
       typeof ResizeObserver
     >;
     resizeObserver.callback(
