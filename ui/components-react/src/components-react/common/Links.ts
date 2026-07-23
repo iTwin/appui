@@ -12,11 +12,7 @@ const linkify = new LinkifyIt({ fuzzyLink: false });
 
 linkify
   .add("pw:", {
-    validate: (
-      text: string,
-      pos: number,
-      self: LinkifyIt.LinkifyIt
-    ): number => {
+    validate: (text, pos, self): number => {
       const tail = text.slice(pos);
 
       if (!self.re.pw) {
@@ -37,11 +33,7 @@ linkify
   /* Adding a custom schema for links that start with `www.`.
      With fuzzyLink option set to true it matches text without `www.` as a prefix, which is not wanted in our case. */
   .add("www.", {
-    validate: (
-      text: string,
-      pos: number,
-      self: LinkifyIt.LinkifyIt
-    ): number => {
+    validate: (text, pos, self): number => {
       const tail = text.slice(pos);
 
       if (!self.re.www) {
@@ -56,7 +48,7 @@ linkify
       }
       return 0;
     },
-    normalize: (match: LinkifyIt.Match) => {
+    normalize: (match) => {
       match.schema = "http:";
       match.url = `http://${match.url}`;
     },
