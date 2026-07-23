@@ -492,7 +492,7 @@ describe("ElementSeparator", () => {
         expect(
           onRatioChanged,
           "Called when position did not change on x axis"
-        ).not.toBeCalled();
+        ).not.toHaveBeenCalled();
       });
 
       it("should not call callback if orientation vertical and position on y axis does not change", async () => {
@@ -512,7 +512,7 @@ describe("ElementSeparator", () => {
         expect(
           onRatioChanged,
           "Called when position did not change on y axis"
-        ).not.toBeCalled();
+        ).not.toHaveBeenCalled();
       });
     });
   }

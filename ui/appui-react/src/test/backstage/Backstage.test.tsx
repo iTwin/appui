@@ -129,7 +129,7 @@ describe("BackstageStageLauncher", () => {
     render(<BackstageStageLauncher item={getStageLauncherItem()} />);
     await theUserTo.click(screen.getByRole("button"));
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should honor isActive prop override", () => {

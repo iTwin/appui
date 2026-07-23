@@ -429,7 +429,7 @@ describe("TreeEventDispatcher", () => {
       dispatcher.onNodeMouseMove("A");
       fireEvent.mouseUp(window);
 
-      expect(treeEvents.onSelectionModified).not.toBeCalled();
+      expect(treeEvents.onSelectionModified).not.toHaveBeenCalled();
     });
 
     it("deselects selected nodes", async () => {
@@ -513,7 +513,7 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeCheckboxClicked("B", CheckBoxState.On);
-      expect(treeEvents.onCheckboxStateChanged).not.toBeCalled();
+      expect(treeEvents.onCheckboxStateChanged).not.toHaveBeenCalled();
     });
 
     it("checks checkbox state", async () => {
@@ -692,7 +692,7 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeEditorActivated("A");
-      expect(treeEvents.onNodeEditorActivated).not.toBeCalled();
+      expect(treeEvents.onNodeEditorActivated).not.toHaveBeenCalled();
     });
 
     it("does not raise tree event if node id in invalid", () => {
@@ -708,7 +708,7 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeEditorActivated("B");
-      expect(treeEvents.onNodeEditorActivated).not.toBeCalled();
+      expect(treeEvents.onNodeEditorActivated).not.toHaveBeenCalled();
     });
 
     it("raises tree event if node is selected", () => {
@@ -740,7 +740,7 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeClicked("A", {} as any);
-      expect(treeEvents.onDelayedNodeClick).not.toBeCalled();
+      expect(treeEvents.onDelayedNodeClick).not.toHaveBeenCalled();
     });
 
     it("does not raise tree event when clicked node does not exist", () => {
@@ -756,7 +756,7 @@ describe("TreeEventDispatcher", () => {
       );
 
       dispatcher.onNodeClicked("B", {} as any);
-      expect(treeEvents.onDelayedNodeClick).not.toBeCalled();
+      expect(treeEvents.onDelayedNodeClick).not.toHaveBeenCalled();
     });
 
     it("raises tree event when clicked node is selected", () => {
@@ -815,7 +815,7 @@ describe("TreeEventDispatcher", () => {
 
       dispatcher.onNodeClicked("A", { detail: 2 } as any);
       expect(treeEvents.onNodeDoubleClick).toHaveBeenCalled();
-      expect(treeEvents.onSelectionReplaced).not.toBeCalled();
+      expect(treeEvents.onSelectionReplaced).not.toHaveBeenCalled();
     });
 
     it("calls onNodeDoubleClicked and onSelectionReplaced when a node that is not selected is double-clicked", () => {
@@ -878,7 +878,7 @@ describe("TreeEventDispatcher", () => {
 
         dispatcher.onNodeClicked("B", {} as any);
 
-        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionModified).not.toHaveBeenCalled();
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledOnce();
         const changes = await extractSequence(
           toRxjsObservable(
@@ -910,7 +910,7 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("D", {} as any);
         dispatcher.onNodeClicked("B", { shiftKey: true } as any);
 
-        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionModified).not.toHaveBeenCalled();
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         const changes = await extractSequence(
           toRxjsObservable(
@@ -946,7 +946,7 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("A", {} as any);
         dispatcher.onNodeClicked("C", { shiftKey: true } as any);
 
-        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionModified).not.toHaveBeenCalled();
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         const changes = await extractSequence(
           toRxjsObservable(
@@ -981,7 +981,7 @@ describe("TreeEventDispatcher", () => {
         dispatcher.onNodeClicked("A", {} as any);
         dispatcher.onNodeClicked("C", { shiftKey: true } as any);
 
-        expect(treeEvents.onSelectionModified).not.toBeCalled();
+        expect(treeEvents.onSelectionModified).not.toHaveBeenCalled();
         expect(treeEvents.onSelectionReplaced).toHaveBeenCalledTimes(2);
         expect(nodeLoader.loadNode).toHaveBeenCalledOnce();
         const changes = await extractSequence(

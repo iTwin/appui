@@ -80,7 +80,7 @@ describe("usePanelsAutoCollapse", () => {
     const element = document.createElement("div");
     const spy = vi.spyOn(element, "removeEventListener");
     setRefValue(result.current, element);
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     setRefValue(result.current, null);
     expect(spy).toHaveBeenCalledTimes(2);

@@ -127,7 +127,7 @@ describe("ItemKeyboardNavigator", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowLeft);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should handle no crossAxisArrowKeyHandler (vertical)", () => {
@@ -137,7 +137,7 @@ describe("ItemKeyboardNavigator", () => {
       keyEventMock.setup((x) => x.key).returns(() => Key.ArrowDown);
       nav.handleKeyDownEvent(keyEventMock.object, 0);
       nav.handleKeyUpEvent(keyEventMock.object, 0);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should focus on item 0 for Home", () => {
@@ -245,7 +245,7 @@ describe("ItemKeyboardNavigator", () => {
         keyEventMock.setup((x) => x.key).returns(() => key);
         nav.handleKeyDownEvent(keyEventMock.object, wrapStart);
         nav.handleKeyUpEvent(keyEventMock.object, wrapStart);
-        expect(spyFocus).not.toBeCalled();
+        expect(spyFocus).not.toHaveBeenCalled();
       });
     });
   });

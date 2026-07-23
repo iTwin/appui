@@ -204,19 +204,19 @@ describe("PropertyCategoryLabelFilterer", () => {
 
     it("doesn't raise event when filter doesn't change", () => {
       filterer.filterText = "";
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
 
       filterer.filterText = "    ";
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
 
       filterer.filterText = "AAA";
       spy.mockReset();
 
       filterer.filterText = "AAA";
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
 
       filterer.filterText = "aaa";
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("raises event when filter changes", () => {

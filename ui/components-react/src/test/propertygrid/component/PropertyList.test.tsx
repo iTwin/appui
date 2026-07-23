@@ -34,7 +34,7 @@ describe("PropertyList", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(onPropertyClicked).not.toBeCalled();
+    expect(onPropertyClicked).not.toHaveBeenCalled();
 
     const clickableComponents = container.querySelectorAll(
       ".components-property-record--horizontal"
@@ -51,11 +51,11 @@ describe("PropertyList", () => {
 
     const structProperty = clickableComponents[1];
     fireEvent.click(structProperty);
-    expect(onPropertyClicked).not.toBeCalled();
+    expect(onPropertyClicked).not.toHaveBeenCalled();
 
     const arrayProperty = clickableComponents[2];
     fireEvent.click(arrayProperty);
-    expect(onPropertyClicked).not.toBeCalled();
+    expect(onPropertyClicked).not.toHaveBeenCalled();
   });
 
   it("should call `onPropertyRightClicked` when right clicked on a primitive property", async () => {
@@ -80,7 +80,7 @@ describe("PropertyList", () => {
       />
     );
     await TestUtils.flushAsyncOperations();
-    expect(onPropertyRightClicked).not.toBeCalled();
+    expect(onPropertyRightClicked).not.toHaveBeenCalled();
 
     const clickableComponents = container.querySelectorAll(
       ".components-property-record--horizontal"
@@ -97,11 +97,11 @@ describe("PropertyList", () => {
 
     const structProperty = clickableComponents[1];
     fireEvent.contextMenu(structProperty);
-    expect(onPropertyRightClicked).not.toBeCalled();
+    expect(onPropertyRightClicked).not.toHaveBeenCalled();
 
     const arrayProperty = clickableComponents[2];
     fireEvent.contextMenu(arrayProperty);
-    expect(onPropertyRightClicked).not.toBeCalled();
+    expect(onPropertyRightClicked).not.toHaveBeenCalled();
   });
 
   it("should call onEditCommit", async () => {

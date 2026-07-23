@@ -86,7 +86,7 @@ describe("AppNotificationManager", () => {
     );
     notifications.outputMessage(details);
     expect(spy).toHaveBeenCalledOnce();
-    expect(alertBoxMethod).not.toBeCalled();
+    expect(alertBoxMethod).not.toHaveBeenCalled();
   });
 
   it("outputMessage with InputField", () => {
@@ -126,7 +126,7 @@ describe("AppNotificationManager", () => {
     );
     notifications.outputMessage(details);
     expect(spy).toHaveBeenCalledOnce();
-    expect(spy2).not.toBeCalled();
+    expect(spy2).not.toHaveBeenCalled();
   });
 
   it("openMessageBox", async () => {

@@ -59,7 +59,7 @@ describe("<UnderlinedButton />", () => {
         skipClick: true,
       });
 
-      expect(spyClick).not.toBeCalled();
+      expect(spyClick).not.toHaveBeenCalled();
       expect(spyActivate).toHaveBeenCalledOnce();
     });
   });

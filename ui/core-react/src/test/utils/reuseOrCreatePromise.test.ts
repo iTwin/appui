@@ -47,7 +47,7 @@ describe("reuseOrCreatePromise", () => {
     expect(first).toEqual("secondResult");
     expect(second).toEqual("secondResult");
     expect(spy1).toHaveBeenCalledOnce();
-    expect(spy2).not.toBeCalled();
+    expect(spy2).not.toHaveBeenCalled();
   });
 
   it("should create new on failure", async () => {

@@ -119,7 +119,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not call onPointerMove when touches.length !== 1", () => {
@@ -138,7 +138,7 @@ describe("usePointerCaptor", () => {
       });
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not add target touch listeners", () => {
@@ -161,7 +161,7 @@ describe("usePointerCaptor", () => {
       element.dispatchEvent(touchStart);
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not remove target touch listeners", () => {
@@ -185,7 +185,7 @@ describe("usePointerCaptor", () => {
       element.dispatchEvent(touchEnd);
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should call onPointerMove for document touchmove", () => {
@@ -230,7 +230,7 @@ describe("usePointerCaptor", () => {
       document.dispatchEvent(touchEnd);
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not handle document touchend if it was dispatched for touch target", () => {
@@ -254,6 +254,6 @@ describe("usePointerCaptor", () => {
       document.dispatchEvent(touchEnd);
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

@@ -70,7 +70,7 @@ describe("WidgetPanelExpander", () => {
     fireEvent.mouseOver(expander);
     fireEvent.mouseOut(expander);
 
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("should reset timer if mouse moves", async () => {
@@ -87,7 +87,7 @@ describe("WidgetPanelExpander", () => {
 
     fireEvent.mouseMove(expander, { clientX: 20 });
 
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
 
     await waitFor(() => {
       expect(dispatch).toHaveBeenCalledWith({

@@ -115,7 +115,7 @@ describe("<BooleanEditor />", () => {
 
     await theUserTo.click(screen.getByTestId(testId));
 
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

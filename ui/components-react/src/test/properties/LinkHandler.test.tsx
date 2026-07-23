@@ -47,7 +47,7 @@ describe("LinkHandler", () => {
     it("rendered anchor tag calls appropriate callback on click", () => {
       const anchor = render(<>{renderLinks("Example text", links)}</>);
 
-      expect(onClickSpy).not.toBeCalled();
+      expect(onClickSpy).not.toHaveBeenCalled();
       fireEvent.click(
         anchor.container.getElementsByClassName("core-underlined-button")[0]
       );
@@ -63,11 +63,11 @@ describe("LinkHandler", () => {
         </div>
       );
 
-      expect(parentOnClickSpy).not.toBeCalled();
+      expect(parentOnClickSpy).not.toHaveBeenCalled();
       fireEvent.click(
         anchor.container.getElementsByClassName("core-underlined-button")[0]
       );
-      expect(parentOnClickSpy).not.toBeCalled();
+      expect(parentOnClickSpy).not.toHaveBeenCalled();
     });
 
     it("returns text split up into anchor tags when text matcher is provided", () => {

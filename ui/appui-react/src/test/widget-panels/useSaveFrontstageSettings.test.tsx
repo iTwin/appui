@@ -42,12 +42,12 @@ describe("useSaveFrontstageSettings", () => {
     });
 
     // Not called initially.
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     vi.advanceTimersByTime(1000);
 
     // Not scheduled initially.
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     // Save is scheduled.
     layout.setState(addTab(state, "t1"));
@@ -60,7 +60,7 @@ describe("useSaveFrontstageSettings", () => {
     // Nothing else is scheduled.
     spy.mockClear();
     vi.advanceTimersByTime(1000);
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not save if tab is dragged", async () => {
@@ -91,7 +91,7 @@ describe("useSaveFrontstageSettings", () => {
 
     // Save is not called due to dragged tab.
     vi.advanceTimersByTime(1000);
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     // Dragged tab is cleared.
     state = produce(state, (draft) => {
@@ -133,7 +133,7 @@ describe("useSaveFrontstageSettings", () => {
 
     // Schedule save.
     layout.setState(addTab(state, "t1"));
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     // Frontstage changed. Flush save.
     const newFrontstage = new FrontstageDef();

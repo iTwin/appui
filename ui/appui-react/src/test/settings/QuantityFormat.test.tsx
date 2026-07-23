@@ -52,7 +52,7 @@ describe("QuantityFormatSettingsPage", () => {
     fireEvent.click(
       within(menu()).getByText("presentationUnitSystem.BritishImperial")
     );
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     fireEvent.click(comboBox);
     fireEvent.click(within(menu()).getByText("presentationUnitSystem.Metric"));

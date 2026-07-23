@@ -257,7 +257,7 @@ describe("<TextEditor />", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit).not.toBeCalled();
+      expect(spyOnCommit).not.toHaveBeenCalled();
 
       PropertyEditorManager.deregisterDataController("myData");
     });
@@ -304,7 +304,7 @@ describe("<TextEditor />", () => {
 
       fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
       await TestUtils.flushAsyncOperations();
-      expect(spyOnCommit).not.toBeCalled();
+      expect(spyOnCommit).not.toHaveBeenCalled();
 
       PropertyEditorManager.deregisterDataController("myData");
     });

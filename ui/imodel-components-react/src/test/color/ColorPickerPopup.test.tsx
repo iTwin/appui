@@ -172,7 +172,7 @@ describe("<ColorPickerPopup/>", () => {
       "components-colorpicker-popup-button"
     );
     fireEvent.click(pickerButton);
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     const colorSwatch = component.getByRole("button", {
       name: ColorValue.fromTbgr(ColorDef.green.tbgr)
@@ -180,7 +180,7 @@ describe("<ColorPickerPopup/>", () => {
         .toUpperCase(),
     });
     fireEvent.click(colorSwatch);
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("mouse click should propagate if captureClicks not set to true", async () => {

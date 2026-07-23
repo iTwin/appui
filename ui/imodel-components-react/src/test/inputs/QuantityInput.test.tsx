@@ -47,7 +47,7 @@ describe("QuantityInput", () => {
     );
     const input = component.getByTestId("components-parsed-input");
     fireEvent.change(input, { target: { value: "2.5" } });
-    expect(spyOnChange).not.toBeCalled();
+    expect(spyOnChange).not.toHaveBeenCalled();
     fireEvent.keyDown(input, { key: Key.Enter });
     expect(spyOnChange).toHaveBeenCalledOnce();
   });
@@ -116,7 +116,7 @@ describe("QuantityInput", () => {
     const initialValue = input.value;
     fireEvent.change(input, { target: { value: "2.5" } });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
+    expect(spyOnChange).not.toHaveBeenCalled(); // value did not change after ESC was pressed
     expect(initialValue).toEqual(input.value);
     fireEvent.change(input, { target: { value: "3.5" } });
     fireEvent.keyDown(input, { key: Key.Enter });
@@ -170,7 +170,7 @@ describe("QuantityInput", () => {
       ).toEqual(true);
     });
     fireEvent.keyDown(input, { key: Key.Escape });
-    expect(spyOnChange).not.toBeCalled(); // value did not change after ESC was pressed
+    expect(spyOnChange).not.toHaveBeenCalled(); // value did not change after ESC was pressed
     const currentValue = input.value;
     expect(
       input.classList.contains("components-parsed-input-has-error")

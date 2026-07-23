@@ -257,7 +257,7 @@ describe("useResizeGrip", () => {
       },
     });
     dragManagerRef.current?.handleDrag(10, 20);
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("should set resizing to true when drag starts", () => {
@@ -301,7 +301,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientX: 210 });
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("should expand collapsed panel", () => {
@@ -347,7 +347,7 @@ describe("useResizeGrip", () => {
     result.current[0](element);
     fireEvent.mouseDown(element);
     fireEvent.mouseMove(document, { clientX: 50 });
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("should collapse", () => {
@@ -401,6 +401,6 @@ describe("useResizeGrip", () => {
       fireEvent.mouseDown(element);
       fireEvent.mouseMove(document, { clientX: 50 });
     });
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 });

@@ -245,11 +245,11 @@ describe("<EditorContainer />", () => {
     const testInput = screen.getByTestId("components-text-editor");
 
     fireEvent.blur(testInput);
-    expect(blurSpy).not.toBeCalled();
+    expect(blurSpy).not.toHaveBeenCalled();
     fireEvent.contextMenu(testInput);
-    expect(contextSpy).not.toBeCalled();
+    expect(contextSpy).not.toHaveBeenCalled();
     fireEvent.keyDown(testInput, { key: Key.ArrowLeft });
-    expect(keySpy).not.toBeCalled();
+    expect(keySpy).not.toHaveBeenCalled();
 
     // Sanity: Validating that a similar control would indeed cause these to be triggered.
     const controlInput = screen.getByTestId("test-control-input");

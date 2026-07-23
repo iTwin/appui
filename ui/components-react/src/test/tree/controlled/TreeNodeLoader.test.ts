@@ -701,7 +701,7 @@ describe("TreeDataSource", () => {
         // Simulating unsubscribing from TreeDataSource in between getNodesCount call and getNodes call
         subscription.unsubscribe();
         await getNodesCountPromise.resolve(1);
-        expect(dataProvider.getNodes).not.toBeCalled();
+        expect(dataProvider.getNodes).not.toHaveBeenCalled();
       });
     });
 

@@ -547,7 +547,7 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Escape });
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     expect((input as HTMLInputElement).value).toEqual(originalValue);
 
     // trigger callbacks that exercise useEffects
@@ -584,7 +584,7 @@ describe("<QuantityNumberInput />", () => {
     fireEvent.change(input!, { target: { value: "abc" } });
     expect((input as HTMLInputElement).value).toEqual("abc");
     fireEvent.keyDown(input!, { key: Key.Enter });
-    expect(spy).not.toBeCalled(); // value was invalid so previous value restore and no callback
+    expect(spy).not.toHaveBeenCalled(); // value was invalid so previous value restore and no callback
     expect((input as HTMLInputElement).value).toEqual("3.28");
   });
 

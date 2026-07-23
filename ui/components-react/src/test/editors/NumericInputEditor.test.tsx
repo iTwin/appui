@@ -257,7 +257,7 @@ describe("<NumericInputEditor />", () => {
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();

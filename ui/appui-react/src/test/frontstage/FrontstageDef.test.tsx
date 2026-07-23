@@ -162,7 +162,7 @@ describe("FrontstageDef", () => {
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not save size and position if widget is not found", () => {
@@ -175,7 +175,7 @@ describe("FrontstageDef", () => {
 
     frontstageDef.saveChildWindowSizeAndPosition("1", window);
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should not save size and position if widget is not found", () => {
@@ -592,9 +592,9 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = vi
-        .spyOn(frontstageDef, "dispatch")
-        .mockImplementation(() => {});
+      const dispatch = vi.fn();
+      frontstageDef.dispatch = dispatch;
+
       frontstageDef.floatWidget("t1");
       expect(dispatch).toHaveBeenCalledWith({
         type: "WIDGET_TAB_FLOAT",
@@ -620,9 +620,9 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = vi
-        .spyOn(frontstageDef, "dispatch")
-        .mockImplementation(() => {});
+      const dispatch = vi.fn();
+      frontstageDef.dispatch = dispatch;
+
       frontstageDef.popoutWidget("t1");
       expect(dispatch).toHaveBeenCalledWith({
         type: "WIDGET_TAB_POPOUT",
@@ -849,7 +849,7 @@ describe("FrontstageDef", () => {
         expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
           true
         );
-        expect(spy).not.toBeCalled();
+        expect(spy).not.toHaveBeenCalled();
 
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
@@ -859,7 +859,7 @@ describe("FrontstageDef", () => {
         expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
           false
         );
-        expect(spy).not.toBeCalled();
+        expect(spy).not.toHaveBeenCalled();
 
         frontstageDef.dispatch({
           type: "PANEL_SET_COLLAPSED",
@@ -869,7 +869,7 @@ describe("FrontstageDef", () => {
         expect(frontstageDef.nineZoneState?.panels.left.collapsed).toEqual(
           true
         );
-        expect(spy).not.toBeCalled();
+        expect(spy).not.toHaveBeenCalled();
       });
 
       expect(spy).toHaveBeenCalledWith({

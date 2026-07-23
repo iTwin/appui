@@ -31,7 +31,7 @@ describe("TreeModelSource", () => {
     it("does not emit onModelChanged event if model did not change", () => {
       const spy = vi.spyOn(modelSource.onModelChanged, "emit");
       modelSource.modifyModel(() => {});
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("emits onModelChanged event with added node id", () => {

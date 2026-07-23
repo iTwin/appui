@@ -529,7 +529,7 @@ describe("<SliderEditor />", () => {
 
     fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

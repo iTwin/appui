@@ -7,7 +7,7 @@ import TestUtils from "./TestUtils.js";
 
 window.HTMLElement.prototype.scrollIntoView = () => {};
 
-global.ResizeObserver = class ResizeObserver {
+globalThis.ResizeObserver = class ResizeObserver {
   public observe() {}
   public unobserve() {}
   public disconnect() {}

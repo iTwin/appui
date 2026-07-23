@@ -298,7 +298,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("selects node", () => {
@@ -440,7 +440,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("Left should collapse node", () => {
@@ -480,7 +480,7 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("Space should expand node if collapsed", () => {
@@ -544,8 +544,8 @@ describe("TreeSelectionManager", () => {
         keyEventMock.object,
         treeActionsMock.object
       );
-      expect(spyExpanded).not.toBeCalled();
-      expect(spyCollapsed).not.toBeCalled();
+      expect(spyExpanded).not.toHaveBeenCalled();
+      expect(spyCollapsed).not.toHaveBeenCalled();
     });
 
     it("Space should start editing on a leaf node", () => {

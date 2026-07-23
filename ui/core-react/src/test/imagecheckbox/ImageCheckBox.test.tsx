@@ -41,7 +41,7 @@ describe("<ImageCheckBox />", () => {
       />
     );
     await theUserTo.click(screen.getByRole("checkbox"));
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("onClick should be called on label click", async () => {

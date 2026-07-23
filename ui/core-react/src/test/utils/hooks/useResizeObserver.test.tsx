@@ -79,8 +79,7 @@ describe("useResizeObserver", () => {
       DOMRect.fromRect({ width: 100 })
     );
 
-    const resizeObserver = observe.mock
-      .instances[0] as unknown as ResizeObserverMock;
+    const resizeObserver = observe.mock.instances[0] as ResizeObserverMock;
     resizeObserver.callback(
       [
         {
@@ -108,8 +107,7 @@ describe("useResizeObserver", () => {
     vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ height: 100 })
     );
-    const resizeObserver = observe.mock
-      .instances[0] as unknown as ResizeObserverMock;
+    const resizeObserver = observe.mock.instances[0] as ResizeObserverMock;
     resizeObserver.callback(
       [
         {
@@ -137,8 +135,7 @@ describe("useResizeObserver", () => {
     vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
       DOMRect.fromRect({ width: 100, height: 100 })
     );
-    const resizeObserver = observe.mock
-      .instances[0] as unknown as ResizeObserverMock;
+    const resizeObserver = observe.mock.instances[0] as ResizeObserverMock;
     resizeObserver.callback(
       [
         {
@@ -250,8 +247,7 @@ describe("useLayoutResizeObserver", () => {
     const container = wrapper.getByTestId("sizer");
 
     boundingClientRect = size_300_100;
-    const resizeObserver = observe.mock
-      .instances[0] as unknown as ResizeObserverMock;
+    const resizeObserver = observe.mock.instances[0] as ResizeObserverMock;
     resizeObserver.callback(
       [
         {
@@ -285,8 +281,7 @@ describe("useLayoutResizeObserver", () => {
     await TestUtils.flushAsyncOperations();
 
     boundingClientRect = size_300_100;
-    const resizeObserver = observe.mock
-      .instances[0] as unknown as ResizeObserverMock;
+    const resizeObserver = observe.mock.instances[0] as ResizeObserverMock;
     resizeObserver.callback(
       [
         {
@@ -328,8 +323,7 @@ describe("useLayoutResizeObserver", () => {
     expect(currentHeight).to.eql(50);
 
     boundingClientRect = size_300_100;
-    const resizeObserver = observe.mock
-      .instances[0] as unknown as ResizeObserverMock;
+    const resizeObserver = observe.mock.instances[0] as ResizeObserverMock;
     resizeObserver.callback(
       [
         {

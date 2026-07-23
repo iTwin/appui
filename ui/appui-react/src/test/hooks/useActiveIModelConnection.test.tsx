@@ -42,15 +42,15 @@ it("useActiveIModelConnection", () => {
   ).toEqual("new");
   expect(UiFramework.getIModelConnection()?.name).toEqual("new");
   expect(initEventStub).toHaveBeenCalled();
-  expect(clearEventStub).not.toBeCalled();
+  expect(clearEventStub).not.toHaveBeenCalled();
   initEventStub.mockReset();
 
   // already set, so should not trigger dispatch action
   act(() => {
     UiFramework.setIModelConnection(newConnection, true);
   });
-  expect(initEventStub).not.toBeCalled();
-  expect(clearEventStub).not.toBeCalled();
+  expect(initEventStub).not.toHaveBeenCalled();
+  expect(clearEventStub).not.toHaveBeenCalled();
 
   // should trigger clearing action
   act(() => {
@@ -62,7 +62,7 @@ it("useActiveIModelConnection", () => {
     UiFramework.frameworkState?.sessionState.iModelConnection
   ).toBeUndefined();
   expect(clearEventStub).toHaveBeenCalled();
-  expect(initEventStub).not.toBeCalled();
+  expect(initEventStub).not.toHaveBeenCalled();
 });
 
 it("useActiveIModelConnection w/o redux", () => {

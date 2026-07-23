@@ -233,7 +233,7 @@ describe("KeyboardShortcut", () => {
 
       const menuspy = vi.fn();
       InternalKeyboardShortcutManager.displayMenu(); // No shortcuts to display yet
-      expect(menuspy).not.toBeCalled();
+      expect(menuspy).not.toHaveBeenCalled();
 
       UiFramework.keyboardShortcuts.loadShortcuts(keyboardShortcutList);
 

@@ -174,7 +174,7 @@ describe("<Node />", () => {
     render(<Node label="a" level={0} onClick={callback} data-testid="a" />);
 
     await theUserTo.click(screen.getByTestId("a-expansion-toggle"));
-    expect(callback).not.toBeCalled();
+    expect(callback).not.toHaveBeenCalled();
   });
 
   it("should call checkboxProps.onClick callback when checkbox state changes with On", async () => {
@@ -219,7 +219,7 @@ describe("<Node />", () => {
     );
 
     await theUserTo.click(screen.getByTestId("a-checkbox"));
-    expect(callback).not.toBeCalled();
+    expect(callback).not.toHaveBeenCalled();
   });
 
   it("does not call node onClick callback when checkbox is clicked", async () => {
@@ -229,7 +229,7 @@ describe("<Node />", () => {
     );
 
     await userEvent.click(screen.getByRole("checkbox"));
-    expect(handleOnClick).not.toBeCalled();
+    expect(handleOnClick).not.toHaveBeenCalled();
   });
 
   it("should still stop propagation with undefined handlers", async () => {
@@ -242,7 +242,7 @@ describe("<Node />", () => {
 
     await theUserTo.click(screen.getByRole("treeitem"));
     await theUserTo.click(screen.getByTestId("a-expansion-toggle"));
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("sets data-testid", () => {

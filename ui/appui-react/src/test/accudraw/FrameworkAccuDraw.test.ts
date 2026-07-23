@@ -76,7 +76,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
       FrameworkAccuDraw.displayNotifications = false;
       IModelApp.accuDraw.setCompassMode(CompassMode.Polar);
-      expect(spyMessage).not.toBeCalled();
+      expect(spyMessage).not.toHaveBeenCalled();
       spyMessage.mockReset();
 
       remove();
@@ -165,7 +165,7 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
       FrameworkAccuDraw.displayNotifications = false;
       IModelApp.accuDraw.setRotationMode(RotationMode.Top);
-      expect(spyMessage).not.toBeCalled();
+      expect(spyMessage).not.toHaveBeenCalled();
     });
 
     it("should call onFieldValueChange & emit onAccuDrawSetFieldValueToUiEvent", () => {
@@ -212,20 +212,20 @@ describe("FrameworkAccuDraw localStorage Wrapper", () => {
 
       IModelApp.accuDraw.currentState = CurrentState.Deactivated;
       IModelApp.accuDraw.onMotion(new BeButtonEvent());
-      expect(spyValue).not.toBeCalled();
+      expect(spyValue).not.toHaveBeenCalled();
       spyValue.mockReset();
 
       IModelApp.accuDraw.currentState = CurrentState.Active;
       IModelApp.accuDraw.onMotion(new BeButtonEvent());
-      expect(spyValue).toBeCalled();
-      expect(spyFocus).toBeCalled();
+      expect(spyValue).toHaveBeenCalled();
+      expect(spyFocus).toHaveBeenCalled();
       spyValue.mockReset();
       spyFocus.mockReset();
 
       IModelApp.accuDraw.dontMoveFocus = true;
       IModelApp.accuDraw.onMotion(new BeButtonEvent());
-      expect(spyValue).toBeCalled();
-      expect(spyFocus).not.toBeCalled();
+      expect(spyValue).toHaveBeenCalled();
+      expect(spyFocus).not.toHaveBeenCalled();
 
       remove();
       removeFocusSpy();

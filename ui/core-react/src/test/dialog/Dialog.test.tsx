@@ -127,7 +127,7 @@ describe("Dialog", () => {
       const component = render(<Dialog opened={true} onEscape={spyOnEscape} />);
 
       component.baseElement.dispatchEvent(new KeyboardEvent("keyup"));
-      expect(spyOnEscape).not.toBeCalled();
+      expect(spyOnEscape).not.toHaveBeenCalled();
     });
   });
 
@@ -157,7 +157,7 @@ describe("Dialog", () => {
       );
       const head = component.getByTestId("core-dialog-head");
       await theUserTo.click(head);
-      expect(spyOnPointerDown).not.toBeCalled();
+      expect(spyOnPointerDown).not.toHaveBeenCalled();
     });
   });
 

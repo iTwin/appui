@@ -211,7 +211,7 @@ describe("useDrag", () => {
       spy.mockReset();
       fireEvent.mouseMove(document);
     });
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should report drag action", () => {

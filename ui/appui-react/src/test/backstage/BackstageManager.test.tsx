@@ -71,7 +71,7 @@ describe("BackstageManager", () => {
     manager.onToggled.addListener(spy);
     manager.open();
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     expect(manager.isOpen).toEqual(true);
     manager.onToggled.removeListener(spy);
   });

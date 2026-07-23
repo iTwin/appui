@@ -279,6 +279,6 @@ describe("AutoSuggest", () => {
     unmount();
     resolver([]);
     expect(getSuggestionsSpy).toHaveBeenCalled();
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

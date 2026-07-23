@@ -4,14 +4,14 @@
  *--------------------------------------------------------------------------------------------*/
 window.HTMLElement.prototype.scrollIntoView = () => {};
 
-global.DOMMatrix = class DOMMatrix {
+globalThis.DOMMatrix = class DOMMatrix {
   public m41 = 0;
   public m42 = 0;
 
   constructor() {}
 } as unknown as typeof DOMMatrix;
 
-global.ResizeObserver = class ResizeObserver {
+globalThis.ResizeObserver = class ResizeObserver {
   public observe() {}
   public unobserve() {}
   public disconnect() {}

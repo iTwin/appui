@@ -91,7 +91,7 @@ describe("withIsPressed", () => {
       "[/MouseLeft]",
     ]);
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     expect(iAmPressed).toEqual(false);
   });
 

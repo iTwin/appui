@@ -16,7 +16,7 @@ function setRefValue<T>(ref: React.Ref<T>, value: T) {
 
 describe("useOnOutsideClick", () => {
   beforeEach(() => {
-    (global as any).PointerEvent = global.MouseEvent;
+    (globalThis as any).PointerEvent = globalThis.MouseEvent;
   });
 
   describe("PointerEvent", () => {
@@ -56,7 +56,7 @@ describe("useOnOutsideClick", () => {
       document.dispatchEvent(pointerUp);
 
       expect(predicate).toHaveBeenCalledWith(pointerDown);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should respect outside event predicate", async () => {
@@ -82,13 +82,13 @@ describe("useOnOutsideClick", () => {
       expect(onOutsideClick).toHaveBeenCalledTimes(2);
       expect(onOutsideClick).toBeCalledWith(pointerDown);
       expect(onOutsideClick).toBeCalledWith(pointerUp);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 
   it("should call onOutsideClick for touch", () => {
     const spy = vi.fn<() => void>();
-    global.PointerEvent = undefined!;
+    globalThis.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
     act(() => {
@@ -102,7 +102,7 @@ describe("useOnOutsideClick", () => {
   });
 
   it("should remove touch and mouse event listeners", () => {
-    global.PointerEvent = undefined!;
+    globalThis.PointerEvent = undefined!;
     const { unmount } = renderHook(() => useOnOutsideClick());
 
     const spy = vi.spyOn(document, "removeEventListener");
@@ -113,7 +113,7 @@ describe("useOnOutsideClick", () => {
 
   it("should not handle mouse event after touch event", () => {
     const spy = vi.fn<() => void>();
-    global.PointerEvent = undefined!;
+    globalThis.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
     act(() => {
@@ -131,7 +131,7 @@ describe("useOnOutsideClick", () => {
   it("should continue handling mouse events after timeout", () => {
     vi.useFakeTimers();
     const spy = vi.fn();
-    global.PointerEvent = undefined!;
+    globalThis.PointerEvent = undefined!;
     const { result } = renderHook(() => useOnOutsideClick(spy));
     const element = document.createElement("div");
     act(() => {

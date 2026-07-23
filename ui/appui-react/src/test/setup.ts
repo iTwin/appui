@@ -11,14 +11,14 @@ import { useAccuDrawStore } from "../appui-react/accudraw/AccuDrawStore.js";
 window.HTMLElement.prototype.scrollIntoView = () => {};
 window.HTMLElement.prototype.scrollTo = () => {};
 
-global.DOMMatrix = class DOMMatrix {
+globalThis.DOMMatrix = class DOMMatrix {
   public m41 = 0;
   public m42 = 0;
 
   constructor() {}
 } as unknown as typeof DOMMatrix;
 
-global.ResizeObserver = class ResizeObserver {
+globalThis.ResizeObserver = class ResizeObserver {
   public observe() {}
   public unobserve() {}
   public disconnect() {}

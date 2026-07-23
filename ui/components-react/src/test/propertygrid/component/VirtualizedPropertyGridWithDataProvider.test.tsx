@@ -833,7 +833,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         ).to.be.greaterThan(0)
       );
 
-      expect(onPropertySelectionChanged).not.toBeCalled();
+      expect(onPropertySelectionChanged).not.toHaveBeenCalled();
 
       const clickableComponents = container.querySelectorAll(
         ".components--clickable"
@@ -907,7 +907,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.click(renderedRecords[0]);
 
-      expect(onPropertySelectionChanged).not.toBeCalled();
+      expect(onPropertySelectionChanged).not.toHaveBeenCalled();
     });
 
     it("calls onPropertySelectionChanged when property gets right clicked and right click selection is enabled", async () => {
@@ -1056,7 +1056,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
 
       fireEvent.contextMenu(clickableComponents[0]);
 
-      expect(onPropertySelectionChanged).not.toBeCalled();
+      expect(onPropertySelectionChanged).not.toHaveBeenCalled();
     });
   });
 
@@ -1851,7 +1851,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).not.toBeCalled();
+      expect(scrollToItemFake).not.toHaveBeenCalled();
 
       rerender(
         <VirtualizedPropertyGridWithDataProvider
@@ -1860,7 +1860,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).not.toBeCalled();
+      expect(scrollToItemFake).not.toHaveBeenCalled();
     });
 
     it("doesn't scroll to item when there are no items in the grid", async () => {
@@ -1901,7 +1901,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         container.querySelector(".components-virtualized-property-grid")
       );
 
-      expect(scrollToItemFake).not.toBeCalled();
+      expect(scrollToItemFake).not.toHaveBeenCalled();
     });
 
     it("doesn't scroll to item if there is no matching item in the grid", async () => {
@@ -1955,7 +1955,7 @@ describe("VirtualizedPropertyGridWithDataProvider", () => {
         />
       );
       await waitFor(() => getByTitle(container, "test9"), { container });
-      expect(scrollToItemFake).not.toBeCalled();
+      expect(scrollToItemFake).not.toHaveBeenCalled();
     });
   });
 

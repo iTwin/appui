@@ -130,7 +130,7 @@ describe("RadialMenu", () => {
       );
 
       await theUserTo.type(screen.getByTestId("core-radial-menu"), "[Enter]");
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should call onBlur on window mouseup", async () => {

@@ -14,7 +14,7 @@ describe("useEffectSkipFirst", () => {
       { initialProps: { callback: spy, deps: [true] } }
     );
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("does not invoke cleanup if callback was not invoked", () => {
@@ -28,7 +28,7 @@ describe("useEffectSkipFirst", () => {
 
     unmount();
 
-    expect(cleanupSpy).not.toBeCalled();
+    expect(cleanupSpy).not.toHaveBeenCalled();
   });
 
   it("invokes callback when dependencies change", () => {
@@ -39,7 +39,7 @@ describe("useEffectSkipFirst", () => {
       { initialProps: { callback: spy, deps: [true] } }
     );
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     rerender({ callback: spy, deps: [false] });
 
@@ -67,7 +67,7 @@ describe("useEffectSkipFirst", () => {
     // callback is invoked for first time
     rerender({ callback, deps: [false] });
     expect(callbackInvokeCount).toEqual(1);
-    expect(cleanupSpy).not.toBeCalled();
+    expect(cleanupSpy).not.toHaveBeenCalled();
 
     // unmounted
     // cleanup after callback invocation
@@ -92,13 +92,13 @@ describe("useEffectSkipFirst", () => {
 
     // first render useEffect is skipped
     expect(callbackInvokeCount).toEqual(0);
-    expect(cleanupSpy).not.toBeCalled();
+    expect(cleanupSpy).not.toHaveBeenCalled();
 
     // second render different dependencies
     // callback is invoked first time
     rerender({ callback, deps: [false] });
     expect(callbackInvokeCount).toEqual(1);
-    expect(cleanupSpy).not.toBeCalled();
+    expect(cleanupSpy).not.toHaveBeenCalled();
 
     // third render different dependencies
     // cleanup after first callback invocation
