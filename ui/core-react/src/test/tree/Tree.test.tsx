@@ -155,7 +155,7 @@ describe("<Tree />", () => {
         createRandomRect()
       );
       tree.scrollToElement(element);
-      expect(scrollToSpy).not.toBeCalled();
+      expect(scrollToSpy).not.toHaveBeenCalled();
     });
 
     it("does nothing if Tree is not scrollable and doesn't have a scrollable child", () => {
@@ -170,7 +170,7 @@ describe("<Tree />", () => {
         createRandomRect()
       );
       tree.current?.scrollToElement(element);
-      expect(scrollToSpy).not.toBeCalled();
+      expect(scrollToSpy).not.toHaveBeenCalled();
     });
   });
 

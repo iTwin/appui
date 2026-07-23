@@ -268,7 +268,7 @@ describe("useConditionalSynchedItems", () => {
       return useConditionalSynchedItems(items, event);
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     unmount();
     expect(spy).toHaveBeenCalled();
   });

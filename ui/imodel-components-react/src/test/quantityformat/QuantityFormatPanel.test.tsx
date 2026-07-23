@@ -128,7 +128,7 @@ describe("QuantityInput", () => {
       />
     );
     expect(component).toBeTruthy();
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     const spanElement = component.getByTestId("format-sample-formatted");
 
     const comboBox = within(
@@ -178,7 +178,7 @@ describe("QuantityInput", () => {
         onFormatChange={spy}
       />
     );
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     const spanElement = component.getByTestId("format-sample-formatted");
     await waitFor(() => {

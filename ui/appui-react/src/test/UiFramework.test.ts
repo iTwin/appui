@@ -511,7 +511,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
 
       expect(lengthStub).toHaveBeenCalledOnce();
-      expect(heightStub).not.toBeCalled();
+      expect(heightStub).not.toHaveBeenCalled();
       lengthStub.mockReset();
 
       expect(
@@ -526,7 +526,7 @@ describe("UiFramework localStorage Wrapper", () => {
       );
 
       expect(lengthStub).toHaveBeenCalledOnce();
-      expect(heightStub).not.toBeCalled();
+      expect(heightStub).not.toHaveBeenCalled();
     });
 
     it("showDimensionEditor(length) forwards to AccuDrawPopupManager", () => {
@@ -548,7 +548,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
 
-      expect(lengthStub).not.toBeCalled();
+      expect(lengthStub).not.toHaveBeenCalled();
       expect(heightStub).toHaveBeenCalledOnce();
       heightStub.mockReset();
 
@@ -563,7 +563,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       );
 
-      expect(lengthStub).not.toBeCalled();
+      expect(lengthStub).not.toHaveBeenCalled();
       expect(heightStub).toHaveBeenCalledOnce();
     });
 
@@ -585,7 +585,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
       expect(internalModalStub).toHaveBeenCalledOnce();
-      expect(internalModelessStub).not.toBeCalled();
+      expect(internalModelessStub).not.toHaveBeenCalled();
 
       internalModalStub.mockReset();
       internalModelessStub.mockReset();
@@ -599,7 +599,7 @@ describe("UiFramework localStorage Wrapper", () => {
           "one"
         )
       ).toEqual(true);
-      expect(internalModalStub).not.toBeCalled();
+      expect(internalModalStub).not.toHaveBeenCalled();
       expect(internalModelessStub).toHaveBeenCalledOnce();
     });
 
@@ -623,7 +623,7 @@ describe("UiFramework localStorage Wrapper", () => {
       ).toEqual(true);
       expect(UiFramework.closeDialog("one")).toEqual(true);
       expect(internalModalStub).toHaveBeenCalledOnce();
-      expect(internalModelessStub).not.toBeCalled();
+      expect(internalModelessStub).not.toHaveBeenCalled();
 
       internalModalStub.mockReset();
       internalModelessStub.mockReset();
@@ -638,7 +638,7 @@ describe("UiFramework localStorage Wrapper", () => {
         )
       ).toEqual(true);
       expect(UiFramework.closeDialog("one")).toEqual(true);
-      expect(internalModalStub).not.toBeCalled();
+      expect(internalModalStub).not.toHaveBeenCalled();
       expect(internalModelessStub).toHaveBeenCalledOnce();
     });
 

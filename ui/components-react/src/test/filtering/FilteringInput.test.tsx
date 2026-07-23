@@ -90,7 +90,7 @@ describe("FilteringInput", () => {
     await theUserTo.type(screen.getByRole("textbox"), "test{Backspace}", {
       skipAutoClose: true,
     });
-    expect(startCallback).not.toBeCalled();
+    expect(startCallback).not.toHaveBeenCalled();
 
     await theUserTo.keyboard("[Enter]");
     expect(startCallback).toHaveBeenCalledOnce();
@@ -110,10 +110,10 @@ describe("FilteringInput", () => {
     await theUserTo.type(screen.getByRole("textbox"), "{Enter}", {
       skipAutoClose: true,
     });
-    expect(startCallback).not.toBeCalled();
+    expect(startCallback).not.toHaveBeenCalled();
 
     await theUserTo.click(screen.getByTitle("general.search"));
-    expect(startCallback).not.toBeCalled();
+    expect(startCallback).not.toHaveBeenCalled();
   });
 
   it("calls appropriate callbacks to different button clicks", async () => {

@@ -49,7 +49,7 @@ describe("SearchBox", () => {
 
       await theUserTo.type(screen.getByRole("searchbox"), "T[Backspace]");
       vi.advanceTimersByTime(throttleMs * 3);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should honor valueChangedDelay", async () => {
@@ -57,7 +57,7 @@ describe("SearchBox", () => {
       render(<SearchBox onValueChanged={spy} valueChangedDelay={100} />);
 
       await theUserTo.type(screen.getByRole("searchbox"), "Test"); // 16ms / letter => 64ms
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
       act(() => {
         vi.advanceTimersByTime(100);
       });

@@ -838,7 +838,7 @@ describe("CategorizedArrayProperty", () => {
         const lastSpy = GridUtils.getLast(childrenSpies)!;
 
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy).not.toBeCalled();
+          if (spy !== lastSpy) expect(spy).not.toHaveBeenCalled();
         });
 
         expect(lastSpy).toHaveBeenCalledOnce();
@@ -897,7 +897,7 @@ describe("CategorizedArrayProperty", () => {
 
         const lastSpy = GridUtils.getLast(childrenSpies)!;
         childrenSpies.forEach((spy) => {
-          if (spy !== lastSpy) expect(spy).not.toBeCalled();
+          if (spy !== lastSpy) expect(spy).not.toHaveBeenCalled();
         });
 
         expect(lastSpy).toHaveBeenCalledOnce();

@@ -359,14 +359,14 @@ describe("<ListBox />", () => {
 
     // we should not see key events passed to external handler if handled internally
     fireEvent.keyDown(listBoxElement!, { key: "ArrowDown" });
-    expect(spyOnKeyboard).not.toBeCalled();
+    expect(spyOnKeyboard).not.toHaveBeenCalled();
     spyOnKeyboard.mockReset();
 
     // hitting spacebar below should trigger onListboxValueChange
     expect(onListboxValueChangeCalled).toEqual(false);
     fireEvent.keyDown(listBoxElement!, { key: " " });
     expect(onListboxValueChangeCalled).toEqual(true);
-    expect(spyOnKeyboard).not.toBeCalled();
+    expect(spyOnKeyboard).not.toHaveBeenCalled();
     spyOnKeyboard.mockReset();
 
     fireEvent.keyDown(listBoxElement!, { key: Key.Enter });
@@ -410,7 +410,7 @@ describe("<ListBox />", () => {
     );
 
     expect(listItemElement).toBeTruthy();
-    expect(onListboxValueChangeSpy).not.toBeCalled();
+    expect(onListboxValueChangeSpy).not.toHaveBeenCalled();
     fireEvent.click(listItemElement!);
     expect(onListboxValueChangeSpy).toHaveBeenCalledOnce();
     // ensure list box value is set to match

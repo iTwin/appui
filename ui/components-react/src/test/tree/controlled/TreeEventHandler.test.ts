@@ -151,7 +151,7 @@ describe("TreeEventHandler", () => {
     it("does not call TreeMutator activateEditing if editing params are not set", () => {
       const spy = vi.spyOn(modelMutator, "activateEditing");
       eventHandler.onDelayedNodeClick({ nodeId: testNode.id });
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 
@@ -172,7 +172,7 @@ describe("TreeEventHandler", () => {
     it("does not call TreeMutator activateEditing if editing params are not set", () => {
       const spy = vi.spyOn(modelMutator, "activateEditing");
       eventHandler.onNodeEditorActivated({ nodeId: testNode.id });
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 

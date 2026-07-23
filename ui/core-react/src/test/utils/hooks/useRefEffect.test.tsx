@@ -44,6 +44,6 @@ describe("useRefEffect", () => {
     expect(cleanups[0].cleanup).toHaveBeenCalledOnce();
 
     expect(cleanups[1].instance).toEqual("abcd");
-    expect(cleanups[1].cleanup).not.toBeCalled();
+    expect(cleanups[1].cleanup).not.toHaveBeenCalled();
   });
 });

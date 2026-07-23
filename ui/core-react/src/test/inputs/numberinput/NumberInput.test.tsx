@@ -506,7 +506,7 @@ describe("<NumberInput - React Testing Library />", () => {
     fireEvent.change(input!, { target: { value: "22.3" } });
     expect((input as HTMLInputElement).value).toEqual("22.3");
     fireEvent.keyDown(input!, { key: Key.Escape });
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     expect((input as HTMLInputElement).value).toEqual(originalValue);
   });
 

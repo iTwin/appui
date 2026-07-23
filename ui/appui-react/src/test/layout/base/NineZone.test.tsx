@@ -138,7 +138,7 @@ describe("<NineZone />", () => {
       resizeObserver
     );
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });
 

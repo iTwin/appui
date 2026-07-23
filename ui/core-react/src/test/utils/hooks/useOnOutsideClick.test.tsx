@@ -56,7 +56,7 @@ describe("useOnOutsideClick", () => {
       document.dispatchEvent(pointerUp);
 
       expect(predicate).toHaveBeenCalledWith(pointerDown);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("should respect outside event predicate", async () => {
@@ -82,7 +82,7 @@ describe("useOnOutsideClick", () => {
       expect(onOutsideClick).toHaveBeenCalledTimes(2);
       expect(onOutsideClick).toBeCalledWith(pointerDown);
       expect(onOutsideClick).toBeCalledWith(pointerUp);
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
   });
 

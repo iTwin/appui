@@ -126,7 +126,7 @@ describe("<ImageCheckBoxEditor />", () => {
 
     fireEvent.click(inputNode);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     fireEvent.keyDown(inputNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();

@@ -82,7 +82,7 @@ describe("Timer", () => {
 
     vi.advanceTimersByTime(100);
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should restart the started timer", () => {

@@ -76,7 +76,7 @@ describe("<EnumEditor />", () => {
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
   });
 
   it("new props updates the display", async () => {
@@ -114,7 +114,7 @@ describe("<EnumEditor />", () => {
 
     fireEvent.blur(selectNode);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     fireEvent.keyDown(selectNode, { key: Key.Escape });
     await TestUtils.flushAsyncOperations();

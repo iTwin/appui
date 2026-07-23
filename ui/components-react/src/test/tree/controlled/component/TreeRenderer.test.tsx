@@ -346,7 +346,7 @@ describe("TreeRenderer", () => {
       <TreeRenderer {...defaultProps} onNodeEditorClosed={spy} />
     );
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     node.editingInfo = { onCommit: () => {}, onCancel: () => {} };
 
     const nodeRenderer = (_props: TreeNodeRendererProps) => {
@@ -361,7 +361,7 @@ describe("TreeRenderer", () => {
       />
     );
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
     node.editingInfo = undefined;
 
     rerender(<TreeRenderer {...defaultProps} onNodeEditorClosed={spy} />);

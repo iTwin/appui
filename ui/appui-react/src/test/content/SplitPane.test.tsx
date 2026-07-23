@@ -284,6 +284,6 @@ describe("SplitPane", () => {
     fireEvent.mouseDown(resizer!, { clientX: 10, clientY: 10 });
     fireEvent.mouseMove(resizer!, { clientX: 10, clientY: 20 });
     fireEvent.mouseUp(resizer!, { clientX: 10, clientY: 30 });
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

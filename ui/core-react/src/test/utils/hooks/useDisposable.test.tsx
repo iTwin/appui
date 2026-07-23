@@ -46,7 +46,7 @@ describe("useDisposable", () => {
 
     expect(oldDisposable).to.not.be.eq(result.current);
     expect(disposeSpy).toHaveBeenCalledOnce();
-    expect(newDisposeSpy).not.toBeCalled();
+    expect(newDisposeSpy).not.toHaveBeenCalled();
   });
 });
 
@@ -86,6 +86,6 @@ describe("useOptionalDisposable", () => {
 
     expect(oldDisposable).to.not.be.eq(result.current);
     expect(disposeSpy).toHaveBeenCalledOnce();
-    expect(newDisposeSpy).not.toBeCalled();
+    expect(newDisposeSpy).not.toHaveBeenCalled();
   });
 });

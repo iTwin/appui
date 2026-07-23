@@ -708,7 +708,7 @@ describe("<Popup />", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -724,7 +724,7 @@ describe("<Popup />", () => {
 
       await theUserTo.click(screen.getByRole("button"));
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -744,7 +744,7 @@ describe("<Popup />", () => {
 
       await theUserTo.click(target);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -780,7 +780,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -796,7 +796,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -812,7 +812,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -829,7 +829,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(scroll);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -865,7 +865,7 @@ describe("<Popup />", () => {
       vi.spyOn(contextMenu, "target", "get").mockImplementation(() => popup);
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -881,7 +881,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -897,7 +897,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -916,7 +916,7 @@ describe("<Popup />", () => {
       );
       window.dispatchEvent(contextMenu);
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(classesFromElement(screen.getByRole("dialog"))).to.not.include(
         "core-popup-hidden"
       );
@@ -968,7 +968,7 @@ describe("<Popup />", () => {
 
       await theUserTo.keyboard("[Enter]");
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
       expect(spyOnEnter).toHaveBeenCalledOnce();
     });
 
@@ -982,7 +982,7 @@ describe("<Popup />", () => {
 
       await theUserTo.keyboard("a");
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
     });
 
     it("should not call onClose if Pinned", async () => {
@@ -991,7 +991,7 @@ describe("<Popup />", () => {
 
       await theUserTo.keyboard("[Escape]");
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
     });
 
     it("should not call onClose if not open", async () => {
@@ -1002,7 +1002,7 @@ describe("<Popup />", () => {
 
       await theUserTo.keyboard("[Escape]");
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
     });
 
     it("should call onClose on resize event (default behavior)", async () => {
@@ -1020,7 +1020,7 @@ describe("<Popup />", () => {
 
       window.dispatchEvent(new UIEvent("resize"));
 
-      expect(spyOnClose).not.toBeCalled();
+      expect(spyOnClose).not.toHaveBeenCalled();
     });
   });
 });

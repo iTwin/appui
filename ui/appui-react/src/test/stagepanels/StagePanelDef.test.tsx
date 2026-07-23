@@ -103,7 +103,7 @@ describe("StagePanelDef", () => {
     );
     panelDef.sizeSpec = 150;
     expect(panelDef.sizeSpec).toEqual(200);
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 
   it("should collapse panel when panelState is Minimized", () => {

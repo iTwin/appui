@@ -342,7 +342,7 @@ describe("useTreeEventsHandler", () => {
     );
     expect(factory).toHaveBeenCalledOnce();
     expect(result.current).toEqual(handler);
-    expect(disposeSpy).not.toBeCalled();
+    expect(disposeSpy).not.toHaveBeenCalled();
     unmount();
     expect(disposeSpy).toHaveBeenCalledOnce();
   });
@@ -364,7 +364,7 @@ describe("useTreeEventsHandler", () => {
     );
     expect(result.current).toBeTruthy();
     const disposeSpy = vi.spyOn(result.current, "dispose");
-    expect(disposeSpy).not.toBeCalled();
+    expect(disposeSpy).not.toHaveBeenCalled();
     unmount();
     expect(disposeSpy).toHaveBeenCalledOnce();
   });
@@ -387,7 +387,7 @@ describe("useControlledTreeEventsHandler", () => {
     });
     unmount();
 
-    await waitFor(() => expect(disposeSpy).toBeCalled());
+    await waitFor(() => expect(disposeSpy).toHaveBeenCalled());
   });
 
   it("creates and disposes events handler using event handler params", async () => {
@@ -409,6 +409,6 @@ describe("useControlledTreeEventsHandler", () => {
     const disposeSpy = vi.spyOn(result.current!, "dispose");
     unmount();
 
-    await waitFor(() => expect(disposeSpy).toBeCalled());
+    await waitFor(() => expect(disposeSpy).toHaveBeenCalled());
   });
 });

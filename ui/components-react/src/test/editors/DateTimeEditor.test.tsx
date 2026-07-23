@@ -331,7 +331,7 @@ describe("<DateTimeEditor />", () => {
     );
     fireEvent.click(cancelButton);
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
   });
 
   it("should not commit if DataController fails to validate", async () => {
@@ -356,7 +356,7 @@ describe("<DateTimeEditor />", () => {
 
     fireEvent.keyDown(popupButton, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

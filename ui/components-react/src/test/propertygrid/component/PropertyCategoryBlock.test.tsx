@@ -99,6 +99,6 @@ describe("PropertyCategoryBlock", () => {
 
     screen.getByText("Group 1").focus();
     await theUserTo.keyboard("a");
-    expect(toggleSpy).not.toBeCalled();
+    expect(toggleSpy).not.toHaveBeenCalled();
   });
 });

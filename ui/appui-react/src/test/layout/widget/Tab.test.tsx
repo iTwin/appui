@@ -289,7 +289,7 @@ describe("WidgetTab", () => {
       fireEvent.keyDown(tab, { key: "a" });
     });
     await waitFor(() => {
-      expect(dispatch).not.toBeCalled();
+      expect(dispatch).not.toHaveBeenCalled();
     });
   });
 
@@ -377,7 +377,7 @@ describe("WidgetTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseMove(document, { clientX: 5, clientY: 0 });
     });
-    expect(dispatch).not.toBeCalled();
+    expect(dispatch).not.toHaveBeenCalled();
   });
 
   it("should dispatch FLOATING_WIDGET_BRING_TO_FRONT", () => {

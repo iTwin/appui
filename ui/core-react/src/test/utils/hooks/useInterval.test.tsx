@@ -26,6 +26,6 @@ describe("useInterval", () => {
     // Advance clock by only 50 clicks, so interval should not have reached time out
     vi.advanceTimersByTime(50);
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
   });
 });

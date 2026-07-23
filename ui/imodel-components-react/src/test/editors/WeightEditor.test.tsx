@@ -125,7 +125,7 @@ describe("<WeightEditor />", () => {
 
     fireEvent.keyDown(button, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

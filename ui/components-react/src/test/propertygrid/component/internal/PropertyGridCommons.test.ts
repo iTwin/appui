@@ -63,7 +63,7 @@ describe("PropertyGrid Commons", () => {
 
       PropertyGridCommons.handleLinkClick("not an url link");
       PropertyGridCommons.handleLinkClick("testEmail@mail.com");
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     });
 
     it("sets location href value to value got in the text if it is an email link", async () => {

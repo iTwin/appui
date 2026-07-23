@@ -98,7 +98,7 @@ describe("ViewportComponentEvents", () => {
       );
     onSelectedViewportChanged.emit({} as SelectedViewportChangedArgs);
     vi.advanceTimersByTime(1);
-    expect(viewRotationListener).not.toBeCalled();
+    expect(viewRotationListener).not.toHaveBeenCalled();
     remove();
   });
 

@@ -55,7 +55,7 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByText("Inside"));
-    expect(spyOnClose).not.toBeCalled();
+    expect(spyOnClose).not.toHaveBeenCalled();
   });
 
   it("should handle document click in default", async () => {
@@ -120,7 +120,7 @@ describe("WithOnOutsideClick", async () => {
     );
 
     await theUserTo.click(screen.getByText("PopupContent"));
-    expect(defaultOnClose).not.toBeCalled();
+    expect(defaultOnClose).not.toHaveBeenCalled();
 
     await theUserTo.unhover(screen.getByText("PopupContent"));
     await theUserTo.pointer("[MouseLeft]");

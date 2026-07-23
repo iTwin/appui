@@ -721,7 +721,7 @@ describe(`ToolAssistanceField`, () => {
       iconSpec: "icon-placeholder",
     });
 
-    expect(spy).not.toBeCalled();
+    expect(spy).not.toHaveBeenCalled();
 
     const notifications = new AppNotificationManager();
     const mainInstruction = ToolAssistance.createInstruction(

@@ -1985,7 +1985,7 @@ describe("<ToolbarWithOverflow />", () => {
       expect(button).toBeTruthy();
 
       fireEvent.click(button!);
-      expect(spy).not.toBeCalled(); // because Child1 is disabled
+      expect(spy).not.toHaveBeenCalled(); // because Child1 is disabled
 
       // Group2 button should have the title for the first child
       const button2 = renderedComponent.queryByTitle("EnabledChild1");

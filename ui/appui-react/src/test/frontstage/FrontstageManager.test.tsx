@@ -163,7 +163,7 @@ describe("FrontstageManager", () => {
 
       // call without invalid id
       await tool.parseAndRun("bad-id");
-      expect(spy).not.toBeCalled();
+      expect(spy).not.toHaveBeenCalled();
     }
   });
 

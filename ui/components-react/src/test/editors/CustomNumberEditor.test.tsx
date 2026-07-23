@@ -97,7 +97,7 @@ describe("<CustomNumberEditor />", () => {
     // resetToOriginalValue
     fireEvent.keyDown(inputField, { key: Key.Escape });
     expect(inputField.value).toEqual(displayVal);
-    expect(spyOnCancel).not.toBeCalled();
+    expect(spyOnCancel).not.toHaveBeenCalled();
 
     // since value is same as original, cancel
     fireEvent.keyDown(inputField, { key: Key.Escape });
@@ -317,7 +317,7 @@ describe("<CustomNumberEditor />", () => {
     await userEvent.type(inputNode, "123");
     fireEvent.keyDown(inputNode as HTMLElement, { key: Key.Enter });
     await TestUtils.flushAsyncOperations();
-    expect(spyOnCommit).not.toBeCalled();
+    expect(spyOnCommit).not.toHaveBeenCalled();
 
     PropertyEditorManager.deregisterDataController("myData");
   });

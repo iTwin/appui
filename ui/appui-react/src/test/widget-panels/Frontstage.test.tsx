@@ -525,7 +525,7 @@ describe("Frontstage local storage wrapper", () => {
         renderHook(() => useSavedFrontstageState(frontstageDef), {
           wrapper: (props: any) => <UiStateStorageHandler {...props} />,
         });
-        expect(spy).not.toBeCalled();
+        expect(spy).not.toHaveBeenCalled();
       });
 
       it("should initialize nineZoneState", async () => {
@@ -1631,7 +1631,7 @@ describe("Frontstage local storage wrapper", () => {
         await findByText("TestUi2Provider RM1");
         await findByText("TestUi2Provider W1");
 
-        expect(spy).not.toBeCalled();
+        expect(spy).not.toHaveBeenCalled();
       });
 
       it("should render loaded extension widgets", async () => {
