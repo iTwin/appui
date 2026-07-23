@@ -43,7 +43,7 @@
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@typescript-eslint/parser": "catalog:",
-    "@vitejs/plugin-react-swc": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
     "copyfiles": "^2.4.1",
     "cross-env": "^5.2.1",
     "csstype": "^3.2.3",
