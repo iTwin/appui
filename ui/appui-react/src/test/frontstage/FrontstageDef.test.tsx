@@ -592,9 +592,9 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = vi
-        .spyOn(frontstageDef, "dispatch")
-        .mockImplementation(() => {});
+      const dispatch = vi.fn();
+      frontstageDef.dispatch = dispatch;
+
       frontstageDef.floatWidget("t1");
       expect(dispatch).toHaveBeenCalledWith({
         type: "WIDGET_TAB_FLOAT",
@@ -620,9 +620,9 @@ describe("FrontstageDef", () => {
       });
       initializeNineZoneState(frontstageDef);
 
-      const dispatch = vi
-        .spyOn(frontstageDef, "dispatch")
-        .mockImplementation(() => {});
+      const dispatch = vi.fn();
+      frontstageDef.dispatch = dispatch;
+
       frontstageDef.popoutWidget("t1");
       expect(dispatch).toHaveBeenCalledWith({
         type: "WIDGET_TAB_POPOUT",

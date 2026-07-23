@@ -28,7 +28,7 @@ export class ResolvablePromise<T> implements Promise<T> {
   public async resolve(result: T) {
     this._resolve(result);
     await new Promise<void>((resolve: () => void) => {
-      setImmediate(resolve);
+      setTimeout(resolve);
     });
   }
   public async catch<TResult = never>(

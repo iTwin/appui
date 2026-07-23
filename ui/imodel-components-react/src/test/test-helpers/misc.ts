@@ -53,7 +53,7 @@ export class ResolvablePromise<T> implements PromiseLike<T> {
   public async resolve(result: T) {
     this._resolve(result);
     await new Promise<void>((resolve: () => void) => {
-      setImmediate(resolve);
+      setTimeout(resolve);
     });
   }
 }
