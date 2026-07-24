@@ -11,11 +11,12 @@ import {
   itemDefToToolbarActionItem,
   itemDefToToolbarGroupItem,
 } from "../toolbar/ToolbarHelper.js";
-import type {
-  ToolbarActionItem,
-  ToolbarGroupItem,
-} from "../toolbar/ToolbarItem.js";
 import { CoreTools } from "./CoreToolDefinitions.js";
+
+import {
+  type ToolbarActionItem,
+  type ToolbarGroupItem,
+} from "../toolbar/ToolbarItem.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 

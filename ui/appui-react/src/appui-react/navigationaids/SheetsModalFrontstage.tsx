@@ -24,6 +24,10 @@ import { UiFramework } from "../UiFramework.js";
 import type { SheetData } from "./SheetNavigationAid.js";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { BeUiEvent } from "@itwin/core-bentley";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgDocument = async () => import("@stratakit/icons/document.svg");
+const svgPlaceholder = async () => import("@stratakit/icons/placeholder.svg");
 
 /** Data about a sheet card
  * @alpha
@@ -89,7 +93,9 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
       this._cards.push({
         index,
         label: sheet.name,
-        iconSpec: <SvgDocument />,
+        iconSpec: (
+          <StrataKitIcon href={svgDocument} iconNode={<SvgDocument />} />
+        ),
         viewId: sheet.viewId,
         isActive: index === this._currentIndex,
       });
@@ -277,7 +283,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         <Icon iconSpec={this.props.iconSpec} />
       ) : (
-        <SvgPlaceholder />
+        <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
       );
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events

@@ -13,6 +13,9 @@ import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { useActiveTabId } from "../../layout/widget/Widget.js";
 import { NineZoneDispatchContext } from "../../layout/base/NineZone.js";
 import type { TabState } from "../../layout/state/TabState.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
+
+const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
 
 /** @internal */
 export function CloseWidgetButton() {
@@ -21,7 +24,7 @@ export function CloseWidgetButton() {
 
   return (
     <WidgetAction
-      icon={<SvgCloseSmall />}
+      icon={<StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />}
       label="Close widget"
       onClick={() => {
         dispatch({

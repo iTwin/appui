@@ -18,6 +18,10 @@ import { CalculatorEngine, CalculatorOperator } from "./CalculatorEngine.js";
 import { SquareButton } from "./SquareButton.js";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 import { SvgBackspace } from "../icons/SvgBackspace.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+
+const svgCheckmark = async () => import("@stratakit/icons/checkmark.svg");
+const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
 
 type SquareButtonProps = React.ComponentProps<typeof SquareButton>;
 
@@ -163,8 +167,13 @@ export class Calculator extends React.PureComponent<
             styleType="cta"
             onClick={this._handleOk}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={<SvgCheckmark />} />
+            <StrataKitIcon
+              href={svgCheckmark}
+              iconNode={
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
+                <Icon iconSpec={<SvgCheckmark />} />
+              }
+            />
           </Button>
           <Button
             className={classnames(
@@ -173,8 +182,13 @@ export class Calculator extends React.PureComponent<
             )}
             onClick={this._handleCancel}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={<SvgRemove />} />
+            <StrataKitIcon
+              href={svgDismiss}
+              iconNode={
+                // eslint-disable-next-line @typescript-eslint/no-deprecated
+                <Icon iconSpec={<SvgRemove />} />
+              }
+            />
           </Button>
         </div>
       </div>

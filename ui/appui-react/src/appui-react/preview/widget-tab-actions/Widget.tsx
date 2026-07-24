@@ -45,6 +45,9 @@ import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
 import { useBorders } from "../../layout/widget/PanelWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useWidgetDef } from "../../widget-panels/Content.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
+
+const svgDismiss = async () => import("@stratakit/icons/dismiss.svg");
 
 const TabsContext = React.createContext<
   | {
@@ -286,7 +289,7 @@ function CloseTabDecoration() {
       data-_appui-action={isActionTab ? "true" : undefined}
       ref={ref}
     >
-      <SvgCloseSmall />
+      <StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />
     </IconButton>
   );
 }
@@ -325,7 +328,7 @@ function CloseTabAction() {
           hideTab(actionTabId);
         }}
       >
-        <SvgCloseSmall />
+        <StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />
       </IconButton>
     </VisuallyHidden>
   );

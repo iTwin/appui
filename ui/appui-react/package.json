@@ -6,6 +6,7 @@
   "types": "./lib/appui-react.d.ts",
   "exports": {
     ".": "./lib/appui-react.js",
+    "./useStrataKit": "./lib/useStrataKit.js",
     "./package.json": "./package.json",
     "./lib/cjs/*": {
       "sass": "./lib/*"
@@ -66,10 +67,20 @@
     "@itwin/core-react": "workspace:*",
     "@itwin/imodel-components-react": "workspace:*",
     "@itwin/itwinui-react": "^3.15.0",
+    "@stratakit/foundations": "^0.4.9",
+    "@stratakit/icons": "^0.4.1",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "react-redux": "^7.2.2 || ^8.0.0 || ^9.0.0",
     "redux": "^4.1.0 || ^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@stratakit/foundations": {
+      "optional": true
+    },
+    "@stratakit/icons": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@itwin/appui-abstract": "catalog:",

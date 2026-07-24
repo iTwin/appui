@@ -10,6 +10,7 @@ import {
 } from "@itwin/appui-react";
 import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import { SvgTechnicalPreviewBadgeBw } from "@itwin/itwinui-icons-react";
+import { enable } from "@itwin/appui-react/useStrataKit";
 
 const PreviewFeaturesContext = React.createContext<
   | [PreviewFeatures, React.Dispatch<React.SetStateAction<PreviewFeatures>>]
@@ -63,6 +64,10 @@ const availableFeatures: AvailableFeatures = {
   },
   stableContentLayout: {
     label: "Stable content layout",
+  },
+  useStrataKit: {
+    label: "Use StrataKit components",
+    value: enable(),
   },
 };
 

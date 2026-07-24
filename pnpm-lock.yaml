@@ -82,14 +82,14 @@ catalogs:
       specifier: ^5.8.1
       version: 5.8.1
     '@stratakit/bricks':
-      specifier: ^0.4.5
-      version: 0.4.5
+      specifier: ^0.5.5
+      version: 0.5.5
     '@stratakit/foundations':
-      specifier: ^0.3.5
-      version: 0.3.5
+      specifier: ^0.4.9
+      version: 0.4.9
     '@stratakit/icons':
-      specifier: ^0.2.2
-      version: 0.2.2
+      specifier: ^0.4.1
+      version: 0.4.1
     '@types/lodash':
       specifier: ^4.17.24
       version: 4.17.24
@@ -292,10 +292,13 @@ importers:
         version: 5.8.1
       '@stratakit/bricks':
         specifier: 'catalog:'
-        version: 0.4.5(@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.5.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/foundations':
         specifier: 'catalog:'
-        version: 0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.4.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/icons':
+        specifier: 'catalog:'
+        version: 0.4.1
       '@tanstack/react-router':
         specifier: ^1.168.19
         version: 1.168.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -552,13 +555,13 @@ importers:
         version: 3.20.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/bricks':
         specifier: 'catalog:'
-        version: 0.4.5(@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.5.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/foundations':
         specifier: 'catalog:'
-        version: 0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.4.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/icons':
         specifier: 'catalog:'
-        version: 0.2.2
+        version: 0.4.1
       react:
         specifier: 'catalog:'
         version: 19.2.5
@@ -699,6 +702,12 @@ importers:
       '@itwin/itwinui-illustrations-react':
         specifier: ^2.1.0
         version: 2.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/foundations':
+        specifier: ^0.4.9
+        version: 0.4.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/icons':
+        specifier: ^0.4.1
+        version: 0.4.1
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -1223,20 +1232,36 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@ariakit/core@0.4.19':
-    resolution: {integrity: sha512-PUj/J1eX/b+DkcYwP6m7/tzDUiX1SVST89coljTN6BdQwLYMSkhg71jXcZwmTX19jQmqV9VqhVkKeabLnvciQQ==}
+  '@ariakit/components@0.1.5':
+    resolution: {integrity: sha512-LnvU9bcOU2IkQS3jCFm2rxcULNtG55+M+fh66mFf4EEBHJnDoTdN7zNRtm1dyzcFn6hAn/AoLl3Hyg95RIGUOA==}
 
-  '@ariakit/react-core@0.4.25':
-    resolution: {integrity: sha512-7seOOJ6N71lIKMS2jtNzxITCRIirt7yRrZLLWE8bp4+tQbov96BqSNX8fNCXmr/bDvKWz9PL07YrPrGjTXJXgA==}
+  '@ariakit/react-components@0.3.1':
+    resolution: {integrity: sha512-SJ/xfL3vj20TX6p/Gx39wbQtfNKL66uQ8MtnW8yU7Mv3DnOr/riFUKZnTuVjl+rMfwCdiGoHK1DdYiFKSaHG5w==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@ariakit/react@0.4.25':
-    resolution: {integrity: sha512-Gs/YgXrz0gCj0k/AWD7Ia9bw5vLPAJpG0KRiv6T/5Tg/DTZYihtE9blWGWhgGu+bSrp1IratNbQLkAvQ4J99cQ==}
+  '@ariakit/react-store@0.1.5':
+    resolution: {integrity: sha512-EMB7dG0aD+MqI/0M8dzmwPObGYoWx7lvJK4tKmTDDbuGIW+XwrKfG3n1dMkWgg/TEq5lDNE7S3WbpE8mRfXpPA==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@ariakit/react-utils@0.2.0':
+    resolution: {integrity: sha512-tyIx/qxYY5i8ntGSzDYZ5Olak7zZ58QeEYjbbMNSZEywgtrQlKhZXkVnXK72UkGXmCLg7OrrTsesv8Qh6Bx2LQ==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@ariakit/react@0.4.32':
+    resolution: {integrity: sha512-ar5lyS/Pp/+p1TdAqsS8gHzL/E9df8uWXYmEsD/Olpv4hp9LVEtwM6FfOu57sn6qaycs2xWFN9GinmXkMd8LWA==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@ariakit/store@0.1.4':
+    resolution: {integrity: sha512-VQDtp5eq4MgIjxzo6M/6NN2sVx8WykiSs9HNMv2AnfAGntF1fMA6cxCuBIFFWkHekNMGWwe/utzbTt3J/mtuiA==}
+
+  '@ariakit/utils@0.1.4':
+    resolution: {integrity: sha512-gIC/FR/gcOtp2FQQDOnRPfxizJjqp4PSQWS7fH2tNr6O6iTwwW8CPao7VUpu8Y8xKeMXrvzHvkOHhBhfBf4OrA==}
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
@@ -2947,42 +2972,36 @@ packages:
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm-musl@2.5.6':
     resolution: {integrity: sha512-Ve3gUCG57nuUUSyjBq/MAM0CzArtuIOxsBdQ+ftz6ho8n7s1i9E1Nmk/xmP323r2YL0SONs1EuwqBp2u1k5fxg==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-arm64-glibc@2.5.6':
     resolution: {integrity: sha512-f2g/DT3NhGPdBmMWYoxixqYr3v/UXcmLOYy16Bx0TM20Tchduwr4EaCbmxh1321TABqPGDpS8D/ggOTaljijOA==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-arm64-musl@2.5.6':
     resolution: {integrity: sha512-qb6naMDGlbCwdhLj6hgoVKJl2odL34z2sqkC7Z6kzir8b5W65WYDpLB6R06KabvZdgoHI/zxke4b3zR0wAbDTA==}
     engines: {node: '>= 10.0.0'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-linux-x64-glibc@2.5.6':
     resolution: {integrity: sha512-kbT5wvNQlx7NaGjzPFu8nVIW1rWqV780O7ZtkjuWaPUgpv2NMFpjYERVi0UYj1msZNyCzGlaCWEtzc+exjMGbQ==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@parcel/watcher-linux-x64-musl@2.5.6':
     resolution: {integrity: sha512-1JRFeC+h7RdXwldHzTsmdtYR/Ku8SylLgTU/reMuqdVD7CtLwf0VR1FqeprZ0eHQkO0vqsbvFLXUmYm/uNKJBg==}
     engines: {node: '>= 10.0.0'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@parcel/watcher-win32-arm64@2.5.6':
     resolution: {integrity: sha512-3ukyebjc6eGlw9yRt678DxVF7rjXatWiHvTXqphZLvo7aC5NdEgFufVwjFfY51ijYEWpXbqF5jtrK275z52D4Q==}
@@ -3198,79 +3217,66 @@ packages:
     resolution: {integrity: sha512-L+34Qqil+v5uC0zEubW7uByo78WOCIrBvci69E7sFASRl0X7b/MB6Cqd1lky/CtcSVTydWa2WZwFuWexjS5o6g==}
     cpu: [arm]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.60.1':
     resolution: {integrity: sha512-n83O8rt4v34hgFzlkb1ycniJh7IR5RCIqt6mz1VRJD6pmhRi0CXdmfnLu9dIUS6buzh60IvACM842Ffb3xd6Gg==}
     cpu: [arm]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.60.1':
     resolution: {integrity: sha512-Nql7sTeAzhTAja3QXeAI48+/+GjBJ+QmAH13snn0AJSNL50JsDqotyudHyMbO2RbJkskbMbFJfIJKWA6R1LCJQ==}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.60.1':
     resolution: {integrity: sha512-+pUymDhd0ys9GcKZPPWlFiZ67sTWV5UU6zOJat02M1+PiuSGDziyRuI/pPue3hoUwm2uGfxdL+trT6Z9rxnlMA==}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-loong64-gnu@4.60.1':
     resolution: {integrity: sha512-VSvgvQeIcsEvY4bKDHEDWcpW4Yw7BtlKG1GUT4FzBUlEKQK0rWHYBqQt6Fm2taXS+1bXvJT6kICu5ZwqKCnvlQ==}
     cpu: [loong64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-loong64-musl@4.60.1':
     resolution: {integrity: sha512-4LqhUomJqwe641gsPp6xLfhqWMbQV04KtPp7/dIp0nzPxAkNY1AbwL5W0MQpcalLYk07vaW9Kp1PBhdpZYYcEw==}
     cpu: [loong64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-ppc64-gnu@4.60.1':
     resolution: {integrity: sha512-tLQQ9aPvkBxOc/EUT6j3pyeMD6Hb8QF2BTBnCQWP/uu1lhc9AIrIjKnLYMEroIz/JvtGYgI9dF3AxHZNaEH0rw==}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-ppc64-musl@4.60.1':
     resolution: {integrity: sha512-RMxFhJwc9fSXP6PqmAz4cbv3kAyvD1etJFjTx4ONqFP9DkTkXsAMU4v3Vyc5BgzC+anz7nS/9tp4obsKfqkDHg==}
     cpu: [ppc64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-riscv64-gnu@4.60.1':
     resolution: {integrity: sha512-QKgFl+Yc1eEk6MmOBfRHYF6lTxiiiV3/z/BRrbSiW2I7AFTXoBFvdMEyglohPj//2mZS4hDOqeB0H1ACh3sBbg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.60.1':
     resolution: {integrity: sha512-RAjXjP/8c6ZtzatZcA1RaQr6O1TRhzC+adn8YZDnChliZHviqIjmvFwHcxi4JKPSDAt6Uhf/7vqcBzQJy0PDJg==}
     cpu: [riscv64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.60.1':
     resolution: {integrity: sha512-wcuocpaOlaL1COBYiA89O6yfjlp3RwKDeTIA0hM7OpmhR1Bjo9j31G1uQVpDlTvwxGn2nQs65fBFL5UFd76FcQ==}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.60.1':
     resolution: {integrity: sha512-77PpsFQUCOiZR9+LQEFg9GClyfkNXj1MP6wRnzYs0EeWbPcHs02AXu4xuUbM1zhwn3wqaizle3AEYg5aeoohhg==}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.60.1':
     resolution: {integrity: sha512-5cIATbk5vynAjqqmyBjlciMJl1+R/CwX9oLk/EyiFXDWd95KpHdrOJT//rnUl4cUcskrd0jCCw3wpZnhIHdD9w==}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@rollup/rollup-openbsd-x64@4.60.1':
     resolution: {integrity: sha512-cl0w09WsCi17mcmWqqglez9Gk8isgeWvoUZ3WiJFYSR3zjBQc2J5/ihSjpl+VLjPqjQ/1hJRcqBfLjssREQILw==}
@@ -3440,15 +3446,14 @@ packages:
       typescript:
         optional: true
 
-  '@stratakit/bricks@0.4.5':
-    resolution: {integrity: sha512-Ytr4b7Vnc1kEbgZnt1eQBa4RkPSMK8ch8Jizx6u29oaIW7zY3H5QCNOaxxZ3iLCMv7fc76dLzKzSdZyU6UX1qA==}
+  '@stratakit/bricks@0.5.5':
+    resolution: {integrity: sha512-DxFeU10pSKfAUvbjOmXxYSlhai4xNkTtgDQxcA6oDX9o58zjSNqpf6pJLpsFMuHYtLLcPuIvE1E6A8bQ0hd/DA==}
     peerDependencies:
-      '@stratakit/foundations': ^0.3.5
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@stratakit/foundations@0.3.5':
-    resolution: {integrity: sha512-3HIYC6Kh9HMqAd2moWD1mgYVSaxXSo+fTxJZyy/5FKcbDGea2rtQZtx1I/VR764sskSqlf8EEXGEegkCvTv0sg==}
+  '@stratakit/foundations@0.4.9':
+    resolution: {integrity: sha512-juBKMLLsNTjbmwGNuHUS/MwSQgOSbAjD49fRzgQWfSvPlC1PmP+Zh+XeqWTleH3nh4DXZ2TFBgNuOYKfd5loSA==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -3458,8 +3463,8 @@ packages:
       react-dom:
         optional: true
 
-  '@stratakit/icons@0.2.2':
-    resolution: {integrity: sha512-CXv2z0PhC+KU1dqZ//1gxZe2LTToO5WbhFmI65H1+VNDeZ+WH9GnaWHhOnmY54s0jQjOwut7jjSKkYXJbL8llg==}
+  '@stratakit/icons@0.4.1':
+    resolution: {integrity: sha512-IWCfOjdvtFMaNmb1itx1mTRZORw4bHuzrHnCg2NXQMxGLwaT6lnl4mDGKV1waBTuu7mNy2kQ1//d2GSqgb9umQ==}
 
   '@swc/core-darwin-arm64@1.15.24':
     resolution: {integrity: sha512-uM5ZGfFXjtvtJ+fe448PVBEbn/CSxS3UAyLj3O9xOqKIWy3S6hPTXSPbszxkSsGDYKi+YFhzAsR4r/eXLxEQ0g==}
@@ -3484,42 +3489,36 @@ packages:
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
-    libc: [glibc]
 
   '@swc/core-linux-arm64-musl@1.15.24':
     resolution: {integrity: sha512-ZpF/pRe1guk6sKzQI9D1jAORtjTdNlyeXn9GDz8ophof/w2WhojRblvSDJaGe7rJjcPN8AaOkhwdRUh7q8oYIg==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
-    libc: [musl]
 
   '@swc/core-linux-ppc64-gnu@1.15.24':
     resolution: {integrity: sha512-QZEsZfisHTSJlmyChgDFNmKPb3W6Lhbfo/O76HhIngfEdnQNmukS38/VSe1feho+xkV5A5hETyCbx3sALBZKAQ==}
     engines: {node: '>=10'}
     cpu: [ppc64]
     os: [linux]
-    libc: [glibc]
 
   '@swc/core-linux-s390x-gnu@1.15.24':
     resolution: {integrity: sha512-DLdJKVsJgglqQrJBuoUYNmzm3leI7kUZhLbZGHv42onfKsGf6JDS3+bzCUQfte/XOqDjh/tmmn1DR/CF/tCJFw==}
     engines: {node: '>=10'}
     cpu: [s390x]
     os: [linux]
-    libc: [glibc]
 
   '@swc/core-linux-x64-gnu@1.15.24':
     resolution: {integrity: sha512-IpLYfposPA/XLxYOKpRfeccl1p5dDa3+okZDHHTchBkXEaVCnq5MADPmIWwIYj1tudt7hORsEHccG5no6IUQRw==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
-    libc: [glibc]
 
   '@swc/core-linux-x64-musl@1.15.24':
     resolution: {integrity: sha512-JHy3fMSc0t/EPWgo74+OK5TGr51aElnzqfUPaiRf2qJ/BfX5CUCfMiWVBuhI7qmVMBnk1jTRnL/xZnOSHDPLYg==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
-    libc: [musl]
 
   '@swc/core-win32-arm64-msvc@1.15.24':
     resolution: {integrity: sha512-Txj+qUH1z2bUd1P3JvwByfjKFti3cptlAxhWgmunBUUxy/IW3CXLZ6l6Gk4liANadKkU71nIU1X30Z5vpMT3BA==}
@@ -6927,6 +6926,11 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
 
+  react-compiler-runtime@1.0.0:
+    resolution: {integrity: sha512-rRfjYv66HlG8896yPUDONgKzG5BxZD1nV9U6rkm+7VCuvQc903C4MjcoZR4zPw53IKSOX9wMQVpA1IAbRtzQ7w==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
+
   react-docgen-typescript@2.4.0:
     resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
     peerDependencies:
@@ -8184,21 +8188,47 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@ariakit/core@0.4.19': {}
-
-  '@ariakit/react-core@0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@ariakit/components@0.1.5':
     dependencies:
-      '@ariakit/core': 0.4.19
+      '@ariakit/store': 0.1.4
+      '@ariakit/utils': 0.1.4
+
+  '@ariakit/react-components@0.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      '@ariakit/components': 0.1.5
+      '@ariakit/react-store': 0.1.5(react@19.2.5)
+      '@ariakit/react-utils': 0.2.0(react@19.2.5)
+      '@ariakit/store': 0.1.4
+      '@ariakit/utils': 0.1.4
       '@floating-ui/dom': 1.7.6
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
+
+  '@ariakit/react-store@0.1.5(react@19.2.5)':
+    dependencies:
+      '@ariakit/react-utils': 0.2.0(react@19.2.5)
+      '@ariakit/store': 0.1.4
+      '@ariakit/utils': 0.1.4
+      react: 19.2.5
       use-sync-external-store: 1.6.0(react@19.2.5)
 
-  '@ariakit/react@0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@ariakit/react-utils@0.2.0(react@19.2.5)':
     dependencies:
-      '@ariakit/react-core': 0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ariakit/store': 0.1.4
+      '@ariakit/utils': 0.1.4
+      react: 19.2.5
+
+  '@ariakit/react@0.4.32(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      '@ariakit/react-components': 0.3.1(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
+
+  '@ariakit/store@0.1.4':
+    dependencies:
+      '@ariakit/utils': 0.1.4
+
+  '@ariakit/utils@0.1.4': {}
 
   '@asamuzakjp/css-color@3.2.0':
     dependencies:
@@ -10771,23 +10801,25 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@stratakit/bricks@0.4.5(@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@stratakit/bricks@0.5.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@ariakit/react': 0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@stratakit/foundations': 0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ariakit/react': 0.4.32(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/foundations': 0.4.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames: 2.5.1
       react: 19.2.5
+      react-compiler-runtime: 1.0.0(react@19.2.5)
       react-dom: 19.2.5(react@19.2.5)
 
-  '@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@stratakit/foundations@0.4.9(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@ariakit/react': 0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ariakit/react': 0.4.32(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames: 2.5.1
+      react-compiler-runtime: 1.0.0(react@19.2.5)
     optionalDependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
 
-  '@stratakit/icons@0.2.2': {}
+  '@stratakit/icons@0.4.1': {}
 
   '@swc/core-darwin-arm64@1.15.24':
     optional: true
@@ -14752,6 +14784,10 @@ snapshots:
       react-themeable: 1.1.0
       section-iterator: 2.0.0
       shallow-equal: 1.2.1
+
+  react-compiler-runtime@1.0.0(react@19.2.5):
+    dependencies:
+      react: 19.2.5
 
   react-docgen-typescript@2.4.0(typescript@5.6.3):
     dependencies:

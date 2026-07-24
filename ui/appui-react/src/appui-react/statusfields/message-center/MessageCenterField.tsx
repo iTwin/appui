@@ -20,11 +20,20 @@ import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageCenterMessage } from "./MessageCenterMessage.js";
 import { MessageManager } from "../../messages/MessageManager.js";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
+import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import "./MessageCenterField.scss";
-import { useTranslation } from "../../hooks/useTranslation.js";
-import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+
+const svgChat = async () => import("@stratakit/icons/chat.svg");
+const svgInfo = async () => import("@stratakit/icons/info.svg");
+const svgStatusError = async () => import("@stratakit/icons/status-error.svg");
+const svgStatusSuccess = async () =>
+  import("@stratakit/icons/status-success.svg");
+const svgStatusWarning = async () =>
+  import("@stratakit/icons/status-warning.svg");
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -152,7 +161,7 @@ export function MessageCenterField(props: CommonProps) {
         styleType="borderless"
         startIcon={
           <NotificationMarker status={status} enabled={notify}>
-            <SvgChat />
+            <StrataKitIcon href={svgChat} iconNode={<SvgChat />} />
           </NotificationMarker>
         }
         className={props.className}
@@ -175,25 +184,28 @@ function MessageIcon({ priority }: MessageIconProps) {
     case OutputMessagePriority.Fatal:
       return (
         <Icon fill="negative">
-          <SvgStatusError />
+          <StrataKitIcon href={svgStatusError} iconNode={<SvgStatusError />} />
         </Icon>
       );
     case OutputMessagePriority.Warning:
       return (
         <Icon fill="warning">
-          <SvgStatusWarning />
+          <StrataKitIcon
+            href={svgStatusWarning}
+            iconNode={<SvgStatusWarning />}
+          />
         </Icon>
       );
     case OutputMessagePriority.Info:
       return (
         <Icon fill="informational">
-          <SvgInfo />
+          <StrataKitIcon href={svgInfo} iconNode={<SvgInfo />} />
         </Icon>
       );
   }
   return (
     <Icon fill="positive">
-      <SvgStatusSuccess />
+      <StrataKitIcon href={svgStatusSuccess} iconNode={<SvgStatusSuccess />} />
     </Icon>
   );
 }
