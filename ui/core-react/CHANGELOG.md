@@ -1,5 +1,7 @@
 # Change Log - @itwin/core-react
 
+## 5.33.2
+
 ## 5.33.1
 
 ## 5.33.0
