@@ -1,5 +1,12 @@
 # Change Log - @itwin/components-react
 
+## 5.33.2
+
+### Patch Changes
+
+- e95016c: Bumped `linkify-it` from `~2.2.0` to `^5.0.2`.
+  - @itwin/core-react@5.33.2
+
 ## 5.33.1
 
 ### Patch Changes
