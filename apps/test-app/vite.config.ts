@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 import fs from "fs";
 import { createLogger, defineConfig, loadEnv } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
+import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 const customLogger = createLogger();
 const warn = customLogger.warn;
@@ -38,15 +38,8 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 7000,
     },
     customLogger,
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: "modern-compiler",
-        },
-      },
-    },
     plugins: [
-      TanStackRouterVite(),
+      tanstackRouter(),
       react(),
       viteStaticCopy({
         targets: [
@@ -59,10 +52,13 @@ export default defineConfig(({ mode }) => {
             // copy localization files
             src: "./lib/locales",
             dest: ".",
+            rename: { stripBase: 1 },
           },
           {
+            // copy localization files for en-US
             src: "./lib/locales/en/**",
             dest: "./locales/en-US",
+            rename: { stripBase: 3 },
           },
         ],
       }),

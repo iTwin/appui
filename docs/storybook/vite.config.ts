@@ -3,9 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 const localeDirs = [
   "./node_modules/@itwin/appui-react/lib/public/locales",
@@ -20,36 +19,25 @@ export default defineConfig({
   build: {
     outDir: "storybook-static",
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: "modern-compiler",
-      },
-    },
-  },
   plugins: [
-    react({
-      babel: {
-        generatorOpts: {
-          importAttributesKeyword: "with",
-        },
-      },
-    }),
+    react(),
     viteStaticCopy({
       targets: [
         ...localeDirs.map((dir) => ({
           src: dir,
           dest: ".",
+          rename: { stripBase: 5 },
         })),
         ...localeDirs.map((dir) => ({
           src: `${dir}/en/**`,
           dest: "./locales/en-US",
+          rename: { stripBase: 7 },
         })),
       ],
     }),
-    tsconfigPaths(),
   ],
   resolve: {
+    tsconfigPaths: true,
     alias: [
       {
         // Resolve SASS tilde imports.

@@ -38,16 +38,15 @@ catalog:
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3
   '@typescript-eslint/parser': ^8.58.1
-  '@vitejs/plugin-react-swc': ^4.3.0
+  '@vitejs/plugin-react': ^6.0.4
   eslint: ^9.39.4
   eslint-config-prettier: ^10.1.8
   lodash: ^4.18.1
   react: ^19.2.5
   react-dom: ^19.2.5
   rimraf: ^6.1.3
-  vite: ^7.3.2
-  vite-plugin-static-copy: ^3.4.0
-  vite-tsconfig-paths: 5.1.4
+  vite: ^8.1.5
+  vite-plugin-static-copy: ^4.1.1
   vitest: ^4.1.10
   zustand: ^4.5.7
 
