@@ -1,0 +1,4 @@
+const dismiss = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%3e%3csymbol%20id='icon'%20fill='none'%20viewBox='0%200%2016%2016'%3e%3cpath%20fill='currentColor'%20fill-rule='evenodd'%20d='M4.854%204.146a.5.5%200%201%200-.708.708L7.293%208l-3.147%203.146a.5.5%200%201%200%20.708.707L8%208.707l3.146%203.146a.5.5%200%201%200%20.707-.707L8.707%208l3.146-3.146a.5.5%200%201%200-.707-.708L8%207.293%204.854%204.146Z'%20clip-rule='evenodd'/%3e%3c/symbol%3e%3csymbol%20id='icon-large'%20fill='none'%20viewBox='0%200%2024%2024'%3e%3cpath%20fill='currentColor'%20fill-rule='evenodd'%20d='M7.354%206.646a.5.5%200%201%200-.707.708L11.293%2012l-4.646%204.646a.5.5%200%201%200%20.707.707L12%2012.707l4.647%204.646a.5.5%200%201%200%20.707-.707L12.707%2012l4.647-4.646a.5.5%200%201%200-.707-.708L12%2011.293%207.354%206.646Z'%20clip-rule='evenodd'/%3e%3c/symbol%3e%3cuse%20href='%23icon'/%3e%3c/svg%3e";
+export {
+  dismiss as default
+};

@@ -1,0 +1,4 @@
+const search = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%3e%3csymbol%20id='icon'%20fill='none'%20viewBox='0%200%2016%2016'%3e%3cpath%20fill='currentColor'%20fill-rule='evenodd'%20d='M7.5%203a4.5%204.5%200%201%201%200%209%204.5%204.5%200%200%201%200-9Zm4.227%208.02a5.5%205.5%200%201%200-.707.707l2.127%202.127a.5.5%200%201%200%20.707-.707l-2.127-2.127Z'%20clip-rule='evenodd'/%3e%3c/symbol%3e%3csymbol%20id='icon-large'%20fill='none'%20viewBox='0%200%2024%2024'%3e%3cpath%20fill='currentColor'%20fill-rule='evenodd'%20d='M11%204a7%207%200%201%201%200%2014%207%207%200%200%201%200-14Zm6%2012.292a8%208%200%201%200-.707.707l3.854%203.855a.5.5%200%201%200%20.707-.707l-3.855-3.855Z'%20clip-rule='evenodd'/%3e%3c/symbol%3e%3cuse%20href='%23icon'/%3e%3c/svg%3e";
+export {
+  search as default
+};

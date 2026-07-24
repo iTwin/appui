@@ -1,0 +1,4 @@
+const moreHorizontal = "data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%3e%3csymbol%20id='icon'%20fill='none'%20viewBox='0%200%2016%2016'%3e%3cpath%20fill='currentColor'%20d='M4%207a1%201%200%201%201%200%202%201%201%200%200%201%200-2Zm4%200a1%201%200%201%201%200%202%201%201%200%200%201%200-2Zm4%200a1%201%200%201%201%200%202%201%201%200%200%201%200-2Z'/%3e%3c/symbol%3e%3csymbol%20id='icon-large'%20fill='none'%20viewBox='0%200%2024%2024'%3e%3cpath%20fill='currentColor'%20fill-rule='evenodd'%20d='M7%2012a1.5%201.5%200%201%201-3%200%201.5%201.5%200%200%201%203%200Zm13%200a1.5%201.5%200%201%201-3%200%201.5%201.5%200%200%201%203%200Zm-8%201.5a1.5%201.5%200%201%200%200-3%201.5%201.5%200%200%200%200%203Z'%20clip-rule='evenodd'/%3e%3c/symbol%3e%3cuse%20href='%23icon'/%3e%3c/svg%3e";
+export {
+  moreHorizontal as default
+};

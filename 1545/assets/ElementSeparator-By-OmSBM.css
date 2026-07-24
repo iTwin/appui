@@ -1,0 +1,123 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-ms-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-moz-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-ms-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@-o-keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.core-element-separator {
+  touch-action: none;
+  display: inline-block;
+  border-style: none;
+  padding: 0px;
+  opacity: 0;
+  z-index: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.core-element-separator--vertical {
+  width: 100%;
+  cursor: row-resize;
+  background: linear-gradient(to bottom, transparent calc(50% - 1px), var(--iui-color-icon-accent) 50%, transparent calc(50% + 1px));
+}
+.core-element-separator--horizontal {
+  height: 100%;
+  cursor: col-resize;
+  background: linear-gradient(to right, transparent calc(50% - 1px), var(--iui-color-icon-accent) 50%, transparent calc(50% + 1px));
+}
+.core-element-separator.core-element-separator-group-hovered {
+  -webkit-animation: fade-in 0.2s;
+  -moz-animation: fade-in 0.2s;
+  -ms-animation: fade-in 0.2s;
+  -o-animation: fade-in 0.2s;
+  animation: fade-in 0.2s;
+  opacity: 1;
+}
+.core-element-separator.core-element-separator-group-unhovered {
+  -webkit-animation: fade-out 0.2s;
+  -moz-animation: fade-out 0.2s;
+  -ms-animation: fade-out 0.2s;
+  -o-animation: fade-out 0.2s;
+  animation: fade-out 0.2s;
+  opacity: 0;
+}
+.core-element-separator:focus {
+  outline: none;
+}
