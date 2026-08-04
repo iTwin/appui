@@ -56,7 +56,9 @@ function KoqRenderer(props: {
 }) {
   const { record, context } = props;
   const imodel = useIModelConnection();
-  const version = useFormattingChangeVersion(record.property.kindOfQuantityName);
+  const version = useFormattingChangeVersion(
+    record.property.kindOfQuantityName
+  );
   const stringValueCalculator = React.useCallback(
     async (recordToFormat: PropertyRecord) => {
       return imodel

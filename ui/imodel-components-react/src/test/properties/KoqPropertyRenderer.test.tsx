@@ -236,9 +236,10 @@ describe("KoqPropertyValueRenderer", () => {
         parserSpec: {} as ParserSpec,
       });
       let formatted = "10 m";
-      vi.spyOn(IModelApp.quantityFormatter, "formatQuantity").mockImplementation(
-        () => formatted
-      );
+      vi.spyOn(
+        IModelApp.quantityFormatter,
+        "formatQuantity"
+      ).mockImplementation(() => formatted);
 
       const renderer = new KoqPropertyValueRenderer();
       const property = createKoqProperty({ value: 10, displayValue: "raw" });
@@ -269,9 +270,10 @@ describe("KoqPropertyValueRenderer", () => {
         parserSpec: {} as ParserSpec,
       });
       let formatted = "10 m";
-      vi.spyOn(IModelApp.quantityFormatter, "formatQuantity").mockImplementation(
-        () => formatted
-      );
+      vi.spyOn(
+        IModelApp.quantityFormatter,
+        "formatQuantity"
+      ).mockImplementation(() => formatted);
 
       const renderer = new KoqPropertyValueRenderer();
       const property = createKoqProperty({ value: 10, displayValue: "raw" });
