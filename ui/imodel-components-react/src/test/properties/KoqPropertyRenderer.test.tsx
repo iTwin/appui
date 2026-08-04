@@ -19,7 +19,13 @@ import {
 } from "@itwin/appui-abstract";
 import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp, NoRenderApp } from "@itwin/core-frontend";
-import type { FormatterSpec, ParserSpec } from "@itwin/core-quantity";
+import type {
+  FormatsChangedArgs,
+  FormatsProvider,
+  FormatterSpec,
+  ParserSpec,
+} from "@itwin/core-quantity";
+import { BeEvent } from "@itwin/core-bentley";
 import { IModelConnectionProvider } from "../../imodel-components-react/IModelConnectionContext.js";
 import { KoqPropertyValueRenderer } from "../../imodel-components-react/properties/KoqPropertyRenderer.js";
 import { getFormatterParserSpec } from "../../imodel-components-react/KoqUtilities.js";
@@ -322,6 +328,129 @@ describe("KoqPropertyValueRenderer", () => {
       act(() => {
         IModelApp.quantityFormatter.onQuantityFormatsChanged.emit({
           quantityType: "AecUnits.AREA",
+        });
+      });
+
+      await findByText("10 m");
+      expect(formatSpy.mock.calls.length).toEqual(callsAfterInitialRender);
+    });
+
+    it("re-renders when all formats change on the formats provider", async () => {
+      const onFormatsChanged = new BeEvent<
+        (args: FormatsChangedArgs) => void
+      >();
+      IModelApp.formatsProvider = {
+        getFormat: vi.fn(),
+        onFormatsChanged,
+      } as unknown as FormatsProvider;
+
+      const formatterSpec = {} as FormatterSpec;
+      mockGetFormatterParserSpec.mockResolvedValue({
+        formatterSpec,
+        highPrecisionFormatterSpec: formatterSpec,
+        parserSpec: {} as ParserSpec,
+      });
+      let formatted = "10 m";
+      vi.spyOn(
+        IModelApp.quantityFormatter,
+        "formatQuantity"
+      ).mockImplementation(() => formatted);
+
+      const renderer = new KoqPropertyValueRenderer();
+      const property = createKoqProperty({ value: 10, displayValue: "raw" });
+
+      const { findByText } = render(
+        <IModelConnectionProvider iModelConnection={{} as IModelConnection}>
+          {renderer.render(property)}
+        </IModelConnectionProvider>
+      );
+
+      await findByText("10 m");
+
+      formatted = "1000 cm";
+      act(() => {
+        onFormatsChanged.raiseEvent({ formatsChanged: "all" });
+      });
+
+      await findByText("1000 cm");
+    });
+
+    it("re-renders when the changed formats include the property's kind of quantity", async () => {
+      const onFormatsChanged = new BeEvent<
+        (args: FormatsChangedArgs) => void
+      >();
+      IModelApp.formatsProvider = {
+        getFormat: vi.fn(),
+        onFormatsChanged,
+      } as unknown as FormatsProvider;
+
+      const formatterSpec = {} as FormatterSpec;
+      mockGetFormatterParserSpec.mockResolvedValue({
+        formatterSpec,
+        highPrecisionFormatterSpec: formatterSpec,
+        parserSpec: {} as ParserSpec,
+      });
+      let formatted = "10 m";
+      vi.spyOn(
+        IModelApp.quantityFormatter,
+        "formatQuantity"
+      ).mockImplementation(() => formatted);
+
+      const renderer = new KoqPropertyValueRenderer();
+      const property = createKoqProperty({ value: 10, displayValue: "raw" });
+
+      const { findByText } = render(
+        <IModelConnectionProvider iModelConnection={{} as IModelConnection}>
+          {renderer.render(property)}
+        </IModelConnectionProvider>
+      );
+
+      await findByText("10 m");
+
+      formatted = "1000 cm";
+      act(() => {
+        onFormatsChanged.raiseEvent({
+          formatsChanged: ["AecUnits.LENGTH"],
+        });
+      });
+
+      await findByText("1000 cm");
+    });
+
+    it("does not re-render when the changed formats do not include the property's kind of quantity", async () => {
+      const onFormatsChanged = new BeEvent<
+        (args: FormatsChangedArgs) => void
+      >();
+      IModelApp.formatsProvider = {
+        getFormat: vi.fn(),
+        onFormatsChanged,
+      } as unknown as FormatsProvider;
+
+      const formatterSpec = {} as FormatterSpec;
+      mockGetFormatterParserSpec.mockResolvedValue({
+        formatterSpec,
+        highPrecisionFormatterSpec: formatterSpec,
+        parserSpec: {} as ParserSpec,
+      });
+      const formatSpy = vi
+        .spyOn(IModelApp.quantityFormatter, "formatQuantity")
+        .mockReturnValue("10 m");
+
+      const renderer = new KoqPropertyValueRenderer();
+      const property = createKoqProperty({ value: 10, displayValue: "raw" });
+
+      const { findByText } = render(
+        <IModelConnectionProvider iModelConnection={{} as IModelConnection}>
+          {renderer.render(property)}
+        </IModelConnectionProvider>
+      );
+
+      await findByText("10 m");
+      const callsAfterInitialRender = formatSpy.mock.calls.length;
+
+      act(() => {
+        onFormatsChanged.raiseEvent({
+          formatsChanged: ["AecUnits.AREA"],
         });
       });
 

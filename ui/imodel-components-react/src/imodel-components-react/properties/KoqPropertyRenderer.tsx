@@ -65,11 +65,11 @@ function KoqRenderer(props: {
         ? formatKoqValue(recordToFormat, imodel)
         : convertRecordToString(recordToFormat);
     },
-    [imodel]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- version is intentionally included to force a reformat when the formatting changes
+    [imodel, version]
   );
   return (
     <PrimitivePropertyValueRendererImpl
-      key={`${record.property.name}-${version}`}
       record={record}
       context={context}
       stringValueCalculator={stringValueCalculator}
@@ -102,7 +102,16 @@ function useFormattingChangeVersion(koqName: string | undefined): number {
     ];
     if (IModelApp.formatsProvider) {
       removeListeners.push(
-        IModelApp.formatsProvider.onFormatsChanged.addListener(bump)
+        IModelApp.formatsProvider.onFormatsChanged.addListener(
+          ({ formatsChanged }) => {
+            if (
+              formatsChanged === "all" ||
+              formatsChanged.some((formatName) => formatName === koqName)
+            ) {
+              bump();
+            }
+          }
+        )
       );
     }
 
