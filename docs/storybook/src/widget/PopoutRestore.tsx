@@ -2,6 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import React from "react";
 import {
   StagePanelState,
   UiItemsProvider,
@@ -51,11 +52,14 @@ export function PopoutRestoreStory() {
 
 function WidgetVisibilityControls() {
   const widgetDef = useSpecificWidgetDef("w1");
+  const [visible, setVisible] = React.useState(true);
 
   const hide = () => {
+    setVisible(false);
     widgetDef?.setWidgetState(WidgetState.Hidden);
   };
   const show = () => {
+    setVisible(true);
     widgetDef?.setWidgetState(WidgetState.Open);
   };
 
@@ -68,15 +72,19 @@ function WidgetVisibilityControls() {
         zIndex: 1000,
         padding: "0.5em",
         display: "flex",
+        flexDirection: "column",
         gap: "0.5em",
       }}
     >
-      <Button onClick={hide} size="small">
-        Hide widget
-      </Button>
-      <Button onClick={show} styleType="cta" size="small">
-        Show widget
-      </Button>
+      <div>Widget state: {visible ? "Visible" : "Hidden"}</div>
+      <div style={{ display: "flex", gap: "0.5em" }}>
+        <Button onClick={hide} size="small">
+          Hide widget
+        </Button>
+        <Button onClick={show} styleType="cta" size="small">
+          Show widget
+        </Button>
+      </div>
     </div>
   );
 }
