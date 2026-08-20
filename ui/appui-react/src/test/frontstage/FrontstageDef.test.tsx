@@ -699,7 +699,46 @@ describe("FrontstageDef", () => {
       );
       expect(spy).toHaveBeenCalledOnce();
     });
+
+    it("should enforce a minimum popout window size (AB#2024472)", async () => {
+      const frontstageDef = new FrontstageDef();
+      await frontstageDef.initializeFromConfig({
+        ...defaultFrontstageConfig,
+        leftPanel: {
+          sections: {
+            start: [
+              {
+                id: "t1",
+              },
+            ],
+          },
+        },
+      });
+      initializeNineZoneState(frontstageDef);
+
+      const spy = vi.spyOn(window, "open").mockReturnValue({
+        addEventListener: () => {},
+        removeEventListener: () => {},
+      } as unknown as Window);
+      frontstageDef.popoutWidget("t1", undefined, {
+        width: 10,
+        height: 10,
+      });
+
+      spy.mockReset();
+      const popoutWidgets = frontstageDef.nineZoneState!.popoutWidgets;
+      const popoutWidget = popoutWidgets.byId[popoutWidgets.allIds[0]];
+      frontstageDef.openPopoutWidgetContainer(
+        popoutWidget.id,
+        frontstageDef.nineZoneState
+      );
+      expect(spy).toHaveBeenCalledOnce();
+      const features = spy.mock.calls[0][2] as string;
+      expect(features).to.include("width=200");
+      expect(features).to.include("height=200");
+    });
   });
+
 
   describe("dockWidgetContainer", () => {
     it("should dock popout widget", async () => {

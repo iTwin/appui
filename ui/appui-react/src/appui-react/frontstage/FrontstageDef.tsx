@@ -64,6 +64,12 @@ import {
   getFrontstageStateSettingName,
 } from "../widget-panels/Frontstage.js";
 
+/** Minimum size (in pixels) enforced for a popped-out widget's child window so that it can
+ * never shrink to an invisible or unusable size (see AB#2024472). Matches the minimum size
+ * used for floating widgets (`minWidth`/`minHeight` in `Widget.tsx`).
+ */
+const MIN_POPOUT_WINDOW_SIZE: SizeProps = { width: 200, height: 200 };
+
 /** FrontstageDef class provides an API for a Frontstage.
  * @public
  */
@@ -746,8 +752,8 @@ export class FrontstageDef {
     const popoutWidget = state.popoutWidgets.byId[location.popoutWidgetId];
     const bounds = Rectangle.create(popoutWidget.bounds);
     const position: ChildWindowLocationProps = {
-      width: bounds.getWidth(),
-      height: bounds.getHeight(),
+      width: Math.max(bounds.getWidth(), MIN_POPOUT_WINDOW_SIZE.width),
+      height: Math.max(bounds.getHeight(), MIN_POPOUT_WINDOW_SIZE.height),
       left: bounds.left,
       top: bounds.top,
     };
@@ -764,9 +770,11 @@ export class FrontstageDef {
     // Use outer size if available to avoid inner size + browser zoom issues: https://github.com/iTwin/appui/issues/563
     const savedTab = state.savedTabs.byId[tabId];
     if (childWindow && savedTab?.popout?.size) {
+      // Enforce a minimum size so a popout window that shrunk over repeated pop-out cycles
+      // can never become invisible or unusable.
       childWindow.resizeTo(
-        savedTab.popout.size.width,
-        savedTab.popout.size.height
+        Math.max(savedTab.popout.size.width, MIN_POPOUT_WINDOW_SIZE.width),
+        Math.max(savedTab.popout.size.height, MIN_POPOUT_WINDOW_SIZE.height)
       );
     }
 
