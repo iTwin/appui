@@ -75,6 +75,7 @@ import {
 import { getUniqueId } from "../base/NineZone.js";
 import {
   isPanelWidgetRestoreState,
+  MIN_POPOUT_WINDOW_SIZE,
   type PanelWidgetRestoreState,
 } from "./WidgetRestoreState.js";
 import {
@@ -673,15 +674,19 @@ export function NineZoneStateReducer(
       // Enforce a minimum size so a popout window can never shrink to an invisible or
       // unusable size across repeated pop-out cycles (see AB#2024472). Matches the
       // minimum size used for floating widgets (see `minWidth`/`minHeight` in `Widget.tsx`).
-      const minPopoutWidth = 200;
-      const minPopoutHeight = 200;
       if (
-        preferredBounds.getWidth() < minPopoutWidth ||
-        preferredBounds.getHeight() < minPopoutHeight
+        preferredBounds.getWidth() < MIN_POPOUT_WINDOW_SIZE.width ||
+        preferredBounds.getHeight() < MIN_POPOUT_WINDOW_SIZE.height
       ) {
         preferredBounds = preferredBounds.setSize({
-          width: Math.max(preferredBounds.getWidth(), minPopoutWidth),
-          height: Math.max(preferredBounds.getHeight(), minPopoutHeight),
+          width: Math.max(
+            preferredBounds.getWidth(),
+            MIN_POPOUT_WINDOW_SIZE.width
+          ),
+          height: Math.max(
+            preferredBounds.getHeight(),
+            MIN_POPOUT_WINDOW_SIZE.height
+          ),
         });
       }
 

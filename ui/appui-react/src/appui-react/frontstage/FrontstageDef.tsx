@@ -63,12 +63,7 @@ import {
   FRONTSTAGE_SETTINGS_NAMESPACE,
   getFrontstageStateSettingName,
 } from "../widget-panels/Frontstage.js";
-
-/** Minimum size (in pixels) enforced for a popped-out widget's child window so that it can
- * never shrink to an invisible or unusable size (see AB#2024472). Matches the minimum size
- * used for floating widgets (`minWidth`/`minHeight` in `Widget.tsx`).
- */
-const MIN_POPOUT_WINDOW_SIZE: SizeProps = { width: 200, height: 200 };
+import { MIN_POPOUT_WINDOW_SIZE } from "../layout/state/WidgetRestoreState.js";
 
 /** FrontstageDef class provides an API for a Frontstage.
  * @public

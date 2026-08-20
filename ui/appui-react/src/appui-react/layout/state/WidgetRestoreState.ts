@@ -7,11 +7,18 @@
  */
 
 import type { PanelSide } from "../widget-panels/PanelTypes.js";
+import type { SizeProps } from "../../utils/SizeProps.js";
 import type {
   FloatingWidgetState,
   PopoutWidgetState,
   WidgetState,
 } from "./WidgetState.js";
+
+/** Minimum size enforced for a popped-out widget window. */
+export const MIN_POPOUT_WINDOW_SIZE: SizeProps = {
+  width: 200,
+  height: 200,
+};
 
 /** @internal */
 export interface FloatingWidgetRestoreState {
@@ -45,7 +52,7 @@ export type TabRestoreState = WidgetRestoreState | PopoutWidgetRestoreState;
 
 /** @internal */
 export function isFloatingWidgetRestoreState(
-  state: WidgetRestoreState | TabRestoreState
+  state: TabRestoreState
 ): state is FloatingWidgetRestoreState {
   return "floatingWidget" in state;
 }
@@ -59,7 +66,7 @@ export function isPopoutWidgetRestoreState(
 
 /** @internal */
 export function isPanelWidgetRestoreState(
-  state: WidgetRestoreState | TabRestoreState
+  state: TabRestoreState
 ): state is PanelWidgetRestoreState {
   return "side" in state;
 }
