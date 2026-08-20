@@ -739,7 +739,6 @@ describe("FrontstageDef", () => {
     });
   });
 
-
   describe("dockWidgetContainer", () => {
     it("should dock popout widget", async () => {
       const frontstageDef = new FrontstageDef();
