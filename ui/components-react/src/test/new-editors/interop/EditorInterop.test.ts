@@ -589,5 +589,18 @@ describe("EditorInterop", () => {
         value: 1,
       });
     });
+
+    it("instance key", () => {
+      const value = {
+        key: { id: "0x1", className: "TestClass" },
+        label: "Test Navigation",
+      } satisfies InstanceKeyValue;
+      const primitiveValue = EditorInterop.convertToPrimitiveValue(value);
+      expect(primitiveValue).toMatchObject({
+        valueFormat: PropertyValueFormat.Primitive,
+        value: { id: "0x1", className: "TestClass" },
+        displayValue: "Test Navigation",
+      });
+    });
   });
 });
