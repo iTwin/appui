@@ -82,11 +82,11 @@ catalogs:
       specifier: ^5.8.1
       version: 5.8.1
     '@stratakit/bricks':
-      specifier: ^0.4.5
-      version: 0.4.5
+      specifier: ^0.5.6
+      version: 0.5.6
     '@stratakit/foundations':
-      specifier: ^0.3.5
-      version: 0.3.5
+      specifier: ^0.5.0
+      version: 0.5.0
     '@stratakit/icons':
       specifier: ^0.2.2
       version: 0.2.2
@@ -292,10 +292,10 @@ importers:
         version: 5.8.1
       '@stratakit/bricks':
         specifier: 'catalog:'
-        version: 0.4.5(@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.5.6(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/foundations':
         specifier: 'catalog:'
-        version: 0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-router':
         specifier: ^1.168.19
         version: 1.168.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -552,10 +552,10 @@ importers:
         version: 3.20.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/bricks':
         specifier: 'catalog:'
-        version: 0.4.5(@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.5.6(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/foundations':
         specifier: 'catalog:'
-        version: 0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@stratakit/icons':
         specifier: 'catalog:'
         version: 0.2.2
@@ -1223,20 +1223,36 @@ packages:
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
 
-  '@ariakit/core@0.4.19':
-    resolution: {integrity: sha512-PUj/J1eX/b+DkcYwP6m7/tzDUiX1SVST89coljTN6BdQwLYMSkhg71jXcZwmTX19jQmqV9VqhVkKeabLnvciQQ==}
+  '@ariakit/components@0.1.11':
+    resolution: {integrity: sha512-hFmfWKkK8jpATf39kNZSMDlG3o+tftfQwyooRhbPl/YCpFur+IGz5ZPA+PGIIfFjfdkAURLNDJPSeWtXO3xssQ==}
 
-  '@ariakit/react-core@0.4.25':
-    resolution: {integrity: sha512-7seOOJ6N71lIKMS2jtNzxITCRIirt7yRrZLLWE8bp4+tQbov96BqSNX8fNCXmr/bDvKWz9PL07YrPrGjTXJXgA==}
+  '@ariakit/react-components@0.5.0':
+    resolution: {integrity: sha512-NEpptkB3sJZrwTIIzFydyGjLGVLpfDt0X3naLh9x2Z0WyIkJuz6ZbzyWAxMrc9m4oNJgnex4cy5MZYndrJTtKQ==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  '@ariakit/react@0.4.25':
-    resolution: {integrity: sha512-Gs/YgXrz0gCj0k/AWD7Ia9bw5vLPAJpG0KRiv6T/5Tg/DTZYihtE9blWGWhgGu+bSrp1IratNbQLkAvQ4J99cQ==}
+  '@ariakit/react-store@0.1.10':
+    resolution: {integrity: sha512-DTpWLkfZDWDJqqH9aIcu/AYft1o3BGk/apkJyzSdSZtdFgOqcvDH+9m8zuuF6wMoZghpiS1pysRMk1X7gXVjfw==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@ariakit/react-utils@0.2.5':
+    resolution: {integrity: sha512-VfE0o5SH3TxEoivA8KgKd6Z+h1zDIYdRPEKxTCEOuBFwMlayGZbOxmmZGBZdmkg1M3GTf4iNfUfpFqAh0mUYqw==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@ariakit/react@0.4.38':
+    resolution: {integrity: sha512-VubItCXqly9GNFxulOYDkFP94jh1M5iHeuo0BDTTiN1ndrGNeZCvsRUWd06BC9yjg+/LKEAnFLeolE1pG1IQBg==}
     peerDependencies:
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@ariakit/store@0.1.9':
+    resolution: {integrity: sha512-VXT8GQxmbKR4KKWiZuuVL8Bkvsz7IT5sLYppPnFsmszl1KeKR6dcbo08VKVk6yGL6Gu1AvqmrMwV02DMAv5ZAQ==}
+
+  '@ariakit/utils@0.2.0':
+    resolution: {integrity: sha512-y8GtynpLOsjz4H1juJEVRXtrL2+TEt+wIVoz09cnAnWVMfXggN2akH+vF6dP4jPJd0/F2yniwe08cLpkua+HWw==}
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
@@ -3692,15 +3708,14 @@ packages:
       typescript:
         optional: true
 
-  '@stratakit/bricks@0.4.5':
-    resolution: {integrity: sha512-Ytr4b7Vnc1kEbgZnt1eQBa4RkPSMK8ch8Jizx6u29oaIW7zY3H5QCNOaxxZ3iLCMv7fc76dLzKzSdZyU6UX1qA==}
+  '@stratakit/bricks@0.5.6':
+    resolution: {integrity: sha512-c4hNO7c+2MqNcKrL6pO2GjXABZzszf0vVbPy3QrnXMWelEOw7wOU30igZjVr/lxHr0V+tQki++2b1eUL5uRXQg==}
     peerDependencies:
-      '@stratakit/foundations': ^0.3.5
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
 
-  '@stratakit/foundations@0.3.5':
-    resolution: {integrity: sha512-3HIYC6Kh9HMqAd2moWD1mgYVSaxXSo+fTxJZyy/5FKcbDGea2rtQZtx1I/VR764sskSqlf8EEXGEegkCvTv0sg==}
+  '@stratakit/foundations@0.5.0':
+    resolution: {integrity: sha512-aFNtrsAmJ1ANzuwvm4YHfs6qxGUsSOgU980Z5MG+Xg0EB8apBq6cbf4YLWr980X3WB8u7qAfLQWkTkIqLhqTVA==}
     peerDependencies:
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
@@ -3712,6 +3727,12 @@ packages:
 
   '@stratakit/icons@0.2.2':
     resolution: {integrity: sha512-CXv2z0PhC+KU1dqZ//1gxZe2LTToO5WbhFmI65H1+VNDeZ+WH9GnaWHhOnmY54s0jQjOwut7jjSKkYXJbL8llg==}
+
+  '@stratakit/internal-utils@0.1.0':
+    resolution: {integrity: sha512-x14/ZHm88vTj0ZgThG+bbujclhFnsq+PewwPhrSD4L52u1lj8TabgCTggwmtkJsl+6V2BMYNgI/Z3+ZPEl0PAg==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   '@swc/core-darwin-arm64@1.15.24':
     resolution: {integrity: sha512-uM5ZGfFXjtvtJ+fe448PVBEbn/CSxS3UAyLj3O9xOqKIWy3S6hPTXSPbszxkSsGDYKi+YFhzAsR4r/eXLxEQ0g==}
@@ -7182,6 +7203,11 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
 
+  react-compiler-runtime@1.0.0:
+    resolution: {integrity: sha512-rRfjYv66HlG8896yPUDONgKzG5BxZD1nV9U6rkm+7VCuvQc903C4MjcoZR4zPw53IKSOX9wMQVpA1IAbRtzQ7w==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0 || ^0.0.0-experimental
+
   react-docgen-typescript@2.4.0:
     resolution: {integrity: sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==}
     peerDependencies:
@@ -8444,21 +8470,47 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.13
       '@jridgewell/trace-mapping': 0.3.31
 
-  '@ariakit/core@0.4.19': {}
-
-  '@ariakit/react-core@0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@ariakit/components@0.1.11':
     dependencies:
-      '@ariakit/core': 0.4.19
+      '@ariakit/store': 0.1.9
+      '@ariakit/utils': 0.2.0
+
+  '@ariakit/react-components@0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      '@ariakit/components': 0.1.11
+      '@ariakit/react-store': 0.1.10(react@19.2.5)
+      '@ariakit/react-utils': 0.2.5(react@19.2.5)
+      '@ariakit/store': 0.1.9
+      '@ariakit/utils': 0.2.0
       '@floating-ui/dom': 1.7.6
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
+
+  '@ariakit/react-store@0.1.10(react@19.2.5)':
+    dependencies:
+      '@ariakit/react-utils': 0.2.5(react@19.2.5)
+      '@ariakit/store': 0.1.9
+      '@ariakit/utils': 0.2.0
+      react: 19.2.5
       use-sync-external-store: 1.6.0(react@19.2.5)
 
-  '@ariakit/react@0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@ariakit/react-utils@0.2.5(react@19.2.5)':
     dependencies:
-      '@ariakit/react-core': 0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ariakit/store': 0.1.9
+      '@ariakit/utils': 0.2.0
+      react: 19.2.5
+
+  '@ariakit/react@0.4.38(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      '@ariakit/react-components': 0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
+
+  '@ariakit/store@0.1.9':
+    dependencies:
+      '@ariakit/utils': 0.2.0
+
+  '@ariakit/utils@0.2.0': {}
 
   '@asamuzakjp/css-color@3.2.0':
     dependencies:
@@ -11162,23 +11214,33 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@stratakit/bricks@0.4.5(@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@stratakit/bricks@0.5.6(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@ariakit/react': 0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      '@stratakit/foundations': 0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ariakit/react': 0.4.38(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/foundations': 0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/internal-utils': 0.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames: 2.5.1
       react: 19.2.5
+      react-compiler-runtime: 1.0.0(react@19.2.5)
       react-dom: 19.2.5(react@19.2.5)
 
-  '@stratakit/foundations@0.3.5(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@stratakit/foundations@0.5.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@ariakit/react': 0.4.25(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@ariakit/react': 0.4.38(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/internal-utils': 0.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames: 2.5.1
+      react-compiler-runtime: 1.0.0(react@19.2.5)
     optionalDependencies:
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
 
   '@stratakit/icons@0.2.2': {}
+
+  '@stratakit/internal-utils@0.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+    dependencies:
+      react: 19.2.5
+      react-compiler-runtime: 1.0.0(react@19.2.5)
+      react-dom: 19.2.5(react@19.2.5)
 
   '@swc/core-darwin-arm64@1.15.24':
     optional: true
@@ -15213,6 +15275,10 @@ snapshots:
       react-themeable: 1.1.0
       section-iterator: 2.0.0
       shallow-equal: 1.2.1
+
+  react-compiler-runtime@1.0.0(react@19.2.5):
+    dependencies:
+      react: 19.2.5
 
   react-docgen-typescript@2.4.0(typescript@5.6.3):
     dependencies:
