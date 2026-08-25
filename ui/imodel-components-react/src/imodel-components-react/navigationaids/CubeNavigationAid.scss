@@ -84,25 +84,16 @@ $arrow-margin: -3px;
       .cube-left,
       .cube-right,
       .cube-front,
-      .cube-back,
-      .cube-top,
-      .cube-bottom {
-        background-color: $grad-start;
-      }
-
-      .cube-left,
-      .cube-right,
-      .cube-front,
       .cube-back {
         background: linear-gradient(#{$grad-start}, #{$grad-end});
       }
 
-      .cube-top {
-        background: $grad-start;
-      }
-
       .cube-bottom {
         background: linear-gradient(#{$grad-end}, #{$grad-end});
+      }
+
+      .face {
+        background-color: $grad-start;
       }
 
       &.cube-dragging {
