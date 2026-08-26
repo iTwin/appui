@@ -88,12 +88,12 @@ $arrow-margin: -3px;
         background: linear-gradient(#{$grad-start}, #{$grad-end});
       }
 
-      .cube-top {
-        background: $grad-start;
+      .cube-bottom {
+        background: linear-gradient(#{$grad-end}, #{$grad-end});
       }
 
-      .cube-bottom {
-        background: $grad-end;
+      .face {
+        background-color: $grad-start;
       }
 
       &.cube-dragging {
