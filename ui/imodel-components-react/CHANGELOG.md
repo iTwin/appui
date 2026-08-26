@@ -1,5 +1,14 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.33.3
+
+### Patch Changes
+
+- 68423de: Fixed issue where navigation cube would appear semi-transparent when theme bridge was enabled.
+- Updated dependencies [b6f0279]
+  - @itwin/components-react@5.33.3
+  - @itwin/core-react@5.33.3
+
 ## 5.33.2
 
 ### Patch Changes
