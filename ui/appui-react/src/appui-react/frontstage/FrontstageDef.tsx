@@ -80,6 +80,8 @@ export class FrontstageDef {
   private _statusBar?: WidgetDef;
   private _contentManipulation?: WidgetDef;
   private _viewNavigation?: WidgetDef;
+  private _bottomContentManipulation?: WidgetDef;
+  private _bottomViewNavigation?: WidgetDef;
   private _topPanel?: StagePanelDef;
   private _leftPanel?: StagePanelDef;
   private _rightPanel?: StagePanelDef;
@@ -129,6 +131,12 @@ export class FrontstageDef {
   }
   public get viewNavigation(): WidgetDef | undefined {
     return this._viewNavigation;
+  }
+  public get bottomContentManipulation(): WidgetDef | undefined {
+    return this._bottomContentManipulation;
+  }
+  public get bottomViewNavigation(): WidgetDef | undefined {
+    return this._bottomViewNavigation;
   }
 
   public get topPanel(): StagePanelDef | undefined {
@@ -598,6 +606,14 @@ export class FrontstageDef {
     );
     this._viewNavigation = createWidgetDef(
       config.viewNavigation,
+      WidgetType.Navigation
+    );
+    this._bottomContentManipulation = createWidgetDef(
+      config.bottomContentManipulation,
+      WidgetType.Tool
+    );
+    this._bottomViewNavigation = createWidgetDef(
+      config.bottomViewNavigation,
       WidgetType.Navigation
     );
     this._topPanel = createStagePanelDef(config, StagePanelLocation.Top);

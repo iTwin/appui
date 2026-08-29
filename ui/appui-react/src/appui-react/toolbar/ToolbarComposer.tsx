@@ -257,9 +257,19 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
 
 function toExpandsTo(orientation: ToolbarOrientation, usage: ToolbarUsage) {
   if (orientation === ToolbarOrientation.Vertical) {
-    if (usage === ToolbarUsage.ViewNavigation) return Direction.Left;
+    if (
+      usage === ToolbarUsage.ViewNavigation ||
+      usage === ToolbarUsage.BottomViewNavigation
+    )
+      return Direction.Left;
     return Direction.Right;
   }
+
+  if (
+    usage === ToolbarUsage.BottomContentManipulation ||
+    usage === ToolbarUsage.BottomViewNavigation
+  )
+    return Direction.Top;
 
   return Direction.Bottom;
 }
@@ -270,7 +280,8 @@ function toPanelAlignment(
 ) {
   if (
     orientation === ToolbarOrientation.Horizontal &&
-    usage === ToolbarUsage.ViewNavigation
+    (usage === ToolbarUsage.ViewNavigation ||
+      usage === ToolbarUsage.BottomViewNavigation)
   )
     return ToolbarPanelAlignment.End;
 
