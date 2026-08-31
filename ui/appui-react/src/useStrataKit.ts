@@ -2,6 +2,9 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+
+/* eslint-disable @typescript-eslint/no-restricted-imports */
+
 import { Icon } from "@stratakit/mui";
 import svgAdd from "@stratakit/icons/add.svg";
 import svgAirplane from "@stratakit/icons/airplane.svg";
@@ -37,6 +40,7 @@ import svgList from "@stratakit/icons/list.svg";
 import svgLock from "@stratakit/icons/lock.svg";
 import svgLockUnlocked from "@stratakit/icons/lock-unlocked.svg";
 import svgMeasure from "@stratakit/icons/measure.svg";
+import svgMeasureAngle from "@stratakit/icons/measure-angle.svg";
 import svgMeasureDistance from "@stratakit/icons/measure-distance.svg";
 import svgMeasureLocation from "@stratakit/icons/measure-location.svg";
 import svgMore from "@stratakit/icons/more-horizontal.svg";
@@ -66,6 +70,9 @@ import svgWindowMaximize from "@stratakit/icons/window-maximize.svg";
 import svgWindowMinimize from "@stratakit/icons/window-minimize.svg";
 import svgWindowPopout from "@stratakit/icons/window-popout.svg";
 import svgWindowSettings from "@stratakit/icons/window-settings.svg";
+
+/* eslint-enable @typescript-eslint/no-restricted-imports */
+
 import { StrataKitSymbol } from "./appui-react/preview/PreviewFeatures.js";
 
 /** @public */
@@ -110,6 +117,7 @@ export function enable() {
     "@stratakit/icons/lock.svg": svgLock,
     "@stratakit/icons/lock-unlocked.svg": svgLockUnlocked,
     "@stratakit/icons/measure.svg": svgMeasure,
+    "@stratakit/icons/measure-angle.svg": svgMeasureAngle,
     "@stratakit/icons/measure-distance.svg": svgMeasureDistance,
     "@stratakit/icons/measure-location.svg": svgMeasureLocation,
     "@stratakit/icons/more-horizontal.svg": svgMore,

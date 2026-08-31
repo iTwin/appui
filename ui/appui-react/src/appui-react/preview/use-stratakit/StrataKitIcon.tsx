@@ -8,7 +8,7 @@ import { Icon as IconSpecRenderer } from "@itwin/core-react";
 import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
 
 import type { IconSpec } from "@itwin/core-react";
-import type { Icon } from "@stratakit/foundations";
+import type { Icon } from "@stratakit/mui";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
