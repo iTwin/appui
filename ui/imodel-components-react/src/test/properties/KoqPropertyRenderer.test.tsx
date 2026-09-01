@@ -3,7 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { act, cleanup, render, waitFor } from "@testing-library/react";
+import { act, render, waitFor } from "@testing-library/react";
 import * as React from "react";
 import type { MockedFunction } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
