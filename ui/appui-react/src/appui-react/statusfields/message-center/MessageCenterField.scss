@@ -22,3 +22,19 @@
 .uifw-statusFields-messageCenter-messageCenterField_popover {
   width: 305px;
 }
+
+.uifw-statusFields-messageCenter-messageCenterField_negativeIcon {
+  color: var(--iui-color-icon-negative);
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_warningIcon {
+  color: var(--iui-color-icon-warning);
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_informationalIcon {
+  color: var(--iui-color-icon-informational);
+}
+
+.uifw-statusFields-messageCenter-messageCenterField_positiveIcon {
+  color: var(--iui-color-icon-positive);
+}

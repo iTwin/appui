@@ -187,29 +187,50 @@ function MessageIcon({ priority }: MessageIconProps) {
     case OutputMessagePriority.Error:
     case OutputMessagePriority.Fatal:
       return (
-        <Icon fill="negative">
-          <StrataKitIcon href={svgStatusError} iconNode={<SvgStatusError />} />
-        </Icon>
+        <StrataKitIcon
+          className="uifw-statusFields-messageCenter-messageCenterField_negativeIcon"
+          href={svgStatusError}
+          iconNode={
+            <Icon fill="negative">
+              <SvgStatusError />
+            </Icon>
+          }
+        />
       );
     case OutputMessagePriority.Warning:
       return (
-        <Icon fill="warning">
-          <StrataKitIcon
-            href={svgStatusWarning}
-            iconNode={<SvgStatusWarning />}
-          />
-        </Icon>
+        <StrataKitIcon
+          className="uifw-statusFields-messageCenter-messageCenterField_warningIcon"
+          href={svgStatusWarning}
+          iconNode={
+            <Icon fill="warning">
+              <SvgStatusWarning />
+            </Icon>
+          }
+        />
       );
     case OutputMessagePriority.Info:
       return (
-        <Icon fill="informational">
-          <StrataKitIcon href={svgInfo} iconNode={<SvgInfo />} />
-        </Icon>
+        <StrataKitIcon
+          className="uifw-statusFields-messageCenter-messageCenterField_informationalIcon"
+          href={svgInfo}
+          iconNode={
+            <Icon fill="informational">
+              <SvgInfo />
+            </Icon>
+          }
+        />
       );
   }
   return (
-    <Icon fill="positive">
-      <StrataKitIcon href={svgStatusSuccess} iconNode={<SvgStatusSuccess />} />
-    </Icon>
+    <StrataKitIcon
+      className="uifw-statusFields-messageCenter-messageCenterField_positiveIcon"
+      href={svgStatusSuccess}
+      iconNode={
+        <Icon fill="positive">
+          <SvgStatusSuccess />
+        </Icon>
+      }
+    />
   );
 }

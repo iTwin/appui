@@ -12,7 +12,7 @@ import type { Icon } from "@stratakit/mui";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
-interface StrataKitIconProps extends Pick<IconProps, "size"> {
+interface StrataKitIconProps extends IconProps {
   href?: string;
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
@@ -27,14 +27,14 @@ interface StrataKitIconProps extends Pick<IconProps, "size"> {
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { href, iconSpec, iconNode, size } = props;
+  const { href, iconSpec, iconNode, size, ...rest } = props;
   const { useStrataKit } = usePreviewFeatures();
 
   const modules = useStrataKit?.[StrataKitSymbol]?.modules;
   const { Icon } = modules?.["@stratakit/mui"] ?? {};
 
   if (href && Icon) {
-    return <Icon size={size} href={href} />;
+    return <Icon {...rest} size={size} href={href} />;
   }
 
   if (iconNode) return iconNode;
