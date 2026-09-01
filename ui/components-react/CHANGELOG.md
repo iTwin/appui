@@ -1,5 +1,12 @@
 # Change Log - @itwin/components-react
 
+## 5.33.3
+
+### Patch Changes
+
+- b6f0279: Fix committing instance key values from new editors backed by navigation properties.
+  - @itwin/core-react@5.33.3
+
 ## 5.33.2
 
 ### Patch Changes

@@ -19,6 +19,7 @@ import {
   isBoolean,
   isDate,
   isEnum,
+  isInstanceKey,
   isNumeric,
   isText,
 } from "../values/ValueUtilities.js";
@@ -200,6 +201,13 @@ export namespace EditorInterop {
       return {
         valueFormat: PropertyValueFormat.Primitive,
         value: newValue.choice,
+      };
+    }
+    if (isInstanceKey(newValue)) {
+      return {
+        valueFormat: PropertyValueFormat.Primitive,
+        value: newValue.key,
+        displayValue: newValue.label,
       };
     }
 
