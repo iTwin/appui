@@ -56,13 +56,17 @@ function KoqRenderer(props: {
 }) {
   const { record, context } = props;
   const imodel = useIModelConnection();
+  const version = useFormattingChangeVersion(
+    record.property.kindOfQuantityName
+  );
   const stringValueCalculator = React.useCallback(
     async (recordToFormat: PropertyRecord) => {
       return imodel
         ? formatKoqValue(recordToFormat, imodel)
         : convertRecordToString(recordToFormat);
     },
-    [imodel]
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- version is intentionally included to force a reformat when the formatting changes
+    [imodel, version]
   );
   return (
     <PrimitivePropertyValueRendererImpl
@@ -71,6 +75,51 @@ function KoqRenderer(props: {
       stringValueCalculator={stringValueCalculator}
     />
   );
+}
+
+/**
+ * Returns a counter that increments whenever the active formatting unit system
+ * or the formats relevant to the given kind of quantity change. Used as part of
+ * the rendered component `key` to force a remount so the KOQ value is
+ * re-formatted and the rendered value stays up to date.
+ */
+function useFormattingChangeVersion(koqName: string | undefined): number {
+  const [version, setVersion] = React.useState(0);
+  React.useEffect(() => {
+    const bump = () => setVersion((prev) => prev + 1);
+
+    const removeListeners = [
+      IModelApp.quantityFormatter.onActiveFormattingUnitSystemChanged.addListener(
+        bump
+      ),
+      IModelApp.quantityFormatter.onQuantityFormatsChanged.addListener(
+        ({ quantityType }) => {
+          if (quantityType === koqName) {
+            bump();
+          }
+        }
+      ),
+    ];
+    if (IModelApp.formatsProvider) {
+      removeListeners.push(
+        IModelApp.formatsProvider.onFormatsChanged.addListener(
+          ({ formatsChanged }) => {
+            if (
+              formatsChanged === "all" ||
+              formatsChanged.some((formatName) => formatName === koqName)
+            ) {
+              bump();
+            }
+          }
+        )
+      );
+    }
+
+    return () => {
+      removeListeners.forEach((remove) => remove());
+    };
+  }, [koqName]);
+  return version;
 }
 
 async function formatKoqValue(
