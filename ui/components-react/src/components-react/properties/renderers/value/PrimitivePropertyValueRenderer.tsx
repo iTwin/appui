@@ -87,7 +87,11 @@ export function useRenderedStringValue(
   context?: PropertyValueRendererContext,
   linksHandler?: LinkElementsInfo
 ): { stringValue?: string; element: React.ReactNode } {
-  const stringValue = useAsyncValue(stringValueCalculator(record));
+  const calculatedValue = React.useMemo(
+    async () => stringValueCalculator(record),
+    [record, stringValueCalculator]
+  );
+  const stringValue = useAsyncValue(calculatedValue);
   const el =
     stringValue === undefined ? (
       context?.defaultValue

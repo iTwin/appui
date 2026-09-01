@@ -3,8 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { render } from "@testing-library/react";
-import { act } from "@testing-library/react";
+import { act, cleanup, render, waitFor } from "@testing-library/react";
 import * as React from "react";
 import type { MockedFunction } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -321,9 +320,8 @@ describe("KoqPropertyValueRenderer", () => {
           {renderer.render(property)}
         </IModelConnectionProvider>
       );
-
       await findByText("10 m");
-      const callsAfterInitialRender = formatSpy.mock.calls.length;
+      formatSpy.mockClear();
 
       act(() => {
         IModelApp.quantityFormatter.onQuantityFormatsChanged.emit({
@@ -331,8 +329,7 @@ describe("KoqPropertyValueRenderer", () => {
         });
       });
 
-      await findByText("10 m");
-      expect(formatSpy.mock.calls.length).toEqual(callsAfterInitialRender);
+      await waitFor(() => expect(formatSpy).not.toHaveBeenCalled());
     });
 
     it("re-renders when all formats change on the formats provider", async () => {
@@ -444,9 +441,8 @@ describe("KoqPropertyValueRenderer", () => {
           {renderer.render(property)}
         </IModelConnectionProvider>
       );
-
       await findByText("10 m");
-      const callsAfterInitialRender = formatSpy.mock.calls.length;
+      formatSpy.mockClear();
 
       act(() => {
         onFormatsChanged.raiseEvent({
@@ -454,8 +450,7 @@ describe("KoqPropertyValueRenderer", () => {
         });
       });
 
-      await findByText("10 m");
-      expect(formatSpy.mock.calls.length).toEqual(callsAfterInitialRender);
+      await waitFor(() => expect(formatSpy).not.toHaveBeenCalled());
     });
   });
 });
