@@ -54,6 +54,11 @@ module.exports = [
               group: ["@stratakit/structures"],
               message: "Importing from '@stratakit/structures' is not allowed.",
             },
+            {
+              group: ["**/useStrataKit.js"],
+              message: "Importing from 'useStrataKit.js' is not allowed.",
+              allowTypeImports: true,
+            },
           ],
         },
       ],
