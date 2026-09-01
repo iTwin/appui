@@ -88,7 +88,7 @@ export function useRenderedStringValue(
   linksHandler?: LinkElementsInfo
 ): { stringValue?: string; element: React.ReactNode } {
   const calculatedValue = React.useMemo(
-    async () => stringValueCalculator(record),
+    (): string | Promise<string> => stringValueCalculator(record),
     [record, stringValueCalculator]
   );
   const stringValue = useAsyncValue(calculatedValue);
