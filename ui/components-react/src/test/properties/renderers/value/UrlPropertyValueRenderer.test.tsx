@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import { Id64 } from "@itwin/core-bentley";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import type { PropertyValueRendererContext } from "../../../../components-react/properties/ValueRendererManager.js";
 import TestUtils from "../../../TestUtils.js";
 import { UrlPropertyValueRenderer } from "../../../../components-react/properties/renderers/value/UrlPropertyValueRenderer.js";
@@ -13,26 +13,7 @@ import * as moq from "typemoq";
 
 describe("UrlPropertyValueRenderer", () => {
   describe("render", () => {
-    it("renders URI property wrapped in an anchored tag from value", () => {
-      const renderer = new UrlPropertyValueRenderer();
-      const property = TestUtils.createURIProperty(
-        "Category",
-        "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10DocumentsSouthern Program Alliance"
-      );
-
-      const element = renderer.render(property);
-      const elementRender = render(<>{element}</>);
-
-      expect(
-        elementRender.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0].textContent
-      ).toEqual(
-        "Test Uri Value: pw:\\wsp-aus-pw.bentley.com:wsp-aus-pw-10DocumentsSouthern Program Alliance"
-      );
-    });
-
-    it("renders URI property wrapped in an anchored tag if custom LinkElementsInfo is specified in the PropertyRecord", () => {
+    it("should wrap text based on matcher", () => {
       const renderer = new UrlPropertyValueRenderer();
       const property: PropertyRecord = TestUtils.createURIProperty(
         "Category",
@@ -44,14 +25,17 @@ describe("UrlPropertyValueRenderer", () => {
         matcher: () => [{ start: 0, end: 4 }],
       };
 
-      const element = renderer.render(property);
-      const elementRender = render(<>{element}</>);
+      const element = renderer.render(property, {
+        textHighlighter: (text: string) => {
+          if (text === "Test") {
+            return <div>Wrapped-Test</div>;
+          }
+          return text;
+        },
+      });
+      const { getByText } = render(<>{element}</>);
 
-      expect(
-        elementRender.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0].textContent
-      ).toEqual("Test");
+      getByText("Wrapped-Test");
     });
 
     it("renders URI property with highlighting and in anchored tag", () => {
@@ -61,22 +45,17 @@ describe("UrlPropertyValueRenderer", () => {
         "Test property"
       );
 
-      const highlightNode = (text: string) => (
+      const textHighlighter = (text: string) => (
         <span>{`${text} Highlighted`}</span>
       );
       const renderContext: PropertyValueRendererContext = {
-        textHighlighter: highlightNode,
+        textHighlighter,
       };
 
       const element = renderer.render(stringProperty, renderContext);
-      const renderedElement = render(<>{element}</>);
+      const { getByText } = render(<>{element}</>);
 
-      renderedElement.getByText("Test property Highlighted");
-      expect(
-        renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )
-      ).to.not.be.empty;
+      getByText("Test property Highlighted");
     });
 
     it("throws when trying to render array property", () => {
@@ -99,49 +78,51 @@ describe("UrlPropertyValueRenderer", () => {
         locationMockRef.reset();
       });
 
-      it("opens window using the whole URI value, when link which doesn't start with pw: or mailto: is clicked", () => {
+      it("renders as text when links are not found", () => {
         const renderer = new UrlPropertyValueRenderer();
         const stringProperty = TestUtils.createURIProperty(
           "Label",
           "Random Test property"
         );
-        const spy = vi.spyOn(window, "open");
-        spy.mockReturnValue(null);
 
         const element = renderer.render(stringProperty);
-        const renderedElement = render(<>{element}</>);
+        const { queryByRole } = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0];
-
-        expect(linkElement.textContent).toEqual("Random Test property");
-
-        fireEvent.click(linkElement);
-        expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
+        const link = queryByRole("link");
+        expect(link).toEqual(null);
       });
 
-      it("sets location.href to the whole URI value, when link starting with pw: is clicked", () => {
+      it("renders with pw: link", () => {
         const renderer = new UrlPropertyValueRenderer();
         const stringProperty = TestUtils.createURIProperty(
           "Label",
-          "pw:Test property"
+          "pw://Test property"
         );
 
         const element = renderer.render(stringProperty);
-        const renderedElement = render(<>{element}</>);
+        const { getByRole } = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0];
-        expect(linkElement.textContent).toEqual("pw:Test property");
-
-        const spy = vi.spyOn(window, "open");
-        fireEvent.click(linkElement);
-        expect(spy).toHaveBeenCalledWith("pw:Test property", "_blank");
+        getByRole("link", {
+          name: "pw://Test property (opens in new tab)",
+        });
       });
 
-      it("sets location.href to the whole URI value, when link starting with mailto: is clicked", () => {
+      it("renders with mailto: link", () => {
+        const renderer = new UrlPropertyValueRenderer();
+        const stringProperty = TestUtils.createURIProperty(
+          "Label",
+          "mailto:test@test.com"
+        );
+
+        const element = renderer.render(stringProperty);
+        const { getByRole } = render(<>{element}</>);
+
+        getByRole("link", {
+          name: "mailto:test@test.com (opens in new tab)",
+        });
+      });
+
+      it("renders as text with incorrect mailto:", () => {
         const renderer = new UrlPropertyValueRenderer();
         const stringProperty = TestUtils.createURIProperty(
           "Label",
@@ -149,42 +130,10 @@ describe("UrlPropertyValueRenderer", () => {
         );
 
         const element = renderer.render(stringProperty);
-        const renderedElement = render(<>{element}</>);
+        const { queryByRole } = render(<>{element}</>);
 
-        const linkElement = renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0];
-
-        expect(linkElement.textContent).toEqual("mailto:Test property");
-
-        fireEvent.click(linkElement);
-        expect(locationMockRef.object.href).toEqual("mailto:Test property");
-      });
-
-      it("calls window.open.focus if window.open returns not null", () => {
-        const renderer = new UrlPropertyValueRenderer();
-        const stringProperty = TestUtils.createURIProperty(
-          "Label",
-          "Random Test property"
-        );
-        const windowMock = moq.Mock.ofType<Window>();
-        windowMock.setup((x) => x.focus());
-
-        const spy = vi.spyOn(window, "open");
-        spy.mockReturnValue(windowMock.object);
-
-        const element = renderer.render(stringProperty);
-        const renderedElement = render(<>{element}</>);
-
-        const linkElement = renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0];
-
-        expect(linkElement.textContent).toEqual("Random Test property");
-
-        fireEvent.click(linkElement);
-        expect(spy).toHaveBeenCalledWith("Random Test property", "_blank");
-        windowMock.verify((x) => x.focus(), moq.Times.once());
+        const link = queryByRole("link");
+        expect(link).toEqual(null);
       });
     });
   });

@@ -71,15 +71,9 @@ describe("DoublePropertyValueRenderer", () => {
       };
 
       const element = renderer.render(property);
-      const renderedElement = render(<>{element}</>);
+      const { getByText } = render(<>{element}</>);
 
-      renderedElement.getByText("zero point forty five meters");
-
-      expect(
-        renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )
-      ).to.not.be.empty;
+      getByText("zero point forty five meters");
     });
 
     it("renders double property with highlighting", () => {

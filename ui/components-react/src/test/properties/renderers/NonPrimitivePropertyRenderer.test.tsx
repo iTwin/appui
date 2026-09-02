@@ -70,8 +70,8 @@ describe("NonPrimitivePropertyRenderer", () => {
         ])}
       />
     );
-    expect(screen.getByTitle("Water pipe")).to.exist;
-    expect(screen.getByTitle("Sewage pipe")).to.exist;
+    screen.getByText("Water pipe");
+    screen.getByText("Sewage pipe");
   });
 
   it("changes component state from collapsed to expanded when label is clicked", async () => {
@@ -122,10 +122,10 @@ describe("NonPrimitivePropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByTitle("Title")).to.exist;
-    expect(screen.getByTitle("Model")).to.exist;
-    expect(screen.queryByTitle("Size")).toEqual(null);
-    expect(screen.queryByTitle("Huge")).toEqual(null);
+    screen.getByText("Title");
+    screen.getByText("Model");
+    expect(screen.queryByText("Size")).toEqual(null);
+    expect(screen.queryByText("Huge")).toEqual(null);
   });
 
   it("renders property with an offset when indentation is more than 0", () => {
