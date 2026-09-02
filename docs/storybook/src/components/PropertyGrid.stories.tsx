@@ -517,7 +517,24 @@ export const Links: Story = {
       records: {
         Group_1: [
           PropertyRecord.fromString("https://www.bentley.com"),
+          PropertyRecord.fromString("www.bentley.com"),
           PropertyRecord.fromString("pw://test"),
+          PropertyRecord.fromString(
+            "https://itwinui.bentley.com,https://stratakit.bentley.com"
+          ),
+          PropertyRecord.fromString("mailto:test@test.com"),
+          PropertyRecord.fromString("test@test.com"),
+          createPropertyRecord(
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: "https://itwinui.bentley.com",
+            },
+            {
+              name: "urlProperty",
+              displayLabel: "URL Property",
+              typename: StandardTypeNames.URL,
+            }
+          ),
         ],
       },
     },

@@ -9,7 +9,7 @@
 import type { PropertyRecord } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import type { HighlightingComponentProps } from "../../common/HighlightingComponentProps.js";
-import { matchLinks, openLink } from "../../common/Links.js";
+import { matchLinks } from "../../common/Links.js";
 import type { PropertyUpdatedArgs } from "../../editors/EditorContainer.js";
 import type { ActionButtonRenderer } from "../../properties/renderers/ActionButtonRenderer.js";
 import type { PropertyValueRendererManager } from "../../properties/ValueRendererManager.js";
@@ -125,21 +125,6 @@ export class PropertyGridCommons {
     if (width < horizontalOrientationMinWidth) return Orientation.Vertical;
 
     return orientation;
-  }
-
-  /**
-   * Helper method to handle link clicks
-   * @internal
-   */
-  public static handleLinkClick(text: string) {
-    const linksArray = matchLinks(text);
-    if (linksArray.length <= 0) return;
-    const foundLink = linksArray[0];
-    if (!foundLink || !foundLink.url) {
-      return;
-    }
-
-    openLink(foundLink.url);
   }
 
   /**

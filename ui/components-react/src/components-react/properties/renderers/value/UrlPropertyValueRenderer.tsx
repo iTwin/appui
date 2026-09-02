@@ -15,7 +15,6 @@ import type {
 } from "../../ValueRendererManager.js";
 import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer.js";
 import { convertRecordToString } from "./Common.js";
-import { openLink } from "../../../common/Links.js";
 
 /**
  * URL property value renderer that renders the whole value as a URL without matching it
@@ -53,5 +52,5 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
 }
 
 const URI_PROPERTY_LINK_HANDLER: LinkElementsInfo = {
-  onClick: openLink,
+  onClick: () => {},
 };
