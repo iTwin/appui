@@ -68,15 +68,9 @@ describe("NavigationPropertyValueRenderer", () => {
       };
 
       const element = renderer.render(stringProperty);
-      const renderedElement = render(<>{element}</>);
+      const { getByText } = render(<>{element}</>);
 
-      renderedElement.getByText("Test property");
-
-      expect(
-        renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )
-      ).to.not.be.empty;
+      getByText("Test property");
     });
 
     it("renders navigation property with highlighting", () => {

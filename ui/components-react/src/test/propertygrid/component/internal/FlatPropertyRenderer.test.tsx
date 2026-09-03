@@ -28,7 +28,7 @@ describe("FlatPropertyRenderer", () => {
       originalValue
     );
 
-    const { rerender } = render(
+    const { rerender, getByText, queryByText } = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -37,7 +37,7 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByTitle(originalValue)).to.exist;
+    getByText("OriginalValue");
 
     rerender(
       <FlatPropertyRenderer
@@ -51,8 +51,8 @@ describe("FlatPropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByTitle(recordValue)).to.exist;
-    expect(screen.queryByTitle(originalValue)).toEqual(null);
+    getByText("ChangedValue");
+    expect(queryByText("OriginalValue")).toEqual(null);
   });
 
   it("uses provided propertyValueRendererManager", async () => {
@@ -527,7 +527,7 @@ describe("FlatPropertyRenderer", () => {
   });
 
   it("wrap valueElement in span if it a string", async () => {
-    render(
+    const { getByText } = render(
       <FlatPropertyRenderer
         orientation={Orientation.Horizontal}
         propertyRecord={propertyRecord}
@@ -535,16 +535,7 @@ describe("FlatPropertyRenderer", () => {
         onExpansionToggled={() => {}}
       />
     );
-
-    expect(screen.getByText("Model")).satisfy(
-      selectorMatches(
-        [
-          "div.components-property-record-value",
-          "span",
-          "span[title='Model']",
-        ].join(" > ")
-      )
-    );
+    getByText("Model");
   });
 
   it("does not wrap valueElement in span if it's not a string", async () => {

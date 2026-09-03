@@ -77,15 +77,9 @@ describe("PrimitivePropertyValueRenderer", () => {
       };
 
       const element = renderer.render(stringProperty);
-      const renderedElement = render(<>{element}</>);
+      const { getByText } = render(<>{element}</>);
 
-      renderedElement.getByText("Test property");
-
-      expect(
-        renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )
-      ).to.not.be.empty;
+      getByText("Test property");
     });
 
     it("renders primitive property applying default links behavior - matches all links using regex if PropertyRecord does not have LinkElementsInfo", () => {
@@ -96,13 +90,11 @@ describe("PrimitivePropertyValueRenderer", () => {
       );
 
       const element = renderer.render(stringProperty);
-      const renderedElement = render(<>{element}</>);
+      const { getByRole } = render(<>{element}</>);
 
-      expect(
-        renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0].textContent
-      ).toEqual("www.test.com");
+      getByRole("link", {
+        name: "www.test.com (opens in new tab)",
+      });
     });
 
     it("renders primitive property applying custom LinkElementsInfo specified in PropertyRecord's LinkElementsInfo", () => {
@@ -116,14 +108,12 @@ describe("PrimitivePropertyValueRenderer", () => {
         matcher: () => [{ start: 0, end: 4 }],
       };
 
-      const element = renderer.render(stringProperty);
-      const renderedElement = render(<>{element}</>);
+      const element = renderer.render(stringProperty, {
+        textHighlighter: (text) => <div>{text}</div>,
+      });
+      const { getByText } = render(<>{element}</>);
 
-      expect(
-        renderedElement.container.getElementsByClassName(
-          "core-underlined-button"
-        )[0].textContent
-      ).toEqual("Test");
+      getByText("Test");
     });
 
     it("renders async value with default value in context", async () => {

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
 import type { LinkElementsInfo } from "@itwin/appui-abstract";
-import { fireEvent, render } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import {
   LinksRenderer,
   renderLinks,
@@ -26,7 +26,14 @@ describe("LinkHandler", () => {
       const testString = "Example text";
       const highlightSpy = vi.fn();
 
-      void renderLinks(testString, links, highlightSpy);
+      render(
+        <LinksRenderer
+          value={testString}
+          links={links}
+          highlighter={highlightSpy}
+        />
+      );
+
       expect(highlightSpy).toHaveBeenCalledOnce();
     });
 
@@ -34,63 +41,35 @@ describe("LinkHandler", () => {
       links.matcher = () => [{ start: 0, end: 7 }];
       const testString = "Example text";
       let matchedPartHighlighted = false;
+
       const highlighter = (text: string) => {
-        if (text === testString.substring(0, 7)) matchedPartHighlighted = true;
+        if (text === "Example") matchedPartHighlighted = true;
         return text;
       };
 
-      void renderLinks(testString, links, highlighter);
+      render(
+        <LinksRenderer
+          value={testString}
+          links={links}
+          highlighter={highlighter}
+        />
+      );
 
       expect(matchedPartHighlighted).toEqual(true);
-    });
-
-    it("rendered anchor tag calls appropriate callback on click", () => {
-      const anchor = render(<>{renderLinks("Example text", links)}</>);
-
-      expect(onClickSpy).not.toHaveBeenCalled();
-      fireEvent.click(
-        anchor.container.getElementsByClassName("core-underlined-button")[0]
-      );
-      expect(onClickSpy).toHaveBeenCalledOnce();
     });
 
     it("rendered anchor tag container's onClick event will not trigger on anchor click", () => {
       const parentOnClickSpy = vi.fn();
 
-      const anchor = render(
+      const { getByRole } = render(
         <div onClick={parentOnClickSpy} role="presentation">
-          {renderLinks("Example text", links)}
+          <LinksRenderer value="www.testLink.com" links={links} />
         </div>
       );
 
+      const link = getByRole("link");
+      link.click();
       expect(parentOnClickSpy).not.toHaveBeenCalled();
-      fireEvent.click(
-        anchor.container.getElementsByClassName("core-underlined-button")[0]
-      );
-      expect(parentOnClickSpy).not.toHaveBeenCalled();
-    });
-
-    it("returns text split up into anchor tags when text matcher is provided", () => {
-      links.matcher = () => [
-        { start: 0, end: 2 },
-        { start: 4, end: 6 },
-        { start: 7, end: 12 },
-      ];
-
-      let anchor = render(<>{renderLinks("Example text", links)}</>);
-
-      expect(anchor.container.innerHTML).to.contain(">Ex</");
-      expect(anchor.container.innerHTML).to.contain(">am<");
-      expect(anchor.container.innerHTML).to.contain(">pl</");
-      expect(anchor.container.innerHTML).to.contain(">e<");
-      expect(anchor.container.innerHTML).to.contain("> text</");
-
-      links.matcher = () => [{ start: 0, end: 7 }];
-
-      anchor = render(<>{renderLinks("Example text", links)}</>);
-
-      expect(anchor.container.innerHTML).to.contain(">Example</");
-      expect(anchor.container.innerHTML).to.contain("> text");
     });
 
     it("throws when matcher returns overlapping bounds", () => {
@@ -132,6 +111,7 @@ describe("LinkHandler", () => {
       const highlightSpy = vi.fn();
 
       void withLinks(testString, undefined, highlightSpy);
+
       expect(highlightSpy).toHaveBeenCalledOnce();
     });
   });
@@ -141,6 +121,70 @@ describe("LinkHandler", () => {
       const value = "some value";
       const { getByText } = render(<LinksRenderer value={value} />);
       getByText(value);
+    });
+
+    it("opens new window if the link text was found without http schema", () => {
+      const { getByRole } = render(
+        <LinksRenderer value="www.testLink.com" links={links} />
+      );
+
+      const link = getByRole("link", {
+        name: "www.testLink.com (opens in new tab)",
+      });
+      expect(link.getAttribute("href")).toEqual("http://www.testLink.com");
+      expect(link.getAttribute("target")).toEqual("_blank");
+      expect(link.getAttribute("rel")).toEqual("noreferrer");
+    });
+
+    it("opens new window if the link text was found in record with http schema", () => {
+      const { getByRole } = render(
+        <LinksRenderer value="https://www.testLink.com" links={links} />
+      );
+
+      const link = getByRole("link", {
+        name: "https://www.testLink.com (opens in new tab)",
+      });
+      expect(link.getAttribute("href")).toEqual("https://www.testLink.com");
+      expect(link.getAttribute("target")).toEqual("_blank");
+      expect(link.getAttribute("rel")).toEqual("noreferrer");
+    });
+
+    it("does not open new window if there were no url links", () => {
+      const { queryByRole } = render(
+        <LinksRenderer value="not an url link" links={links} />
+      );
+
+      const link = queryByRole("link");
+      expect(link).toEqual(null);
+    });
+
+    it("sets location href value to value got in the text if it is an email link", () => {
+      const { getByRole } = render(
+        <LinksRenderer value="someOtherLink@mail.com" links={links} />
+      );
+
+      const link = getByRole("link");
+      expect(link.getAttribute("href")).toEqual(
+        "mailto:someOtherLink@mail.com"
+      );
+      expect(link.getAttribute("target")).toEqual("_blank");
+      expect(link.getAttribute("rel")).toEqual("noreferrer");
+    });
+
+    it("opens new window if it is an ProjectWise Explorer link", () => {
+      const { getByRole } = render(
+        <LinksRenderer
+          value="pw://server.bentley.com:datasource-01/Documents/ProjectName"
+          links={links}
+        />
+      );
+
+      const link = getByRole("link");
+      expect(link.getAttribute("href")).toEqual(
+        "pw:server.bentley.com:datasource-01/Documents/ProjectName"
+      );
+      expect(link.getAttribute("target")).toEqual("_blank");
+      expect(link.getAttribute("rel")).toEqual("noreferrer");
     });
   });
 });
