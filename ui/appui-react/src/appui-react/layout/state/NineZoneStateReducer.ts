@@ -75,6 +75,7 @@ import {
 import { getUniqueId } from "../base/NineZone.js";
 import {
   isPanelWidgetRestoreState,
+  MIN_POPOUT_WINDOW_SIZE,
   type PanelWidgetRestoreState,
 } from "./WidgetRestoreState.js";
 import {
@@ -670,6 +671,25 @@ export function NineZoneStateReducer(
       if (size) preferredBounds = preferredBounds.setSize(size);
       if (position) preferredBounds = preferredBounds.setPosition(position);
 
+      // Enforce a minimum size so a popout window can never shrink to an invisible or
+      // unusable size across repeated pop-out cycles (see AB#2024472). Matches the
+      // minimum size used for floating widgets (see `minWidth`/`minHeight` in `Widget.tsx`).
+      if (
+        preferredBounds.getWidth() < MIN_POPOUT_WINDOW_SIZE.width ||
+        preferredBounds.getHeight() < MIN_POPOUT_WINDOW_SIZE.height
+      ) {
+        preferredBounds = preferredBounds.setSize({
+          width: Math.max(
+            preferredBounds.getWidth(),
+            MIN_POPOUT_WINDOW_SIZE.width
+          ),
+          height: Math.max(
+            preferredBounds.getHeight(),
+            MIN_POPOUT_WINDOW_SIZE.height
+          ),
+        });
+      }
+
       const popoutWidgetId = getUniqueId();
       let home: PopoutWidgetState["home"] | undefined;
       if (location && isPanelTabLocation(location)) {
@@ -1030,6 +1050,15 @@ function hideTab(state: NineZoneState, id: TabState["id"]) {
         widgetId,
         tabIndex,
         floatingWidget,
+      };
+    });
+  } else if (isPopoutTabLocation(location)) {
+    const popoutWidget = state.popoutWidgets.byId[widgetId];
+    state = updateSavedTabState(state, id, (draft) => {
+      draft.home = {
+        widgetId,
+        tabIndex,
+        popoutWidget,
       };
     });
   } else if (isPanelTabLocation(location)) {
