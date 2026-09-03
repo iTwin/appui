@@ -21,6 +21,18 @@ import { reuseOrCreatePromise } from "./reuseOrCreatePromise.js";
  */
 const cache = new Map<string, Promise<any>>();
 
+function sanitizeSvg(rawSvg: string): Element | undefined {
+  const sanitized = DOMPurify.sanitize(rawSvg, {
+    USE_PROFILES: { svg: true, svgFilters: true },
+    RETURN_DOM: true,
+  });
+  if (!(sanitized instanceof HTMLElement)) return undefined;
+
+  const svg = sanitized.firstElementChild;
+  if (!svg || svg.nodeName.toLowerCase() !== "svg") return undefined;
+  return svg;
+}
+
 /**
  * Parse 'data:' uri to retrieve the Svg component within it.
  * @param src data:image/svg+xml;base64 or data:image/svg+xml
@@ -48,18 +60,12 @@ function parseSvgFromDataUri(src: string, element: any) {
     rawSvg = decodeURIComponent(dataUriParts.slice(1).join(","));
   }
 
-  const sanitizedSvg = DOMPurify.sanitize(rawSvg);
-
-  const parsedSvg = new window.DOMParser().parseFromString(
-    sanitizedSvg,
-    "text/xml"
-  );
-  const errorNode = parsedSvg.querySelector("parsererror");
-  if (errorNode || "svg" !== parsedSvg.documentElement.nodeName.toLowerCase()) {
+  const svg = sanitizeSvg(rawSvg);
+  if (!svg) {
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
 
-  return parsedSvg.documentElement;
+  return svg;
 }
 
 /**
@@ -75,12 +81,16 @@ async function fetchSvg(src: string, element: any) {
   if (!response || !response.ok) {
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
-  const str = await response.text();
-  if (str === undefined) {
+  const rawSvg = await response.text();
+  if (rawSvg === undefined) {
     throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
   }
-  const data = new window.DOMParser().parseFromString(str, "text/xml");
-  return data.documentElement;
+
+  const svg = sanitizeSvg(rawSvg);
+  if (!svg) {
+    throw new UiError(UiCore.loggerCategory(element), "Unable to load icon.");
+  }
+  return svg;
 }
 
 /**
