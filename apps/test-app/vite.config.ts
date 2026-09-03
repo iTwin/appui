@@ -45,8 +45,9 @@ export default defineConfig(({ mode }) => {
         targets: [
           {
             // copy assets from `@itwin` dependencies
-            src: "./node_modules/@itwin/*/lib/public/*",
+            src: "./node_modules/@itwin/*/lib/public/**",
             dest: ".",
+            rename: { stripBase: 5 },
           },
           {
             // copy localization files
