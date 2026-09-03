@@ -1,5 +1,16 @@
 # Change Log - @itwin/components-react
 
+## 5.34.0
+
+### Minor Changes
+
+- 6288f2e: Updated rendering logic to use [`<a>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/a) elements in the `UrlPropertyValueRenderer` class.
+
+### Patch Changes
+
+- Updated dependencies [fc74775]
+  - @itwin/core-react@5.34.0
+
 ## 5.33.3
 
 ### Patch Changes

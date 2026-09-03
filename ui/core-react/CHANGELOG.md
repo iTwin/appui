@@ -1,5 +1,11 @@
 # Change Log - @itwin/core-react
 
+## 5.34.0
+
+### Patch Changes
+
+- fc74775: Fixed the fetching of SVG icons via the legacy/deprecated `webSvg:` scheme.
+
 ## 5.33.3
 
 ## 5.33.2
