@@ -48,14 +48,10 @@ describe("FavoritePropertyList", () => {
       );
 
       expect(screen.getByTitle("CADID1")).toEqual(screen.getByText("CADID1"));
-      expect(screen.getByTitle("0000 0005 00E0 02D8")).toEqual(
-        screen.getByText("0000 0005 00E0 02D8")
-      );
+      screen.getByText("0000 0005 00E0 02D8");
       expect(screen.getByTitle("CADID2")).toEqual(screen.getByText("CADID2"));
 
-      expect(screen.getByTitle("0000 0005 00E0 02D9")).toEqual(
-        screen.getByText("0000 0005 00E0 02D9")
-      );
+      screen.getByText("0000 0005 00E0 02D9");
       expect(container).to.satisfy(
         childStructure(
           ".components-favorite-property-list .components-property-list--horizontal .components-property-record--horizontal"

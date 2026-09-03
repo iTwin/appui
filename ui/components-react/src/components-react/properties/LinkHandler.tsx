@@ -9,25 +9,60 @@
 import * as React from "react";
 import { BentleyError, BentleyStatus } from "@itwin/core-bentley";
 import type { LinkElementsInfo } from "@itwin/appui-abstract";
-import { UnderlinedButton } from "@itwin/core-react";
+import { Anchor } from "@itwin/itwinui-react";
+import { matchLinks } from "../common/Links.js";
 
-/** Render a single anchor tag */
-function renderTag(
-  text: string,
-  links: LinkElementsInfo,
-  highlight?: (text: string) => React.ReactNode
-) {
+const allowedSchemas = ["http:", "https:", "mailto:", "pw:"];
+
+/**
+ * Ensures that provided text contains exactly one link and returns its href.
+ */
+function useTagHref(text: string) {
+  const matches = matchLinks(text);
+  if (matches.length !== 1) return undefined;
+
+  const match = matches[0];
+  if (match.index !== 0 || match.lastIndex !== text.length) return undefined;
+
+  if (!allowedSchemas.includes(match.schema)) return undefined;
+
+  const url = match.url;
+  if (match.schema === "pw:" && url.startsWith("pw:")) {
+    // remove // or \\ from the link. Links with custom schema should use opaque path like `schema:path` instead of `schema://path`
+    return url.replace(/pw:\/\/|pw:\\\\/g, "pw:");
+  }
+
+  return url;
+}
+
+interface TagProps {
+  text: string;
+  links: LinkElementsInfo;
+  highlight?: (text: string) => React.ReactNode;
+}
+
+function Tag(props: TagProps) {
+  const { text, links, highlight } = props;
+
+  const highlighted = highlight ? highlight(text) : text;
+
+  const href = useTagHref(text);
+  if (!href) {
+    return <>{highlighted}</>;
+  }
+
   return (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <UnderlinedButton
-      onClick={(e) => {
-        e.preventDefault();
+    <Anchor
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
         e.stopPropagation();
         links.onClick(text);
       }}
     >
-      {highlight ? highlight(text) : text}
-    </UnderlinedButton>
+      {highlighted}
+    </Anchor>
   );
 }
 
@@ -56,7 +91,9 @@ function renderText(
 ): React.ReactNode {
   const { matcher } = links;
 
-  if (!matcher) return renderTag(text, links, highlight);
+  if (!matcher) {
+    return <Tag text={text} links={links} highlight={highlight} />;
+  }
 
   const matches = matcher(text);
 
@@ -79,7 +116,7 @@ function renderText(
       );
 
     const anchorText = text.substring(match.start, match.end);
-    parts.push(renderTag(anchorText, links, highlight));
+    parts.push(<Tag text={anchorText} links={links} highlight={highlight} />);
 
     lastIndex = match.end;
   }

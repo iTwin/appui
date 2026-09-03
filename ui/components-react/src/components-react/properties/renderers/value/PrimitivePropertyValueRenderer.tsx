@@ -54,17 +54,13 @@ interface PrimitivePropertyValueRendererImplProps {
 export function PrimitivePropertyValueRendererImpl(
   props: PrimitivePropertyValueRendererImplProps
 ) {
-  const { stringValue, element } = useRenderedStringValue(
+  const { element } = useRenderedStringValue(
     props.record,
     props.stringValueCalculator,
     props.context,
     props.linksHandler
   );
-  return (
-    <span style={props.context?.style} title={stringValue}>
-      {element}
-    </span>
-  );
+  return <span style={props.context?.style}>{element}</span>;
 }
 
 /**
@@ -77,7 +73,7 @@ export function PrimitivePropertyValueRendererImpl(
  */
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo = {
   matcher: PropertyGridCommons.getLinks,
-  onClick: PropertyGridCommons.handleLinkClick,
+  onClick: () => {},
 };
 
 /** @internal */

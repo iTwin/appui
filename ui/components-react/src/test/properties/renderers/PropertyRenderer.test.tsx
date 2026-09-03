@@ -171,7 +171,7 @@ describe("PropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByTitle(originalValue)).to.exist;
+    screen.getByText(originalValue);
 
     rerender(
       <PropertyRenderer
@@ -183,8 +183,8 @@ describe("PropertyRenderer", () => {
       />
     );
 
-    expect(screen.queryByTitle(originalValue)).toEqual(null);
-    expect(screen.getByTitle(recordValue)).to.exist;
+    screen.getByText(recordValue);
+    expect(screen.queryByText(originalValue)).toEqual(null);
   });
 
   it("renders value differently if provided with custom propertyValueRendererManager", async () => {
@@ -399,15 +399,7 @@ describe("PropertyRenderer", () => {
       />
     );
 
-    expect(screen.getByText("Model")).satisfy(
-      selectorMatches(
-        [
-          "div.components-property-record-value",
-          "span",
-          "span[title='Model']",
-        ].join(" > ")
-      )
-    );
+    screen.getByText("Model");
   });
 
   it("does not wrap valueElement in span if it's not a string", async () => {

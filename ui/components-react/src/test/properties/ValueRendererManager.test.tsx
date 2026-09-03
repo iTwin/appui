@@ -105,7 +105,7 @@ describe("PropertyValueRendererManager", () => {
       );
 
       render(<>{value}</>);
-      expect(screen.getByTitle("Test prop")).to.exist;
+      screen.getByText("Test prop");
     });
 
     it("renders an array type", () => {
