@@ -1,5 +1,15 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.34.0
+
+### Patch Changes
+
+- af6103d: `KoqPropertyValueRenderer` now re-renders and re-formats its value when the active unit system, quantity formats, or formats provider formats change, so it no longer shows an outdated formatted value.
+- Updated dependencies [6288f2e]
+- Updated dependencies [fc74775]
+  - @itwin/components-react@5.34.0
+  - @itwin/core-react@5.34.0
+
 ## 5.33.3
 
 ### Patch Changes
