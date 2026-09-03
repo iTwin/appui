@@ -217,8 +217,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     <>
       <label htmlFor={id} className={labelClassNames} style={labelStyle}>
         {label}
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        {icon ? icon : iconSpec && <Icon iconSpec={iconSpec} />}
+        {icon ? icon : iconSpec && <StrataKitIcon iconSpec={iconSpec} />}
       </label>
       <Input
         {...inputProps}

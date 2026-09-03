@@ -42,13 +42,7 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
 
   return (
     <div className={className} style={props.style}>
-      <StrataKitIcon
-        href={svgCursor}
-        iconNode={
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <Icon iconSpec={<SvgCursor />} />
-        }
-      />
+      <StrataKitIcon href={svgCursor} iconSpec={<SvgCursor />} />
       {props.count}
     </div>
   );

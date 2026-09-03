@@ -6,6 +6,7 @@
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
 import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
+import { useWebFontStrataKitIcon } from "./useStrataKitIcon.js";
 
 import type { IconSpec } from "@itwin/core-react";
 import type { Icon } from "@stratakit/mui";
@@ -21,15 +22,25 @@ interface StrataKitIconProps extends IconProps {
 
 /**
  * Renders in following order based on what's available:
- * - StrataKit icon if `useStrataKit` preview feature is enabled and `href` is provided
+ * - StrataKit icon if `useStrataKit` preview feature
  * - `iconNode` if provided
  * - Legacy icon using `iconSpec` if provided
+ *
+ * StrataKit icon is resolved in order:
+ * - `href` prop
+ * - StrataKit icon resolved from web font mapping
+ *
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { href, iconSpec, iconNode, size, ...rest } = props;
-  const { useStrataKit } = usePreviewFeatures();
+  const { href: hrefProp, iconSpec, iconNode, size, ...rest } = props;
 
+  const webFontIcon = typeof iconSpec === "string" ? iconSpec : undefined;
+  const iconSpecHref = useWebFontStrataKitIcon(webFontIcon);
+
+  const href = hrefProp ?? iconSpecHref;
+
+  const { useStrataKit } = usePreviewFeatures();
   const modules = useStrataKit?.[StrataKitSymbol]?.modules;
   const { Icon } = modules?.["@stratakit/mui"] ?? {};
 

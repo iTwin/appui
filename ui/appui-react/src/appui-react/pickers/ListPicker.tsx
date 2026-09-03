@@ -17,7 +17,7 @@ import {
   Title,
 } from "@itwin/components-react/internal";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon, SearchBox } from "@itwin/core-react";
+import { SearchBox } from "@itwin/core-react";
 import { ToolbarDragInteractionContext } from "../toolbar/DragInteraction.js";
 import { UiFramework } from "../UiFramework.js";
 import {
@@ -209,15 +209,7 @@ export class ExpandableSection extends React.PureComponent<
 function ChevronDownIcon() {
   const svgChevronDown = useStrataKitIcon("@stratakit/icons/chevron-down.svg");
 
-  return (
-    <StrataKitIcon
-      href={svgChevronDown}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgChevronDown />} />
-      }
-    />
-  );
+  return <StrataKitIcon href={svgChevronDown} iconSpec={<SvgChevronDown />} />;
 }
 
 function ChevronRightIcon() {
@@ -226,13 +218,7 @@ function ChevronRightIcon() {
   );
 
   return (
-    <StrataKitIcon
-      href={svgChevronRight}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgChevronRight />} />
-      }
-    />
+    <StrataKitIcon href={svgChevronRight} iconSpec={<SvgChevronRight />} />
   );
 }
 
@@ -316,27 +302,13 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
 function ListPickerPopupItem(props: ListPickerProps) {
   const svgList = useStrataKitIcon("@stratakit/icons/list.svg");
 
-  const icon =
-    props.icon ??
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  const iconSpecIcon = props.iconSpec ? (
     // eslint-disable-next-line @typescript-eslint/no-deprecated
-    (props.iconSpec ? (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      typeof props.iconSpec === "string" ? (
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={props.iconSpec} />
-      ) : (
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <i className="icon uifw-item-svg-icon">{props.iconSpec}</i>
-      )
-    ) : (
-      <StrataKitIcon
-        href={svgList}
-        iconNode={
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <Icon iconSpec={<SvgList />} />
-        }
-      />
-    ));
+    <StrataKitIcon iconSpec={props.iconSpec} />
+  ) : undefined;
+  const defaultIcon = <StrataKitIcon href={svgList} iconSpec={<SvgList />} />;
+  const icon = props.icon ?? iconSpecIcon ?? defaultIcon;
 
   return (
     <ToolbarDragInteractionContext.Consumer>

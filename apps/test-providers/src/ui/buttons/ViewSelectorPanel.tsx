@@ -13,13 +13,14 @@ import {
   useActiveViewport,
   ViewSelector,
 } from "@itwin/appui-react";
+import { SvgSavedView } from "@itwin/itwinui-icons-react";
 
 export function getCustomViewSelectorPopupItem(
   overrides?: Omit<Partial<ToolbarCustomItem>, "icon">
 ) {
   return ToolbarItemUtilities.createCustomItem({
     id: "appui-test-providers:viewSelector",
-    icon: <i className="icon icon-saved-view" />,
+    icon: <SvgSavedView />,
     label: "Load selected view into active content view",
     panelContent: <ViewSelectorPanel />,
     itemPriority: 20,

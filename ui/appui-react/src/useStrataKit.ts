@@ -12,7 +12,14 @@ import svgActivity from "@stratakit/icons/activity.svg";
 import svgAdd from "@stratakit/icons/add.svg";
 import svgAddCircle from "@stratakit/icons/add-circle.svg";
 import svgAirplane from "@stratakit/icons/airplane.svg";
+import svgAlignBottom from "@stratakit/icons/align-bottom.svg";
+import svgAlignCenterHorizontal from "@stratakit/icons/align-center-horizontal.svg";
+import svgAlignCenterVertical from "@stratakit/icons/align-center-vertical.svg";
+import svgAlignLeft from "@stratakit/icons/align-left.svg";
+import svgAlignRight from "@stratakit/icons/align-right.svg";
+import svgAlignTop from "@stratakit/icons/align-top.svg";
 import svgAnnotation from "@stratakit/icons/annotation.svg";
+import svgArchive from "@stratakit/icons/archive.svg";
 import svgArrowDown from "@stratakit/icons/arrow-down.svg";
 import svgArrowLeft from "@stratakit/icons/arrow-left.svg";
 import svgArrowRight from "@stratakit/icons/arrow-right.svg";
@@ -22,6 +29,7 @@ import svgAutomagic from "@stratakit/icons/automagic.svg";
 import svgBasket from "@stratakit/icons/basket.svg";
 import svgBrandBentleySystems from "@stratakit/icons/brand-bentley-systems.svg";
 import svgBrandWindows from "@stratakit/icons/brand-windows.svg";
+import svgBolt from "@stratakit/icons/bolt.svg";
 import svgBookmark from "@stratakit/icons/bookmark.svg";
 import svgCalendar from "@stratakit/icons/calendar.svg";
 import svgCamera from "@stratakit/icons/camera.svg";
@@ -136,6 +144,7 @@ import svgInfo from "@stratakit/icons/info.svg";
 import svgInstall from "@stratakit/icons/install.svg";
 import svgIsolate from "@stratakit/icons/isolate.svg";
 import svgIssue from "@stratakit/icons/issue.svg";
+import svgItwin from "@stratakit/icons/itwin.svg";
 import svgKeyboard from "@stratakit/icons/keyboard.svg";
 import svgLabel from "@stratakit/icons/label.svg";
 import svgLayers from "@stratakit/icons/layers.svg";
@@ -151,6 +160,7 @@ import svgManager from "@stratakit/icons/manager.svg";
 import svgMap from "@stratakit/icons/map.svg";
 import svgMeasure from "@stratakit/icons/measure.svg";
 import svgMeasureAngle from "@stratakit/icons/measure-angle.svg";
+import svgMeasureArea from "@stratakit/icons/measure-area.svg";
 import svgMeasureDistance from "@stratakit/icons/measure-distance.svg";
 import svgMeasureLocation from "@stratakit/icons/measure-location.svg";
 import svgMenu from "@stratakit/icons/menu.svg";
@@ -288,7 +298,14 @@ export function enable() {
     "@stratakit/icons/add-circle.svg": svgAddCircle,
     "@stratakit/icons/add.svg": svgAdd,
     "@stratakit/icons/airplane.svg": svgAirplane,
+    "@stratakit/icons/align-bottom.svg": svgAlignBottom,
+    "@stratakit/icons/align-center-horizontal.svg": svgAlignCenterHorizontal,
+    "@stratakit/icons/align-center-vertical.svg": svgAlignCenterVertical,
+    "@stratakit/icons/align-left.svg": svgAlignLeft,
+    "@stratakit/icons/align-right.svg": svgAlignRight,
+    "@stratakit/icons/align-top.svg": svgAlignTop,
     "@stratakit/icons/annotation.svg": svgAnnotation,
+    "@stratakit/icons/archive.svg": svgArchive,
     "@stratakit/icons/arrow-down.svg": svgArrowDown,
     "@stratakit/icons/arrow-left.svg": svgArrowLeft,
     "@stratakit/icons/arrow-right.svg": svgArrowRight,
@@ -298,6 +315,7 @@ export function enable() {
     "@stratakit/icons/basket.svg": svgBasket,
     "@stratakit/icons/brand-bentley-systems.svg": svgBrandBentleySystems,
     "@stratakit/icons/brand-windows.svg": svgBrandWindows,
+    "@stratakit/icons/bolt.svg": svgBolt,
     "@stratakit/icons/bookmark.svg": svgBookmark,
     "@stratakit/icons/calendar.svg": svgCalendar,
     "@stratakit/icons/camera-video-disabled.svg": svgCameraVideoDisabled,
@@ -413,6 +431,7 @@ export function enable() {
     "@stratakit/icons/install.svg": svgInstall,
     "@stratakit/icons/isolate.svg": svgIsolate,
     "@stratakit/icons/issue.svg": svgIssue,
+    "@stratakit/icons/itwin.svg": svgItwin,
     "@stratakit/icons/keyboard.svg": svgKeyboard,
     "@stratakit/icons/label.svg": svgLabel,
     "@stratakit/icons/layers.svg": svgLayers,
@@ -427,6 +446,7 @@ export function enable() {
     "@stratakit/icons/manager.svg": svgManager,
     "@stratakit/icons/map.svg": svgMap,
     "@stratakit/icons/measure-angle.svg": svgMeasureAngle,
+    "@stratakit/icons/measure-area.svg": svgMeasureArea,
     "@stratakit/icons/measure-distance.svg": svgMeasureDistance,
     "@stratakit/icons/measure-location.svg": svgMeasureLocation,
     "@stratakit/icons/measure.svg": svgMeasure,

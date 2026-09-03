@@ -9,7 +9,7 @@
 import "./MenuButton.scss";
 import * as React from "react";
 import type { XAndY } from "@itwin/core-geometry";
-import { ContextMenu, Icon } from "@itwin/core-react";
+import { ContextMenu } from "@itwin/core-react";
 import { SquareButton } from "./SquareButton.js";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps.js";
@@ -120,13 +120,5 @@ function MoreIcon() {
     "@stratakit/icons/more-horizontal.svg"
   );
 
-  return (
-    <StrataKitIcon
-      href={svgMoreHorizontal}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgMore />} />
-      }
-    />
-  );
+  return <StrataKitIcon href={svgMoreHorizontal} iconSpec={<SvgMore />} />;
 }

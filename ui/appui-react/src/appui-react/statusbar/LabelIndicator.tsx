@@ -15,6 +15,7 @@ import type { IconSpec } from "@itwin/core-react";
 import { Icon } from "@itwin/core-react";
 import { StatusBarLabelSide } from "./StatusBarItem.js";
 import { Label } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Properties of [[StatusBarLabelIndicator]] component.
  * @beta
@@ -48,8 +49,7 @@ export function StatusBarLabelIndicator(props: StatusBarLabelIndicatorProps) {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     <StatusBarIndicator className={classNames} {...other}>
       {label && <Label className="uifw-label">{label}</Label>}
-      {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-      {iconSpec && <Icon iconSpec={iconSpec} />}
+      {iconSpec && <StrataKitIcon iconSpec={iconSpec} />}
     </StatusBarIndicator>
   );
 }

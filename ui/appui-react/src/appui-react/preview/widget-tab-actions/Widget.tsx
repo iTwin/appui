@@ -236,10 +236,10 @@ function TabIcon() {
   const widgetDef = useWidgetDef();
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = widgetDef?.initialConfig?.icon;
-  const icon =
-    widgetDef?.initialConfig?.iconNode ??
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    (iconSpec ? <Icon iconSpec={iconSpec} /> : undefined);
+  const iconSpecIcon = iconSpec ? (
+    <StrataKitIcon iconSpec={iconSpec} />
+  ) : undefined;
+  const icon = widgetDef?.initialConfig?.iconNode ?? iconSpecIcon;
 
   if (!icon) return null;
   return <Tabs.TabIcon>{icon}</Tabs.TabIcon>;

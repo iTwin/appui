@@ -13,12 +13,7 @@ import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
-import {
-  FlexWrapContainer,
-  Icon,
-  ScrollView,
-  SearchBox,
-} from "@itwin/core-react";
+import { FlexWrapContainer, ScrollView, SearchBox } from "@itwin/core-react";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import { UiFramework } from "../UiFramework.js";
 import type { SheetData } from "./SheetNavigationAid.js";
@@ -283,7 +278,7 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.props.icon ?? this.props.iconSpec ? (
         // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={this.props.iconSpec} />
+        <StrataKitIcon iconSpec={this.props.iconSpec} />
       ) : (
         <PlaceholderIcon />
       );

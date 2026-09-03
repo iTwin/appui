@@ -410,26 +410,10 @@ class OperatorButton extends React.PureComponent<OperatorButtonProps> {
 
 function CheckmarkIcon() {
   const svgCheckmark = useStrataKitIcon("@stratakit/icons/checkmark.svg");
-  return (
-    <StrataKitIcon
-      href={svgCheckmark}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgCheckmark />} />
-      }
-    />
-  );
+  return <StrataKitIcon href={svgCheckmark} iconSpec={<SvgCheckmark />} />;
 }
 
 function DismissIcon() {
   const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
-  return (
-    <StrataKitIcon
-      href={svgDismiss}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={<SvgRemove />} />
-      }
-    />
-  );
+  return <StrataKitIcon href={svgDismiss} iconSpec={<SvgRemove />} />;
 }
