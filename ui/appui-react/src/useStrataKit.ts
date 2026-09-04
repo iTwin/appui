@@ -27,10 +27,10 @@ import svgArrowUp from "@stratakit/icons/arrow-up.svg";
 import svgAttach from "@stratakit/icons/attach.svg";
 import svgAutomagic from "@stratakit/icons/automagic.svg";
 import svgBasket from "@stratakit/icons/basket.svg";
-import svgBrandBentleySystems from "@stratakit/icons/brand-bentley-systems.svg";
-import svgBrandWindows from "@stratakit/icons/brand-windows.svg";
 import svgBolt from "@stratakit/icons/bolt.svg";
 import svgBookmark from "@stratakit/icons/bookmark.svg";
+import svgBrandBentleySystems from "@stratakit/icons/brand-bentley-systems.svg";
+import svgBrandWindows from "@stratakit/icons/brand-windows.svg";
 import svgCalendar from "@stratakit/icons/calendar.svg";
 import svgCamera from "@stratakit/icons/camera.svg";
 import svgCameraVideo from "@stratakit/icons/camera-video.svg";
@@ -53,9 +53,9 @@ import svgChevronUp from "@stratakit/icons/chevron-up.svg";
 import svgCircle from "@stratakit/icons/circle.svg";
 import svgClipboard from "@stratakit/icons/clipboard.svg";
 import svgClock from "@stratakit/icons/clock.svg";
-import svgDismissCircle from "@stratakit/icons/dismiss-circle.svg";
 import svgCloud from "@stratakit/icons/cloud.svg";
 import svgCloudDownload from "@stratakit/icons/cloud-download.svg";
+import svgCloudLightning from "@stratakit/icons/cloud-lightning.svg";
 import svgCloudOffline from "@stratakit/icons/cloud-offline.svg";
 import svgCloudUpload from "@stratakit/icons/cloud-upload.svg";
 import svgCollapseRows from "@stratakit/icons/collapse-rows.svg";
@@ -63,14 +63,23 @@ import svgCollapseRowsAll from "@stratakit/icons/collapse-rows-all.svg";
 import svgCompare from "@stratakit/icons/compare.svg";
 import svgComputer from "@stratakit/icons/computer.svg";
 import svgCrop from "@stratakit/icons/crop.svg";
+import svgCrossSection from "@stratakit/icons/cross-section.svg";
 import svgCursor from "@stratakit/icons/cursor.svg";
 import svgCursorClick from "@stratakit/icons/cursor-click.svg";
+import svgDashboard from "@stratakit/icons/dashboard.svg";
 import svgDatabase from "@stratakit/icons/database.svg";
 import svgDelete from "@stratakit/icons/delete.svg";
+import svgDeliverables from "@stratakit/icons/deliverables.svg";
 import svgDetails from "@stratakit/icons/details.svg";
 import svgDeveloper from "@stratakit/icons/developer.svg";
 import svgDisconnect from "@stratakit/icons/disconnect.svg";
 import svgDismiss from "@stratakit/icons/dismiss.svg";
+import svgDismissCircle from "@stratakit/icons/dismiss-circle.svg";
+import svgDistributeCenterHorizontal from "@stratakit/icons/distribute-center-horizontal.svg";
+import svgDistributeCenterVertical from "@stratakit/icons/distribute-center-vertical.svg";
+import svgDistributeLeft from "@stratakit/icons/distribute-left.svg";
+import svgDistributeRight from "@stratakit/icons/distribute-right.svg";
+import svgDistributeTop from "@stratakit/icons/distribute-top.svg";
 import svgDockBottom from "@stratakit/icons/dock-bottom.svg";
 import svgDockLeft from "@stratakit/icons/dock-left.svg";
 import svgDockRight from "@stratakit/icons/dock-right.svg";
@@ -78,6 +87,7 @@ import svgDockTop from "@stratakit/icons/dock-top.svg";
 import svgDocument from "@stratakit/icons/document.svg";
 import svgDocumentBlank from "@stratakit/icons/document-blank.svg";
 import svgDocumentLocked from "@stratakit/icons/document-locked.svg";
+import svgDocumentPdf from "@stratakit/icons/document-pdf.svg";
 import svgDocumentReference from "@stratakit/icons/document-reference.svg";
 import svgDocumentation from "@stratakit/icons/documentation.svg";
 import svgDownload from "@stratakit/icons/download.svg";
@@ -96,6 +106,8 @@ import svgExport from "@stratakit/icons/export.svg";
 import svgEyedropper from "@stratakit/icons/eyedropper.svg";
 import svgEyedropperDrop from "@stratakit/icons/eyedropper-drop.svg";
 import svgEyedropperFilled from "@stratakit/icons/eyedropper-filled.svg";
+import svgFastBackward from "@stratakit/icons/fast-backward.svg";
+import svgFastForward from "@stratakit/icons/fast-forward.svg";
 import svgFeedback from "@stratakit/icons/feedback.svg";
 import svgFilter from "@stratakit/icons/filter.svg";
 import svgFind from "@stratakit/icons/find.svg";
@@ -117,6 +129,8 @@ import svgFontColor from "@stratakit/icons/font-color.svg";
 import svgFontItalic from "@stratakit/icons/font-italic.svg";
 import svgFontSize from "@stratakit/icons/font-size.svg";
 import svgFontUnderline from "@stratakit/icons/font-underline.svg";
+import svgFrameBackward from "@stratakit/icons/frame-backward.svg";
+import svgFrameForward from "@stratakit/icons/frame-forward.svg";
 import svgFunction from "@stratakit/icons/function.svg";
 import svgGestureOneFingerDoubleTap from "@stratakit/icons/gesture-one-finger-double-tap.svg";
 import svgGestureOneFingerDrag from "@stratakit/icons/gesture-one-finger-drag.svg";
@@ -127,9 +141,12 @@ import svgGestureTwoFinger from "@stratakit/icons/gesture-two-finger.svg";
 import svgGestureTwoFingerDrag from "@stratakit/icons/gesture-two-finger-drag.svg";
 import svgGestureTwoFingerTap from "@stratakit/icons/gesture-two-finger-tap.svg";
 import svgGlobe from "@stratakit/icons/globe.svg";
+import svgGoToEnd from "@stratakit/icons/go-to-end.svg";
+import svgGoToStart from "@stratakit/icons/go-to-start.svg";
 import svgGraphScatterChart from "@stratakit/icons/graph-scatter-chart.svg";
 import svgGroup from "@stratakit/icons/group.svg";
 import svgHand from "@stratakit/icons/hand.svg";
+import svgHelp from "@stratakit/icons/help.svg";
 import svgHierarchyTree from "@stratakit/icons/hierarchy-tree.svg";
 import svgHistory from "@stratakit/icons/history.svg";
 import svgHome from "@stratakit/icons/home.svg";
@@ -163,9 +180,11 @@ import svgMeasureAngle from "@stratakit/icons/measure-angle.svg";
 import svgMeasureArea from "@stratakit/icons/measure-area.svg";
 import svgMeasureDistance from "@stratakit/icons/measure-distance.svg";
 import svgMeasureLocation from "@stratakit/icons/measure-location.svg";
+import svgMeasurePerpendicularDistance from "@stratakit/icons/measure-perpendicular-distance.svg";
 import svgMenu from "@stratakit/icons/menu.svg";
 import svgMerge from "@stratakit/icons/merge.svg";
 import svgModel from "@stratakit/icons/model.svg";
+import svgMoon from "@stratakit/icons/moon.svg";
 import svgMoreHorizontal from "@stratakit/icons/more-horizontal.svg";
 import svgMoreHorizontalCircle from "@stratakit/icons/more-horizontal-circle.svg";
 import svgMoreVertical from "@stratakit/icons/more-vertical.svg";
@@ -179,24 +198,32 @@ import svgNetwork from "@stratakit/icons/network.svg";
 import svgNew from "@stratakit/icons/new.svg";
 import svgNotifications from "@stratakit/icons/notifications.svg";
 import svgNotificationsSettings from "@stratakit/icons/notifications-settings.svg";
+import svgObjectEdit from "@stratakit/icons/object-edit.svg";
 import svgObjectScale from "@stratakit/icons/object-scale.svg";
 import svgPaintBrush from "@stratakit/icons/paint-brush.svg";
 import svgPalette from "@stratakit/icons/palette.svg";
 import svgPanorama from "@stratakit/icons/panorama.svg";
 import svgPanoramaModel from "@stratakit/icons/panorama-model.svg";
+import svgPause from "@stratakit/icons/pause.svg";
+import svgPauseCircle from "@stratakit/icons/pause-circle.svg";
 import svgPerspective from "@stratakit/icons/perspective.svg";
 import svgPin from "@stratakit/icons/pin.svg";
 import svgPinUnpin from "@stratakit/icons/pin-unpin.svg";
 import svgPlaceholder from "@stratakit/icons/placeholder.svg";
+import svgPlay from "@stratakit/icons/play.svg";
+import svgPlayBackward from "@stratakit/icons/play-backward.svg";
+import svgPlayCircle from "@stratakit/icons/play-circle.svg";
 import svgPolygon from "@stratakit/icons/polygon.svg";
 import svgPrint from "@stratakit/icons/print.svg";
 import svgPrintPreview from "@stratakit/icons/print-preview.svg";
 import svgPrintSettings from "@stratakit/icons/print-settings.svg";
 import svgProcess from "@stratakit/icons/process.svg";
+import svgProject from "@stratakit/icons/project.svg";
 import svgProperties from "@stratakit/icons/properties.svg";
 import svgPuzzle from "@stratakit/icons/puzzle.svg";
 import svgReCenter from "@stratakit/icons/re-center.svg";
 import svgReadOnly from "@stratakit/icons/read-only.svg";
+import svgRecord from "@stratakit/icons/record.svg";
 import svgRecords from "@stratakit/icons/records.svg";
 import svgRectangle from "@stratakit/icons/rectangle.svg";
 import svgRedo from "@stratakit/icons/redo.svg";
@@ -209,6 +236,7 @@ import svgRoad from "@stratakit/icons/road.svg";
 import svgRotateLeft from "@stratakit/icons/rotate-left.svg";
 import svgRotatePoint from "@stratakit/icons/rotate-point.svg";
 import svgRotateRight from "@stratakit/icons/rotate-right.svg";
+import svgRule from "@stratakit/icons/rule.svg";
 import svgSave from "@stratakit/icons/save.svg";
 import svgSaveAs from "@stratakit/icons/save-as.svg";
 import svgSaveSettings from "@stratakit/icons/save-settings.svg";
@@ -230,6 +258,13 @@ import svgSmileyNeutral from "@stratakit/icons/smiley-neutral.svg";
 import svgSmileySad from "@stratakit/icons/smiley-sad.svg";
 import svgSmileyVeryHappy from "@stratakit/icons/smiley-very-happy.svg";
 import svgSmileyVerySad from "@stratakit/icons/smiley-very-sad.svg";
+import svgSnapBisector from "@stratakit/icons/snap-bisector.svg";
+import svgSnapCenter from "@stratakit/icons/snap-center.svg";
+import svgSnapIntersection from "@stratakit/icons/snap-intersection.svg";
+import svgSnapMidpoint from "@stratakit/icons/snap-midpoint.svg";
+import svgSnapNearest from "@stratakit/icons/snap-nearest.svg";
+import svgSnapOrigin from "@stratakit/icons/snap-origin.svg";
+import svgSnowflake from "@stratakit/icons/snowflake.svg";
 import svgSortAscending from "@stratakit/icons/sort-ascending.svg";
 import svgSortDescending from "@stratakit/icons/sort-descending.svg";
 import svgSorting from "@stratakit/icons/sorting.svg";
@@ -243,11 +278,20 @@ import svgStatusRunning from "@stratakit/icons/status-running.svg";
 import svgStatusSuccess from "@stratakit/icons/status-success.svg";
 import svgStatusUpdate from "@stratakit/icons/status-update.svg";
 import svgStatusWarning from "@stratakit/icons/status-warning.svg";
+import svgStop from "@stratakit/icons/stop.svg";
+import svgStopCircle from "@stratakit/icons/stop-circle.svg";
+import svgSun from "@stratakit/icons/sun.svg";
 import svgTable from "@stratakit/icons/table.svg";
 import svgTableOfContents from "@stratakit/icons/table-of-contents.svg";
+import svgTag from "@stratakit/icons/tag.svg";
 import svgTechnicalPreview from "@stratakit/icons/technical-preview.svg";
 import svgTechnicalPreviewBadge from "@stratakit/icons/technical-preview-badge.svg";
 import svgText from "@stratakit/icons/text.svg";
+import svgTextAlignCenter from "@stratakit/icons/text-align-center.svg";
+import svgTextAlignJustify from "@stratakit/icons/text-align-justify.svg";
+import svgTextAlignLeft from "@stratakit/icons/text-align-left.svg";
+import svgTextAlignRight from "@stratakit/icons/text-align-right.svg";
+import svgTimeline from "@stratakit/icons/timeline.svg";
 import svgTimer from "@stratakit/icons/timer.svg";
 import svgUndo from "@stratakit/icons/undo.svg";
 import svgUngroup from "@stratakit/icons/ungroup.svg";
@@ -259,7 +303,9 @@ import svgUserAdd from "@stratakit/icons/user-add.svg";
 import svgUserAway from "@stratakit/icons/user-away.svg";
 import svgUsers from "@stratakit/icons/users.svg";
 import svgValidate from "@stratakit/icons/validate.svg";
+import svgVertex from "@stratakit/icons/vertex.svg";
 import svgVisibilityHide from "@stratakit/icons/visibility-hide.svg";
+import svgVisibilityInvert from "@stratakit/icons/visibility-invert.svg";
 import svgVisibilityPartial from "@stratakit/icons/visibility-partial.svg";
 import svgVisibilityShow from "@stratakit/icons/visibility-show.svg";
 import svgWalk from "@stratakit/icons/walk.svg";
@@ -270,8 +316,8 @@ import svgWindowAdd from "@stratakit/icons/window-add.svg";
 import svgWindowArea from "@stratakit/icons/window-area.svg";
 import svgWindowBack from "@stratakit/icons/window-back.svg";
 import svgWindowCollapse from "@stratakit/icons/window-collapse.svg";
-import svgWindowForward from "@stratakit/icons/window-forward.svg";
 import svgWindowExpand from "@stratakit/icons/window-expand.svg";
+import svgWindowForward from "@stratakit/icons/window-forward.svg";
 import svgWindowMaximize from "@stratakit/icons/window-maximize.svg";
 import svgWindowMinimize from "@stratakit/icons/window-minimize.svg";
 import svgWindowPopout from "@stratakit/icons/window-popout.svg";
@@ -313,10 +359,10 @@ export function enable() {
     "@stratakit/icons/attach.svg": svgAttach,
     "@stratakit/icons/automagic.svg": svgAutomagic,
     "@stratakit/icons/basket.svg": svgBasket,
-    "@stratakit/icons/brand-bentley-systems.svg": svgBrandBentleySystems,
-    "@stratakit/icons/brand-windows.svg": svgBrandWindows,
     "@stratakit/icons/bolt.svg": svgBolt,
     "@stratakit/icons/bookmark.svg": svgBookmark,
+    "@stratakit/icons/brand-bentley-systems.svg": svgBrandBentleySystems,
+    "@stratakit/icons/brand-windows.svg": svgBrandWindows,
     "@stratakit/icons/calendar.svg": svgCalendar,
     "@stratakit/icons/camera-video-disabled.svg": svgCameraVideoDisabled,
     "@stratakit/icons/camera-video.svg": svgCameraVideo,
@@ -340,29 +386,41 @@ export function enable() {
     "@stratakit/icons/clipboard.svg": svgClipboard,
     "@stratakit/icons/clock.svg": svgClock,
     "@stratakit/icons/cloud-download.svg": svgCloudDownload,
+    "@stratakit/icons/cloud-lightning.svg": svgCloudLightning,
     "@stratakit/icons/cloud-offline.svg": svgCloudOffline,
     "@stratakit/icons/cloud-upload.svg": svgCloudUpload,
-    "@stratakit/icons/collapse-rows.svg": svgCollapseRows,
-    "@stratakit/icons/collapse-rows-all.svg": svgCollapseRowsAll,
     "@stratakit/icons/cloud.svg": svgCloud,
+    "@stratakit/icons/collapse-rows-all.svg": svgCollapseRowsAll,
+    "@stratakit/icons/collapse-rows.svg": svgCollapseRows,
     "@stratakit/icons/compare.svg": svgCompare,
     "@stratakit/icons/computer.svg": svgComputer,
     "@stratakit/icons/crop.svg": svgCrop,
+    "@stratakit/icons/cross-section.svg": svgCrossSection,
     "@stratakit/icons/cursor-click.svg": svgCursorClick,
     "@stratakit/icons/cursor.svg": svgCursor,
+    "@stratakit/icons/dashboard.svg": svgDashboard,
     "@stratakit/icons/database.svg": svgDatabase,
     "@stratakit/icons/delete.svg": svgDelete,
+    "@stratakit/icons/deliverables.svg": svgDeliverables,
     "@stratakit/icons/details.svg": svgDetails,
     "@stratakit/icons/developer.svg": svgDeveloper,
     "@stratakit/icons/disconnect.svg": svgDisconnect,
-    "@stratakit/icons/dismiss.svg": svgDismiss,
     "@stratakit/icons/dismiss-circle.svg": svgDismissCircle,
+    "@stratakit/icons/dismiss.svg": svgDismiss,
+    "@stratakit/icons/distribute-center-horizontal.svg":
+      svgDistributeCenterHorizontal,
+    "@stratakit/icons/distribute-center-vertical.svg":
+      svgDistributeCenterVertical,
+    "@stratakit/icons/distribute-left.svg": svgDistributeLeft,
+    "@stratakit/icons/distribute-right.svg": svgDistributeRight,
+    "@stratakit/icons/distribute-top.svg": svgDistributeTop,
     "@stratakit/icons/dock-bottom.svg": svgDockBottom,
     "@stratakit/icons/dock-left.svg": svgDockLeft,
     "@stratakit/icons/dock-right.svg": svgDockRight,
     "@stratakit/icons/dock-top.svg": svgDockTop,
     "@stratakit/icons/document-blank.svg": svgDocumentBlank,
     "@stratakit/icons/document-locked.svg": svgDocumentLocked,
+    "@stratakit/icons/document-pdf.svg": svgDocumentPdf,
     "@stratakit/icons/document-reference.svg": svgDocumentReference,
     "@stratakit/icons/document.svg": svgDocument,
     "@stratakit/icons/documentation.svg": svgDocumentation,
@@ -382,6 +440,8 @@ export function enable() {
     "@stratakit/icons/eyedropper-drop.svg": svgEyedropperDrop,
     "@stratakit/icons/eyedropper-filled.svg": svgEyedropperFilled,
     "@stratakit/icons/eyedropper.svg": svgEyedropper,
+    "@stratakit/icons/fast-backward.svg": svgFastBackward,
+    "@stratakit/icons/fast-forward.svg": svgFastForward,
     "@stratakit/icons/feedback.svg": svgFeedback,
     "@stratakit/icons/filter.svg": svgFilter,
     "@stratakit/icons/find.svg": svgFind,
@@ -403,6 +463,8 @@ export function enable() {
     "@stratakit/icons/font-italic.svg": svgFontItalic,
     "@stratakit/icons/font-size.svg": svgFontSize,
     "@stratakit/icons/font-underline.svg": svgFontUnderline,
+    "@stratakit/icons/frame-backward.svg": svgFrameBackward,
+    "@stratakit/icons/frame-forward.svg": svgFrameForward,
     "@stratakit/icons/function.svg": svgFunction,
     "@stratakit/icons/gesture-one-finger-double-tap.svg":
       svgGestureOneFingerDoubleTap,
@@ -414,9 +476,12 @@ export function enable() {
     "@stratakit/icons/gesture-two-finger-tap.svg": svgGestureTwoFingerTap,
     "@stratakit/icons/gesture-two-finger.svg": svgGestureTwoFinger,
     "@stratakit/icons/globe.svg": svgGlobe,
+    "@stratakit/icons/go-to-end.svg": svgGoToEnd,
+    "@stratakit/icons/go-to-start.svg": svgGoToStart,
     "@stratakit/icons/graph-scatter-chart.svg": svgGraphScatterChart,
     "@stratakit/icons/group.svg": svgGroup,
     "@stratakit/icons/hand.svg": svgHand,
+    "@stratakit/icons/help.svg": svgHelp,
     "@stratakit/icons/hierarchy-tree.svg": svgHierarchyTree,
     "@stratakit/icons/history.svg": svgHistory,
     "@stratakit/icons/home.svg": svgHome,
@@ -449,10 +514,13 @@ export function enable() {
     "@stratakit/icons/measure-area.svg": svgMeasureArea,
     "@stratakit/icons/measure-distance.svg": svgMeasureDistance,
     "@stratakit/icons/measure-location.svg": svgMeasureLocation,
+    "@stratakit/icons/measure-perpendicular-distance.svg":
+      svgMeasurePerpendicularDistance,
     "@stratakit/icons/measure.svg": svgMeasure,
     "@stratakit/icons/menu.svg": svgMenu,
     "@stratakit/icons/merge.svg": svgMerge,
     "@stratakit/icons/model.svg": svgModel,
+    "@stratakit/icons/moon.svg": svgMoon,
     "@stratakit/icons/more-horizontal-circle.svg": svgMoreHorizontalCircle,
     "@stratakit/icons/more-horizontal.svg": svgMoreHorizontal,
     "@stratakit/icons/more-vertical-circle.svg": svgMoreVerticalCircle,
@@ -466,24 +534,32 @@ export function enable() {
     "@stratakit/icons/new.svg": svgNew,
     "@stratakit/icons/notifications-settings.svg": svgNotificationsSettings,
     "@stratakit/icons/notifications.svg": svgNotifications,
+    "@stratakit/icons/object-edit.svg": svgObjectEdit,
     "@stratakit/icons/object-scale.svg": svgObjectScale,
     "@stratakit/icons/paint-brush.svg": svgPaintBrush,
     "@stratakit/icons/palette.svg": svgPalette,
     "@stratakit/icons/panorama-model.svg": svgPanoramaModel,
     "@stratakit/icons/panorama.svg": svgPanorama,
+    "@stratakit/icons/pause-circle.svg": svgPauseCircle,
+    "@stratakit/icons/pause.svg": svgPause,
     "@stratakit/icons/perspective.svg": svgPerspective,
     "@stratakit/icons/pin-unpin.svg": svgPinUnpin,
     "@stratakit/icons/pin.svg": svgPin,
     "@stratakit/icons/placeholder.svg": svgPlaceholder,
+    "@stratakit/icons/play-backward.svg": svgPlayBackward,
+    "@stratakit/icons/play-circle.svg": svgPlayCircle,
+    "@stratakit/icons/play.svg": svgPlay,
     "@stratakit/icons/polygon.svg": svgPolygon,
     "@stratakit/icons/print-preview.svg": svgPrintPreview,
     "@stratakit/icons/print-settings.svg": svgPrintSettings,
     "@stratakit/icons/print.svg": svgPrint,
     "@stratakit/icons/process.svg": svgProcess,
+    "@stratakit/icons/project.svg": svgProject,
     "@stratakit/icons/properties.svg": svgProperties,
     "@stratakit/icons/puzzle.svg": svgPuzzle,
     "@stratakit/icons/re-center.svg": svgReCenter,
     "@stratakit/icons/read-only.svg": svgReadOnly,
+    "@stratakit/icons/record.svg": svgRecord,
     "@stratakit/icons/records.svg": svgRecords,
     "@stratakit/icons/rectangle.svg": svgRectangle,
     "@stratakit/icons/redo.svg": svgRedo,
@@ -496,6 +572,7 @@ export function enable() {
     "@stratakit/icons/rotate-left.svg": svgRotateLeft,
     "@stratakit/icons/rotate-point.svg": svgRotatePoint,
     "@stratakit/icons/rotate-right.svg": svgRotateRight,
+    "@stratakit/icons/rule.svg": svgRule,
     "@stratakit/icons/save-as.svg": svgSaveAs,
     "@stratakit/icons/save-settings.svg": svgSaveSettings,
     "@stratakit/icons/save.svg": svgSave,
@@ -517,6 +594,13 @@ export function enable() {
     "@stratakit/icons/smiley-sad.svg": svgSmileySad,
     "@stratakit/icons/smiley-very-happy.svg": svgSmileyVeryHappy,
     "@stratakit/icons/smiley-very-sad.svg": svgSmileyVerySad,
+    "@stratakit/icons/snap-bisector.svg": svgSnapBisector,
+    "@stratakit/icons/snap-center.svg": svgSnapCenter,
+    "@stratakit/icons/snap-intersection.svg": svgSnapIntersection,
+    "@stratakit/icons/snap-midpoint.svg": svgSnapMidpoint,
+    "@stratakit/icons/snap-nearest.svg": svgSnapNearest,
+    "@stratakit/icons/snap-origin.svg": svgSnapOrigin,
+    "@stratakit/icons/snowflake.svg": svgSnowflake,
     "@stratakit/icons/sort-ascending.svg": svgSortAscending,
     "@stratakit/icons/sort-descending.svg": svgSortDescending,
     "@stratakit/icons/sorting.svg": svgSorting,
@@ -530,11 +614,20 @@ export function enable() {
     "@stratakit/icons/status-success.svg": svgStatusSuccess,
     "@stratakit/icons/status-update.svg": svgStatusUpdate,
     "@stratakit/icons/status-warning.svg": svgStatusWarning,
+    "@stratakit/icons/stop-circle.svg": svgStopCircle,
+    "@stratakit/icons/stop.svg": svgStop,
+    "@stratakit/icons/sun.svg": svgSun,
     "@stratakit/icons/table-of-contents.svg": svgTableOfContents,
     "@stratakit/icons/table.svg": svgTable,
+    "@stratakit/icons/tag.svg": svgTag,
     "@stratakit/icons/technical-preview-badge.svg": svgTechnicalPreviewBadge,
     "@stratakit/icons/technical-preview.svg": svgTechnicalPreview,
+    "@stratakit/icons/text-align-center.svg": svgTextAlignCenter,
+    "@stratakit/icons/text-align-justify.svg": svgTextAlignJustify,
+    "@stratakit/icons/text-align-left.svg": svgTextAlignLeft,
+    "@stratakit/icons/text-align-right.svg": svgTextAlignRight,
     "@stratakit/icons/text.svg": svgText,
+    "@stratakit/icons/timeline.svg": svgTimeline,
     "@stratakit/icons/timer.svg": svgTimer,
     "@stratakit/icons/undo.svg": svgUndo,
     "@stratakit/icons/ungroup.svg": svgUngroup,
@@ -546,7 +639,9 @@ export function enable() {
     "@stratakit/icons/user.svg": svgUser,
     "@stratakit/icons/users.svg": svgUsers,
     "@stratakit/icons/validate.svg": svgValidate,
+    "@stratakit/icons/vertex.svg": svgVertex,
     "@stratakit/icons/visibility-hide.svg": svgVisibilityHide,
+    "@stratakit/icons/visibility-invert.svg": svgVisibilityInvert,
     "@stratakit/icons/visibility-partial.svg": svgVisibilityPartial,
     "@stratakit/icons/visibility-show.svg": svgVisibilityShow,
     "@stratakit/icons/walk.svg": svgWalk,
@@ -556,8 +651,8 @@ export function enable() {
     "@stratakit/icons/window-area.svg": svgWindowArea,
     "@stratakit/icons/window-back.svg": svgWindowBack,
     "@stratakit/icons/window-collapse.svg": svgWindowCollapse,
-    "@stratakit/icons/window-forward.svg": svgWindowForward,
     "@stratakit/icons/window-expand.svg": svgWindowExpand,
+    "@stratakit/icons/window-forward.svg": svgWindowForward,
     "@stratakit/icons/window-maximize.svg": svgWindowMaximize,
     "@stratakit/icons/window-minimize.svg": svgWindowMinimize,
     "@stratakit/icons/window-popout.svg": svgWindowPopout,
