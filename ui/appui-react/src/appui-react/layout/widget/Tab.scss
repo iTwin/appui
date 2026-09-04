@@ -21,15 +21,23 @@
   flex-shrink: 0;
 
   > .nz-icon {
+    display: flex;
+    font-size: var(--iui-font-size-2);
+
     svg {
-      width: #{math.div(14, 16)}rem;
-      height: #{math.div(14, 16)}rem;
       fill: currentColor;
+
+      /* Duck type iTwinUI icons to visually align with web font and StrataKit icons. */
+      &:not(:has(use)) {
+        width: #{math.div(14, 16)}rem;
+        height: #{math.div(14, 16)}rem;
+      }
     }
   }
 
   > .nz-label {
     font-size: $nz-widget-tab-font-size;
+    line-height: $nz-widget-tab-font-size;
     text-overflow: ellipsis;
     overflow: hidden;
   }

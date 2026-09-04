@@ -13,16 +13,18 @@ export const withThemeBridge: Decorator = (Story, context) => {
 
   if (themeBridge) {
     return (
-      <Root
-        colorScheme={prefersDark ? "dark" : "light"}
-        density="dense"
-        synchronizeColorScheme
-        render={(props: any) => (
-          <ThemeProvider future={{ themeBridge }} {...props} />
-        )}
-      >
-        <Story />
-      </Root>
+      <ThemeBridgeContext.Provider value={true}>
+        <Root
+          colorScheme={prefersDark ? "dark" : "light"}
+          density="dense"
+          synchronizeColorScheme
+          render={(props: any) => (
+            <ThemeProvider future={{ themeBridge }} {...props} />
+          )}
+        >
+          <Story />
+        </Root>
+      </ThemeBridgeContext.Provider>
     );
   }
 
@@ -32,6 +34,12 @@ export const withThemeBridge: Decorator = (Story, context) => {
     </ThemeProvider>
   );
 };
+
+const ThemeBridgeContext = React.createContext(false);
+
+export function useThemeBridge() {
+  return React.useContext(ThemeBridgeContext);
+}
 
 function useMediaQuery(query: string) {
   const getClientSnapshot = React.useCallback(() => {
