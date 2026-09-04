@@ -22,8 +22,8 @@ import {
   Panel,
 } from "@itwin/components-react/internal";
 import { StandardViewId } from "@itwin/core-frontend";
-import type { CommonProps, IconSpec } from "@itwin/core-react";
-import { Icon, Popup } from "@itwin/core-react";
+import type { CommonProps } from "@itwin/core-react";
+import { Popup } from "@itwin/core-react";
 import { ViewportComponentEvents } from "@itwin/imodel-components-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -52,8 +52,7 @@ export class StandardRotationNavigationAidControl extends NavigationAidControl {
 
 interface RotationData {
   label: string;
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  iconsSpec?: IconSpec;
+  icon?: React.ReactNode;
 }
 
 interface StandardRotationNavigationAidState {
@@ -77,35 +76,35 @@ export class StandardRotationNavigationAid extends React.Component<
     const list: RotationData[] = [
       {
         label: UiFramework.translate("rotations.top"),
-        iconsSpec: <SvgCubeFaceTop />,
+        icon: <SvgCubeFaceTop />,
       },
       {
         label: UiFramework.translate("rotations.bottom"),
-        iconsSpec: <SvgCubeFaceBottom />,
+        icon: <SvgCubeFaceBottom />,
       },
       {
         label: UiFramework.translate("rotations.left"),
-        iconsSpec: <SvgCubeFaceLeft />,
+        icon: <SvgCubeFaceLeft />,
       },
       {
         label: UiFramework.translate("rotations.right"),
-        iconsSpec: <SvgCubeFaceRight />,
+        icon: <SvgCubeFaceRight />,
       },
       {
         label: UiFramework.translate("rotations.front"),
-        iconsSpec: <SvgCubeFaceFront />,
+        icon: <SvgCubeFaceFront />,
       },
       {
         label: UiFramework.translate("rotations.rear"),
-        iconsSpec: <SvgCubeFaceRear />,
+        icon: <SvgCubeFaceRear />,
       },
       {
         label: UiFramework.translate("rotations.isoLeft"),
-        iconsSpec: <SvgCubeFaceIsoLeft />,
+        icon: <SvgCubeFaceIsoLeft />,
       },
       {
         label: UiFramework.translate("rotations.isoRight"),
-        iconsSpec: <SvgCubeFaceIsoRight />,
+        icon: <SvgCubeFaceIsoRight />,
       },
     ];
     this.state = {
@@ -129,10 +128,7 @@ export class StandardRotationNavigationAid extends React.Component<
             className={"icon-button"}
             icon={
               <span className={classnames("three-d-icon", "icon")}>
-                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                <Icon
-                  iconSpec={this.state.list[this.state.selected].iconsSpec}
-                />
+                {this.state.list[this.state.selected].icon}
               </span>
             }
             onClick={this._toggleIsExpanded}
@@ -186,8 +182,7 @@ export class StandardRotationNavigationAid extends React.Component<
                 <GroupTool
                   key={itemIndex.toString()}
                   label={item.label}
-                  // eslint-disable-next-line @typescript-eslint/no-deprecated
-                  icon={<Icon iconSpec={item.iconsSpec} />}
+                  icon={item.icon}
                   isActive={this.state.selected.valueOf() === itemIndex}
                   onClick={() => this._handleListItemClicked(itemIndex)}
                   item={ToolbarItemUtilities.createActionButton(

@@ -18,6 +18,8 @@ import {
 import { SvgMore, SvgSearch } from "@itwin/itwinui-icons-react";
 import { HeaderSearch } from "./HeaderSearch.js";
 import type { WidgetContentLayout } from "../WidgetContentLayout.js";
+import { StrataKitIcon } from "../../../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../../../preview/use-stratakit/useStrataKitIcon.js";
 
 type WidgetContentLayoutHeaderProps = React.ComponentProps<
   typeof WidgetContentLayout.Header
@@ -54,6 +56,9 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
   const [searchIsExpanded, setSearchIsExpanded] = props.searchExpandedState;
   const searchState = React.useState("");
 
+  const svgMore = useStrataKitIcon("@stratakit/icons/more-horizontal.svg");
+  const svgSearch = useStrataKitIcon("@stratakit/icons/search.svg");
+
   return (
     <div
       className="nz-widget-widgetContentLayout-header-headerIconToolbar"
@@ -88,7 +93,12 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
                           close();
                           setSearchIsExpanded(true);
                         }}
-                        startIcon={<SvgSearch />}
+                        startIcon={
+                          <StrataKitIcon
+                            href={svgSearch}
+                            iconNode={<SvgSearch />}
+                          />
+                        }
                         disabled={props.disableSearch}
                       >
                         Search
@@ -134,7 +144,7 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
               aria-label="More"
               className="nz-header-overflow-button"
             >
-              <SvgMore />
+              <StrataKitIcon href={svgMore} iconNode={<SvgMore />} />
             </IconButton>
           </DropdownMenu>
         )}

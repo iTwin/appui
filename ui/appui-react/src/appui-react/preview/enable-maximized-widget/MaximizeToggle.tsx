@@ -17,6 +17,8 @@ import { MaximizedWidgetContext } from "./MaximizedWidget.js";
 import { usePreviewFeatures } from "../PreviewFeatures.js";
 import { useFloatingWidgetId } from "../../layout/widget/FloatingWidget.js";
 import { usePanelWidgetId } from "../../layout/widget/usePanelWidgetId.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function MaximizeToggle() {
@@ -25,17 +27,34 @@ export function MaximizeToggle() {
     MaximizedWidgetContext
   );
 
+  const svgWindowMaximize = useStrataKitIcon(
+    "@stratakit/icons/window-maximize.svg"
+  );
+  const svgWindowMinimize = useStrataKitIcon(
+    "@stratakit/icons/window-minimize.svg"
+  );
+
   const { id, label, iconSpec } =
     maximizedWidget === widgetId
       ? {
           id: undefined,
           label: "Restore",
-          iconSpec: <SvgWindowMinimize />,
+          iconSpec: (
+            <StrataKitIcon
+              href={svgWindowMinimize}
+              iconNode={<SvgWindowMinimize />}
+            />
+          ),
         }
       : {
           id: widgetId,
           label: "Maximize",
-          iconSpec: <SvgWindowMaximize />,
+          iconSpec: (
+            <StrataKitIcon
+              href={svgWindowMaximize}
+              iconNode={<SvgWindowMaximize />}
+            />
+          ),
         };
 
   return (

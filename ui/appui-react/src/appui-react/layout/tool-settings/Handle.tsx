@@ -21,6 +21,8 @@ import {
 import { useDrag } from "../widget/TabBar.js";
 import { SvgDragHandleVertical } from "@itwin/itwinui-icons-react";
 import { Icon } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of [[DockedToolSettingsHandle]] component.
  * @internal
@@ -56,11 +58,21 @@ export function DockedToolSettingsHandle(props: DockedToolSettingsHandleProps) {
   const title = useLabel("toolSettingsHandleTitle");
   const className = classnames("nz-toolSettings-handle", props.className);
 
+  const svgDragHandleVertical = useStrataKitIcon(
+    "@stratakit/icons/drag-handle-vertical.svg"
+  );
+
   return (
     <div className={className} ref={refs} style={props.style} title={title}>
-      <Icon size="large">
-        <SvgDragHandleVertical />
-      </Icon>
+      <StrataKitIcon
+        href={svgDragHandleVertical}
+        size="large"
+        iconNode={
+          <Icon size="large">
+            <SvgDragHandleVertical />
+          </Icon>
+        }
+      />
     </div>
   );
 }

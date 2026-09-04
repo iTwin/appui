@@ -19,6 +19,8 @@ import { FrameworkAccuDraw } from "./FrameworkAccuDraw.js";
 import { UiFramework } from "../UiFramework.js";
 import { SvgLock } from "@itwin/itwinui-icons-react";
 import { useAllowBearingLettersInAccuDrawInputFields } from "../preview/allow-bearing-letters-in-accudraw-input-fields/useAllowBearingLettersInAccuDrawInputFields.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 function isLetter(char: string): boolean {
   return char.length === 1 && char.toLowerCase() !== char.toUpperCase();
@@ -210,12 +212,12 @@ const ForwardRefAccuDrawInput = React.forwardRef<
     labelClassName
   );
 
+  const svgLock = useStrataKitIcon("@stratakit/icons/lock.svg");
   return (
     <>
       <label htmlFor={id} className={labelClassNames} style={labelStyle}>
         {label}
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        {icon ? icon : iconSpec && <Icon iconSpec={iconSpec} />}
+        {icon ? icon : iconSpec && <StrataKitIcon iconSpec={iconSpec} />}
       </label>
       <Input
         {...inputProps}
@@ -229,7 +231,9 @@ const ForwardRefAccuDrawInput = React.forwardRef<
         onKeyDown={handleKeyDown}
         size="small"
       />
-      <span className="uifw-accudraw-lock">{isLocked && <SvgLock />}</span>
+      <span className="uifw-accudraw-lock">
+        {isLocked && <StrataKitIcon href={svgLock} iconNode={<SvgLock />} />}
+      </span>
     </>
   );
 });

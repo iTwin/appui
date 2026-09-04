@@ -13,6 +13,8 @@ import { useLabelProps } from "./Item.js";
 import { ToolbarMenu, usePopoverPlacement } from "./GroupItem.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 interface ToolGroupOverflow {
   onClose?: () => void;
@@ -36,6 +38,10 @@ export const OverflowButton = React.forwardRef<
   const labelProps = useLabelProps();
   const { setPopoverOpen } = useSafeContext(ToolbarContext);
 
+  const svgMoreHorizontal = useStrataKitIcon(
+    "@stratakit/icons/more-horizontal.svg"
+  );
+
   return (
     <ToolbarMenu
       menuItems={(close) => {
@@ -56,7 +62,7 @@ export const OverflowButton = React.forwardRef<
         labelProps={labelProps}
         styleType="borderless"
       >
-        <SvgMore />
+        <StrataKitIcon href={svgMoreHorizontal} iconNode={<SvgMore />} />
       </IconButton>
     </ToolbarMenu>
   );

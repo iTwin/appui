@@ -13,17 +13,14 @@ import type { IModelConnection } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import { UiEvent } from "@itwin/appui-abstract";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
-import {
-  FlexWrapContainer,
-  Icon,
-  ScrollView,
-  SearchBox,
-} from "@itwin/core-react";
+import { FlexWrapContainer, ScrollView, SearchBox } from "@itwin/core-react";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import { UiFramework } from "../UiFramework.js";
 import type { SheetData } from "./SheetNavigationAid.js";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { BeUiEvent } from "@itwin/core-bentley";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Data about a sheet card
  * @alpha
@@ -89,7 +86,7 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
       this._cards.push({
         index,
         label: sheet.name,
-        iconSpec: <SvgDocument />,
+        iconSpec: <DocumentIcon />,
         viewId: sheet.viewId,
         isActive: index === this._currentIndex,
       });
@@ -124,6 +121,12 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     this._searchValue = value;
     UiFramework.frontstages.updateModalFrontstage();
   };
+}
+
+function DocumentIcon() {
+  const svgDocument = useStrataKitIcon("@stratakit/icons/document.svg");
+
+  return <StrataKitIcon href={svgDocument} iconNode={<SvgDocument />} />;
 }
 
 /** Properties for [[CardContainer]]
@@ -275,9 +278,9 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       this.props.icon ?? this.props.iconSpec ? (
         // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon iconSpec={this.props.iconSpec} />
+        <StrataKitIcon iconSpec={this.props.iconSpec} />
       ) : (
-        <SvgPlaceholder />
+        <PlaceholderIcon />
       );
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -297,4 +300,10 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       </div>
     );
   }
+}
+
+function PlaceholderIcon() {
+  const svgPlaceholder = useStrataKitIcon("@stratakit/icons/placeholder.svg");
+
+  return <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />;
 }

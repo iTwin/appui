@@ -16,6 +16,8 @@ import { WidgetAction } from "./WidgetAction.js";
 import { useMainPanelWidgetId } from "./usePanelWidgetId.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function PinToggle() {
@@ -27,9 +29,18 @@ export function PinToggle() {
   const unpinLabel = translate("widget.tooltips.unpinPanel");
   const pinned = useLayout((state) => state.panels[side].pinned);
 
+  const svgPin = useStrataKitIcon("@stratakit/icons/pin.svg");
+  const svgPinUnpin = useStrataKitIcon("@stratakit/icons/pin-unpin.svg");
+
   return (
     <WidgetAction
-      icon={pinned ? <SvgPin /> : <SvgPinHollow />}
+      icon={
+        pinned ? (
+          <StrataKitIcon href={svgPinUnpin} iconNode={<SvgPin />} />
+        ) : (
+          <StrataKitIcon href={svgPin} iconNode={<SvgPinHollow />} />
+        )
+      }
       label={pinned ? unpinLabel : pinLabel}
       onClick={() => {
         dispatch({

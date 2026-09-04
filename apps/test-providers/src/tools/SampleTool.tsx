@@ -16,6 +16,7 @@ import {
   SurveyLengthDescription,
   ToolAssistance,
   ToolAssistanceImage,
+  ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
 import {
   ColorEditorParams,
@@ -431,8 +432,37 @@ export class SampleTool extends PrimitiveTool {
       ToolAssistanceImage.CursorClick,
       SampleTool.getPrompt("GetPoint")
     );
-    const instructions = ToolAssistance.createInstructions(mainInstruction);
 
+    const mouseInstructions = [
+      ToolAssistance.createInstruction(
+        ToolAssistanceImage.LeftClick,
+        "Accept",
+        false,
+        ToolAssistanceInputMethod.Mouse
+      ),
+      ToolAssistance.createModifierKeyInstruction(
+        ToolAssistance.shiftKey,
+        ToolAssistanceImage.LeftClickDrag,
+        "Overlap",
+        false,
+        ToolAssistanceInputMethod.Mouse
+      ),
+      ToolAssistance.createKeyboardInstruction(
+        ToolAssistance.ctrlKeyboardInfo,
+        "Invert",
+        false,
+        ToolAssistanceInputMethod.Mouse
+      ),
+    ];
+
+    const mouseSection = ToolAssistance.createSection(
+      mouseInstructions,
+      ToolAssistance.inputsLabel
+    );
+
+    const instructions = ToolAssistance.createInstructions(mainInstruction, [
+      mouseSection,
+    ]);
     IModelApp.notifications.setToolAssistance(instructions);
   }
 

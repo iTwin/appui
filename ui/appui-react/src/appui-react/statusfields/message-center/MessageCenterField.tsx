@@ -20,11 +20,13 @@ import { OutputMessagePriority } from "@itwin/core-frontend";
 import { MessageCenterMessage } from "./MessageCenterMessage.js";
 import { MessageManager } from "../../messages/MessageManager.js";
 import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
+import { useTranslation } from "../../hooks/useTranslation.js";
+import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import "./MessageCenterField.scss";
-import { useTranslation } from "../../hooks/useTranslation.js";
-import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 
 /** Type for Status state to satisfy NotificationMarker type checking. */
 type NotificationMarkerStatus = Required<
@@ -93,6 +95,8 @@ export function MessageCenterField(props: CommonProps) {
     });
   }, []);
 
+  const svgChat = useStrataKitIcon("@stratakit/icons/chat.svg");
+
   return (
     <StatusBarPopover
       visible={isOpen}
@@ -152,7 +156,7 @@ export function MessageCenterField(props: CommonProps) {
         styleType="borderless"
         startIcon={
           <NotificationMarker status={status} enabled={notify}>
-            <SvgChat />
+            <StrataKitIcon href={svgChat} iconNode={<SvgChat />} />
           </NotificationMarker>
         }
         className={props.className}
@@ -170,30 +174,63 @@ interface MessageIconProps {
 }
 
 function MessageIcon({ priority }: MessageIconProps) {
+  const svgInfo = useStrataKitIcon("@stratakit/icons/info.svg");
+  const svgStatusError = useStrataKitIcon("@stratakit/icons/status-error.svg");
+  const svgStatusSuccess = useStrataKitIcon(
+    "@stratakit/icons/status-success.svg"
+  );
+  const svgStatusWarning = useStrataKitIcon(
+    "@stratakit/icons/status-warning.svg"
+  );
+
   switch (priority) {
     case OutputMessagePriority.Error:
     case OutputMessagePriority.Fatal:
       return (
-        <Icon fill="negative">
-          <SvgStatusError />
-        </Icon>
+        <StrataKitIcon
+          className="uifw-statusFields-messageCenter-messageCenterField_negativeIcon"
+          href={svgStatusError}
+          iconNode={
+            <Icon fill="negative">
+              <SvgStatusError />
+            </Icon>
+          }
+        />
       );
     case OutputMessagePriority.Warning:
       return (
-        <Icon fill="warning">
-          <SvgStatusWarning />
-        </Icon>
+        <StrataKitIcon
+          className="uifw-statusFields-messageCenter-messageCenterField_warningIcon"
+          href={svgStatusWarning}
+          iconNode={
+            <Icon fill="warning">
+              <SvgStatusWarning />
+            </Icon>
+          }
+        />
       );
     case OutputMessagePriority.Info:
       return (
-        <Icon fill="informational">
-          <SvgInfo />
-        </Icon>
+        <StrataKitIcon
+          className="uifw-statusFields-messageCenter-messageCenterField_informationalIcon"
+          href={svgInfo}
+          iconNode={
+            <Icon fill="informational">
+              <SvgInfo />
+            </Icon>
+          }
+        />
       );
   }
   return (
-    <Icon fill="positive">
-      <SvgStatusSuccess />
-    </Icon>
+    <StrataKitIcon
+      className="uifw-statusFields-messageCenter-messageCenterField_positiveIcon"
+      href={svgStatusSuccess}
+      iconNode={
+        <Icon fill="positive">
+          <SvgStatusSuccess />
+        </Icon>
+      }
+    />
   );
 }

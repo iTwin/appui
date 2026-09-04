@@ -25,6 +25,7 @@ import { Badge } from "./Badge.js";
 import { ToolGroupOverflowContext } from "./OverflowButton.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 interface GroupItemProps {
   item: ToolbarGroupItem;
@@ -87,8 +88,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   const startIcon = item.iconNode ? (
     <>{item.iconNode}</>
   ) : (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <Icon iconSpec={iconSpec} />
+    <StrataKitIcon iconSpec={iconSpec} />
   );
 
   return (

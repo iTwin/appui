@@ -7,6 +7,7 @@ import { WidgetState } from "@itwin/appui-react";
 import { BadgeType } from "@itwin/core-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { Icon as SKIcon } from "@stratakit/foundations";
+import { useThemeBridge } from "../../.storybook/addons/ThemeBridge";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { WidgetStory } from "./Widget";
@@ -24,6 +25,7 @@ const meta = {
     },
   },
   args: {
+    widgetTabActions: false,
     widgets: [{}, {}],
   },
 } satisfies Meta<typeof WidgetStory>;
@@ -55,48 +57,30 @@ export const Badge: Story = {
   },
 };
 
-export const Icon: Story = {
-  name: "Icon (iTwinUI)",
-  args: {
-    widgets: [{ iconNode: <SvgPlaceholder /> }, {}, {}, {}, {}],
-  },
-};
-
-export const IconStrataKit: Story = {
-  name: "Icon (StrataKit)",
+export const Icons: Story = {
   args: {
     widgets: [
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
+      { iconNode: <SvgPlaceholder />, label: "iTwinUI" },
+      {
+        iconNode: <StrataKitIcon href={placeholderIcon} />,
+        label: "StrataKit",
+      },
+      { iconNode: <i className="icon icon-placeholder" />, label: "CSS Icon" },
+      { icon: "icon-placeholder", label: "iconSpec (deprecated)" },
+      { icon: <SvgPlaceholder />, label: "iconSpec node (deprecated)" },
     ],
   },
 };
 
-export const CSSIcon: Story = {
-  args: {
-    widgets: [
-      { iconNode: <i className="icon icon-placeholder" /> },
-      {},
-      {},
-      {},
-      {},
-    ],
-  },
-};
+interface StrataKitIconProps {
+  href: string;
+}
 
-export const IconSpec: Story = {
-  name: "Icon Spec (deprecated)",
-  args: {
-    widgets: [{ icon: "icon-placeholder" }, {}, {}, {}, {}],
-  },
-};
+function StrataKitIcon(props: StrataKitIconProps) {
+  const themeBridge = useThemeBridge();
+  if (!themeBridge) {
+    return <SvgPlaceholder />;
+  }
 
-export const IconSpecNode: Story = {
-  name: "Icon Spec Node (deprecated)",
-  args: {
-    widgets: [{ icon: <SvgPlaceholder /> }, {}, {}, {}, {}],
-  },
-};
+  return <SKIcon href={props.href} />;
+}

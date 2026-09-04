@@ -29,6 +29,8 @@ import {
 } from "./SheetsModalFrontstage.js";
 import { IconButton, ProgressRadial } from "@itwin/itwinui-react";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** A Sheet Navigation Aid control.
  * @public
@@ -199,10 +201,10 @@ export class SheetNavigationAid extends React.Component<
               tabIndex={-1}
               label={leftTitle}
             >
-              <SvgChevronLeft />
+              <ChevronLeftIcon />
             </IconButton>
             <div>
-              {this.state.index + 1} {UiFramework.translate("general.of")}
+              {this.state.index + 1} {UiFramework.translate("general.of")}{" "}
               {this.state.sheetData.length}
             </div>
             <IconButton
@@ -213,7 +215,7 @@ export class SheetNavigationAid extends React.Component<
               tabIndex={-1}
               label={rightTitle}
             >
-              <SvgChevronRight />
+              <ChevronRightIcon />
             </IconButton>
           </div>
         </>
@@ -321,4 +323,20 @@ export class SheetNavigationAid extends React.Component<
   private _handleOnClickSheetName = () => {
     UiFramework.frontstages.openModalFrontstage(this.modalFrontstage());
   };
+}
+
+function ChevronLeftIcon() {
+  const svgChevronLeft = useStrataKitIcon("@stratakit/icons/chevron-left.svg");
+
+  return <StrataKitIcon href={svgChevronLeft} iconNode={<SvgChevronLeft />} />;
+}
+
+function ChevronRightIcon() {
+  const svgChevronRight = useStrataKitIcon(
+    "@stratakit/icons/chevron-right.svg"
+  );
+
+  return (
+    <StrataKitIcon href={svgChevronRight} iconNode={<SvgChevronRight />} />
+  );
 }

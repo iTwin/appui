@@ -13,6 +13,7 @@ import { UiFramework } from "../UiFramework.js";
 import type { useTransientState } from "../widget-panels/useTransientState.js";
 import type { WidgetDef } from "../widgets/WidgetDef.js";
 import type { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
+import type { enable } from "../../useStrataKit.js";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
@@ -87,7 +88,16 @@ interface KnownPreviewFeatures {
    * If `true`, the content layout will not re-mount given the same configuration.
    */
   stableContentLayout: boolean;
+  /**
+   * If `true`, StrataKit components will be used where available throughout AppUI.
+   * @note In the future, an object might be used to enable StrataKit for specific areas or features.
+   * @note This preview feature should be used with [StrataKit theme bridge](https://github.com/iTwin/iTwinUI/wiki/StrataKit-theme-bridge) enabled.
+   */
+  useStrataKit: ReturnType<typeof enable>;
 }
+
+/** @internal */
+export const StrataKitSymbol = Symbol.for("StrataKit");
 
 /** Object used trim to only known features at runtime.
  * @internal
@@ -106,6 +116,7 @@ const knownFeaturesObject: Record<keyof KnownPreviewFeatures, undefined> = {
   toolSettingsLockButton: undefined,
   toolSettingsKeyPressCommit: undefined,
   stableContentLayout: undefined,
+  useStrataKit: undefined,
 };
 
 /** List of preview features that can be enabled/disabled.

@@ -15,6 +15,8 @@ import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { Surface } from "../toolbar/new-toolbars/Surface.js";
 import { IconButton } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of {@link BackstageAppButton} component.
  * @public
@@ -54,11 +56,15 @@ export function BackstageAppButton({
     UiFramework.backstage.toggle();
   }, [execute]);
 
+  const svgHome = useStrataKitIcon("@stratakit/icons/home.svg");
+
   const iconSpecElement = iconSpec ? (
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     <CoreIcon iconSpec={iconSpec} />
   ) : undefined;
-  const icon = iconNode ?? iconSpecElement ?? <SvgHome />;
+  const icon = iconNode ?? iconSpecElement ?? (
+    <StrataKitIcon href={svgHome} iconNode={<SvgHome />} />
+  );
   return (
     <Surface orientation="horizontal">
       <IconButton

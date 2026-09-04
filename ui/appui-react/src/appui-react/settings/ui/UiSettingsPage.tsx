@@ -21,6 +21,8 @@ import {
 } from "../../theme/ThemeId.js";
 import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState.js";
 import { SyncUiEventId } from "../../syncui/UiSyncEvent.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -400,9 +402,19 @@ export function getUiSettingsManagerEntry(
     itemPriority,
     tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
-    icon: <SvgWindowSettings />,
+    icon: <WindowSettingsIcon />,
     page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),
   };
+}
+
+function WindowSettingsIcon() {
+  const svgWindowSettings = useStrataKitIcon(
+    "@stratakit/icons/window-settings.svg"
+  );
+
+  return (
+    <StrataKitIcon href={svgWindowSettings} iconNode={<SvgWindowSettings />} />
+  );
 }

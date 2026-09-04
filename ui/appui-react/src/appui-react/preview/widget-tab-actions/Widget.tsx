@@ -45,6 +45,8 @@ import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
 import { useBorders } from "../../layout/widget/PanelWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useWidgetDef } from "../../widget-panels/Content.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 const TabsContext = React.createContext<
   | {
@@ -234,10 +236,10 @@ function TabIcon() {
   const widgetDef = useWidgetDef();
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = widgetDef?.initialConfig?.icon;
-  const icon =
-    widgetDef?.initialConfig?.iconNode ??
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    (iconSpec ? <Icon iconSpec={iconSpec} /> : undefined);
+  const iconSpecIcon = iconSpec ? (
+    <StrataKitIcon iconSpec={iconSpec} />
+  ) : undefined;
+  const icon = widgetDef?.initialConfig?.iconNode ?? iconSpecIcon;
 
   if (!icon) return null;
   return <Tabs.TabIcon>{icon}</Tabs.TabIcon>;
@@ -272,6 +274,9 @@ function CloseTabDecoration() {
 
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
+
   return (
     <IconButton
       as={Tabs.TabIcon}
@@ -286,7 +291,7 @@ function CloseTabDecoration() {
       data-_appui-action={isActionTab ? "true" : undefined}
       ref={ref}
     >
-      <SvgCloseSmall />
+      <StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />
     </IconButton>
   );
 }
@@ -304,6 +309,8 @@ function CloseTabAction() {
 
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
+
+  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
 
   if (!closeAction) return null;
   return (
@@ -325,7 +332,7 @@ function CloseTabAction() {
           hideTab(actionTabId);
         }}
       >
-        <SvgCloseSmall />
+        <StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />
       </IconButton>
     </VisuallyHidden>
   );

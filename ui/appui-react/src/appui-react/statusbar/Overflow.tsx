@@ -6,6 +6,7 @@
  * @module StatusBar
  */
 
+import "./Overflow.scss";
 import type { CommonProps } from "@itwin/core-react";
 import { useResizeObserver } from "@itwin/core-react/internal";
 import * as React from "react";
@@ -13,7 +14,8 @@ import { useTranslation } from "../hooks/useTranslation.js";
 import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { StatusBarPopover } from "./popup/StatusBarPopover.js";
-import "./Overflow.scss";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of [[StatusBarOverflow]] component.
  * @internal
@@ -35,6 +37,10 @@ export function StatusBarOverflow(props: StatusBarOverflowProps) {
 
   const roRef = useResizeObserver<HTMLDivElement>(onResize);
 
+  const svgMoreHorizontal = useStrataKitIcon(
+    "@stratakit/icons/more-horizontal.svg"
+  );
+
   return (
     <StatusBarPopover
       content={
@@ -52,7 +58,7 @@ export function StatusBarOverflow(props: StatusBarOverflowProps) {
         label={translate("statusBar.overflow")}
         styleType="borderless"
       >
-        <SvgMore />
+        <StrataKitIcon href={svgMoreHorizontal} iconNode={<SvgMore />} />
       </IconButton>
     </StatusBarPopover>
   );
