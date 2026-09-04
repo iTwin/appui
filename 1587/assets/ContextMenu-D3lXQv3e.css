@@ -1,0 +1,241 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*
+  $counter: 0;
+  @function step($step) {
+    $counter: $counter + $step !global;
+    @return $counter;
+  }
+  uicore-map-from-array($array, step, 1000);
+*/
+/*
+  @function step($counter) {
+    @return $counter + 1000;
+  }
+  uicore-map-from-array-with-result-arg($array, step, 0);
+*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-context-menu-global {
+  position: fixed;
+  width: 0px;
+  height: 0px;
+  z-index: 19000;
+}
+
+.core-context-menu {
+  color: var(--iui-color-text);
+  width: 0px;
+  height: 0px;
+  position: relative;
+  z-index: 19000;
+}
+.core-context-menu:hover {
+  color: var(--iui-color-text-hover);
+  cursor: auto;
+}
+.core-context-menu .core-context-menu-container {
+  position: absolute;
+  border-radius: var(--iui-border-radius-1);
+  padding: 4px 0;
+  box-shadow: var(--iui-shadow-1);
+  background-color: var(--iui-color-background);
+  text-overflow: ellipsis;
+  min-width: max-content;
+  max-width: 350px;
+  visibility: hidden;
+  transform: scaleY(0);
+  display: table;
+  border: 1px solid var(--iui-color-border);
+}
+.core-context-menu .core-context-menu-container.core-context-menu-floating {
+  position: fixed;
+}
+.core-context-menu .core-context-menu-container.core-context-menu-opened {
+  visibility: inherit;
+  transform-origin: top;
+  transform: scaleY(1);
+}
+.core-context-menu .core-context-menu-container.core-context-menu-center {
+  transform: translate(-50%, -50%);
+}
+.core-context-menu .core-context-menu-container.core-context-menu-right {
+  transform: translate(var(--_core-context-menu-offset), -50%);
+}
+.core-context-menu .core-context-menu-container.core-context-menu-left {
+  transform: translate(calc(-100% - var(--_core-context-menu-offset)), -50%);
+}
+.core-context-menu .core-context-menu-container.core-context-menu-top {
+  transform: translate(-50%, calc(-100% - var(--_core-context-menu-offset)));
+}
+.core-context-menu .core-context-menu-container.core-context-menu-top.core-context-menu-right {
+  transform: translate(var(--_core-context-menu-offset), calc(-100% - var(--_core-context-menu-offset)));
+}
+.core-context-menu .core-context-menu-container.core-context-menu-top.core-context-menu-left {
+  transform: translate(calc(-100% - var(--_core-context-menu-offset)), calc(-100% - var(--_core-context-menu-offset)));
+}
+.core-context-menu .core-context-menu-container.core-context-menu-bottom {
+  transform: translate(-50%, var(--_core-context-menu-offset));
+}
+.core-context-menu .core-context-menu-container.core-context-menu-bottom.core-context-menu-right {
+  transform: translate(var(--_core-context-menu-offset), var(--_core-context-menu-offset));
+}
+.core-context-menu .core-context-menu-container.core-context-menu-bottom.core-context-menu-left {
+  transform: translate(calc(-100% - var(--_core-context-menu-offset)), var(--_core-context-menu-offset));
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item {
+  display: flex;
+  cursor: default;
+  padding: calc(calc(var(--iui-size-s) - 1px) * 0.6667) calc(var(--iui-size-s) - 1px);
+  width: calc(100% - 2 * calc(var(--iui-size-s) - 1px));
+  align-items: center;
+  position: relative;
+  box-sizing: content-box;
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item:hover {
+  background-color: var(--iui-color-background-hover);
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item.core-context-menu-is-selected {
+  background-color: var(--iui-color-background-accent-muted);
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item.core-context-menu-disabled {
+  color: var(--iui-color-text-disabled);
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item.core-context-menu-hidden {
+  display: none;
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item > .core-context-menu-icon {
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 16px;
+  height: var(--iui-size-l);
+  font-size: var(--iui-font-size-2);
+  line-height: var(--iui-size-l);
+  text-align: center;
+  margin-right: var(--iui-size-s);
+  opacity: var(--iui-opacity-2);
+  display: flex;
+  align-items: center;
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item > .core-context-menu-icon.core-context-menu-icon-right {
+  margin-left: var(--iui-size-s);
+  margin-right: 0;
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item > .core-context-menu-content {
+  flex-shrink: 0;
+  flex-grow: 1;
+  font-size: var(--iui-font-size-1);
+  text-align: left;
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item > .core-context-menu-badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.core-context-menu .core-context-menu-container .core-context-menu-item:focus {
+  outline: none;
+}
+.core-context-menu .core-context-menu-container:focus {
+  border: 1px solid var(--iui-color-background-backdrop-hover);
+  box-shadow: var(--iui-shadow-1);
+  outline: 0px;
+}
+.core-context-menu .core-context-menu-container:focus > .core-context-menu-item.is-selected,
+.core-context-menu .core-context-menu-container:focus > .context-submenu > .core-context-menu-item.is-selected {
+  background-color: var(--iui-color-background-hover);
+}
+.core-context-menu .core-context-menu-container .core-context-submenu {
+  display: flex;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-top {
+  flex-direction: column;
+  align-items: center;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-left {
+  flex-direction: row-reverse;
+  align-items: center;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-right {
+  flex-direction: row;
+  align-items: center;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-center {
+  flex-direction: column;
+  align-items: center;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-top.core-context-menu-left {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-top.core-context-menu-right {
+  flex-direction: row;
+  align-items: flex-end;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-bottom.core-context-menu-left {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu.core-context-menu-bottom.core-context-menu-right {
+  flex-direction: row;
+  align-items: flex-start;
+}
+.core-context-menu .core-context-menu-container .core-context-submenu .core-context-submenu-container .core-context-submenu-arrow {
+  margin-left: var(--iui-size-s);
+  margin-top: var(--iui-size-3xs);
+  margin-bottom: calc(var(--iui-size-3xs) * -1);
+}
+.core-context-menu .core-context-menu-divider {
+  border-bottom: 1px solid var(--iui-color-border-foreground);
+  height: 0px;
+}
+.core-context-menu .core-context-submenu-popup {
+  transform: translateY(-5px);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-badge-technicalPreviewBadge {
+  transform: rotate(270deg);
+}
+.core-badge-technicalPreviewBadge svg {
+  fill: rgba(0, 0, 0, 0.85);
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-badge-newBadge {
+  color: var(--iui-color-text-positive);
+  transform: rotate(270deg);
+}
+.core-badge-newBadge svg {
+  fill: currentColor;
+}/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-badge-deprecatedBadge {
+  transform: rotate(270deg);
+}
+.core-badge-deprecatedBadge svg {
+  fill: rgba(0, 0, 0, 0.85);
+}

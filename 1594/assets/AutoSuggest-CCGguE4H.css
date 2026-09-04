@@ -1,0 +1,123 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/* Backgrounds and strokes */
+/** Text and icons */
+/** Themed colors */
+/** Static colors */
+/** Widget Opacity */
+/** Toolbar Opacity */
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.uicore-autosuggest__container {
+  position: relative;
+}
+
+.uicore-autosuggest__input {
+  min-height: 28px !important;
+  padding: var(--iui-size-3xs) var(--iui-size-xs) !important;
+}
+
+.uicore-autosuggest__input--focused {
+  outline: none;
+}
+
+.uicore-autosuggest__input::-ms-clear {
+  display: none;
+}
+
+.uicore-autosuggest__input--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.uicore-autosuggest__suggestions-container {
+  display: none;
+}
+
+.uicore-autosuggest__suggestions-container--open {
+  display: block;
+  position: absolute;
+  width: 100%;
+  border: 1px solid var(--iui-color-border-foreground);
+  border-top: 0;
+  background-color: var(--iui-color-background);
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-sizing: border-box;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 2;
+}
+@supports (-webkit-overflow-scrolling: touch) {
+  .uicore-autosuggest__suggestions-container--open {
+    overflow-y: scroll; /* overflow-y has to be scroll, not auto */
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.uicore-autosuggest__suggestions-container--open::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.uicore-autosuggest__suggestions-container--open::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: hsl(var(--iui-color-foreground-hsl)/var(--iui-opacity-4));
+  background-clip: content-box;
+  border-style: solid;
+  border-color: transparent;
+  border-width: 2px;
+}
+.uicore-autosuggest__suggestions-container--open::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--iui-color-foreground-hsl)/var(--iui-opacity-3));
+}
+.uicore-autosuggest__suggestions-container--open::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+.uicore-autosuggest__suggestions-container--open::-webkit-scrollbar-track-piece:corner-present {
+  margin-bottom: -4px;
+  margin-right: -4px;
+}
+
+.uicore-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.uicore-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.uicore-autosuggest__suggestion--highlighted {
+  background-color: var(--iui-color-background-accent-muted);
+}
+
+.uicore-autosuggest__section-container {
+  border-top: 1px dashed var(--iui-color-background-backdrop-hover);
+}
+
+.uicore-autosuggest__section-container--first {
+  border-top: 0;
+}
+
+.uicore-autosuggest__section-title {
+  padding: 10px 0 0 10px;
+  font-size: var(--iui-font-size-0);
+  color: var(--iui-color-background-backdrop-hover);
+}
