@@ -4976,6 +4976,8 @@ export class ToolIconChangedEvent extends UiEvent<ToolIconChangedEventArgs> {
 // @public @deprecated
 export interface ToolIconChangedEventArgs {
     // (undocumented)
+    iconElement?: React.ReactElement;
+    // (undocumented)
     iconSpec: string;
 }
 
