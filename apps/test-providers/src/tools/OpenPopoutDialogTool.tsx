@@ -8,18 +8,21 @@ import {
   ConditionalBooleanValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgWindowAdd } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgWindowAdd from "@stratakit/icons/window-add.svg";
 
 /**
  * Immediate tool that will open an example popout dialog.The tool is created and register to allow the user
  * to activate the tool via the key-in palette using the tools keyin property (which must be unique across
  * all registered tools).
  */
-export class OpenPopoutDialogTool extends Tool {
+class OpenPopoutDialogToolBase extends Tool {
   public static override toolId = "appuiTestProviders-OpenPopoutDialogTool";
-  public static override iconSpec = windowAddSvg;
 
   public static override get minArgs() {
     return 0;
@@ -71,14 +74,19 @@ export class OpenPopoutDialogTool extends Tool {
     };
 
     return ToolbarItemUtilities.createActionButton(
-      OpenPopoutDialogTool.toolId,
+      OpenPopoutDialogToolBase.toolId,
       itemPriority,
       this.iconSpec,
-      OpenPopoutDialogTool.flyover,
+      OpenPopoutDialogToolBase.flyover,
       async () => {
-        await IModelApp.tools.run(OpenPopoutDialogTool.toolId);
+        await IModelApp.tools.run(OpenPopoutDialogToolBase.toolId);
       },
       overrides
     );
   }
 }
+
+export const OpenPopoutDialogTool = ToolUtilities.defineIcon(
+  OpenPopoutDialogToolBase,
+  <StrataKitIcon href={svgWindowAdd} iconNode={<SvgWindowAdd />} />
+);

@@ -20,9 +20,13 @@ import {
 import { SvgDraw, SvgEdit } from "@itwin/itwinui-icons-react";
 import {
   getCustomViewSelectorPopupItem,
+  StrataKitIcon,
   ViewportContent,
 } from "@itwin/appui-test-providers";
 import { CreateCircleTool } from "../../tools/CreateCircleTool";
+
+import svgDraw from "@stratakit/icons/draw.svg";
+import svgEdit from "@stratakit/icons/edit.svg";
 
 export function createEditorFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
@@ -53,7 +57,7 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
         stageId: createEditorFrontstage.stageId,
         groupPriority: 400,
         label: "Editor",
-        icon: <SvgEdit />,
+        icon: <StrataKitIcon href={svgEdit} iconNode={<SvgEdit />} />,
       }),
     ],
     getToolbarItems: () => [
@@ -79,7 +83,7 @@ export function createEditorFrontstageProvider(): UiItemsProvider {
         {
           id: `${id}:accudraw-widget`,
           label: "AccuDraw",
-          icon: <SvgDraw />,
+          icon: <StrataKitIcon href={svgDraw} iconNode={<SvgDraw />} />,
           content: <AccuDrawWidget />,
           layouts,
         },

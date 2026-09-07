@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 export * from "./tools/ContentLayoutTools.js";
-export * from "./tools/GenericLocateTool.js";
 export * from "./tools/InspectUiItemInfoTool.js";
 export * from "./tools/OpenAbstractModalDialogTool.js";
 export * from "./tools/OpenCustomDialogTool.js";
@@ -29,6 +28,8 @@ export * from "./ui/frontstages/CustomFrontstageProvider.js";
 export * from "./ui/frontstages/PopoutWindowsFrontstage.js";
 export * from "./ui/frontstages/registerCustomFrontstage.js";
 export * from "./ui/frontstages/SynchronizedViewportFrontstage.js";
+
+export * from "./ui/icons/StrataKitIcon.js";
 
 export * from "./ui/providers/AbstractUiItemsProvider.js";
 export * from "./ui/providers/ContentLayoutStageUiItemsProvider.js";

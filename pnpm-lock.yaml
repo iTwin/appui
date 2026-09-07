@@ -90,6 +90,9 @@ catalogs:
     '@stratakit/icons':
       specifier: ^0.4.3
       version: 0.4.3
+    '@stratakit/mui':
+      specifier: ^0.5.4
+      version: 0.5.4
     '@types/lodash':
       specifier: ^4.17.24
       version: 4.17.24
@@ -176,9 +179,6 @@ importers:
 
   apps/test-app:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: 'catalog:'
-        version: 1.0.34
       '@bentley/icons-generic-webfont':
         specifier: 'catalog:'
         version: 1.0.34
@@ -299,6 +299,9 @@ importers:
       '@stratakit/icons':
         specifier: 'catalog:'
         version: 0.4.3
+      '@stratakit/mui':
+        specifier: 'catalog:'
+        version: 0.5.4(@mui/material@9.3.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-router':
         specifier: ^1.168.19
         version: 1.168.19(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -402,9 +405,6 @@ importers:
 
   apps/test-providers:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: 'catalog:'
-        version: 1.0.34
       '@itwin/appui-abstract':
         specifier: 'catalog:'
         version: 5.8.1(@itwin/core-bentley@5.8.1)
@@ -447,6 +447,12 @@ importers:
       '@itwin/webgl-compatibility':
         specifier: 'catalog:'
         version: 5.8.1
+      '@stratakit/icons':
+        specifier: 'catalog:'
+        version: 0.4.3
+      '@stratakit/mui':
+        specifier: 'catalog:'
+        version: 0.5.4(@mui/material@9.3.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames:
         specifier: 2.5.1
         version: 2.5.1

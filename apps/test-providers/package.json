@@ -47,7 +47,6 @@
     "typescript": "~5.6.3"
   },
   "dependencies": {
-    "@bentley/icons-generic": "catalog:",
     "@itwin/appui-abstract": "catalog:",
     "@itwin/appui-react": "workspace:*",
     "@itwin/components-react": "workspace:*",
@@ -67,6 +66,10 @@
     "react-dom": "catalog:",
     "react-redux": "^9.2.0",
     "ts-key-enum": "~2.0.13"
+  },
+  "peerDependencies": {
+    "@stratakit/mui": "catalog:",
+    "@stratakit/icons": "catalog:"
   },
   "repository": {
     "type": "git",

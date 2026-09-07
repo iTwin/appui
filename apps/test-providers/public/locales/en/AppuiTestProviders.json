@@ -74,15 +74,6 @@
         "NewYork": "New York"
       }
     },
-    "uiItemsProvidersTest-GenericLocateTool": {
-      "keyin": "state generic tool",
-      "description": "Generic Tool from Provider",
-      "flyover": "Generic Tool",
-      "Prompts": {
-        "identifyElement": "Identify Element",
-        "identifyPosition": "Identify Position"
-      }
-    },
     "SetWidgetStateTool": {
       "keyin": "widget setstate"
     },

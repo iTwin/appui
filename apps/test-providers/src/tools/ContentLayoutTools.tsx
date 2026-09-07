@@ -20,11 +20,20 @@ import {
   useConditionalValue,
 } from "@itwin/appui-react";
 import { IModelConnection, ScreenViewport, Tool } from "@itwin/core-frontend";
-import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
-
-import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
-import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
+import {
+  SvgDownload,
+  SvgUpload,
+  SvgWindow,
+  SvgWindowSplitVertical,
+} from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "../ui/ViewportContent.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+
+import svgDownload from "@stratakit/icons/download.svg";
+import svgUpload from "@stratakit/icons/upload.svg";
+import svgWindow from "@stratakit/icons/window.svg";
+import svgWindowSplitVertical from "@stratakit/icons/window-split-vertical.svg";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -64,9 +73,8 @@ export async function getSavedViewLayoutProps(
   return savedViewLayoutProps;
 }
 
-export class SaveContentLayoutTool extends Tool {
+class SaveContentLayoutToolBase extends Tool {
   public static override toolId = "SaveContentLayoutTool";
-  public static override iconSpec = layoutSaveIconSvg;
   public static override get minArgs() {
     return 0;
   }
@@ -123,10 +131,13 @@ export class SaveContentLayoutTool extends Tool {
     return true;
   }
 }
+export const SaveContentLayoutTool = ToolUtilities.defineIcon(
+  SaveContentLayoutToolBase,
+  <StrataKitIcon href={svgUpload} iconNode={<SvgUpload />} />
+);
 
-export class RestoreSavedContentLayoutTool extends Tool {
+class RestoreSavedContentLayoutToolBase extends Tool {
   public static override toolId = "RestoreSavedContentLayoutTool";
-  public static override iconSpec = layoutRestoreIconSvg;
   public static override get minArgs() {
     return 0;
   }
@@ -181,6 +192,10 @@ export class RestoreSavedContentLayoutTool extends Tool {
     return true;
   }
 }
+export const RestoreSavedContentLayoutTool = ToolUtilities.defineIcon(
+  RestoreSavedContentLayoutToolBase,
+  <StrataKitIcon href={svgDownload} iconNode={<SvgDownload />} />
+);
 
 function SplitWindowIcon() {
   const split = useConditionalValue(
@@ -190,8 +205,15 @@ function SplitWindowIcon() {
         ?.contentPropsList.length,
     [SyncUiEventId.ActiveContentChanged]
   );
-  if (split) return <SvgWindowSplitVertical />;
-  return <SvgWindow />;
+  if (split)
+    return (
+      <StrataKitIcon
+        href={svgWindowSplitVertical}
+        iconNode={<SvgWindowSplitVertical />}
+      />
+    );
+
+  return <StrataKitIcon href={svgWindow} iconNode={<SvgWindow />} />;
 }
 
 export function createSplitSingleViewportToolbarItem(

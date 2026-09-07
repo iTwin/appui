@@ -10,17 +10,20 @@ import * as React from "react";
 import { Tool } from "@itwin/core-frontend";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog.js";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
-import connectedQuerySvg from "../ui/icons/connected-query.svg";
 import { UiFramework } from "@itwin/appui-react";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { StrataKitIcon } from "../appui-test-providers.js";
+import { SvgRefresh } from "@itwin/itwinui-icons-react";
+
+import svgRefresh from "@stratakit/icons/refresh.svg";
 
 /**
  * Immediate tool that will open an example modal dialog.The tool is created and register to allow the user
  * to activate the tool via the key-in palette using the tools keyin property (which must be unique across
  * all registered tools).
  */
-export class OpenCustomDialogTool extends Tool {
+class OpenCustomDialogToolBase extends Tool {
   public static override toolId = "appuiTestProviders-OpenCustomDialogTool";
-  public static override iconSpec = connectedQuerySvg;
 
   public static override get minArgs() {
     return 0;
@@ -47,3 +50,8 @@ export class OpenCustomDialogTool extends Tool {
     return "open custom dialog";
   }
 }
+
+export const OpenCustomDialogTool = ToolUtilities.defineIcon(
+  OpenCustomDialogToolBase,
+  <StrataKitIcon href={svgRefresh} iconNode={<SvgRefresh />} />
+);

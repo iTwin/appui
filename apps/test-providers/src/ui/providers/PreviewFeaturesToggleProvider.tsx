@@ -12,7 +12,7 @@ import { Checkbox, DropdownButton, MenuItem } from "@itwin/itwinui-react";
 import { SvgTechnicalPreviewBadgeBw } from "@itwin/itwinui-icons-react";
 import { enable } from "@itwin/appui-react/useStrataKit";
 
-const PreviewFeaturesContext = React.createContext<
+export const PreviewFeaturesContext = React.createContext<
   | [PreviewFeatures, React.Dispatch<React.SetStateAction<PreviewFeatures>>]
   | undefined
 >(undefined);

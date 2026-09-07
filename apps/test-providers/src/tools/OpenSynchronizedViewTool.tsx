@@ -6,13 +6,16 @@ import { UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
 import * as React from "react";
 import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
-import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
 import { Dialog } from "@itwin/itwinui-react";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+import { SvgPanorama } from "@itwin/itwinui-icons-react";
 
-export class OpenSynchronizedViewTool extends Tool {
+import svgPanorama from "@stratakit/icons/panorama.svg";
+
+class OpenSynchronizedViewToolBase extends Tool {
   private static _counter = 0;
   public static override toolId = "OpenViewDialog";
-  public static override iconSpec = panoramaconSvg;
   public static get dialogId(): string {
     return `ui-test-app:popup-view-dialog-${OpenSynchronizedViewTool._counter}`;
   }
@@ -75,6 +78,11 @@ export class OpenSynchronizedViewTool extends Tool {
     return "open view dialog";
   }
 }
+
+export const OpenSynchronizedViewTool = ToolUtilities.defineIcon(
+  OpenSynchronizedViewToolBase,
+  <StrataKitIcon href={svgPanorama} iconNode={<SvgPanorama />} />
+);
 
 function IModelViewDialog({
   x,
