@@ -7,6 +7,7 @@
  */
 
 import * as React from "react";
+import type { ToolType } from "@itwin/core-frontend";
 import {
   FitViewTool,
   FlyViewTool,
@@ -33,6 +34,7 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import {
   SvgCameraAnimation,
   SvgCameraAnimationDisabled,
@@ -55,6 +57,7 @@ import {
 import { ConditionalIconItem } from "@itwin/core-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
+import type { ToolItemProps } from "../shared/ItemProps.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -77,11 +80,7 @@ export class CoreTools {
   }
 
   public static get fitViewCommand() {
-    return new ToolItemDef({
-      toolId: FitViewTool.toolId,
-      iconSpec: FitViewTool.iconSpec,
-      label: FitViewTool.flyover,
-      description: FitViewTool.description,
+    return createForTool(FitViewTool, {
       execute: async () =>
         IModelApp.tools.run(
           FitViewTool.toolId,
@@ -92,11 +91,7 @@ export class CoreTools {
   }
 
   public static get windowAreaCommand() {
-    return new ToolItemDef({
-      toolId: WindowAreaTool.toolId,
-      iconSpec: WindowAreaTool.iconSpec,
-      label: WindowAreaTool.flyover,
-      description: WindowAreaTool.description,
+    return createForTool(WindowAreaTool, {
       execute: async () =>
         IModelApp.tools.run(
           WindowAreaTool.toolId,
@@ -106,11 +101,7 @@ export class CoreTools {
   }
 
   public static get zoomViewCommand() {
-    return new ToolItemDef({
-      toolId: ZoomViewTool.toolId,
-      iconSpec: ZoomViewTool.iconSpec,
-      label: ZoomViewTool.flyover,
-      description: ZoomViewTool.description,
+    return createForTool(ZoomViewTool, {
       execute: async () =>
         IModelApp.tools.run(
           ZoomViewTool.toolId,
@@ -120,11 +111,7 @@ export class CoreTools {
   }
 
   public static get panViewCommand() {
-    return new ToolItemDef({
-      toolId: PanViewTool.toolId,
-      iconSpec: PanViewTool.iconSpec,
-      label: PanViewTool.flyover,
-      description: PanViewTool.description,
+    return createForTool(PanViewTool, {
       execute: async () =>
         IModelApp.tools.run(
           PanViewTool.toolId,
@@ -134,8 +121,7 @@ export class CoreTools {
   }
 
   public static get rotateViewCommand() {
-    return new ToolItemDef({
-      toolId: RotateViewTool.toolId,
+    return createForTool(RotateViewTool, {
       icon: new ConditionalIconItem(() => {
         const viewport = getActiveViewport();
         if (viewport?.view.is2d()) return <SvgRotateLeft />;
@@ -145,8 +131,6 @@ export class CoreTools {
         SyncUiEventId.ActiveViewportChanged,
         SyncUiEventId.ViewStateChanged,
       ]),
-      label: RotateViewTool.flyover,
-      description: RotateViewTool.description,
       execute: async () =>
         IModelApp.tools.run(
           RotateViewTool.toolId,
@@ -156,11 +140,7 @@ export class CoreTools {
   }
 
   public static get walkViewCommand() {
-    return new ToolItemDef({
-      toolId: WalkViewTool.toolId,
-      iconSpec: WalkViewTool.iconSpec,
-      label: WalkViewTool.flyover,
-      description: WalkViewTool.description,
+    return createForTool(WalkViewTool, {
       isHidden: new ConditionalBooleanValue(() => {
         const viewport = getActiveViewport();
         return !!viewport?.view.is2d();
@@ -178,28 +158,15 @@ export class CoreTools {
   }
 
   public static get selectElementCommand() {
-    return new ToolItemDef({
-      toolId: SelectionTool.toolId,
-      iconSpec: SelectionTool.iconSpec,
-      label: SelectionTool.flyover,
-      description: SelectionTool.description,
-      execute: async () => IModelApp.tools.run(SelectionTool.toolId),
-    });
+    return createForTool(SelectionTool);
   }
 
   public static get setupCameraWalkTool() {
-    return new ToolItemDef({
-      toolId: SetupWalkCameraTool.toolId,
-      iconSpec: SetupWalkCameraTool.iconSpec,
-      label: SetupWalkCameraTool.flyover,
-      description: SetupWalkCameraTool.description,
-      execute: async () => IModelApp.tools.run(SetupWalkCameraTool.toolId),
-    });
+    return createForTool(SetupWalkCameraTool);
   }
 
   public static get toggleCameraViewCommand() {
-    return new ToolItemDef({
-      toolId: ViewToggleCameraTool.toolId,
+    return createForTool(ViewToggleCameraTool, {
       iconSpec: new ConditionalIconItem(() => {
         const viewport = getActiveViewport();
         if (viewport?.view.is3d() && viewport?.isCameraOn) {
@@ -225,7 +192,6 @@ export class CoreTools {
         SyncUiEventId.ActiveViewportChanged,
         SyncUiEventId.ViewStateChanged,
       ]),
-      description: ViewToggleCameraTool.description,
       isHidden: new ConditionalBooleanValue(() => {
         const viewport = getActiveViewport();
         return !(viewport?.view.is3d() && viewport?.view.supportsCamera());
@@ -243,11 +209,7 @@ export class CoreTools {
   }
 
   public static get flyViewCommand() {
-    return new ToolItemDef({
-      toolId: FlyViewTool.toolId,
-      iconSpec: FlyViewTool.iconSpec,
-      label: FlyViewTool.flyover,
-      description: FlyViewTool.description,
+    return createForTool(FlyViewTool, {
       execute: async () =>
         IModelApp.tools.run(
           FlyViewTool.toolId,
@@ -259,8 +221,7 @@ export class CoreTools {
   // TODO - Need to provide a sync message that is fired when the Undo/Redo button needs to be refreshed in the
   // active view.
   public static get viewUndoCommand() {
-    return new ToolItemDef({
-      toolId: ViewUndoTool.toolId,
+    return createForTool(ViewUndoTool, {
       isDisabled: new ConditionalBooleanValue(() => {
         const viewport = getActiveViewport();
         if (!viewport) return false;
@@ -270,9 +231,6 @@ export class CoreTools {
         SyncUiEventId.ActiveViewportChanged,
         SyncUiEventId.ViewStateChanged,
       ]),
-      iconSpec: ViewUndoTool.iconSpec,
-      label: ViewUndoTool.flyover,
-      description: ViewUndoTool.description,
       execute: async () =>
         IModelApp.tools.run(
           ViewUndoTool.toolId,
@@ -282,11 +240,7 @@ export class CoreTools {
   }
 
   public static get viewRedoCommand() {
-    return new ToolItemDef({
-      toolId: ViewRedoTool.toolId,
-      iconSpec: ViewRedoTool.iconSpec,
-      label: ViewRedoTool.flyover,
-      description: ViewRedoTool.description,
+    return createForTool(ViewRedoTool, {
       execute: async () =>
         IModelApp.tools.run(
           ViewRedoTool.toolId,
@@ -314,11 +268,7 @@ export class CoreTools {
 
   // note current ViewClipByPlaneTool is not automatically registered so the app must call ViewClipByPlaneTool.register();
   public static get sectionByPlaneCommandItemDef() {
-    return new ToolItemDef({
-      toolId: ViewClipByPlaneTool.toolId,
-      iconSpec: ViewClipByPlaneTool.iconSpec,
-      label: ViewClipByPlaneTool.flyover,
-      description: ViewClipByPlaneTool.description,
+    return createForTool(ViewClipByPlaneTool, {
       execute: async () => {
         this.turnOnClipVolume();
         return IModelApp.tools.run(
@@ -331,11 +281,7 @@ export class CoreTools {
 
   // note current ViewClipByElementTool is not automatically registered so the app must call ViewClipByElementTool.register();
   public static get sectionByElementCommandItemDef() {
-    return new ToolItemDef({
-      toolId: ViewClipByElementTool.toolId,
-      iconSpec: ViewClipByElementTool.iconSpec,
-      label: ViewClipByElementTool.flyover,
-      description: ViewClipByElementTool.description,
+    return createForTool(ViewClipByElementTool, {
       execute: async () => {
         this.turnOnClipVolume();
         return IModelApp.tools.run(
@@ -348,11 +294,7 @@ export class CoreTools {
 
   // note current ViewClipByRangeTool is not automatically registered so the app must call ViewClipByRangeTool.register();
   public static get sectionByRangeCommandItemDef() {
-    return new ToolItemDef({
-      toolId: ViewClipByRangeTool.toolId,
-      iconSpec: ViewClipByRangeTool.iconSpec,
-      label: ViewClipByRangeTool.flyover,
-      description: ViewClipByRangeTool.description,
+    return createForTool(ViewClipByRangeTool, {
       execute: async () => {
         this.turnOnClipVolume();
         return IModelApp.tools.run(
@@ -365,11 +307,7 @@ export class CoreTools {
 
   // note current ViewClipByShapeTool is not automatically registered so the app must call ViewClipByShapeTool.register();
   public static get sectionByShapeCommandItemDef() {
-    return new ToolItemDef({
-      toolId: ViewClipByShapeTool.toolId,
-      iconSpec: ViewClipByShapeTool.iconSpec,
-      label: ViewClipByShapeTool.flyover,
-      description: ViewClipByShapeTool.description,
+    return createForTool(ViewClipByShapeTool, {
       execute: async () => {
         this.turnOnClipVolume();
         return IModelApp.tools.run(
@@ -451,28 +389,12 @@ export class CoreTools {
 
   // note current MeasureDistanceTool is not automatically registered so the app must call MeasureDistanceTool.register();
   public static get measureDistanceToolItemDef() {
-    return new ToolItemDef({
-      toolId: MeasureDistanceTool.toolId,
-      iconSpec: MeasureDistanceTool.iconSpec,
-      label: MeasureDistanceTool.flyover,
-      description: MeasureDistanceTool.description,
-      execute: async () => {
-        return IModelApp.tools.run(MeasureDistanceTool.toolId);
-      },
-    });
+    return createForTool(MeasureDistanceTool);
   }
 
   // note current MeasureLocationTool is not automatically registered so the app must call MeasureLocationTool.register();
   public static get measureLocationToolItemDef() {
-    return new ToolItemDef({
-      toolId: MeasureLocationTool.toolId,
-      iconSpec: MeasureLocationTool.iconSpec,
-      label: MeasureLocationTool.flyover,
-      description: MeasureLocationTool.description,
-      execute: async () => {
-        return IModelApp.tools.run(MeasureLocationTool.toolId);
-      },
-    });
+    return createForTool(MeasureLocationTool);
   }
 
   public static get measureToolGroup() {
@@ -507,14 +429,23 @@ export class CoreTools {
   }
 
   public static get restoreFrontstageLayoutCommandItemDef() {
-    return new ToolItemDef({
-      toolId: RestoreFrontstageLayoutTool.toolId,
-      iconSpec: RestoreFrontstageLayoutTool.iconSpec,
-      label: RestoreFrontstageLayoutTool.flyover,
-      description: RestoreFrontstageLayoutTool.description,
-      execute: async () => {
-        return IModelApp.tools.run(RestoreFrontstageLayoutTool.toolId);
-      },
-    });
+    return createForTool(RestoreFrontstageLayoutTool);
   }
+}
+
+function createForTool(toolType: ToolType, overrides?: Partial<ToolItemProps>) {
+  const icon = ToolUtilities.isWithIcon(toolType)
+    ? toolType.iconElement
+    : undefined;
+  return new ToolItemDef({
+    toolId: toolType.toolId,
+    iconSpec: toolType.iconSpec,
+    label: toolType.flyover,
+    description: toolType.description,
+    execute: async () => {
+      return IModelApp.tools.run(toolType.toolId);
+    },
+    ...(icon ? { icon } : {}),
+    ...overrides,
+  });
 }

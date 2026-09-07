@@ -9,6 +9,7 @@
 import type { Tool } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { OnItemExecutedFunc } from "@itwin/appui-abstract";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import { ActionButtonItemDef } from "./ActionButtonItemDef.js";
 import type { ToolItemProps } from "./ItemProps.js";
 import type { ToolbarItemUtilities } from "../toolbar/ToolbarItemUtilities.js";
@@ -51,15 +52,15 @@ export class ToolItemDef extends ActionButtonItemDef {
     icon?: string,
     ...args: any[]
   ): ToolItemDef {
+    const iconElement = ToolUtilities.isWithIcon(tool)
+      ? tool.iconElement
+      : undefined;
     return new ToolItemDef({
       toolId: tool.toolId,
-      icon: icon
-        ? icon
-        : tool.iconSpec && tool.iconSpec.length > 0
-        ? tool.iconSpec
-        : undefined,
+      iconSpec: icon ?? tool.iconSpec,
       label: () => tool.flyover,
       description: () => tool.description,
+      ...(iconElement ? { icon: iconElement } : {}),
       execute: async () => IModelApp.tools.run(tool.toolId, ...args),
     });
   }
