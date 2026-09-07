@@ -28,11 +28,11 @@ import {
 import { AppUiTestProviders } from "../../AppUiTestProviders.js";
 import { OpenCustomDialogTool } from "../../tools/OpenCustomDialogTool.js";
 import { SampleModelessDialog } from "../dialogs/SampleModelessDialog.js";
-import visibilitySemiTransparentSvg from "../icons/visibility-semi-transparent.svg";
 import { SelectedElementDataWidgetComponent } from "../widgets/SelectedElementDataWidget.js";
 import {
   SvgActivity,
   SvgFlag,
+  SvgVisibilityShow,
   SvgWindow,
   SvgWindowAdd,
 } from "@itwin/itwinui-icons-react";
@@ -56,7 +56,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
     const customActionButton = ToolbarItemUtilities.createActionItem(
       "custom-action-button",
       -1,
-      visibilitySemiTransparentSvg,
+      <SvgVisibilityShow />,
       "Custom Action Button",
       () => {
         IModelApp.notifications.outputMessage(
