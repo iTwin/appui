@@ -2,27 +2,24 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/** @packageDocumentation
- * @module Tools
- */
 
+import * as React from "react";
 import {
   BeButtonEvent,
   EventHandled,
   IModelApp,
   PrimitiveTool,
 } from "@itwin/core-frontend";
-import inspectIconSvg from "@bentley/icons-generic/icons/search.svg";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgSearch } from "@itwin/itwinui-icons-react";
 
-export class InspectUiItemInfoTool extends PrimitiveTool {
+class InspectUiItemInfoToolBase extends PrimitiveTool {
   private _timerId: number | undefined;
   private _currentX = 0;
   private _currentY = 0;
   private _lastElement: HTMLElement | null = null;
 
-  private static _counter = 0;
   public static override toolId = "InspectUiItemInfoTool";
-  public static override iconSpec = inspectIconSvg;
 
   public static override get minArgs() {
     return 0;
@@ -153,3 +150,8 @@ export class InspectUiItemInfoTool extends PrimitiveTool {
     IModelApp.notifications.outputPrompt("click over UI item");
   }
 }
+
+export const InspectUiItemInfoTool = ToolUtilities.defineIcon(
+  InspectUiItemInfoToolBase,
+  <SvgSearch />
+);

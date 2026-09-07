@@ -32,7 +32,7 @@ import {
   SvgPlaceholder,
   SvgRemove,
 } from "@itwin/itwinui-icons-react";
-import placeholderIcon from "@bentley/icons-generic/icons/placeholder.svg";
+import placeholderIcon from "../../assets/placeholder.svg";
 import { AppUiDecorator, InitializerDecorator } from "../Decorators";
 import { withResizer } from "../../.storybook/addons/Resizer";
 import { createBumpEvent } from "../createBumpEvent";

@@ -8,8 +8,9 @@ import {
   ConditionalBooleanValue,
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
-import windowAddSvg from "@bentley/icons-generic/icons/window-add.svg";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgWindowAdd } from "@itwin/itwinui-icons-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
 
 /**
@@ -17,9 +18,8 @@ import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
  * to activate the tool via the key-in palette using the tools keyin property (which must be unique across
  * all registered tools).
  */
-export class OpenPopoutDialogTool extends Tool {
+class OpenPopoutDialogToolBase extends Tool {
   public static override toolId = "appuiTestProviders-OpenPopoutDialogTool";
-  public static override iconSpec = windowAddSvg;
 
   public static override get minArgs() {
     return 0;
@@ -82,3 +82,8 @@ export class OpenPopoutDialogTool extends Tool {
     );
   }
 }
+
+export const OpenPopoutDialogTool = ToolUtilities.defineIcon(
+  OpenPopoutDialogToolBase,
+  <SvgWindowAdd />
+);
