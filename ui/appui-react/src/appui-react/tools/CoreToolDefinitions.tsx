@@ -35,10 +35,6 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { ToolUtilities } from "@itwin/imodel-components-react";
-import {
-  SvgCameraAnimation,
-  SvgCameraAnimationDisabled,
-} from "@itwin/itwinui-icons-react";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef.js";
 import { CommandItemDef } from "../shared/CommandItemDef.js";
 import { ToolItemDef } from "../shared/ToolItemDef.js";
@@ -46,15 +42,9 @@ import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { GroupItemDef } from "../toolbar/GroupItem.js";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool.js";
 import { UiFramework } from "../UiFramework.js";
-import { SvgGyroscope } from "../icons/SvgGyroscope.js";
 import { SvgSectionTool } from "../icons/SvgSectionTool.js";
 import { SvgSelectionClear } from "../icons/SvgSelectionClear.js";
-import {
-  SvgMeasure,
-  SvgProcess,
-  SvgRotateLeft,
-} from "@itwin/itwinui-icons-react";
-import { ConditionalIconItem } from "@itwin/core-react";
+import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 import type { ToolItemProps } from "../shared/ItemProps.js";
@@ -122,15 +112,6 @@ export class CoreTools {
 
   public static get rotateViewCommand() {
     return createForTool(RotateViewTool, {
-      icon: new ConditionalIconItem(() => {
-        const viewport = getActiveViewport();
-        if (viewport?.view.is2d()) return <SvgRotateLeft />;
-        return <SvgGyroscope />;
-      }, [
-        SyncUiEventId.ActiveContentChanged,
-        SyncUiEventId.ActiveViewportChanged,
-        SyncUiEventId.ViewStateChanged,
-      ]),
       execute: async () =>
         IModelApp.tools.run(
           RotateViewTool.toolId,
@@ -167,18 +148,6 @@ export class CoreTools {
 
   public static get toggleCameraViewCommand() {
     return createForTool(ViewToggleCameraTool, {
-      iconSpec: new ConditionalIconItem(() => {
-        const viewport = getActiveViewport();
-        if (viewport?.view.is3d() && viewport?.isCameraOn) {
-          return <SvgCameraAnimation />;
-        }
-
-        return <SvgCameraAnimationDisabled />;
-      }, [
-        SyncUiEventId.ActiveContentChanged,
-        SyncUiEventId.ActiveViewportChanged,
-        SyncUiEventId.ViewStateChanged,
-      ]),
       label: new ConditionalStringValue(() => {
         const viewport = getActiveViewport();
         if (viewport?.view.is3d() && viewport?.isCameraOn) {
