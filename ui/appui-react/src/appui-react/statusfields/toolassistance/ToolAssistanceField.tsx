@@ -117,6 +117,7 @@ interface Props
 interface ToolAssistanceFieldState {
   instructions: ToolAssistanceInstructions | undefined;
   toolIconSpec: string;
+  toolIconElement: React.ReactElement | undefined;
   showPromptAtCursor: boolean;
   mouseTouchTabIndex: number;
 }
@@ -151,6 +152,7 @@ export function ToolAssistanceField(props: Props) {
     return {
       instructions: undefined,
       toolIconSpec: "",
+      toolIconElement: undefined,
       showPromptAtCursor: defaultPromptAtCursor,
       mouseTouchTabIndex: 0,
     };
@@ -237,6 +239,7 @@ export function ToolAssistanceField(props: Props) {
         setState((prev) => ({
           ...prev,
           toolIconSpec: args.iconSpec,
+          toolIconElement: args.iconElement,
         }));
         open();
       }
@@ -422,8 +425,10 @@ export function ToolAssistanceField(props: Props) {
         styleType="borderless"
         startIcon={
           instructions ? (
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
-            <Icon iconSpec={state.toolIconSpec} />
+            state.toolIconElement ?? (
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              <Icon iconSpec={state.toolIconSpec} />
+            )
           ) : (
             <></>
           )

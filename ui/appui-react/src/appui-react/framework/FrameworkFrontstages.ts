@@ -165,6 +165,7 @@ export class ToolActivatedEvent extends UiEvent<ToolActivatedEventArgs> {}
  */
 export interface ToolIconChangedEventArgs {
   iconSpec: string;
+  iconElement?: React.ReactElement;
 }
 
 /** Tool Icon Changed Event class.
