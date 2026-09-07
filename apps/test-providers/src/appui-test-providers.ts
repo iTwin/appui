@@ -3,7 +3,6 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 export * from "./tools/ContentLayoutTools.js";
-export * from "./tools/GenericLocateTool.js";
 export * from "./tools/InspectUiItemInfoTool.js";
 export * from "./tools/OpenAbstractModalDialogTool.js";
 export * from "./tools/OpenCustomDialogTool.js";
