@@ -5,7 +5,10 @@
 import type { Preview } from "@storybook/react-vite";
 import { withDemoIModel, demoIModelGlobalType } from "./addons/DemoIModel";
 import { resizerGlobalType } from "./addons/Resizer";
-import { themeBridgeGlobalType, withThemeBridge } from "./addons/ThemeBridge";
+import {
+  themeBridgeGlobalType,
+  withThemeBridge,
+} from "./addons/theme-bridge/ThemeBridge";
 
 const preview: Preview = {
   parameters: {

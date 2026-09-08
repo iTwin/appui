@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { WidgetState } from "@itwin/appui-react";
 import { BadgeType } from "@itwin/core-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { Icon as SKIcon } from "@stratakit/foundations";
+import { StrataKitIcon } from "../../.storybook/addons/theme-bridge/StrataKitIcon";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { WidgetStory } from "./Widget";
@@ -25,6 +25,7 @@ const meta = {
   },
   args: {
     widgets: [{}, {}],
+    widgetTabActions: false,
   },
 } satisfies Meta<typeof WidgetStory>;
 
@@ -55,48 +56,20 @@ export const Badge: Story = {
   },
 };
 
-export const Icon: Story = {
-  name: "Icon (iTwinUI)",
-  args: {
-    widgets: [{ iconNode: <SvgPlaceholder /> }, {}, {}, {}, {}],
-  },
-};
-
-export const IconStrataKit: Story = {
-  name: "Icon (StrataKit)",
+export const Icons: Story = {
   args: {
     widgets: [
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
-      { iconNode: <SKIcon href={placeholderIcon} /> },
+      { iconNode: <SvgPlaceholder />, label: "iTwinUI icon" },
+      {
+        iconNode: <StrataKitIcon href={placeholderIcon} />,
+        label: "StrataKit icon",
+      },
+      { icon: <SvgPlaceholder />, label: "iTwinUI icon spec (deprecated)" },
+      { icon: "icon-placeholder", label: "Font icon spec (deprecated)" },
+      {
+        iconNode: <i className="icon icon-placeholder" />,
+        label: "Font icon (deprecated)",
+      },
     ],
-  },
-};
-
-export const CSSIcon: Story = {
-  args: {
-    widgets: [
-      { iconNode: <i className="icon icon-placeholder" /> },
-      {},
-      {},
-      {},
-      {},
-    ],
-  },
-};
-
-export const IconSpec: Story = {
-  name: "Icon Spec (deprecated)",
-  args: {
-    widgets: [{ icon: "icon-placeholder" }, {}, {}, {}, {}],
-  },
-};
-
-export const IconSpecNode: Story = {
-  name: "Icon Spec Node (deprecated)",
-  args: {
-    widgets: [{ icon: <SvgPlaceholder /> }, {}, {}, {}, {}],
   },
 };

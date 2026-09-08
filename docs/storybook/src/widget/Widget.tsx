@@ -3,8 +3,14 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import React from "react";
+import {
+  PreviewFeatures,
+  PreviewFeaturesProvider,
+  StagePanelState,
+  UiItemsProvider,
+  Widget,
+} from "@itwin/appui-react";
 import { action } from "storybook/actions";
-import { StagePanelState, UiItemsProvider, Widget } from "@itwin/appui-react";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage, createWidget } from "../Utils";
 
@@ -34,7 +40,8 @@ function createProvider(widgets: WidgetStoryProps["widgets"]): UiItemsProvider {
   };
 }
 
-interface WidgetStoryProps {
+interface WidgetStoryProps
+  extends Pick<Required<PreviewFeatures>, "widgetTabActions"> {
   widgets: Partial<Widget>[];
 }
 
@@ -42,17 +49,23 @@ interface WidgetStoryProps {
 export function WidgetStory(props: WidgetStoryProps) {
   const provider = createProvider(props.widgets);
   return (
-    <AppUiStory
-      frontstages={[
-        createFrontstage({
-          leftPanelProps: {
-            defaultState: StagePanelState.Open,
-            pinned: true,
-          },
-        }),
-      ]}
-      itemProviders={[provider]}
-      {...props}
-    />
+    <PreviewFeaturesProvider
+      features={{
+        widgetTabActions: props.widgetTabActions,
+      }}
+    >
+      <AppUiStory
+        frontstages={[
+          createFrontstage({
+            leftPanelProps: {
+              defaultState: StagePanelState.Open,
+              pinned: true,
+            },
+          }),
+        ]}
+        itemProviders={[provider]}
+        {...props}
+      />
+    </PreviewFeaturesProvider>
   );
 }

@@ -2,36 +2,32 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-import React from "react";
-import type { Decorator } from "@storybook/react-vite";
+import * as React from "react";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { Root } from "@stratakit/foundations";
+import { Root } from "@stratakit/mui";
+import { ThemeBridgeContext } from "./ThemeBridge";
 
-export const withThemeBridge: Decorator = (Story, context) => {
-  const themeBridge = !!context.globals.themeBridge;
+type ThemeProviderProps = React.ComponentProps<typeof ThemeProvider>;
+
+export function ThemeBridgeRoot(props: React.PropsWithChildren) {
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
 
-  if (themeBridge) {
-    return (
+  return (
+    <ThemeBridgeContext value={true}>
       <Root
         colorScheme={prefersDark ? "dark" : "light"}
-        density="dense"
-        synchronizeColorScheme
-        render={(props: any) => (
-          <ThemeProvider future={{ themeBridge }} {...props} />
+        render={(props: unknown) => (
+          <ThemeProvider
+            future={{ themeBridge: true }}
+            {...(props as ThemeProviderProps)}
+          />
         )}
       >
-        <Story />
+        {props.children}
       </Root>
-    );
-  }
-
-  return (
-    <ThemeProvider>
-      <Story />
-    </ThemeProvider>
+    </ThemeBridgeContext>
   );
-};
+}
 
 function useMediaQuery(query: string) {
   const getClientSnapshot = React.useCallback(() => {
@@ -49,16 +45,3 @@ function useMediaQuery(query: string) {
 
   return React.useSyncExternalStore(subscribe, getClientSnapshot);
 }
-
-export const themeBridgeGlobalType = {
-  description: "iTwinUI v5 theme bridge",
-  defaultValue: undefined,
-  toolbar: {
-    title: "Theme bridge",
-    icon: "paintbrush",
-    items: [
-      { title: "Enable", value: "true" },
-      { title: "Disable", type: "reset" },
-    ],
-  },
-};
