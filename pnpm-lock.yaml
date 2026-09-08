@@ -6,9 +6,6 @@ settings:
 
 catalogs:
   default:
-    '@bentley/icons-generic':
-      specifier: ^1.0.34
-      version: 1.0.34
     '@bentley/icons-generic-webfont':
       specifier: ^1.0.34
       version: 1.0.34
@@ -179,9 +176,6 @@ importers:
 
   apps/test-app:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: 'catalog:'
-        version: 1.0.34
       '@bentley/icons-generic-webfont':
         specifier: 'catalog:'
         version: 1.0.34
@@ -408,9 +402,6 @@ importers:
 
   apps/test-providers:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: 'catalog:'
-        version: 1.0.34
       '@itwin/appui-abstract':
         specifier: 'catalog:'
         version: 5.8.1(@itwin/core-bentley@5.8.1)
@@ -505,9 +496,6 @@ importers:
 
   docs/storybook:
     dependencies:
-      '@bentley/icons-generic':
-        specifier: 'catalog:'
-        version: 1.0.34
       '@bentley/icons-generic-webfont':
         specifier: 'catalog:'
         version: 1.0.34
@@ -1928,9 +1916,6 @@ packages:
 
   '@bentley/icons-generic-webfont@1.0.34':
     resolution: {integrity: sha512-5zZgs+himE2vjf39CVlDXMHCFAwSfcoORqJBk3Vji8QVCF8AIX4IX2DO6HlsIAM7szxMNqhz1kd07Xfppro6MA==}
-
-  '@bentley/icons-generic@1.0.34':
-    resolution: {integrity: sha512-IIs1wDcY2oZ8tJ3EZRw0U51M+0ZL3MvwoDYYmhUXaa9/UZqpFoOyLBGaxjirQteWXqTIMm3mFvmC+Nbn1ok4Iw==}
 
   '@bentley/imodeljs-native@5.8.27':
     resolution: {integrity: sha512-sGNvkjCxspiBWJBFH9/cF23BvrZ1p1zXwjTlXzgpgdOzVM8ZWA2WFIZUo4g6MJOX5OWAD1MNgz5OP3SHC2TINQ==}
@@ -9610,8 +9595,6 @@ snapshots:
   '@bcoe/v8-coverage@1.0.2': {}
 
   '@bentley/icons-generic-webfont@1.0.34': {}
-
-  '@bentley/icons-generic@1.0.34': {}
 
   '@bentley/imodeljs-native@5.8.27': {}
 

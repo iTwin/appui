@@ -20,10 +20,13 @@ import {
   useConditionalValue,
 } from "@itwin/appui-react";
 import { IModelConnection, ScreenViewport, Tool } from "@itwin/core-frontend";
-import { SvgWindow, SvgWindowSplitVertical } from "@itwin/itwinui-icons-react";
-
-import layoutRestoreIconSvg from "@bentley/icons-generic/icons/download.svg";
-import layoutSaveIconSvg from "@bentley/icons-generic/icons/upload.svg";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import {
+  SvgDownload,
+  SvgUpload,
+  SvgWindow,
+  SvgWindowSplitVertical,
+} from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "../ui/ViewportContent.js";
 
 function getIModelSpecificKey(
@@ -64,9 +67,8 @@ export async function getSavedViewLayoutProps(
   return savedViewLayoutProps;
 }
 
-export class SaveContentLayoutTool extends Tool {
+class SaveContentLayoutToolBase extends Tool {
   public static override toolId = "SaveContentLayoutTool";
-  public static override iconSpec = layoutSaveIconSvg;
   public static override get minArgs() {
     return 0;
   }
@@ -124,9 +126,13 @@ export class SaveContentLayoutTool extends Tool {
   }
 }
 
-export class RestoreSavedContentLayoutTool extends Tool {
+export const SaveContentLayoutTool = ToolUtilities.defineIcon(
+  SaveContentLayoutToolBase,
+  <SvgUpload />
+);
+
+class RestoreSavedContentLayoutToolBase extends Tool {
   public static override toolId = "RestoreSavedContentLayoutTool";
-  public static override iconSpec = layoutRestoreIconSvg;
   public static override get minArgs() {
     return 0;
   }
@@ -181,6 +187,11 @@ export class RestoreSavedContentLayoutTool extends Tool {
     return true;
   }
 }
+
+export const RestoreSavedContentLayoutTool = ToolUtilities.defineIcon(
+  RestoreSavedContentLayoutToolBase,
+  <SvgDownload />
+);
 
 function SplitWindowIcon() {
   const split = useConditionalValue(

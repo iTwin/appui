@@ -39,8 +39,8 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
-import sampleToolSvg from "./SampleTool.svg";
-import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { SvgFeedback, SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 
 enum ToolOptions {
   Red,
@@ -51,10 +51,9 @@ enum ToolOptions {
   Pink,
 }
 
-export class SampleTool extends PrimitiveTool {
+class SampleToolBase extends PrimitiveTool {
   // ensure toolId is unique by adding "uiItemsProvidersTest-" prefix
   public static override toolId = "uiItemsProvidersTest-SampleTool";
-  public static override iconSpec = sampleToolSvg;
   public readonly points: Point3d[] = [];
   private _showCoordinatesOnPointerMove = false;
   private _stationFormatterSpec?: FormatterSpec;
@@ -730,3 +729,8 @@ export class SampleTool extends PrimitiveTool {
     return true;
   }
 }
+
+export const SampleTool = ToolUtilities.defineIcon(
+  SampleToolBase,
+  <SvgFeedback />
+);

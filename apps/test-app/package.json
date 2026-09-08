@@ -62,7 +62,6 @@
     "vite-plugin-static-copy": "catalog:"
   },
   "dependencies": {
-    "@bentley/icons-generic": "catalog:",
     "@bentley/icons-generic-webfont": "catalog:",
     "@itwin/appui-abstract": "catalog:",
     "@itwin/appui-react": "workspace:*",

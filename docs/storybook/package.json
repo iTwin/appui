@@ -14,7 +14,6 @@
     "docs": "betools extract --fileExt=ts,tsx --extractFrom=./src --recursive --out=../../generated-docs/extract"
   },
   "dependencies": {
-    "@bentley/icons-generic": "catalog:",
     "@bentley/icons-generic-webfont": "catalog:",
     "@itwin/appui-abstract": "catalog:",
     "@itwin/appui-react": "workspace:*",

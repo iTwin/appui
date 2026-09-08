@@ -47,7 +47,6 @@
     "typescript": "~5.6.3"
   },
   "dependencies": {
-    "@bentley/icons-generic": "catalog:",
     "@itwin/appui-abstract": "catalog:",
     "@itwin/appui-react": "workspace:*",
     "@itwin/components-react": "workspace:*",

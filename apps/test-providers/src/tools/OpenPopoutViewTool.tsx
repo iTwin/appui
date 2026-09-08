@@ -2,17 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import * as React from "react";
-import windowPopoutSvg from "@bentley/icons-generic/icons/window-new.svg";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
 import { PopupTestView } from "../ui/dialogs/PopupTestView.js";
 
-export class OpenPopoutViewTool extends Tool {
+class OpenPopoutViewToolBase extends Tool {
   private static _counter = 0;
   public static override toolId = "OpenViewPopout";
-  public static override iconSpec = windowPopoutSvg;
   public static get dialogId(): string {
     return `appui-test-app:popup-view-dialog-${OpenPopoutViewTool._counter}`;
   }
@@ -79,3 +79,8 @@ export class OpenPopoutViewTool extends Tool {
     );
   }
 }
+
+export const OpenPopoutViewTool = ToolUtilities.defineIcon(
+  OpenPopoutViewToolBase,
+  <SvgWindowPopout />
+);
