@@ -32,9 +32,10 @@
     "@itwin/imodels-client-authoring": "^6.1.0",
     "@itwin/itwinui-icons-react": "^2.11.0",
     "@itwin/itwinui-react": "catalog:",
-    "@stratakit/bricks": "catalog:",
+    "@mui/material": "catalog:",
     "@stratakit/foundations": "catalog:",
     "@stratakit/icons": "catalog:",
+    "@stratakit/mui": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-redux": "^9.2.0"

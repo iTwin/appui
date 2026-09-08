@@ -18,6 +18,14 @@ const config: StorybookConfig = {
     config.build.chunkSizeWarningLimit = 5000;
     // This prevents component name mangling in stories.
     config.build.minify = false;
+    config.build.assetsInlineLimit = (filePath) => {
+      if (
+        filePath.includes("node_modules/@stratakit/icons") &&
+        filePath.endsWith(".svg")
+      ) {
+        return false;
+      }
+    };
     return config;
   },
 };

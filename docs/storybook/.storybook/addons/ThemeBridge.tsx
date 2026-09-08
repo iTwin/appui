@@ -5,7 +5,7 @@
 import React from "react";
 import type { Decorator } from "@storybook/react-vite";
 import { ThemeProvider } from "@itwin/itwinui-react";
-import { Root } from "@stratakit/foundations";
+import { Root } from "@stratakit/mui";
 
 export const withThemeBridge: Decorator = (Story, context) => {
   const themeBridge = !!context.globals.themeBridge;
@@ -15,8 +15,6 @@ export const withThemeBridge: Decorator = (Story, context) => {
     return (
       <Root
         colorScheme={prefersDark ? "dark" : "light"}
-        density="dense"
-        synchronizeColorScheme
         render={(props: any) => (
           <ThemeProvider future={{ themeBridge }} {...props} />
         )}

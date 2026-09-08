@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "lib": ["dom", "dom.iterable", "esnext"]
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["@stratakit/mui/types.d.ts"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["./src/backend/**/*.ts"]

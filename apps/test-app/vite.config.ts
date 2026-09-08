@@ -36,6 +36,14 @@ export default defineConfig(({ mode }) => {
   return {
     build: {
       chunkSizeWarningLimit: 7000,
+      assetsInlineLimit: (filePath) => {
+        if (
+          filePath.includes("node_modules/@stratakit/icons") &&
+          filePath.endsWith(".svg")
+        ) {
+          return false;
+        }
+      },
     },
     customLogger,
     plugins: [

@@ -31,7 +31,7 @@ import {
   SideNavigation,
   ThemeProvider,
 } from "@itwin/itwinui-react";
-import { Root } from "@stratakit/foundations";
+import { Root } from "@stratakit/mui";
 import {
   createRootRouteWithContext,
   Outlet,
@@ -176,8 +176,6 @@ function ThemeBridge({ children }: React.PropsWithChildren) {
     return (
       <Root
         colorScheme={prefersDark ? "dark" : "light"}
-        density="dense"
-        synchronizeColorScheme
         render={(props: any) => (
           <ThemeProvider future={{ themeBridge, applyBackground }} {...props} />
         )}

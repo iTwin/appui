@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { WidgetState } from "@itwin/appui-react";
 import { BadgeType } from "@itwin/core-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { Icon as SKIcon } from "@stratakit/foundations";
+import { Icon as SKIcon } from "@stratakit/mui";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { WidgetStory } from "./Widget";
