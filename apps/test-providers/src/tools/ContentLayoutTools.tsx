@@ -20,6 +20,7 @@ import {
   useConditionalValue,
 } from "@itwin/appui-react";
 import { IModelConnection, ScreenViewport, Tool } from "@itwin/core-frontend";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import {
   SvgDownload,
   SvgUpload,
@@ -28,7 +29,6 @@ import {
 } from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "../ui/ViewportContent.js";
 import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
-import { ToolUtilities } from "@itwin/imodel-components-react";
 
 import svgDownload from "@stratakit/icons/download.svg";
 import svgUpload from "@stratakit/icons/upload.svg";
@@ -192,6 +192,7 @@ class RestoreSavedContentLayoutToolBase extends Tool {
     return true;
   }
 }
+
 export const RestoreSavedContentLayoutTool = ToolUtilities.defineIcon(
   RestoreSavedContentLayoutToolBase,
   <StrataKitIcon href={svgDownload} iconNode={<SvgDownload />} />

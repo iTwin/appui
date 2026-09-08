@@ -2,7 +2,7 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
+import * as React from "react";
 import { Point3d } from "@itwin/core-geometry";
 import {
   BeButtonEvent,
@@ -19,8 +19,12 @@ import {
   EnumerationChoice,
   PropertyDescription,
 } from "@itwin/appui-abstract";
-import dynamicToolSvg from "./DynamicTool.svg";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgCopy } from "@itwin/itwinui-icons-react";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgCopy from "@stratakit/icons/copy.svg";
 
 interface MajorCities {
   state: number;
@@ -55,10 +59,9 @@ const cities: MajorCities[] = [
   },
 ];
 
-export class ToolWithDynamicSettings extends PrimitiveTool {
+class ToolWithDynamicSettingsBase extends PrimitiveTool {
   public static override toolId =
     "uiItemsProvidersTest-ToolWithDynamicSettings";
-  public static override iconSpec = dynamicToolSvg;
   public points: Point3d[] = [];
   private static translate(str: string) {
     return AppUiTestProviders.translate(`tools.${this.toolId}.${str}`);
@@ -242,3 +245,8 @@ export class ToolWithDynamicSettings extends PrimitiveTool {
     return true;
   }
 }
+
+export const ToolWithDynamicSettings = ToolUtilities.defineIcon(
+  ToolWithDynamicSettingsBase,
+  <StrataKitIcon href={svgCopy} iconNode={<SvgCopy />} />
+);

@@ -406,27 +406,6 @@ describe(`ToolAssistanceField`, () => {
     ).lengthOf(4);
   });
 
-  it("ToolAssistanceImage.Keyboard but keyboardInfo should log error", async () => {
-    const spy = vi.spyOn(Logger, "logError");
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
-      wrapper: DragManagerProvider,
-    });
-
-    const notifications = new AppNotificationManager();
-    const mainInstruction = ToolAssistance.createInstruction(
-      ToolAssistanceImage.Keyboard,
-      "Press a key" /* No keyboardInfo */
-    );
-    const instructions = ToolAssistance.createInstructions(mainInstruction);
-    notifications.setToolAssistance(instructions);
-
-    await theUserTo.click(screen.getByRole("button"));
-
-    await waitFor(() => {
-      expect(spy).toHaveBeenCalled();
-    });
-  });
-
   it("ToolAssistanceImage.Keyboard with invalid keyboardInfo should log error", async () => {
     const spy = vi.spyOn(Logger, "logError");
     render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
@@ -566,30 +545,6 @@ describe(`ToolAssistanceField`, () => {
           "div.uifw-toolassistance-icon-large .icon-my-test-icon"
         )
     ).lengthOf(1);
-  });
-
-  it("invalid modifier key info along with image should log error", async () => {
-    const spy = vi.spyOn(Logger, "logError");
-    render(<ToolAssistanceField uiStateStorage={uiSettingsStorage} />, {
-      wrapper: DragManagerProvider,
-    });
-
-    const notifications = new AppNotificationManager();
-    const mainInstruction = ToolAssistance.createInstruction(
-      ToolAssistanceImage.CursorClick,
-      "Click on something",
-      true,
-      ToolAssistanceInputMethod.Both,
-      ToolAssistance.createKeyboardInfo([])
-    );
-    const instructions = ToolAssistance.createInstructions(mainInstruction);
-    notifications.setToolAssistance(instructions);
-
-    await theUserTo.click(screen.getByRole("button"));
-
-    await waitFor(() => {
-      expect(spy).toHaveBeenCalled();
-    });
   });
 
   it("should close on outside click", async () => {

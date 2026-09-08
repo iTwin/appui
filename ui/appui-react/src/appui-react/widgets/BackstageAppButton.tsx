@@ -9,7 +9,6 @@
 import "./BackstageAppButton.scss";
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
-import { Icon as CoreIcon } from "@itwin/core-react";
 import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
@@ -59,8 +58,7 @@ export function BackstageAppButton({
   const svgHome = useStrataKitIcon("@stratakit/icons/home.svg");
 
   const iconSpecElement = iconSpec ? (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <CoreIcon iconSpec={iconSpec} />
+    <StrataKitIcon iconSpec={iconSpec} />
   ) : undefined;
   const icon = iconNode ?? iconSpecElement ?? (
     <StrataKitIcon href={svgHome} iconNode={<SvgHome />} />

@@ -2,14 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import { UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import * as React from "react";
-import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
-import { Dialog } from "@itwin/itwinui-react";
 import { ToolUtilities } from "@itwin/imodel-components-react";
-import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+import { Dialog } from "@itwin/itwinui-react";
 import { SvgPanorama } from "@itwin/itwinui-icons-react";
+import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 
 import svgPanorama from "@stratakit/icons/panorama.svg";
 
@@ -79,11 +79,6 @@ class OpenSynchronizedViewToolBase extends Tool {
   }
 }
 
-export const OpenSynchronizedViewTool = ToolUtilities.defineIcon(
-  OpenSynchronizedViewToolBase,
-  <StrataKitIcon href={svgPanorama} iconNode={<SvgPanorama />} />
-);
-
 function IModelViewDialog({
   x,
   y,
@@ -126,3 +121,8 @@ function IModelViewDialog({
     </Dialog>
   );
 }
+
+export const OpenSynchronizedViewTool = ToolUtilities.defineIcon(
+  OpenSynchronizedViewToolBase,
+  <StrataKitIcon href={svgPanorama} iconNode={<SvgPanorama />} />
+);

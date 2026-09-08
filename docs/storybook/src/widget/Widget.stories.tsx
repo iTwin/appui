@@ -6,8 +6,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { WidgetState } from "@itwin/appui-react";
 import { BadgeType } from "@itwin/core-react";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
-import { Icon as SKIcon } from "@stratakit/foundations";
-import { useThemeBridge } from "../../.storybook/addons/ThemeBridge";
+import { StrataKitIcon } from "../../.storybook/addons/theme-bridge/StrataKitIcon";
 import { AppUiDecorator } from "../Decorators";
 import { Page } from "../AppUiStory";
 import { WidgetStory } from "./Widget";
@@ -25,8 +24,8 @@ const meta = {
     },
   },
   args: {
-    widgetTabActions: false,
     widgets: [{}, {}],
+    widgetTabActions: false,
   },
 } satisfies Meta<typeof WidgetStory>;
 
@@ -60,27 +59,17 @@ export const Badge: Story = {
 export const Icons: Story = {
   args: {
     widgets: [
-      { iconNode: <SvgPlaceholder />, label: "iTwinUI" },
+      { iconNode: <SvgPlaceholder />, label: "iTwinUI icon" },
       {
         iconNode: <StrataKitIcon href={placeholderIcon} />,
-        label: "StrataKit",
+        label: "StrataKit icon",
       },
-      { iconNode: <i className="icon icon-placeholder" />, label: "CSS Icon" },
-      { icon: "icon-placeholder", label: "iconSpec (deprecated)" },
-      { icon: <SvgPlaceholder />, label: "iconSpec node (deprecated)" },
+      { icon: <SvgPlaceholder />, label: "iTwinUI icon spec (deprecated)" },
+      { icon: "icon-placeholder", label: "Font icon spec (deprecated)" },
+      {
+        iconNode: <i className="icon icon-placeholder" />,
+        label: "Font icon (deprecated)",
+      },
     ],
   },
 };
-
-interface StrataKitIconProps {
-  href: string;
-}
-
-function StrataKitIcon(props: StrataKitIconProps) {
-  const themeBridge = useThemeBridge();
-  if (!themeBridge) {
-    return <SvgPlaceholder />;
-  }
-
-  return <SKIcon href={props.href} />;
-}

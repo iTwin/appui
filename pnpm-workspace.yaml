@@ -6,7 +6,6 @@ packages:
   - docs/storybook
 
 catalog:
-  '@bentley/icons-generic': ^1.0.34
   '@bentley/icons-generic-webfont': ^1.0.34
   '@itwin/appui-abstract': ^5.8.1
   '@itwin/build-tools': ^5.8.1
@@ -31,10 +30,10 @@ catalog:
   '@itwin/hypermodeling-frontend': ^5.8.1
   '@itwin/itwinui-react': ^3.20.2
   '@itwin/webgl-compatibility': ^5.8.1
-  '@stratakit/bricks': ^0.5.6
-  '@stratakit/foundations': ^0.5.0
+  '@mui/material': ^9.4.0
+  '@stratakit/foundations': ^1.0.0
   '@stratakit/icons': ^0.4.3
-  '@stratakit/mui': ^0.5.4
+  '@stratakit/mui': ^1.0.0
   '@types/lodash': ^4.17.24
   '@types/react': ^19.2.14
   '@types/react-dom': ^19.2.3

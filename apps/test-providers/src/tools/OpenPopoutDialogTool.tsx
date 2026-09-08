@@ -9,9 +9,9 @@ import {
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
-import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgWindowAdd } from "@itwin/itwinui-icons-react";
+import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
 import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 
 import svgWindowAdd from "@stratakit/icons/window-add.svg";
@@ -74,12 +74,12 @@ class OpenPopoutDialogToolBase extends Tool {
     };
 
     return ToolbarItemUtilities.createActionButton(
-      OpenPopoutDialogToolBase.toolId,
+      OpenPopoutDialogTool.toolId,
       itemPriority,
       this.iconSpec,
-      OpenPopoutDialogToolBase.flyover,
+      OpenPopoutDialogTool.flyover,
       async () => {
-        await IModelApp.tools.run(OpenPopoutDialogToolBase.toolId);
+        await IModelApp.tools.run(OpenPopoutDialogTool.toolId);
       },
       overrides
     );

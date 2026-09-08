@@ -3,6 +3,8 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
+// cSpell:disable
+
 /* eslint-disable @typescript-eslint/no-restricted-imports */
 
 import { Icon } from "@stratakit/mui";
@@ -261,9 +263,12 @@ import svgSmileyVerySad from "@stratakit/icons/smiley-very-sad.svg";
 import svgSnapBisector from "@stratakit/icons/snap-bisector.svg";
 import svgSnapCenter from "@stratakit/icons/snap-center.svg";
 import svgSnapIntersection from "@stratakit/icons/snap-intersection.svg";
+import svgSnapKeypoint from "@stratakit/icons/snap-keypoint.svg";
 import svgSnapMidpoint from "@stratakit/icons/snap-midpoint.svg";
 import svgSnapNearest from "@stratakit/icons/snap-nearest.svg";
 import svgSnapOrigin from "@stratakit/icons/snap-origin.svg";
+import svgSnapPerpendicular from "@stratakit/icons/snap-perpendicular.svg";
+import svgSnapTangent from "@stratakit/icons/snap-tangent.svg";
 import svgSnowflake from "@stratakit/icons/snowflake.svg";
 import svgSortAscending from "@stratakit/icons/sort-ascending.svg";
 import svgSortDescending from "@stratakit/icons/sort-descending.svg";
@@ -597,9 +602,12 @@ export function enable() {
     "@stratakit/icons/snap-bisector.svg": svgSnapBisector,
     "@stratakit/icons/snap-center.svg": svgSnapCenter,
     "@stratakit/icons/snap-intersection.svg": svgSnapIntersection,
+    "@stratakit/icons/snap-keypoint.svg": svgSnapKeypoint,
     "@stratakit/icons/snap-midpoint.svg": svgSnapMidpoint,
     "@stratakit/icons/snap-nearest.svg": svgSnapNearest,
     "@stratakit/icons/snap-origin.svg": svgSnapOrigin,
+    "@stratakit/icons/snap-perpendicular.svg": svgSnapPerpendicular,
+    "@stratakit/icons/snap-tangent.svg": svgSnapTangent,
     "@stratakit/icons/snowflake.svg": svgSnowflake,
     "@stratakit/icons/sort-ascending.svg": svgSortAscending,
     "@stratakit/icons/sort-descending.svg": svgSortDescending,

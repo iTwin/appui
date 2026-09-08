@@ -10,7 +10,6 @@ import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { Icon } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react/internal";
 import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";

@@ -16,7 +16,6 @@ import {
   SurveyLengthDescription,
   ToolAssistance,
   ToolAssistanceImage,
-  ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
 import {
   ColorEditorParams,
@@ -39,10 +38,11 @@ import {
   UiFramework,
 } from "@itwin/appui-react";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
-import sampleToolSvg from "./SampleTool.svg";
-import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { SvgFeedback, SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 
+import svgFeedback from "@stratakit/icons/feedback.svg";
 import svgPlaceholder from "@stratakit/icons/placeholder.svg";
 
 enum ToolOptions {
@@ -54,10 +54,9 @@ enum ToolOptions {
   Pink,
 }
 
-export class SampleTool extends PrimitiveTool {
+class SampleToolBase extends PrimitiveTool {
   // ensure toolId is unique by adding "uiItemsProvidersTest-" prefix
   public static override toolId = "uiItemsProvidersTest-SampleTool";
-  public static override iconSpec = sampleToolSvg;
   public readonly points: Point3d[] = [];
   private _showCoordinatesOnPointerMove = false;
   private _stationFormatterSpec?: FormatterSpec;
@@ -434,37 +433,8 @@ export class SampleTool extends PrimitiveTool {
       ToolAssistanceImage.CursorClick,
       SampleTool.getPrompt("GetPoint")
     );
+    const instructions = ToolAssistance.createInstructions(mainInstruction);
 
-    const mouseInstructions = [
-      ToolAssistance.createInstruction(
-        ToolAssistanceImage.LeftClick,
-        "Accept",
-        false,
-        ToolAssistanceInputMethod.Mouse
-      ),
-      ToolAssistance.createModifierKeyInstruction(
-        ToolAssistance.shiftKey,
-        ToolAssistanceImage.LeftClickDrag,
-        "Overlap",
-        false,
-        ToolAssistanceInputMethod.Mouse
-      ),
-      ToolAssistance.createKeyboardInstruction(
-        ToolAssistance.ctrlKeyboardInfo,
-        "Invert",
-        false,
-        ToolAssistanceInputMethod.Mouse
-      ),
-    ];
-
-    const mouseSection = ToolAssistance.createSection(
-      mouseInstructions,
-      ToolAssistance.inputsLabel
-    );
-
-    const instructions = ToolAssistance.createInstructions(mainInstruction, [
-      mouseSection,
-    ]);
     IModelApp.notifications.setToolAssistance(instructions);
   }
 
@@ -766,3 +736,8 @@ export class SampleTool extends PrimitiveTool {
     return true;
   }
 }
+
+export const SampleTool = ToolUtilities.defineIcon(
+  SampleToolBase,
+  <StrataKitIcon href={svgFeedback} iconNode={<SvgFeedback />} />
+);

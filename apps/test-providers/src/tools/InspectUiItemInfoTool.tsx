@@ -2,9 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-/** @packageDocumentation
- * @module Tools
- */
 
 import * as React from "react";
 import {
@@ -14,8 +11,8 @@ import {
   PrimitiveTool,
 } from "@itwin/core-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
-import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 import { SvgSearch } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 
 import svgSearch from "@stratakit/icons/search.svg";
 
@@ -25,7 +22,6 @@ class InspectUiItemInfoToolBase extends PrimitiveTool {
   private _currentY = 0;
   private _lastElement: HTMLElement | null = null;
 
-  private static _counter = 0;
   public static override toolId = "InspectUiItemInfoTool";
 
   public static override get minArgs() {

@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 import { SvgDockTop } from "@itwin/itwinui-icons-react";
 import { NineZoneDispatchContext } from "../base/NineZone.js";
 import { WidgetAction } from "./WidgetAction.js";
@@ -15,6 +14,7 @@ import { useIsToolSettingsTab } from "./useIsToolSettingsTab.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function Dock() {

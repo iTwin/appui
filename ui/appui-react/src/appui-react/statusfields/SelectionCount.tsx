@@ -10,7 +10,6 @@ import "./SelectionCount.scss";
 import * as React from "react";
 import type { IModelConnection } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
 import { SvgCursor } from "@itwin/itwinui-icons-react";
 import classnames from "classnames";
 import { StatusBarCornerComponentContext } from "../statusbar/StatusBarCornerComponentContext.js";

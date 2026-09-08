@@ -21,7 +21,8 @@ import debounce from "lodash/debounce.js";
 import { SvgSavedView } from "../icons/SvgSavedView.js";
 import { useReduxFrameworkState } from "../uistate/useReduxFrameworkState.js";
 import type { ListenerType } from "@itwin/core-react/internal";
-import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
+import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** [[ViewSelectorChangedEvent]] Args interface.
  * @beta
@@ -462,8 +463,7 @@ export class ViewSelector extends React.Component<
         title={this.state.title}
         setEnabled={this._setEnabled}
         items={this.state.items}
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        icon={<Icon iconSpec={<SvgSavedView />} />}
+        icon={<SavedViewsIcon />}
         onExpanded={this._onExpanded}
         searchBox={this.state.searchBox}
         onSearchValueChange={debounce((search: string) => {
@@ -481,6 +481,11 @@ export class ViewSelector extends React.Component<
       />
     );
   }
+}
+
+function SavedViewsIcon() {
+  const svgSavedViews = useStrataKitIcon("@stratakit/icons/saved-views.svg");
+  return <StrataKitIcon href={svgSavedViews} iconSpec={<SvgSavedView />} />;
 }
 
 type IModelConnectedViewSelectorProps = Omit<

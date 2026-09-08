@@ -6,7 +6,6 @@
  * @module Notification
  */
 
-import "./ToolAssistanceField.scss";
 import { Logger, ProcessDetector } from "@itwin/core-bentley";
 import type {
   ToolAssistanceInstruction,
@@ -27,6 +26,7 @@ import { UiFramework } from "../../UiFramework.js";
 import { useCursorPrompt } from "../../cursor/cursorprompt/CursorPrompt.js";
 import { MessageManager } from "../../messages/MessageManager.js";
 import { UiStateStorageContext } from "../../uistate/useUiStateStorage.js";
+import "./ToolAssistanceField.scss";
 
 import {
   SvgAdd,

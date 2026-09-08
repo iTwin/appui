@@ -7,13 +7,13 @@
  */
 
 import * as React from "react";
+import { UiFramework } from "@itwin/appui-react";
 import { Tool } from "@itwin/core-frontend";
+import { ToolUtilities } from "@itwin/imodel-components-react";
+import { SvgRefresh } from "@itwin/itwinui-icons-react";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog.js";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
-import { UiFramework } from "@itwin/appui-react";
-import { ToolUtilities } from "@itwin/imodel-components-react";
-import { StrataKitIcon } from "../appui-test-providers.js";
-import { SvgRefresh } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 
 import svgRefresh from "@stratakit/icons/refresh.svg";
 

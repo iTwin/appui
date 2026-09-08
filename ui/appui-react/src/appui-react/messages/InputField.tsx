@@ -11,7 +11,7 @@ import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { ListenerType } from "@itwin/core-react/internal";
-import { Icon as CoreIcon, MessageRenderer, Popup } from "@itwin/core-react";
+import { MessageRenderer, Popup } from "@itwin/core-react";
 import {
   SvgClose,
   SvgInfoCircularHollow,
@@ -161,15 +161,7 @@ export class InputFieldMessage extends React.PureComponent<
 function DismissIcon() {
   const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
 
-  return (
-    <StrataKitIcon
-      href={svgDismiss}
-      iconNode={
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <CoreIcon iconSpec={<SvgClose />} />
-      }
-    />
-  );
+  return <StrataKitIcon href={svgDismiss} iconSpec={<SvgClose />} />;
 }
 
 function FieldIcon({ priority }: { priority: OutputMessagePriority }) {

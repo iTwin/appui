@@ -63,7 +63,6 @@ export function getQuantityFormatsSettingsManagerEntry(
   opts?: Partial<QuantityFormatterSettingsOptions>
 ): SettingsTabEntry {
   const { availableUnitSystems, initialQuantityType } = { ...opts };
-
   return {
     itemPriority,
     tabId: "uifw:Quantity",

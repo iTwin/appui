@@ -2,7 +2,6 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
-
 import type { enable } from "../../../useStrataKit.js";
 import type { StrataKitSymbol } from "../PreviewFeatures.js";
 
@@ -10,6 +9,8 @@ type UseStrataKit = ReturnType<typeof enable>;
 type UseStrataKitModules = UseStrataKit[typeof StrataKitSymbol]["modules"];
 type StrataKitIconModules = Omit<UseStrataKitModules, "@stratakit/mui">;
 type StrataKitIconModule = keyof StrataKitIconModules;
+
+// cSpell:disable
 
 /**
  * Maps web font icon names from @bentley/icons-generic-webfont to StrataKit icon modules.
@@ -509,7 +510,7 @@ export const webFontToStrataKitIcon: {
   // "icon-snaps-multitwo": undefined,
   "icon-snaps-nearest": "@stratakit/icons/snap-nearest.svg",
   "icon-snaps-origin": "@stratakit/icons/snap-origin.svg",
-  // "icon-snaps": undefined,
+  "icon-snaps": "@stratakit/icons/snap-keypoint.svg",
   "icon-snow": "@stratakit/icons/snowflake.svg",
   "icon-sort-down": "@stratakit/icons/sort-ascending.svg",
   "icon-sort-menu": "@stratakit/icons/sorting.svg",

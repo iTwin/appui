@@ -2,15 +2,18 @@
 "@itwin/appui-react": minor
 ---
 
-Added `useStrataKit` preview feature to enable usage of [StrataKit](https://www.npmjs.com/package/@stratakit/foundations) components in AppUI. Applications using this preview feature must add `@stratakit/foundations` as a dependency (specified as an optional peer dependency in AppUI) and enable [StrataKit theme bridge](https://github.com/iTwin/iTwinUI/wiki/StrataKit-theme-bridge). Version range of `@stratakit/foundations` might be updated in the future minor version releases to stay in sync with the StrataKit releases.
+Added the `useStrataKit` preview feature that enables the use of [StrataKit](https://github.com/iTwin/stratakit) in AppUI. Applications using this preview feature must [set up StrataKit](https://stratakit.bentley.com/docs/getting-started/develop/) and turn on the [StrataKit theme bridge](https://github.com/iTwin/iTwinUI/wiki/StrataKit-theme-bridge). To activate the preview feature in your application, use the `enable` function from the `@itwin/appui-react/useStrataKit` subpath export.
 
 ```tsx
-// Enable StrataKit components where available
+import { enable } from "@itwin/appui-react/useStrataKit";
+
+const useStrataKit = React.useMemo(() => enable(), []);
+
 <PreviewFeaturesProvider
   features={{
-    useStrataKit: true,
+    useStrataKit,
   }}
 >
   <App />
-</PreviewFeaturesProvider>
+</PreviewFeaturesProvider>;
 ```

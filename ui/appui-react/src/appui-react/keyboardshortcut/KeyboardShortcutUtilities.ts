@@ -6,6 +6,7 @@
  * @module KeyboardShortcut
  */
 
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import type { KeyboardShortcutProps } from "./KeyboardShortcutProps.js";
 import { IModelApp, type ToolType } from "@itwin/core-frontend";
 
@@ -19,14 +20,18 @@ export namespace KeyboardShortcutUtilities {
     toolType: ToolType,
     overrides?: Partial<KeyboardShortcutProps>
   ): KeyboardShortcutProps {
+    const icon = ToolUtilities.isWithIcon(toolType)
+      ? toolType.iconElement
+      : undefined;
     return {
       key,
-      icon: toolType.iconSpec,
+      iconSpec: toolType.iconSpec,
       label: () => toolType.flyover,
       description: () => toolType.description,
       execute: () => {
         void IModelApp.tools.run(toolType.toolId);
       },
+      ...(icon ? { icon } : {}),
       ...overrides,
     };
   }

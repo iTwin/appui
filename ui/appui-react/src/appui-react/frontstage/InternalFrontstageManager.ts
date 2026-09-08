@@ -7,9 +7,10 @@
  */
 
 import { BeUiEvent, Logger } from "@itwin/core-bentley";
+import type { ListenerType } from "@itwin/core-react/internal";
 import type { IModelConnection, Tool } from "@itwin/core-frontend";
 import { IModelApp, InteractiveTool } from "@itwin/core-frontend";
-import type { ListenerType } from "@itwin/core-react/internal";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import type { ContentControlActivatedEventArgs } from "../content/ContentControl.js";
 import type { ContentGroup } from "../content/ContentGroup.js";
 import type {
@@ -49,7 +50,6 @@ import { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import type { Frontstage } from "./Frontstage.js";
 import type { NineZoneState } from "../layout/state/NineZoneState.js";
 import type { SizeProps } from "../utils/SizeProps.js";
-import { ToolUtilities } from "@itwin/imodel-components-react";
 
 /** Frontstage Manager class.
  * @internal
@@ -505,13 +505,14 @@ export class InternalFrontstageManager {
 
   /** Sets the active tool */
   public static setActiveTool(tool: Tool): void {
-    UiFramework.frontstages.setActiveToolId(tool.toolId);
-
     const toolType = IModelApp.tools.find(tool.toolId);
+
     const iconElement =
       toolType && ToolUtilities.isWithIcon(toolType)
         ? toolType.iconElement
         : undefined;
+
+    UiFramework.frontstages.setActiveToolId(tool.toolId);
     UiFramework.frontstages.onToolIconChangedEvent.emit({
       iconSpec: tool.iconSpec,
       iconElement,

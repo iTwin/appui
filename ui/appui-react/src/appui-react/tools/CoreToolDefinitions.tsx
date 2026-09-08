@@ -34,6 +34,7 @@ import {
   ConditionalBooleanValue,
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import { getIsHiddenIfSelectionNotActive } from "../selection/SelectionContextItemDef.js";
 import { CommandItemDef } from "../shared/CommandItemDef.js";
 import { ToolItemDef } from "../shared/ToolItemDef.js";
@@ -49,9 +50,8 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
-import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 import type { ToolItemProps } from "../shared/ItemProps.js";
-import { ToolUtilities } from "@itwin/imodel-components-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
@@ -144,15 +144,11 @@ export class CoreTools {
   }
 
   public static get selectElementCommand() {
-    return createForTool(SelectionTool, {
-      execute: async () => IModelApp.tools.run(SelectionTool.toolId),
-    });
+    return createForTool(SelectionTool);
   }
 
   public static get setupCameraWalkTool() {
-    return createForTool(SetupWalkCameraTool, {
-      execute: async () => IModelApp.tools.run(SetupWalkCameraTool.toolId),
-    });
+    return createForTool(SetupWalkCameraTool);
   }
 
   public static get toggleCameraViewCommand() {
@@ -367,20 +363,12 @@ export class CoreTools {
 
   // note current MeasureDistanceTool is not automatically registered so the app must call MeasureDistanceTool.register();
   public static get measureDistanceToolItemDef() {
-    return createForTool(MeasureDistanceTool, {
-      execute: async () => {
-        return IModelApp.tools.run(MeasureDistanceTool.toolId);
-      },
-    });
+    return createForTool(MeasureDistanceTool);
   }
 
   // note current MeasureLocationTool is not automatically registered so the app must call MeasureLocationTool.register();
   public static get measureLocationToolItemDef() {
-    return createForTool(MeasureLocationTool, {
-      execute: async () => {
-        return IModelApp.tools.run(MeasureLocationTool.toolId);
-      },
-    });
+    return createForTool(MeasureLocationTool);
   }
 
   public static get measureToolGroup() {
@@ -415,26 +403,22 @@ export class CoreTools {
   }
 
   public static get restoreFrontstageLayoutCommandItemDef() {
-    return createForTool(RestoreFrontstageLayoutTool, {
-      execute: async () => {
-        return IModelApp.tools.run(RestoreFrontstageLayoutTool.toolId);
-      },
-    });
+    return createForTool(RestoreFrontstageLayoutTool);
   }
 }
 
-function getToolIcon(toolType: ToolType) {
-  if (!ToolUtilities.isWithIcon(toolType)) return undefined;
-  return toolType.iconElement;
-}
-
 function createForTool(toolType: ToolType, overrides?: Partial<ToolItemProps>) {
-  const icon = getToolIcon(toolType);
+  const icon = ToolUtilities.isWithIcon(toolType)
+    ? toolType.iconElement
+    : undefined;
   return new ToolItemDef({
     toolId: toolType.toolId,
     iconSpec: toolType.iconSpec,
     label: toolType.flyover,
     description: toolType.description,
+    execute: async () => {
+      return IModelApp.tools.run(toolType.toolId);
+    },
     ...(icon ? { icon } : {}),
     ...overrides,
   });

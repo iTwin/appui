@@ -9,7 +9,6 @@
 import "./GroupItem.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Icon } from "@itwin/core-react";
 import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import {

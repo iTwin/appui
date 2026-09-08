@@ -2,14 +2,14 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import { ToolbarItemUtilities } from "@itwin/appui-abstract";
 import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import * as React from "react";
-import { PopupTestView } from "../ui/dialogs/PopupTestView.js";
 import { ToolUtilities } from "@itwin/imodel-components-react";
-import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
+import { PopupTestView } from "../ui/dialogs/PopupTestView.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
 
 import svgWindowPopout from "@stratakit/icons/window-popout.svg";
 
@@ -82,6 +82,7 @@ class OpenPopoutViewToolBase extends Tool {
     );
   }
 }
+
 export const OpenPopoutViewTool = ToolUtilities.defineIcon(
   OpenPopoutViewToolBase,
   <StrataKitIcon href={svgWindowPopout} iconNode={<SvgWindowPopout />} />
