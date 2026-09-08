@@ -2,17 +2,17 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import * as React from "react";
 import { UiFramework } from "@itwin/appui-react";
 import { IModelApp, Tool } from "@itwin/core-frontend";
-import * as React from "react";
-import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
-import panoramaconSvg from "@bentley/icons-generic/icons/panorama.svg";
+import { ToolUtilities } from "@itwin/imodel-components-react";
 import { Dialog } from "@itwin/itwinui-react";
+import { SvgPanorama } from "@itwin/itwinui-icons-react";
+import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
 
-export class OpenSynchronizedViewTool extends Tool {
+class OpenSynchronizedViewToolBase extends Tool {
   private static _counter = 0;
   public static override toolId = "OpenViewDialog";
-  public static override iconSpec = panoramaconSvg;
   public static get dialogId(): string {
     return `ui-test-app:popup-view-dialog-${OpenSynchronizedViewTool._counter}`;
   }
@@ -118,3 +118,8 @@ function IModelViewDialog({
     </Dialog>
   );
 }
+
+export const OpenSynchronizedViewTool = ToolUtilities.defineIcon(
+  OpenSynchronizedViewToolBase,
+  <SvgPanorama />
+);
