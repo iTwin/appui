@@ -86,8 +86,8 @@ describe("UiSettingsPage", () => {
     const wrapper = render(<UiSettingsPage />);
     const thumb = wrapper.getAllByRole("slider")[1];
 
-    expect(UiFramework.getWidgetOpacity()).toEqual(0.9);
-    expect(thumb.getAttribute("aria-valuenow")).toEqual("0.9");
+    expect(UiFramework.getWidgetOpacity()).toEqual(1);
+    expect(thumb.getAttribute("aria-valuenow")).toEqual("1");
 
     act(() => {
       UiFramework.setWidgetOpacity(0.5);
