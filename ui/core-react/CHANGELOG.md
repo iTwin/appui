@@ -1,5 +1,11 @@
 # Change Log - @itwin/core-react
 
+## 5.35.0
+
+### Minor Changes
+
+- 297a951: Changed the default widget opacity to `1`.
+
 ## 5.34.0
 
 ### Patch Changes
