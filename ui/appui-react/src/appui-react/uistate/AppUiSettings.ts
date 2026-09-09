@@ -51,6 +51,11 @@ export class AppUiSettings implements UserSettingsProvider {
   private _settings: Array<UiStateEntry<any>> = [];
   private _applyingLocalSettings = false;
 
+  /** Bump this to invalidate stored settings. */
+  private static _currentVersion = 1;
+  private _storedVersion = 0;
+  private _version: UiStateEntry<number>;
+
   public colorTheme: UiStateEntry<ThemeId>;
   public dragInteraction: UiStateEntry<boolean>;
   public widgetOpacity: UiStateEntry<number>;
@@ -67,6 +72,16 @@ export class AppUiSettings implements UserSettingsProvider {
   };
 
   constructor(defaults: Partial<InitialAppUiSettings>) {
+    this._version = new UiStateEntry<number>(
+      AppUiSettings._settingNamespace,
+      "_version",
+      () => AppUiSettings._currentVersion,
+      (value: number) => {
+        this._storedVersion = value;
+      },
+      0
+    );
+
     this._settings = [];
 
     this.colorTheme = new UiStateEntry<ThemeId>(
@@ -186,6 +201,16 @@ export class AppUiSettings implements UserSettingsProvider {
 
   public async apply(storage: UiStateStorage): Promise<void> {
     this._applyingLocalSettings = true;
+
+    // Invalidate previously stored settings if the persisted version is outdated.
+    await this._version.getSettingAndApplyValue(storage);
+    if (this._storedVersion !== AppUiSettings._currentVersion) {
+      for (const setting of this._settings) {
+        await setting.deleteSetting(storage);
+      }
+      await this._version.saveSetting(storage);
+    }
+
     for (const setting of this._settings) {
       await setting.getSettingAndApplyValue(storage);
     }
