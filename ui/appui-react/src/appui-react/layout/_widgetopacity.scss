@@ -5,7 +5,7 @@
 @forward "~@itwin/core-react/lib/core-react/style/themecolors";
 
 @mixin nz-widget-opacity {
-  opacity: var(--buic-widget-opacity, 0.9);
+  opacity: var(--buic-widget-opacity, 1);
   transition: opacity var(--iui-duration-1) ease;
 
   &:hover,

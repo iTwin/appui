@@ -40,7 +40,7 @@ export type ThemeId = `${ColorTheme}` | (string & {});
 /** The default widget opacity.
  * @public
  */
-export const WIDGET_OPACITY_DEFAULT = 0.9;
+export const WIDGET_OPACITY_DEFAULT = 1;
 
 /** The default widget opacity.
  * @public
