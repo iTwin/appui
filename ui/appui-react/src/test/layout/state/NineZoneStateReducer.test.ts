@@ -29,6 +29,8 @@ import {
   updateSavedTabState,
 } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
 import { getUniqueId } from "../../../appui-react/layout/base/NineZone.js";
+import { getTabLocation } from "../../../appui-react/layout/state/TabLocation.js";
+import type { PopoutWidgetRestoreState } from "../../../appui-react/layout/state/WidgetRestoreState.js";
 
 describe("NineZoneStateReducer", () => {
   it("should not update for unhandled action", () => {
@@ -1686,6 +1688,41 @@ describe("NineZoneStateReducer", () => {
       });
     });
 
+    it("should enforce a minimum size when saved bounds are too small", () => {
+      let state = createNineZoneState({
+        savedTabs: {
+          allIds: ["t1"],
+          byId: {
+            t1: {
+              id: "t1",
+              popout: {
+                position: {
+                  x: 20,
+                  y: 10,
+                },
+                contentSize: {
+                  height: 40,
+                  width: 30,
+                },
+              },
+            },
+          },
+        },
+      });
+      state = addTabs(state, ["t1"]);
+      state = addPanelWidget(state, "right", "rightStart", ["t1"]);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_POPOUT",
+        id: "t1",
+      });
+      const popoutWidgetId = newState.popoutWidgets.allIds[0];
+      const popoutWidget = newState.popoutWidgets.byId[popoutWidgetId];
+      const bounds = Rectangle.create(popoutWidget.bounds);
+      expect(bounds.getWidth()).to.be.gte(200);
+      expect(bounds.getHeight()).to.be.gte(200);
+    });
+
     it("should popout with default size and location", () => {
       let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
       state = addTabs(state, ["t1"]);
@@ -1704,7 +1741,7 @@ describe("NineZoneStateReducer", () => {
       });
     });
 
-    it("should popout with specified size and location", () => {
+    it("should popout with specified size and location (clamped to minimum width)", () => {
       let state = createNineZoneState({ size: { height: 1000, width: 1600 } });
       state = addTabs(state, ["t1", "ta", "tb"]);
       state = addPanelWidget(state, "right", "rightStart", ["t1", "ta", "tb"], {
@@ -1725,11 +1762,13 @@ describe("NineZoneStateReducer", () => {
       });
       expect(newState.popoutWidgets.allIds).lengthOf(1);
       const popoutWidgetId = newState.popoutWidgets.allIds[0];
+      // Requested width (100) is below the minimum popout window size and gets clamped to
+      // 200 (AB#2024472); height (200) is already at the minimum.
       expect(newState.popoutWidgets.byId[popoutWidgetId].bounds).toEqual({
         left: 5,
         top: 10,
         bottom: 10 + 200,
-        right: 5 + 100,
+        right: 5 + 200,
       });
     });
 
@@ -1812,7 +1851,7 @@ describe("NineZoneStateReducer", () => {
       });
     });
 
-    it("should popout a tab and fit to preferredFloatingWidgetSize if bounds are not set", () => {
+    it("should popout a tab and fit to preferredFloatingWidgetSize if bounds are not set (clamped to minimum size)", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1", {
         preferredFloatingWidgetSize: { width: 50, height: 50 },
@@ -1825,15 +1864,16 @@ describe("NineZoneStateReducer", () => {
       });
       expect(newState.popoutWidgets.allIds).toHaveLength(1);
       const popoutWidgetId = newState.popoutWidgets.allIds[0];
+      // A preferred size smaller than the minimum popout window size is clamped up (AB#2024472).
       expect(newState.popoutWidgets.byId[popoutWidgetId].bounds).toEqual({
         left: 0,
         top: 0,
-        bottom: 50,
-        right: 50,
+        bottom: 200,
+        right: 200,
       });
     });
 
-    it("should popout a tab and fit to content container if preferredFloatingWidgetSize is not set", () => {
+    it("should popout a tab and fit to content container if preferredFloatingWidgetSize is not set (clamped to minimum size)", () => {
       let state = createNineZoneState();
 
       const blankHTML = document.createElement("div");
@@ -1850,11 +1890,13 @@ describe("NineZoneStateReducer", () => {
       expect(newState.popoutWidgets.allIds).toHaveLength(1);
       const popoutWidgetId = newState.popoutWidgets.allIds[0];
 
+      // A blank content container measures 20x20 but gets clamped to the minimum popout
+      // window size (AB#2024472).
       expect(newState.popoutWidgets.byId[popoutWidgetId].bounds).toEqual({
         left: 0,
         top: 0,
-        bottom: 20,
-        right: 20,
+        bottom: 200,
+        right: 200,
       });
     });
   });
@@ -1941,7 +1983,7 @@ describe("NineZoneStateReducer", () => {
       });
     });
 
-    it("should hide tab in a popout widget", () => {
+    it("should hide tab in a popout widget and remember its popout home", () => {
       let state = createNineZoneState();
       state = addTab(state, "t1");
       state = addPopoutWidget(state, "w1", ["t1"]);
@@ -1951,7 +1993,35 @@ describe("NineZoneStateReducer", () => {
         id: "t1",
       });
       expect(newState.popoutWidgets.allIds).lengthOf(0);
-      expect(newState.savedTabs.byId.t1).toEqual(undefined);
+      expect(newState.savedTabs.byId.t1?.home).to.deep.include({
+        widgetId: "w1",
+        tabIndex: 0,
+      });
+      expect(
+        (newState.savedTabs.byId.t1?.home as PopoutWidgetRestoreState)
+          .popoutWidget.id
+      ).to.eq("w1");
+    });
+
+    it("should restore a hidden tab back into a popout widget when shown", () => {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addPopoutWidget(state, "w1", ["t1"]);
+      state = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_HIDE",
+        id: "t1",
+      });
+      expect(state.popoutWidgets.allIds).lengthOf(0);
+
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_OPEN",
+        id: "t1",
+      });
+      expect(newState.popoutWidgets.allIds).lengthOf(1);
+      expect(getTabLocation(newState, "t1")).to.deep.eq({
+        widgetId: newState.popoutWidgets.allIds[0],
+        popoutWidgetId: newState.popoutWidgets.allIds[0],
+      });
     });
 
     it("should return correct index for first tab", () => {
