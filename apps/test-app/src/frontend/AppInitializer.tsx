@@ -161,10 +161,8 @@ function createInitializer() {
       new AppUiSettings({
         colorTheme: lastTheme ?? SYSTEM_PREFERRED_COLOR_THEME,
         dragInteraction: false,
-        widgetOpacity: 0.8,
         showWidgetIcon: true,
         autoCollapseUnpinnedPanels: false,
-        toolbarOpacity: 0.5,
       })
     );
 
