@@ -1,5 +1,36 @@
 # Change Log - @itwin/appui-react
 
+## 5.35.0
+
+### Minor Changes
+
+- f515b4b: Use `ToolUtilities.defineIcon` to define icons for `RotateViewTool` and `ViewToggleCameraTool` tools.
+- 8db0bb6: Updated `KeyboardShortcutUtilities.createForTool` function to handle icons defined via `ToolUtilities.defineIcon`.
+- 297a951: Deprecated toolbar and widget opacity APIs.
+
+  - `toolbarOpacity` and `widgetOpacity` props of `ConfigurableUiContent` component.
+  - `snapWidgetOpacity` property of `FrameworkVisibility` interface.
+  - `TOOLBAR_OPACITY_DEFAULT` and `WIDGET_OPACITY_DEFAULT` constants.
+  - `toolbarOpacitySetting` prop of `Toolbar` and `ToolbarWithOverflow` components.
+
+  Use the default configuration instead.
+
+- 297a951: Removed the glass styling effect from `Toolbar` component.
+- 8db0bb6: Updated item definitions of `CoreTools` class to handle icons defined via `ToolUtilities.defineIcon`.
+- 297a951: Invalidated the settings stored via the deprecated `AppUiSettings` class.
+- 2a5a42f: Updated `ToolAssistanceField` component to display the icon specified via the `ToolUtilities.defineIcon` function.
+- 2a5a42f: Added `iconElement` property to `UiFramework.frontstages.onToolIconChangedEvent` which is defined via the `ToolUtilities.defineIcon` function.
+- 8db0bb6: Updated `ToolItemDef.getItemDefForTool` method to handle icons defined via `ToolUtilities.defineIcon`.
+- 297a951: Changed the default widget opacity to `1`.
+
+### Patch Changes
+
+- Updated dependencies [297a951]
+- Updated dependencies [297a951]
+  - @itwin/components-react@5.35.0
+  - @itwin/core-react@5.35.0
+  - @itwin/imodel-components-react@5.35.0
+
 ## 5.34.0
 
 ### Patch Changes
