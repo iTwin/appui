@@ -56,6 +56,7 @@ export function ToolbarOverflowPanel(props: ToolbarOverflowPanelProps) {
   const { proximityScale } = useWidgetOpacityContext();
 
   const useTransparentBackground =
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting === ToolbarOpacitySetting.Transparent;
   let toolbarOpacity = useTransparentBackground ? 0 : TOOLBAR_OPACITY_DEFAULT;
   let boxShadowOpacity = useTransparentBackground
@@ -65,9 +66,11 @@ export function ToolbarOverflowPanel(props: ToolbarOverflowPanelProps) {
     ? 0
     : TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT;
   let showSeparators =
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting === ToolbarOpacitySetting.Transparent ? false : true;
 
   if (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting === ToolbarOpacitySetting.Proximity &&
     openPopupCount < 1 &&
     !overflowDisplayActive

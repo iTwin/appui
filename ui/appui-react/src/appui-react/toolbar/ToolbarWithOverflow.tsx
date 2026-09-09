@@ -32,7 +32,10 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
   panelAlignment?: ToolbarPanelAlignment;
   /** Use Drag Interaction to open popups with nest action buttons */
   useDragInteraction?: boolean;
-  /** Determines whether to use mouse proximity to alter the opacity of the toolbar */
+  /** Determines whether to use mouse proximity to alter the opacity of the toolbar.
+   * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   toolbarOpacitySetting?: ToolbarOpacitySetting;
   /** Optional function to call on any item execution */
   onItemExecuted?: OnItemExecutedFunc;

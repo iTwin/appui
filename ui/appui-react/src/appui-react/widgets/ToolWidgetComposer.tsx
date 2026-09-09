@@ -44,6 +44,7 @@ export function ToolWidgetComposer(props: ToolWidgetComposerProps) {
   const [elementSet] = React.useState(new WidgetElementSet());
   const proximityScale = useProximityToMouse(
     elementSet,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.visibility.snapWidgetOpacity
   );
   const uiIsVisible = useUiVisibility();

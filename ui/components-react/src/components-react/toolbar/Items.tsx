@@ -46,6 +46,7 @@ export function ToolbarItems(props: ToolbarItemsProps) {
   const { toolbarOpacitySetting, openPopupCount, overflowDisplayActive } =
     useToolbarWithOverflowDirectionContext();
   const useTransparentBackground =
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting === ToolbarOpacitySetting.Transparent;
 
   let toolbarOpacity = useTransparentBackground
@@ -62,11 +63,13 @@ export function ToolbarItems(props: ToolbarItemsProps) {
     ? 0
     : TOOLBAR_BACKDROP_FILTER_BLUR_DEFAULT;
   let showSeparators =
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting === ToolbarOpacitySetting.Transparent ? false : true;
 
   const { ref, proximityScale } = useWidgetOpacityContext<HTMLDivElement>();
 
   if (
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting === ToolbarOpacitySetting.Proximity &&
     openPopupCount < 1 &&
     !overflowDisplayActive

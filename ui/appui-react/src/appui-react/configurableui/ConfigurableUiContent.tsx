@@ -73,7 +73,9 @@ export interface ConfigurableUiContentProps extends CommonProps {
    * @deprecated in 4.16.0. View overlay visibility should be controlled by the components used in {@link ContentProps.content}.
    */
   viewOverlay?: boolean;
-  /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}. */
+  /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}.
+   * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+   */
   widgetOpacity?: number;
   /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
   widgetIcon?: boolean;
@@ -85,7 +87,9 @@ export interface ConfigurableUiContentProps extends CommonProps {
   animateToolSettings?: boolean;
   /** Controls if the tool settings label should be set based on activated tool. Uses redux store as a fallback. Defaults to `false`. */
   toolAsToolSettingsLabel?: boolean;
-  /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}. */
+  /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}.
+   * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+   */
   toolbarOpacity?: number;
   /** Component to wrap all popout widgets and other child windows opened via {@link UiFramework.childWindows}. */
   childWindow?: React.ComponentType;
@@ -169,7 +173,9 @@ export function StandardLayout(props: StandardLayoutProps) {
   const context = React.useContext(ConfigurableUiContext);
   const {
     appBackstage,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     widgetOpacity,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacity,
     idleTimeout,
     intervalTimeout,
@@ -266,6 +272,7 @@ function useWidgetOpacity(
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     return state?.configurableUiState.widgetOpacity;
   });
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   const opacity = widgetOpacity ?? reduxWidgetOpacity ?? WIDGET_OPACITY_DEFAULT;
 
   React.useEffect(() => {
@@ -292,6 +299,7 @@ function useToolbarOpacity(
   });
 
   const opacity =
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacity ?? reduxToolbarOpacity ?? TOOLBAR_OPACITY_DEFAULT;
 
   React.useEffect(() => {

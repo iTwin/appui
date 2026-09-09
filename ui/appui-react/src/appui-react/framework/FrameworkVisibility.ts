@@ -30,7 +30,9 @@ export interface FrameworkVisibility {
    */
   useProximityOpacity: boolean;
 
-  /** Determines whether the opacity of a toolbar should change immediately when the mouse gets close. Defaults to `false`. */
+  /** Determines whether the opacity of a toolbar should change immediately when the mouse gets close. Defaults to `false`.
+   * @deprecated in 5.35.0. Do not customize and rely on default configuration.
+   */
   snapWidgetOpacity: boolean;
 
   /** Handler for when a Frontstage is ready */
