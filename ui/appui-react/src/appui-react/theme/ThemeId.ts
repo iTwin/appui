@@ -38,11 +38,13 @@ export enum ColorTheme {
 export type ThemeId = `${ColorTheme}` | (string & {});
 
 /** The default widget opacity.
+ * @deprecated in 5.35.0. Use the default configuration.
  * @public
  */
-export const WIDGET_OPACITY_DEFAULT = 0.9;
+export const WIDGET_OPACITY_DEFAULT = 1;
 
 /** The default widget opacity.
+ * @deprecated in 5.35.0. Use the default configuration.
  * @public
  */
 export const TOOLBAR_OPACITY_DEFAULT = 0.5;

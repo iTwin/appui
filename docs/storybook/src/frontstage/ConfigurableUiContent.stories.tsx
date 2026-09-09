@@ -91,7 +91,8 @@ export const Default: Story = {
   },
 };
 
-export const SemiTransparentWidgets: Story = {
+export const TransparentWidgets: Story = {
+  name: "Transparent Widgets (deprecated)",
   args: {
     widgetOpacity: 0.5,
   },

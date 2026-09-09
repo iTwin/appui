@@ -38,6 +38,7 @@ export const Surface = React.forwardRef<HTMLDivElement, SurfaceProps>(
 
     const calculateOpacity = useConditionalValue(() => {
       if (ProcessDetector.isMobileBrowser) return false;
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       if (UiFramework.visibility.snapWidgetOpacity) return true;
       return false;
     }, [SyncUiEventId.ShowHideManagerSettingChange]);

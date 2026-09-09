@@ -121,6 +121,7 @@ export class ToolbarPopup extends React.PureComponent<
               panelAlignment={ToolbarPanelAlignment.Start}
               items={this.props.items}
               useDragInteraction={true}
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
               toolbarOpacitySetting={ToolbarOpacitySetting.Defaults}
               onItemExecuted={this.props.onItemExecuted}
             />

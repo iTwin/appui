@@ -2780,7 +2780,7 @@ export interface ToolbarButtonItemProps extends CommonProps {
 // @public @deprecated
 export type ToolbarItem = ActionButton | GroupButton | CustomToolbarItem;
 
-// @public
+// @public @deprecated
 export enum ToolbarOpacitySetting {
     Defaults = 0,
     Proximity = 1,

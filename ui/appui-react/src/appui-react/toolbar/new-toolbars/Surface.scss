@@ -15,12 +15,7 @@
   // TODO: fixes an issues on Safari where borders and backgrounds are overlapped by the viewport.
   position: relative;
 
-  @supports (backdrop-filter: blur(5px)) {
-    background-color: hsl(
-      var(--iui-color-background-hsl) / var(--iui-opacity-2)
-    );
-    backdrop-filter: blur(5px);
-  }
+  background-color: var(--iui-color-background);
 
   &.uifw-vertical {
     flex-direction: column;
