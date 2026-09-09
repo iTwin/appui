@@ -1,5 +1,5 @@
 ---
-"@itwin/core-react": minor
+"@itwin/appui-react": minor
 ---
 
 Deprecated toolbar and widget opacity APIs.
