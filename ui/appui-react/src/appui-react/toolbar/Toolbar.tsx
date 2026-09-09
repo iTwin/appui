@@ -39,7 +39,7 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
   /** Use drag interaction to open popups with nested toolbar buttons. */
   useDragInteraction?: boolean;
   /** Determines whether to use mouse proximity to alter the opacity of the toolbar.
-   * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+   * @deprecated in 5.35.0. Use the default configuration.
    */
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   toolbarOpacitySetting?: ToolbarOpacitySetting;

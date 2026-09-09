@@ -109,7 +109,7 @@ export enum ToolbarPanelAlignment {
 }
 
 /** Enumeration of Toolbar Opacity setting.
- * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+ * @deprecated in 5.35.0. Use the default configuration.
  * @public
  */
 export enum ToolbarOpacitySetting {

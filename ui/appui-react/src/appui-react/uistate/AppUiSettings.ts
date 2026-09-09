@@ -24,14 +24,14 @@ import { ConfigurableUiActionId } from "../redux/ConfigurableUiState.js";
 export interface InitialAppUiSettings {
   colorTheme: ThemeId;
   dragInteraction: boolean;
-  /** @deprecated in 5.35.0. Do not customize and rely on default opacity configuration. */
+  /** @deprecated in 5.35.0. Use the default configuration. */
   widgetOpacity: number;
   showWidgetIcon?: boolean;
   /** @alpha */
   autoCollapseUnpinnedPanels?: boolean;
   animateToolSettings?: boolean;
   useToolAsToolSettingsLabel?: boolean;
-  /** @deprecated in 5.35.0. Do not customize and rely on default opacity configuration. */
+  /** @deprecated in 5.35.0. Use the default configuration. */
   toolbarOpacity: number;
 }
 

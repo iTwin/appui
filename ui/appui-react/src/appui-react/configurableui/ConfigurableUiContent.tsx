@@ -74,7 +74,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
    */
   viewOverlay?: boolean;
   /** Describes the opacity of widgets. Uses redux store as a fallback. Defaults to {@link WIDGET_OPACITY_DEFAULT}.
-   * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+   * @deprecated in 5.35.0. Use the default configuration.
    */
   widgetOpacity?: number;
   /** Controls if the widget icons should be displayed. Uses redux store as a fallback. Defaults to `true`. */
@@ -88,7 +88,7 @@ export interface ConfigurableUiContentProps extends CommonProps {
   /** Controls if the tool settings label should be set based on activated tool. Uses redux store as a fallback. Defaults to `false`. */
   toolAsToolSettingsLabel?: boolean;
   /** Describes the opacity of toolbars. Uses redux store as a fallback. Defaults to {@link TOOLBAR_OPACITY_DEFAULT}.
-   * @deprecated in 5.35.0. Do not customize and rely on default opacity configuration.
+   * @deprecated in 5.35.0. Use the default configuration.
    */
   toolbarOpacity?: number;
   /** Component to wrap all popout widgets and other child windows opened via {@link UiFramework.childWindows}. */
