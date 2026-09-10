@@ -19,6 +19,7 @@ import {
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
 import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import type { Tooltip } from "@itwin/itwinui-react";
 import { Slider } from "@itwin/itwinui-react";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
@@ -181,12 +182,12 @@ export class SliderEditor
         minLabel = !sliderParams.showMinMax ? (
           ""
         ) : sliderParams.minIconSpec ? (
-          <Icon iconSpec={sliderParams.minIconSpec} />
+          <StrataKitIcon iconSpec={sliderParams.minIconSpec} />
         ) : undefined;
         maxLabel = !sliderParams.showMinMax ? (
           ""
         ) : sliderParams.maxIconSpec ? (
-          <Icon iconSpec={sliderParams.maxIconSpec} />
+          <StrataKitIcon iconSpec={sliderParams.maxIconSpec} />
         ) : undefined;
 
         if (sliderParams.showTicks) {

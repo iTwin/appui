@@ -20,7 +20,8 @@ import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
-import { Icon, IconInput } from "@itwin/core-react";
+import { IconInput } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { Input, InputWithDecorations } from "@itwin/itwinui-react";
 import { TypeConverterManager } from "../converters/TypeConverterManager.js";
 import type {
@@ -217,7 +218,7 @@ export class TextEditor
     };
 
     const icon = this.state.iconSpec ? (
-      <Icon iconSpec={this.state.iconSpec} />
+      <StrataKitIcon iconSpec={this.state.iconSpec} />
     ) : undefined;
     return (
       <LockTextEditor

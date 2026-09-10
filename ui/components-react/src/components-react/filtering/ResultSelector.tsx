@@ -11,7 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { UiComponents } from "../UiComponents.js";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 
@@ -141,8 +141,10 @@ export class ResultSelector extends React.PureComponent<
           onClick={this._onClickPrevious}
           disabled={this.props.resultCount <= 0}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={<SvgChevronLeft />} />
+          <StrataKitIcon
+            module="@stratakit/icons/chevron-left.svg"
+            iconSpec={<SvgChevronLeft />}
+          />
         </button>
 
         <span
@@ -177,8 +179,10 @@ export class ResultSelector extends React.PureComponent<
           onClick={this._onClickNext}
           disabled={this.props.resultCount <= 0}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={<SvgChevronRight />} />
+          <StrataKitIcon
+            module="@stratakit/icons/chevron-right.svg"
+            iconSpec={<SvgChevronRight />}
+          />
         </button>
       </span>
     );

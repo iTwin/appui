@@ -11,8 +11,8 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
 import { Input } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { UiComponents } from "../UiComponents.js";
 import type { ResultSelectorProps } from "./ResultSelector.js";
 import { ResultSelector } from "./ResultSelector.js";
@@ -190,8 +190,10 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={searchLabel}
               >
-                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                <Icon iconSpec={<SvgSearch />} />
+                <StrataKitIcon
+                  module="@stratakit/icons/search.svg"
+                  iconSpec={<SvgSearch />}
+                />
               </span>
             ) : undefined}
             {status === FilteringInputStatus.FilteringInProgress ? (
@@ -204,8 +206,10 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={UiComponents.translate("dialog.cancel")}
               >
-                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                <Icon iconSpec={<SvgClose />} />
+                <StrataKitIcon
+                  module="@stratakit/icons/dismiss.svg"
+                  iconSpec={<SvgClose />}
+                />
               </span>
             ) : undefined}
             {status === FilteringInputStatus.FilteringFinished ? (
@@ -218,8 +222,10 @@ export class FilteringInput extends React.PureComponent<
                 tabIndex={-1}
                 title={UiComponents.translate("general.clear")}
               >
-                {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                <Icon iconSpec={<SvgClose />} />
+                <StrataKitIcon
+                  module="@stratakit/icons/dismiss.svg"
+                  iconSpec={<SvgClose />}
+                />
               </span>
             ) : undefined}
           </span>

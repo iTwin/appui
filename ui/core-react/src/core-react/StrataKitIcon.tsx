@@ -17,13 +17,19 @@ export const StrataKitIconContext = React.createContext<
 
 /** @internal */
 export type StrataKitIconModule =
+  | "@stratakit/icons/add.svg"
   | "@stratakit/icons/caret-down.svg"
   | "@stratakit/icons/caret-up.svg"
   | "@stratakit/icons/caret-right.svg"
+  | "@stratakit/icons/checkmark.svg"
+  | "@stratakit/icons/chevron-down.svg"
+  | "@stratakit/icons/chevron-left.svg"
   | "@stratakit/icons/chevron-right.svg"
+  | "@stratakit/icons/delete.svg"
   | "@stratakit/icons/dismiss.svg"
   | "@stratakit/icons/help.svg"
   | "@stratakit/icons/info.svg"
+  | "@stratakit/icons/placeholder.svg"
   | "@stratakit/icons/search.svg"
   | "@stratakit/icons/status-error.svg"
   | "@stratakit/icons/status-rejected.svg"
