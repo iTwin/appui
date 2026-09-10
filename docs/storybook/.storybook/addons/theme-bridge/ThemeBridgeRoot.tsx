@@ -5,15 +5,20 @@
 import * as React from "react";
 import { ThemeProvider } from "@itwin/itwinui-react";
 import { Root } from "@stratakit/mui";
-import { ThemeBridgeContext } from "./ThemeBridge";
+import { ThemeBridgeContext, ThemeBridgeValue } from "./ThemeBridge";
 
 type ThemeProviderProps = React.ComponentProps<typeof ThemeProvider>;
 
-export function ThemeBridgeRoot(props: React.PropsWithChildren) {
+interface ThemeBridgeRootProps {
+  children?: React.ReactNode;
+  themeBridge: NonNullable<ThemeBridgeValue>;
+}
+
+export function ThemeBridgeRoot(props: ThemeBridgeRootProps) {
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
 
   return (
-    <ThemeBridgeContext value={true}>
+    <ThemeBridgeContext value={props.themeBridge}>
       <Root
         colorScheme={prefersDark ? "dark" : "light"}
         render={(props: unknown) => (

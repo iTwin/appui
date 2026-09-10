@@ -2,6 +2,8 @@
  * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
+import { StrataKitSymbol } from "./appui-react/preview/PreviewFeatures.js";
+import type { StrataKitIcon } from "@itwin/core-react/internal";
 
 // cSpell:disable
 
@@ -334,7 +336,9 @@ import svgZoomOutMagnifier from "@stratakit/icons/zoom-out-magnifier.svg";
 
 /* eslint-enable @typescript-eslint/no-restricted-imports */
 
-import { StrataKitSymbol } from "./appui-react/preview/PreviewFeatures.js";
+type StrataKitIconProps = React.ComponentProps<typeof StrataKitIcon>;
+type StrataKitIconModule = NonNullable<StrataKitIconProps["module"]>;
+type StrataKitIconModules = Record<StrataKitIconModule, string>;
 
 /** @public */
 export function enable() {
@@ -670,7 +674,7 @@ export function enable() {
     "@stratakit/icons/window.svg": svgWindow,
     "@stratakit/icons/zoom-in-magnifier.svg": svgZoomInMagnifier,
     "@stratakit/icons/zoom-out-magnifier.svg": svgZoomOutMagnifier,
-  } as const;
+  } as const satisfies StrataKitIconModules & Record<string, unknown>;
   return {
     [StrataKitSymbol]: {
       modules,

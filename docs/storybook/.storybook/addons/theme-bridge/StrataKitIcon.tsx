@@ -13,7 +13,8 @@ interface StrataKitIconProps {
 
 export function StrataKitIcon(props: StrataKitIconProps) {
   const themeBridge = React.useContext(ThemeBridgeContext);
-  if (!themeBridge) {
+  const useStrataKit = themeBridge === "useStrataKit";
+  if (!useStrataKit) {
     return <SvgPlaceholder />;
   }
 
