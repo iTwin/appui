@@ -12,10 +12,9 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "../utils/Props.js";
 import { Input } from "@itwin/itwinui-react";
-import type { IconSpec } from "../icons/IconComponent.js";
-import { Icon } from "../icons/IconComponent.js";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../l10n/useTranslation.js";
+import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -65,7 +64,6 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
     const searchClassName = classnames("core-searchbox", this.props.className);
     const emptyString = this.state.value === "";
     const iconClassName = classnames("core-searchbox-icon", "icon");
-    const iconSpec: IconSpec = emptyString ? <SvgSearch /> : <SvgClose />;
     return (
       <div
         className={searchClassName}
@@ -93,7 +91,17 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
           emptyString={emptyString}
         >
           <span className={iconClassName}>
-            <Icon iconSpec={iconSpec} />
+            {emptyString ? (
+              <StrataKitIcon
+                module="@stratakit/icons/search.svg"
+                iconSpec={<SvgSearch />}
+              />
+            ) : (
+              <StrataKitIcon
+                module="@stratakit/icons/dismiss.svg"
+                iconSpec={<SvgClose />}
+              />
+            )}
           </span>
         </SearchBoxButton>
       </div>

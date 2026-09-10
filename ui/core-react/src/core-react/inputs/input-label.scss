@@ -52,6 +52,7 @@
       top: 0;
       bottom: 0;
       padding: baseline.$uicore-bordered-padding;
+      box-sizing: content-box;
 
       font-size: var(--iui-font-size-1);
       font-weight: normal;

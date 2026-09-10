@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
-import { webFontToStrataKitIcon } from "./webFontToStrataKitIcon.js";
 
 import type { enable } from "../../../useStrataKit.js";
 
@@ -21,10 +20,4 @@ export function useStrataKitIcon(icon: StrataKitIconModule | undefined) {
 
   const modules = useStrataKit[StrataKitSymbol].modules;
   return modules[icon];
-}
-
-/** @internal */
-export function useWebFontStrataKitIcon(webFontIcon: string | undefined) {
-  const icon = webFontIcon ? webFontToStrataKitIcon[webFontIcon] : undefined;
-  return useStrataKitIcon(icon);
 }

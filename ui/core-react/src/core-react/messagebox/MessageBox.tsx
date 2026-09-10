@@ -28,6 +28,8 @@ import {
 import { Icon } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent.js";
 import { Dialog } from "../dialog/Dialog.js";
+import type { StrataKitIconModule } from "../StrataKitIcon.js";
+import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -194,13 +196,18 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
     return (
       <div className="core-message-box-container">
         {icon ? (
-          <Icon
-            className={iconClassName}
-            size="large"
-            fill={toFill(this.props.severity)}
-          >
-            {icon}
-          </Icon>
+          <StrataKitIcon
+            module={getStrataKitIcon(this.props.severity)}
+            iconNode={
+              <Icon
+                className={iconClassName}
+                size="large"
+                fill={toFill(this.props.severity)}
+              >
+                {icon}
+              </Icon>
+            }
+          />
         ) : undefined}
         <div
           className={classnames(
@@ -236,6 +243,27 @@ function getIcon(
       break;
     case MessageSeverity.Fatal:
       return hollow ? <SvgStatusRejectedHollow /> : <SvgStatusRejected />;
+  }
+}
+
+function getStrataKitIcon(
+  severity: MessageSeverity
+): StrataKitIconModule | undefined {
+  switch (severity) {
+    case MessageSeverity.None:
+      return undefined;
+    case MessageSeverity.Success:
+      return "@stratakit/icons/status-success.svg";
+    case MessageSeverity.Information:
+      return "@stratakit/icons/info.svg";
+    case MessageSeverity.Question:
+      return "@stratakit/icons/help.svg";
+    case MessageSeverity.Warning:
+      return "@stratakit/icons/status-warning.svg";
+    case MessageSeverity.Error:
+      return "@stratakit/icons/status-error.svg";
+    case MessageSeverity.Fatal:
+      return "@stratakit/icons/status-rejected.svg";
   }
 }
 

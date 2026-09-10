@@ -14,6 +14,8 @@ import type { useTransientState } from "../widget-panels/useTransientState.js";
 import type { WidgetDef } from "../widgets/WidgetDef.js";
 import type { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
 import type { enable } from "../../useStrataKit.js";
+import { StrataKitIconContext } from "@itwin/core-react/internal";
+import { StrataKitIcon } from "./use-stratakit/StrataKitIcon.js";
 
 /** List of known preview features. */
 interface KnownPreviewFeatures {
@@ -234,5 +236,9 @@ export function PreviewFeaturesProvider(props: ProviderProps) {
     },
     [setPreviewFeatures]
   );
-  return <>{children}</>;
+  return (
+    <StrataKitIconContext.Provider value={StrataKitIcon}>
+      {children}
+    </StrataKitIconContext.Provider>
+  );
 }

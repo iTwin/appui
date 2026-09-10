@@ -15,8 +15,8 @@ import type { ContextMenu } from "./ContextMenu.js";
 import type { BadgeType } from "../badge/BadgeType.js";
 import { TildeFinder } from "./TildeFinder.js";
 import type { IconSpec } from "../icons/IconComponent.js";
-import { Icon } from "../icons/IconComponent.js";
 import { Badge } from "../badge/Badge.js";
+import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -133,7 +133,7 @@ export class ContextMenuItem extends React.PureComponent<
       >
         {!hideIconContainer && (
           <div className="core-context-menu-icon">
-            {icon !== undefined && <Icon iconSpec={icon} />}
+            {icon !== undefined && <StrataKitIcon iconSpec={icon} />}
           </div>
         )}
         <div className={"core-context-menu-content"}>
@@ -146,7 +146,7 @@ export class ContextMenuItem extends React.PureComponent<
               "core-context-menu-icon-right"
             )}
           >
-            <Icon iconSpec={iconRight} />
+            <StrataKitIcon iconSpec={iconRight} />
           </div>
         )}
         {(badgeKind || badgeType) && (

@@ -5,20 +5,19 @@
 
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
-import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
-import { useWebFontStrataKitIcon } from "./useStrataKitIcon.js";
-
-import type { IconSpec } from "@itwin/core-react";
+import type { StrataKitIcon as CoreStrataKitIcon } from "@itwin/core-react/internal";
 import type { Icon } from "@stratakit/mui";
+import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
+import { webFontToStrataKitIcon } from "./webFontToStrataKitIcon.js";
+import { useStrataKitIcon } from "./useStrataKitIcon.js";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
-interface StrataKitIconProps extends IconProps {
-  href?: string;
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  iconSpec?: IconSpec;
-  iconNode?: React.ReactNode;
-}
+type CoreStrataKitIconProps = React.ComponentProps<typeof CoreStrataKitIcon>;
+
+interface StrataKitIconProps
+  extends CoreStrataKitIconProps,
+    Pick<IconProps, "href" | "size"> {}
 
 /**
  * Renders in following order based on what's available:
@@ -28,17 +27,20 @@ interface StrataKitIconProps extends IconProps {
  *
  * StrataKit icon is resolved in order:
  * - `href` prop
- * - StrataKit icon resolved from web font mapping
+ * - `module` prop
+ * - `iconSpec` prop resolved via web font mapping
  *
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { href: hrefProp, iconSpec, iconNode, size, ...rest } = props;
+  const { href: hrefProp, module, iconSpec, iconNode, size, ...rest } = props;
+
+  const moduleHref = useStrataKitIcon(module);
 
   const webFontIcon = typeof iconSpec === "string" ? iconSpec : undefined;
   const iconSpecHref = useWebFontStrataKitIcon(webFontIcon);
 
-  const href = hrefProp ?? iconSpecHref;
+  const href = hrefProp ?? moduleHref ?? iconSpecHref;
 
   const { useStrataKit } = usePreviewFeatures();
   const modules = useStrataKit?.[StrataKitSymbol]?.modules;
@@ -56,4 +58,9 @@ export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
   }
 
   return undefined;
+}
+
+function useWebFontStrataKitIcon(webFontIcon: string | undefined) {
+  const icon = webFontIcon ? webFontToStrataKitIcon[webFontIcon] : undefined;
+  return useStrataKitIcon(icon);
 }

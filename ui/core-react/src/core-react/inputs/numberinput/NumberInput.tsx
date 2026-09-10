@@ -18,6 +18,7 @@ import {
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -315,7 +316,10 @@ const ForwardRefNumberInput = React.forwardRef<
           onClick={handleUpClick}
           role="presentation"
         >
-          <Icon iconSpec={caretUp} />
+          <StrataKitIcon
+            module="@stratakit/icons/caret-up.svg"
+            iconSpec={caretUp}
+          />
         </div>
         <div
           className="core-number-input-button core-number-input-button-down"
@@ -323,7 +327,10 @@ const ForwardRefNumberInput = React.forwardRef<
           onClick={handleDownClick}
           role="presentation"
         >
-          <Icon iconSpec={caretDown} />
+          <StrataKitIcon
+            module="@stratakit/icons/caret-down.svg"
+            iconSpec={caretDown}
+          />
         </div>
       </div>
     </div>

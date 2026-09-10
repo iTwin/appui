@@ -15,9 +15,9 @@ import { ContextMenu } from "./ContextMenu.js";
 import type { CommonProps } from "../utils/Props.js";
 import { ContextMenuDirection } from "./ContextMenuDirection.js";
 import { TildeFinder } from "./TildeFinder.js";
-import { Icon } from "../icons/IconComponent.js";
 import { SvgCaretRightSmall } from "@itwin/itwinui-icons-react";
 import { Badge } from "../badge/Badge.js";
+import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -162,12 +162,15 @@ export class ContextSubMenu extends React.Component<
         >
           {!hideIconContainer && (
             <div className="core-context-menu-icon">
-              {icon !== undefined && <Icon iconSpec={icon} />}
+              {icon !== undefined && <StrataKitIcon iconSpec={icon} />}
             </div>
           )}
           <div className={"core-context-menu-content"}>{this._parsedLabel}</div>
           <div className={classnames("core-context-submenu-arrow", "icon")}>
-            <Icon iconSpec={<SvgCaretRightSmall />} />
+            <StrataKitIcon
+              module="@stratakit/icons/caret-right.svg"
+              iconSpec={<SvgCaretRightSmall />}
+            />
           </div>
           {(badgeKind || badgeType) && (
             <div className="core-context-menu-badge">
