@@ -9,6 +9,9 @@ import { ToolUtilities } from "@itwin/imodel-components-react";
 import { Dialog } from "@itwin/itwinui-react";
 import { SvgPanorama } from "@itwin/itwinui-icons-react";
 import { SynchronizedFloatingView } from "../ui/dialogs/SynchronizedFloatingViewComponent.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgPanorama from "@stratakit/icons/panorama.svg";
 
 class OpenSynchronizedViewToolBase extends Tool {
   private static _counter = 0;
@@ -121,5 +124,5 @@ function IModelViewDialog({
 
 export const OpenSynchronizedViewTool = ToolUtilities.defineIcon(
   OpenSynchronizedViewToolBase,
-  <SvgPanorama />
+  <StrataKitIcon href={svgPanorama} iconNode={<SvgPanorama />} />
 );

@@ -14,6 +14,9 @@ import {
   UiItemsProvider,
 } from "@itwin/appui-react";
 import { SvgUpgrade } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../icons/StrataKitIcon.js";
+
+import svgUpdate from "@stratakit/icons/update.svg";
 
 export function createUpdatedUiItemsProvider() {
   const id = "appui-test-providers:updated";
@@ -23,7 +26,7 @@ export function createUpdatedUiItemsProvider() {
       return [
         ToolbarItemUtilities.createActionItem({
           id: `${id}:toolbar-item`,
-          icon: <SvgUpgrade />,
+          icon: <StrataKitIcon href={svgUpdate} iconNode={<SvgUpgrade />} />,
           label: "Updated toolbar item",
           layouts: {
             standard: {
@@ -46,7 +49,7 @@ export function createUpdatedUiItemsProvider() {
       return [
         StatusBarItemUtilities.createActionItem({
           id: `${id}:statusbar-item`,
-          icon: <SvgUpgrade />,
+          icon: <StrataKitIcon href={svgUpdate} iconNode={<SvgUpgrade />} />,
           tooltip: "Updated status bar item",
         }),
       ];

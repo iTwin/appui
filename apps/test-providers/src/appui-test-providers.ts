@@ -29,6 +29,8 @@ export * from "./ui/frontstages/PopoutWindowsFrontstage.js";
 export * from "./ui/frontstages/registerCustomFrontstage.js";
 export * from "./ui/frontstages/SynchronizedViewportFrontstage.js";
 
+export * from "./ui/icons/StrataKitIcon.js";
+
 export * from "./ui/providers/AbstractUiItemsProvider.js";
 export * from "./ui/providers/ContentLayoutStageUiItemsProvider.js";
 export * from "./ui/providers/CustomContentStageUiProvider.js";

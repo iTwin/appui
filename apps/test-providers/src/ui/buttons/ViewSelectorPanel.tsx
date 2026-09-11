@@ -13,13 +13,17 @@ import {
   useActiveViewport,
   ViewSelector,
 } from "@itwin/appui-react";
+import { SvgSavedView } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../icons/StrataKitIcon.js";
+
+import svgSavedViews from "@stratakit/icons/saved-views.svg";
 
 export function getCustomViewSelectorPopupItem(
   overrides?: Omit<Partial<ToolbarCustomItem>, "icon">
 ) {
   return ToolbarItemUtilities.createCustomItem({
     id: "appui-test-providers:viewSelector",
-    icon: <i className="icon icon-saved-view" />,
+    icon: <StrataKitIcon href={svgSavedViews} iconNode={<SvgSavedView />} />,
     label: "Load selected view into active content view",
     panelContent: <ViewSelectorPanel />,
     itemPriority: 20,

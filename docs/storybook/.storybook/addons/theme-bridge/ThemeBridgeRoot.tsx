@@ -3,28 +3,42 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { PreviewFeaturesProvider } from "@itwin/appui-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
+import { enable } from "@itwin/appui-react/useStrataKit";
 import { Root } from "@stratakit/mui";
-import { ThemeBridgeContext } from "./ThemeBridge";
+import { ThemeBridgeContext, ThemeBridgeValue } from "./ThemeBridge";
 
 type ThemeProviderProps = React.ComponentProps<typeof ThemeProvider>;
 
-export function ThemeBridgeRoot(props: React.PropsWithChildren) {
+interface ThemeBridgeRootProps {
+  children?: React.ReactNode;
+  themeBridge: NonNullable<ThemeBridgeValue>;
+}
+
+export function ThemeBridgeRoot(props: ThemeBridgeRootProps) {
   const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const useStrataKit = props.themeBridge === "useStrataKit";
 
   return (
-    <ThemeBridgeContext value={true}>
-      <Root
-        colorScheme={prefersDark ? "dark" : "light"}
-        render={(props: unknown) => (
-          <ThemeProvider
-            future={{ themeBridge: true }}
-            {...(props as ThemeProviderProps)}
-          />
-        )}
+    <ThemeBridgeContext value={props.themeBridge}>
+      <PreviewFeaturesProvider
+        features={{
+          useStrataKit: useStrataKit ? enable() : undefined,
+        }}
       >
-        {props.children}
-      </Root>
+        <Root
+          colorScheme={prefersDark ? "dark" : "light"}
+          render={(props: unknown) => (
+            <ThemeProvider
+              future={{ themeBridge: true }}
+              {...(props as ThemeProviderProps)}
+            />
+          )}
+        >
+          {props.children}
+        </Root>
+      </PreviewFeaturesProvider>
     </ThemeBridgeContext>
   );
 }

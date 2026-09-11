@@ -10,7 +10,6 @@ import "./Widget.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { assert } from "@itwin/core-bentley";
-import { Icon } from "@itwin/core-react";
 import { useRefs } from "@itwin/core-react/internal";
 import { IconButton, Tabs, VisuallyHidden } from "@itwin/itwinui-react";
 import { SvgCloseSmall } from "@itwin/itwinui-icons-react";
@@ -45,6 +44,7 @@ import { useDragWidgetHandle } from "../../layout/widget/TabBar.js";
 import { useBorders } from "../../layout/widget/PanelWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useWidgetDef } from "../../widget-panels/Content.js";
+import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
 
 const TabsContext = React.createContext<
   | {
@@ -234,10 +234,10 @@ function TabIcon() {
   const widgetDef = useWidgetDef();
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = widgetDef?.initialConfig?.icon;
-  const icon =
-    widgetDef?.initialConfig?.iconNode ??
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    (iconSpec ? <Icon iconSpec={iconSpec} /> : undefined);
+  const iconSpecIcon = iconSpec ? (
+    <StrataKitIcon iconSpec={iconSpec} />
+  ) : undefined;
+  const icon = widgetDef?.initialConfig?.iconNode ?? iconSpecIcon;
 
   if (!icon) return null;
   return <Tabs.TabIcon>{icon}</Tabs.TabIcon>;
@@ -272,6 +272,7 @@ function CloseTabDecoration() {
 
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
+
   return (
     <IconButton
       as={Tabs.TabIcon}
@@ -286,7 +287,10 @@ function CloseTabDecoration() {
       data-_appui-action={isActionTab ? "true" : undefined}
       ref={ref}
     >
-      <SvgCloseSmall />
+      <StrataKitIcon
+        module="@stratakit/icons/dismiss.svg"
+        iconNode={<SvgCloseSmall />}
+      />
     </IconButton>
   );
 }
@@ -325,7 +329,10 @@ function CloseTabAction() {
           hideTab(actionTabId);
         }}
       >
-        <SvgCloseSmall />
+        <StrataKitIcon
+          module="@stratakit/icons/dismiss.svg"
+          iconNode={<SvgCloseSmall />}
+        />
       </IconButton>
     </VisuallyHidden>
   );

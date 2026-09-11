@@ -10,7 +10,7 @@ import "./CursorPrompt.scss";
 import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { Icon, Timer } from "@itwin/core-react";
+import { Timer } from "@itwin/core-react";
 import { Point } from "@itwin/core-react/internal";
 import { Text } from "@itwin/itwinui-react";
 import {
@@ -20,6 +20,7 @@ import {
 import { CursorPopupManager } from "../cursorpopup/CursorPopupManager.js";
 import { UiFramework } from "../../UiFramework.js";
 import { useDraggedItem } from "../../layout/base/DragManager.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 interface UseCursorPromptArgs {
   show: boolean;
@@ -142,8 +143,7 @@ function CursorPrompt({
     <div className="uifw-cursor-prompt">
       {iconSpec && (
         <span className="uifw-cursor-prompt-icon">
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={iconSpec} />
+          <StrataKitIcon iconSpec={iconSpec} />
         </span>
       )}
       <Text variant="body" className="uifw-cursor-prompt-text">

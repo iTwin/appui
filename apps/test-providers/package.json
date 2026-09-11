@@ -67,6 +67,10 @@
     "react-redux": "^9.2.0",
     "ts-key-enum": "~2.0.13"
   },
+  "peerDependencies": {
+    "@stratakit/mui": "catalog:",
+    "@stratakit/icons": "catalog:"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/iTwin/appui.git",

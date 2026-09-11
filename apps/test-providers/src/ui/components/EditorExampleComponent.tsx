@@ -30,6 +30,9 @@ import {
   Text,
 } from "@itwin/itwinui-react";
 import { SvgDetails } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../icons/StrataKitIcon.js";
+
+import svgDetails from "@stratakit/icons/details.svg";
 
 /** List of render sizes
  *  when merging to #576, remove this comment and use below instead.
@@ -250,7 +253,10 @@ export function EditorExampleComponent() {
                     ]}
                   >
                     <IconButton styleType="borderless" size="small">
-                      <SvgDetails />
+                      <StrataKitIcon
+                        href={svgDetails}
+                        iconNode={<SvgDetails />}
+                      />
                     </IconButton>
                   </DropdownMenu>
                 )}

@@ -13,6 +13,7 @@ import { WidgetAction } from "./WidgetAction.js";
 import { useIsToolSettingsTab } from "./useIsToolSettingsTab.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 /** @internal */
 export function Dock() {
@@ -21,7 +22,12 @@ export function Dock() {
   const label = translate("widget.tooltips.dockToolSettings");
   return (
     <WidgetAction
-      icon={<SvgDockTop />}
+      icon={
+        <StrataKitIcon
+          module="@stratakit/icons/dock-top.svg"
+          iconNode={<SvgDockTop />}
+        />
+      }
       label={label}
       onClick={() => {
         dispatch({

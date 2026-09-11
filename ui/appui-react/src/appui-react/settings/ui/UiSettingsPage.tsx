@@ -21,6 +21,7 @@ import {
 } from "../../theme/ThemeId.js";
 import { ConfigurableUiActionId } from "../../redux/ConfigurableUiState.js";
 import { SyncUiEventId } from "../../syncui/UiSyncEvent.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -400,7 +401,12 @@ export function getUiSettingsManagerEntry(
     itemPriority,
     tabId: "uifw:UiStateStorage",
     label: UiFramework.translate("settings.uiSettingsPage.label"),
-    icon: <SvgWindowSettings />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/window-settings.svg"
+        iconNode={<SvgWindowSettings />}
+      />
+    ),
     page: <UiSettingsPage />,
     isDisabled: false,
     tooltip: UiFramework.translate("settings.uiSettingsPage.tooltip"),

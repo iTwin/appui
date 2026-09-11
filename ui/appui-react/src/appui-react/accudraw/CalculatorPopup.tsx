@@ -8,13 +8,14 @@
 
 import * as React from "react";
 import type { OnCancelFunc, OnNumberCommitFunc } from "@itwin/appui-abstract";
-import { DivWithOutsideClick, Icon } from "@itwin/core-react";
+import { DivWithOutsideClick } from "@itwin/core-react";
 import type { PopupPropsBase } from "../popup/PopupManager.js";
 import { PopupManager } from "../popup/PopupManager.js";
 import { PositionPopup, PositionPopupContent } from "../popup/PositionPopup.js";
 import { Calculator } from "./Calculator.js";
 import type { SizeProps } from "../utils/SizeProps.js";
 import { AccuDrawPopupManager } from "./AccuDrawPopupManager.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /**
  * @public
@@ -72,10 +73,7 @@ export class CalculatorPopup extends React.PureComponent<
           <PositionPopupContent>
             <Calculator
               initialValue={this.props.initialValue}
-              resultIcon={
-                // eslint-disable-next-line @typescript-eslint/no-deprecated
-                <Icon iconSpec={this.props.resultIcon} />
-              }
+              resultIcon={<StrataKitIcon iconSpec={this.props.resultIcon} />}
               onOk={this.props.onOk}
               onCancel={this.props.onCancel}
             />

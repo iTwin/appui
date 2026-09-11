@@ -22,10 +22,14 @@ import {
   ComponentExamplesModalFrontstage,
   getCustomViewSelectorPopupItem,
   store,
+  StrataKitIcon,
   ViewportContent,
 } from "@itwin/appui-test-providers";
-import { Svg3D, SvgImodel } from "@itwin/itwinui-icons-react";
 import { IModelApp } from "@itwin/core-frontend";
+import { Svg3D, SvgImodel } from "@itwin/itwinui-icons-react";
+
+import svg3D from "@stratakit/icons/3d.svg";
+import svgImodel from "@stratakit/icons/imodel.svg";
 
 interface CreateMainFrontstageArgs {
   contentProps: React.ComponentProps<typeof ViewportContent>;
@@ -73,7 +77,7 @@ export function createMainFrontstageProvider() {
         itemPriority: 10,
         label: "View iModel",
         subtitle: "Review iModel",
-        icon: <SvgImodel />,
+        icon: <StrataKitIcon href={svgImodel} iconNode={<SvgImodel />} />,
       }),
       SettingsModalFrontstage.getBackstageActionItem(400, 10),
       ComponentExamplesModalFrontstage.getBackstageActionItem(400, 20),
@@ -84,7 +88,7 @@ export function createMainFrontstageProvider() {
 function createToggle3dManipulationsToolbarItem() {
   return ToolbarItemUtilities.createActionItem({
     id: "toggle-3d-manipulations",
-    icon: <Svg3D />,
+    icon: <StrataKitIcon href={svg3D} iconNode={<Svg3D />} />,
     label: "Toggle 3d manipulations",
     execute: () => {
       const viewport = IModelApp.viewManager.selectedView;

@@ -67,6 +67,10 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
   height: $components-enumbuttongroup-editor-item-height;
   width: $components-enumbuttongroup-editor-item-width;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   > i {
     font-size: $icon-size;
     width: 100%;
@@ -96,6 +100,7 @@ $components-enumbuttongroup-editor-space-between-toolbar-items: 1px;
 
     &:not(.nz-is-disabled) {
       transition-duration: 0s;
+      color: var(--iui-color-icon-accent);
 
       > i {
         color: var(--iui-color-icon-accent);

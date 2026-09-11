@@ -12,6 +12,9 @@ import {
 } from "@itwin/core-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgSearch } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgSearch from "@stratakit/icons/search.svg";
 
 class InspectUiItemInfoToolBase extends PrimitiveTool {
   private _timerId: number | undefined;
@@ -153,5 +156,5 @@ class InspectUiItemInfoToolBase extends PrimitiveTool {
 
 export const InspectUiItemInfoTool = ToolUtilities.defineIcon(
   InspectUiItemInfoToolBase,
-  <SvgSearch />
+  <StrataKitIcon href={svgSearch} iconNode={<SvgSearch />} />
 );

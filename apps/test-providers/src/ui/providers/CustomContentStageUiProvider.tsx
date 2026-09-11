@@ -39,6 +39,9 @@ import {
 import { SampleNonModalDialog } from "../dialogs/SampleNonModalDialog.js";
 import { createCustomContentFrontstage } from "../frontstages/CustomContentFrontstage.js";
 import { store } from "../../store.js";
+import { StrataKitIcon } from "../icons/StrataKitIcon.js";
+
+import svgFlag from "@stratakit/icons/flag.svg";
 
 export class CustomContentStageUiProvider implements UiItemsProvider {
   public static providerId = "appui-test-providers:custom-content-provider";
@@ -179,7 +182,7 @@ export class CustomContentStageUiProvider implements UiItemsProvider {
           "backstage.CustomContentFrontstage"
         ),
         subtitle: "from provider",
-        icon: <SvgFlag />,
+        icon: <StrataKitIcon href={svgFlag} iconNode={<SvgFlag />} />,
       }),
     ];
   }

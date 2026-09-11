@@ -10,6 +10,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { CommonProps } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { Checkbox, IconButton, Label } from "@itwin/itwinui-react";
 import type { FormatProps, ShowSignOption } from "@itwin/core-quantity";
 import {
@@ -465,7 +466,10 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               styleType="borderless"
               label={translate("QuantityFormat.ratio-type.default.description")}
             >
-              <SvgHelpCircularHollow />
+              <StrataKitIcon
+                module="@stratakit/icons/help.svg"
+                iconNode={<SvgHelpCircularHollow />}
+              />
             </IconButton>
           </Label>
           <RatioTypeSelector

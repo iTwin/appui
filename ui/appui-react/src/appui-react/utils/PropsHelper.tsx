@@ -18,6 +18,7 @@ import type {
 } from "@itwin/appui-abstract";
 import { ConditionalStringValue } from "@itwin/appui-abstract";
 import { IModelApp } from "@itwin/core-frontend";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** A set of helper methods for various props
  * @public
@@ -58,8 +59,7 @@ export class PropsHelper {
       // eslint-disable-next-line @typescript-eslint/no-deprecated
       return <Icon iconSpec={iconSpec.value} />;
 
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    return iconSpec ? <Icon iconSpec={iconSpec} /> : undefined;
+    return iconSpec ? <StrataKitIcon iconSpec={iconSpec} /> : undefined;
   }
 
   /** returns true if the two objects are the same using a shallow compare of each property */

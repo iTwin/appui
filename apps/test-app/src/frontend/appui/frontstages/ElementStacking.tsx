@@ -25,7 +25,7 @@ import {
   SvgLayers,
   SvgPlaceholder,
 } from "@itwin/itwinui-icons-react";
-import { ViewportContent } from "@itwin/appui-test-providers";
+import { StrataKitIcon, ViewportContent } from "@itwin/appui-test-providers";
 import {
   Button,
   Dialog,
@@ -37,6 +37,10 @@ import {
   Select,
 } from "@itwin/itwinui-react";
 import { ContextMenuItem, Popup, PopupContextMenu } from "@itwin/core-react";
+
+import svgDeveloper from "@stratakit/icons/developer.svg";
+import svgLayers from "@stratakit/icons/layers.svg";
+import svgPlaceholder from "@stratakit/icons/placeholder.svg";
 
 export function createElementStackingFrontstage() {
   return FrontstageUtilities.createStandardFrontstage({
@@ -68,7 +72,7 @@ export function createElementStackingProvider() {
         groupPriority: 300,
         itemPriority: 40,
         label: "Element Stacking",
-        icon: <SvgLayers />,
+        icon: <StrataKitIcon href={svgLayers} iconNode={<SvgLayers />} />,
       }),
     ],
     getWidgets: () => {
@@ -89,13 +93,20 @@ export function createElementStackingProvider() {
     getToolbarItems: () => [
       ToolbarItemUtilities.createGroupItem({
         id: "group",
-        icon: <SvgPlaceholder />,
+        icon: (
+          <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
+        ),
         label: "Group",
         items: [
           ToolbarItemUtilities.createActionItem({
             id: "action",
             label: "Action",
-            icon: <SvgPlaceholder />,
+            icon: (
+              <StrataKitIcon
+                href={svgPlaceholder}
+                iconNode={<SvgPlaceholder />}
+              />
+            ),
           }),
         ],
         layouts: {
@@ -133,7 +144,7 @@ function DeprecatedTestStatusBarItem() {
         onClick={() => setIsOpen(!isOpen)}
       >
         <IconButton styleType="borderless" label="Deprecated status bar field">
-          <SvgPlaceholder />
+          <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
           <StatusBarPopover.ExpandIndicator />
         </IconButton>
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
@@ -162,7 +173,7 @@ function TestStatusBarItem() {
       }}
     >
       <IconButton styleType="borderless" label="Status bar popover">
-        <SvgDeveloper />
+        <StrataKitIcon href={svgDeveloper} iconNode={<SvgDeveloper />} />
         <StatusBarPopover.ExpandIndicator />
       </IconButton>
     </StatusBarPopover>

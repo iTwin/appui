@@ -32,6 +32,36 @@ module.exports = [
       "no-duplicate-imports": "off",
       "@typescript-eslint/no-non-null-assertion": "off",
       "@typescript-eslint/unbound-method": "off",
+      "@typescript-eslint/no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@stratakit/foundations"],
+              message:
+                "Importing from '@stratakit/foundations' is not allowed.",
+            },
+            {
+              group: ["@stratakit/mui"],
+              message: "Importing from '@stratakit/mui' is not allowed.",
+              allowTypeImports: true,
+            },
+            {
+              group: ["@stratakit/icons", "@stratakit/icons/*"],
+              message: "Importing from '@stratakit/icons' is not allowed.",
+            },
+            {
+              group: ["@stratakit/structures"],
+              message: "Importing from '@stratakit/structures' is not allowed.",
+            },
+            {
+              group: ["**/useStrataKit.js"],
+              message: "Importing from 'useStrataKit.js' is not allowed.",
+              allowTypeImports: true,
+            },
+          ],
+        },
+      ],
     },
   },
   {

@@ -8,6 +8,7 @@
 
 import "./PropertyLabelRenderer.scss";
 import * as React from "react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { SvgChevronRight } from "@itwin/itwinui-icons-react";
 import type { PrimitivePropertyLabelRendererProps } from "./PrimitivePropertyLabelRenderer.js";
 import { PropertyLabelRenderer } from "./PropertyLabelRenderer.js";
@@ -44,7 +45,10 @@ export class NonPrimitivePropertyLabelRenderer extends React.PureComponent<NonPr
         role="presentation"
       >
         <div className={this.props.isExpanded ? "components-expanded" : ""}>
-          <SvgChevronRight />
+          <StrataKitIcon
+            module="@stratakit/icons/chevron-right.svg"
+            iconNode={<SvgChevronRight />}
+          />
         </div>
         <PropertyLabelRenderer renderColon={this.props.renderColon}>
           {this.props.children}

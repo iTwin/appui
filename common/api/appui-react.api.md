@@ -42,6 +42,7 @@ import { Direction } from '@itwin/components-react';
 import type { DisplayStyle3dState } from '@itwin/core-frontend';
 import type { EmphasizeElementsProps } from '@itwin/core-common';
 import type { GroupButton } from '@itwin/appui-abstract';
+import { Icon } from '@stratakit/mui';
 import { IconButton } from '@itwin/itwinui-react';
 import type { IconProps } from '@itwin/core-react';
 import type { IconSpec } from '@itwin/core-react';
