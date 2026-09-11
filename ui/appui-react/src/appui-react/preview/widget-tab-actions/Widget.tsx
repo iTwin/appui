@@ -45,7 +45,6 @@ import { useBorders } from "../../layout/widget/PanelWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useWidgetDef } from "../../widget-panels/Content.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 const TabsContext = React.createContext<
   | {
@@ -274,8 +273,6 @@ function CloseTabDecoration() {
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
 
-  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
-
   return (
     <IconButton
       as={Tabs.TabIcon}
@@ -290,7 +287,10 @@ function CloseTabDecoration() {
       data-_appui-action={isActionTab ? "true" : undefined}
       ref={ref}
     >
-      <StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />
+      <StrataKitIcon
+        module="@stratakit/icons/dismiss.svg"
+        iconNode={<SvgCloseSmall />}
+      />
     </IconButton>
   );
 }
@@ -308,8 +308,6 @@ function CloseTabAction() {
 
   const { translate } = useTranslation();
   const closeLabel = translate("dialog.close");
-
-  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
 
   if (!closeAction) return null;
   return (
@@ -331,7 +329,10 @@ function CloseTabAction() {
           hideTab(actionTabId);
         }}
       >
-        <StrataKitIcon href={svgDismiss} iconNode={<SvgCloseSmall />} />
+        <StrataKitIcon
+          module="@stratakit/icons/dismiss.svg"
+          iconNode={<SvgCloseSmall />}
+        />
       </IconButton>
     </VisuallyHidden>
   );

@@ -23,7 +23,6 @@ import { Icon } from "@itwin/itwinui-react";
 import { MessageManager } from "../messages/MessageManager.js";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -109,7 +108,10 @@ export class InputFieldMessage extends React.PureComponent<
               role="button"
               tabIndex={-1}
             >
-              <DismissIcon />
+              <StrataKitIcon
+                module="@stratakit/icons/dismiss.svg"
+                iconSpec={<SvgClose />}
+              />
             </div>
           )}
         </div>
@@ -158,27 +160,12 @@ export class InputFieldMessage extends React.PureComponent<
   };
 }
 
-function DismissIcon() {
-  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
-
-  return <StrataKitIcon href={svgDismiss} iconSpec={<SvgClose />} />;
-}
-
 function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
-  const svgInfo = useStrataKitIcon("@stratakit/icons/info.svg");
-  const svgStatusError = useStrataKitIcon("@stratakit/icons/status-error.svg");
-  const svgStatusSuccess = useStrataKitIcon(
-    "@stratakit/icons/status-success.svg"
-  );
-  const svgStatusWarning = useStrataKitIcon(
-    "@stratakit/icons/status-warning.svg"
-  );
-
   switch (priority) {
     case OutputMessagePriority.Success:
       return (
         <StrataKitIcon
-          href={svgStatusSuccess}
+          module="@stratakit/icons/status-success.svg"
           iconNode={
             <Icon>
               <SvgStatusSuccess />
@@ -189,7 +176,7 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
     case OutputMessagePriority.Warning:
       return (
         <StrataKitIcon
-          href={svgStatusWarning}
+          module="@stratakit/icons/status-warning.svg"
           iconNode={
             <Icon>
               <SvgStatusWarning />
@@ -201,7 +188,7 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
     case OutputMessagePriority.Error:
       return (
         <StrataKitIcon
-          href={svgStatusError}
+          module="@stratakit/icons/status-error.svg"
           iconNode={
             <Icon>
               <SvgStatusErrorHollow />
@@ -213,7 +200,7 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
 
   return (
     <StrataKitIcon
-      href={svgInfo}
+      module="@stratakit/icons/info.svg"
       iconNode={
         <Icon>
           <SvgInfoCircularHollow />

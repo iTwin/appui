@@ -18,7 +18,6 @@ import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
-import { Icon } from "@itwin/core-react";
 import { StrataKitIcon } from "@itwin/core-react/internal";
 import type { Tooltip } from "@itwin/itwinui-react";
 import { Slider } from "@itwin/itwinui-react";

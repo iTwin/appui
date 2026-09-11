@@ -37,7 +37,6 @@ import { SvgMeasure } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import type { SettingsTabEntry } from "../SettingsManager.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 function formatAreEqual(obj1: FormatProps, obj2: FormatProps) {
   const compare = new DeepCompare();
@@ -78,16 +77,15 @@ export function getQuantityFormatsSettingsManagerEntry(
       />
     ),
     isDisabled: false,
-    icon: <MeasureIcon />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/measure.svg"
+        iconNode={<SvgMeasure />}
+      />
+    ),
     tooltip: UiFramework.translate("settings.quantity-formatting.tooltip"),
     pageWillHandleCloseRequest: true,
   };
-}
-
-function MeasureIcon() {
-  const svgMeasure = useStrataKitIcon("@stratakit/icons/measure.svg");
-
-  return <StrataKitIcon href={svgMeasure} iconNode={<SvgMeasure />} />;
 }
 
 /** UI Component shown in settings page to set the active Presentation Unit System and to set format overrides.

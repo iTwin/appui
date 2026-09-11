@@ -12,7 +12,6 @@ import { useTranslation } from "../hooks/useTranslation.js";
 import { UiFramework } from "../UiFramework.js";
 import { BackstageAppButton } from "../widgets/BackstageAppButton.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of {@link NestedFrontstageAppButton} component. */
 interface NestedFrontstageAppButtonProps {
@@ -32,10 +31,9 @@ export function NestedFrontstageAppButton({
   label,
   onClick,
 }: NestedFrontstageAppButtonProps) {
-  const svgChevronLeft = useStrataKitIcon("@stratakit/icons/chevron-left.svg");
   const defaultIcon = (
     <StrataKitIcon
-      href={svgChevronLeft}
+      module="@stratakit/icons/chevron-left.svg"
       iconNode={<SvgProgressBackwardCircular />}
     />
   );

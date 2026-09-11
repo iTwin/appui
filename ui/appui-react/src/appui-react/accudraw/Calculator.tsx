@@ -19,7 +19,6 @@ import { SquareButton } from "./SquareButton.js";
 import { SvgCheckmark, SvgRemove } from "@itwin/itwinui-icons-react";
 import { SvgBackspace } from "../icons/SvgBackspace.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 type SquareButtonProps = React.ComponentProps<typeof SquareButton>;
 
@@ -165,7 +164,10 @@ export class Calculator extends React.PureComponent<
             styleType="cta"
             onClick={this._handleOk}
           >
-            <CheckmarkIcon />
+            <StrataKitIcon
+              module="@stratakit/icons/checkmark.svg"
+              iconSpec={<SvgCheckmark />}
+            />
           </Button>
           <Button
             className={classnames(
@@ -174,7 +176,10 @@ export class Calculator extends React.PureComponent<
             )}
             onClick={this._handleCancel}
           >
-            <DismissIcon />
+            <StrataKitIcon
+              module="@stratakit/icons/dismiss.svg"
+              iconSpec={<SvgRemove />}
+            />
           </Button>
         </div>
       </div>
@@ -406,14 +411,4 @@ class OperatorButton extends React.PureComponent<OperatorButtonProps> {
       </SquareButton>
     );
   }
-}
-
-function CheckmarkIcon() {
-  const svgCheckmark = useStrataKitIcon("@stratakit/icons/checkmark.svg");
-  return <StrataKitIcon href={svgCheckmark} iconSpec={<SvgCheckmark />} />;
-}
-
-function DismissIcon() {
-  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
-  return <StrataKitIcon href={svgDismiss} iconSpec={<SvgRemove />} />;
 }

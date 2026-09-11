@@ -13,7 +13,6 @@ import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 import { produce } from "immer";
 import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** This is used to notify the parent component that the lock decoration is displayed in the editor
  * and a separate lock component should not be displayed as a sibling.
@@ -185,11 +184,6 @@ export function LockButtonInputDecoration() {
     };
   }, [setLockDecoration, itemPropertyName, lockDecoration]);
 
-  const svgLock = useStrataKitIcon("@stratakit/icons/lock.svg");
-  const svgLockUnlocked = useStrataKitIcon(
-    "@stratakit/icons/lock-unlocked.svg"
-  );
-
   if (!lockDecoration) return null;
 
   const isLocked = !!lockProperty?.value.value;
@@ -219,9 +213,15 @@ export function LockButtonInputDecoration() {
       }}
     >
       {isLocked ? (
-        <StrataKitIcon href={svgLock} iconNode={<SvgLock />} />
+        <StrataKitIcon
+          module="@stratakit/icons/lock.svg"
+          iconNode={<SvgLock />}
+        />
       ) : (
-        <StrataKitIcon href={svgLockUnlocked} iconNode={<SvgLockUnlocked />} />
+        <StrataKitIcon
+          module="@stratakit/icons/lock-unlocked.svg"
+          iconNode={<SvgLockUnlocked />}
+        />
       )}
     </InputWithDecorations.Button>
   );

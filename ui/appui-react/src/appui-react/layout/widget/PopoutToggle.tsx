@@ -14,7 +14,6 @@ import { useLayout } from "../base/LayoutStore.js";
 import { WidgetAction } from "./WidgetAction.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function PopoutToggle() {
@@ -23,14 +22,13 @@ export function PopoutToggle() {
   const { translate } = useTranslation();
   const label = translate("widget.tooltips.popoutActiveTab");
 
-  const svgWindowPopout = useStrataKitIcon(
-    "@stratakit/icons/window-popout.svg"
-  );
-
   return (
     <WidgetAction
       icon={
-        <StrataKitIcon href={svgWindowPopout} iconNode={<SvgWindowPopout />} />
+        <StrataKitIcon
+          module="@stratakit/icons/window-popout.svg"
+          iconNode={<SvgWindowPopout />}
+        />
       }
       label={label}
       onClick={() => {

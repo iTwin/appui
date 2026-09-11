@@ -18,7 +18,6 @@ import { StatusBarDialog } from "../statusbar/dialog/Dialog.js";
 import { SvgWindowSettings } from "@itwin/itwinui-icons-react";
 import { StatusBarPopover } from "../statusbar/popup/StatusBarPopover.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 interface ViewAttributesStatusFieldState {
   viewFlags: ViewFlagProps;
@@ -184,20 +183,13 @@ export class ViewAttributesStatusField extends React.Component<
         }
       >
         <IconButton styleType="borderless" label={title}>
-          <WindowSettingsIcon />
+          <StrataKitIcon
+            module="@stratakit/icons/window-settings.svg"
+            iconNode={<SvgWindowSettings />}
+          />
           <StatusBarPopover.ExpandIndicator />
         </IconButton>
       </StatusBarPopover>
     );
   }
-}
-
-function WindowSettingsIcon() {
-  const svgWindowSettings = useStrataKitIcon(
-    "@stratakit/icons/window-settings.svg"
-  );
-
-  return (
-    <StrataKitIcon href={svgWindowSettings} iconNode={<SvgWindowSettings />} />
-  );
 }

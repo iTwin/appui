@@ -17,7 +17,6 @@ import { getActiveViewport } from "../utils/getActiveViewport.js";
 import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { SvgGyroscope } from "../icons/SvgGyroscope.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function defineToolIcons() {
@@ -40,12 +39,11 @@ function RotateViewIcon() {
     SyncUiEventId.ViewStateChanged,
   ]);
 
-  const svgRotateLeft = useStrataKitIcon("@stratakit/icons/rotate-left.svg");
-  const svgRotatePoint = useStrataKitIcon("@stratakit/icons/rotate-point.svg");
-
-  const icon = is2d ? svgRotateLeft : svgRotatePoint;
+  const module = is2d
+    ? "@stratakit/icons/rotate-left.svg"
+    : "@stratakit/icons/rotate-point.svg";
   const iconNode = is2d ? <SvgRotateLeft /> : <SvgGyroscope />;
-  return <StrataKitIcon href={icon} iconNode={iconNode} />;
+  return <StrataKitIcon module={module} iconNode={iconNode} />;
 }
 
 function ToggleCameraViewIcon() {
@@ -58,12 +56,9 @@ function ToggleCameraViewIcon() {
     SyncUiEventId.ViewStateChanged,
   ]);
 
-  const svgCameraVideo = useStrataKitIcon("@stratakit/icons/camera-video.svg");
-  const svgCameraVideoDisabled = useStrataKitIcon(
-    "@stratakit/icons/camera-video-disabled.svg"
-  );
-
-  const icon = cameraEnabled ? svgCameraVideo : svgCameraVideoDisabled;
+  const module = cameraEnabled
+    ? "@stratakit/icons/camera-video.svg"
+    : "@stratakit/icons/camera-video-disabled.svg";
   const iconNode = cameraEnabled ? (
     <SvgCameraAnimation />
   ) : (
@@ -71,7 +66,7 @@ function ToggleCameraViewIcon() {
   );
   return (
     <StrataKitIcon
-      href={icon}
+      module={module}
       iconNode={iconNode}
       iconSpec={ViewToggleCameraTool.iconSpec}
     />

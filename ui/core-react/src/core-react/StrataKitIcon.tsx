@@ -47,7 +47,7 @@ export type StrataKitIconModule =
   | "@stratakit/icons/sun.svg";
 
 interface StrataKitIconProps extends React.ComponentProps<"svg"> {
-  /** `href` prop is resolved from the specified StrataKit icon module. */
+  /** `href` is resolved from the specified StrataKit icon module. */
   module?: StrataKitIconModule;
   iconNode?: React.ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-deprecated

@@ -13,7 +13,6 @@ import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { IconButton } from "@itwin/itwinui-react";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 type IconButtonProps = React.ComponentProps<typeof IconButton>;
 
@@ -35,11 +34,9 @@ export function ModalFrontstageButton(props: ModalFrontstageButtonProps) {
   const { label, icon, onClick } = props;
   const defaultLabel = translate("modalFrontstage.backButtonTitle");
 
-  const svgChevronLeft = useStrataKitIcon("@stratakit/icons/chevron-left.svg");
-
   const defaultIcon = (
     <StrataKitIcon
-      href={svgChevronLeft}
+      module="@stratakit/icons/chevron-left.svg"
       iconNode={<SvgProgressBackwardCircular />}
     />
   );

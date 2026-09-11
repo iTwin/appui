@@ -11,7 +11,6 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
-import { Icon } from "../../icons/IconComponent.js";
 import {
   SvgCaretDown,
   SvgCaretDownSmall,

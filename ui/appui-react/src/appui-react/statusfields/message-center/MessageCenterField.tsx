@@ -23,7 +23,6 @@ import { TitleBar } from "../../layout/footer/dialog/TitleBar.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { StatusBarPopover } from "../../statusbar/popup/StatusBarPopover.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 import type { NotifyMessageDetailsType } from "../../messages/ReactNotifyMessageDetails.js";
 import "./MessageCenterField.scss";
@@ -95,8 +94,6 @@ export function MessageCenterField(props: CommonProps) {
     });
   }, []);
 
-  const svgChat = useStrataKitIcon("@stratakit/icons/chat.svg");
-
   return (
     <StatusBarPopover
       visible={isOpen}
@@ -156,7 +153,10 @@ export function MessageCenterField(props: CommonProps) {
         styleType="borderless"
         startIcon={
           <NotificationMarker status={status} enabled={notify}>
-            <StrataKitIcon href={svgChat} iconNode={<SvgChat />} />
+            <StrataKitIcon
+              module="@stratakit/icons/chat.svg"
+              iconNode={<SvgChat />}
+            />
           </NotificationMarker>
         }
         className={props.className}
@@ -174,22 +174,13 @@ interface MessageIconProps {
 }
 
 function MessageIcon({ priority }: MessageIconProps) {
-  const svgInfo = useStrataKitIcon("@stratakit/icons/info.svg");
-  const svgStatusError = useStrataKitIcon("@stratakit/icons/status-error.svg");
-  const svgStatusSuccess = useStrataKitIcon(
-    "@stratakit/icons/status-success.svg"
-  );
-  const svgStatusWarning = useStrataKitIcon(
-    "@stratakit/icons/status-warning.svg"
-  );
-
   switch (priority) {
     case OutputMessagePriority.Error:
     case OutputMessagePriority.Fatal:
       return (
         <StrataKitIcon
           className="uifw-statusFields-messageCenter-messageCenterField_negativeIcon"
-          href={svgStatusError}
+          module="@stratakit/icons/status-error.svg"
           iconNode={
             <Icon fill="negative">
               <SvgStatusError />
@@ -201,7 +192,7 @@ function MessageIcon({ priority }: MessageIconProps) {
       return (
         <StrataKitIcon
           className="uifw-statusFields-messageCenter-messageCenterField_warningIcon"
-          href={svgStatusWarning}
+          module="@stratakit/icons/status-warning.svg"
           iconNode={
             <Icon fill="warning">
               <SvgStatusWarning />
@@ -213,7 +204,7 @@ function MessageIcon({ priority }: MessageIconProps) {
       return (
         <StrataKitIcon
           className="uifw-statusFields-messageCenter-messageCenterField_informationalIcon"
-          href={svgInfo}
+          module="@stratakit/icons/info.svg"
           iconNode={
             <Icon fill="informational">
               <SvgInfo />
@@ -225,7 +216,7 @@ function MessageIcon({ priority }: MessageIconProps) {
   return (
     <StrataKitIcon
       className="uifw-statusFields-messageCenter-messageCenterField_positiveIcon"
-      href={svgStatusSuccess}
+      module="@stratakit/icons/status-success.svg"
       iconNode={
         <Icon fill="positive">
           <SvgStatusSuccess />

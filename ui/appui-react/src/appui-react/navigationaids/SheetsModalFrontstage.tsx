@@ -20,7 +20,6 @@ import type { SheetData } from "./SheetNavigationAid.js";
 import { SvgDocument, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { BeUiEvent } from "@itwin/core-bentley";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Data about a sheet card
  * @alpha
@@ -86,7 +85,12 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
       this._cards.push({
         index,
         label: sheet.name,
-        iconSpec: <DocumentIcon />,
+        iconSpec: (
+          <StrataKitIcon
+            module="@stratakit/icons/document.svg"
+            iconNode={<SvgDocument />}
+          />
+        ),
         viewId: sheet.viewId,
         isActive: index === this._currentIndex,
       });
@@ -121,12 +125,6 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
     this._searchValue = value;
     UiFramework.frontstages.updateModalFrontstage();
   };
-}
-
-function DocumentIcon() {
-  const svgDocument = useStrataKitIcon("@stratakit/icons/document.svg");
-
-  return <StrataKitIcon href={svgDocument} iconNode={<SvgDocument />} />;
 }
 
 /** Properties for [[CardContainer]]
@@ -280,7 +278,10 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         <StrataKitIcon iconSpec={this.props.iconSpec} />
       ) : (
-        <PlaceholderIcon />
+        <StrataKitIcon
+          module="@stratakit/icons/placeholder.svg"
+          iconNode={<SvgPlaceholder />}
+        />
       );
     return (
       // eslint-disable-next-line jsx-a11y/click-events-have-key-events
@@ -300,10 +301,4 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
       </div>
     );
   }
-}
-
-function PlaceholderIcon() {
-  const svgPlaceholder = useStrataKitIcon("@stratakit/icons/placeholder.svg");
-
-  return <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />;
 }

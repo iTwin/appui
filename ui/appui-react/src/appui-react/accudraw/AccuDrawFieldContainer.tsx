@@ -22,7 +22,6 @@ import type { UiStateStorage } from "../uistate/UiStateStorage.js";
 import { SvgDistance } from "../icons/SvgDistance.js";
 import { SvgAngle } from "../icons/SvgAngle.js";
 import { useAccuDrawStore } from "./AccuDrawStore.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Properties for [[AccuDrawFieldContainer]] component
@@ -394,7 +393,15 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             data-testid="uifw-accudraw-distance"
             label={distanceLabel}
             // eslint-disable-next-line @typescript-eslint/no-deprecated
-            iconSpec={uiSettings?.distanceIcon ?? <DistanceIcon />}
+            iconSpec={
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              uiSettings?.distanceIcon ?? (
+                <StrataKitIcon
+                  module="@stratakit/icons/measure-distance.svg"
+                  iconNode={<SvgDistance />}
+                />
+              )
+            }
             icon={uiSettings?.distanceIconNode}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.DIST_Item, stringValue)
@@ -414,7 +421,15 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
             data-testid="uifw-accudraw-angle"
             label={angleLabel}
             // eslint-disable-next-line @typescript-eslint/no-deprecated
-            iconSpec={uiSettings?.angleIcon ?? <AngleIcon />}
+            iconSpec={
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              uiSettings?.angleIcon ?? (
+                <StrataKitIcon
+                  module="@stratakit/icons/measure-angle.svg"
+                  iconNode={<SvgAngle />}
+                />
+              )
+            }
             icon={uiSettings?.angleIconNode}
             onValueChanged={(stringValue) =>
               handleValueChanged(ItemField.ANGLE_Item, stringValue)
@@ -457,18 +472,4 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
 function getCurrent<T>(ref: React.RefObject<T | null>) {
   if (ref.current === null) return undefined;
   return ref.current;
-}
-
-function DistanceIcon() {
-  const svgMeasureDistance = useStrataKitIcon(
-    "@stratakit/icons/measure-distance.svg"
-  );
-  return <StrataKitIcon href={svgMeasureDistance} iconNode={<SvgDistance />} />;
-}
-
-function AngleIcon() {
-  const svgMeasureAngle = useStrataKitIcon(
-    "@stratakit/icons/measure-angle.svg"
-  );
-  return <StrataKitIcon href={svgMeasureAngle} iconNode={<SvgAngle />} />;
 }

@@ -11,7 +11,6 @@ import { SearchBox } from "@itwin/itwinui-react";
 import { SvgClose, SvgSearch } from "@itwin/itwinui-icons-react";
 import type { HeaderIconToolbar } from "./HeaderIconToolbar.js";
 import { StrataKitIcon } from "../../../../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../../../../preview/use-stratakit/useStrataKitIcon.js";
 
 type HeaderIconToolbarProps = React.ComponentProps<typeof HeaderIconToolbar>;
 
@@ -47,9 +46,6 @@ export function HeaderSearch(props: HeaderSearchProps) {
     return () => cancelAnimationFrame(id);
   }, [isExpanded]);
 
-  const svgDismiss = useStrataKitIcon("@stratakit/icons/dismiss.svg");
-  const svgSearch = useStrataKitIcon("@stratakit/icons/search.svg");
-
   return (
     <SearchBox
       onExpand={() => setIsExpanded(true)}
@@ -66,12 +62,18 @@ export function HeaderSearch(props: HeaderSearchProps) {
           styleType="borderless"
           disabled={props.disableSearch}
         >
-          <StrataKitIcon href={svgSearch} iconNode={<SvgSearch />} />
+          <StrataKitIcon
+            module="@stratakit/icons/search.svg"
+            iconNode={<SvgSearch />}
+          />
         </SearchBox.ExpandButton>
       </SearchBox.CollapsedState>
       <SearchBox.ExpandedState>
         <SearchBox.Icon size={props.iconSize}>
-          <StrataKitIcon href={svgSearch} iconNode={<SvgSearch />} />
+          <StrataKitIcon
+            module="@stratakit/icons/search.svg"
+            iconNode={<SvgSearch />}
+          />
         </SearchBox.Icon>
         <SearchBox.Input
           ref={inputRef}
@@ -91,7 +93,10 @@ export function HeaderSearch(props: HeaderSearchProps) {
             if (searchText) props.onSearch?.("");
           }}
         >
-          <StrataKitIcon href={svgDismiss} iconNode={<SvgClose />} />
+          <StrataKitIcon
+            module="@stratakit/icons/dismiss.svg"
+            iconNode={<SvgClose />}
+          />
         </SearchBox.CollapseButton>
       </SearchBox.ExpandedState>
     </SearchBox>

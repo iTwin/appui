@@ -12,7 +12,6 @@ import { CommandItemDef } from "../shared/CommandItemDef.js";
 import { UiFramework } from "../UiFramework.js";
 import type { NestedFrontstageAppButton } from "./NestedFrontstageAppButton.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Nested Frontstage related classes and commands
  * @public
@@ -24,22 +23,16 @@ export class NestedFrontstage {
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     return new CommandItemDef({
       commandId: "backToPreviousFrontstage",
-      iconSpec: <BackIcon />,
+      iconSpec: (
+        <StrataKitIcon
+          module="@stratakit/icons/chevron-left.svg"
+          iconNode={<SvgProgressBackwardCircular />}
+        />
+      ),
       labelKey: "UiFramework:commands.backToPreviousFrontstage",
       execute: async () => {
         await UiFramework.frontstages.closeNestedFrontstage();
       },
     });
   }
-}
-
-function BackIcon() {
-  const svgChevronLeft = useStrataKitIcon("@stratakit/icons/chevron-left.svg");
-
-  return (
-    <StrataKitIcon
-      href={svgChevronLeft}
-      iconNode={<SvgProgressBackwardCircular />}
-    />
-  );
 }

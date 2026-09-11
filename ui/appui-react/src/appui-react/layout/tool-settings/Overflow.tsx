@@ -15,7 +15,6 @@ import { IconButton } from "@itwin/itwinui-react";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import { useLabel } from "../base/NineZone.js";
 import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Properties of [[ToolSettingsOverflow]] component.
  * @internal
@@ -40,10 +39,6 @@ export const DockedToolSettingsOverflow = React.forwardRef<
   const className = classnames("nz-toolSettings-overflow", props.className);
   const moreToolSettingsTitle = useLabel("moreToolSettingsTitle");
 
-  const svgMoreHorizontal = useStrataKitIcon(
-    "@stratakit/icons/more-horizontal.svg"
-  );
-
   return (
     <IconButton
       className={className}
@@ -53,7 +48,10 @@ export const DockedToolSettingsOverflow = React.forwardRef<
       styleType="borderless"
       label={moreToolSettingsTitle}
     >
-      <StrataKitIcon href={svgMoreHorizontal} iconNode={<SvgMore />} />
+      <StrataKitIcon
+        module="@stratakit/icons/more-horizontal.svg"
+        iconNode={<SvgMore />}
+      />
     </IconButton>
   );
 });

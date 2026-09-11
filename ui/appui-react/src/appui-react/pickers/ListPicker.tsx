@@ -27,7 +27,6 @@ import {
 } from "@itwin/itwinui-icons-react";
 import type { SizeProps } from "../utils/SizeProps.js";
 import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../preview/use-stratakit/useStrataKitIcon.js";
 
 /** Enum for the list picker item type
  * @beta
@@ -166,9 +165,15 @@ export class ExpandableSection extends React.PureComponent<
     );
 
     const icon = this.state.expanded ? (
-      <ChevronDownIcon />
+      <StrataKitIcon
+        module="@stratakit/icons/chevron-down.svg"
+        iconSpec={<SvgChevronDown />}
+      />
     ) : (
-      <ChevronRightIcon />
+      <StrataKitIcon
+        module="@stratakit/icons/chevron-right.svg"
+        iconSpec={<SvgChevronRight />}
+      />
     );
 
     return (
@@ -204,22 +209,6 @@ export class ExpandableSection extends React.PureComponent<
       </Panel>
     );
   }
-}
-
-function ChevronDownIcon() {
-  const svgChevronDown = useStrataKitIcon("@stratakit/icons/chevron-down.svg");
-
-  return <StrataKitIcon href={svgChevronDown} iconSpec={<SvgChevronDown />} />;
-}
-
-function ChevronRightIcon() {
-  const svgChevronRight = useStrataKitIcon(
-    "@stratakit/icons/chevron-right.svg"
-  );
-
-  return (
-    <StrataKitIcon href={svgChevronRight} iconSpec={<SvgChevronRight />} />
-  );
 }
 
 /** @beta */
@@ -300,14 +289,14 @@ export function getListPanel(props: ListPickerProps): React.ReactNode {
  * @beta
  */
 function ListPickerPopupItem(props: ListPickerProps) {
-  const svgList = useStrataKitIcon("@stratakit/icons/list.svg");
-
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpecIcon = props.iconSpec ? (
     // eslint-disable-next-line @typescript-eslint/no-deprecated
     <StrataKitIcon iconSpec={props.iconSpec} />
   ) : undefined;
-  const defaultIcon = <StrataKitIcon href={svgList} iconSpec={<SvgList />} />;
+  const defaultIcon = (
+    <StrataKitIcon module="@stratakit/icons/list.svg" iconSpec={<SvgList />} />
+  );
   const icon = props.icon ?? iconSpecIcon ?? defaultIcon;
 
   return (

@@ -22,40 +22,30 @@ type StrataKitIconModules = Omit<UseStrataKitModules, "@stratakit/mui">;
 type StrataKitIconModule = keyof StrataKitIconModules;
 
 interface StrataKitIconProps
-  extends Omit<CoreStrataKitIconProps, "module">,
-    Pick<IconProps, "href" | "size"> {
+  extends Omit<CoreStrataKitIconProps, "href" | "module">,
+    Pick<IconProps, "size"> {
   module?: StrataKitIconModule;
 }
 
 /**
  * Renders in following order based on what's available:
- * - StrataKit icon if `useStrataKit` preview feature
+ * - Resolved StrataKit icon when `useStrataKit` preview feature is enabled
  * - `iconNode` if provided
- * - Legacy icon using `iconSpec` if provided
+ * - Legacy icon if `iconSpec` is provided
  *
  * StrataKit icon is resolved in order:
- * - `href` prop
  * - `module` prop
- * - `iconSpec` prop resolved via web font mapping
+ * - `iconSpec` prop used as a key in web font mapping
  *
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const {
-    href: hrefProp,
-    module: moduleProp,
-    iconSpec,
-    iconNode,
-    size,
-    ...rest
-  } = props;
+  const { module: moduleProp, iconSpec, iconNode, size, ...rest } = props;
 
   const webFontIcon = typeof iconSpec === "string" ? iconSpec : undefined;
   const iconSpecModule = useWebFontStrataKitModule(webFontIcon);
 
-  const moduleHref = useStrataKitIcon(moduleProp ?? iconSpecModule);
-
-  const href = hrefProp ?? moduleHref;
+  const href = useStrataKitIcon(moduleProp ?? iconSpecModule);
 
   const { useStrataKit } = usePreviewFeatures();
   const modules = useStrataKit?.[StrataKitSymbol]?.modules;

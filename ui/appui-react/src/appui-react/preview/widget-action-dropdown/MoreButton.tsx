@@ -16,14 +16,9 @@ import { useLayout } from "../../layout/base/LayoutStore.js";
 import { PanelSideContext } from "../../layout/widget-panels/Panel.js";
 import type { WidgetActionId } from "../../layout/widget/WidgetActions.js";
 import { StrataKitIcon } from "../use-stratakit/StrataKitIcon.js";
-import { useStrataKitIcon } from "../use-stratakit/useStrataKitIcon.js";
 
 /** @internal */
 export function MoreButton(props: React.PropsWithChildren<object>) {
-  const svgMoreVertical = useStrataKitIcon(
-    "@stratakit/icons/more-vertical.svg"
-  );
-
   return (
     <DropdownMenu
       placement="bottom-end"
@@ -38,7 +33,7 @@ export function MoreButton(props: React.PropsWithChildren<object>) {
       <div style={{ height: "100%", display: "flex", marginInline: "0.25em" }}>
         <TabBarButton label="More actions">
           <StrataKitIcon
-            href={svgMoreVertical}
+            module="@stratakit/icons/more-vertical.svg"
             iconNode={<SvgMoreVertical />}
           />
         </TabBarButton>
