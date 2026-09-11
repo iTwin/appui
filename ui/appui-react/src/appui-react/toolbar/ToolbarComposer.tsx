@@ -173,11 +173,13 @@ const useProximityOpacitySetting = () => {
 
 const useSnapWidgetOpacitySetting = () => {
   const [snapWidgetOpacity, setSnapWidgetOpacity] = React.useState(
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.visibility.snapWidgetOpacity
   );
 
   React.useEffect(() => {
     UiFramework.onUiVisibilityChanged.addListener(() =>
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       setSnapWidgetOpacity(UiFramework.visibility.snapWidgetOpacity)
     );
   }, []);
@@ -245,11 +247,14 @@ export function ToolbarComposer(props: ExtensibleToolbarProps) {
       panelAlignment={panelAlignment}
       items={items}
       useDragInteraction={isDragEnabled}
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       toolbarOpacitySetting={
         (useProximityOpacity || snapWidgetOpacity) &&
         !ProcessDetector.isMobileBrowser
-          ? ToolbarOpacitySetting.Proximity
-          : ToolbarOpacitySetting.Defaults
+          ? // eslint-disable-next-line @typescript-eslint/no-deprecated
+            ToolbarOpacitySetting.Proximity
+          : // eslint-disable-next-line @typescript-eslint/no-deprecated
+            ToolbarOpacitySetting.Defaults
       }
     />
   );

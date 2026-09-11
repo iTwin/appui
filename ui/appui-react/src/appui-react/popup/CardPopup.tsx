@@ -184,6 +184,7 @@ export function Card(props: CardProps) {
             panelAlignment={ToolbarPanelAlignment.Start}
             items={props.items}
             useDragInteraction={true}
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             toolbarOpacitySetting={ToolbarOpacitySetting.Transparent}
             onItemExecuted={props.onItemExecuted}
           />

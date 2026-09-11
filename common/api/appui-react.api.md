@@ -995,10 +995,12 @@ export interface ConfigurableUiContentProps extends CommonProps {
     }) => React_2.ReactNode;
     showActiveWidgetLabel?: boolean;
     toolAsToolSettingsLabel?: boolean;
+    // @deprecated
     toolbarOpacity?: number;
     // @deprecated
     viewOverlay?: boolean;
     widgetIcon?: boolean;
+    // @deprecated
     widgetOpacity?: number;
 }
 
@@ -2260,6 +2262,7 @@ export interface FrameworkVisibility {
     showHidePanels: boolean;
     showUiAndCancelTimer(): void;
     showUiAndResetTimer(): void;
+    // @deprecated
     snapWidgetOpacity: boolean;
     // @deprecated
     useProximityOpacity: boolean;
@@ -2684,11 +2687,11 @@ export interface InitialAppUiSettings {
     dragInteraction: boolean;
     // (undocumented)
     showWidgetIcon?: boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     toolbarOpacity: number;
     // (undocumented)
     useToolAsToolSettingsLabel?: boolean;
-    // (undocumented)
+    // @deprecated (undocumented)
     widgetOpacity: number;
 }
 
@@ -4737,7 +4740,7 @@ export interface ToolAssistanceFieldProps extends CommonProps {
 // @beta
 export function Toolbar(props: ToolbarProps): React_2.JSX.Element;
 
-// @public
+// @public @deprecated
 export const TOOLBAR_OPACITY_DEFAULT = 0.5;
 
 // @public
@@ -4945,6 +4948,7 @@ export interface ToolbarProps extends CommonProps, NoChildrenProps {
     onItemExecuted?: OnItemExecutedFunc;
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
     panelAlignment?: ToolbarPanelAlignment;
+    // @deprecated
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;
 }
@@ -4966,6 +4970,7 @@ export interface ToolbarWithOverflowProps extends CommonProps, NoChildrenProps {
     onKeyDown?: (e: React_2.KeyboardEvent) => void;
     overflowExpandsTo?: Direction;
     panelAlignment?: ToolbarPanelAlignment;
+    // @deprecated
     toolbarOpacitySetting?: ToolbarOpacitySetting;
     useDragInteraction?: boolean;
 }
@@ -5614,8 +5619,8 @@ export interface Widget {
     readonly useSavedState?: boolean;
 }
 
-// @public
-export const WIDGET_OPACITY_DEFAULT = 0.9;
+// @public @deprecated
+export const WIDGET_OPACITY_DEFAULT = 1;
 
 // @alpha
 export function WidgetAction(props: WidgetActionProps): React_2.JSX.Element;

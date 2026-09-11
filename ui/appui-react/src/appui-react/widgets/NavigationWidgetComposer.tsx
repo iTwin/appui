@@ -152,6 +152,7 @@ export function NavigationAidHost(props: NavigationAidHostProps) {
 
   if (
     (UiFramework.visibility.useProximityOpacity || // eslint-disable-line @typescript-eslint/no-deprecated
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       UiFramework.visibility.snapWidgetOpacity) &&
     !ProcessDetector.isMobileBrowser
   ) {
@@ -232,6 +233,7 @@ export function NavigationWidgetComposer(props: NavigationWidgetComposerProps) {
   const [elementSet] = React.useState(new WidgetElementSet());
   const proximityScale = useProximityToMouse(
     elementSet,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     UiFramework.visibility.snapWidgetOpacity
   );
   const uiIsVisible = useUiVisibility();

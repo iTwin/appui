@@ -1,5 +1,16 @@
 # Change Log - @itwin/components-react
 
+## 5.35.0
+
+### Minor Changes
+
+- 297a951: Deprecated `ToolbarOpacitySetting` enum. Use the default configuration instead.
+
+### Patch Changes
+
+- Updated dependencies [297a951]
+  - @itwin/core-react@5.35.0
+
 ## 5.34.0
 
 ### Minor Changes

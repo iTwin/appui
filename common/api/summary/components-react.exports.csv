@@ -417,6 +417,7 @@ public;interface;ToolbarButtonItemProps
 public;type;ToolbarItem
 deprecated;type;ToolbarItem
 public;enum;ToolbarOpacitySetting
+deprecated;enum;ToolbarOpacitySetting
 public;enum;ToolbarPanelAlignment
 public;const;ToolbarPopupAutoHideContext
 public;const;ToolbarPopupContext

@@ -109,6 +109,7 @@ export enum ToolbarPanelAlignment {
 }
 
 /** Enumeration of Toolbar Opacity setting.
+ * @deprecated in 5.35.0. Use the default configuration.
  * @public
  */
 export enum ToolbarOpacitySetting {
@@ -148,6 +149,7 @@ export interface ToolbarOverflowContextProps {
   readonly overflowDirection: OrthogonalDirection;
   readonly panelAlignment: ToolbarPanelAlignment;
   readonly useDragInteraction: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   readonly toolbarOpacitySetting: ToolbarOpacitySetting;
   readonly openPopupCount: number;
   readonly onPopupPanelOpenClose: (isOpening: boolean) => void;
@@ -168,6 +170,7 @@ export const ToolbarWithOverflowDirectionContext =
     overflowDirection: OrthogonalDirection.Vertical,
     panelAlignment: ToolbarPanelAlignment.Start,
     useDragInteraction: false,
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     toolbarOpacitySetting: ToolbarOpacitySetting.Proximity,
     openPopupCount: 0,
     onPopupPanelOpenClose: (_isOpening: boolean) => {},
@@ -429,6 +432,7 @@ export interface InternalToolbarComponentProps
   /** Use Drag Interaction to open popups with nest action buttons. */
   useDragInteraction?: boolean;
   /** Determines whether to use mouse proximity to alter the opacity of the toolbar. */
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   toolbarOpacitySetting?: ToolbarOpacitySetting;
   /** Optional function to call on any item execution. */
   onItemExecuted?: OnItemExecutedFunc;
@@ -625,6 +629,7 @@ export function InternalToolbarComponent(props: InternalToolbarComponentProps) {
         panelAlignment,
         useDragInteraction,
         toolbarOpacitySetting:
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           props.toolbarOpacitySetting ?? ToolbarOpacitySetting.Proximity,
         overflowDirection:
           direction === OrthogonalDirection.Horizontal
