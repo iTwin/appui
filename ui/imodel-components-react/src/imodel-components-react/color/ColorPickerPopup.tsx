@@ -12,7 +12,7 @@ import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
-import { useRefs } from "@itwin/core-react/internal";
+import { StrataKitIcon, useRefs } from "@itwin/core-react/internal";
 import {
   ColorBuilder,
   ColorInputPanel,
@@ -174,13 +174,32 @@ const ForwardRefColorPickerPopup = React.forwardRef<
             style={swatchStyle}
             data-testid={showPopup ? "caret-up" : "caret-down"}
           />
-          {props.showCaret && (
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
-            <Icon
-              className="components-caret"
-              iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall />}
-            />
-          )}
+          {props.showCaret &&
+            (showPopup ? (
+              <StrataKitIcon
+                module="@stratakit/icons/caret-up.svg"
+                className="components-caret"
+                iconNode={
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
+                  <Icon
+                    className="components-caret"
+                    iconSpec={<SvgCaretUpSmall />}
+                  />
+                }
+              />
+            ) : (
+              <StrataKitIcon
+                module="@stratakit/icons/caret-down.svg"
+                className="components-caret"
+                iconNode={
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
+                  <Icon
+                    className="components-caret"
+                    iconSpec={<SvgCaretDownSmall />}
+                  />
+                }
+              />
+            ))}
         </div>
       </button>
       {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
@@ -202,8 +221,10 @@ const ForwardRefColorPickerPopup = React.forwardRef<
               data-testid="core-dialog-close"
               onClick={togglePopup}
             >
-              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-              <Icon iconSpec={<SvgClose />} />
+              <StrataKitIcon
+                module="@stratakit/icons/dismiss.svg"
+                iconSpec={<SvgClose />}
+              />
             </button>
           )}
           <ColorPicker

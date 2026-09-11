@@ -19,8 +19,10 @@ export const StrataKitIconContext = React.createContext<
 export type StrataKitIconModule =
   | "@stratakit/icons/add.svg"
   | "@stratakit/icons/caret-down.svg"
-  | "@stratakit/icons/caret-up.svg"
+  | "@stratakit/icons/caret-left.svg"
   | "@stratakit/icons/caret-right.svg"
+  | "@stratakit/icons/caret-up.svg"
+  | "@stratakit/icons/calendar.svg"
   | "@stratakit/icons/checkmark.svg"
   | "@stratakit/icons/chevron-down.svg"
   | "@stratakit/icons/chevron-left.svg"
@@ -29,12 +31,20 @@ export type StrataKitIconModule =
   | "@stratakit/icons/dismiss.svg"
   | "@stratakit/icons/help.svg"
   | "@stratakit/icons/info.svg"
+  | "@stratakit/icons/loop.svg"
+  | "@stratakit/icons/moon.svg"
+  | "@stratakit/icons/pause.svg"
   | "@stratakit/icons/placeholder.svg"
+  | "@stratakit/icons/play.svg"
+  | "@stratakit/icons/rotate-left.svg"
   | "@stratakit/icons/search.svg"
+  | "@stratakit/icons/settings.svg"
+  | "@stratakit/icons/sort-descending.svg"
   | "@stratakit/icons/status-error.svg"
   | "@stratakit/icons/status-rejected.svg"
   | "@stratakit/icons/status-success.svg"
-  | "@stratakit/icons/status-warning.svg";
+  | "@stratakit/icons/status-warning.svg"
+  | "@stratakit/icons/sun.svg";
 
 interface StrataKitIconProps extends React.ComponentProps<"svg"> {
   /** `href` prop is resolved from the specified StrataKit icon module. */
