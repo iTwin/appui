@@ -1,0 +1,45 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-image-checkbox {
+  display: inline-block;
+  font-size: 16px;
+  position: relative;
+  height: 1em;
+  width: 1em;
+  cursor: pointer;
+  /* accessibility */
+}
+.core-image-checkbox input[type=checkbox]:not(:checked),
+.core-image-checkbox input[type=checkbox]:checked {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.core-image-checkbox input[type=checkbox]:checked + .image {
+  color: var(--iui-color-text-accent);
+}
+.core-image-checkbox input[type=checkbox]:not(:checked) + .image {
+  color: var(--iui-color-text);
+}
+.core-image-checkbox input[type=checkbox] + .image {
+  opacity: 0.65;
+}
+.core-image-checkbox input[type=checkbox] + .image:hover {
+  opacity: 1;
+}
+.core-image-checkbox input[type=checkbox]:disabled:not(:checked) + .image,
+.core-image-checkbox input[type=checkbox]:disabled:checked + .image {
+  opacity: 0.25;
+}
+.core-image-checkbox [type=checkbox]:focus + .image:before {
+  outline: 1px dotted currentColor;
+}
+
+.image-checkbox-border {
+  border: 1px solid var(--iui-color-text-disabled);
+  background-color: var(--iui-color-background);
+  border-radius: var(--iui-border-radius-1);
+  padding: 1px 3px 0 2px;
+}
