@@ -15,6 +15,7 @@ import svg3d from "@stratakit/icons/3d.svg";
 import svgActivity from "@stratakit/icons/activity.svg";
 import svgAdd from "@stratakit/icons/add.svg";
 import svgAddCircle from "@stratakit/icons/add-circle.svg";
+import svgAddSquare from "@stratakit/icons/add-square.svg";
 import svgAirplane from "@stratakit/icons/airplane.svg";
 import svgAlignBottom from "@stratakit/icons/align-bottom.svg";
 import svgAlignCenterHorizontal from "@stratakit/icons/align-center-horizontal.svg";
@@ -187,6 +188,7 @@ import svgMeasureLocation from "@stratakit/icons/measure-location.svg";
 import svgMeasurePerpendicularDistance from "@stratakit/icons/measure-perpendicular-distance.svg";
 import svgMenu from "@stratakit/icons/menu.svg";
 import svgMerge from "@stratakit/icons/merge.svg";
+import svgMinusCircle from "@stratakit/icons/minus-circle.svg";
 import svgModel from "@stratakit/icons/model.svg";
 import svgMoon from "@stratakit/icons/moon.svg";
 import svgMoreHorizontal from "@stratakit/icons/more-horizontal.svg";
@@ -351,6 +353,7 @@ export function enable() {
     "@stratakit/icons/3d.svg": svg3d,
     "@stratakit/icons/activity.svg": svgActivity,
     "@stratakit/icons/add-circle.svg": svgAddCircle,
+    "@stratakit/icons/add-square.svg": svgAddSquare,
     "@stratakit/icons/add.svg": svgAdd,
     "@stratakit/icons/airplane.svg": svgAirplane,
     "@stratakit/icons/align-bottom.svg": svgAlignBottom,
@@ -528,6 +531,7 @@ export function enable() {
     "@stratakit/icons/measure.svg": svgMeasure,
     "@stratakit/icons/menu.svg": svgMenu,
     "@stratakit/icons/merge.svg": svgMerge,
+    "@stratakit/icons/minus-circle.svg": svgMinusCircle,
     "@stratakit/icons/model.svg": svgModel,
     "@stratakit/icons/moon.svg": svgMoon,
     "@stratakit/icons/more-horizontal-circle.svg": svgMoreHorizontalCircle,
