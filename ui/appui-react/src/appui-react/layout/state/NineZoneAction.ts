@@ -198,6 +198,8 @@ export interface WidgetTabDoubleClickAction {
   readonly widgetId: WidgetState["id"];
   readonly floatingWidgetId: FloatingWidgetState["id"] | undefined;
   readonly id: TabState["id"];
+  /** Explicit minimized state after the first click takes effect. */
+  readonly minimized?: boolean;
 }
 
 /** @internal */

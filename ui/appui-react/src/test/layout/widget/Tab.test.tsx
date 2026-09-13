@@ -8,6 +8,9 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { NineZoneDispatch } from "../../../appui-react/layout/base/NineZone.js";
 import { ShowWidgetIconContext } from "../../../appui-react/layout/base/NineZone.js";
+import { createLayoutStore } from "../../../appui-react/layout/base/LayoutStore.js";
+import { NineZoneStateReducer } from "../../../appui-react/layout/state/NineZoneStateReducer.js";
+import type { NineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { createNineZoneState } from "../../../appui-react/layout/state/NineZoneState.js";
 import { addPanelWidget } from "../../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import { addTab } from "../../../appui-react/layout/state/internal/TabStateHelpers.js";
@@ -155,7 +158,7 @@ describe("WidgetTab", () => {
     component.getByText("Badge");
   });
 
-  it("should dispatch WIDGET_TAB_CLICK on click", async () => {
+  it("should dispatch WIDGET_TAB_CLICK immediately on release", () => {
     const dispatch = vi.fn<NineZoneDispatch>();
     let state = createNineZoneState();
     state = addTab(state, "t1");
@@ -180,16 +183,14 @@ describe("WidgetTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(tab);
     });
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith(
-        expect.objectContaining({
-          type: "WIDGET_TAB_CLICK",
-          side: "left",
-          widgetId: "w1",
-          id: "t1",
-        })
-      );
-    });
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: "WIDGET_TAB_CLICK",
+        side: "left",
+        widgetId: "w1",
+        id: "t1",
+      })
+    );
   });
 
   it("should dispatch WIDGET_TAB_CLICK on 'Enter'", async () => {
@@ -293,43 +294,148 @@ describe("WidgetTab", () => {
     });
   });
 
-  it("should dispatch WIDGET_TAB_DOUBLE_CLICK", async () => {
-    const dispatch = vi.fn<NineZoneDispatch>();
+  it("should switch docked tabs on double click", () => {
     let state = createNineZoneState();
     state = addTab(state, "t1");
-    state = addPanelWidget(state, "left", "w1", ["t1"]);
-    render(
-      <TestNineZoneProvider defaultState={state} dispatch={dispatch}>
-        <PanelSideContext.Provider value="left">
-          <WidgetIdContext.Provider value="w1">
-            <WidgetTabsEntryContext.Provider
-              value={{
-                lastNotOverflown: false,
-              }}
-            >
-              <WidgetTabProvider id="t1" />
-            </WidgetTabsEntryContext.Provider>
-          </WidgetIdContext.Provider>
-        </PanelSideContext.Provider>
-      </TestNineZoneProvider>
-    );
-    const tab = document.getElementsByClassName("nz-widget-tab")[0];
-    act(() => {
+    state = addTab(state, "t2");
+    state = addPanelWidget(state, "left", "w1", ["t1", "t2"]);
+    const { tab, layout } = renderTabWithReducer(state);
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+  });
+
+  it("should switch inactive floating tabs without collapsing on double click", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addTab(state, "t2");
+    state = addFloatingWidget(state, "w1", ["t1", "t2"]);
+    const { tab, layout } = renderTabWithReducer(state);
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+  });
+
+  it("should collapse an active expanded floating tab on double click", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addTab(state, "t2");
+    state = addFloatingWidget(state, "w1", ["t1", "t2"], undefined, {
+      activeTabId: "t2",
+    });
+    const { tab, layout } = renderTabWithReducer(state);
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: true,
+    });
+  });
+
+  it("should expand an active collapsed floating tab on double click", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addTab(state, "t2");
+    state = addFloatingWidget(state, "w1", ["t1", "t2"], undefined, {
+      activeTabId: "t2",
+      minimized: true,
+    });
+    const { tab, layout } = renderTabWithReducer(state);
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+  });
+
+  it("should switch back to a floating tab within the double-click window", () => {
+    let state = createNineZoneState();
+    state = addTab(state, "t1");
+    state = addTab(state, "t2");
+    state = addFloatingWidget(state, "w1", ["t1", "t2"]);
+    const { tab, firstTab, layout } = renderTabWithReducer(state);
+
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+    fireEvent.mouseDown(firstTab);
+    fireEvent.mouseUp(firstTab);
+    fireEvent.mouseDown(tab);
+    fireEvent.mouseUp(tab);
+
+    expect(layout.getState().widgets.w1).toMatchObject({
+      activeTabId: "t2",
+      minimized: false,
+    });
+  });
+
+  it("should treat clicks after the double-click window as separate clicks", () => {
+    vi.useFakeTimers();
+    try {
+      let state = createNineZoneState();
+      state = addTab(state, "t1");
+      state = addTab(state, "t2");
+      state = addFloatingWidget(state, "w1", ["t1", "t2"], undefined, {
+        activeTabId: "t2",
+      });
+      const { tab, layout } = renderTabWithReducer(state);
+
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(tab);
+      act(() => {
+        vi.advanceTimersByTime(301);
+      });
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(tab);
-    });
-    await waitFor(() => {
-      expect(dispatch).toHaveBeenCalledWith(
-        expect.objectContaining({
-          type: "WIDGET_TAB_DOUBLE_CLICK",
-          side: "left",
-          widgetId: "w1",
-          id: "t1",
-        })
-      );
-    });
+      act(() => {
+        vi.advanceTimersByTime(301);
+      });
+
+      expect(layout.getState().widgets.w1).toMatchObject({
+        activeTabId: "t2",
+        minimized: false,
+      });
+    } finally {
+      vi.useRealTimers();
+    }
   });
 
   it("should dispatch WIDGET_TAB_DRAG_START on pointer move", () => {
@@ -406,3 +512,22 @@ describe("WidgetTab", () => {
     );
   });
 });
+
+function renderTabWithReducer(state: NineZoneState) {
+  const layout = createLayoutStore(state);
+  const dispatch: NineZoneDispatch = (action) => {
+    layout.setState((current) => NineZoneStateReducer(current, action), true);
+  };
+  const { getAllByRole } = render(
+    <TestNineZoneProvider layout={layout} dispatch={dispatch}>
+      <WidgetIdContext.Provider value="w1">
+        <WidgetTabsEntryContext.Provider value={{ lastNotOverflown: false }}>
+          <WidgetTabProvider id="t1" />
+          <WidgetTabProvider id="t2" />
+        </WidgetTabsEntryContext.Provider>
+      </WidgetIdContext.Provider>
+    </TestNineZoneProvider>
+  );
+  const [firstTab, tab] = getAllByRole("tab");
+  return { tab, firstTab, layout };
+}
