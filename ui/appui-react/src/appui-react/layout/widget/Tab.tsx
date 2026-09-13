@@ -194,7 +194,7 @@ export function useTabInteractions<T extends HTMLElement>({
 
   const layoutStore = useLayoutStore();
   const tabRef = React.useRef(layoutStore.getState().tabs[id]);
-  const clickCount = React.useRef(0);
+  const doubleClickMinimized = React.useRef<boolean | undefined>(undefined);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
   const initialPointerPosition = React.useRef<Point | undefined>(undefined);
@@ -218,25 +218,21 @@ export function useTabInteractions<T extends HTMLElement>({
     });
     onClick?.();
   }, [dispatch, widgetId, id, side, onClick]);
-  const handleDoubleClick = React.useCallback(() => {
-    if (clickOnly) return;
-    dispatch({
-      type: "WIDGET_TAB_DOUBLE_CLICK",
-      side,
-      widgetId,
-      floatingWidgetId,
-      id,
-    });
-    onDoubleClick?.();
-  }, [
-    clickOnly,
-    dispatch,
-    floatingWidgetId,
-    widgetId,
-    id,
-    side,
-    onDoubleClick,
-  ]);
+  const handleDoubleClick = React.useCallback(
+    (minimized: boolean) => {
+      if (clickOnly) return;
+      dispatch({
+        type: "WIDGET_TAB_DOUBLE_CLICK",
+        side,
+        widgetId,
+        floatingWidgetId,
+        id,
+        minimized,
+      });
+      onDoubleClick?.();
+    },
+    [clickOnly, dispatch, floatingWidgetId, widgetId, id, side, onDoubleClick]
+  );
 
   const handleDragTabStart = useDragTab({
     tabId: id,
@@ -244,6 +240,8 @@ export function useTabInteractions<T extends HTMLElement>({
   const handleDragStart = React.useCallback(
     (pointerPosition: Point) => {
       if (clickOnly) return;
+      doubleClickMinimized.current = undefined;
+      doubleClickTimer.current.stop();
       assert(!!ref.current);
       assert(!!initialPointerPosition.current);
       const nzBounds = measure();
@@ -328,10 +326,37 @@ export function useTabInteractions<T extends HTMLElement>({
     [handleDragStart]
   );
   const handlePointerUp = React.useCallback(() => {
-    clickCount.current++;
+    if (!initialPointerPosition.current) return;
     initialPointerPosition.current = undefined;
-    doubleClickTimer.current.start();
-  }, []);
+
+    if (clickOnly || !floatingWidgetId) {
+      handleClick();
+      return;
+    }
+
+    const widget = getWidgetState(layoutStore.getState(), widgetId);
+    const active = widget.activeTabId === id;
+    const timer = doubleClickTimer.current;
+    if (timer.isRunning && active) {
+      timer.stop();
+      const minimized = doubleClickMinimized.current;
+      doubleClickMinimized.current = undefined;
+      if (minimized !== undefined) handleDoubleClick(minimized);
+      return;
+    }
+
+    doubleClickMinimized.current = active ? !widget.minimized : undefined;
+    timer.start();
+    handleClick();
+  }, [
+    layoutStore,
+    widgetId,
+    clickOnly,
+    floatingWidgetId,
+    id,
+    handleClick,
+    handleDoubleClick,
+  ]);
 
   const pointerCaptorRef = usePointerCaptor<T>(
     handlePointerDown,
@@ -344,10 +369,16 @@ export function useTabInteractions<T extends HTMLElement>({
   React.useEffect(() => {
     const timer = doubleClickTimer.current;
     timer.setOnExecute(() => {
-      if (clickCount.current === 1) handleClick();
-      else handleDoubleClick();
-      clickCount.current = 0;
+      doubleClickMinimized.current = undefined;
     });
+    return () => {
+      timer.stop();
+      timer.setOnExecute(undefined);
+      doubleClickMinimized.current = undefined;
+    };
+  }, []);
+
+  React.useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
       if (e.key === " " || e.key === Key.Enter.valueOf()) {
         handleClick();
@@ -356,10 +387,9 @@ export function useTabInteractions<T extends HTMLElement>({
     const instance = ref.current;
     instance && instance.addEventListener("keydown", keydown);
     return () => {
-      timer.setOnExecute(undefined);
       instance && instance.removeEventListener("keydown", keydown);
     };
-  }, [handleClick, handleDoubleClick]);
+  }, [handleClick]);
   return refs;
 }
 

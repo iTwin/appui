@@ -510,7 +510,7 @@ export function NineZoneStateReducer(
       if (!active) return setWidgetActiveTabId(state, widget.id, action.id);
 
       return updateWidgetState(state, widget.id, {
-        minimized: !widget.minimized,
+        minimized: action.minimized ?? !widget.minimized,
       });
     }
     case "WIDGET_TAB_DRAG_START": {
