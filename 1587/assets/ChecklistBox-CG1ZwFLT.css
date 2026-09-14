@@ -1,0 +1,19 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-chk-listbox {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+.core-chk-listbox > li > .core-chk-listboxitem-checkbox {
+  margin: 4px 0;
+}
+.core-chk-listbox > .core-chk-listbox-separator {
+  height: 1px;
+  background: var(--iui-color-border-foreground);
+  margin: 4px 0;
+  pointer-events: none;
+}
