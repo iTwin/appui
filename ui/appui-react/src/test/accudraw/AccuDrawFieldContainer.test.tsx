@@ -451,7 +451,7 @@ describe("AccuDrawFieldContainer", () => {
       remove();
     });
 
-    it("should support FrameworkAccuDraw.uiStateStorage with various color combinations", async () => {
+    it("should support FrameworkAccuDraw.uiStateStorage with various color combinations", () => {
       useAccuDrawStore.setState({ is3d: true });
       const backgroundSettings: AccuDrawUiSettings = {
         xBackgroundColor: ColorDef.create(bgColorTest),
@@ -472,32 +472,38 @@ describe("AccuDrawFieldContainer", () => {
       const wrapper = render(
         <AccuDrawFieldContainer orientation={Orientation.Vertical} />
       );
-      IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
+      act(() => {
+        IModelApp.accuDraw.setCompassMode(CompassMode.Rectangular);
+      });
 
-      FrameworkAccuDraw.uiStateStorage = backgroundSettings;
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        FrameworkAccuDraw.uiStateStorage = backgroundSettings;
+      });
       let input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual(
         "background-color: rgb(255, 0, 0);"
       );
 
-      FrameworkAccuDraw.uiStateStorage = foregroundSettings;
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        FrameworkAccuDraw.uiStateStorage = foregroundSettings;
+      });
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual("color: rgb(0, 0, 0);");
 
-      FrameworkAccuDraw.uiStateStorage = bgStringSettings;
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        FrameworkAccuDraw.uiStateStorage = bgStringSettings;
+      });
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual(
         "background-color: rgba(255, 0, 0, 0.5);"
       );
 
-      FrameworkAccuDraw.uiStateStorage = fgStringSettings;
-      await TestUtils.flushAsyncOperations();
+      act(() => {
+        FrameworkAccuDraw.uiStateStorage = fgStringSettings;
+      });
       input = wrapper.queryByTestId("uifw-accudraw-x");
       expect(input).toBeTruthy();
       expect(input!.getAttribute("style")).toEqual(
