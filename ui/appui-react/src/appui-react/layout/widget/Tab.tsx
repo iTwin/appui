@@ -194,9 +194,11 @@ export function useTabInteractions<T extends HTMLElement>({
 
   const layoutStore = useLayoutStore();
   const tabRef = React.useRef(layoutStore.getState().tabs[id]);
-  const doubleClickMinimized = React.useRef<boolean | undefined>(undefined);
+
+  const doMinimize = React.useRef<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
+
   const initialPointerPosition = React.useRef<Point | undefined>(undefined);
 
   const overflown = !widgetTabsEntryContext;
@@ -210,6 +212,13 @@ export function useTabInteractions<T extends HTMLElement>({
   );
 
   const handleClick = React.useCallback(() => {
+    if (!doubleClickTimer.current.isRunning) {
+      const widget = getWidgetState(layoutStore.getState(), widgetId);
+      const active = widget.activeTabId === id;
+      const minimized = widget.minimized;
+      doMinimize.current = !minimized && active;
+    }
+
     dispatch({
       type: "WIDGET_TAB_CLICK",
       side,
@@ -217,22 +226,17 @@ export function useTabInteractions<T extends HTMLElement>({
       id,
     });
     onClick?.();
-  }, [dispatch, widgetId, id, side, onClick]);
-  const handleDoubleClick = React.useCallback(
-    (minimized: boolean) => {
-      if (clickOnly) return;
-      dispatch({
-        type: "WIDGET_TAB_DOUBLE_CLICK",
-        side,
-        widgetId,
-        floatingWidgetId,
-        id,
-        minimized,
-      });
-      onDoubleClick?.();
-    },
-    [clickOnly, dispatch, floatingWidgetId, widgetId, id, side, onDoubleClick]
-  );
+  }, [dispatch, widgetId, id, side, onClick, layoutStore]);
+  const handleDoubleClick = React.useCallback(() => {
+    if (clickOnly) return;
+    if (!doMinimize.current) return;
+
+    dispatch({
+      type: "WIDGET_TAB_MINIMIZE",
+      id,
+    });
+    onDoubleClick?.();
+  }, [clickOnly, dispatch, id, onDoubleClick]);
 
   const handleDragTabStart = useDragTab({
     tabId: id,
@@ -240,7 +244,6 @@ export function useTabInteractions<T extends HTMLElement>({
   const handleDragStart = React.useCallback(
     (pointerPosition: Point) => {
       if (clickOnly) return;
-      doubleClickMinimized.current = undefined;
       doubleClickTimer.current.stop();
       assert(!!ref.current);
       assert(!!initialPointerPosition.current);
@@ -329,34 +332,17 @@ export function useTabInteractions<T extends HTMLElement>({
     if (!initialPointerPosition.current) return;
     initialPointerPosition.current = undefined;
 
-    if (clickOnly || !floatingWidgetId) {
-      handleClick();
-      return;
-    }
-
-    const widget = getWidgetState(layoutStore.getState(), widgetId);
-    const active = widget.activeTabId === id;
-    const timer = doubleClickTimer.current;
-    if (timer.isRunning && active) {
-      timer.stop();
-      const minimized = doubleClickMinimized.current;
-      doubleClickMinimized.current = undefined;
-      if (minimized !== undefined) handleDoubleClick(minimized);
-      return;
-    }
-
-    doubleClickMinimized.current = active ? !widget.minimized : undefined;
-    timer.start();
     handleClick();
-  }, [
-    layoutStore,
-    widgetId,
-    clickOnly,
-    floatingWidgetId,
-    id,
-    handleClick,
-    handleDoubleClick,
-  ]);
+
+    const timer = doubleClickTimer.current;
+    if (!timer.isRunning) {
+      timer.start();
+      return;
+    }
+
+    timer.stop();
+    handleDoubleClick();
+  }, [handleClick, handleDoubleClick]);
 
   const pointerCaptorRef = usePointerCaptor<T>(
     handlePointerDown,
@@ -365,18 +351,6 @@ export function useTabInteractions<T extends HTMLElement>({
   );
   const ref = React.useRef<T | undefined>(undefined);
   const refs = useRefs(pointerCaptorRef, ref);
-
-  React.useEffect(() => {
-    const timer = doubleClickTimer.current;
-    timer.setOnExecute(() => {
-      doubleClickMinimized.current = undefined;
-    });
-    return () => {
-      timer.stop();
-      timer.setOnExecute(undefined);
-      doubleClickMinimized.current = undefined;
-    };
-  }, []);
 
   React.useEffect(() => {
     const keydown = (e: KeyboardEvent) => {
