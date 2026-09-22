@@ -117,6 +117,7 @@ describe("MenuTab", () => {
       fireEvent.mouseDown(tab);
       fireEvent.mouseUp(document);
     });
-    await waitFor(() => expect(close).toHaveBeenCalledOnce());
+    // Both clicks close the menu immediately.
+    await waitFor(() => expect(close).toHaveBeenCalledTimes(2));
   });
 });
