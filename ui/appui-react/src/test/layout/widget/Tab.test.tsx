@@ -191,6 +191,14 @@ describe("WidgetTab", () => {
         id: "t1",
       })
     );
+
+    act(() => {
+      fireEvent.mouseDown(tab);
+      fireEvent.mouseUp(tab);
+    });
+    expect(dispatch).not.toHaveBeenCalledWith(
+      expect.objectContaining({ type: "WIDGET_TAB_MINIMIZE" })
+    );
   });
 
   it("should dispatch WIDGET_TAB_CLICK on 'Enter'", async () => {

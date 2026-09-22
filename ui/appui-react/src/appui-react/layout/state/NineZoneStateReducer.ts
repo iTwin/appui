@@ -502,15 +502,16 @@ export function NineZoneStateReducer(
         minimized: false,
       });
     }
-    case "WIDGET_TAB_DOUBLE_CLICK": {
-      if (action.floatingWidgetId === undefined) return state;
+    case "WIDGET_TAB_MINIMIZE": {
+      const tabLocation = getTabLocation(state, action.id);
+      if (!tabLocation || !isFloatingTabLocation(tabLocation)) return state;
 
-      const widget = getWidgetState(state, action.widgetId);
+      const widget = getWidgetState(state, tabLocation.widgetId);
       const active = action.id === widget.activeTabId;
       if (!active) return setWidgetActiveTabId(state, widget.id, action.id);
 
       return updateWidgetState(state, widget.id, {
-        minimized: action.minimized ?? !widget.minimized,
+        minimized: true,
       });
     }
     case "WIDGET_TAB_DRAG_START": {
