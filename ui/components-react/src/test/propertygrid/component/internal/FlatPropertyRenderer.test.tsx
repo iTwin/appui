@@ -7,6 +7,10 @@ import type { PropertyRecord } from "@itwin/appui-abstract";
 import { Orientation } from "@itwin/core-react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { PropertyValueRendererManager } from "../../../../components-react/properties/ValueRendererManager.js";
+import {
+  PropertyEditorBase,
+  PropertyEditorManager,
+} from "../../../../components-react/editors/PropertyEditorManager.js";
 import { FlatPropertyRenderer } from "../../../../components-react/propertygrid/internal/flat-properties/FlatPropertyRenderer.js";
 import TestUtils, { selectorMatches, userEvent } from "../../../TestUtils.js";
 
@@ -386,6 +390,150 @@ describe("FlatPropertyRenderer", () => {
     expect(screen.getByRole("textbox")).satisfy(
       selectorMatches(".components-text-editor")
     );
+  });
+
+  describe("non primitive properties", () => {
+    class CustomPropertyEditor extends PropertyEditorBase {
+      public get reactNode(): React.ReactNode {
+        return <div>Custom editor</div>;
+      }
+    }
+
+    it("does not render an editor for an empty array", () => {
+      propertyRecord = TestUtils.createArrayProperty("EmptyArray");
+
+      render(
+        <FlatPropertyRenderer
+          orientation={Orientation.Horizontal}
+          propertyRecord={propertyRecord}
+          isEditing={true}
+          isExpanded={false}
+          onExpansionToggled={() => {}}
+        />
+      );
+
+      expect(screen.queryByRole("textbox")).toEqual(null);
+      expect(screen.getByTitle("EmptyArray")).toBeTruthy();
+    });
+
+    it("does not render an editor for an empty array when `alwaysShowEditor` returns true", () => {
+      propertyRecord = TestUtils.createArrayProperty("EmptyArray");
+
+      render(
+        <FlatPropertyRenderer
+          orientation={Orientation.Horizontal}
+          propertyRecord={propertyRecord}
+          isEditing={false}
+          isPropertyEditingEnabled={true}
+          alwaysShowEditor={() => true}
+          isExpanded={false}
+          onExpansionToggled={() => {}}
+        />
+      );
+
+      expect(screen.queryByRole("textbox")).toEqual(null);
+    });
+
+    it("does not render an editor for an array rendered by a custom renderer", () => {
+      propertyRecord = TestUtils.createArrayProperty("StringArray", [
+        TestUtils.createPrimitiveStringProperty("Label", "Model"),
+      ]);
+      propertyRecord.property.renderer = {
+        name: "NonPrimitiveCustomArrayRenderer",
+      };
+
+      PropertyValueRendererManager.defaultManager.registerRenderer(
+        "NonPrimitiveCustomArrayRenderer",
+        {
+          canRender: () => true,
+          render: () => <div>Custom array renderer</div>,
+        }
+      );
+
+      render(
+        <FlatPropertyRenderer
+          orientation={Orientation.Horizontal}
+          propertyRecord={propertyRecord}
+          isEditing={true}
+          isExpanded={false}
+          onExpansionToggled={() => {}}
+        />
+      );
+
+      expect(screen.queryByRole("textbox")).toEqual(null);
+      expect(screen.getByText("Custom array renderer")).toBeTruthy();
+    });
+
+    it("does not render an editor for a struct rendered by a custom renderer", () => {
+      propertyRecord = TestUtils.createStructProperty("Struct");
+      propertyRecord.property.renderer = {
+        name: "NonPrimitiveCustomStructRenderer",
+      };
+
+      PropertyValueRendererManager.defaultManager.registerRenderer(
+        "NonPrimitiveCustomStructRenderer",
+        {
+          canRender: () => true,
+          render: () => <div>Custom struct renderer</div>,
+        }
+      );
+
+      render(
+        <FlatPropertyRenderer
+          orientation={Orientation.Horizontal}
+          propertyRecord={propertyRecord}
+          isEditing={true}
+          isExpanded={false}
+          onExpansionToggled={() => {}}
+        />
+      );
+
+      expect(screen.queryByRole("textbox")).toEqual(null);
+      expect(screen.getByText("Custom struct renderer")).toBeTruthy();
+    });
+
+    it("renders an editor for an empty array when a custom editor is registered for the typename", () => {
+      propertyRecord = TestUtils.createArrayProperty("EmptyArray");
+      propertyRecord.property.typename = "arrayWithCustomEditor";
+      PropertyEditorManager.registerEditor(
+        "arrayWithCustomEditor",
+        CustomPropertyEditor
+      );
+
+      render(
+        <FlatPropertyRenderer
+          orientation={Orientation.Horizontal}
+          propertyRecord={propertyRecord}
+          isEditing={true}
+          isExpanded={false}
+          onExpansionToggled={() => {}}
+        />
+      );
+
+      expect(screen.getByText("Custom editor")).toBeTruthy();
+    });
+
+    it("renders an editor for an empty array when a custom editor is registered for the editor name", () => {
+      propertyRecord = TestUtils.createArrayProperty("EmptyArray");
+      propertyRecord.property.editor = { name: "customArrayEditor" };
+      PropertyEditorManager.registerEditor(
+        propertyRecord.property.typename,
+        CustomPropertyEditor,
+        "customArrayEditor"
+      );
+
+      render(
+        <FlatPropertyRenderer
+          orientation={Orientation.Horizontal}
+          propertyRecord={propertyRecord}
+          isEditing={true}
+          isExpanded={false}
+          onExpansionToggled={() => {}}
+        />
+      );
+
+      expect(screen.getByText("Custom editor")).toBeTruthy();
+    });
   });
 
   it("calls on click when clicking on an editor", async () => {
