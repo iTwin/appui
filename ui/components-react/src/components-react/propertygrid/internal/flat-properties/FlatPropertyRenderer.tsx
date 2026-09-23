@@ -20,6 +20,7 @@ import { FlatNonPrimitivePropertyRenderer } from "./FlatNonPrimitivePropertyRend
 import { CustomizablePropertyRenderer } from "../../../properties/renderers/CustomizablePropertyRenderer.js";
 import { Orientation } from "../../../common/Orientation.js";
 import { PropertyRecordEditor } from "../../../new-editors/interop/PropertyRecordEditor.js";
+import { useHasCustomEditor } from "../../../new-editors/interop/UseHasCustomEditor.js";
 
 /** Properties of [[FlatPropertyRenderer]] React component
  * @internal
@@ -158,24 +159,34 @@ interface DisplayValueProps {
 }
 
 const DisplayValue: React.FC<DisplayValueProps> = (props): React.ReactNode => {
-  useResetHeightOnEdit(
-    props.orientation,
-    props.isEditing,
-    props.onHeightChanged
-  );
-
   const alwaysShowsEditor = props.alwaysShowEditor
     ? props.alwaysShowEditor(props.propertyRecord)
     : false;
+
+  const hasCustomEditor = useHasCustomEditor(
+    props.propertyRecord,
+    props.editorSystem
+  );
+
+  // Non primitive values have no editor to fall back to, so they are only editable through a custom editor.
+  const isEditable =
+    props.propertyRecord.value.valueFormat === PropertyValueFormat.Primitive ||
+    hasCustomEditor;
+  const showEditor =
+    isEditable &&
+    (props.isEditing || (alwaysShowsEditor && props.isPropertyEditingEnabled));
+
+  useResetHeightOnEdit(
+    props.orientation,
+    showEditor && props.isEditing,
+    props.onHeightChanged
+  );
 
   const { editorKey, onCancel } = useEditorKey({
     propertyRecord: props.propertyRecord,
   });
 
-  if (
-    props.isEditing ||
-    (alwaysShowsEditor && props.isPropertyEditingEnabled)
-  ) {
+  if (showEditor) {
     const _onEditCommit = async (args: PropertyUpdatedArgs) => {
       if (!props.category) {
         return;

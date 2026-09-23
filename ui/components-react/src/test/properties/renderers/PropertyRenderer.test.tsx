@@ -282,6 +282,21 @@ describe("PropertyRenderer", () => {
     );
   });
 
+  it("does not render an editor for an empty array", async () => {
+    propertyRecord = TestUtils.createArrayProperty("EmptyArray");
+
+    render(
+      <PropertyRenderer
+        orientation={Orientation.Horizontal}
+        propertyRecord={propertyRecord}
+        isEditing={true}
+      />
+    );
+
+    await waitFor(() => expect(screen.getByTitle("EmptyArray")).toBeTruthy());
+    expect(screen.queryByRole("textbox")).toEqual(null);
+  });
+
   it("renders an editor at all times", () => {
     const textPropertyRecord = TestUtils.createPrimitiveStringProperty(
       "Label",

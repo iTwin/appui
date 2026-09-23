@@ -230,6 +230,20 @@ function getFullEditorName(editType: string, editorName?: string) {
   return fullEditorName;
 }
 
+/** Checks if an editor is registered for the given type and editor names. Matches the lookup done by
+ * `PropertyEditorManager.createEditor`, which falls back to the editor registered for the type name alone.
+ * @internal
+ */
+export function hasRegisteredEditor(
+  editType: string,
+  editorName?: string
+): boolean {
+  return (
+    editors.hasOwnProperty(getFullEditorName(editType, editorName)) ||
+    editors.hasOwnProperty(editType)
+  );
+}
+
 /** Used to override the default property editors from the `appui-react` package.
  * @internal
  */
