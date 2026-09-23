@@ -3,12 +3,15 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import * as React from "react";
 import { describe, expect, it, vi } from "vitest";
 import { CommittingEditor } from "../../components-react/new-editors/interop/PropertyRecordEditor.js";
-import type { TextValueMetadata } from "../../components-react/new-editors/values/Metadata.js";
+import type {
+  EnumValueMetadata,
+  TextValueMetadata,
+} from "../../components-react/new-editors/values/Metadata.js";
 
 describe("CommittingEditor", () => {
   const metadata: TextValueMetadata = { type: "string" };
@@ -211,5 +214,65 @@ describe("CommittingEditor", () => {
     await user.click(getByRole("textbox"));
 
     expect(onClick).toHaveBeenCalled();
+  });
+
+  describe("editor with portal rendered content", () => {
+    const enumMetadata: EnumValueMetadata = {
+      type: "enum",
+      isStrict: true,
+      choices: [
+        { value: 0, label: "Zero" },
+        { value: 1, label: "One" },
+      ],
+    };
+
+    it("commits value selected in portal rendered content", async () => {
+      const user = userEvent.setup();
+      const onCommit = vi.fn();
+      const onCancel = vi.fn();
+
+      render(
+        <CommittingEditor
+          metadata={enumMetadata}
+          initialValue={{ choice: 0, label: "Zero" }}
+          onCommit={onCommit}
+          onCancel={onCancel}
+        />
+      );
+
+      await user.click(screen.getByRole("combobox"));
+      await user.click(screen.getByRole("option", { name: "One" }));
+
+      expect(onCommit).toHaveBeenCalledWith({ choice: 1, label: "One" });
+      expect(onCancel).not.toHaveBeenCalled();
+    });
+
+    it("commits value only once when editor commits it and then loses focus", async () => {
+      const user = userEvent.setup();
+      const onCommit = vi.fn();
+      const onCancel = vi.fn();
+
+      render(
+        <>
+          <CommittingEditor
+            metadata={enumMetadata}
+            initialValue={{ choice: 0, label: "Zero" }}
+            onCommit={onCommit}
+            onCancel={onCancel}
+          />
+          <input aria-label="other editor" />
+        </>
+      );
+
+      await user.click(screen.getByRole("combobox"));
+      await user.click(screen.getByRole("option", { name: "One" }));
+      await user.click(screen.getByLabelText("other editor"));
+
+      expect(onCommit).toHaveBeenCalledExactlyOnceWith({
+        choice: 1,
+        label: "One",
+      });
+      expect(onCancel).not.toHaveBeenCalled();
+    });
   });
 });
