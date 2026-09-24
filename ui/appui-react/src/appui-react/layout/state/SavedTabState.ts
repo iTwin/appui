@@ -8,11 +8,11 @@
 
 import type { XAndY } from "@itwin/core-geometry";
 import type { TabState } from "./TabState.js";
-import type { WidgetRestoreState } from "./WidgetRestoreState.js";
+import type { TabRestoreState } from "./WidgetRestoreState.js";
 import type { SizeProps } from "../../utils/SizeProps.js";
 
 /** @internal */
-export type TabHomeState = WidgetRestoreState & {
+export type TabHomeState = TabRestoreState & {
   readonly tabIndex: number;
 };
 
