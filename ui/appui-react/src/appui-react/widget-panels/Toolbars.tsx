@@ -16,10 +16,22 @@ export function WidgetPanelsToolbars() {
   const frontstageDef = useActiveFrontstageDef();
   const tools = frontstageDef?.contentManipulation?.reactNode;
   const navigation = frontstageDef?.viewNavigation?.reactNode;
+  const bottomTools = frontstageDef?.bottomContentManipulation?.reactNode;
+  const bottomNavigation = frontstageDef?.bottomViewNavigation?.reactNode;
   return (
     <div className="uifw-widgetPanels-toolbars">
       {tools}
       <NavigationWidget>{navigation}</NavigationWidget>
+      {(bottomTools || bottomNavigation) && (
+        <div className="uifw-widgetPanels-bottomToolbars">
+          {bottomTools}
+          {bottomNavigation && (
+            <div className="uifw-bottom-toolArea_right">
+              {bottomNavigation}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
