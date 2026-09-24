@@ -46,3 +46,8 @@ export {
 export { ListenerType } from "./core-react/utils/ListenerType.js";
 export { Point } from "./core-react/utils/Point.js";
 export { Rectangle } from "./core-react/utils/Rectangle.js";
+
+export {
+  StrataKitIconContext,
+  StrataKitIcon,
+} from "./core-react/StrataKitIcon.js";

@@ -7,7 +7,6 @@
  */
 
 import * as React from "react";
-import { Icon } from "@itwin/core-react";
 import { IconButton } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import { useConditionalProp } from "../../hooks/useConditionalProp.js";
@@ -15,6 +14,7 @@ import { Badge } from "./Badge.js";
 import { ToolbarContext, ToolbarItemContext } from "./Toolbar.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
 import { Separator } from "./Separator.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 interface ItemProps extends Partial<React.ComponentProps<typeof IconButton>> {
   item: ToolbarItem;
@@ -48,10 +48,7 @@ export const Item = React.forwardRef<HTMLButtonElement, ItemProps>(
             data-item-id={item.id}
             {...other}
           >
-            {item.iconNode ?? (
-              /* eslint-disable-next-line @typescript-eslint/no-deprecated */
-              <Icon iconSpec={iconSpec} />
-            )}
+            {item.iconNode ?? <StrataKitIcon iconSpec={iconSpec} />}
             {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
             <Badge badge={item.badge} badgeKind={item.badgeKind} />
             {props.children}

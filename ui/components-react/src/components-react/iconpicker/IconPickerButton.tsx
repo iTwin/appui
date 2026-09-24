@@ -12,6 +12,7 @@ import * as React from "react";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { SvgChevronDown } from "@itwin/itwinui-icons-react";
 
 /** Properties for the [[IconItem]] React component
@@ -55,8 +56,7 @@ class IconItem extends React.PureComponent<IconItemProps> {
         style={this.props.style}
         onClick={handleClick}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Icon iconSpec={icon} />
+        <StrataKitIcon iconSpec={icon} />
       </button>
     );
   }
@@ -168,14 +168,22 @@ export class IconPickerButton extends React.PureComponent<
           disabled={this.props.disabled}
           ref={this._target}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon
+          <StrataKitIcon
             className="iconpicker-button-sprite"
             iconSpec={this.state.icon}
+            iconNode={
+              // eslint-disable-next-line @typescript-eslint/no-deprecated
+              <Icon
+                className="iconpicker-button-sprite"
+                iconSpec={this.state.icon}
+              />
+            }
           />
           <span className="icon">
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={<SvgChevronDown />} />
+            <StrataKitIcon
+              module="@stratakit/icons/chevron-down.svg"
+              iconSpec={<SvgChevronDown />}
+            />
           </span>
         </button>
         {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}

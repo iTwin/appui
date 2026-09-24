@@ -12,6 +12,7 @@ import { InputWithDecorations } from "@itwin/itwinui-react";
 import { SvgLock, SvgLockUnlocked } from "@itwin/itwinui-icons-react";
 import { produce } from "immer";
 import { usePreviewFeatures } from "../preview/PreviewFeatures.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** This is used to notify the parent component that the lock decoration is displayed in the editor
  * and a separate lock component should not be displayed as a sibling.
@@ -189,6 +190,7 @@ export function LockButtonInputDecoration() {
   const displayLabel = lockProperty?.property.displayLabel;
   const label = displayLabel ? displayLabel : "Toggle lock";
   const disabled = lockProperty?.isDisabled;
+
   return (
     <InputWithDecorations.Button
       isActive={isLocked}
@@ -210,7 +212,17 @@ export function LockButtonInputDecoration() {
         provider.reloadDialogItems();
       }}
     >
-      {isLocked ? <SvgLock /> : <SvgLockUnlocked />}
+      {isLocked ? (
+        <StrataKitIcon
+          module="@stratakit/icons/lock.svg"
+          iconNode={<SvgLock />}
+        />
+      ) : (
+        <StrataKitIcon
+          module="@stratakit/icons/lock-unlocked.svg"
+          iconNode={<SvgLockUnlocked />}
+        />
+      )}
     </InputWithDecorations.Button>
   );
 }

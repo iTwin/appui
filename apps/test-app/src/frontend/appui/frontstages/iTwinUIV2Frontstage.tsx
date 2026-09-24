@@ -13,7 +13,7 @@ import {
   StandardContentLayouts,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { ViewportContent } from "@itwin/appui-test-providers";
+import { StrataKitIcon, ViewportContent } from "@itwin/appui-test-providers";
 import { MeasureDistanceTool } from "@itwin/core-frontend";
 import { SvgMore } from "@itwin/itwinui-icons-react";
 import {
@@ -24,6 +24,8 @@ import {
   MenuItem,
   Radio,
 } from "@itwin/itwinui-react-v2";
+
+import svgMoreHorizontal from "@stratakit/icons/more-horizontal.svg";
 
 export function createITwinUIV2Frontstage(): Frontstage {
   return FrontstageUtilities.createStandardFrontstage({
@@ -91,7 +93,7 @@ function ITwinUIv2Widget() {
         }
       >
         <IconButton label="Actions">
-          <SvgMore />
+          <StrataKitIcon href={svgMoreHorizontal} iconNode={<SvgMore />} />
         </IconButton>
       </DropdownMenu>
     </div>

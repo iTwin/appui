@@ -21,7 +21,7 @@ import {
   PropertyEditorParamTypes,
   PropertyValueFormat,
 } from "@itwin/appui-abstract";
-import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import type { PropertyEditorProps, TypeEditor } from "./EditorContainer.js";
 import { PropertyEditorBase } from "./PropertyEditorManager.js";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
@@ -202,15 +202,14 @@ export class EnumButtonGroupEditor
         key={choice.label}
         onClick={() => this._handleButtonClick(index)}
       >
-        <Icon
-          iconSpec={
-            this.state.enumIcons[index].iconSpec === "" ? (
-              <SvgPlaceholder />
-            ) : (
-              this.state.enumIcons[index].iconSpec
-            )
-          }
-        />
+        {this.state.enumIcons[index].iconSpec === "" ? (
+          <StrataKitIcon
+            module="@stratakit/icons/placeholder.svg"
+            iconSpec={<SvgPlaceholder />}
+          />
+        ) : (
+          <StrataKitIcon iconSpec={this.state.enumIcons[index].iconSpec} />
+        )}
       </button>
     );
   }

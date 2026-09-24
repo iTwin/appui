@@ -9,12 +9,12 @@
 import "./BackstageAppButton.scss";
 import * as React from "react";
 import type { IconSpec } from "@itwin/core-react";
-import { Icon as CoreIcon } from "@itwin/core-react";
 import { SvgHome } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { Surface } from "../toolbar/new-toolbars/Surface.js";
 import { IconButton } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Properties of {@link BackstageAppButton} component.
  * @public
@@ -55,10 +55,11 @@ export function BackstageAppButton({
   }, [execute]);
 
   const iconSpecElement = iconSpec ? (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <CoreIcon iconSpec={iconSpec} />
+    <StrataKitIcon iconSpec={iconSpec} />
   ) : undefined;
-  const icon = iconNode ?? iconSpecElement ?? <SvgHome />;
+  const icon = iconNode ?? iconSpecElement ?? (
+    <StrataKitIcon module="@stratakit/icons/home.svg" iconNode={<SvgHome />} />
+  );
   return (
     <Surface orientation="horizontal">
       <IconButton

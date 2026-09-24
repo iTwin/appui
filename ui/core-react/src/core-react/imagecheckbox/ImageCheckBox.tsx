@@ -9,8 +9,8 @@
 import "./ImageCheckBox.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Icon } from "../icons/IconComponent.js";
 import type { CommonProps } from "../utils/Props.js";
+import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -97,7 +97,7 @@ export class ImageCheckBox extends React.PureComponent<ImageCheckBoxProps> {
           ref={this.props.inputRef}
         />
         <span className={imageClass}>
-          <Icon iconSpec={iconSpec} />
+          <StrataKitIcon iconSpec={iconSpec} />
         </span>
       </label>
     );

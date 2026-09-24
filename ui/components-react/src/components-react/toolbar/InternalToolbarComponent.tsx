@@ -22,9 +22,9 @@ import {
   ToolbarItemUtilities,
 } from "@itwin/appui-abstract";
 import type { CommonProps, NoChildrenProps } from "@itwin/core-react";
-import { Icon, IconHelper } from "@itwin/core-react";
+import { IconHelper } from "@itwin/core-react";
 import type { BadgeKind } from "@itwin/core-react/internal";
-import { Badge } from "@itwin/core-react/internal";
+import { Badge, StrataKitIcon } from "@itwin/core-react/internal";
 import type { ToolbarButtonItemProps } from "./Item.js";
 import { ToolbarButtonItem } from "./Item.js";
 import { ToolbarItems } from "./Items.js";
@@ -196,8 +196,11 @@ function CustomItem({
       (item.icon &&
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        <Icon className="icon" iconSpec={<SvgPlaceholder />} />
+        <StrataKitIcon
+          className="icon"
+          module="@stratakit/icons/placeholder.svg"
+          iconSpec={<SvgPlaceholder />}
+        />
       ),
     [item.icon, item.internalData]
   );

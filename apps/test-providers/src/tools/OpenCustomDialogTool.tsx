@@ -13,6 +13,9 @@ import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgRefresh } from "@itwin/itwinui-icons-react";
 import { SampleModalDialog } from "../ui/dialogs/SampleModalDialog.js";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgRefresh from "@stratakit/icons/refresh.svg";
 
 /**
  * Immediate tool that will open an example modal dialog.The tool is created and register to allow the user
@@ -50,5 +53,5 @@ class OpenCustomDialogToolBase extends Tool {
 
 export const OpenCustomDialogTool = ToolUtilities.defineIcon(
   OpenCustomDialogToolBase,
-  <SvgRefresh />
+  <StrataKitIcon href={svgRefresh} iconNode={<SvgRefresh />} />
 );

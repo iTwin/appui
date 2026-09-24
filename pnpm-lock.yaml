@@ -444,6 +444,12 @@ importers:
       '@itwin/webgl-compatibility':
         specifier: 'catalog:'
         version: 5.8.1
+      '@stratakit/icons':
+        specifier: 'catalog:'
+        version: 0.4.3
+      '@stratakit/mui':
+        specifier: 'catalog:'
+        version: 1.0.0(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@stratakit/foundations@1.0.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -699,6 +705,15 @@ importers:
       '@itwin/itwinui-illustrations-react':
         specifier: ^2.1.0
         version: 2.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/foundations':
+        specifier: ^1.0.0
+        version: 1.0.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/icons':
+        specifier: ^0.4.3
+        version: 0.4.3
+      '@stratakit/mui':
+        specifier: ^1.0.0
+        version: 1.0.0(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@stratakit/foundations@1.0.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames:
         specifier: 2.5.1
         version: 2.5.1

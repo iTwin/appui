@@ -46,9 +46,20 @@ import {
   LayoutInfo,
   LogLifecycleWidget,
   store,
+  StrataKitIcon,
   UseWidgetHookWidget,
   ViewportContent,
 } from "@itwin/appui-test-providers";
+
+import svgRefresh from "@stratakit/icons/refresh.svg";
+import svgTextAlignCenter from "@stratakit/icons/text-align-center.svg";
+import svgTextAlignJustify from "@stratakit/icons/text-align-justify.svg";
+import svgTextAlignLeft from "@stratakit/icons/text-align-left.svg";
+import svgTextAlignRight from "@stratakit/icons/text-align-right.svg";
+import svgUser from "@stratakit/icons/user.svg";
+import svgUsers from "@stratakit/icons/users.svg";
+import svgZoomInMagnifier from "@stratakit/icons/zoom-in-magnifier.svg";
+import svgZoomOutMagnifier from "@stratakit/icons/zoom-out-magnifier.svg";
 
 /** Tool settings widget can be configured by providing a URL param `toolSettings` with values `off` or `hidden`. */
 export function createWidgetApiFrontstage(): Frontstage {
@@ -127,7 +138,7 @@ function RestoreLayoutWidgetAction() {
   return (
     <WidgetAction
       label="Restore layout"
-      icon={<SvgRefresh />}
+      icon={<StrataKitIcon href={svgRefresh} iconNode={<SvgRefresh />} />}
       onClick={() => {
         const frontstageDef = UiFramework.frontstages.activeFrontstageDef;
         frontstageDef?.restoreLayout();
@@ -272,7 +283,12 @@ function createRightPanelWidgets(): Widget[] {
     {
       id: "WR-A",
       label: "WR-A",
-      icon: <SvgTextAlignLeft />,
+      icon: (
+        <StrataKitIcon
+          href={svgTextAlignLeft}
+          iconNode={<SvgTextAlignLeft />}
+        />
+      ),
       canPopout: true,
       defaultState: WidgetState.Open,
       content: <h2>Right WR-A</h2>,
@@ -282,7 +298,12 @@ function createRightPanelWidgets(): Widget[] {
     {
       id: "WR-B",
       label: "WR-B",
-      icon: <SvgTextAlignRight />,
+      icon: (
+        <StrataKitIcon
+          href={svgTextAlignRight}
+          iconNode={<SvgTextAlignRight />}
+        />
+      ),
       canPopout: true,
       defaultState: WidgetState.Hidden,
       content: <h2>Right WR-B</h2>,
@@ -291,7 +312,12 @@ function createRightPanelWidgets(): Widget[] {
     {
       id: "WR-1",
       label: "WR-1",
-      icon: <SvgTextAlignCenter />,
+      icon: (
+        <StrataKitIcon
+          href={svgTextAlignCenter}
+          iconNode={<SvgTextAlignCenter />}
+        />
+      ),
       canPopout: false,
       content: <h2>Right WR-1</h2>,
       layouts: endLayout,
@@ -299,7 +325,12 @@ function createRightPanelWidgets(): Widget[] {
     {
       id: "WR-2",
       label: "WR-2",
-      icon: <SvgTextAlignJustify />,
+      icon: (
+        <StrataKitIcon
+          href={svgTextAlignJustify}
+          iconNode={<SvgTextAlignJustify />}
+        />
+      ),
       defaultState: WidgetState.Open,
       canPopout: true,
       content: <h2>Right WR-2</h2>,
@@ -309,7 +340,7 @@ function createRightPanelWidgets(): Widget[] {
     {
       id: "WR-3",
       label: "WR-3",
-      icon: <SvgUser />,
+      icon: <StrataKitIcon href={svgUser} iconNode={<SvgUser />} />,
       canPopout: true,
       content: <h2>Right WR-3</h2>,
       layouts: endLayout,
@@ -317,7 +348,7 @@ function createRightPanelWidgets(): Widget[] {
     {
       id: "WR-4",
       label: "WR-4",
-      icon: <SvgUsers />,
+      icon: <StrataKitIcon href={svgUsers} iconNode={<SvgUsers />} />,
       canPopout: true,
       defaultState: WidgetState.Open,
       content: <h2>Right WR-4</h2>,
@@ -440,8 +471,12 @@ function CustomOverlayIcon() {
     () => store.state.showCustomViewOverlay,
     [AppUiTestProviders.syncUiEventId.hideCustomViewOverlay]
   );
-  if (showCustomViewOverlay) return <SvgZoomOut />;
-  return <SvgZoomIn />;
+  if (showCustomViewOverlay) {
+    return (
+      <StrataKitIcon href={svgZoomOutMagnifier} iconNode={<SvgZoomOut />} />
+    );
+  }
+  return <StrataKitIcon href={svgZoomInMagnifier} iconNode={<SvgZoomIn />} />;
 }
 
 function createToggleCustomOverlayToolbarItem() {

@@ -11,6 +11,7 @@ import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { UiFramework } from "../UiFramework.js";
 import { BackstageAppButton } from "../widgets/BackstageAppButton.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Properties of {@link NestedFrontstageAppButton} component. */
 interface NestedFrontstageAppButtonProps {
@@ -30,10 +31,16 @@ export function NestedFrontstageAppButton({
   label,
   onClick,
 }: NestedFrontstageAppButtonProps) {
+  const defaultIcon = (
+    <StrataKitIcon
+      module="@stratakit/icons/chevron-left.svg"
+      iconNode={<SvgProgressBackwardCircular />}
+    />
+  );
+
   const { translate } = useTranslation();
   label = label ?? translate("commands.backToPreviousFrontstage");
-  icon = icon ?? <SvgProgressBackwardCircular />;
-
+  icon = icon ?? defaultIcon;
   return (
     <BackstageAppButton
       label={label}

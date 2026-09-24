@@ -18,7 +18,7 @@ import {
   ToolAssistanceInputMethod,
 } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import { FillCentered, Icon } from "@itwin/core-react";
+import { FillCentered } from "@itwin/core-react";
 import { Button, Tabs, ToggleSwitch } from "@itwin/itwinui-react";
 import classnames from "classnames";
 import * as React from "react";
@@ -61,6 +61,9 @@ import { SvgMouseClickWheelDrag } from "../../icons/SvgMouseClickWheelDrag.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
 import { useActiveTool } from "../../hooks/useActiveTool.js";
 import { useControlledState } from "../../hooks/useControlledState.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
+
+type StrataKitIconProps = React.ComponentProps<typeof StrataKitIcon>;
 
 /** Properties of [[ToolAssistanceField]] component.
  * @public
@@ -305,6 +308,7 @@ export function ToolAssistanceField(props: Props) {
     pinnedProp,
     onPinnedChange as React.Dispatch<React.SetStateAction<boolean>>
   );
+
   return (
     <StatusBarPopover
       visible={visible}
@@ -323,7 +327,17 @@ export function ToolAssistanceField(props: Props) {
               }}
               title={translate(pinned ? "dialog.close" : "toolAssistance.pin")}
             >
-              {pinned ? <SvgClose /> : <SvgPin />}
+              {pinned ? (
+                <StrataKitIcon
+                  module="@stratakit/icons/dismiss.svg"
+                  iconNode={<SvgClose />}
+                />
+              ) : (
+                <StrataKitIcon
+                  module="@stratakit/icons/pin.svg"
+                  iconNode={<SvgPin />}
+                />
+              )}
             </StatusBarDialog.TitleBarButton>
           }
           title={dialogTitle}
@@ -426,8 +440,7 @@ export function ToolAssistanceField(props: Props) {
         startIcon={
           instructions ? (
             state.toolIconElement ?? (
-              // eslint-disable-next-line @typescript-eslint/no-deprecated
-              <Icon iconSpec={state.toolIconSpec} />
+              <StrataKitIcon iconSpec={state.toolIconSpec} />
             )
           ) : (
             <></>
@@ -476,31 +489,25 @@ function InstructionImage({
 }: {
   instruction: ToolAssistanceInstruction;
 }): React.ReactNode {
-  let image: React.ReactNode;
-
-  if (instruction.iconElement) return instruction.iconElement;
+  const { image, keyboardInfo, iconElement } = instruction;
+  if (iconElement) return iconElement;
 
   if (
-    (typeof instruction.image === "string" ||
-      instruction.image !== ToolAssistanceImage.Keyboard) &&
-    instruction.keyboardInfo
+    (typeof image === "string" || image !== ToolAssistanceImage.Keyboard) &&
+    keyboardInfo
   ) {
-    if (
-      instruction.keyboardInfo.keys.length === 1 &&
-      !instruction.keyboardInfo.bottomKeys
-    ) {
-      const key = instruction.keyboardInfo.keys[0];
+    if (keyboardInfo.keys.length === 1 && !keyboardInfo.bottomKeys) {
+      const key = keyboardInfo.keys[0];
       const rightImage =
-        typeof instruction.image === "string" ? (
+        typeof image === "string" ? (
           <div className="uifw-toolassistance-icon-medium">
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={instruction.image} />
+            <StrataKitIcon iconSpec={image} />
           </div>
         ) : (
           <InstructionSvgImage instruction={instruction} mediumSize={true} />
         );
 
-      image = (
+      return (
         // eslint-disable-next-line @typescript-eslint/no-deprecated
         <FillCentered>
           <KeyNode
@@ -510,44 +517,27 @@ function InstructionImage({
           {rightImage}
         </FillCentered>
       );
-    } else {
-      Logger.logError(
-        UiFramework.loggerCategory("ToolAssistanceField"),
-        `getInstructionImage: Invalid keyboardInfo provided with image`
-      );
     }
-  } else if (typeof instruction.image === "string") {
-    if (instruction.image.length > 0) {
-      const svgSource = getWebComponentSource(instruction.image);
-      const className =
-        svgSource !== undefined
-          ? "uifw-toolassistance-svg"
-          : "uifw-toolassistance-icon-large";
-      image = (
-        <div className={className}>
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={svgSource ?? instruction.image} />
-        </div>
-      );
-    }
-  } else if (instruction.image === ToolAssistanceImage.Keyboard) {
-    if (instruction.keyboardInfo) {
-      image = (
-        <InstructionKeyboardImage keyboardInfo={instruction.keyboardInfo} />
-      );
-    } else {
-      Logger.logError(
-        UiFramework.loggerCategory("ToolAssistanceField"),
-        `getInstructionImage: ToolAssistanceImage.Keyboard specified but no keyboardInfo provided`
-      );
-    }
-  } else {
-    image = (
-      <InstructionSvgImage instruction={instruction} mediumSize={false} />
+  }
+
+  if (typeof image === "string") {
+    const svgSource = getWebComponentSource(image);
+    const className =
+      svgSource !== undefined
+        ? "uifw-toolassistance-svg"
+        : "uifw-toolassistance-icon-large";
+    return (
+      <div className={className}>
+        <StrataKitIcon iconSpec={svgSource ?? image} />
+      </div>
     );
   }
 
-  return image;
+  if (image === ToolAssistanceImage.Keyboard && keyboardInfo) {
+    return <InstructionKeyboardImage keyboardInfo={keyboardInfo} />;
+  }
+
+  return <InstructionSvgImage instruction={instruction} mediumSize={false} />;
 }
 
 function InstructionSvgImage({
@@ -556,91 +546,96 @@ function InstructionSvgImage({
 }: {
   instruction: ToolAssistanceInstruction;
   mediumSize: boolean;
-}): React.ReactNode {
-  let image: React.ReactNode;
+}) {
   let className = mediumSize
     ? "uifw-toolassistance-svg-medium"
     : "uifw-toolassistance-svg";
+  let svgImage: React.ReactNode;
+  let module: StrataKitIconProps["module"];
 
-  if (
-    typeof instruction.image !== "string" &&
-    instruction.image !== ToolAssistanceImage.Keyboard
-  ) {
-    const toolAssistanceImage: ToolAssistanceImage = instruction.image;
-    let svgImage: React.ReactNode;
-
-    switch (toolAssistanceImage) {
-      case ToolAssistanceImage.AcceptPoint:
-        svgImage = <SvgAdd />;
-        break;
-      case ToolAssistanceImage.CursorClick:
-        svgImage = <SvgCursorClick />;
-        break;
-      case ToolAssistanceImage.LeftClick:
-        svgImage = <SvgMouseClickLeft />;
-        break;
-      case ToolAssistanceImage.RightClick:
-        svgImage = <SvgMouseClickRight />;
-        break;
-      case ToolAssistanceImage.MouseWheel:
-        svgImage = <SvgMouseClickWheel />;
-        break;
-      case ToolAssistanceImage.LeftClickDrag:
-        svgImage = <SvgMouseClickLeftDrag />;
-        className = mediumSize
-          ? "uifw-toolassistance-svg-medium-wide"
-          : "uifw-toolassistance-svg-wide";
-        break;
-      case ToolAssistanceImage.RightClickDrag:
-        svgImage = <SvgMouseClickRightDrag />;
-        className = mediumSize
-          ? "uifw-toolassistance-svg-medium-wide"
-          : "uifw-toolassistance-svg-wide";
-        break;
-      case ToolAssistanceImage.MouseWheelClickDrag:
-        svgImage = <SvgMouseClickWheelDrag />;
-        className = mediumSize
-          ? "uifw-toolassistance-svg-medium-wide"
-          : "uifw-toolassistance-svg-wide";
-        break;
-      case ToolAssistanceImage.OneTouchTap:
-        svgImage = <SvgGestureOneFingerTap />;
-        break;
-      case ToolAssistanceImage.OneTouchDoubleTap:
-        svgImage = <SvgGestureOneFingerTapDouble />;
-        break;
-      case ToolAssistanceImage.OneTouchDrag:
-        svgImage = <SvgGestureOneFingerDrag />;
-        break;
-      case ToolAssistanceImage.TwoTouchTap:
-        svgImage = <SvgGestureTwoFingerTap />;
-        break;
-      case ToolAssistanceImage.TwoTouchDrag:
-        svgImage = <SvgGestureTwoFingerDrag />;
-        break;
-      case ToolAssistanceImage.TwoTouchPinch:
-        svgImage = <SvgGesturePinch />;
-        break;
-      case ToolAssistanceImage.TouchCursorTap:
-        svgImage = <SvgTouchCursorPoint />;
-        break;
-      case ToolAssistanceImage.TouchCursorDrag:
-        svgImage = <SvgTouchCursorPan />;
-        className = mediumSize
-          ? "uifw-toolassistance-svg-medium-wide"
-          : "uifw-toolassistance-svg-wide";
-        break;
-    }
-
-    image = (
-      <div className={className}>
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        {svgImage && <Icon iconSpec={svgImage} />}
-      </div>
-    );
+  switch (instruction.image) {
+    case ToolAssistanceImage.AcceptPoint:
+      svgImage = <SvgAdd />;
+      module = "@stratakit/icons/add.svg";
+      break;
+    case ToolAssistanceImage.CursorClick:
+      svgImage = <SvgCursorClick />;
+      module = "@stratakit/icons/cursor-click.svg";
+      break;
+    case ToolAssistanceImage.LeftClick:
+      svgImage = <SvgMouseClickLeft />;
+      module = "@stratakit/icons/mouse-click-left.svg";
+      break;
+    case ToolAssistanceImage.RightClick:
+      svgImage = <SvgMouseClickRight />;
+      module = "@stratakit/icons/mouse-click-right.svg";
+      break;
+    case ToolAssistanceImage.MouseWheel:
+      svgImage = <SvgMouseClickWheel />;
+      module = "@stratakit/icons/mouse-click-middle.svg";
+      break;
+    case ToolAssistanceImage.LeftClickDrag:
+      svgImage = <SvgMouseClickLeftDrag />;
+      className = mediumSize
+        ? "uifw-toolassistance-svg-medium-wide"
+        : "uifw-toolassistance-svg-wide";
+      break;
+    case ToolAssistanceImage.RightClickDrag:
+      svgImage = <SvgMouseClickRightDrag />;
+      className = mediumSize
+        ? "uifw-toolassistance-svg-medium-wide"
+        : "uifw-toolassistance-svg-wide";
+      break;
+    case ToolAssistanceImage.MouseWheelClickDrag:
+      svgImage = <SvgMouseClickWheelDrag />;
+      className = mediumSize
+        ? "uifw-toolassistance-svg-medium-wide"
+        : "uifw-toolassistance-svg-wide";
+      break;
+    case ToolAssistanceImage.OneTouchTap:
+      svgImage = <SvgGestureOneFingerTap />;
+      module = "@stratakit/icons/gesture-one-finger-tap.svg";
+      break;
+    case ToolAssistanceImage.OneTouchDoubleTap:
+      svgImage = <SvgGestureOneFingerTapDouble />;
+      module = "@stratakit/icons/gesture-one-finger-double-tap.svg";
+      break;
+    case ToolAssistanceImage.OneTouchDrag:
+      svgImage = <SvgGestureOneFingerDrag />;
+      module = "@stratakit/icons/gesture-one-finger-drag.svg";
+      break;
+    case ToolAssistanceImage.TwoTouchTap:
+      svgImage = <SvgGestureTwoFingerTap />;
+      module = "@stratakit/icons/gesture-two-finger-tap.svg";
+      break;
+    case ToolAssistanceImage.TwoTouchDrag:
+      svgImage = <SvgGestureTwoFingerDrag />;
+      module = "@stratakit/icons/gesture-two-finger-drag.svg";
+      break;
+    case ToolAssistanceImage.TwoTouchPinch:
+      svgImage = <SvgGesturePinch />;
+      module = "@stratakit/icons/gesture-pinch.svg";
+      break;
+    case ToolAssistanceImage.TouchCursorTap:
+      svgImage = <SvgTouchCursorPoint />;
+      break;
+    case ToolAssistanceImage.TouchCursorDrag:
+      svgImage = <SvgTouchCursorPan />;
+      className = mediumSize
+        ? "uifw-toolassistance-svg-medium-wide"
+        : "uifw-toolassistance-svg-wide";
+      break;
   }
 
-  return image;
+  if (!svgImage) return undefined;
+  return (
+    <div className={className}>
+      <StrataKitIcon
+        module={module}
+        iconSpec={svgImage ? svgImage : undefined}
+      />
+    </div>
+  );
 }
 
 function InstructionKeyboardImage({

@@ -28,7 +28,6 @@ import {
   StandardEditorNames,
   SuppressLabelEditorParams,
 } from "@itwin/appui-abstract";
-
 import { Logger } from "@itwin/core-bentley";
 import { Point3d } from "@itwin/core-geometry";
 import { ColorByName, ColorDef } from "@itwin/core-common";
@@ -41,6 +40,10 @@ import {
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
 import { SvgFeedback, SvgPlaceholder } from "@itwin/itwinui-icons-react";
 import { ToolUtilities } from "@itwin/imodel-components-react";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgFeedback from "@stratakit/icons/feedback.svg";
+import svgPlaceholder from "@stratakit/icons/placeholder.svg";
 
 enum ToolOptions {
   Red,
@@ -467,7 +470,9 @@ class SampleToolBase extends PrimitiveTool {
       menuItems.push({
         id: "entry1",
         label: "Label1",
-        iconNode: <SvgPlaceholder />,
+        iconNode: (
+          <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
+        ),
         execute: () => {
           this.showInfoFromCursorMenu("hello from entry1");
         },
@@ -500,7 +505,9 @@ class SampleToolBase extends PrimitiveTool {
             this.showInfoFromCursorMenu("hello from entry4");
           },
         },
-        iconRightNode: <SvgPlaceholder />,
+        iconRightNode: (
+          <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
+        ),
       });
 
       UiFramework.openCursorMenu({
@@ -732,5 +739,5 @@ class SampleToolBase extends PrimitiveTool {
 
 export const SampleTool = ToolUtilities.defineIcon(
   SampleToolBase,
-  <SvgFeedback />
+  <StrataKitIcon href={svgFeedback} iconNode={<SvgFeedback />} />
 );

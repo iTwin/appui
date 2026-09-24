@@ -25,6 +25,7 @@ import { SvgSnapsOrigin } from "../icons/snaps/SvgSnapsOrigin.js";
 import { SvgSnaps } from "../icons/snaps/SvgSnaps.js";
 import { SvgSnapsPerpendicular } from "../icons/snaps/SvgSnapsPerpendicular.js";
 import { SvgSnapsTangent } from "../icons/snaps/SvgSnapsTangent.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -38,37 +39,72 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
   {
     labelKey: "snapModeField.keypoint",
     value: SnapMode.NearestKeypoint as number,
-    icon: <SvgSnaps />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-keypoint.svg"
+        iconNode={<SvgSnaps />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.intersection",
     value: SnapMode.Intersection as number,
-    icon: <SvgSnapsIntersection />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-intersection.svg"
+        iconNode={<SvgSnapsIntersection />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.center",
     value: SnapMode.Center as number,
-    icon: <SvgSnapsCenter />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-center.svg"
+        iconNode={<SvgSnapsCenter />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.nearest",
     value: SnapMode.Nearest as number,
-    icon: <SvgSnapsNearest />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-nearest.svg"
+        iconNode={<SvgSnapsNearest />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.origin",
     value: SnapMode.Origin as number,
-    icon: <SvgSnapsOrigin />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-origin.svg"
+        iconNode={<SvgSnapsOrigin />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.midpoint",
     value: SnapMode.MidPoint as number,
-    icon: <SvgSnapsMidpoint />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-midpoint.svg"
+        iconNode={<SvgSnapsMidpoint />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.bisector",
     value: SnapMode.Bisector as number,
-    icon: <SvgSnapsBisector />,
+    icon: (
+      <StrataKitIcon
+        module="@stratakit/icons/snap-bisector.svg"
+        iconNode={<SvgSnapsBisector />}
+      />
+    ),
   },
   // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
   ...(SnapMode.PerpendicularPoint === undefined
@@ -78,7 +114,12 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
           labelKey: "snapModeField.perpendicularPoint",
           // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
           value: SnapMode.PerpendicularPoint as number,
-          icon: <SvgSnapsPerpendicular />,
+          icon: (
+            <StrataKitIcon
+              module="@stratakit/icons/snap-perpendicular.svg"
+              iconNode={<SvgSnapsPerpendicular />}
+            />
+          ),
         },
       ]),
   // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
@@ -89,7 +130,12 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
           labelKey: "snapModeField.tangentPoint",
           // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
           value: SnapMode.TangentPoint as number,
-          icon: <SvgSnapsTangent />,
+          icon: (
+            <StrataKitIcon
+              module="@stratakit/icons/snap-tangent.svg"
+              iconNode={<SvgSnapsTangent />}
+            />
+          ),
         },
       ]),
 ];
@@ -165,7 +211,14 @@ export function SnapModeField(props: SnapModeFieldProps) {
         styleType="borderless"
         title={title}
         startIcon={
-          enabledSnaps.length === 1 ? enabledSnaps[0].icon : <SvgSnaps />
+          enabledSnaps.length === 1 ? (
+            enabledSnaps[0].icon
+          ) : (
+            <StrataKitIcon
+              module="@stratakit/icons/snap-keypoint.svg"
+              iconNode={<SvgSnaps />}
+            />
+          )
         }
       >
         {title}

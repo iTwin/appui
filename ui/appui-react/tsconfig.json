@@ -8,5 +8,5 @@
     "outDir": "lib",
     "types": ["vitest/globals"]
   },
-  "include": ["./src/**/*.ts*"]
+  "include": ["./src/**/*.ts*", "./types.d.ts"]
 }
