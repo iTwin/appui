@@ -16,6 +16,8 @@ import {
   WeightEditorSpec,
 } from "@itwin/imodel-components-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
+import { PortalContext } from "@stratakit/foundations";
+import { RootContext } from "@stratakit/foundations/secret-internals";
 import { CursorInformation } from "../cursor/CursorInformation.js";
 import { CursorPopupMenu } from "../cursor/cursormenu/CursorMenu.js";
 import { CursorPopupRenderer } from "../cursor/cursorpopup/CursorPopupManager.js";
@@ -185,7 +187,7 @@ export function StandardLayout(props: StandardLayoutProps) {
   useWidgetOpacity(widgetOpacity);
   useToolbarOpacity(toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement>();
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement>();
+  const [portalContainer, setPortalContainer] = React.useState<HTMLElement | null>(null);
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
@@ -225,7 +227,7 @@ export function StandardLayout(props: StandardLayoutProps) {
         ref={(el) => setMainElement(el ?? undefined)}
       >
         <WrapperContext.Provider value={mainElement ?? document.body}>
-          <ThemeProvider
+          <PortalProvider
             style={{ height: "100%" }}
             portalContainer={portalContainer}
           >
@@ -247,7 +249,7 @@ export function StandardLayout(props: StandardLayoutProps) {
                 <ChildWindowRenderer windowManager={appUi.windowManager} />
                 <div
                   className="uifw-configurableui-portalContainer"
-                  ref={(instance) => setPortalContainer(instance ?? undefined)}
+                  ref={(instance) => setPortalContainer(instance)}
                 >
                   <ContentDialogRenderer />
                   <ModelessDialogRenderer />
@@ -335,5 +337,36 @@ function IModelProvider({ children }: React.PropsWithChildren<object>) {
     <IModelConnectionProvider iModelConnection={imodel}>
       {children}
     </IModelConnectionProvider>
+  );
+}
+
+interface PortalProviderProps {
+  children?: React.ReactNode;
+  portalContainer: HTMLElement | null;
+}
+
+function PortalProvider(props: PortalProviderProps) {
+  const { children: childrenProp, portalContainer: portalContainerProp, ...rest} = props;
+
+  const rootContext = React.useContext(RootContext) ?? {};
+  const { portalProvider } = rootContext ;
+
+  const children = React.useMemo(() => {
+    if (portalProvider) {
+      return React.cloneElement(portalProvider as React.ReactElement<React.PropsWithChildren>, { children: childrenProp });
+    }
+    return childrenProp;
+  }, [portalProvider, childrenProp]);
+
+  return (
+    <PortalContext.Provider value={{ container: props.portalContainer }}>
+      <ThemeProvider
+        style={{ height: "100%" }}
+        portalContainer={portalContainerProp ?? undefined}
+        {...rest}
+      >
+        {children}
+      </ThemeProvider>
+    </PortalContext.Provider>
   );
 }
