@@ -49,6 +49,9 @@ import {
   UseWidgetHookWidget,
   ViewportContent,
 } from "@itwin/appui-test-providers";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 /** Tool settings widget can be configured by providing a URL param `toolSettings` with values `off` or `hidden`. */
 export function createWidgetApiFrontstage(): Frontstage {
@@ -231,7 +234,11 @@ function createLeftPanelWidgets(): Widget[] {
       label: "WL-1",
       icon: "icon-smiley-happy",
       canPopout: false,
-      content: <h2>Left WL-1</h2>,
+      content: (
+        <h2>
+          Left WL-1 <StrataKitMenu />
+        </h2>
+      ),
       layouts: endLayout,
     },
     {
@@ -473,3 +480,28 @@ function createToggleCustomOverlayToolbarItem() {
     },
   });
 }
+
+const StrataKitMenu = () => {
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <>
+      <Button
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : "false"}
+        onClick={(event) => setAnchorEl(event.currentTarget)}
+      >
+        User actions
+      </Button>
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>Logout</MenuItem>
+      </Menu>
+    </>
+  );
+};

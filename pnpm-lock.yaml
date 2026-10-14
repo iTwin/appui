@@ -699,6 +699,9 @@ importers:
       '@itwin/itwinui-illustrations-react':
         specifier: ^2.1.0
         version: 2.1.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      '@stratakit/foundations':
+        specifier: ^1.0.0
+        version: 1.0.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -1866,10 +1869,10 @@ packages:
     engines: {node: '>=18'}
 
   '@bentley/icons-generic-webfont@1.0.34':
-    resolution: {integrity: sha1-g3tZcYMhM114GWJgRCshi2JO/84=}
+    resolution: {integrity: sha512-5zZgs+himE2vjf39CVlDXMHCFAwSfcoORqJBk3Vji8QVCF8AIX4IX2DO6HlsIAM7szxMNqhz1kd07Xfppro6MA==}
 
   '@bentley/imodeljs-native@5.8.27':
-    resolution: {integrity: sha1-jx3sZ961aPIU7013cJyqXkqcHtQ=}
+    resolution: {integrity: sha512-sGNvkjCxspiBWJBFH9/cF23BvrZ1p1zXwjTlXzgpgdOzVM8ZWA2WFIZUo4g6MJOX5OWAD1MNgz5OP3SHC2TINQ==}
 
   '@changesets/apply-release-plan@7.1.1':
     resolution: {integrity: sha512-9qPCm/rLx/xoOFXIHGB229+4GOL76S4MC+7tyOuTsR6+1jYlfFDQORdvwR5hDA6y4FL2BPt3qpbcQIS+dW85LA==}
