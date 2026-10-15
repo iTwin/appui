@@ -62,7 +62,7 @@ export function useCommittableValue({
     initialValue
   );
   const currentValueRef = React.useRef<{
-    state: "changed" | "cancelled" | "initial";
+    state: "changed" | "cancelled" | "committed" | "initial";
     value?: Value;
   }>({
     state: "initial",
@@ -82,10 +82,19 @@ export function useCommittableValue({
       currentValueRef.current.state === "changed" &&
       !areEqual(currentValueRef.current.value, initialValueRef.current)
     ) {
+      // mark value as committed to avoid committing the same value again, i.e. when editor commits the value itself
+      // and then loses focus.
+      currentValueRef.current = {
+        state: "committed",
+        value: currentValueRef.current.value,
+      };
       onCommit(currentValueRef.current.value);
       return;
     }
-    if (currentValueRef.current.state === "cancelled") {
+    if (
+      currentValueRef.current.state === "cancelled" ||
+      currentValueRef.current.state === "committed"
+    ) {
       return;
     }
     onCancel?.();

@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { Decorator, Meta, StoryObj } from "@storybook/react-vite";
+import type { ReactNode } from "react";
 import {
   ArrayValue,
   PrimitiveValue,
@@ -17,13 +18,16 @@ import {
 import { action } from "storybook/actions";
 import {
   Orientation,
+  PropertyEditorBase,
+  PropertyEditorManager,
   PropertyValueRendererManager,
+  type PropertyEditorProps,
 } from "@itwin/components-react";
 import { MultilineTextPropertyValueRenderer } from "@itwin/components-react-internal/src/components-react/properties/renderers/value/MultilineTextPropertyValueRenderer";
 
 import { AppUiDecorator } from "../Decorators";
 import { PropertyGridStory } from "./PropertyGrid";
-import { ButtonGroup, IconButton } from "@itwin/itwinui-react";
+import { Button, ButtonGroup, IconButton } from "@itwin/itwinui-react";
 import { SvgCopy, SvgSelection } from "@itwin/itwinui-icons-react";
 
 const multilineString =
@@ -87,6 +91,8 @@ const createArrayRecord = (
 };
 
 const rendererManager = new PropertyValueRendererManager();
+
+const customArrayEditorTypeName = "customEditorArray";
 
 const meta = {
   title: "Components/PropertyGrid",
@@ -584,7 +590,9 @@ export const Editable: Story = {
     onPropertyUpdated: async ({ propertyRecord, newValue }) => {
       action("onPropertyUpdated")(
         `Property "${propertyRecord.property.name}" updated to: ${
-          (newValue as PrimitiveValue).value
+          newValue.valueFormat === PropertyValueFormat.Array
+            ? `${newValue.items.length} items`
+            : (newValue as PrimitiveValue).value
         }`
       );
       return true;
@@ -595,11 +603,13 @@ export const Editable: Story = {
         { name: "Editable", label: "Editable", expand: true },
         { name: "Readonly", label: "Readonly", expand: true },
         { name: "Disabled", label: "Disabled", expand: true },
+        { name: "Arrays", label: "Arrays", expand: true },
       ],
       records: {
         Editable: createPropertyRecords("editable_"),
         Readonly: createPropertyRecords("readonly_", { isReadonly: true }),
         Disabled: createPropertyRecords("disabled_", { isDisabled: true }),
+        Arrays: createArrayPropertyRecords(),
       },
     },
   },
@@ -803,6 +813,50 @@ rendererManager.registerRenderer(
   new MultilineTextPropertyValueRenderer()
 );
 
+/** Custom editor that appends a new item to the edited array. */
+function ArrayEditor({ propertyRecord, onCommit }: PropertyEditorProps) {
+  const arrayValue = propertyRecord?.value as ArrayValue | undefined;
+  return (
+    <Button
+      size="small"
+      onClick={() => {
+        if (!propertyRecord || !arrayValue) return;
+        const itemCount = arrayValue.items.length + 1;
+        onCommit?.({
+          propertyRecord,
+          newValue: {
+            ...arrayValue,
+            items: [
+              ...arrayValue.items,
+              PropertyRecord.fromString(
+                `Value ${itemCount}`,
+                `Item ${itemCount}`
+              ),
+            ],
+          },
+        });
+      }}
+    >
+      {`Add item (${arrayValue?.items.length ?? 0})`}
+    </Button>
+  );
+}
+
+class ArrayPropertyEditor extends PropertyEditorBase {
+  public get reactNode(): ReactNode {
+    return <ArrayEditor />;
+  }
+}
+
+try {
+  PropertyEditorManager.registerEditor(
+    customArrayEditorTypeName,
+    ArrayPropertyEditor
+  );
+} catch {
+  // Editors are registered globally. Registration throws when this module is re-evaluated, i.e. on HMR update.
+}
+
 function createPropertyRecords(
   prefix: string = "",
   recordProps?: { isDisabled?: boolean; isReadonly?: boolean }
@@ -900,6 +954,52 @@ function createPropertyRecord(
   record.isDisabled = recordProps?.isDisabled;
   record.isReadonly = recordProps?.isReadonly;
   return record;
+}
+
+/**
+ * Arrays are not editable by default, since there is no editor able to handle array values. An editor
+ * is rendered only when a custom one is registered for the array.
+ */
+function createArrayPropertyRecords() {
+  return [
+    new PropertyRecord(
+      {
+        valueFormat: PropertyValueFormat.Array,
+        items: [],
+        itemsTypeName: StandardTypeNames.String,
+      },
+      {
+        name: "emptyArrayProperty",
+        displayLabel: "Empty Array Property",
+        typename: StandardTypeNames.Array,
+      }
+    ),
+    createArrayRecord(
+      {
+        name: "arrayProperty",
+        displayLabel: "Array Property",
+        typename: StandardTypeNames.Array,
+      },
+      {
+        count: 2,
+        type: StandardTypeNames.String,
+        createItem: (index) =>
+          PropertyRecord.fromString(`Value ${index + 1}`, `Item ${index + 1}`),
+      }
+    ),
+    new PropertyRecord(
+      {
+        valueFormat: PropertyValueFormat.Array,
+        items: [],
+        itemsTypeName: StandardTypeNames.String,
+      },
+      {
+        name: "customEditorArrayProperty",
+        displayLabel: "Empty Array Property (custom editor)",
+        typename: customArrayEditorTypeName,
+      }
+    ),
+  ];
 }
 
 function createDefaultRecords() {

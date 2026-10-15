@@ -194,9 +194,11 @@ export function useTabInteractions<T extends HTMLElement>({
 
   const layoutStore = useLayoutStore();
   const tabRef = React.useRef(layoutStore.getState().tabs[id]);
-  const clickCount = React.useRef(0);
+
+  const doMinimize = React.useRef<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const doubleClickTimer = React.useRef(new Timer(300));
+
   const initialPointerPosition = React.useRef<Point | undefined>(undefined);
 
   const overflown = !widgetTabsEntryContext;
@@ -210,6 +212,13 @@ export function useTabInteractions<T extends HTMLElement>({
   );
 
   const handleClick = React.useCallback(() => {
+    if (!doubleClickTimer.current.isRunning) {
+      const widget = getWidgetState(layoutStore.getState(), widgetId);
+      const active = widget.activeTabId === id;
+      const minimized = widget.minimized;
+      doMinimize.current = !!floatingWidgetId && !minimized && active;
+    }
+
     dispatch({
       type: "WIDGET_TAB_CLICK",
       side,
@@ -217,26 +226,17 @@ export function useTabInteractions<T extends HTMLElement>({
       id,
     });
     onClick?.();
-  }, [dispatch, widgetId, id, side, onClick]);
+  }, [dispatch, widgetId, id, side, onClick, layoutStore, floatingWidgetId]);
   const handleDoubleClick = React.useCallback(() => {
     if (clickOnly) return;
+    if (!doMinimize.current) return;
+
     dispatch({
-      type: "WIDGET_TAB_DOUBLE_CLICK",
-      side,
-      widgetId,
-      floatingWidgetId,
+      type: "WIDGET_TAB_MINIMIZE",
       id,
     });
     onDoubleClick?.();
-  }, [
-    clickOnly,
-    dispatch,
-    floatingWidgetId,
-    widgetId,
-    id,
-    side,
-    onDoubleClick,
-  ]);
+  }, [clickOnly, dispatch, id, onDoubleClick]);
 
   const handleDragTabStart = useDragTab({
     tabId: id,
@@ -244,6 +244,7 @@ export function useTabInteractions<T extends HTMLElement>({
   const handleDragStart = React.useCallback(
     (pointerPosition: Point) => {
       if (clickOnly) return;
+      doubleClickTimer.current.stop();
       assert(!!ref.current);
       assert(!!initialPointerPosition.current);
       const nzBounds = measure();
@@ -328,10 +329,20 @@ export function useTabInteractions<T extends HTMLElement>({
     [handleDragStart]
   );
   const handlePointerUp = React.useCallback(() => {
-    clickCount.current++;
+    if (!initialPointerPosition.current) return;
     initialPointerPosition.current = undefined;
-    doubleClickTimer.current.start();
-  }, []);
+
+    handleClick();
+
+    const timer = doubleClickTimer.current;
+    if (!timer.isRunning) {
+      timer.start();
+      return;
+    }
+
+    timer.stop();
+    handleDoubleClick();
+  }, [handleClick, handleDoubleClick]);
 
   const pointerCaptorRef = usePointerCaptor<T>(
     handlePointerDown,
@@ -342,12 +353,6 @@ export function useTabInteractions<T extends HTMLElement>({
   const refs = useRefs(pointerCaptorRef, ref);
 
   React.useEffect(() => {
-    const timer = doubleClickTimer.current;
-    timer.setOnExecute(() => {
-      if (clickCount.current === 1) handleClick();
-      else handleDoubleClick();
-      clickCount.current = 0;
-    });
     const keydown = (e: KeyboardEvent) => {
       if (e.key === " " || e.key === Key.Enter.valueOf()) {
         handleClick();
@@ -356,10 +361,9 @@ export function useTabInteractions<T extends HTMLElement>({
     const instance = ref.current;
     instance && instance.addEventListener("keydown", keydown);
     return () => {
-      timer.setOnExecute(undefined);
       instance && instance.removeEventListener("keydown", keydown);
     };
-  }, [handleClick, handleDoubleClick]);
+  }, [handleClick]);
   return refs;
 }
 

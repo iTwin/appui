@@ -21,6 +21,7 @@ import type { PropertyGridColumnInfo } from "./PropertyGridColumns.js";
 import type { Orientation } from "../../common/Orientation.js";
 import { useTranslation } from "../../l10n/useTranslation.js";
 import { PropertyRecordEditor } from "../../new-editors/interop/PropertyRecordEditor.js";
+import { useHasCustomEditor } from "../../new-editors/interop/UseHasCustomEditor.js";
 
 /** Properties shared by all renderers and PropertyView
  * @public
@@ -185,8 +186,21 @@ export const PropertyRenderer: PropertyRendererComponent = (
     ? props.alwaysShowEditor(props.propertyRecord)
     : false;
 
+  const hasCustomEditor = useHasCustomEditor(
+    propertyRecord,
+    editorSystem ?? "legacy"
+  );
+
+  // Non primitive values have no editor to fall back to, so they are only editable through a custom editor.
+  const isEditable =
+    propertyRecord.value.valueFormat === PropertyValueFormat.Primitive ||
+    hasCustomEditor;
+
   React.useEffect(() => {
-    if (isEditing || (alwaysShowsEditor && isPropertyEditingEnabled)) {
+    if (
+      isEditable &&
+      (isEditing || (alwaysShowsEditor && isPropertyEditingEnabled))
+    ) {
       setDisplayValue(
         <PropertyRecordEditor
           propertyRecord={propertyRecord}
@@ -219,6 +233,7 @@ export const PropertyRenderer: PropertyRendererComponent = (
     isEditing,
     alwaysShowsEditor,
     isPropertyEditingEnabled,
+    isEditable,
     onClick,
     uniqueKey,
     editorSystem,

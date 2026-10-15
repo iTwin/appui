@@ -950,17 +950,14 @@ describe("NineZoneStateReducer", () => {
     });
   });
 
-  describe("WIDGET_TAB_DOUBLE_CLICK", () => {
+  describe("WIDGET_TAB_MINIMIZE", () => {
     it("should not minimize panel section", () => {
       let state = createNineZoneState();
       state = addTabs(state, ["t1"]);
       state = addPanelWidget(state, "left", "w1", ["t1"]);
       const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_DOUBLE_CLICK",
-        side: "left",
-        widgetId: "w1",
+        type: "WIDGET_TAB_MINIMIZE",
         id: "t1",
-        floatingWidgetId: undefined,
       });
       expect(newState).toEqual(state);
     });
@@ -970,11 +967,21 @@ describe("NineZoneStateReducer", () => {
       state = addTabs(state, ["t1"]);
       state = addFloatingWidget(state, "fw1", ["t1"]);
       const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_DOUBLE_CLICK",
+        type: "WIDGET_TAB_MINIMIZE",
         id: "t1",
-        side: undefined,
-        widgetId: "fw1",
-        floatingWidgetId: "fw1",
+      });
+      expect(newState.widgets.fw1.minimized).toEqual(true);
+    });
+
+    it("should not expand an already minimized floating widget", () => {
+      let state = createNineZoneState();
+      state = addTabs(state, ["t1"]);
+      state = addFloatingWidget(state, "fw1", ["t1"], undefined, {
+        minimized: true,
+      });
+      const newState = NineZoneStateReducer(state, {
+        type: "WIDGET_TAB_MINIMIZE",
+        id: "t1",
       });
       expect(newState.widgets.fw1.minimized).toEqual(true);
     });
@@ -984,11 +991,8 @@ describe("NineZoneStateReducer", () => {
       state = addTabs(state, ["t1", "t2"]);
       state = addFloatingWidget(state, "fw1", ["t1", "t2"]);
       const newState = NineZoneStateReducer(state, {
-        type: "WIDGET_TAB_DOUBLE_CLICK",
+        type: "WIDGET_TAB_MINIMIZE",
         id: "t2",
-        side: undefined,
-        widgetId: "fw1",
-        floatingWidgetId: "fw1",
       });
       expect(newState.widgets.fw1.activeTabId).toEqual("t2");
     });

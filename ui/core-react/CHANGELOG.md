@@ -1,5 +1,11 @@
 # Change Log - @itwin/core-react
 
+## 5.35.1
+
+### Patch Changes
+
+- 419f96c: Bumped `dompurify` to `^3.4.15` to resolve a security vulnerability.
+
 ## 5.35.0
 
 ### Minor Changes

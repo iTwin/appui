@@ -1,5 +1,15 @@
 # Change Log - @itwin/components-react
 
+## 5.35.1
+
+### Patch Changes
+
+- 27acb3e: Fixed `useCommittableValue` committing the same value twice when an editor commits the value itself and then loses focus, i.e. after picking a date in `Date` editor and clicking on another editor.
+- 27acb3e: Fixed editors that render content in a portal (i.e. `Enum` and `Date` editors) closing immediately after being opened when used with the new editors system. Value is now committed only when focus leaves the editor entirely, instead of when it moves into the portal rendered content.
+- 07e33a6: Property grid no longer renders a text editor for empty array and struct properties. Editors for such properties are rendered only when a custom editor is registered for them.
+- Updated dependencies [419f96c]
+  - @itwin/core-react@5.35.1
+
 ## 5.35.0
 
 ### Minor Changes

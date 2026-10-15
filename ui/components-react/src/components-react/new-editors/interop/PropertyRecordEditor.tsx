@@ -21,6 +21,7 @@ import { EditorRenderer } from "../EditorRenderer.js";
 import type { ValueMetadata } from "../values/Metadata.js";
 import type { Value } from "../values/Values.js";
 import type { WithConstraints } from "../ConstraintUtils.js";
+import type { EditorProps } from "../Types.js";
 
 interface PropertyRecordEditorBaseProps {
   propertyRecord: PropertyRecord;
@@ -139,11 +140,13 @@ export function CommittingEditor({
     onCommit,
     onCancel,
   });
+  const { onFocus, onBlur } = useCommitOnFocusOut(commit);
 
   return (
     <div
       onKeyDown={onKeydown}
-      onBlur={commit}
+      onFocus={onFocus}
+      onBlur={onBlur}
       onClick={onClick}
       role="presentation"
     >
@@ -159,4 +162,48 @@ export function CommittingEditor({
       />
     </div>
   );
+}
+
+/**
+ * Returns focus handlers that commit the value when focus leaves the editor.
+ *
+ * Commit is deferred to the end of the current task, because editors may render parts of their UI in portals
+ * (dropdowns, date pickers). Moving focus into such portal blurs the editor element, but is immediately followed by
+ * a focus event bubbling from the portal content, which cancels the pending commit.
+ */
+function useCommitOnFocusOut(commit: EditorProps["commit"]) {
+  const commitRef = React.useRef(commit);
+  commitRef.current = commit;
+  const pendingCommit = React.useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined
+  );
+
+  const cancelPendingCommit = () => {
+    if (pendingCommit.current === undefined) return false;
+    clearTimeout(pendingCommit.current);
+    pendingCommit.current = undefined;
+    return true;
+  };
+
+  React.useEffect(() => {
+    return () => {
+      // editor is removed before the pending commit is invoked, commit the value immediately.
+      if (cancelPendingCommit()) {
+        commitRef.current?.();
+      }
+    };
+  }, []);
+
+  return {
+    onFocus: () => {
+      cancelPendingCommit();
+    },
+    onBlur: () => {
+      cancelPendingCommit();
+      pendingCommit.current = setTimeout(() => {
+        pendingCommit.current = undefined;
+        commitRef.current?.();
+      });
+    },
+  };
 }

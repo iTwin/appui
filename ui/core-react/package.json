@@ -1,6 +1,6 @@
 {
   "name": "@itwin/core-react",
-  "version": "5.35.0",
+  "version": "5.35.1",
   "description": "A react component library of iTwin.js UI general purpose components",
   "type": "module",
   "types": "./lib/core-react.d.ts",
@@ -100,7 +100,7 @@
   "dependencies": {
     "@itwin/itwinui-icons-react": "^2.11.0",
     "classnames": "2.5.1",
-    "dompurify": "^3.4.12",
+    "dompurify": "^3.4.15",
     "lodash": "catalog:",
     "react-autosuggest": "^10.1.0",
     "ts-key-enum": "~2.0.13"

@@ -192,11 +192,8 @@ export interface WidgetTabClickAction {
 }
 
 /** @internal */
-export interface WidgetTabDoubleClickAction {
-  readonly type: "WIDGET_TAB_DOUBLE_CLICK";
-  readonly side: PanelSide | undefined;
-  readonly widgetId: WidgetState["id"];
-  readonly floatingWidgetId: FloatingWidgetState["id"] | undefined;
+export interface WidgetTabMinimizeAction {
+  readonly type: "WIDGET_TAB_MINIMIZE";
   readonly id: TabState["id"];
 }
 
@@ -370,7 +367,7 @@ export type NineZoneAction =
   | WidgetTabAddToWidgetAction
   | WidgetTabClickAction
   | WidgetTabCloseAction
-  | WidgetTabDoubleClickAction
+  | WidgetTabMinimizeAction
   | WidgetTabDragStartAction
   | WidgetTabDragAction
   | WidgetTabDragEndAction
