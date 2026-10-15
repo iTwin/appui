@@ -79,7 +79,7 @@ export function getQuantityFormatsSettingsManagerEntry(
     isDisabled: false,
     icon: (
       <StrataKitIcon
-        module="@stratakit/icons/measure.svg"
+        href={(importIcon) => importIcon("@stratakit/icons/measure").svgMeasure}
         iconNode={<SvgMeasure />}
       />
     ),

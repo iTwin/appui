@@ -36,12 +36,12 @@ export function PlayButton({ isPlaying, onPlay, onPause }: PlayButtonProps) {
     >
       {isPlaying ? (
         <StrataKitIcon
-          module="@stratakit/icons/pause.svg"
+          href={(importIcon) => importIcon("@stratakit/icons/pause").svgPause}
           iconNode={<SvgPause />}
         />
       ) : (
         <StrataKitIcon
-          module="@stratakit/icons/play.svg"
+          href={(importIcon) => importIcon("@stratakit/icons/play").svgPlay}
           iconNode={<SvgPlay />}
         />
       )}

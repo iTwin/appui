@@ -142,7 +142,9 @@ export class ResultSelector extends React.PureComponent<
           disabled={this.props.resultCount <= 0}
         >
           <StrataKitIcon
-            module="@stratakit/icons/chevron-left.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-left").svgChevronLeft
+            }
             iconSpec={<SvgChevronLeft />}
           />
         </button>
@@ -180,7 +182,9 @@ export class ResultSelector extends React.PureComponent<
           disabled={this.props.resultCount <= 0}
         >
           <StrataKitIcon
-            module="@stratakit/icons/chevron-right.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
             iconSpec={<SvgChevronRight />}
           />
         </button>

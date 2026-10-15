@@ -93,12 +93,16 @@ export class SearchBox extends React.Component<SearchBoxProps, SearchBoxState> {
           <span className={iconClassName}>
             {emptyString ? (
               <StrataKitIcon
-                module="@stratakit/icons/search.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/search").svgSearch
+                }
                 iconSpec={<SvgSearch />}
               />
             ) : (
               <StrataKitIcon
-                module="@stratakit/icons/dismiss.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/dismiss").svgDismiss
+                }
                 iconSpec={<SvgClose />}
               />
             )}

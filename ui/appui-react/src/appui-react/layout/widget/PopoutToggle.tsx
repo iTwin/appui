@@ -26,7 +26,9 @@ export function PopoutToggle() {
     <WidgetAction
       icon={
         <StrataKitIcon
-          module="@stratakit/icons/window-popout.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/window-popout").svgWindowPopout
+          }
           iconNode={<SvgWindowPopout />}
         />
       }

@@ -39,7 +39,7 @@ export function SelectionCountField(props: SelectionCountFieldProps) {
   return (
     <div className={className} style={props.style}>
       <StrataKitIcon
-        module="@stratakit/icons/cursor.svg"
+        href={(importIcon) => importIcon("@stratakit/icons/cursor").svgCursor}
         iconSpec={<SvgCursor />}
       />
       {props.count}

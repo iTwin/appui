@@ -198,7 +198,9 @@ export class SelectionContextToolDefinitions {
       labelKey: "UiFramework:tools.isolate",
       iconSpec: (
         <StrataKitIcon
-          module="@stratakit/icons/isolate.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/isolate").svgIsolate
+          }
           iconNode={<SvgIsolate />}
         />
       ),
@@ -249,7 +251,9 @@ export class SelectionContextToolDefinitions {
       labelKey: "UiFramework:tools.hide",
       iconSpec: (
         <StrataKitIcon
-          module="@stratakit/icons/visibility-hide.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/visibility-hide").svgVisibilityHide
+          }
           iconNode={<SvgVisibilityHide />}
         />
       ),
@@ -268,7 +272,10 @@ export class SelectionContextToolDefinitions {
       commandId: "UiFramework.EmphasizeSelected",
       iconSpec: (
         <StrataKitIcon
-          module="@stratakit/icons/visibility-partial.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/visibility-partial")
+              .svgVisibilityPartial
+          }
           iconNode={<SvgVisibilityHalf />}
         />
       ),
@@ -284,7 +291,9 @@ export class SelectionContextToolDefinitions {
       commandId: "UiFramework.ClearHideIsolateEmphasize",
       iconSpec: (
         <StrataKitIcon
-          module="@stratakit/icons/visibility-show.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/visibility-show").svgVisibilityShow
+          }
           iconNode={<SvgVisibilityShow />}
         />
       ),

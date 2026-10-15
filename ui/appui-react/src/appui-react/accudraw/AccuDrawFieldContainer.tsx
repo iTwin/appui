@@ -397,7 +397,10 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               // eslint-disable-next-line @typescript-eslint/no-deprecated
               uiSettings?.distanceIcon ?? (
                 <StrataKitIcon
-                  module="@stratakit/icons/measure-distance.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/measure-distance")
+                      .svgMeasureDistance
+                  }
                   iconNode={<SvgDistance />}
                 />
               )
@@ -425,7 +428,9 @@ export function AccuDrawFieldContainer(props: AccuDrawFieldContainerProps) {
               // eslint-disable-next-line @typescript-eslint/no-deprecated
               uiSettings?.angleIcon ?? (
                 <StrataKitIcon
-                  module="@stratakit/icons/measure-angle.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/measure-angle").svgMeasureAngle
+                  }
                   iconNode={<SvgAngle />}
                 />
               )

@@ -40,7 +40,7 @@ class OpenSettingsCoreTool extends Tool {
 export const OpenSettingsTool = ToolUtilities.defineIcon(
   OpenSettingsCoreTool,
   <StrataKitIcon
-    module="@stratakit/icons/settings.svg"
+    href={(importIcon) => importIcon("@stratakit/icons/settings").svgSettings}
     iconNode={<SvgSettings />}
   />
 );

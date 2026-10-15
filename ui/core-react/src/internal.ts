@@ -50,4 +50,5 @@ export { Rectangle } from "./core-react/utils/Rectangle.js";
 export {
   StrataKitIconContext,
   StrataKitIcon,
+  StrataKitIconModules,
 } from "./core-react/StrataKitIcon.js";

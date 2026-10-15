@@ -24,7 +24,9 @@ export function Dock() {
     <WidgetAction
       icon={
         <StrataKitIcon
-          module="@stratakit/icons/dock-top.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/dock-top").svgDockTop
+          }
           iconNode={<SvgDockTop />}
         />
       }

@@ -165,7 +165,9 @@ export class Calculator extends React.PureComponent<
             onClick={this._handleOk}
           >
             <StrataKitIcon
-              module="@stratakit/icons/checkmark.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/checkmark").svgCheckmark
+              }
               iconSpec={<SvgCheckmark />}
             />
           </Button>
@@ -177,7 +179,9 @@ export class Calculator extends React.PureComponent<
             onClick={this._handleCancel}
           >
             <StrataKitIcon
-              module="@stratakit/icons/dismiss.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/dismiss").svgDismiss
+              }
               iconSpec={<SvgRemove />}
             />
           </Button>

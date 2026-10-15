@@ -37,7 +37,7 @@ import {
 import { StrataKitIcon } from "@itwin/core-react/internal";
 
 type StrataKitIconProps = React.ComponentProps<typeof StrataKitIcon>;
-type StrataKitIconModule = NonNullable<StrataKitIconProps["module"]>;
+type StrataKitIconHrefFn = NonNullable<StrataKitIconProps>["href"];
 
 /** @public */
 export enum CubeNavigationHitBoxX {
@@ -1016,11 +1016,15 @@ const pointerIconSpec: { [key: number]: IconSpec } = {
   [Pointer.Right]: <SvgCaretLeft />,
 };
 
-const pointerStrataKitIcon: { [key: number]: StrataKitIconModule } = {
-  [Pointer.Up]: "@stratakit/icons/caret-down.svg",
-  [Pointer.Down]: "@stratakit/icons/caret-up.svg",
-  [Pointer.Left]: "@stratakit/icons/caret-right.svg",
-  [Pointer.Right]: "@stratakit/icons/caret-left.svg",
+const pointerStrataKitIcon: { [key: number]: StrataKitIconHrefFn } = {
+  [Pointer.Up]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-down").svgCaretDown,
+  [Pointer.Down]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-up").svgCaretUp,
+  [Pointer.Left]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-right").svgCaretRight,
+  [Pointer.Right]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-left").svgCaretLeft,
 };
 
 const pointerClass: { [key: number]: string } = {
@@ -1059,7 +1063,7 @@ class PointerButton extends React.Component<PointerProps> {
         onClick={this._handleClick}
       >
         <StrataKitIcon
-          module={pointerStrataKitIcon[pointerType]}
+          href={pointerStrataKitIcon[pointerType]}
           iconSpec={pointerIconSpec[pointerType]}
         />
       </div>

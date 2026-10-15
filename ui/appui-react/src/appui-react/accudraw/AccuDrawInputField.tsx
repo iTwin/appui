@@ -231,7 +231,7 @@ const ForwardRefAccuDrawInput = React.forwardRef<
       <span className="uifw-accudraw-lock">
         {isLocked && (
           <StrataKitIcon
-            module="@stratakit/icons/lock.svg"
+            href={(importIcon) => importIcon("@stratakit/icons/lock").svgLock}
             iconNode={<SvgLock />}
           />
         )}

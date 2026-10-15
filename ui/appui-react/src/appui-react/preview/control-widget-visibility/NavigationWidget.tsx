@@ -36,7 +36,7 @@ export function NavigationWidget({
             className="uifw-preview-navigationWidget_add"
             startIcon={
               <StrataKitIcon
-                module="@stratakit/icons/add.svg"
+                href={(importIcon) => importIcon("@stratakit/icons/add").svgAdd}
                 iconNode={<SvgAdd />}
               />
             }

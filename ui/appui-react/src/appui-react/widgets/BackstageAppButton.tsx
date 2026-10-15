@@ -58,7 +58,10 @@ export function BackstageAppButton({
     <StrataKitIcon iconSpec={iconSpec} />
   ) : undefined;
   const icon = iconNode ?? iconSpecElement ?? (
-    <StrataKitIcon module="@stratakit/icons/home.svg" iconNode={<SvgHome />} />
+    <StrataKitIcon
+      href={(importIcon) => importIcon("@stratakit/icons/home").svgHome}
+      iconNode={<SvgHome />}
+    />
   );
   return (
     <Surface orientation="horizontal">

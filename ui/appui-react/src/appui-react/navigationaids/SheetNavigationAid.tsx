@@ -201,7 +201,9 @@ export class SheetNavigationAid extends React.Component<
               label={leftTitle}
             >
               <StrataKitIcon
-                module="@stratakit/icons/chevron-left.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/chevron-left").svgChevronLeft
+                }
                 iconNode={<SvgChevronLeft />}
               />
             </IconButton>
@@ -218,7 +220,9 @@ export class SheetNavigationAid extends React.Component<
               label={rightTitle}
             >
               <StrataKitIcon
-                module="@stratakit/icons/chevron-right.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/chevron-right").svgChevronRight
+                }
                 iconNode={<SvgChevronRight />}
               />
             </IconButton>

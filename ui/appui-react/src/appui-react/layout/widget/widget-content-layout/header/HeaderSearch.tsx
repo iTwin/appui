@@ -63,7 +63,9 @@ export function HeaderSearch(props: HeaderSearchProps) {
           disabled={props.disableSearch}
         >
           <StrataKitIcon
-            module="@stratakit/icons/search.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/search").svgSearch
+            }
             iconNode={<SvgSearch />}
           />
         </SearchBox.ExpandButton>
@@ -71,7 +73,9 @@ export function HeaderSearch(props: HeaderSearchProps) {
       <SearchBox.ExpandedState>
         <SearchBox.Icon size={props.iconSize}>
           <StrataKitIcon
-            module="@stratakit/icons/search.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/search").svgSearch
+            }
             iconNode={<SvgSearch />}
           />
         </SearchBox.Icon>
@@ -94,7 +98,9 @@ export function HeaderSearch(props: HeaderSearchProps) {
           }}
         >
           <StrataKitIcon
-            module="@stratakit/icons/dismiss.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/dismiss").svgDismiss
+            }
             iconNode={<SvgClose />}
           />
         </SearchBox.CollapseButton>

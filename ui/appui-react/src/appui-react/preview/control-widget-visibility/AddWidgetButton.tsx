@@ -54,7 +54,10 @@ export function AddWidgetButton() {
     });
 
   const icon = (
-    <StrataKitIcon module="@stratakit/icons/add.svg" iconNode={<SvgAdd />} />
+    <StrataKitIcon
+      href={(importIcon) => importIcon("@stratakit/icons/add").svgAdd}
+      iconNode={<SvgAdd />}
+    />
   );
   if (dropdownContext !== undefined) {
     return (

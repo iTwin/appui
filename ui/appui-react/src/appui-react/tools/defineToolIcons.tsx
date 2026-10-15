@@ -39,11 +39,17 @@ function RotateViewIcon() {
     SyncUiEventId.ViewStateChanged,
   ]);
 
-  const module = is2d
-    ? "@stratakit/icons/rotate-left.svg"
-    : "@stratakit/icons/rotate-point.svg";
   const iconNode = is2d ? <SvgRotateLeft /> : <SvgGyroscope />;
-  return <StrataKitIcon module={module} iconNode={iconNode} />;
+  return (
+    <StrataKitIcon
+      href={(importIcon) => {
+        const { svgRotateLeft } = importIcon("@stratakit/icons/rotate-left");
+        const { svgRotatePoint } = importIcon("@stratakit/icons/rotate-point");
+        return is2d ? svgRotateLeft : svgRotatePoint;
+      }}
+      iconNode={iconNode}
+    />
+  );
 }
 
 function ToggleCameraViewIcon() {
@@ -56,9 +62,11 @@ function ToggleCameraViewIcon() {
     SyncUiEventId.ViewStateChanged,
   ]);
 
-  const module = cameraEnabled
-    ? "@stratakit/icons/camera-video.svg"
-    : "@stratakit/icons/camera-video-disabled.svg";
+  const href: React.ComponentProps<typeof StrataKitIcon>["href"] = cameraEnabled
+    ? (importIcon) => importIcon("@stratakit/icons/camera-video").svgCameraVideo
+    : (importIcon) =>
+        importIcon("@stratakit/icons/camera-video-disabled")
+          .svgCameraVideoDisabled;
   const iconNode = cameraEnabled ? (
     <SvgCameraAnimation />
   ) : (
@@ -66,7 +74,7 @@ function ToggleCameraViewIcon() {
   );
   return (
     <StrataKitIcon
-      module={module}
+      href={href}
       iconNode={iconNode}
       iconSpec={ViewToggleCameraTool.iconSpec}
     />

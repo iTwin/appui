@@ -46,7 +46,9 @@ export class NonPrimitivePropertyLabelRenderer extends React.PureComponent<NonPr
       >
         <div className={this.props.isExpanded ? "components-expanded" : ""}>
           <StrataKitIcon
-            module="@stratakit/icons/chevron-right.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
             iconNode={<SvgChevronRight />}
           />
         </div>

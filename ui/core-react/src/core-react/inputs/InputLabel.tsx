@@ -20,7 +20,6 @@ import type {
   LabeledComponentProps,
   MessagedComponentProps,
 } from "./LabeledComponentProps.js";
-import type { StrataKitIconModule } from "../StrataKitIcon.js";
 import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
@@ -44,10 +43,17 @@ const inputLabelIconSpec: { [key: string]: IconSpec } = {
   [InputStatus.Warning]: <SvgStatusWarning />,
 };
 
-const inputLabelStrataKitIcon: { [key: string]: StrataKitIconModule } = {
-  [InputStatus.Error]: "@stratakit/icons/status-error.svg",
-  [InputStatus.Success]: "@stratakit/icons/status-success.svg",
-  [InputStatus.Warning]: "@stratakit/icons/status-warning.svg",
+const inputLabelStrataKitIcon: {
+  [key: string]: NonNullable<
+    React.ComponentProps<typeof StrataKitIcon>["href"]
+  >;
+} = {
+  [InputStatus.Error]: (importIcon) =>
+    importIcon("@stratakit/icons/status-error").svgStatusError,
+  [InputStatus.Success]: (importIcon) =>
+    importIcon("@stratakit/icons/status-success").svgStatusSuccess,
+  [InputStatus.Warning]: (importIcon) =>
+    importIcon("@stratakit/icons/status-warning").svgStatusWarning,
 };
 
 /** Text input wrapper that provides additional styling and labeling
@@ -91,7 +97,7 @@ export class InputLabel extends React.PureComponent<InputLabelProps> {
           {status && (
             <StrataKitIcon
               className="icon"
-              module={inputLabelStrataKitIcon[status]}
+              href={inputLabelStrataKitIcon[status]}
               iconSpec={inputLabelIconSpec[status]}
             />
           )}

@@ -204,7 +204,9 @@ export class EnumButtonGroupEditor
       >
         {this.state.enumIcons[index].iconSpec === "" ? (
           <StrataKitIcon
-            module="@stratakit/icons/placeholder.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/placeholder").svgPlaceholder
+            }
             iconSpec={<SvgPlaceholder />}
           />
         ) : (

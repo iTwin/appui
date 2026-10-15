@@ -329,12 +329,16 @@ export function ToolAssistanceField(props: Props) {
             >
               {pinned ? (
                 <StrataKitIcon
-                  module="@stratakit/icons/dismiss.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/dismiss").svgDismiss
+                  }
                   iconNode={<SvgClose />}
                 />
               ) : (
                 <StrataKitIcon
-                  module="@stratakit/icons/pin.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/pin").svgPin
+                  }
                   iconNode={<SvgPin />}
                 />
               )}
@@ -551,28 +555,32 @@ function InstructionSvgImage({
     ? "uifw-toolassistance-svg-medium"
     : "uifw-toolassistance-svg";
   let svgImage: React.ReactNode;
-  let module: StrataKitIconProps["module"];
+  let href: StrataKitIconProps["href"];
 
   switch (instruction.image) {
     case ToolAssistanceImage.AcceptPoint:
       svgImage = <SvgAdd />;
-      module = "@stratakit/icons/add.svg";
+      href = (importIcon) => importIcon("@stratakit/icons/add").svgAdd;
       break;
     case ToolAssistanceImage.CursorClick:
       svgImage = <SvgCursorClick />;
-      module = "@stratakit/icons/cursor-click.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/cursor-click").svgCursorClick;
       break;
     case ToolAssistanceImage.LeftClick:
       svgImage = <SvgMouseClickLeft />;
-      module = "@stratakit/icons/mouse-click-left.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/mouse-click-left").svgMouseClickLeft;
       break;
     case ToolAssistanceImage.RightClick:
       svgImage = <SvgMouseClickRight />;
-      module = "@stratakit/icons/mouse-click-right.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/mouse-click-right").svgMouseClickRight;
       break;
     case ToolAssistanceImage.MouseWheel:
       svgImage = <SvgMouseClickWheel />;
-      module = "@stratakit/icons/mouse-click-middle.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/mouse-click-middle").svgMouseClickMiddle;
       break;
     case ToolAssistanceImage.LeftClickDrag:
       svgImage = <SvgMouseClickLeftDrag />;
@@ -594,27 +602,38 @@ function InstructionSvgImage({
       break;
     case ToolAssistanceImage.OneTouchTap:
       svgImage = <SvgGestureOneFingerTap />;
-      module = "@stratakit/icons/gesture-one-finger-tap.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/gesture-one-finger-tap")
+          .svgGestureOneFingerTap;
       break;
     case ToolAssistanceImage.OneTouchDoubleTap:
       svgImage = <SvgGestureOneFingerTapDouble />;
-      module = "@stratakit/icons/gesture-one-finger-double-tap.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/gesture-one-finger-double-tap")
+          .svgGestureOneFingerDoubleTap;
       break;
     case ToolAssistanceImage.OneTouchDrag:
       svgImage = <SvgGestureOneFingerDrag />;
-      module = "@stratakit/icons/gesture-one-finger-drag.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/gesture-one-finger-drag")
+          .svgGestureOneFingerDrag;
       break;
     case ToolAssistanceImage.TwoTouchTap:
       svgImage = <SvgGestureTwoFingerTap />;
-      module = "@stratakit/icons/gesture-two-finger-tap.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/gesture-two-finger-tap")
+          .svgGestureTwoFingerTap;
       break;
     case ToolAssistanceImage.TwoTouchDrag:
       svgImage = <SvgGestureTwoFingerDrag />;
-      module = "@stratakit/icons/gesture-two-finger-drag.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/gesture-two-finger-drag")
+          .svgGestureTwoFingerDrag;
       break;
     case ToolAssistanceImage.TwoTouchPinch:
       svgImage = <SvgGesturePinch />;
-      module = "@stratakit/icons/gesture-pinch.svg";
+      href = (importIcon) =>
+        importIcon("@stratakit/icons/gesture-pinch").svgGesturePinch;
       break;
     case ToolAssistanceImage.TouchCursorTap:
       svgImage = <SvgTouchCursorPoint />;
@@ -630,10 +649,7 @@ function InstructionSvgImage({
   if (!svgImage) return undefined;
   return (
     <div className={className}>
-      <StrataKitIcon
-        module={module}
-        iconSpec={svgImage ? svgImage : undefined}
-      />
+      <StrataKitIcon href={href} iconSpec={svgImage ? svgImage : undefined} />
     </div>
   );
 }

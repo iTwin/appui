@@ -37,7 +37,7 @@ class ClearKeyinPaletteHistoryCoreTool extends Tool {
 export const ClearKeyinPaletteHistoryTool = ToolUtilities.defineIcon(
   ClearKeyinPaletteHistoryCoreTool,
   <StrataKitIcon
-    module="@stratakit/icons/dismiss.svg"
+    href={(importIcon) => importIcon("@stratakit/icons/dismiss").svgDismiss}
     iconNode={<SvgRemove />}
   />
 );

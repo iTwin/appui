@@ -168,7 +168,9 @@ export class ContextSubMenu extends React.Component<
           <div className={"core-context-menu-content"}>{this._parsedLabel}</div>
           <div className={classnames("core-context-submenu-arrow", "icon")}>
             <StrataKitIcon
-              module="@stratakit/icons/caret-right.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/caret-right").svgCaretRight
+              }
               iconSpec={<SvgCaretRightSmall />}
             />
           </div>

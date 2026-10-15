@@ -16,39 +16,43 @@ export const StrataKitIconContext = React.createContext<
 >(undefined);
 
 /** @internal */
-export type StrataKitIconModule =
-  | "@stratakit/icons/add.svg"
-  | "@stratakit/icons/caret-down.svg"
-  | "@stratakit/icons/caret-left.svg"
-  | "@stratakit/icons/caret-right.svg"
-  | "@stratakit/icons/caret-up.svg"
-  | "@stratakit/icons/calendar.svg"
-  | "@stratakit/icons/checkmark.svg"
-  | "@stratakit/icons/chevron-down.svg"
-  | "@stratakit/icons/chevron-left.svg"
-  | "@stratakit/icons/chevron-right.svg"
-  | "@stratakit/icons/delete.svg"
-  | "@stratakit/icons/dismiss.svg"
-  | "@stratakit/icons/help.svg"
-  | "@stratakit/icons/info.svg"
-  | "@stratakit/icons/loop.svg"
-  | "@stratakit/icons/moon.svg"
-  | "@stratakit/icons/pause.svg"
-  | "@stratakit/icons/placeholder.svg"
-  | "@stratakit/icons/play.svg"
-  | "@stratakit/icons/rotate-left.svg"
-  | "@stratakit/icons/search.svg"
-  | "@stratakit/icons/settings.svg"
-  | "@stratakit/icons/sort-descending.svg"
-  | "@stratakit/icons/status-error.svg"
-  | "@stratakit/icons/status-rejected.svg"
-  | "@stratakit/icons/status-success.svg"
-  | "@stratakit/icons/status-warning.svg"
-  | "@stratakit/icons/sun.svg";
+export interface StrataKitIconModules {
+  "@stratakit/icons/add": Record<"svgAdd", string>;
+  "@stratakit/icons/caret-down": Record<"svgCaretDown", string>;
+  "@stratakit/icons/caret-left": Record<"svgCaretLeft", string>;
+  "@stratakit/icons/caret-right": Record<"svgCaretRight", string>;
+  "@stratakit/icons/caret-up": Record<"svgCaretUp", string>;
+  "@stratakit/icons/calendar": Record<"svgCalendar", string>;
+  "@stratakit/icons/checkmark": Record<"svgCheckmark", string>;
+  "@stratakit/icons/chevron-down": Record<"svgChevronDown", string>;
+  "@stratakit/icons/chevron-left": Record<"svgChevronLeft", string>;
+  "@stratakit/icons/chevron-right": Record<"svgChevronRight", string>;
+  "@stratakit/icons/delete": Record<"svgDelete", string>;
+  "@stratakit/icons/dismiss": Record<"svgDismiss", string>;
+  "@stratakit/icons/help": Record<"svgHelp", string>;
+  "@stratakit/icons/info": Record<"svgInfo", string>;
+  "@stratakit/icons/loop": Record<"svgLoop", string>;
+  "@stratakit/icons/moon": Record<"svgMoon", string>;
+  "@stratakit/icons/pause": Record<"svgPause", string>;
+  "@stratakit/icons/placeholder": Record<"svgPlaceholder", string>;
+  "@stratakit/icons/play": Record<"svgPlay", string>;
+  "@stratakit/icons/rotate-left": Record<"svgRotateLeft", string>;
+  "@stratakit/icons/search": Record<"svgSearch", string>;
+  "@stratakit/icons/settings": Record<"svgSettings", string>;
+  "@stratakit/icons/sort-descending": Record<"svgSortDescending", string>;
+  "@stratakit/icons/status-error": Record<"svgStatusError", string>;
+  "@stratakit/icons/status-rejected": Record<"svgStatusRejected", string>;
+  "@stratakit/icons/status-success": Record<"svgStatusSuccess", string>;
+  "@stratakit/icons/status-warning": Record<"svgStatusWarning", string>;
+  "@stratakit/icons/sun": Record<"svgSun", string>;
+}
 
-interface StrataKitIconProps extends React.ComponentProps<"svg"> {
-  /** `href` is resolved from the specified StrataKit icon module. */
-  module?: StrataKitIconModule;
+interface StrataKitIconProps extends Omit<React.ComponentProps<"svg">, "href"> {
+  href?: (
+    importIcon: <M extends keyof StrataKitIconModules>(
+      path: M
+    ) => StrataKitIconModules[M]
+  ) => string | undefined;
   iconNode?: React.ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;

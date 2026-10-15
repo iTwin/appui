@@ -403,7 +403,9 @@ export function getUiSettingsManagerEntry(
     label: UiFramework.translate("settings.uiSettingsPage.label"),
     icon: (
       <StrataKitIcon
-        module="@stratakit/icons/window-settings.svg"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/window-settings").svgWindowSettings
+        }
         iconNode={<SvgWindowSettings />}
       />
     ),

@@ -94,7 +94,7 @@ function Timeline(props: TimelineProps) {
         minLabel={
           <Tooltip content={sunRiseStr}>
             <StrataKitIcon
-              module="@stratakit/icons/sun.svg"
+              href={(importIcon) => importIcon("@stratakit/icons/sun").svgSun}
               iconNode={
                 <Icon>
                   <SvgSun />
@@ -106,7 +106,7 @@ function Timeline(props: TimelineProps) {
         maxLabel={
           <Tooltip content={sunSetStr}>
             <StrataKitIcon
-              module="@stratakit/icons/moon.svg"
+              href={(importIcon) => importIcon("@stratakit/icons/moon").svgMoon}
               iconNode={
                 <Icon>
                   <SvgMoon />
@@ -571,7 +571,7 @@ export class SolarTimeline extends React.PureComponent<
             isActive={loop}
           >
             <StrataKitIcon
-              module="@stratakit/icons/loop.svg"
+              href={(importIcon) => importIcon("@stratakit/icons/loop").svgLoop}
               iconNode={<SvgLoop />}
             />
           </IconButton>
@@ -610,7 +610,9 @@ export class SolarTimeline extends React.PureComponent<
               onClick={this._onOpenSettingsPopup}
             >
               <StrataKitIcon
-                module="@stratakit/icons/settings.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/settings").svgSettings
+                }
                 iconNode={<SvgSettings />}
               />
             </IconButton>
@@ -637,7 +639,9 @@ const CalendarButton = React.forwardRef<HTMLButtonElement, CalendarButtonProps>(
           styleType="borderless"
           startIcon={
             <StrataKitIcon
-              module="@stratakit/icons/calendar.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/calendar").svgCalendar
+              }
               iconNode={<SvgCalendar />}
             />
           }

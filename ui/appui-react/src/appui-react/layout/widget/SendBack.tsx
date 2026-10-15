@@ -90,22 +90,28 @@ function Icon() {
   const home = useLayout((state) => state.floatingWidgets.byId[id].home);
   return home.side === "left" ? (
     <StrataKitIcon
-      module="@stratakit/icons/dock-left.svg"
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/dock-left").svgDockLeft
+      }
       iconNode={<SvgDockLeft />}
     />
   ) : home.side === "right" ? (
     <StrataKitIcon
-      module="@stratakit/icons/dock-right.svg"
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/dock-right").svgDockRight
+      }
       iconNode={<SvgDockRight />}
     />
   ) : home.side === "top" ? (
     <StrataKitIcon
-      module="@stratakit/icons/dock-top.svg"
+      href={(importIcon) => importIcon("@stratakit/icons/dock-top").svgDockTop}
       iconNode={<SvgDockTop />}
     />
   ) : (
     <StrataKitIcon
-      module="@stratakit/icons/dock-bottom.svg"
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/dock-bottom").svgDockBottom
+      }
       iconNode={<SvgDockBottom />}
     />
   );

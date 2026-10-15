@@ -191,7 +191,9 @@ export class FilteringInput extends React.PureComponent<
                 title={searchLabel}
               >
                 <StrataKitIcon
-                  module="@stratakit/icons/search.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/search").svgSearch
+                  }
                   iconSpec={<SvgSearch />}
                 />
               </span>
@@ -207,7 +209,9 @@ export class FilteringInput extends React.PureComponent<
                 title={UiComponents.translate("dialog.cancel")}
               >
                 <StrataKitIcon
-                  module="@stratakit/icons/dismiss.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/dismiss").svgDismiss
+                  }
                   iconSpec={<SvgClose />}
                 />
               </span>
@@ -223,7 +227,9 @@ export class FilteringInput extends React.PureComponent<
                 title={UiComponents.translate("general.clear")}
               >
                 <StrataKitIcon
-                  module="@stratakit/icons/dismiss.svg"
+                  href={(importIcon) =>
+                    importIcon("@stratakit/icons/dismiss").svgDismiss
+                  }
                   iconSpec={<SvgClose />}
                 />
               </span>

@@ -33,7 +33,9 @@ export function MaximizeToggle() {
           label: "Restore",
           iconSpec: (
             <StrataKitIcon
-              module="@stratakit/icons/window-minimize.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/window-minimize").svgWindowMinimize
+              }
               iconNode={<SvgWindowMinimize />}
             />
           ),
@@ -43,7 +45,9 @@ export function MaximizeToggle() {
           label: "Maximize",
           iconSpec: (
             <StrataKitIcon
-              module="@stratakit/icons/window-maximize.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/window-maximize").svgWindowMaximize
+              }
               iconNode={<SvgWindowMaximize />}
             />
           ),

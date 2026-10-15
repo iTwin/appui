@@ -58,7 +58,9 @@ export const OverflowButton = React.forwardRef<
         styleType="borderless"
       >
         <StrataKitIcon
-          module="@stratakit/icons/more-horizontal.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/more-horizontal").svgMoreHorizontal
+          }
           iconNode={<SvgMore />}
         />
       </IconButton>

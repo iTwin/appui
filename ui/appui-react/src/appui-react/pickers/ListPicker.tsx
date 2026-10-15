@@ -166,12 +166,16 @@ export class ExpandableSection extends React.PureComponent<
 
     const icon = this.state.expanded ? (
       <StrataKitIcon
-        module="@stratakit/icons/chevron-down.svg"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/chevron-down").svgChevronDown
+        }
         iconSpec={<SvgChevronDown />}
       />
     ) : (
       <StrataKitIcon
-        module="@stratakit/icons/chevron-right.svg"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/chevron-right").svgChevronRight
+        }
         iconSpec={<SvgChevronRight />}
       />
     );
@@ -295,7 +299,10 @@ function ListPickerPopupItem(props: ListPickerProps) {
     <StrataKitIcon iconSpec={props.iconSpec} />
   ) : undefined;
   const defaultIcon = (
-    <StrataKitIcon module="@stratakit/icons/list.svg" iconSpec={<SvgList />} />
+    <StrataKitIcon
+      href={(importIcon) => importIcon("@stratakit/icons/list").svgList}
+      iconSpec={<SvgList />}
+    />
   );
   const icon = props.icon ?? iconSpecIcon ?? defaultIcon;
 

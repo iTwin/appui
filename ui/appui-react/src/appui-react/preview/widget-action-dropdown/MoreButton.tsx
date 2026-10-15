@@ -33,7 +33,9 @@ export function MoreButton(props: React.PropsWithChildren<object>) {
       <div style={{ height: "100%", display: "flex", marginInline: "0.25em" }}>
         <TabBarButton label="More actions">
           <StrataKitIcon
-            module="@stratakit/icons/more-vertical.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/more-vertical").svgMoreVertical
+            }
             iconNode={<SvgMoreVertical />}
           />
         </TabBarButton>

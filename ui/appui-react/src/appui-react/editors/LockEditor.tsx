@@ -81,12 +81,14 @@ const LockEditor = React.forwardRef<TypeEditor, PropertyEditorProps>(
       >
         {currentValue ? (
           <StrataKitIcon
-            module="@stratakit/icons/lock.svg"
+            href={(importIcon) => importIcon("@stratakit/icons/lock").svgLock}
             iconNode={<SvgLock />}
           />
         ) : (
           <StrataKitIcon
-            module="@stratakit/icons/lock-unlocked.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/lock-unlocked").svgLockUnlocked
+            }
             iconNode={<SvgLockUnlocked />}
           />
         )}

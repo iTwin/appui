@@ -233,7 +233,9 @@ export function DatePicker(props: DatePickerProps) {
           onClick={handleMoveToPreviousMonth}
         >
           <StrataKitIcon
-            module="@stratakit/icons/chevron-left.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-left").svgChevronLeft
+            }
             iconSpec={<SvgChevronLeft />}
           />
         </button>
@@ -246,7 +248,9 @@ export function DatePicker(props: DatePickerProps) {
           onClick={handleMoveToNextMonth}
         >
           <StrataKitIcon
-            module="@stratakit/icons/chevron-right.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
             iconSpec={<SvgChevronRight />}
           />
         </button>

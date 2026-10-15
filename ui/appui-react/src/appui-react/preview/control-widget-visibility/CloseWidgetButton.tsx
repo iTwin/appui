@@ -24,7 +24,9 @@ export function CloseWidgetButton() {
     <WidgetAction
       icon={
         <StrataKitIcon
-          module="@stratakit/icons/dismiss.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/dismiss").svgDismiss
+          }
           iconNode={<SvgCloseSmall />}
         />
       }

@@ -32,7 +32,7 @@ catalog:
   '@itwin/webgl-compatibility': ^5.8.1
   '@mui/material': ^9.4.0
   '@stratakit/foundations': ^1.0.0
-  '@stratakit/icons': ^0.4.3
+  '@stratakit/icons': ^0.4.6
   '@stratakit/mui': ^1.0.0
   '@types/lodash': ^4.17.24
   '@types/react': ^19.2.14

@@ -120,7 +120,9 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
       label: UiFramework.translate("settings.settingsStageLabel"),
       icon: (
         <StrataKitIcon
-          module="@stratakit/icons/settings.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/settings").svgSettings
+          }
           iconNode={<SvgSettings />}
         />
       ),

@@ -181,7 +181,9 @@ export class IconPickerButton extends React.PureComponent<
           />
           <span className="icon">
             <StrataKitIcon
-              module="@stratakit/icons/chevron-down.svg"
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/chevron-down").svgChevronDown
+              }
               iconSpec={<SvgChevronDown />}
             />
           </span>

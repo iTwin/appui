@@ -315,7 +315,9 @@ export class DrawingNavigationAid extends React.Component<
               role="presentation"
             >
               <StrataKitIcon
-                module="@stratakit/icons/rotate-left.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/rotate-left").svgRotateLeft
+                }
                 iconSpec={<SvgRotateLeft />}
               />
             </div>
@@ -343,7 +345,10 @@ export class DrawingNavigationAid extends React.Component<
               >
                 <div className="close-icon icon">
                   <StrataKitIcon
-                    module="@stratakit/icons/sort-descending.svg"
+                    href={(importIcon) =>
+                      importIcon("@stratakit/icons/sort-descending")
+                        .svgSortDescending
+                    }
                     iconSpec={<SvgSortUp />}
                   />
                 </div>
@@ -357,7 +362,9 @@ export class DrawingNavigationAid extends React.Component<
                   tabIndex={-1}
                 >
                   <StrataKitIcon
-                    module="@stratakit/icons/add.svg"
+                    href={(importIcon) =>
+                      importIcon("@stratakit/icons/add").svgAdd
+                    }
                     iconSpec={<SvgAdd />}
                   />
                 </div>
@@ -369,7 +376,9 @@ export class DrawingNavigationAid extends React.Component<
                   tabIndex={-1}
                 >
                   <StrataKitIcon
-                    module="@stratakit/icons/dismiss.svg"
+                    href={(importIcon) =>
+                      importIcon("@stratakit/icons/dismiss").svgDismiss
+                    }
                     iconSpec={<SvgRemove />}
                   />
                 </div>

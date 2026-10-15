@@ -104,7 +104,9 @@ export function FormatSample(props: FormatSampleProps) {
       <span data-testid="progress-forward">
         {hideLabels && formattedValue.length > 0 && (
           <StrataKitIcon
-            module="@stratakit/icons/chevron-right.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
             iconSpec={<SvgProgressForward />}
           />
         )}

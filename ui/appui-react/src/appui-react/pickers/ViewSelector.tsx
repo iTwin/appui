@@ -464,7 +464,9 @@ export class ViewSelector extends React.Component<
         items={this.state.items}
         icon={
           <StrataKitIcon
-            module="@stratakit/icons/saved-views.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/saved-views").svgSavedViews
+            }
             iconSpec={<SvgSavedView />}
           />
         }

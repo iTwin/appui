@@ -33,12 +33,14 @@ export function PinToggle() {
       icon={
         pinned ? (
           <StrataKitIcon
-            module="@stratakit/icons/pin-unpin.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/pin-unpin").svgPinUnpin
+            }
             iconNode={<SvgPin />}
           />
         ) : (
           <StrataKitIcon
-            module="@stratakit/icons/pin.svg"
+            href={(importIcon) => importIcon("@stratakit/icons/pin").svgPin}
             iconNode={<SvgPinHollow />}
           />
         )

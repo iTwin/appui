@@ -165,7 +165,9 @@ export class PopupButton extends React.PureComponent<
               )}
             >
               <StrataKitIcon
-                module="@stratakit/icons/chevron-down.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/chevron-down").svgChevronDown
+                }
                 iconSpec={<SvgChevronDown />}
               />
             </div>
@@ -234,7 +236,9 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         onClick={props.onOk}
       >
         <StrataKitIcon
-          module="@stratakit/icons/checkmark.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/checkmark").svgCheckmark
+          }
           iconSpec={<SvgCheckmark />}
         />
       </Button>
@@ -248,7 +252,9 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         onClick={props.onCancel}
       >
         <StrataKitIcon
-          module="@stratakit/icons/dismiss.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/dismiss").svgDismiss
+          }
           iconSpec={<SvgRemove />}
         />
       </Button>

@@ -316,7 +316,9 @@ const ForwardRefNumberInput = React.forwardRef<
           role="presentation"
         >
           <StrataKitIcon
-            module="@stratakit/icons/caret-up.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/caret-up").svgCaretUp
+            }
             iconSpec={caretUp}
           />
         </div>
@@ -327,7 +329,9 @@ const ForwardRefNumberInput = React.forwardRef<
           role="presentation"
         >
           <StrataKitIcon
-            module="@stratakit/icons/caret-down.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/caret-down").svgCaretDown
+            }
             iconSpec={caretDown}
           />
         </div>

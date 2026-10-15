@@ -49,7 +49,9 @@ export const DockedToolSettingsOverflow = React.forwardRef<
       label={moreToolSettingsTitle}
     >
       <StrataKitIcon
-        module="@stratakit/icons/more-horizontal.svg"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/more-horizontal").svgMoreHorizontal
+        }
         iconNode={<SvgMore />}
       />
     </IconButton>

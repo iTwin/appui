@@ -33,7 +33,9 @@ export function NestedFrontstageAppButton({
 }: NestedFrontstageAppButtonProps) {
   const defaultIcon = (
     <StrataKitIcon
-      module="@stratakit/icons/chevron-left.svg"
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/chevron-left").svgChevronLeft
+      }
       iconNode={<SvgProgressBackwardCircular />}
     />
   );

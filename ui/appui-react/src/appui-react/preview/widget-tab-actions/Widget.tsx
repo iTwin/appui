@@ -288,7 +288,7 @@ function CloseTabDecoration() {
       ref={ref}
     >
       <StrataKitIcon
-        module="@stratakit/icons/dismiss.svg"
+        href={(importIcon) => importIcon("@stratakit/icons/dismiss").svgDismiss}
         iconNode={<SvgCloseSmall />}
       />
     </IconButton>
@@ -330,7 +330,9 @@ function CloseTabAction() {
         }}
       >
         <StrataKitIcon
-          module="@stratakit/icons/dismiss.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/dismiss").svgDismiss
+          }
           iconNode={<SvgCloseSmall />}
         />
       </IconButton>

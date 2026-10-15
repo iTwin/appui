@@ -91,7 +91,9 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
                         }}
                         startIcon={
                           <StrataKitIcon
-                            module="@stratakit/icons/search.svg"
+                            href={(importIcon) =>
+                              importIcon("@stratakit/icons/search").svgSearch
+                            }
                             iconNode={<SvgSearch />}
                           />
                         }
@@ -141,7 +143,10 @@ export function HeaderIconToolbar(props: HeaderIconToolbarProps) {
               className="nz-header-overflow-button"
             >
               <StrataKitIcon
-                module="@stratakit/icons/more-horizontal.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/more-horizontal")
+                    .svgMoreHorizontal
+                }
                 iconNode={<SvgMore />}
               />
             </IconButton>

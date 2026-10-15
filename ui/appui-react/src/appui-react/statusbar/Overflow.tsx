@@ -54,7 +54,9 @@ export function StatusBarOverflow(props: StatusBarOverflowProps) {
         styleType="borderless"
       >
         <StrataKitIcon
-          module="@stratakit/icons/more-horizontal.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/more-horizontal").svgMoreHorizontal
+          }
           iconNode={<SvgMore />}
         />
       </IconButton>

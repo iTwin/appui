@@ -40,7 +40,10 @@ export const PropertyFilterBuilderToolbar = (
         onClick={onAddChild}
       >
         <StrataKitIcon
-          module="@stratakit/icons/add.svg"
+          href={(importIcon) => {
+            const { svgAdd } = importIcon("@stratakit/icons/add");
+            return svgAdd;
+          }}
           iconNode={<SvgAdd />}
         />
       </IconButton>
@@ -52,7 +55,7 @@ export const PropertyFilterBuilderToolbar = (
         onClick={onDelete}
       >
         <StrataKitIcon
-          module="@stratakit/icons/delete.svg"
+          href={(importIcon) => importIcon("@stratakit/icons/delete").svgDelete}
           iconNode={<SvgDelete />}
         />
       </IconButton>

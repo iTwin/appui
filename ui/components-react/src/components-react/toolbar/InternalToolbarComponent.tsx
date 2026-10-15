@@ -198,7 +198,9 @@ function CustomItem({
         IconHelper.getIconReactNode(item.icon, item.internalData)) || (
         <StrataKitIcon
           className="icon"
-          module="@stratakit/icons/placeholder.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/placeholder").svgPlaceholder
+          }
           iconSpec={<SvgPlaceholder />}
         />
       ),

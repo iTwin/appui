@@ -177,7 +177,9 @@ const ForwardRefColorPickerPopup = React.forwardRef<
           {props.showCaret &&
             (showPopup ? (
               <StrataKitIcon
-                module="@stratakit/icons/caret-up.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/caret-up").svgCaretUp
+                }
                 className="components-caret"
                 iconNode={
                   // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -189,7 +191,9 @@ const ForwardRefColorPickerPopup = React.forwardRef<
               />
             ) : (
               <StrataKitIcon
-                module="@stratakit/icons/caret-down.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/caret-down").svgCaretDown
+                }
                 className="components-caret"
                 iconNode={
                   // eslint-disable-next-line @typescript-eslint/no-deprecated
@@ -222,7 +226,9 @@ const ForwardRefColorPickerPopup = React.forwardRef<
               onClick={togglePopup}
             >
               <StrataKitIcon
-                module="@stratakit/icons/dismiss.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/dismiss").svgDismiss
+                }
                 iconSpec={<SvgClose />}
               />
             </button>

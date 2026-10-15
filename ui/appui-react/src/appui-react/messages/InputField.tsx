@@ -109,7 +109,9 @@ export class InputFieldMessage extends React.PureComponent<
               tabIndex={-1}
             >
               <StrataKitIcon
-                module="@stratakit/icons/dismiss.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/dismiss").svgDismiss
+                }
                 iconSpec={<SvgClose />}
               />
             </div>
@@ -165,7 +167,9 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
     case OutputMessagePriority.Success:
       return (
         <StrataKitIcon
-          module="@stratakit/icons/status-success.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-success").svgStatusSuccess
+          }
           iconNode={
             <Icon>
               <SvgStatusSuccess />
@@ -176,7 +180,9 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
     case OutputMessagePriority.Warning:
       return (
         <StrataKitIcon
-          module="@stratakit/icons/status-warning.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-warning").svgStatusWarning
+          }
           iconNode={
             <Icon>
               <SvgStatusWarning />
@@ -188,7 +194,9 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
     case OutputMessagePriority.Error:
       return (
         <StrataKitIcon
-          module="@stratakit/icons/status-error.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-error").svgStatusError
+          }
           iconNode={
             <Icon>
               <SvgStatusErrorHollow />
@@ -200,7 +208,7 @@ function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
 
   return (
     <StrataKitIcon
-      module="@stratakit/icons/info.svg"
+      href={(importIcon) => importIcon("@stratakit/icons/info").svgInfo}
       iconNode={
         <Icon>
           <SvgInfoCircularHollow />

@@ -184,7 +184,9 @@ export class ViewAttributesStatusField extends React.Component<
       >
         <IconButton styleType="borderless" label={title}>
           <StrataKitIcon
-            module="@stratakit/icons/window-settings.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/window-settings").svgWindowSettings
+            }
             iconNode={<SvgWindowSettings />}
           />
           <StatusBarPopover.ExpandIndicator />

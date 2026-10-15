@@ -60,7 +60,10 @@ export function DockedToolSettingsHandle(props: DockedToolSettingsHandleProps) {
   return (
     <div className={className} ref={refs} style={props.style} title={title}>
       <StrataKitIcon
-        module="@stratakit/icons/drag-handle-vertical.svg"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/drag-handle-vertical")
+            .svgDragHandleVerticalLarge
+        }
         size="large"
         iconNode={
           <Icon size="large">

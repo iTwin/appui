@@ -28,7 +28,6 @@ import {
 import { Icon } from "@itwin/itwinui-react";
 import type { IconSpec } from "../icons/IconComponent.js";
 import { Dialog } from "../dialog/Dialog.js";
-import type { StrataKitIconModule } from "../StrataKitIcon.js";
 import { StrataKitIcon } from "../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
@@ -197,7 +196,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
       <div className="core-message-box-container">
         {icon ? (
           <StrataKitIcon
-            module={getStrataKitIcon(this.props.severity)}
+            href={getStrataKitIcon(this.props.severity)}
             iconNode={
               <Icon
                 className={iconClassName}
@@ -248,22 +247,26 @@ function getIcon(
 
 function getStrataKitIcon(
   severity: MessageSeverity
-): StrataKitIconModule | undefined {
+): NonNullable<React.ComponentProps<typeof StrataKitIcon>["href"]> | undefined {
   switch (severity) {
     case MessageSeverity.None:
       return undefined;
     case MessageSeverity.Success:
-      return "@stratakit/icons/status-success.svg";
+      return (importIcon) =>
+        importIcon("@stratakit/icons/status-success").svgStatusSuccess;
     case MessageSeverity.Information:
-      return "@stratakit/icons/info.svg";
+      return (importIcon) => importIcon("@stratakit/icons/info").svgInfo;
     case MessageSeverity.Question:
-      return "@stratakit/icons/help.svg";
+      return (importIcon) => importIcon("@stratakit/icons/help").svgHelp;
     case MessageSeverity.Warning:
-      return "@stratakit/icons/status-warning.svg";
+      return (importIcon) =>
+        importIcon("@stratakit/icons/status-warning").svgStatusWarning;
     case MessageSeverity.Error:
-      return "@stratakit/icons/status-error.svg";
+      return (importIcon) =>
+        importIcon("@stratakit/icons/status-error").svgStatusError;
     case MessageSeverity.Fatal:
-      return "@stratakit/icons/status-rejected.svg";
+      return (importIcon) =>
+        importIcon("@stratakit/icons/status-rejected").svgStatusRejected;
   }
 }
 

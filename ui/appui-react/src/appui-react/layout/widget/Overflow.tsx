@@ -59,7 +59,9 @@ export function WidgetOverflow(props: WidgetOverflowProps) {
           ref={resizeObserverRef}
         >
           <StrataKitIcon
-            module="@stratakit/icons/chevron-right.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
             iconNode={<SvgChevronRightSmall />}
           />
         </TabBarButton>

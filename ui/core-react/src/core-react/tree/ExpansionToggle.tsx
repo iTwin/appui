@@ -54,7 +54,9 @@ export function ExpansionToggle(props: ExpansionToggleProps) {
     >
       <StrataKitIcon
         className="toggle icon"
-        module="@stratakit/icons/chevron-right.svg"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/chevron-right").svgChevronRight
+        }
         iconNode={
           <Icon className="toggle icon" iconSpec={<SvgChevronRight />} />
         }

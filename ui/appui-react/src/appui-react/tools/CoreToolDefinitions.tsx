@@ -65,7 +65,9 @@ export class CoreTools {
       toolId: "uif:keyinpalette",
       icon: (
         <StrataKitIcon
-          module="@stratakit/icons/keyboard.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/keyboard").svgKeyboard
+          }
           iconNode={<SvgProcess />}
         />
       ),
@@ -384,7 +386,9 @@ export class CoreTools {
       labelKey: "UiFramework:tools.measureTools",
       icon: (
         <StrataKitIcon
-          module="@stratakit/icons/measure.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/measure").svgMeasure
+          }
           iconNode={<SvgMeasure />}
         />
       ),
@@ -398,7 +402,9 @@ export class CoreTools {
       commandId: "UiFramework.ClearSelection",
       icon: (
         <StrataKitIcon
-          module="@stratakit/icons/selection-clear.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/selection-clear").svgSelectionClear
+          }
           iconNode={<SvgSelectionClear />}
         />
       ),

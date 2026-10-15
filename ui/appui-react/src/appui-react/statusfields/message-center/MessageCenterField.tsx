@@ -154,7 +154,7 @@ export function MessageCenterField(props: CommonProps) {
         startIcon={
           <NotificationMarker status={status} enabled={notify}>
             <StrataKitIcon
-              module="@stratakit/icons/chat.svg"
+              href={(importIcon) => importIcon("@stratakit/icons/chat").svgChat}
               iconNode={<SvgChat />}
             />
           </NotificationMarker>
@@ -180,7 +180,9 @@ function MessageIcon({ priority }: MessageIconProps) {
       return (
         <StrataKitIcon
           className="uifw-statusFields-messageCenter-messageCenterField_negativeIcon"
-          module="@stratakit/icons/status-error.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-error").svgStatusError
+          }
           iconNode={
             <Icon fill="negative">
               <SvgStatusError />
@@ -192,7 +194,9 @@ function MessageIcon({ priority }: MessageIconProps) {
       return (
         <StrataKitIcon
           className="uifw-statusFields-messageCenter-messageCenterField_warningIcon"
-          module="@stratakit/icons/status-warning.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-warning").svgStatusWarning
+          }
           iconNode={
             <Icon fill="warning">
               <SvgStatusWarning />
@@ -204,7 +208,7 @@ function MessageIcon({ priority }: MessageIconProps) {
       return (
         <StrataKitIcon
           className="uifw-statusFields-messageCenter-messageCenterField_informationalIcon"
-          module="@stratakit/icons/info.svg"
+          href={(importIcon) => importIcon("@stratakit/icons/info").svgInfo}
           iconNode={
             <Icon fill="informational">
               <SvgInfo />
@@ -216,7 +220,9 @@ function MessageIcon({ priority }: MessageIconProps) {
   return (
     <StrataKitIcon
       className="uifw-statusFields-messageCenter-messageCenterField_positiveIcon"
-      module="@stratakit/icons/status-success.svg"
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/status-success").svgStatusSuccess
+      }
       iconNode={
         <Icon fill="positive">
           <SvgStatusSuccess />

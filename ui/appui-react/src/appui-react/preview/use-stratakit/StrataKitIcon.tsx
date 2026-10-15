@@ -9,22 +9,20 @@ import type { StrataKitIcon as CoreStrataKitIcon } from "@itwin/core-react/inter
 import type { Icon } from "@stratakit/mui";
 import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
 import { webFontToStrataKitIcon } from "./webFontToStrataKitIcon.js";
-
-import type { enable } from "../../../useStrataKit.js";
+import type { StrataKitIconModules } from "./StrataKitIconModules.js";
 
 type IconProps = React.ComponentProps<typeof Icon>;
 
 type CoreStrataKitIconProps = React.ComponentProps<typeof CoreStrataKitIcon>;
 
-type UseStrataKit = ReturnType<typeof enable>;
-type UseStrataKitModules = UseStrataKit[typeof StrataKitSymbol]["modules"];
-type StrataKitIconModules = Omit<UseStrataKitModules, "@stratakit/mui">;
-type StrataKitIconModule = keyof StrataKitIconModules;
-
 interface StrataKitIconProps
   extends Omit<CoreStrataKitIconProps, "href" | "module">,
     Pick<IconProps, "size"> {
-  module?: StrataKitIconModule;
+  href?: (
+    importIcon: <M extends keyof StrataKitIconModules>(
+      path: M
+    ) => StrataKitIconModules[M]
+  ) => string | undefined;
 }
 
 /**
@@ -40,16 +38,24 @@ interface StrataKitIconProps
  * @internal
  */
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
-  const { module: moduleProp, iconSpec, iconNode, size, ...rest } = props;
-
-  const webFontIcon = typeof iconSpec === "string" ? iconSpec : undefined;
-  const iconSpecModule = useWebFontStrataKitModule(webFontIcon);
-
-  const href = useStrataKitIcon(moduleProp ?? iconSpecModule);
+  const { href: hrefProp, iconSpec, iconNode, size, ...rest } = props;
 
   const { useStrataKit } = usePreviewFeatures();
   const modules = useStrataKit?.[StrataKitSymbol]?.modules;
   const { Icon } = modules?.["@stratakit/mui"] ?? {};
+
+  const webFontIcon = typeof iconSpec === "string" ? iconSpec : undefined;
+  const iconSpecHref = useWebFontStrataKitHref(webFontIcon);
+
+  const href = React.useMemo(() => {
+    const newHref =
+      hrefProp && modules
+        ? hrefProp((module) => {
+            return modules[module];
+          })
+        : undefined;
+    return newHref ?? iconSpecHref;
+  }, [hrefProp, modules, iconSpecHref]);
 
   if (href && Icon) {
     return <Icon {...rest} size={size} href={href} />;
@@ -65,15 +71,16 @@ export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
   return undefined;
 }
 
-function useStrataKitIcon(icon: StrataKitIconModule | undefined) {
+function useWebFontStrataKitHref(webFontIcon: string | undefined) {
   const { useStrataKit } = usePreviewFeatures();
-  if (!useStrataKit) return undefined;
-  if (!icon) return undefined;
+  const modules = useStrataKit?.[StrataKitSymbol]?.modules;
+  if (!modules) return undefined;
 
-  const modules = useStrataKit[StrataKitSymbol].modules;
-  return modules[icon];
-}
+  if (!webFontIcon) return undefined;
+  const getHref = webFontToStrataKitIcon[webFontIcon];
+  if (!getHref) return undefined;
 
-function useWebFontStrataKitModule(webFontIcon: string | undefined) {
-  return webFontIcon ? webFontToStrataKitIcon[webFontIcon] : undefined;
+  return getHref((module) => {
+    return modules[module];
+  });
 }

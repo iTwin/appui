@@ -55,7 +55,9 @@ export function WidgetMenuTab(props: WidgetMenuTabProps) {
       endIcon={
         active ? (
           <StrataKitIcon
-            module="@stratakit/icons/checkmark.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/checkmark").svgCheckmark
+            }
             iconNode={<SvgCheckmark />}
           />
         ) : (

@@ -87,7 +87,9 @@ export class SheetsModalFrontstage implements ModalFrontstageInfo {
         label: sheet.name,
         iconSpec: (
           <StrataKitIcon
-            module="@stratakit/icons/document.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/document").svgDocument
+            }
             iconNode={<SvgDocument />}
           />
         ),
@@ -279,7 +281,9 @@ export class SheetCard extends React.Component<SheetCardProps, SheetCardState> {
         <StrataKitIcon iconSpec={this.props.iconSpec} />
       ) : (
         <StrataKitIcon
-          module="@stratakit/icons/placeholder.svg"
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/placeholder").svgPlaceholder
+          }
           iconNode={<SvgPlaceholder />}
         />
       );

@@ -68,7 +68,9 @@ export class MenuButton extends React.PureComponent<
           onClick={this._handleClick}
         >
           <StrataKitIcon
-            module="@stratakit/icons/more-horizontal.svg"
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/more-horizontal").svgMoreHorizontal
+            }
             iconSpec={<SvgMore />}
           />
         </SquareButton>

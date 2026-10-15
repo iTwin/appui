@@ -81,7 +81,7 @@ export function AzimuthOptions(props: {
           label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}
         >
           <StrataKitIcon
-            module="@stratakit/icons/help.svg"
+            href={(importIcon) => importIcon("@stratakit/icons/help").svgHelp}
             iconNode={<SvgHelpCircularHollow />}
           />
         </IconButton>
@@ -106,7 +106,7 @@ export function AzimuthOptions(props: {
           label={translate("QuantityFormat.azimuthType.baseTooltip")}
         >
           <StrataKitIcon
-            module="@stratakit/icons/help.svg"
+            href={(importIcon) => importIcon("@stratakit/icons/help").svgHelp}
             iconNode={<SvgHelpCircularHollow />}
           />
         </IconButton>

@@ -467,7 +467,9 @@ export function MiscFormatOptions(props: MiscFormatOptionsProps) {
               label={translate("QuantityFormat.ratio-type.default.description")}
             >
               <StrataKitIcon
-                module="@stratakit/icons/help.svg"
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/help").svgHelp
+                }
                 iconNode={<SvgHelpCircularHollow />}
               />
             </IconButton>
