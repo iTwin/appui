@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   PreviewFeatures,
-  PreviewFeaturesProvider,
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
@@ -45,18 +44,17 @@ type PreviewStoryProps = Pick<
 export function PreviewStory(props: PreviewStoryProps) {
   const provider = createProvider();
   return (
-    <PreviewFeaturesProvider features={props}>
-      <AppUiStory
-        itemProviders={[provider]}
-        frontstages={[
-          createFrontstage({
-            leftPanelProps: {
-              defaultState: StagePanelState.Open,
-              pinned: true,
-            },
-          }),
-        ]}
-      />
-    </PreviewFeaturesProvider>
+    <AppUiStory
+      features={props}
+      itemProviders={[provider]}
+      frontstages={[
+        createFrontstage({
+          leftPanelProps: {
+            defaultState: StagePanelState.Open,
+            pinned: true,
+          },
+        }),
+      ]}
+    />
   );
 }
