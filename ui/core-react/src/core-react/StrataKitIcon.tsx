@@ -48,6 +48,10 @@ export interface StrataKitIconModules {
 }
 
 interface StrataKitIconProps extends Omit<React.ComponentProps<"svg">, "href"> {
+  /**
+   * Function to resolve the href for the StrataKit icon.
+   * `importIcon` argument is used to look up the StrataKit icon module exposed via `useStrataKit` subpath export.
+   */
   href?: (
     importIcon: <M extends keyof StrataKitIconModules>(
       path: M

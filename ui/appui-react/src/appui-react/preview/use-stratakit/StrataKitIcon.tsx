@@ -18,6 +18,10 @@ type CoreStrataKitIconProps = React.ComponentProps<typeof CoreStrataKitIcon>;
 interface StrataKitIconProps
   extends Omit<CoreStrataKitIconProps, "href" | "module">,
     Pick<IconProps, "size"> {
+  /**
+   * Function to resolve the href for the StrataKit icon.
+   * `importIcon` argument is used to look up the StrataKit icon module exposed via `useStrataKit` subpath export.
+   */
   href?: (
     importIcon: <M extends keyof StrataKitIconModules>(
       path: M
