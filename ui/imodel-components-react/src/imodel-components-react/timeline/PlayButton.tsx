@@ -3,6 +3,7 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { SvgPause, SvgPlay } from "@itwin/itwinui-icons-react";
 import { IconButton } from "@itwin/itwinui-react";
 import { useTranslation } from "../useTranslation.js";
@@ -33,7 +34,17 @@ export function PlayButton({ isPlaying, onPlay, onPause }: PlayButtonProps) {
         onPlay?.();
       }}
     >
-      {isPlaying ? <SvgPause /> : <SvgPlay />}
+      {isPlaying ? (
+        <StrataKitIcon
+          href={(importIcon) => importIcon("@stratakit/icons/pause").svgPause}
+          iconNode={<SvgPause />}
+        />
+      ) : (
+        <StrataKitIcon
+          href={(importIcon) => importIcon("@stratakit/icons/play").svgPlay}
+          iconNode={<SvgPlay />}
+        />
+      )}
     </IconButton>
   );
 }

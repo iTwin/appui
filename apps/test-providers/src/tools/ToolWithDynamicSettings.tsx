@@ -22,6 +22,9 @@ import {
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgCopy } from "@itwin/itwinui-icons-react";
 import { AppUiTestProviders } from "../AppUiTestProviders.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgCopy from "@stratakit/icons/copy.svg";
 
 interface MajorCities {
   state: number;
@@ -245,5 +248,5 @@ class ToolWithDynamicSettingsBase extends PrimitiveTool {
 
 export const ToolWithDynamicSettings = ToolUtilities.defineIcon(
   ToolWithDynamicSettingsBase,
-  <SvgCopy />
+  <StrataKitIcon href={svgCopy} iconNode={<SvgCopy />} />
 );

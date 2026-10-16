@@ -6,23 +6,21 @@
  * @module Widget
  */
 
-import { Icon } from "@itwin/core-react";
-import { Badge } from "@itwin/core-react/internal";
 import * as React from "react";
+import { Badge } from "@itwin/core-react/internal";
 import { WidgetTab } from "../layout/widget/Tab.js";
 import { useWidgetDef } from "./Content.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** @internal */
 export function WidgetPanelsTab() {
   const widgetDef = useWidgetDef();
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   const iconSpec = widgetDef?.initialConfig?.icon;
-  const icon =
-    widgetDef?.initialConfig?.iconNode ??
-    (iconSpec ? (
-      // eslint-disable-next-line @typescript-eslint/no-deprecated
-      <Icon iconSpec={iconSpec} />
-    ) : undefined);
+  const iconSpecIcon = iconSpec ? (
+    <StrataKitIcon iconSpec={iconSpec} />
+  ) : undefined;
+  const icon = widgetDef?.initialConfig?.iconNode ?? iconSpecIcon;
   const iconElement = icon ? (
     React.isValidElement(icon) ? (
       icon

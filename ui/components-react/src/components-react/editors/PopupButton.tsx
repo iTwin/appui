@@ -12,7 +12,8 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonDivProps, CommonProps } from "@itwin/core-react";
-import { Div, Icon, Popup } from "@itwin/core-react";
+import { Div, Popup } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { Button } from "@itwin/itwinui-react";
 import {
   SvgCheckmark,
@@ -163,8 +164,12 @@ export class PopupButton extends React.PureComponent<
                 "icon"
               )}
             >
-              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-              <Icon iconSpec={<SvgChevronDown />} />
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/chevron-down").svgChevronDown
+                }
+                iconSpec={<SvgChevronDown />}
+              />
             </div>
           </div>
         </div>
@@ -230,8 +235,12 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={translate("dialog.ok")}
         onClick={props.onOk}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Icon iconSpec={<SvgCheckmark />} />
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/checkmark").svgCheckmark
+          }
+          iconSpec={<SvgCheckmark />}
+        />
       </Button>
       <Button
         className={classnames(
@@ -242,8 +251,12 @@ export function PopupOkCancelButtons(props: OkCancelProps) {
         title={translate("dialog.cancel")}
         onClick={props.onCancel}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Icon iconSpec={<SvgRemove />} />
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/dismiss").svgDismiss
+          }
+          iconSpec={<SvgRemove />}
+        />
       </Button>
     </div>
   );

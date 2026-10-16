@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   PreviewFeatures,
-  PreviewFeaturesProvider,
   StagePanelState,
   UiItemsProvider,
   WidgetState,
@@ -43,23 +42,20 @@ export function PreviewStory({
 }: PreviewStoryProps) {
   const provider = createProvider(visibleWidgets);
   return (
-    <PreviewFeaturesProvider
+    <AppUiStory
       features={{
         controlWidgetVisibility,
         widgetActionDropdown: { threshold: dropdownThreshold },
       }}
-    >
-      <AppUiStory
-        itemProviders={[provider]}
-        frontstages={[
-          createFrontstage({
-            leftPanelProps: {
-              defaultState: StagePanelState.Open,
-              pinned: true,
-            },
-          }),
-        ]}
-      />
-    </PreviewFeaturesProvider>
+      itemProviders={[provider]}
+      frontstages={[
+        createFrontstage({
+          leftPanelProps: {
+            defaultState: StagePanelState.Open,
+            pinned: true,
+          },
+        }),
+      ]}
+    />
   );
 }

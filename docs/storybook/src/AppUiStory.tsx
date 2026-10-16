@@ -17,6 +17,8 @@ import {
   FrameworkAccuDraw,
   FrameworkToolAdmin,
   Frontstage,
+  PreviewFeatures,
+  PreviewFeaturesProvider,
   ThemeManager,
   UiFramework,
   UiItemsManager,
@@ -35,6 +37,8 @@ import { ProgressLinear, ThemeProvider } from "@itwin/itwinui-react";
 import { createFrontstage } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 import { openDemoIModel } from "./openDemoIModel";
+import { ThemeBridgeContext } from "../.storybook/addons/theme-bridge/ThemeBridge";
+import { enable } from "@itwin/appui-react/useStrataKit";
 
 type ConfigurableUiContentProps = React.ComponentProps<
   typeof ConfigurableUiContent
@@ -54,6 +58,7 @@ export interface AppUiStoryProps
   onFrontstageActivated?: () => void;
   /** Only display provided children, otherwise, add ConfigurableUIContent component below children. Defaults to false; */
   displayChildrenOnly?: boolean;
+  features?: PreviewFeatures;
 }
 
 export function AppUiStory(props: AppUiStoryProps) {
@@ -134,6 +139,9 @@ export function AppUiStory(props: AppUiStoryProps) {
 
 function Initialized(props: AppUiStoryProps) {
   const { frontstages: frontstagesGetter, onFrontstageActivated } = props;
+  const themeBridge = React.useContext(ThemeBridgeContext);
+  const useStrataKit = themeBridge === "useStrataKit";
+
   React.useEffect(() => {
     let ignore = false;
     const frontstages = getFrontstages(frontstagesGetter);
@@ -149,7 +157,12 @@ function Initialized(props: AppUiStoryProps) {
     };
   }, [frontstagesGetter, onFrontstageActivated]);
   return (
-    <>
+    <PreviewFeaturesProvider
+      features={{
+        ...(useStrataKit ? { useStrataKit: enable() } : undefined),
+        ...props.features,
+      }}
+    >
       <Provider store={UiFramework.store}>
         <ThemeManager>
           {props.children}
@@ -168,7 +181,7 @@ function Initialized(props: AppUiStoryProps) {
           )}
         </ThemeManager>
       </Provider>
-    </>
+    </PreviewFeaturesProvider>
   );
 }
 

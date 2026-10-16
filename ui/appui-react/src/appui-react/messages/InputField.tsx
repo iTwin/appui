@@ -11,7 +11,7 @@ import * as React from "react";
 import { OutputMessagePriority } from "@itwin/core-frontend";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { ListenerType } from "@itwin/core-react/internal";
-import { Icon as CoreIcon, MessageRenderer, Popup } from "@itwin/core-react";
+import { MessageRenderer, Popup } from "@itwin/core-react";
 import {
   SvgClose,
   SvgInfoCircularHollow,
@@ -22,6 +22,7 @@ import {
 import { Icon } from "@itwin/itwinui-react";
 import { MessageManager } from "../messages/MessageManager.js";
 import type { NotifyMessageType } from "./ReactNotifyMessageDetails.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Properties of [[InputFieldMessage]] component.
  * @public
@@ -107,8 +108,12 @@ export class InputFieldMessage extends React.PureComponent<
               role="button"
               tabIndex={-1}
             >
-              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-              <CoreIcon iconSpec={<SvgClose />} />
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/dismiss").svgDismiss
+                }
+                iconSpec={<SvgClose />}
+              />
             </div>
           )}
         </div>
@@ -158,19 +163,57 @@ export class InputFieldMessage extends React.PureComponent<
 }
 
 function FieldIcon({ priority }: { priority: OutputMessagePriority }) {
-  let svg = <SvgInfoCircularHollow />;
   switch (priority) {
     case OutputMessagePriority.Success:
-      svg = <SvgStatusSuccess />;
-      break;
+      return (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-success").svgStatusSuccess
+          }
+          iconNode={
+            <Icon>
+              <SvgStatusSuccess />
+            </Icon>
+          }
+        />
+      );
     case OutputMessagePriority.Warning:
-      svg = <SvgStatusWarning />;
-      break;
+      return (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-warning").svgStatusWarning
+          }
+          iconNode={
+            <Icon>
+              <SvgStatusWarning />
+            </Icon>
+          }
+        />
+      );
     case OutputMessagePriority.Fatal:
     case OutputMessagePriority.Error:
-      svg = <SvgStatusErrorHollow />;
-      break;
+      return (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/status-error").svgStatusError
+          }
+          iconNode={
+            <Icon>
+              <SvgStatusErrorHollow />
+            </Icon>
+          }
+        />
+      );
   }
 
-  return <Icon>{svg}</Icon>;
+  return (
+    <StrataKitIcon
+      href={(importIcon) => importIcon("@stratakit/icons/info").svgInfo}
+      iconNode={
+        <Icon>
+          <SvgInfoCircularHollow />
+        </Icon>
+      }
+    />
+  );
 }

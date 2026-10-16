@@ -25,6 +25,7 @@ import { SvgSnapsOrigin } from "../icons/snaps/SvgSnapsOrigin.js";
 import { SvgSnaps } from "../icons/snaps/SvgSnaps.js";
 import { SvgSnapsPerpendicular } from "../icons/snaps/SvgSnapsPerpendicular.js";
 import { SvgSnapsTangent } from "../icons/snaps/SvgSnapsTangent.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** Define the properties that will be used to represent the available snap modes. */
 interface SnapModeFieldEntry {
@@ -38,37 +39,86 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
   {
     labelKey: "snapModeField.keypoint",
     value: SnapMode.NearestKeypoint as number,
-    icon: <SvgSnaps />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-keypoint").svgSnapKeypoint
+        }
+        iconNode={<SvgSnaps />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.intersection",
     value: SnapMode.Intersection as number,
-    icon: <SvgSnapsIntersection />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-intersection").svgSnapIntersection
+        }
+        iconNode={<SvgSnapsIntersection />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.center",
     value: SnapMode.Center as number,
-    icon: <SvgSnapsCenter />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-center").svgSnapCenter
+        }
+        iconNode={<SvgSnapsCenter />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.nearest",
     value: SnapMode.Nearest as number,
-    icon: <SvgSnapsNearest />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-nearest").svgSnapNearest
+        }
+        iconNode={<SvgSnapsNearest />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.origin",
     value: SnapMode.Origin as number,
-    icon: <SvgSnapsOrigin />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-origin").svgSnapOrigin
+        }
+        iconNode={<SvgSnapsOrigin />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.midpoint",
     value: SnapMode.MidPoint as number,
-    icon: <SvgSnapsMidpoint />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-midpoint").svgSnapMidpoint
+        }
+        iconNode={<SvgSnapsMidpoint />}
+      />
+    ),
   },
   {
     labelKey: "snapModeField.bisector",
     value: SnapMode.Bisector as number,
-    icon: <SvgSnapsBisector />,
+    icon: (
+      <StrataKitIcon
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/snap-bisector").svgSnapBisector
+        }
+        iconNode={<SvgSnapsBisector />}
+      />
+    ),
   },
   // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
   ...(SnapMode.PerpendicularPoint === undefined
@@ -78,7 +128,15 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
           labelKey: "snapModeField.perpendicularPoint",
           // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
           value: SnapMode.PerpendicularPoint as number,
-          icon: <SvgSnapsPerpendicular />,
+          icon: (
+            <StrataKitIcon
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/snap-perpendicular")
+                  .svgSnapPerpendicular
+              }
+              iconNode={<SvgSnapsPerpendicular />}
+            />
+          ),
         },
       ]),
   // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
@@ -89,7 +147,14 @@ const allSnapModeFieldEntries: SnapModeFieldEntry[] = [
           labelKey: "snapModeField.tangentPoint",
           // @ts-ignore Introduced in @itwin/core-frontend@5.0.0
           value: SnapMode.TangentPoint as number,
-          icon: <SvgSnapsTangent />,
+          icon: (
+            <StrataKitIcon
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/snap-tangent").svgSnapTangent
+              }
+              iconNode={<SvgSnapsTangent />}
+            />
+          ),
         },
       ]),
 ];
@@ -165,7 +230,16 @@ export function SnapModeField(props: SnapModeFieldProps) {
         styleType="borderless"
         title={title}
         startIcon={
-          enabledSnaps.length === 1 ? enabledSnaps[0].icon : <SvgSnaps />
+          enabledSnaps.length === 1 ? (
+            enabledSnaps[0].icon
+          ) : (
+            <StrataKitIcon
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/snap-keypoint").svgSnapKeypoint
+              }
+              iconNode={<SvgSnaps />}
+            />
+          )
         }
       >
         {title}

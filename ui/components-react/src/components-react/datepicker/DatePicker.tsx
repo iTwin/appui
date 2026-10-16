@@ -9,7 +9,7 @@
 import * as React from "react";
 import classnames from "classnames";
 import { Key } from "ts-key-enum";
-import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { SvgChevronLeft, SvgChevronRight } from "@itwin/itwinui-icons-react";
 import "./DatePicker.scss";
 import { useTranslation } from "../l10n/useTranslation.js";
@@ -232,8 +232,12 @@ export function DatePicker(props: DatePickerProps) {
           title={previousMonthLabel}
           onClick={handleMoveToPreviousMonth}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={<SvgChevronLeft />} />
+          <StrataKitIcon
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-left").svgChevronLeft
+            }
+            iconSpec={<SvgChevronLeft />}
+          />
         </button>
         <span className="components-month-year">
           {monthsLong[displayedMonthIndex]} {displayedYear}
@@ -243,8 +247,12 @@ export function DatePicker(props: DatePickerProps) {
           title={nextMonthLabel}
           onClick={handleMoveToNextMonth}
         >
-          {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-          <Icon iconSpec={<SvgChevronRight />} />
+          <StrataKitIcon
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
+            iconSpec={<SvgChevronRight />}
+          />
         </button>
       </div>
       <div className="components-date-picker-calendar-header-weekdays">

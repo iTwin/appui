@@ -31,7 +31,7 @@ import {
   SvgMapInfo,
   SvgWindowMaximize,
 } from "@itwin/itwinui-icons-react";
-import { ViewportContent } from "@itwin/appui-test-providers";
+import { StrataKitIcon, ViewportContent } from "@itwin/appui-test-providers";
 import {
   ButtonGroup,
   DropdownButton,
@@ -42,6 +42,12 @@ import {
   Surface,
   Text,
 } from "@itwin/itwinui-react";
+
+import svgMapInfo from "@stratakit/icons/map-info.svg";
+import svgAdd from "@stratakit/icons/add.svg";
+import svgEdit from "@stratakit/icons/edit.svg";
+import svgDismiss from "@stratakit/icons/dismiss.svg";
+import svgWindowMaximize from "@stratakit/icons/window-maximize.svg";
 
 export function createSpatialFrontstage(): Frontstage {
   return {
@@ -73,13 +79,13 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
         groupPriority: 200,
         itemPriority: 10,
         label: "Spatial",
-        icon: <SvgMapInfo />,
+        icon: <StrataKitIcon href={svgMapInfo} iconNode={<SvgMapInfo />} />,
       }),
     ],
     getToolbarItems: () => [
       ToolbarItemUtilities.createActionItem({
         id: "add-tool",
-        icon: <SvgAdd />,
+        icon: <StrataKitIcon href={svgAdd} iconNode={<SvgAdd />} />,
         label: "Add",
         layouts: {
           spatial: {
@@ -90,7 +96,7 @@ export function createSpatialFrontstageProvider(): UiItemsProvider {
       }),
       ToolbarItemUtilities.createActionItem({
         id: "edit-tool",
-        icon: <SvgEdit />,
+        icon: <StrataKitIcon href={svgEdit} iconNode={<SvgEdit />} />,
         label: "Edit",
         layouts: {
           spatial: {
@@ -250,7 +256,10 @@ function Panel() {
             }}
             aria-label="Expand"
           >
-            <SvgWindowMaximize />
+            <StrataKitIcon
+              href={svgWindowMaximize}
+              iconNode={<SvgWindowMaximize />}
+            />
           </IconButton>
           <IconButton
             size="small"
@@ -260,7 +269,7 @@ function Panel() {
             }}
             aria-label="Close"
           >
-            <SvgClose />
+            <StrataKitIcon href={svgDismiss} iconNode={<SvgClose />} />
           </IconButton>
         </div>
       </Surface.Header>

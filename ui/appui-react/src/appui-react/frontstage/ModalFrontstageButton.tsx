@@ -12,6 +12,7 @@ import { SvgProgressBackwardCircular } from "@itwin/itwinui-icons-react";
 import { UiFramework } from "../UiFramework.js";
 import { useTranslation } from "../hooks/useTranslation.js";
 import { IconButton } from "@itwin/itwinui-react";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 type IconButtonProps = React.ComponentProps<typeof IconButton>;
 
@@ -32,7 +33,15 @@ export function ModalFrontstageButton(props: ModalFrontstageButtonProps) {
   const { translate } = useTranslation();
   const { label, icon, onClick } = props;
   const defaultLabel = translate("modalFrontstage.backButtonTitle");
-  const defaultIcon = <SvgProgressBackwardCircular />;
+
+  const defaultIcon = (
+    <StrataKitIcon
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/chevron-left").svgChevronLeft
+      }
+      iconNode={<SvgProgressBackwardCircular />}
+    />
+  );
 
   const defaultOnClick = React.useCallback(() => {
     UiFramework.frontstages.closeModalFrontstage();

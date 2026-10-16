@@ -6,9 +6,11 @@
  * @module PropertyFilterBuilder
  */
 import React from "react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { Flex, IconButton } from "@itwin/itwinui-react";
 import { SvgAdd, SvgDelete } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../l10n/useTranslation.js";
+
 /**
  * Props for [[PropertyFilterBuilderToolbar]] component.
  * @internal
@@ -37,7 +39,13 @@ export const PropertyFilterBuilderToolbar = (
         label={translate("filterBuilder.add")}
         onClick={onAddChild}
       >
-        <SvgAdd />
+        <StrataKitIcon
+          href={(importIcon) => {
+            const { svgAdd } = importIcon("@stratakit/icons/add");
+            return svgAdd;
+          }}
+          iconNode={<SvgAdd />}
+        />
       </IconButton>
       <IconButton
         size={"small"}
@@ -46,7 +54,10 @@ export const PropertyFilterBuilderToolbar = (
         styleType="borderless"
         onClick={onDelete}
       >
-        <SvgDelete />
+        <StrataKitIcon
+          href={(importIcon) => importIcon("@stratakit/icons/delete").svgDelete}
+          iconNode={<SvgDelete />}
+        />
       </IconButton>
     </Flex>
   );

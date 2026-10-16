@@ -26,7 +26,8 @@ import {
   PropertyValueFormat,
   UiAdmin,
 } from "@itwin/appui-abstract";
-import { Icon, IconInput } from "@itwin/core-react";
+import { IconInput } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { Input, InputWithDecorations } from "@itwin/itwinui-react";
 import { UiComponents } from "../UiComponents.js";
 import type {
@@ -419,7 +420,7 @@ export class CustomNumberEditor
     };
 
     const icon = this.state.iconSpec ? (
-      <Icon iconSpec={this.state.iconSpec} />
+      <StrataKitIcon iconSpec={this.state.iconSpec} />
     ) : undefined;
 
     return (

@@ -24,6 +24,7 @@ import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { StageUsage } from "./StageUsage.js";
 import { BackstageItemUtilities } from "../backstage/BackstageItemUtilities.js";
 import { useTranslation } from "../hooks/useTranslation.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 function ModalSettingsStage({
   initialSettingsTabId,
@@ -117,7 +118,14 @@ export class SettingsModalFrontstage implements ModalFrontstageInfo {
           new SettingsModalFrontstage()
         ),
       label: UiFramework.translate("settings.settingsStageLabel"),
-      icon: <SvgSettings />,
+      icon: (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/settings").svgSettings
+          }
+          iconNode={<SvgSettings />}
+        />
+      ),
       isHidden: SettingsModalFrontstage.noSettingsAvailable(),
     });
   }

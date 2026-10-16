@@ -28,6 +28,12 @@ import {
   SvgWindowSplitVertical,
 } from "@itwin/itwinui-icons-react";
 import { ViewportContent } from "../ui/ViewportContent.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgDownload from "@stratakit/icons/download.svg";
+import svgUpload from "@stratakit/icons/upload.svg";
+import svgWindow from "@stratakit/icons/window.svg";
+import svgWindowSplitVertical from "@stratakit/icons/window-split-vertical.svg";
 
 function getIModelSpecificKey(
   inKey: string,
@@ -125,10 +131,9 @@ class SaveContentLayoutToolBase extends Tool {
     return true;
   }
 }
-
 export const SaveContentLayoutTool = ToolUtilities.defineIcon(
   SaveContentLayoutToolBase,
-  <SvgUpload />
+  <StrataKitIcon href={svgUpload} iconNode={<SvgUpload />} />
 );
 
 class RestoreSavedContentLayoutToolBase extends Tool {
@@ -190,7 +195,7 @@ class RestoreSavedContentLayoutToolBase extends Tool {
 
 export const RestoreSavedContentLayoutTool = ToolUtilities.defineIcon(
   RestoreSavedContentLayoutToolBase,
-  <SvgDownload />
+  <StrataKitIcon href={svgDownload} iconNode={<SvgDownload />} />
 );
 
 function SplitWindowIcon() {
@@ -201,8 +206,15 @@ function SplitWindowIcon() {
         ?.contentPropsList.length,
     [SyncUiEventId.ActiveContentChanged]
   );
-  if (split) return <SvgWindowSplitVertical />;
-  return <SvgWindow />;
+  if (split)
+    return (
+      <StrataKitIcon
+        href={svgWindowSplitVertical}
+        iconNode={<SvgWindowSplitVertical />}
+      />
+    );
+
+  return <StrataKitIcon href={svgWindow} iconNode={<SvgWindow />} />;
 }
 
 export function createSplitSingleViewportToolbarItem(
