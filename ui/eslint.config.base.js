@@ -44,7 +44,6 @@ module.exports = [
             {
               group: ["@stratakit/mui"],
               message: "Importing from '@stratakit/mui' is not allowed.",
-              allowTypeImports: true,
             },
             {
               group: ["@stratakit/icons", "@stratakit/icons/*"],

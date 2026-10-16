@@ -6,18 +6,14 @@
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
 import type { StrataKitIcon as CoreStrataKitIcon } from "@itwin/core-react/internal";
-import type { Icon } from "@stratakit/mui";
 import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
 import { webFontToStrataKitIcon } from "./webFontToStrataKitIcon.js";
 import type { StrataKitIconModules } from "./StrataKitIconModules.js";
 
-type IconProps = React.ComponentProps<typeof Icon>;
-
 type CoreStrataKitIconProps = React.ComponentProps<typeof CoreStrataKitIcon>;
 
 interface StrataKitIconProps
-  extends Omit<CoreStrataKitIconProps, "href" | "module">,
-    Pick<IconProps, "size"> {
+  extends Omit<CoreStrataKitIconProps, "href" | "module"> {
   /**
    * Function to resolve the href for the StrataKit icon.
    * `importIcon` argument is used to look up the StrataKit icon module exposed via `useStrataKit` subpath export.
@@ -27,6 +23,7 @@ interface StrataKitIconProps
       path: M
     ) => StrataKitIconModules[M]
   ) => string | undefined;
+  size?: "regular" | "large";
 }
 
 /**

@@ -5,9 +5,12 @@
 /**
  * This subpath export is required to conditionally import StrataKit packages.
  * Remove this with next major version and replace with regular imports.
+ *
+ * Ensure, that the StrataKit types are not exposed in case the `skipLibCheck: false` option is used:
+ * StrataKit package imports should not be used in .d.ts files.
  */
 import { StrataKitSymbol } from "./appui-react/preview/PreviewFeatures.js";
-import type { StrataKitIconModules as CoreStrataKitIconModules } from "@itwin/core-react/internal";
+import type { StrataKitIconModules } from "@itwin/core-react/internal";
 
 // cSpell:disable
 
@@ -346,8 +349,7 @@ import { svgZoomOutMagnifier } from "@stratakit/icons/zoom-out-magnifier";
 export function enable() {
   const modules = {
     "@stratakit/mui": {
-      // 'IconProps' from external module cannot be named. ts(4058)
-      Icon: Icon as unknown as typeof Icon,
+      Icon: Icon as React.ComponentType<IconProps>,
     },
     "@stratakit/icons/2d": { svg2D },
     "@stratakit/icons/3d": { svg3D },
@@ -684,10 +686,15 @@ export function enable() {
     "@stratakit/icons/window": { svgWindow },
     "@stratakit/icons/zoom-in-magnifier": { svgZoomInMagnifier },
     "@stratakit/icons/zoom-out-magnifier": { svgZoomOutMagnifier },
-  } as const satisfies CoreStrataKitIconModules & Record<string, unknown>;
+  } as const satisfies StrataKitIconModules & Record<string, unknown>;
   return {
     [StrataKitSymbol]: {
       modules,
     },
   };
+}
+
+interface IconProps extends React.ComponentProps<"svg"> {
+  /** Size of the icon. Defaults to `"regular"` (16px), can be set to `"large"` (24px). */
+  size?: "regular" | "large";
 }
