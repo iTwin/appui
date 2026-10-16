@@ -23,7 +23,6 @@ interface StrataKitIconProps
       path: M
     ) => StrataKitIconModules[M]
   ) => string | undefined;
-  size?: "regular" | "large";
 }
 
 /**

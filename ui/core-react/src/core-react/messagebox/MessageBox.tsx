@@ -197,6 +197,7 @@ export class MessageContainer extends React.PureComponent<MessageContainerProps>
         {icon ? (
           <StrataKitIcon
             href={getStrataKitIcon(this.props.severity)}
+            size="large"
             iconNode={
               <Icon
                 className={iconClassName}
@@ -253,20 +254,20 @@ function getStrataKitIcon(
       return undefined;
     case MessageSeverity.Success:
       return (importIcon) =>
-        importIcon("@stratakit/icons/status-success").svgStatusSuccess;
+        importIcon("@stratakit/icons/status-success").svgStatusSuccessLarge;
     case MessageSeverity.Information:
-      return (importIcon) => importIcon("@stratakit/icons/info").svgInfo;
+      return (importIcon) => importIcon("@stratakit/icons/info").svgInfoLarge;
     case MessageSeverity.Question:
-      return (importIcon) => importIcon("@stratakit/icons/help").svgHelp;
+      return (importIcon) => importIcon("@stratakit/icons/help").svgHelpLarge;
     case MessageSeverity.Warning:
       return (importIcon) =>
-        importIcon("@stratakit/icons/status-warning").svgStatusWarning;
+        importIcon("@stratakit/icons/status-warning").svgStatusWarningLarge;
     case MessageSeverity.Error:
       return (importIcon) =>
-        importIcon("@stratakit/icons/status-error").svgStatusError;
+        importIcon("@stratakit/icons/status-error").svgStatusErrorLarge;
     case MessageSeverity.Fatal:
       return (importIcon) =>
-        importIcon("@stratakit/icons/status-rejected").svgStatusRejected;
+        importIcon("@stratakit/icons/status-rejected").svgStatusRejectedLarge;
   }
 }
 

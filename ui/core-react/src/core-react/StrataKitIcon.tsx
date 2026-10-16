@@ -29,8 +29,8 @@ export interface StrataKitIconModules {
   "@stratakit/icons/chevron-right": Record<"svgChevronRight", string>;
   "@stratakit/icons/delete": Record<"svgDelete", string>;
   "@stratakit/icons/dismiss": Record<"svgDismiss", string>;
-  "@stratakit/icons/help": Record<"svgHelp", string>;
-  "@stratakit/icons/info": Record<"svgInfo", string>;
+  "@stratakit/icons/help": Record<"svgHelp" | "svgHelpLarge", string>;
+  "@stratakit/icons/info": Record<"svgInfo" | "svgInfoLarge", string>;
   "@stratakit/icons/loop": Record<"svgLoop", string>;
   "@stratakit/icons/moon": Record<"svgMoon", string>;
   "@stratakit/icons/pause": Record<"svgPause", string>;
@@ -40,10 +40,22 @@ export interface StrataKitIconModules {
   "@stratakit/icons/search": Record<"svgSearch", string>;
   "@stratakit/icons/settings": Record<"svgSettings", string>;
   "@stratakit/icons/sort-descending": Record<"svgSortDescending", string>;
-  "@stratakit/icons/status-error": Record<"svgStatusError", string>;
-  "@stratakit/icons/status-rejected": Record<"svgStatusRejected", string>;
-  "@stratakit/icons/status-success": Record<"svgStatusSuccess", string>;
-  "@stratakit/icons/status-warning": Record<"svgStatusWarning", string>;
+  "@stratakit/icons/status-error": Record<
+    "svgStatusError" | "svgStatusErrorLarge",
+    string
+  >;
+  "@stratakit/icons/status-rejected": Record<
+    "svgStatusRejected" | "svgStatusRejectedLarge",
+    string
+  >;
+  "@stratakit/icons/status-success": Record<
+    "svgStatusSuccess" | "svgStatusSuccessLarge",
+    string
+  >;
+  "@stratakit/icons/status-warning": Record<
+    "svgStatusWarning" | "svgStatusWarningLarge",
+    string
+  >;
   "@stratakit/icons/sun": Record<"svgSun", string>;
 }
 
@@ -60,6 +72,7 @@ interface StrataKitIconProps extends Omit<React.ComponentProps<"svg">, "href"> {
   iconNode?: React.ReactNode;
   // eslint-disable-next-line @typescript-eslint/no-deprecated
   iconSpec?: IconSpec;
+  size?: "regular" | "large";
 }
 
 /** @internal */

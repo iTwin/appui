@@ -158,7 +158,7 @@ import { svgGoToStart } from "@stratakit/icons/go-to-start";
 import { svgGraphScatterChart } from "@stratakit/icons/graph-scatter-chart";
 import { svgGroup } from "@stratakit/icons/group";
 import { svgHand } from "@stratakit/icons/hand";
-import { svgHelp } from "@stratakit/icons/help";
+import { svgHelp, svgHelpLarge } from "@stratakit/icons/help";
 import { svgHierarchyTree } from "@stratakit/icons/hierarchy-tree";
 import { svgHistory } from "@stratakit/icons/history";
 import { svgHome } from "@stratakit/icons/home";
@@ -169,7 +169,7 @@ import { svgIModel } from "@stratakit/icons/imodel";
 import { svgImport } from "@stratakit/icons/import";
 import { svgImportant } from "@stratakit/icons/important";
 import { svgImportantVery } from "@stratakit/icons/important-very";
-import { svgInfo } from "@stratakit/icons/info";
+import { svgInfo, svgInfoLarge } from "@stratakit/icons/info";
 import { svgInstall } from "@stratakit/icons/install";
 import { svgIsolate } from "@stratakit/icons/isolate";
 import { svgIssue } from "@stratakit/icons/issue";
@@ -287,13 +287,25 @@ import { svgSorting } from "@stratakit/icons/sorting";
 import { svgSpin } from "@stratakit/icons/spin";
 import { svgStar } from "@stratakit/icons/star";
 import { svgStatusDraft } from "@stratakit/icons/status-draft";
-import { svgStatusError } from "@stratakit/icons/status-error";
+import {
+  svgStatusError,
+  svgStatusErrorLarge,
+} from "@stratakit/icons/status-error";
 import { svgStatusPending } from "@stratakit/icons/status-pending";
-import { svgStatusRejected } from "@stratakit/icons/status-rejected";
+import {
+  svgStatusRejected,
+  svgStatusRejectedLarge,
+} from "@stratakit/icons/status-rejected";
 import { svgStatusRunning } from "@stratakit/icons/status-running";
-import { svgStatusSuccess } from "@stratakit/icons/status-success";
+import {
+  svgStatusSuccess,
+  svgStatusSuccessLarge,
+} from "@stratakit/icons/status-success";
 import { svgStatusUpdate } from "@stratakit/icons/status-update";
-import { svgStatusWarning } from "@stratakit/icons/status-warning";
+import {
+  svgStatusWarning,
+  svgStatusWarningLarge,
+} from "@stratakit/icons/status-warning";
 import { svgStop } from "@stratakit/icons/stop";
 import { svgStopCircle } from "@stratakit/icons/stop-circle";
 import { svgSun } from "@stratakit/icons/sun";
@@ -500,7 +512,7 @@ export function enable() {
     "@stratakit/icons/graph-scatter-chart": { svgGraphScatterChart },
     "@stratakit/icons/group": { svgGroup },
     "@stratakit/icons/hand": { svgHand },
-    "@stratakit/icons/help": { svgHelp },
+    "@stratakit/icons/help": { svgHelp, svgHelpLarge },
     "@stratakit/icons/hierarchy-tree": { svgHierarchyTree },
     "@stratakit/icons/history": { svgHistory },
     "@stratakit/icons/home": { svgHome },
@@ -511,7 +523,7 @@ export function enable() {
     "@stratakit/icons/import": { svgImport },
     "@stratakit/icons/important-very": { svgImportantVery },
     "@stratakit/icons/important": { svgImportant },
-    "@stratakit/icons/info": { svgInfo },
+    "@stratakit/icons/info": { svgInfo, svgInfoLarge },
     "@stratakit/icons/install": { svgInstall },
     "@stratakit/icons/isolate": { svgIsolate },
     "@stratakit/icons/issue": { svgIssue },
@@ -631,13 +643,22 @@ export function enable() {
     "@stratakit/icons/spin": { svgSpin },
     "@stratakit/icons/star": { svgStar },
     "@stratakit/icons/status-draft": { svgStatusDraft },
-    "@stratakit/icons/status-error": { svgStatusError },
+    "@stratakit/icons/status-error": { svgStatusError, svgStatusErrorLarge },
     "@stratakit/icons/status-pending": { svgStatusPending },
-    "@stratakit/icons/status-rejected": { svgStatusRejected },
+    "@stratakit/icons/status-rejected": {
+      svgStatusRejected,
+      svgStatusRejectedLarge,
+    },
     "@stratakit/icons/status-running": { svgStatusRunning },
-    "@stratakit/icons/status-success": { svgStatusSuccess },
+    "@stratakit/icons/status-success": {
+      svgStatusSuccess,
+      svgStatusSuccessLarge,
+    },
     "@stratakit/icons/status-update": { svgStatusUpdate },
-    "@stratakit/icons/status-warning": { svgStatusWarning },
+    "@stratakit/icons/status-warning": {
+      svgStatusWarning,
+      svgStatusWarningLarge,
+    },
     "@stratakit/icons/stop-circle": { svgStopCircle },
     "@stratakit/icons/stop": { svgStop },
     "@stratakit/icons/sun": { svgSun },
