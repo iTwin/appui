@@ -1,5 +1,12 @@
 # Change Log - @itwin/components-react
 
+## 5.35.2
+
+### Patch Changes
+
+- 57c1507: Fixed icon alignment in `EnumButtonGroupEditor` component.
+  - @itwin/core-react@5.35.2
+
 ## 5.35.1
 
 ### Patch Changes
