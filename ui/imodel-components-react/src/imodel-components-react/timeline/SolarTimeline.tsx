@@ -93,26 +93,34 @@ function Timeline(props: TimelineProps) {
         max={sunSetOffsetMs}
         minLabel={
           <Tooltip content={sunRiseStr}>
-            <StrataKitIcon
-              href={(importIcon) => importIcon("@stratakit/icons/sun").svgSun}
-              iconNode={
-                <Icon>
-                  <SvgSun />
-                </Icon>
-              }
-            />
+            {/* Let Tooltip attach its trigger handlers and ref */}
+            <span className="solar-timeline-icon">
+              <StrataKitIcon
+                href={(importIcon) => importIcon("@stratakit/icons/sun").svgSun}
+                iconNode={
+                  <Icon>
+                    <SvgSun />
+                  </Icon>
+                }
+              />
+            </span>
           </Tooltip>
         }
         maxLabel={
           <Tooltip content={sunSetStr}>
-            <StrataKitIcon
-              href={(importIcon) => importIcon("@stratakit/icons/moon").svgMoon}
-              iconNode={
-                <Icon>
-                  <SvgMoon />
-                </Icon>
-              }
-            />
+            {/* Let Tooltip attach its trigger handlers and ref */}
+            <span className="solar-timeline-icon">
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/moon").svgMoon
+                }
+                iconNode={
+                  <Icon>
+                    <SvgMoon />
+                  </Icon>
+                }
+              />
+            </span>
           </Tooltip>
         }
         onUpdate={onUpdate}
