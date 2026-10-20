@@ -43,6 +43,7 @@ export default defineConfig(({ mode }) => {
         ) {
           return false;
         }
+        return undefined;
       },
     },
     customLogger,

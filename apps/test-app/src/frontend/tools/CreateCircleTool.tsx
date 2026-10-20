@@ -27,6 +27,9 @@ import {
   DialogPropertySyncItem,
   PropertyDescriptionHelper,
 } from "@itwin/appui-abstract";
+import { StrataKitIcon } from "@itwin/appui-test-providers";
+
+import svgCircle from "@stratakit/icons/circle.svg";
 
 /** Tool to test dynamic graphics and tool settings.
  * Will not insert an element, but will show a circle at the point clicked.
@@ -263,5 +266,5 @@ function determineSimulatedEvent() {
 
 export const CreateCircleTool = ToolUtilities.defineIcon(
   CreateCircleToolBase,
-  <SvgCircle />
+  <StrataKitIcon href={svgCircle} iconNode={<SvgCircle />} />
 );

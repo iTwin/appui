@@ -20,6 +20,9 @@ import {
   OutputMessageType,
 } from "@itwin/core-frontend";
 import { SvgPlaceholder } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../icons/StrataKitIcon.js";
+
+import svgPlaceholder from "@stratakit/icons/placeholder.svg";
 
 /** UiItemsProvider that provides tools to test message APIs. */
 export class MessageUiItemsProvider implements UiItemsProvider {
@@ -31,13 +34,20 @@ export class MessageUiItemsProvider implements UiItemsProvider {
       ToolbarItemUtilities.createGroupItem({
         id: `${this.id}:group`,
         itemPriority: 10,
-        icon: <SvgPlaceholder />,
+        icon: (
+          <StrataKitIcon href={svgPlaceholder} iconNode={<SvgPlaceholder />} />
+        ),
         label: "Messages",
         items: [
           ToolbarItemUtilities.createActionItem({
             id: `${this.id}:activity`,
             itemPriority: 1,
-            icon: <SvgPlaceholder />,
+            icon: (
+              <StrataKitIcon
+                href={svgPlaceholder}
+                iconNode={<SvgPlaceholder />}
+              />
+            ),
             label: "Activity message",
             execute: async () => {
               let isCancelled = false;
@@ -69,7 +79,12 @@ export class MessageUiItemsProvider implements UiItemsProvider {
           ToolbarItemUtilities.createActionItem({
             id: `${this.id}:toast`,
             itemPriority: 1,
-            icon: <SvgPlaceholder />,
+            icon: (
+              <StrataKitIcon
+                href={svgPlaceholder}
+                iconNode={<SvgPlaceholder />}
+              />
+            ),
             label: "Toast message",
             execute: () => {
               IModelApp.notifications.outputMessage(
@@ -85,7 +100,12 @@ export class MessageUiItemsProvider implements UiItemsProvider {
           ToolbarItemUtilities.createActionItem({
             id: `${this.id}:sticky`,
             itemPriority: 1,
-            icon: <SvgPlaceholder />,
+            icon: (
+              <StrataKitIcon
+                href={svgPlaceholder}
+                iconNode={<SvgPlaceholder />}
+              />
+            ),
             label: "Sticky message",
             execute: () => {
               IModelApp.notifications.outputMessage(
@@ -101,7 +121,12 @@ export class MessageUiItemsProvider implements UiItemsProvider {
           ToolbarItemUtilities.createActionItem({
             id: `${this.id}:alert`,
             itemPriority: 1,
-            icon: <SvgPlaceholder />,
+            icon: (
+              <StrataKitIcon
+                href={svgPlaceholder}
+                iconNode={<SvgPlaceholder />}
+              />
+            ),
             label: "Alert message",
             execute: () => {
               IModelApp.notifications.outputMessage(

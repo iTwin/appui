@@ -9,6 +9,9 @@ import { IModelApp, Tool } from "@itwin/core-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgWindowPopout } from "@itwin/itwinui-icons-react";
 import { PopupTestView } from "../ui/dialogs/PopupTestView.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgWindowPopout from "@stratakit/icons/window-popout.svg";
 
 class OpenPopoutViewToolBase extends Tool {
   private static _counter = 0;
@@ -82,5 +85,5 @@ class OpenPopoutViewToolBase extends Tool {
 
 export const OpenPopoutViewTool = ToolUtilities.defineIcon(
   OpenPopoutViewToolBase,
-  <SvgWindowPopout />
+  <StrataKitIcon href={svgWindowPopout} iconNode={<SvgWindowPopout />} />
 );

@@ -9,7 +9,6 @@
 import "./GroupItem.scss";
 import classnames from "classnames";
 import * as React from "react";
-import { Icon } from "@itwin/core-react";
 import { DropdownMenu, MenuExtraContent, MenuItem } from "@itwin/itwinui-react";
 import type { ToolbarItem } from "../../toolbar/ToolbarItem.js";
 import {
@@ -25,6 +24,7 @@ import { Badge } from "./Badge.js";
 import { ToolGroupOverflowContext } from "./OverflowButton.js";
 import { ToolbarContext } from "./Toolbar.js";
 import { useSafeContext } from "../../hooks/useSafeContext.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 interface GroupItemProps {
   item: ToolbarGroupItem;
@@ -87,8 +87,7 @@ export function GroupMenuItem({ item, onClose }: GroupMenuItemProps) {
   const startIcon = item.iconNode ? (
     <>{item.iconNode}</>
   ) : (
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    <Icon iconSpec={iconSpec} />
+    <StrataKitIcon iconSpec={iconSpec} />
   );
 
   return (

@@ -12,6 +12,9 @@ import { ChildWindowLocationProps, UiFramework } from "@itwin/appui-react";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import { SvgWindowAdd } from "@itwin/itwinui-icons-react";
 import { PopoutDialog } from "../ui/dialogs/PopoutDialog.js";
+import { StrataKitIcon } from "../ui/icons/StrataKitIcon.js";
+
+import svgWindowAdd from "@stratakit/icons/window-add.svg";
 
 /**
  * Immediate tool that will open an example popout dialog.The tool is created and register to allow the user
@@ -85,5 +88,5 @@ class OpenPopoutDialogToolBase extends Tool {
 
 export const OpenPopoutDialogTool = ToolUtilities.defineIcon(
   OpenPopoutDialogToolBase,
-  <SvgWindowAdd />
+  <StrataKitIcon href={svgWindowAdd} iconNode={<SvgWindowAdd />} />
 );

@@ -12,7 +12,6 @@ import {
 import {
   IModelViewportControl,
   PreviewFeatures,
-  PreviewFeaturesProvider,
   StandardContentLayouts,
   UiFramework,
 } from "@itwin/appui-react";
@@ -37,65 +36,62 @@ type PreviewStoryProps = Pick<
 /** `toolSettingsLockButton` preview feature. Displays the default tool settings lock editor as an icon button rather than a checkbox. */
 export function PreviewStory(props: PreviewStoryProps) {
   return (
-    <PreviewFeaturesProvider
+    <AppUiStory
       features={{
         toolSettingsLockButton: props.toolSettingsLockButton,
         toolSettingsNewEditors: props.toolSettingsNewEditors,
       }}
-    >
-      <AppUiStory
-        layout="fullscreen"
-        demoIModel={{ default: "blank" }}
-        frontstages={[
-          createFrontstage({
-            contentGroupProps: {
-              id: "ViewportContentGroup",
-              layout: StandardContentLayouts.singleView,
-              contents: [
-                {
-                  id: "ViewportContent",
-                  classId: IModelViewportControl,
-                },
-              ],
-            },
-            hideToolSettings: false,
-          }),
-        ]}
-        onInitialize={async () => {
-          IModelApp.tools.register(
-            createLockPropertyTool({
-              lockLabel: props.lockLabel,
-              disabled: props.disabled,
-              initialValue: props.propertyType === "number" ? 1 : undefined,
-              propertyOverrides: {
-                typename: props.propertyType,
-                ...(props.propertyType === "number"
-                  ? {
-                      editor: {
-                        name: StandardEditorNames.NumberCustom,
-                        params: [
-                          {
-                            type: PropertyEditorParamTypes.CustomFormattedNumber,
-                            formatFunction: (x) => x.toString(),
-                            parseFunction: (x) => ({
-                              value: Number(x),
-                              parseError: undefined,
-                            }),
-                          } as CustomFormattedNumberParams,
-                        ],
-                      },
-                    }
-                  : {}),
+      layout="fullscreen"
+      demoIModel={{ default: "blank" }}
+      frontstages={[
+        createFrontstage({
+          contentGroupProps: {
+            id: "ViewportContentGroup",
+            layout: StandardContentLayouts.singleView,
+            contents: [
+              {
+                id: "ViewportContent",
+                classId: IModelViewportControl,
               },
-              properties: props.properties,
-            }),
-            UiFramework.localizationNamespace
-          );
-        }}
-        onFrontstageActivated={async () => {
-          await IModelApp.tools.run(LockPropertyTool.toolId);
-        }}
-      />
-    </PreviewFeaturesProvider>
+            ],
+          },
+          hideToolSettings: false,
+        }),
+      ]}
+      onInitialize={async () => {
+        IModelApp.tools.register(
+          createLockPropertyTool({
+            lockLabel: props.lockLabel,
+            disabled: props.disabled,
+            initialValue: props.propertyType === "number" ? 1 : undefined,
+            propertyOverrides: {
+              typename: props.propertyType,
+              ...(props.propertyType === "number"
+                ? {
+                    editor: {
+                      name: StandardEditorNames.NumberCustom,
+                      params: [
+                        {
+                          type: PropertyEditorParamTypes.CustomFormattedNumber,
+                          formatFunction: (x) => x.toString(),
+                          parseFunction: (x) => ({
+                            value: Number(x),
+                            parseError: undefined,
+                          }),
+                        } as CustomFormattedNumberParams,
+                      ],
+                    },
+                  }
+                : {}),
+            },
+            properties: props.properties,
+          }),
+          UiFramework.localizationNamespace
+        );
+      }}
+      onFrontstageActivated={async () => {
+        await IModelApp.tools.run(LockPropertyTool.toolId);
+      }}
+    />
   );
 }

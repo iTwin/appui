@@ -28,6 +28,7 @@ import { useIsToolSettingsTab } from "./useIsToolSettingsTab.js";
 import { WidgetAction } from "./WidgetAction.js";
 import { useIsMaximizedWidget } from "../../preview/enable-maximized-widget/useMaximizedWidget.js";
 import { useTranslation } from "../../hooks/useTranslation.js";
+import { StrataKitIcon } from "../../preview/use-stratakit/StrataKitIcon.js";
 
 /** @internal */
 export const useActiveSendBackWidgetIdStore = create<
@@ -88,13 +89,31 @@ function Icon() {
   assert(!!id);
   const home = useLayout((state) => state.floatingWidgets.byId[id].home);
   return home.side === "left" ? (
-    <SvgDockLeft />
+    <StrataKitIcon
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/dock-left").svgDockLeft
+      }
+      iconNode={<SvgDockLeft />}
+    />
   ) : home.side === "right" ? (
-    <SvgDockRight />
+    <StrataKitIcon
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/dock-right").svgDockRight
+      }
+      iconNode={<SvgDockRight />}
+    />
   ) : home.side === "top" ? (
-    <SvgDockTop />
+    <StrataKitIcon
+      href={(importIcon) => importIcon("@stratakit/icons/dock-top").svgDockTop}
+      iconNode={<SvgDockTop />}
+    />
   ) : (
-    <SvgDockBottom />
+    <StrataKitIcon
+      href={(importIcon) =>
+        importIcon("@stratakit/icons/dock-bottom").svgDockBottom
+      }
+      iconNode={<SvgDockBottom />}
+    />
   );
 }
 

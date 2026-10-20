@@ -8,6 +8,7 @@
 import type { FormatProps } from "@itwin/core-quantity";
 import React from "react";
 import classnames from "classnames";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { useTranslation } from "../../useTranslation.js";
 import { SvgHelpCircularHollow } from "@itwin/itwinui-icons-react";
 import { Checkbox, IconButton, Input, Label } from "@itwin/itwinui-react";
@@ -79,7 +80,10 @@ export function AzimuthOptions(props: {
           styleType="borderless"
           label={translate("QuantityFormat.azimuthType.ccwFlagTooltip")}
         >
-          <SvgHelpCircularHollow />
+          <StrataKitIcon
+            href={(importIcon) => importIcon("@stratakit/icons/help").svgHelp}
+            iconNode={<SvgHelpCircularHollow />}
+          />
         </IconButton>
       </Label>
       <Checkbox
@@ -101,7 +105,10 @@ export function AzimuthOptions(props: {
           styleType="borderless"
           label={translate("QuantityFormat.azimuthType.baseTooltip")}
         >
-          <SvgHelpCircularHollow />
+          <StrataKitIcon
+            href={(importIcon) => importIcon("@stratakit/icons/help").svgHelp}
+            iconNode={<SvgHelpCircularHollow />}
+          />
         </IconButton>
       </Label>
       <Input

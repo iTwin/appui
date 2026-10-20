@@ -15,6 +15,9 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 import type { UnitSystemKey } from "@itwin/core-quantity";
 import { StatusBarDialog, StatusBarPopover } from "@itwin/appui-react";
+import { StrataKitIcon } from "../../icons/StrataKitIcon.js";
+
+import svgLightbulb from "@stratakit/icons/lightbulb.svg";
 
 /** Props for [[UnitsField]].
  * @internal
@@ -67,7 +70,7 @@ export function UnitsField(props: UnitsFieldProps) {
       }
     >
       <IconButton styleType="borderless" label={label}>
-        <SvgLightbulbHollow />
+        <StrataKitIcon href={svgLightbulb} iconNode={<SvgLightbulbHollow />} />
         <StatusBarPopover.ExpandIndicator />
       </IconButton>
     </StatusBarPopover>

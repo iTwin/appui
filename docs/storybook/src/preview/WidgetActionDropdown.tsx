@@ -4,7 +4,6 @@
  *--------------------------------------------------------------------------------------------*/
 import {
   PreviewFeatures,
-  PreviewFeaturesProvider,
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
@@ -42,24 +41,21 @@ type PreviewStoryProps = Required<PreviewFeatures>["widgetActionDropdown"];
 export function PreviewStory(props: PreviewStoryProps) {
   const provider = createProvider();
   return (
-    <PreviewFeaturesProvider
+    <AppUiStory
       features={{
         enableMaximizedFloatingWidget: true,
         horizontalPanelAlignment: true,
         widgetActionDropdown: { threshold: props.threshold },
       }}
-    >
-      <AppUiStory
-        itemProviders={[provider]}
-        frontstages={[
-          createFrontstage({
-            leftPanelProps: {
-              defaultState: StagePanelState.Open,
-              pinned: true,
-            },
-          }),
-        ]}
-      />
-    </PreviewFeaturesProvider>
+      itemProviders={[provider]}
+      frontstages={[
+        createFrontstage({
+          leftPanelProps: {
+            defaultState: StagePanelState.Open,
+            pinned: true,
+          },
+        }),
+      ]}
+    />
   );
 }

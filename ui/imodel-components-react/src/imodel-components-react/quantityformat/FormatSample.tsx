@@ -10,7 +10,7 @@ import * as React from "react";
 import { Key } from "ts-key-enum";
 import type { FormatterSpec } from "@itwin/core-quantity";
 import type { CommonProps } from "@itwin/core-react";
-import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { Input } from "@itwin/itwinui-react";
 import { SvgProgressForward } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../useTranslation.js";
@@ -103,8 +103,12 @@ export function FormatSample(props: FormatSampleProps) {
       )}
       <span data-testid="progress-forward">
         {hideLabels && formattedValue.length > 0 && (
-          // eslint-disable-next-line @typescript-eslint/no-deprecated
-          <Icon iconSpec={<SvgProgressForward />} />
+          <StrataKitIcon
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/chevron-right").svgChevronRight
+            }
+            iconSpec={<SvgProgressForward />}
+          />
         )}
         <span
           data-testid="format-sample-formatted"

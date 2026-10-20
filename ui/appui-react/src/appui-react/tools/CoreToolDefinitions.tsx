@@ -43,11 +43,15 @@ import { GroupItemDef } from "../toolbar/GroupItem.js";
 import { RestoreFrontstageLayoutTool } from "./RestoreLayoutTool.js";
 import { UiFramework } from "../UiFramework.js";
 import { SvgSectionTool } from "../icons/SvgSectionTool.js";
-import { SvgSelectionClear } from "../icons/SvgSelectionClear.js";
-import { SvgMeasure, SvgProcess } from "@itwin/itwinui-icons-react";
+import {
+  SvgMeasure,
+  SvgProcess,
+  SvgSelectionClear,
+} from "@itwin/itwinui-icons-react";
 import type { ToolbarItems } from "./ToolbarItems.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 import type { ToolItemProps } from "../shared/ItemProps.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -59,7 +63,14 @@ export class CoreTools {
   public static get keyinPaletteButtonItemDef() {
     return new ToolItemDef({
       toolId: "uif:keyinpalette",
-      icon: <SvgProcess />,
+      icon: (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/keyboard").svgKeyboard
+          }
+          iconNode={<SvgProcess />}
+        />
+      ),
       labelKey: "UiFramework:keyinbrowser.label",
       execute: () => {
         UiFramework.showKeyinPalette(
@@ -373,7 +384,14 @@ export class CoreTools {
     return new GroupItemDef({
       groupId: "measureTools-group",
       labelKey: "UiFramework:tools.measureTools",
-      icon: <SvgMeasure />,
+      icon: (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/measure").svgMeasure
+          }
+          iconNode={<SvgMeasure />}
+        />
+      ),
       items: [this.measureDistanceToolItemDef, this.measureLocationToolItemDef],
       itemsInColumn: 2,
     });
@@ -382,7 +400,14 @@ export class CoreTools {
   public static get clearSelectionItemDef() {
     return new CommandItemDef({
       commandId: "UiFramework.ClearSelection",
-      icon: <SvgSelectionClear />,
+      icon: (
+        <StrataKitIcon
+          href={(importIcon) =>
+            importIcon("@stratakit/icons/selection-clear").svgSelectionClear
+          }
+          iconNode={<SvgSelectionClear />}
+        />
+      ),
       labelKey: "UiFramework:buttons.clearSelection",
       isHidden: getIsHiddenIfSelectionNotActive(),
       execute: async () => {

@@ -11,13 +11,13 @@ import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
 import { Input } from "@itwin/itwinui-react";
-import { Icon } from "../../icons/IconComponent.js";
 import {
   SvgCaretDown,
   SvgCaretDownSmall,
   SvgCaretUp,
   SvgCaretUpSmall,
 } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "../../StrataKitIcon.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -315,7 +315,12 @@ const ForwardRefNumberInput = React.forwardRef<
           onClick={handleUpClick}
           role="presentation"
         >
-          <Icon iconSpec={caretUp} />
+          <StrataKitIcon
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/caret-up").svgCaretUp
+            }
+            iconSpec={caretUp}
+          />
         </div>
         <div
           className="core-number-input-button core-number-input-button-down"
@@ -323,7 +328,12 @@ const ForwardRefNumberInput = React.forwardRef<
           onClick={handleDownClick}
           role="presentation"
         >
-          <Icon iconSpec={caretDown} />
+          <StrataKitIcon
+            href={(importIcon) =>
+              importIcon("@stratakit/icons/caret-down").svgCaretDown
+            }
+            iconSpec={caretDown}
+          />
         </div>
       </div>
     </div>

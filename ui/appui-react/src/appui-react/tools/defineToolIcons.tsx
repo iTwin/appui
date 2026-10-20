@@ -5,6 +5,7 @@
 
 import * as React from "react";
 import { RotateViewTool, ViewToggleCameraTool } from "@itwin/core-frontend";
+import type { ToolType } from "@itwin/core-frontend";
 import { ToolUtilities } from "@itwin/imodel-components-react";
 import {
   SvgCameraAnimation,
@@ -15,8 +16,7 @@ import { useConditionalValue } from "../hooks/useConditionalValue.js";
 import { getActiveViewport } from "../utils/getActiveViewport.js";
 import { SyncUiEventId } from "../syncui/UiSyncEvent.js";
 import { SvgGyroscope } from "../icons/SvgGyroscope.js";
-
-import type { ToolType } from "@itwin/core-frontend";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 /** @internal */
 export function defineToolIcons() {
@@ -39,7 +39,17 @@ function RotateViewIcon() {
     SyncUiEventId.ViewStateChanged,
   ]);
 
-  return is2d ? <SvgRotateLeft /> : <SvgGyroscope />;
+  const iconNode = is2d ? <SvgRotateLeft /> : <SvgGyroscope />;
+  return (
+    <StrataKitIcon
+      href={(importIcon) => {
+        const { svgRotateLeft } = importIcon("@stratakit/icons/rotate-left");
+        const { svgRotatePoint } = importIcon("@stratakit/icons/rotate-point");
+        return is2d ? svgRotateLeft : svgRotatePoint;
+      }}
+      iconNode={iconNode}
+    />
+  );
 }
 
 function ToggleCameraViewIcon() {
@@ -52,9 +62,21 @@ function ToggleCameraViewIcon() {
     SyncUiEventId.ViewStateChanged,
   ]);
 
-  return cameraEnabled ? (
+  const href: React.ComponentProps<typeof StrataKitIcon>["href"] = cameraEnabled
+    ? (importIcon) => importIcon("@stratakit/icons/camera-video").svgCameraVideo
+    : (importIcon) =>
+        importIcon("@stratakit/icons/camera-video-disabled")
+          .svgCameraVideoDisabled;
+  const iconNode = cameraEnabled ? (
     <SvgCameraAnimation />
   ) : (
     <SvgCameraAnimationDisabled />
+  );
+  return (
+    <StrataKitIcon
+      href={href}
+      iconNode={iconNode}
+      iconSpec={ViewToggleCameraTool.iconSpec}
+    />
   );
 }

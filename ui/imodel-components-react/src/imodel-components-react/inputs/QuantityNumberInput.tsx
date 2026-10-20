@@ -10,7 +10,7 @@ import "./QuantityNumberInput.scss";
 import classnames from "classnames";
 import * as React from "react";
 import { Key } from "ts-key-enum";
-import { Icon } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import type { QuantityTypeArg } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type {
@@ -432,8 +432,12 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
             tabIndex={-1}
             onClick={handleUpClick}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={caretUp} />
+            <StrataKitIcon
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/caret-up").svgCaretUp
+              }
+              iconSpec={caretUp}
+            />
           </div>
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
@@ -441,8 +445,12 @@ const ForwardRefQuantityNumberInput = React.forwardRef<
             tabIndex={-1}
             onClick={handleDownClick}
           >
-            {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-            <Icon iconSpec={caretDown} />
+            <StrataKitIcon
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/caret-down").svgCaretDown
+              }
+              iconSpec={caretDown}
+            />
           </div>
         </div>
       </div>

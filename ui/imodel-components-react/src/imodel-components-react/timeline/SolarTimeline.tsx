@@ -11,6 +11,7 @@ import classnames from "classnames";
 import * as React from "react";
 import { ColorByName, ColorDef } from "@itwin/core-common";
 import type { CommonProps } from "@itwin/core-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
 import { adjustDateToTimezone, UiComponents } from "@itwin/components-react";
 import {
   Button,
@@ -92,16 +93,34 @@ function Timeline(props: TimelineProps) {
         max={sunSetOffsetMs}
         minLabel={
           <Tooltip content={sunRiseStr}>
-            <Icon>
-              <SvgSun />
-            </Icon>
+            {/* Let Tooltip attach its trigger handlers and ref */}
+            <span className="solar-timeline-icon">
+              <StrataKitIcon
+                href={(importIcon) => importIcon("@stratakit/icons/sun").svgSun}
+                iconNode={
+                  <Icon>
+                    <SvgSun />
+                  </Icon>
+                }
+              />
+            </span>
           </Tooltip>
         }
         maxLabel={
           <Tooltip content={sunSetStr}>
-            <Icon>
-              <SvgMoon />
-            </Icon>
+            {/* Let Tooltip attach its trigger handlers and ref */}
+            <span className="solar-timeline-icon">
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/moon").svgMoon
+                }
+                iconNode={
+                  <Icon>
+                    <SvgMoon />
+                  </Icon>
+                }
+              />
+            </span>
           </Tooltip>
         }
         onUpdate={onUpdate}
@@ -559,7 +578,10 @@ export class SolarTimeline extends React.PureComponent<
             onClick={this._onToggleLoop}
             isActive={loop}
           >
-            <SvgLoop />
+            <StrataKitIcon
+              href={(importIcon) => importIcon("@stratakit/icons/loop").svgLoop}
+              iconNode={<SvgLoop />}
+            />
           </IconButton>
 
           <Popover
@@ -595,7 +617,12 @@ export class SolarTimeline extends React.PureComponent<
               label={UiIModelComponents.translate("timeline.settings")}
               onClick={this._onOpenSettingsPopup}
             >
-              <SvgSettings />
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/settings").svgSettings
+                }
+                iconNode={<SvgSettings />}
+              />
             </IconButton>
           </Popover>
         </Flex>
@@ -618,7 +645,14 @@ const CalendarButton = React.forwardRef<HTMLButtonElement, CalendarButtonProps>(
       <Tooltip content={tooltip}>
         <Button
           styleType="borderless"
-          startIcon={<SvgCalendar />}
+          startIcon={
+            <StrataKitIcon
+              href={(importIcon) =>
+                importIcon("@stratakit/icons/calendar").svgCalendar
+              }
+              iconNode={<SvgCalendar />}
+            />
+          }
           data-testid="solar-date-time-button"
           title={tooltip}
           onClick={onClick}

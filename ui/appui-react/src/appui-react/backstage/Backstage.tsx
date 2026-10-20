@@ -14,7 +14,6 @@ import {
   ConditionalStringValue,
 } from "@itwin/appui-abstract";
 import { Logger } from "@itwin/core-bentley";
-import { Icon as CoreIcon } from "@itwin/core-react";
 import { Badge } from "@itwin/core-react/internal";
 import { Dialog, Divider, Icon, List, ListItem } from "@itwin/itwinui-react";
 import { UiFramework } from "../UiFramework.js";
@@ -22,6 +21,7 @@ import { useActiveFrontstageId } from "../frontstage/FrontstageDef.js";
 import { isProviderItem } from "../ui-items-provider/isProviderItem.js";
 import { useBackstageManager } from "./BackstageManager.js";
 import { useTranslation } from "../hooks/useTranslation.js";
+import { StrataKitIcon } from "../preview/use-stratakit/StrataKitIcon.js";
 
 import type {
   BackstageActionItem as BackstageActionItemDef,
@@ -103,8 +103,7 @@ function ItemIcon({
     return <Icon aria-hidden="true">{iconNode}</Icon>;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
-  return <CoreIcon iconSpec={icon} />;
+  return <StrataKitIcon iconSpec={icon} />;
 }
 
 type ListItemProps = React.ComponentProps<typeof ListItem>;

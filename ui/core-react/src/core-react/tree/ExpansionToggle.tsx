@@ -10,9 +10,10 @@ import "./ExpansionToggle.scss";
 import classnames from "classnames";
 import * as React from "react";
 import type { CommonProps } from "../utils/Props.js";
-import { Icon } from "../icons/IconComponent.js";
 import { SvgChevronRight } from "@itwin/itwinui-icons-react";
 import { useTranslation } from "../l10n/useTranslation.js";
+import { StrataKitIcon } from "../StrataKitIcon.js";
+import { Icon } from "../icons/IconComponent.js";
 
 /* eslint-disable @typescript-eslint/no-deprecated */
 
@@ -51,7 +52,15 @@ export function ExpansionToggle(props: ExpansionToggleProps) {
       tabIndex={-1}
       aria-label={label}
     >
-      <Icon className="toggle icon" iconSpec={<SvgChevronRight />} />
+      <StrataKitIcon
+        className="toggle icon"
+        href={(importIcon) =>
+          importIcon("@stratakit/icons/chevron-right").svgChevronRight
+        }
+        iconNode={
+          <Icon className="toggle icon" iconSpec={<SvgChevronRight />} />
+        }
+      />
     </div>
   );
 }

@@ -5,7 +5,6 @@
 import React from "react";
 import {
   PreviewFeatures,
-  PreviewFeaturesProvider,
   StagePanelState,
   UiItemsProvider,
   Widget,
@@ -49,23 +48,20 @@ interface WidgetStoryProps
 export function WidgetStory(props: WidgetStoryProps) {
   const provider = createProvider(props.widgets);
   return (
-    <PreviewFeaturesProvider
+    <AppUiStory
       features={{
         widgetTabActions: props.widgetTabActions,
       }}
-    >
-      <AppUiStory
-        frontstages={[
-          createFrontstage({
-            leftPanelProps: {
-              defaultState: StagePanelState.Open,
-              pinned: true,
-            },
-          }),
-        ]}
-        itemProviders={[provider]}
-        {...props}
-      />
-    </PreviewFeaturesProvider>
+      frontstages={[
+        createFrontstage({
+          leftPanelProps: {
+            defaultState: StagePanelState.Open,
+            pinned: true,
+          },
+        }),
+      ]}
+      itemProviders={[provider]}
+      {...props}
+    />
   );
 }

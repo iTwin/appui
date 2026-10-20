@@ -25,7 +25,6 @@ import type { IModelConnection, Viewport } from "@itwin/core-frontend";
 import { IModelApp } from "@itwin/core-frontend";
 import type { CommonProps, IconSpec } from "@itwin/core-react";
 import type { ListenerType } from "@itwin/core-react/internal";
-import { Icon } from "@itwin/core-react";
 import { UiIModelComponents } from "../UiIModelComponents.js";
 import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents.js";
 import { Cube, Face } from "./Cube.js";
@@ -35,6 +34,10 @@ import {
   SvgCaretRight,
   SvgCaretUp,
 } from "@itwin/itwinui-icons-react";
+import { StrataKitIcon } from "@itwin/core-react/internal";
+
+type StrataKitIconProps = React.ComponentProps<typeof StrataKitIcon>;
+type StrataKitIconHrefFn = NonNullable<StrataKitIconProps>["href"];
 
 /** @public */
 export enum CubeNavigationHitBoxX {
@@ -1013,6 +1016,17 @@ const pointerIconSpec: { [key: number]: IconSpec } = {
   [Pointer.Right]: <SvgCaretLeft />,
 };
 
+const pointerStrataKitIcon: { [key: number]: StrataKitIconHrefFn } = {
+  [Pointer.Up]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-down").svgCaretDown,
+  [Pointer.Down]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-up").svgCaretUp,
+  [Pointer.Left]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-right").svgCaretRight,
+  [Pointer.Right]: (importIcon) =>
+    importIcon("@stratakit/icons/caret-left").svgCaretLeft,
+};
+
 const pointerClass: { [key: number]: string } = {
   [Pointer.Up]: "cube-up",
   [Pointer.Down]: "cube-down",
@@ -1048,8 +1062,10 @@ class PointerButton extends React.Component<PointerProps> {
         {...props}
         onClick={this._handleClick}
       >
-        {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-        <Icon iconSpec={pointerIconSpec[pointerType]} />
+        <StrataKitIcon
+          href={pointerStrataKitIcon[pointerType]}
+          iconSpec={pointerIconSpec[pointerType]}
+        />
       </div>
     );
   }

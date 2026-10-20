@@ -8,7 +8,6 @@ import {
   BackstageComposer,
   BackstageItemUtilities,
   PreviewFeatures,
-  PreviewFeaturesProvider,
   StagePanelLocation,
   StagePanelSection,
   StagePanelState,
@@ -69,60 +68,57 @@ export function ActiveFrontstageStory(props: ActiveFrontstageStoryProps) {
     },
   });
   return (
-    <PreviewFeaturesProvider
+    <AppUiStory
       features={{
         stableContentLayout,
       }}
-    >
-      <AppUiStory
-        appBackstage={<BackstageComposer />}
-        layout="fullscreen"
-        frontstages={[frontstage1, frontstage2]}
-        itemProviders={[
+      appBackstage={<BackstageComposer />}
+      layout="fullscreen"
+      frontstages={[frontstage1, frontstage2]}
+      itemProviders={[
+        {
+          id: "backstage-items",
+          getBackstageItems: () => [
+            BackstageItemUtilities.createStageLauncher({
+              stageId: frontstage1.id,
+              label: "Frontstage 1",
+            }),
+            BackstageItemUtilities.createStageLauncher({
+              stageId: frontstage2.id,
+              label: "Frontstage 2",
+            }),
+          ],
+        },
+      ]}
+      onInitialize={async () => {
+        UiItemsManager.register(
           {
-            id: "backstage-items",
-            getBackstageItems: () => [
-              BackstageItemUtilities.createStageLauncher({
-                stageId: frontstage1.id,
-                label: "Frontstage 1",
-              }),
-              BackstageItemUtilities.createStageLauncher({
-                stageId: frontstage2.id,
-                label: "Frontstage 2",
+            id: "frontstage1-widgets",
+            getWidgets: () => [createWidget(1)],
+          },
+          {
+            stageIds: [frontstage1.id],
+          }
+        );
+        UiItemsManager.register(
+          {
+            id: "frontstage2-widgets",
+            getWidgets: () => [
+              createWidget(2, {
+                layouts: {
+                  standard: {
+                    location: StagePanelLocation.Right,
+                    section: StagePanelSection.Start,
+                  },
+                },
               }),
             ],
           },
-        ]}
-        onInitialize={async () => {
-          UiItemsManager.register(
-            {
-              id: "frontstage1-widgets",
-              getWidgets: () => [createWidget(1)],
-            },
-            {
-              stageIds: [frontstage1.id],
-            }
-          );
-          UiItemsManager.register(
-            {
-              id: "frontstage2-widgets",
-              getWidgets: () => [
-                createWidget(2, {
-                  layouts: {
-                    standard: {
-                      location: StagePanelLocation.Right,
-                      section: StagePanelSection.Start,
-                    },
-                  },
-                }),
-              ],
-            },
-            {
-              stageIds: [frontstage2.id],
-            }
-          );
-        }}
-      />
-    </PreviewFeaturesProvider>
+          {
+            stageIds: [frontstage2.id],
+          }
+        );
+      }}
+    />
   );
 }

@@ -13,7 +13,7 @@ import { ColorByName, ColorDef } from "@itwin/core-common";
 import { RelativePosition } from "@itwin/appui-abstract";
 import type { CommonProps } from "@itwin/core-react";
 import { Icon, Popup } from "@itwin/core-react";
-import { useRefs } from "@itwin/core-react/internal";
+import { StrataKitIcon, useRefs } from "@itwin/core-react/internal";
 import { ColorSwatch } from "./Swatch.js";
 import { getCSSColorFromDef } from "./getCSSColorFromDef.js";
 import { SvgCaretDownSmall, SvgCaretUpSmall } from "@itwin/itwinui-icons-react";
@@ -188,13 +188,36 @@ const ForwardRefColorPickerButton = React.forwardRef<
             style={swatchStyle}
             data-testid={showPopup ? "caret-up" : "caret-down"}
           />
-          {showCaret && (
-            // eslint-disable-next-line @typescript-eslint/no-deprecated
-            <Icon
-              className="components-caret"
-              iconSpec={showPopup ? <SvgCaretUpSmall /> : <SvgCaretDownSmall />}
-            />
-          )}
+          {showCaret &&
+            (showPopup ? (
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/caret-up").svgCaretUp
+                }
+                className="components-caret"
+                iconNode={
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
+                  <Icon
+                    className="components-caret"
+                    iconSpec={<SvgCaretUpSmall />}
+                  />
+                }
+              />
+            ) : (
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/caret-down").svgCaretDown
+                }
+                className="components-caret"
+                iconNode={
+                  // eslint-disable-next-line @typescript-eslint/no-deprecated
+                  <Icon
+                    className="components-caret"
+                    iconSpec={<SvgCaretDownSmall />}
+                  />
+                }
+              />
+            ))}
         </div>
       </button>
       {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}

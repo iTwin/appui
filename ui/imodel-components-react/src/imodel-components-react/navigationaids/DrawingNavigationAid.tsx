@@ -28,8 +28,7 @@ import type {
 } from "@itwin/core-frontend";
 import { IModelApp, ScreenViewport } from "@itwin/core-frontend";
 import type { CommonProps } from "@itwin/core-react";
-import type { ListenerType } from "@itwin/core-react/internal";
-import { Icon } from "@itwin/core-react";
+import { type ListenerType, StrataKitIcon } from "@itwin/core-react/internal";
 import { UiIModelComponents } from "../UiIModelComponents.js";
 import { ViewportComponentEvents } from "../viewport/ViewportComponentEvents.js";
 import {
@@ -315,8 +314,12 @@ export class DrawingNavigationAid extends React.Component<
               onClick={this._toggleRotationMode}
               role="presentation"
             >
-              {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-              <Icon iconSpec={<SvgRotateLeft />} />
+              <StrataKitIcon
+                href={(importIcon) =>
+                  importIcon("@stratakit/icons/rotate-left").svgRotateLeft
+                }
+                iconSpec={<SvgRotateLeft />}
+              />
             </div>
           )}
           {!rot.isIdentity && (
@@ -341,8 +344,13 @@ export class DrawingNavigationAid extends React.Component<
                 tabIndex={-1}
               >
                 <div className="close-icon icon">
-                  {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                  <Icon iconSpec={<SvgSortUp />} />
+                  <StrataKitIcon
+                    href={(importIcon) =>
+                      importIcon("@stratakit/icons/sort-descending")
+                        .svgSortDescending
+                    }
+                    iconSpec={<SvgSortUp />}
+                  />
                 </div>
               </div>
               <div className="zoom">
@@ -353,8 +361,12 @@ export class DrawingNavigationAid extends React.Component<
                   role="button"
                   tabIndex={-1}
                 >
-                  {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                  <Icon iconSpec={<SvgAdd />} />
+                  <StrataKitIcon
+                    href={(importIcon) =>
+                      importIcon("@stratakit/icons/add").svgAdd
+                    }
+                    iconSpec={<SvgAdd />}
+                  />
                 </div>
                 <div
                   className="zoom-button icon"
@@ -363,8 +375,12 @@ export class DrawingNavigationAid extends React.Component<
                   role="button"
                   tabIndex={-1}
                 >
-                  {/* eslint-disable-next-line @typescript-eslint/no-deprecated */}
-                  <Icon iconSpec={<SvgRemove />} />
+                  <StrataKitIcon
+                    href={(importIcon) =>
+                      importIcon("@stratakit/icons/dismiss").svgDismiss
+                    }
+                    iconSpec={<SvgRemove />}
+                  />
                 </div>
               </div>
             </>
