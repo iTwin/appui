@@ -49,6 +49,7 @@ import { EditorsRegistryProvider } from "@itwin/components-react";
 import { AccuDrawStoreProvider } from "../accudraw/AccuDrawStoreProvider.js";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import type { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
+import { useStrataKitModules } from "../preview/use-stratakit/useStrataKitModules.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -185,7 +186,8 @@ export function StandardLayout(props: StandardLayoutProps) {
   useWidgetOpacity(widgetOpacity);
   useToolbarOpacity(toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement>();
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement>();
+  const [portalContainer, setPortalContainer] =
+    React.useState<HTMLElement | null>(null);
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
@@ -225,10 +227,7 @@ export function StandardLayout(props: StandardLayoutProps) {
         ref={(el) => setMainElement(el ?? undefined)}
       >
         <WrapperContext.Provider value={mainElement ?? document.body}>
-          <ThemeProvider
-            style={{ height: "100%" }}
-            portalContainer={portalContainer}
-          >
+          <PortalProvider portalContainer={portalContainer}>
             <IModelProvider>
               <EditorsRegistryProvider editors={defaultEditors}>
                 {appBackstage}
@@ -247,7 +246,7 @@ export function StandardLayout(props: StandardLayoutProps) {
                 <ChildWindowRenderer windowManager={appUi.windowManager} />
                 <div
                   className="uifw-configurableui-portalContainer"
-                  ref={(instance) => setPortalContainer(instance ?? undefined)}
+                  ref={(instance) => setPortalContainer(instance)}
                 >
                   <ContentDialogRenderer />
                   <ModelessDialogRenderer />
@@ -255,7 +254,7 @@ export function StandardLayout(props: StandardLayoutProps) {
                 </div>
               </EditorsRegistryProvider>
             </IModelProvider>
-          </ThemeProvider>
+          </PortalProvider>
         </WrapperContext.Provider>
       </main>
     </ConfigurableUiContext.Provider>
@@ -335,5 +334,60 @@ function IModelProvider({ children }: React.PropsWithChildren<object>) {
     <IModelConnectionProvider iModelConnection={imodel}>
       {children}
     </IModelConnectionProvider>
+  );
+}
+
+interface PortalProviderProps {
+  children?: React.ReactNode;
+  portalContainer: HTMLElement | null;
+}
+
+function PortalProvider(props: PortalProviderProps) {
+  const modules = useStrataKitModules();
+  if (modules) {
+    return <StrataKitPortalProvider modules={modules} {...props} />;
+  }
+
+  return (
+    <ThemeProvider
+      style={{ height: "100%" }}
+      portalContainer={props.portalContainer ?? undefined}
+    >
+      {props.children}
+    </ThemeProvider>
+  );
+}
+
+interface StrataKitPortalProviderProps extends PortalProviderProps {
+  modules: NonNullable<ReturnType<typeof useStrataKitModules>>;
+}
+
+function StrataKitPortalProvider(props: StrataKitPortalProviderProps) {
+  const { modules, children: childrenProp, portalContainer } = props;
+
+  const { PortalContext } = modules["@stratakit/foundations"];
+  const { RootContext } = modules["@stratakit/foundations/secret-internals"];
+  const { portalProvider } = React.useContext(RootContext);
+
+  const children = React.useMemo(() => {
+    if (!portalProvider) {
+      return <>{childrenProp}</>;
+    }
+
+    return React.cloneElement(
+      portalProvider as React.ReactElement<React.PropsWithChildren>,
+      { children: childrenProp }
+    );
+  }, [portalProvider, childrenProp]);
+
+  return (
+    <PortalContext.Provider value={{ container: portalContainer }}>
+      <ThemeProvider
+        style={{ height: "100%" }}
+        portalContainer={portalContainer ?? undefined}
+      >
+        {children}
+      </ThemeProvider>
+    </PortalContext.Provider>
   );
 }

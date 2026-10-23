@@ -9,6 +9,7 @@
  * Ensure, that the StrataKit types are not exposed in case the `skipLibCheck: false` option is used:
  * StrataKit package imports should not be used in .d.ts files.
  */
+import type * as React from "react";
 import { StrataKitSymbol } from "./appui-react/preview/PreviewFeatures.js";
 import type { StrataKitIconModules } from "@itwin/core-react/internal";
 
@@ -17,6 +18,8 @@ import type { StrataKitIconModules } from "@itwin/core-react/internal";
 /* eslint-disable @typescript-eslint/no-restricted-imports */
 
 import { Icon } from "@stratakit/mui";
+import { PortalContext } from "@stratakit/foundations";
+import { RootContext } from "@stratakit/foundations/secret-internals";
 import { svg2D } from "@stratakit/icons/2d";
 import { svg3D } from "@stratakit/icons/3d";
 import { svgActivity } from "@stratakit/icons/activity";
@@ -362,6 +365,12 @@ export function enable() {
   const modules = {
     "@stratakit/mui": {
       Icon: Icon as React.ComponentType<IconProps>,
+    },
+    "@stratakit/foundations": {
+      PortalContext,
+    },
+    "@stratakit/foundations/secret-internals": {
+      RootContext: RootContext as React.Context<RootContextValue>,
     },
     "@stratakit/icons/2d": { svg2D },
     "@stratakit/icons/3d": { svg3D },
@@ -718,4 +727,9 @@ export function enable() {
 interface IconProps extends React.ComponentProps<"svg"> {
   /** Size of the icon. Defaults to `"regular"` (16px), can be set to `"large"` (24px). */
   size?: "regular" | "large";
+}
+
+interface RootContextValue {
+  /** Element to customize the portal provider. */
+  portalProvider?: React.ReactElement | undefined;
 }
