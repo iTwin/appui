@@ -9,6 +9,7 @@
  * Ensure, that the StrataKit types are not exposed in case the `skipLibCheck: false` option is used:
  * StrataKit package imports should not be used in .d.ts files.
  */
+import type * as React from "react";
 import { StrataKitSymbol } from "./appui-react/preview/PreviewFeatures.js";
 import type { StrataKitIconModules } from "@itwin/core-react/internal";
 
