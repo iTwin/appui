@@ -50,6 +50,7 @@ import { AccuDrawStoreProvider } from "../accudraw/AccuDrawStoreProvider.js";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import type { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
 import { useStrataKitModules } from "../preview/use-stratakit/useStrataKitModules.js";
+import { StrataKitPortalProvider } from "../preview/use-stratakit/StrataKitPortalProvider.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -343,51 +344,21 @@ interface PortalProviderProps {
 }
 
 function PortalProvider(props: PortalProviderProps) {
-  const modules = useStrataKitModules();
-  if (modules) {
-    return <StrataKitPortalProvider modules={modules} {...props} />;
-  }
+  const { portalContainer, children } = props;
 
+  const modules = useStrataKitModules();
   return (
     <ThemeProvider
       style={{ height: "100%" }}
-      portalContainer={props.portalContainer ?? undefined}
+      portalContainer={portalContainer ?? undefined}
     >
-      {props.children}
+      {modules ? (
+        <StrataKitPortalProvider modules={modules} container={portalContainer}>
+          {children}
+        </StrataKitPortalProvider>
+      ) : (
+        children
+      )}
     </ThemeProvider>
-  );
-}
-
-interface StrataKitPortalProviderProps extends PortalProviderProps {
-  modules: NonNullable<ReturnType<typeof useStrataKitModules>>;
-}
-
-function StrataKitPortalProvider(props: StrataKitPortalProviderProps) {
-  const { modules, children: childrenProp, portalContainer } = props;
-
-  const { PortalContext } = modules["@stratakit/foundations"];
-  const { RootContext } = modules["@stratakit/foundations/secret-internals"];
-  const { portalProvider } = React.useContext(RootContext);
-
-  const children = React.useMemo(() => {
-    if (!portalProvider) {
-      return <>{childrenProp}</>;
-    }
-
-    return React.cloneElement(
-      portalProvider as React.ReactElement<React.PropsWithChildren>,
-      { children: childrenProp }
-    );
-  }, [portalProvider, childrenProp]);
-
-  return (
-    <PortalContext.Provider value={{ container: portalContainer }}>
-      <ThemeProvider
-        style={{ height: "100%" }}
-        portalContainer={portalContainer ?? undefined}
-      >
-        {children}
-      </ThemeProvider>
-    </PortalContext.Provider>
   );
 }
