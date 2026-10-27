@@ -50,6 +50,10 @@ export interface FrontstageConfig extends CommonProps {
   };
   /** The top-right corner that shows view navigation tools. */
   readonly viewNavigation?: WidgetConfig;
+  /** The bottom-left corner that shows tools typically used to query and modify content. */
+  readonly bottomContentManipulation?: WidgetConfig;
+  /** The bottom-right corner that shows view navigation tools. */
+  readonly bottomViewNavigation?: WidgetConfig;
   /** The status bar of the application. */
   readonly statusBar?: WidgetConfig;
 
