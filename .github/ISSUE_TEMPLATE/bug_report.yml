@@ -1,6 +1,6 @@
-name: Report a bug 🐛
-description: Let us know so we can fix it!
-labels: ["bug"]
+name: Bug report 🐛
+description: Create a bug report to help us improve
+type: bug
 assignees: []
 body:
   - type: markdown
