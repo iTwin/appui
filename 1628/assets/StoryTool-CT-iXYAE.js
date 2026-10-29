@@ -1,0 +1,19 @@
+import { n as __esmMin } from "./rolldown-runtime-htSClZ5J.js";
+import { In as init_core_frontend, ar as PrimitiveTool } from "./appui-react-DEjUvYNz.js";
+//#region src/tools/StoryTool.ts
+var StoryPrimitiveTool;
+function init_StoryTool() {
+	return (init_StoryTool = __esmMin((() => {
+		init_core_frontend();
+		StoryPrimitiveTool = class extends PrimitiveTool {
+			requireWriteableTarget() {
+				return false;
+			}
+			onRestartTool() {
+				return this.exitTool();
+			}
+		};
+	})))();
+}
+//#endregion
+export { init_StoryTool as n, StoryPrimitiveTool as t };
