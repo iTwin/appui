@@ -1,5 +1,32 @@
 # Change Log - @itwin/appui-react
 
+## 5.36.0
+
+### Minor Changes
+
+- a881485: Added the `useStrataKit` preview feature that enables the use of [StrataKit](https://github.com/iTwin/stratakit) in AppUI. Applications using this preview feature must [set up StrataKit](https://stratakit.bentley.com/docs/getting-started/develop/) and turn on the [StrataKit theme bridge](https://github.com/iTwin/iTwinUI/wiki/StrataKit-theme-bridge). To activate the preview feature in your application, use the `enable` function from the `@itwin/appui-react/useStrataKit` subpath export.
+
+  ```tsx
+  import { enable } from "@itwin/appui-react/useStrataKit";
+
+  const useStrataKit = React.useMemo(() => enable(), []);
+
+  <PreviewFeaturesProvider
+    features={{
+      useStrataKit,
+    }}
+  >
+    <App />
+  </PreviewFeaturesProvider>;
+  ```
+
+### Patch Changes
+
+- Updated dependencies [57c1507]
+  - @itwin/components-react@5.36.0
+  - @itwin/imodel-components-react@5.36.0
+  - @itwin/core-react@5.36.0
+
 ## 5.35.1
 
 ### Patch Changes
