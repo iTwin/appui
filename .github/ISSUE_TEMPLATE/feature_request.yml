@@ -1,6 +1,6 @@
-name: Request a feature 💄
-description: New ideas & improvements to AppUI are always welcome.
-labels: []
+name: Feature request 💄
+description: Suggest a new component, pattern, or enhancement for AppUI
+type: enhancement
 assignees: []
 body:
   - type: markdown
