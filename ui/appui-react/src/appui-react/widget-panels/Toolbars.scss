@@ -11,12 +11,59 @@
   ); // TODO: Change this to an AppUI global CSS variable.
   box-sizing: border-box;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
 
   .nz-tools-widget {
     grid-column: 1;
+    grid-row: 1;
 
     &.nz-widget-navigationArea {
       grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .uifw-widgetPanels-bottomToolbars {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    pointer-events: none;
+
+    > * {
+      pointer-events: auto;
+    }
+  }
+
+  .uifw-bottom-toolArea {
+    display: grid;
+    grid-gap: 6px;
+    grid-template-areas:
+      "vtools ."
+      "vtools htools";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr auto;
+    align-items: end;
+    justify-items: start;
+  }
+
+  .uifw-bottom-toolArea_vertical {
+    grid-area: vtools;
+    display: inline-flex;
+    flex-direction: column;
+  }
+
+  .uifw-bottom-toolArea_horizontal {
+    grid-area: htools;
+    min-width: 0;
+  }
+
+  .uifw-bottom-toolArea_right {
+    margin-left: auto;
+
+    .uifw-bottom-toolArea {
+      justify-items: end;
     }
   }
 }
