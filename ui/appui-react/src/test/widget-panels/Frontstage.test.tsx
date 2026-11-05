@@ -29,7 +29,10 @@ import {
   WidgetState,
 } from "../../appui-react.js";
 import { InternalFrontstageManager } from "../../appui-react/frontstage/InternalFrontstageManager.js";
-import { getUniqueId } from "../../appui-react/layout/base/NineZone.js";
+import {
+  AnimateDockedToolSettingsContext,
+  getUniqueId,
+} from "../../appui-react/layout/base/NineZone.js";
 import { createNineZoneState } from "../../appui-react/layout/state/NineZoneState.js";
 import { addPanelWidget } from "../../appui-react/layout/state/internal/PanelStateHelpers.js";
 import { addTab } from "../../appui-react/layout/state/internal/TabStateHelpers.js";
@@ -279,6 +282,62 @@ describe("Frontstage local storage wrapper", () => {
         </Provider>
       );
       expect(container.childNodes).lengthOf(0);
+    });
+
+    describe("animateToolSettings redux state", () => {
+      function AnimateToolSettingsProbe() {
+        const animate = React.useContext(AnimateDockedToolSettingsContext);
+        return <>{`animate: ${animate}`}</>;
+      }
+
+      async function renderFrontstage() {
+        UiItemsManager.register({
+          id: "AnimateToolSettingsProbeProvider",
+          getWidgets: () => [
+            {
+              id: "AnimateToolSettingsProbe",
+              label: "Probe",
+              content: <AnimateToolSettingsProbe />,
+              layouts: {
+                standard: {
+                  location: StagePanelLocation.Left,
+                  section: StagePanelSection.Start,
+                },
+              },
+            },
+          ],
+        });
+        const frontstageProvider = new TestFrontstageWithHiddenWidget();
+        UiFramework.frontstages.addFrontstageProvider(frontstageProvider);
+        const frontstageDef = await UiFramework.frontstages.getFrontstageDef(
+          frontstageProvider.id
+        );
+        await UiFramework.frontstages.setActiveFrontstageDef(frontstageDef);
+        return render(
+          <Provider store={TestUtils.store}>
+            <WidgetPanelsFrontstage />
+          </Provider>
+        );
+      }
+
+      afterEach(async () => {
+        UiItemsManager.clearAllProviders();
+        UiFramework.frontstages.clearFrontstageProviders();
+        await UiFramework.frontstages.setActiveFrontstageDef(undefined);
+        InternalFrontstageManager.nineZoneSize = undefined;
+      });
+
+      it("should animate docked tool settings", async () => {
+        UiFramework.setAnimateToolSettings(true);
+        const { findByText } = await renderFrontstage();
+        await findByText("animate: true");
+      });
+
+      it("should not animate docked tool settings when unpinned panels auto-collapse", async () => {
+        UiFramework.setAutoCollapseUnpinnedPanels(true);
+        const { findByText } = await renderFrontstage();
+        await findByText("animate: false");
+      });
     });
   });
 
