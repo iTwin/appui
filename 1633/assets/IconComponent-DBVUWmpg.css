@@ -1,0 +1,21 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.core-svg-icon {
+  width: 16px;
+  height: 16px;
+}
+.core-svg-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.core-css-icon {
+  font-size: 16px;
+}
