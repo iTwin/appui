@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.36.1
+
+### Patch Changes
+
+- 6bfa36a: Fixed `UiFramework.setAnimateToolSettings` having no effect, and `UiFramework.setAutoCollapseUnpinnedPanels` animating docked tool settings instead.
+  - @itwin/components-react@5.36.1
+  - @itwin/core-react@5.36.1
+  - @itwin/imodel-components-react@5.36.1
+
 ## 5.36.0
 
 ### Minor Changes
