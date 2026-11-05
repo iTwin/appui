@@ -16,6 +16,7 @@ import type { SavedTabState, TabHomeState } from "../SavedTabState.js";
 import { getTabLocation } from "../TabLocation.js";
 import {
   addFloatingWidget,
+  addPopoutWidget,
   assertWidgetState,
   getWidgetState,
   removeWidget,
@@ -23,7 +24,10 @@ import {
   updateWidgetState,
 } from "./WidgetStateHelpers.js";
 import type { WidgetState } from "../WidgetState.js";
-import { isFloatingWidgetRestoreState } from "../WidgetRestoreState.js";
+import {
+  isFloatingWidgetRestoreState,
+  isPopoutWidgetRestoreState,
+} from "../WidgetRestoreState.js";
 import { Rectangle } from "@itwin/core-react/internal";
 import { getUniqueId } from "../../base/NineZone.js";
 import { insertPanelWidget } from "./PanelStateHelpers.js";
@@ -228,6 +232,13 @@ export function addRemovedTab(
     return addFloatingWidget(state, widgetId, [tabId], {
       ...home.floatingWidget,
       bounds: bounds.toProps(),
+    });
+  }
+
+  // Add to a popout widget (i.e. re-open its child window).
+  if (isPopoutWidgetRestoreState(home)) {
+    return addPopoutWidget(state, widgetId, [tabId], {
+      ...home.popoutWidget,
     });
   }
 
