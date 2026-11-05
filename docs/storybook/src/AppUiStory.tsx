@@ -24,6 +24,7 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
+import { ChildWindowContext } from "@itwin/appui-react-internal/lib/appui-react/childwindow/ChildWindowRenderer";
 import {
   AuthorizationClient,
   BentleyCloudRpcManager,
@@ -34,11 +35,13 @@ import {
 import { IModelApp } from "@itwin/core-frontend";
 import { FrontendIModelsAccess } from "@itwin/imodels-access-frontend";
 import { ProgressLinear, ThemeProvider } from "@itwin/itwinui-react";
+import { Root } from "@stratakit/mui";
 import { createFrontstage } from "./Utils";
 import { DemoIModel, useDemoIModel } from "../.storybook/addons/DemoIModel";
 import { openDemoIModel } from "./openDemoIModel";
 import { ThemeBridgeContext } from "../.storybook/addons/theme-bridge/ThemeBridge";
 import { enable } from "@itwin/appui-react/useStrataKit";
+import { useMediaQuery } from "../.storybook/addons/theme-bridge/useMediaQuery";
 
 type ConfigurableUiContentProps = React.ComponentProps<
   typeof ConfigurableUiContent
@@ -177,6 +180,7 @@ function Initialized(props: AppUiStoryProps) {
               appBackstage={props.appBackstage}
               widgetIcon={true}
               renderModalFrontstage={props.renderModalFrontstage}
+              childWindow={StrataKitChildWindow}
             />
           )}
         </ThemeManager>
@@ -295,4 +299,28 @@ function useStoryDemoIModel(props: AppUiStoryProps) {
   }
 
   return demoIModel ?? props.demoIModel?.default;
+}
+
+function StrataKitChildWindow(props: React.PropsWithChildren) {
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+
+  const themeBridge = React.useContext(ThemeBridgeContext);
+  const useStrataKit = themeBridge === "useStrataKit";
+  const childWindow = React.useContext(ChildWindowContext);
+
+  if (!useStrataKit || !childWindow) return <>{props.children}</>;
+  return (
+    <Root
+      colorScheme={prefersDark ? "dark" : "light"}
+      render={(props: unknown) => (
+        <ThemeProvider
+          future={{ themeBridge: true }}
+          {...(props as React.ComponentProps<typeof ThemeProvider>)}
+        />
+      )}
+      rootNode={childWindow.document}
+    >
+      {props.children}
+    </Root>
+  );
 }

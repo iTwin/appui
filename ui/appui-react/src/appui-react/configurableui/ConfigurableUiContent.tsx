@@ -49,6 +49,8 @@ import { EditorsRegistryProvider } from "@itwin/components-react";
 import { AccuDrawStoreProvider } from "../accudraw/AccuDrawStoreProvider.js";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import type { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
+import { useStrataKitModules } from "../preview/use-stratakit/useStrataKitModules.js";
+import { StrataKitPortalProvider } from "../preview/use-stratakit/StrataKitPortalProvider.js";
 
 /** @internal */
 export const ConfigurableUiContext = React.createContext<
@@ -185,7 +187,8 @@ export function StandardLayout(props: StandardLayoutProps) {
   useWidgetOpacity(widgetOpacity);
   useToolbarOpacity(toolbarOpacity);
   const [mainElement, setMainElement] = React.useState<HTMLElement>();
-  const [portalContainer, setPortalContainer] = React.useState<HTMLElement>();
+  const [portalContainer, setPortalContainer] =
+    React.useState<HTMLElement | null>(null);
   React.useEffect(() => {
     UiFramework.keyboardShortcuts.setFocusToHome();
   }, []);
@@ -225,10 +228,7 @@ export function StandardLayout(props: StandardLayoutProps) {
         ref={(el) => setMainElement(el ?? undefined)}
       >
         <WrapperContext.Provider value={mainElement ?? document.body}>
-          <ThemeProvider
-            style={{ height: "100%" }}
-            portalContainer={portalContainer}
-          >
+          <PortalProvider portalContainer={portalContainer}>
             <IModelProvider>
               <EditorsRegistryProvider editors={defaultEditors}>
                 {appBackstage}
@@ -247,7 +247,7 @@ export function StandardLayout(props: StandardLayoutProps) {
                 <ChildWindowRenderer windowManager={appUi.windowManager} />
                 <div
                   className="uifw-configurableui-portalContainer"
-                  ref={(instance) => setPortalContainer(instance ?? undefined)}
+                  ref={(instance) => setPortalContainer(instance)}
                 >
                   <ContentDialogRenderer />
                   <ModelessDialogRenderer />
@@ -255,7 +255,7 @@ export function StandardLayout(props: StandardLayoutProps) {
                 </div>
               </EditorsRegistryProvider>
             </IModelProvider>
-          </ThemeProvider>
+          </PortalProvider>
         </WrapperContext.Provider>
       </main>
     </ConfigurableUiContext.Provider>
@@ -335,5 +335,30 @@ function IModelProvider({ children }: React.PropsWithChildren<object>) {
     <IModelConnectionProvider iModelConnection={imodel}>
       {children}
     </IModelConnectionProvider>
+  );
+}
+
+interface PortalProviderProps {
+  children?: React.ReactNode;
+  portalContainer: HTMLElement | null;
+}
+
+function PortalProvider(props: PortalProviderProps) {
+  const { portalContainer, children } = props;
+
+  const modules = useStrataKitModules();
+  return (
+    <ThemeProvider
+      style={{ height: "100%" }}
+      portalContainer={portalContainer ?? undefined}
+    >
+      {modules ? (
+        <StrataKitPortalProvider modules={modules} container={portalContainer}>
+          {children}
+        </StrataKitPortalProvider>
+      ) : (
+        children
+      )}
+    </ThemeProvider>
   );
 }
