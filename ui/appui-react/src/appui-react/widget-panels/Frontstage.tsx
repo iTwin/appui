@@ -236,7 +236,7 @@ export function ActiveFrontstageDefProvider({
   );
   const reduxAnimateToolSettings = useReduxFrameworkState(
     // eslint-disable-next-line @typescript-eslint/no-deprecated
-    (state) => state?.configurableUiState.autoCollapseUnpinnedPanels
+    (state) => state?.configurableUiState.animateToolSettings
   );
   const showWidgetIcon =
     configurableUi.widgetIcon ?? reduxShowWidgetIcon ?? true;
