@@ -69,6 +69,7 @@ function Tag(props: TagProps) {
     return (
       <Anchor
         as="button"
+        type="button"
         onClick={(e) => {
           e.stopPropagation();
           onClick(text);
