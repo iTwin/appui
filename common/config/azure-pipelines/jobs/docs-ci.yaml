@@ -94,14 +94,10 @@ stages:
 
         steps:
           - powershell: |
-              $commitMsg = @"
-              $(Build.SourceVersionMessage)
-              "@
-              if ($commitMsg.Contains("[publish docs]")) {
-                Write-Host `'$commitMsg`'` is a major/minor/patch version bump
+              $commitMsg = $env:BUILD_SOURCEVERSIONMESSAGE
+              if ($commitMsg.Contains('[publish docs]')) {
                 Write-Host '##vso[task.setvariable variable=ShouldTag;]True'
               } else {
-                Write-Host `'$commitMsg`'` is not a major/minor/patch version bump
                 Write-Host '##vso[task.setvariable variable=ShouldTag;]False'
               }
             displayName: Tag if major/minor/patch version bump
