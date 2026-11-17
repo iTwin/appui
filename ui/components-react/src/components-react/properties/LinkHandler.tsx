@@ -37,33 +37,49 @@ function useTagHref(text: string) {
 
 interface TagProps {
   text: string;
-  links: LinkElementsInfo;
+  links: LinkRendererLinks;
   highlight?: (text: string) => React.ReactNode;
 }
 
 function Tag(props: TagProps) {
   const { text, links, highlight } = props;
+  const { onClick } = links;
 
   const highlighted = highlight ? highlight(text) : text;
 
   const href = useTagHref(text);
-  if (!href) {
-    return <>{highlighted}</>;
+  if (href) {
+    return (
+      <Anchor
+        href={href}
+        target="_blank"
+        rel="noreferrer"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick?.(text);
+        }}
+      >
+        {highlighted}
+      </Anchor>
+    );
   }
 
-  return (
-    <Anchor
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-        e.stopPropagation();
-        links.onClick(text);
-      }}
-    >
-      {highlighted}
-    </Anchor>
-  );
+  if (onClick) {
+    // Text is not an URL, but `onClick` handler is provided.
+    return (
+      <Anchor
+        as="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClick(text);
+        }}
+      >
+        {highlighted}
+      </Anchor>
+    );
+  }
+
+  return <>{highlighted}</>;
 }
 
 interface Match {
@@ -86,7 +102,7 @@ function renderTextPart(
 
 function renderText(
   text: string,
-  links: LinkElementsInfo,
+  links: LinkRendererLinks,
   highlight?: (text: string) => React.ReactNode
 ): React.ReactNode {
   const { matcher } = links;
@@ -141,7 +157,7 @@ function renderHighlighted(
  */
 export const renderLinks = (
   text: string,
-  links: LinkElementsInfo,
+  links: LinkRendererLinks,
   highlight?: (text: string) => React.ReactNode
 ): React.ReactNode => {
   return renderText(text, links, highlight);
@@ -153,13 +169,25 @@ export const renderLinks = (
  */
 export const withLinks = (
   stringValue: string,
-  links?: LinkElementsInfo,
+  links?: LinkRendererLinks,
   highlight?: (text: string) => React.ReactNode
 ): React.ReactNode => {
   if (links) return renderLinks(stringValue, links, highlight);
   if (highlight) return renderHighlighted(stringValue, highlight);
   return stringValue;
 };
+
+/**
+ * Same as `LinkElementsInfo`, but `onClick` is optional.
+ * @internal
+ */
+export interface LinkRendererLinks {
+  /**
+   * Used to determine if a button displayed as a link is rendered.
+   */
+  onClick?: LinkElementsInfo["onClick"];
+  matcher?: LinkElementsInfo["matcher"];
+}
 
 /**
  * Properties for [[LinksRenderer]] component.
@@ -172,11 +200,15 @@ export interface LinksRendererProps {
   highlighter?: (text: string) => React.ReactNode;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-deprecated
+interface NewLinksRendererProps extends Omit<LinksRendererProps, "links"> {
+  links?: LinkRendererLinks;
+}
+
 /**
  * React component for rendering string with links.
  * @public
  */
-// eslint-disable-next-line @typescript-eslint/no-deprecated
-export function LinksRenderer(props: LinksRendererProps) {
+export function LinksRenderer(props: NewLinksRendererProps) {
   return <>{withLinks(props.value, props.links, props.highlighter)}</>;
 }

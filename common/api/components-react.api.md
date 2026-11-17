@@ -1312,7 +1312,7 @@ export interface LessGreaterOperatorProcessor {
 }
 
 // @public
-export function LinksRenderer(props: LinksRendererProps): React_3.JSX.Element;
+export function LinksRenderer(props: NewLinksRendererProps): React_3.JSX.Element;
 
 // @public @deprecated
 export interface LinksRendererProps {
@@ -2362,7 +2362,7 @@ export interface RenderedItemsRange {
 }
 
 // @public
-export const renderLinks: (text: string, links: LinkElementsInfo, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
+export const renderLinks: (text: string, links: LinkRendererLinks, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
 
 // @public
 export class ResultSelector extends React_3.PureComponent<ResultSelectorProps, ResultSelectorState> {
@@ -3491,7 +3491,7 @@ export interface VisibleTreeNodes extends Iterable<TreeModelNode | TreeModelNode
 export const withContextStyle: (node: React_3.ReactNode, context?: PropertyValueRendererContext) => React_3.ReactNode;
 
 // @public
-export const withLinks: (stringValue: string, links?: LinkElementsInfo, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
+export const withLinks: (stringValue: string, links?: LinkRendererLinks, highlight?: (text: string) => React_3.ReactNode) => React_3.ReactNode;
 
 // (No @packageDocumentation comment for this package)
 
