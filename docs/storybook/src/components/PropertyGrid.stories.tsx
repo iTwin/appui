@@ -541,6 +541,18 @@ export const Links: Story = {
               typename: StandardTypeNames.URL,
             }
           ),
+          createLinkPropertyRecord(
+            {
+              valueFormat: PropertyValueFormat.Primitive,
+              value: "ST-T006",
+              displayValue: "ST-T006",
+            },
+            {
+              name: "customLinkProperty",
+              displayLabel: "Custom Link Property",
+              typename: StandardTypeNames.String,
+            }
+          ),
         ],
       },
     },
@@ -953,6 +965,17 @@ function createPropertyRecord(
   const record = new PropertyRecord(value, property);
   record.isDisabled = recordProps?.isDisabled;
   record.isReadonly = recordProps?.isReadonly;
+  return record;
+}
+
+function createLinkPropertyRecord(
+  value: PropertyValue,
+  property: PropertyDescription
+): PropertyRecord {
+  const record = new PropertyRecord(value, property);
+  record.links = {
+    onClick: action("links.onClick"),
+  };
   return record;
 }
 
