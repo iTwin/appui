@@ -70,7 +70,7 @@ export function PrimitivePropertyValueRendererImpl(
  * which did not have any specified LinkElementsInfo.
  *
  * Default matcher matches all URLs using regex.
- * Default onClick renders the link as a button.
+ * Default onClick causes the link to be rendered as a button when used in a `LinksRenderer`.
  * @public
  */
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo = {
