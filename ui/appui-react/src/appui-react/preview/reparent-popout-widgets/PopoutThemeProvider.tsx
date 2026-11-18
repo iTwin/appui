@@ -16,6 +16,7 @@ import {
   isPopoutTabLocation,
 } from "../../layout/state/TabLocation.js";
 import { usePopoutsStore } from "./usePopoutsStore.js";
+import { StrataKitPortalProvider } from "../use-stratakit/StrataKitPortalProvider.js";
 
 /** Theme provider is required to open floating/popover elements in a popout widget window (instead of a main window).
  * @note iTwinUI v2 `ThemeProvider` is not used because of https://github.com/iTwin/appui/issues/612
