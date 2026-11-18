@@ -24,7 +24,6 @@ import {
   UiItemsManager,
   UiItemsProvider,
 } from "@itwin/appui-react";
-import { ChildWindowContext } from "@itwin/appui-react-internal/lib/appui-react/childwindow/ChildWindowRenderer";
 import {
   AuthorizationClient,
   BentleyCloudRpcManager,
@@ -306,21 +305,34 @@ function StrataKitChildWindow(props: React.PropsWithChildren) {
 
   const themeBridge = React.useContext(ThemeBridgeContext);
   const useStrataKit = themeBridge === "useStrataKit";
-  const childWindow = React.useContext(ChildWindowContext);
+  const [rootNode, setRootNode] = React.useState<Document | undefined>(
+    undefined
+  );
 
-  if (!useStrataKit || !childWindow) return <>{props.children}</>;
   return (
-    <Root
-      colorScheme={prefersDark ? "dark" : "light"}
-      render={(props: unknown) => (
-        <ThemeProvider
-          future={{ themeBridge: true }}
-          {...(props as React.ComponentProps<typeof ThemeProvider>)}
-        />
+    <>
+      <div
+        hidden
+        ref={(el) => {
+          setRootNode(el?.ownerDocument);
+        }}
+      />
+      {useStrataKit && rootNode ? (
+        <Root
+          colorScheme={prefersDark ? "dark" : "light"}
+          render={(props: unknown) => (
+            <ThemeProvider
+              future={{ themeBridge: true }}
+              {...(props as React.ComponentProps<typeof ThemeProvider>)}
+            />
+          )}
+          rootNode={rootNode}
+        >
+          {props.children}
+        </Root>
+      ) : (
+        <>{props.children}</>
       )}
-      rootNode={childWindow.document}
-    >
-      {props.children}
-    </Root>
+    </>
   );
 }
