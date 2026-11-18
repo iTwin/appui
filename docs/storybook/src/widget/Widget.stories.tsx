@@ -124,7 +124,7 @@ function PortalledContent() {
 }
 
 function StrataKitMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const open = Boolean(anchorEl);
   const handleClose = () => {
     setAnchorEl(null);

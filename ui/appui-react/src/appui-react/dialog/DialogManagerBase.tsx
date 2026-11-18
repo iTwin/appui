@@ -205,7 +205,7 @@ export class DialogRendererBase extends React.PureComponent<
         ref={this._handleRefSet}
       >
         <ThemeProvider portalContainer={this.state.renderer}>
-          <StrataKitPortalProvider container={this.state.renderer ?? null}>
+          <StrataKitPortalProvider container={this.state.renderer}>
             {this.state.parentDocument &&
               this.props.dialogManager.dialogs
                 .filter(

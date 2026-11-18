@@ -49,7 +49,6 @@ import { EditorsRegistryProvider } from "@itwin/components-react";
 import { AccuDrawStoreProvider } from "../accudraw/AccuDrawStoreProvider.js";
 import type { ModalFrontstageInfo } from "../framework/FrameworkFrontstages.js";
 import type { ModalFrontstage } from "../frontstage/ModalFrontstage.js";
-import { useStrataKitModules } from "../preview/use-stratakit/useStrataKitModules.js";
 import { StrataKitPortalProvider } from "../preview/use-stratakit/StrataKitPortalProvider.js";
 
 /** @internal */
@@ -228,7 +227,7 @@ export function StandardLayout(props: StandardLayoutProps) {
         ref={(el) => setMainElement(el ?? undefined)}
       >
         <WrapperContext.Provider value={mainElement ?? document.body}>
-          <PortalProvider portalContainer={portalContainer}>
+          <PortalProvider portalContainer={portalContainer ?? undefined}>
             <IModelProvider>
               <EditorsRegistryProvider editors={defaultEditors}>
                 {appBackstage}
@@ -340,17 +339,14 @@ function IModelProvider({ children }: React.PropsWithChildren<object>) {
 
 interface PortalProviderProps {
   children?: React.ReactNode;
-  portalContainer: HTMLElement | null;
+  portalContainer: HTMLElement | undefined;
 }
 
 function PortalProvider(props: PortalProviderProps) {
   const { portalContainer, children } = props;
 
   return (
-    <ThemeProvider
-      style={{ height: "100%" }}
-      portalContainer={portalContainer ?? undefined}
-    >
+    <ThemeProvider style={{ height: "100%" }} portalContainer={portalContainer}>
       <StrataKitPortalProvider container={portalContainer}>
         {children}
       </StrataKitPortalProvider>

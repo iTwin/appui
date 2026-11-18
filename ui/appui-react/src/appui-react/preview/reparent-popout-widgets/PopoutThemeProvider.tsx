@@ -51,7 +51,9 @@ export function PopoutThemeProvider({
       portalContainer={portalContainer}
       className="uifw-preview-reparentPopoutWidgets-popoutThemeProvider"
     >
-      {children}
+      <StrataKitPortalProvider container={portalContainer ?? undefined}>
+        {children}
+      </StrataKitPortalProvider>
     </ThemeProvider>
   );
 }

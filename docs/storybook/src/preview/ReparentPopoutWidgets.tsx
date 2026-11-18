@@ -9,22 +9,32 @@ import {
   UiItemsProvider,
   WidgetState,
 } from "@itwin/appui-react";
-import { SvgMore } from "@itwin/itwinui-icons-react";
 import {
   Button,
   DropdownMenu,
-  IconButton,
   Input,
   Label,
   MenuItem,
 } from "@itwin/itwinui-react";
+import SkButton from "@mui/material/Button";
+import SkMenu from "@mui/material/Menu";
+import SkMenuItem from "@mui/material/MenuItem";
+import { ThemeBridgeContext } from "../../.storybook/addons/theme-bridge/ThemeBridge";
 import { AppUiStory } from "../AppUiStory";
 import { createFrontstage, createWidget } from "../Utils";
 
 function Content({ id }: { id: string }) {
   const [count, setCount] = React.useState(0);
   return (
-    <div>
+    <div
+      style={{
+        padding: "var(--iui-size-xs)",
+        display: "flex",
+        flexDirection: "column",
+        gap: "var(--iui-size-xs)",
+        alignItems: "flex-start",
+      }}
+    >
       <Label>Widget {id} content</Label>
       <Button onClick={() => setCount((prev) => ++prev)}>{count}++</Button>
       <Input />
@@ -37,11 +47,39 @@ function Content({ id }: { id: string }) {
           ))
         }
       >
-        <IconButton>
-          <SvgMore />
-        </IconButton>
+        <Button>DropdownMenu (iTwinUI)</Button>
       </DropdownMenu>
+      <StrataKitMenu />
     </div>
+  );
+}
+
+function StrataKitMenu() {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const open = Boolean(anchorEl);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const themeBridge = React.useContext(ThemeBridgeContext);
+  const useStrataKit = themeBridge === "useStrataKit";
+  if (!useStrataKit) return undefined;
+
+  return (
+    <>
+      <SkButton
+        aria-haspopup="true"
+        aria-expanded={open ? "true" : "false"}
+        onClick={(event) => setAnchorEl(event.currentTarget)}
+      >
+        User actions
+      </SkButton>
+      <SkMenu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        <SkMenuItem onClick={handleClose}>Profile</SkMenuItem>
+        <SkMenuItem onClick={handleClose}>My account</SkMenuItem>
+        <SkMenuItem onClick={handleClose}>Logout</SkMenuItem>
+      </SkMenu>
+    </>
   );
 }
 

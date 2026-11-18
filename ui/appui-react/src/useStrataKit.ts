@@ -17,6 +17,7 @@ import type { StrataKitIconModules } from "@itwin/core-react/internal";
 
 /* eslint-disable @typescript-eslint/no-restricted-imports */
 
+import { PortalContext } from "@stratakit/foundations";
 import { Icon, PortalProvider } from "@stratakit/mui";
 import { svg2D } from "@stratakit/icons/2d";
 import { svg3D } from "@stratakit/icons/3d";
@@ -361,6 +362,9 @@ import { svgZoomOutMagnifier } from "@stratakit/icons/zoom-out-magnifier";
 /** @public */
 export function enable() {
   const modules = {
+    "@stratakit/foundations": {
+      PortalContext,
+    },
     "@stratakit/mui": {
       Icon: Icon as React.ComponentType<IconProps>,
       PortalProvider:
