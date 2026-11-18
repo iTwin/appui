@@ -3,36 +3,23 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 import * as React from "react";
-import type { useStrataKitModules } from "./useStrataKitModules.js";
+import { useStrataKitModules } from "./useStrataKitModules.js";
 
 interface StrataKitPortalProviderProps {
   children?: React.ReactNode;
-  modules: NonNullable<ReturnType<typeof useStrataKitModules>>;
   container: HTMLElement | null;
 }
 
 /** @internal */
 export function StrataKitPortalProvider(props: StrataKitPortalProviderProps) {
-  const { modules, container, children: childrenProp } = props;
+  const { container, children } = props;
+  const modules = useStrataKitModules();
 
-  const { PortalContext } = modules["@stratakit/foundations"];
-  const { RootContext } = modules["@stratakit/foundations/secret-internals"];
-  const { portalProvider } = React.useContext(RootContext);
+  if (!modules) {
+    return <>{children}</>;
+  }
 
-  const children = React.useMemo(() => {
-    if (!portalProvider) {
-      return <>{childrenProp}</>;
-    }
+  const { PortalProvider } = modules["@stratakit/mui"];
 
-    return React.cloneElement(
-      portalProvider as React.ReactElement<React.PropsWithChildren>,
-      { children: childrenProp }
-    );
-  }, [portalProvider, childrenProp]);
-
-  return (
-    <PortalContext.Provider value={{ container }}>
-      {children}
-    </PortalContext.Provider>
-  );
+  return <PortalProvider container={container}>{children}</PortalProvider>;
 }

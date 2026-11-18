@@ -17,9 +17,7 @@ import type { StrataKitIconModules } from "@itwin/core-react/internal";
 
 /* eslint-disable @typescript-eslint/no-restricted-imports */
 
-import { Icon } from "@stratakit/mui";
-import { PortalContext } from "@stratakit/foundations";
-import { RootContext } from "@stratakit/foundations/secret-internals";
+import { Icon, PortalProvider } from "@stratakit/mui";
 import { svg2D } from "@stratakit/icons/2d";
 import { svg3D } from "@stratakit/icons/3d";
 import { svgActivity } from "@stratakit/icons/activity";
@@ -365,12 +363,8 @@ export function enable() {
   const modules = {
     "@stratakit/mui": {
       Icon: Icon as React.ComponentType<IconProps>,
-    },
-    "@stratakit/foundations": {
-      PortalContext,
-    },
-    "@stratakit/foundations/secret-internals": {
-      RootContext: RootContext as React.Context<RootContextValue>,
+      PortalProvider:
+        PortalProvider as React.ComponentType<PortalProviderProps>,
     },
     "@stratakit/icons/2d": { svg2D },
     "@stratakit/icons/3d": { svg3D },
@@ -729,7 +723,7 @@ interface IconProps extends React.ComponentProps<"svg"> {
   size?: "regular" | "large";
 }
 
-interface RootContextValue {
-  /** Element to customize the portal provider. */
-  portalProvider?: React.ReactElement | undefined;
+interface PortalProviderProps {
+  children?: React.ReactNode;
+  container: HTMLElement | null;
 }

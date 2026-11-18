@@ -346,19 +346,14 @@ interface PortalProviderProps {
 function PortalProvider(props: PortalProviderProps) {
   const { portalContainer, children } = props;
 
-  const modules = useStrataKitModules();
   return (
     <ThemeProvider
       style={{ height: "100%" }}
       portalContainer={portalContainer ?? undefined}
     >
-      {modules ? (
-        <StrataKitPortalProvider modules={modules} container={portalContainer}>
-          {children}
-        </StrataKitPortalProvider>
-      ) : (
-        children
-      )}
+      <StrataKitPortalProvider container={portalContainer}>
+        {children}
+      </StrataKitPortalProvider>
     </ThemeProvider>
   );
 }
