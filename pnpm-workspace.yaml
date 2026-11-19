@@ -30,7 +30,7 @@ catalog:
   '@itwin/hypermodeling-frontend': ^5.8.1
   '@itwin/itwinui-react': ^3.20.2
   '@itwin/webgl-compatibility': ^5.8.1
-  '@mui/material': ^9.4.0
+  '@mui/material': ^9.5.0
   '@stratakit/foundations': ^1.1.0
   '@stratakit/icons': ^0.4.6
   '@stratakit/mui': ^1.3.0
