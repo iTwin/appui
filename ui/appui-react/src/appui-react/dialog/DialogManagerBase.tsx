@@ -15,6 +15,7 @@ import { UiFramework } from "../UiFramework.js";
 import type { ListenerType } from "@itwin/core-react/internal";
 import { getCssVariableAsNumber } from "@itwin/core-react";
 import { ThemeProvider } from "@itwin/itwinui-react";
+import { StrataKitPortalProvider } from "../preview/use-stratakit/StrataKitPortalProvider.js";
 
 /** Dialog Stack Changed Event Args class.
  * @public
@@ -204,18 +205,20 @@ export class DialogRendererBase extends React.PureComponent<
         ref={this._handleRefSet}
       >
         <ThemeProvider portalContainer={this.state.renderer}>
-          {this.state.parentDocument &&
-            this.props.dialogManager.dialogs
-              .filter(
-                (info) => info.parentDocument === this.state.parentDocument
-              )
-              .map((info) => {
-                return (
-                  <React.Fragment key={info.id}>
-                    {info.reactNode}
-                  </React.Fragment>
-                );
-              })}
+          <StrataKitPortalProvider container={this.state.renderer}>
+            {this.state.parentDocument &&
+              this.props.dialogManager.dialogs
+                .filter(
+                  (info) => info.parentDocument === this.state.parentDocument
+                )
+                .map((info) => {
+                  return (
+                    <React.Fragment key={info.id}>
+                      {info.reactNode}
+                    </React.Fragment>
+                  );
+                })}
+          </StrataKitPortalProvider>
         </ThemeProvider>
       </div>
     );
