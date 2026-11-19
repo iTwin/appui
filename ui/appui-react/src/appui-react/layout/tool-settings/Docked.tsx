@@ -150,30 +150,18 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
       <DockedToolSettingsHandle onResize={handleHandleResize} />
       {dockedChildren.map(([key, child]) => {
         return (
-          <TransitionGroup
-            appear={animateToolSettings}
-            enter={animateToolSettings}
+          <DockedToolSettingsEntryTransition
+            animate={animateToolSettings}
             key={key}
           >
-            <CSSTransition
-              in={animateToolSettings}
-              timeout={400}
-              classNames={{
-                appear: "toolsettings-appear",
-                enter: "toolsettings-appear",
-                appearActive: "toolsettings-appear-active",
-                enterActive: "toolsettings-appear-active",
-              }}
+            <DockedToolSettingsEntry
+              key={key}
+              entryKey={key}
+              getOnResize={getOnEntryResize}
             >
-              <DockedToolSettingsEntry
-                key={key}
-                entryKey={key}
-                getOnResize={getOnEntryResize}
-              >
-                {child}
-              </DockedToolSettingsEntry>
-            </CSSTransition>
-          </TransitionGroup>
+              {child}
+            </DockedToolSettingsEntry>
+          </DockedToolSettingsEntryTransition>
         );
       })}
       {(!overflown || overflown.length > 0) && (
@@ -199,6 +187,34 @@ export function DockedToolSettings(props: DockedToolSettingsProps) {
         </>
       )}
     </div>
+  );
+}
+
+function DockedToolSettingsEntryTransition({
+  animate,
+  children,
+}: {
+  animate: boolean;
+  children?: React.ReactNode;
+}) {
+  // Without a `nodeRef`, `CSSTransition` falls back to `findDOMNode`, which React 19 removed.
+  const nodeRef = React.useRef<HTMLDivElement>(null);
+  return (
+    <TransitionGroup appear={animate} enter={animate} component={null}>
+      <CSSTransition
+        nodeRef={nodeRef}
+        in={animate}
+        timeout={400}
+        classNames={{
+          appear: "toolsettings-appear",
+          enter: "toolsettings-appear",
+          appearActive: "toolsettings-appear-active",
+          enterActive: "toolsettings-appear-active",
+        }}
+      >
+        <div ref={nodeRef}>{children}</div>
+      </CSSTransition>
+    </TransitionGroup>
   );
 }
 

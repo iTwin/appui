@@ -11,6 +11,7 @@ import {
   onOverflowLabelAndEditorResize,
 } from "../../../appui-react/layout/tool-settings/Docked.js";
 import { DockedToolSetting } from "../../../appui-react/layout/tool-settings/Setting.js";
+import { AnimateDockedToolSettingsContext } from "../../../appui-react/layout/base/NineZone.js";
 import { DragManagerProvider, TestNineZoneProvider } from "../Providers.js";
 import { createResizeObserverMock, flushAsyncOperations } from "../Utils.js";
 
@@ -42,6 +43,20 @@ describe("DockedToolSettings", () => {
     sut.getByText("Entry 2");
     sut.getByText("Entry 3");
     sut.getByText("Entry 4");
+  });
+
+  it("should render animated entries", () => {
+    const sut = render(
+      <AnimateDockedToolSettingsContext.Provider value={true}>
+        <DockedToolSettings>
+          <DockedToolSetting>Entry 1</DockedToolSetting>
+        </DockedToolSettings>
+      </AnimateDockedToolSettingsContext.Provider>,
+      {
+        wrapper: DragManagerProvider,
+      }
+    );
+    expect(sut.getByText("Entry 1").closest(".toolsettings-appear")).to.exist;
   });
 
   it("should render overflow button", () => {
