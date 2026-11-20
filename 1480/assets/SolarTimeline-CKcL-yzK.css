@@ -1,0 +1,41 @@
+/*---------------------------------------------------------------------------------------------
+ * Copyright (c) Bentley Systems, Incorporated. All rights reserved.
+ * See LICENSE.md in the project root for license terms and full copyright notice.
+ *--------------------------------------------------------------------------------------------*/
+.solar-timeline-wrapper {
+  width: 100%;
+  position: relative;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas: "solar-timeline-start solar-timeline solar-timeline-end";
+}
+
+@container solar-timeline (width < 600px) {
+  .solar-timeline-wrapper {
+    grid-template-columns: auto auto;
+    grid-template-areas: "solar-timeline solar-timeline" "solar-timeline-start solar-timeline-end";
+  }
+}
+@container solar-timeline (width < 320px) {
+  .solar-timeline-date-time {
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    block-size: 1px !important;
+    inline-size: 1px !important;
+  }
+}
+.solar-timeline {
+  grid-area: solar-timeline;
+  margin-inline: var(--iui-size-2xs);
+}
+
+.solar-timeline-start {
+  grid-area: solar-timeline-start;
+}
+
+.solar-timeline-end {
+  grid-area: solar-timeline-end;
+}
