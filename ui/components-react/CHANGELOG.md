@@ -1,5 +1,15 @@
 # Change Log - @itwin/components-react
 
+## 5.37.0
+
+### Minor Changes
+
+- 6422968: Fixed property values not being clickable when `PropertyRecord.links.onClick` is provided and the displayed text is not a URL.
+
+### Patch Changes
+
+- @itwin/core-react@5.37.0
+
 ## 5.36.0
 
 ### Patch Changes

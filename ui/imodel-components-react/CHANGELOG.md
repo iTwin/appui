@@ -1,5 +1,13 @@
 # Change Log - @itwin/imodel-components-react
 
+## 5.37.0
+
+### Patch Changes
+
+- Updated dependencies [6422968]
+  - @itwin/components-react@5.37.0
+  - @itwin/core-react@5.37.0
+
 ## 5.36.0
 
 ### Patch Changes

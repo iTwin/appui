@@ -1,5 +1,19 @@
 # Change Log - @itwin/appui-react
 
+## 5.37.0
+
+### Minor Changes
+
+- 21c9e55: Use StrataKit `PortalProvider` to ensure that portalled elements appear correctly within the UI, e.g. opened menu appears above a floating widget.
+
+### Patch Changes
+
+- 6bfa36a: Fixed `UiFramework.setAnimateToolSettings` having no effect, and `UiFramework.setAutoCollapseUnpinnedPanels` animating docked tool settings instead.
+- Updated dependencies [6422968]
+  - @itwin/components-react@5.37.0
+  - @itwin/imodel-components-react@5.37.0
+  - @itwin/core-react@5.37.0
+
 ## 5.36.0
 
 ### Minor Changes
