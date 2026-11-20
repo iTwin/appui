@@ -18,6 +18,8 @@ import type {
 } from "../../ValueRendererManager.js";
 import { convertRecordToString } from "./Common.js";
 
+import type { LinkRendererLinks } from "../../LinkHandler.js";
+
 /** Default Primitive Property Renderer
  * @public
  */
@@ -47,7 +49,7 @@ interface PrimitivePropertyValueRendererImplProps {
   record: PropertyRecord;
   stringValueCalculator: (record: PropertyRecord) => string | Promise<string>;
   context?: PropertyValueRendererContext;
-  linksHandler?: LinkElementsInfo;
+  linksHandler?: LinkRendererLinks;
 }
 
 /** @internal */
@@ -68,7 +70,7 @@ export function PrimitivePropertyValueRendererImpl(
  * which did not have any specified LinkElementsInfo.
  *
  * Default matcher matches all URLs using regex.
- * Default onClick opens window or sets location.href with found URL.
+ * Default onClick causes the link to be rendered as a button when used in a `LinksRenderer`.
  * @public
  */
 export const DEFAULT_LINKS_HANDLER: LinkElementsInfo = {
@@ -76,12 +78,17 @@ export const DEFAULT_LINKS_HANDLER: LinkElementsInfo = {
   onClick: () => {},
 };
 
+/** Same as DEFAULT_LINKS_HANDLER but omits onClick so that only URLs are rendered as links by default. */
+const NEW_LINKS_HANDLER: LinkRendererLinks = {
+  matcher: PropertyGridCommons.getLinks,
+};
+
 /** @internal */
 export function useRenderedStringValue(
   record: PropertyRecord,
   stringValueCalculator: (record: PropertyRecord) => string | Promise<string>,
   context?: PropertyValueRendererContext,
-  linksHandler?: LinkElementsInfo
+  linksHandler?: LinkRendererLinks
 ): { stringValue?: string; element: React.ReactNode } {
   const calculatedValue = React.useMemo(
     (): string | Promise<string> => stringValueCalculator(record),
@@ -94,7 +101,7 @@ export function useRenderedStringValue(
     ) : (
       <LinksRenderer
         value={stringValue}
-        links={record.links ?? linksHandler ?? DEFAULT_LINKS_HANDLER}
+        links={record.links ?? linksHandler ?? NEW_LINKS_HANDLER}
         highlighter={context?.textHighlighter}
       />
     );

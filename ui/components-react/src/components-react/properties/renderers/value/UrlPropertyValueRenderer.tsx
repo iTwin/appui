@@ -7,7 +7,7 @@
  */
 
 import * as React from "react";
-import type { LinkElementsInfo, PropertyRecord } from "@itwin/appui-abstract";
+import type { PropertyRecord } from "@itwin/appui-abstract";
 import { PropertyValueFormat, StandardTypeNames } from "@itwin/appui-abstract";
 import type {
   IPropertyValueRenderer,
@@ -15,6 +15,7 @@ import type {
 } from "../../ValueRendererManager.js";
 import { PrimitivePropertyValueRendererImpl } from "./PrimitivePropertyValueRenderer.js";
 import { convertRecordToString } from "./Common.js";
+import type { LinkRendererLinks } from "../../LinkHandler.js";
 
 /**
  * URL property value renderer that renders the whole value as a URL without matching it
@@ -51,6 +52,4 @@ export class UrlPropertyValueRenderer implements IPropertyValueRenderer {
   }
 }
 
-const URI_PROPERTY_LINK_HANDLER: LinkElementsInfo = {
-  onClick: () => {},
-};
+const URI_PROPERTY_LINK_HANDLER: LinkRendererLinks = {};
