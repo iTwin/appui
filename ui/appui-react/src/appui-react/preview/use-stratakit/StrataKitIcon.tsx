@@ -6,9 +6,9 @@
 import * as React from "react";
 import { Icon as IconSpecRenderer } from "@itwin/core-react";
 import type { StrataKitIcon as CoreStrataKitIcon } from "@itwin/core-react/internal";
-import { StrataKitSymbol, usePreviewFeatures } from "../PreviewFeatures.js";
 import { webFontToStrataKitIcon } from "./webFontToStrataKitIcon.js";
 import type { StrataKitIconModules } from "./StrataKitIconModules.js";
+import { useStrataKitModules } from "./useStrataKitModules.js";
 
 type CoreStrataKitIconProps = React.ComponentProps<typeof CoreStrataKitIcon>;
 
@@ -40,10 +40,7 @@ interface StrataKitIconProps
 export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
   const { href: hrefProp, iconSpec, iconNode, size, ...rest } = props;
 
-  const { useStrataKit } = usePreviewFeatures();
-  const modules = useStrataKit?.[StrataKitSymbol]?.modules;
-  const { Icon } = modules?.["@stratakit/mui"] ?? {};
-
+  const modules = useStrataKitModules();
   const webFontIcon = typeof iconSpec === "string" ? iconSpec : undefined;
   const iconSpecHref = useWebFontStrataKitHref(webFontIcon);
 
@@ -57,6 +54,7 @@ export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
     return newHref ?? iconSpecHref;
   }, [hrefProp, modules, iconSpecHref]);
 
+  const { Icon } = modules?.["@stratakit/mui"] ?? {};
   if (href && Icon) {
     return <Icon {...rest} size={size} href={href} />;
   }
@@ -72,8 +70,7 @@ export function StrataKitIcon(props: StrataKitIconProps): React.ReactNode {
 }
 
 function useWebFontStrataKitHref(webFontIcon: string | undefined) {
-  const { useStrataKit } = usePreviewFeatures();
-  const modules = useStrataKit?.[StrataKitSymbol]?.modules;
+  const modules = useStrataKitModules();
   if (!modules) return undefined;
 
   if (!webFontIcon) return undefined;

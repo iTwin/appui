@@ -8,6 +8,7 @@ import { ThemeProvider } from "@itwin/itwinui-react";
 import { enable } from "@itwin/appui-react/useStrataKit";
 import { Root } from "@stratakit/mui";
 import { ThemeBridgeContext, ThemeBridgeValue } from "./ThemeBridge";
+import { useMediaQuery } from "./useMediaQuery";
 
 type ThemeProviderProps = React.ComponentProps<typeof ThemeProvider>;
 
@@ -41,21 +42,4 @@ export function ThemeBridgeRoot(props: ThemeBridgeRootProps) {
       </PreviewFeaturesProvider>
     </ThemeBridgeContext>
   );
-}
-
-function useMediaQuery(query: string) {
-  const getClientSnapshot = React.useCallback(() => {
-    return window.matchMedia?.(query).matches;
-  }, [query]);
-
-  const subscribe = React.useCallback(
-    (onChange: () => void) => {
-      const mediaQueryList = window.matchMedia?.(query);
-      mediaQueryList?.addEventListener?.("change", onChange);
-      return () => mediaQueryList?.removeEventListener?.("change", onChange);
-    },
-    [query]
-  );
-
-  return React.useSyncExternalStore(subscribe, getClientSnapshot);
 }
