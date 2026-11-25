@@ -9,7 +9,6 @@
 import * as React from "react";
 import { create } from "zustand";
 import { Logger } from "@itwin/core-bentley";
-import { UiFramework } from "../UiFramework.js";
 import type { useTransientState } from "../widget-panels/useTransientState.js";
 import type { WidgetDef } from "../widgets/WidgetDef.js";
 import type { UiItemsManager } from "../ui-items-provider/UiItemsManager.js";
@@ -153,7 +152,7 @@ function trimToKnownFeaturesOnly(previewFeatures: PreviewFeatures) {
   );
   if (Object.keys(unknownFeatures).length > 0) {
     Logger.logWarning(
-      UiFramework.loggerCategory("trimToKnownFeaturesOnly"),
+      "appui-react.trimToKnownFeaturesOnly",
       `Features used in "setPreviewFeatures" are unknown or no longer in preview`,
       {
         unknownFeatures,
