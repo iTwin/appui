@@ -1,5 +1,14 @@
 # Change Log - @itwin/appui-react
 
+## 5.37.1
+
+### Patch Changes
+
+- 25b9b9b: Fixed circular module import.
+  - @itwin/components-react@5.37.1
+  - @itwin/core-react@5.37.1
+  - @itwin/imodel-components-react@5.37.1
+
 ## 5.37.0
 
 ### Minor Changes
