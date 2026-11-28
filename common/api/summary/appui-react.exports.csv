@@ -96,6 +96,10 @@ deprecated;interface;BasicNavigationWidgetProps
 public;function;BasicToolWidget
 public;interface;BasicToolWidgetProps
 deprecated;interface;BasicToolWidgetProps
+public;function;BottomContentToolWidgetComposer
+public;function;BottomToolWidgetComposer
+public;interface;BottomToolWidgetComposerProps
+public;function;BottomViewToolWidgetComposer
 alpha;class;BumpToolSetting
 public;class;Calculator
 public;class;CalculatorPopup
